@@ -82,6 +82,9 @@ the following structure:
 `-- README.md                # - Use this to tell folks how to contribute
 ```
 
+Once you have your site set up, you can add your RMarkdown files in the episodes
+folder. The only thing controling how these files will appear is the name of the
+file themselves, no config necessary :)
 
 [The Carpentries]: https://carpentries.org
 [Markdown]: https://daringfireball.net/projects/markdown/
