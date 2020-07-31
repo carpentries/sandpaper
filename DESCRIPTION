@@ -1,5 +1,5 @@
 Package: sandpaper
-Title: What the Package Does (One Line, Title Case)
+Title: Create and Curate Carpentries Lessons
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Zhian N.",
@@ -7,14 +7,14 @@ Authors@R:
            role = c("aut", "cre"),
            email = "zkamvar@gmail.com",
            comment = c(ORCID = "0000-0003-1458-7108"))
-Description: What the package does (one paragraph).
+Description: Boilerplate directory structure, build tools, and hosting tools for your lesson
 License: MIT + file LICENSE
+Imports: 
+    pkgdown,
+    fs
 Suggests: 
     testthat
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Imports: 
-    pkgdown,
-    fs
