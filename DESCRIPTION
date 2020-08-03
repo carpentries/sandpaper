@@ -11,7 +11,8 @@ Description: Boilerplate directory structure, build tools, and hosting tools for
 License: MIT + file LICENSE
 Imports: 
     pkgdown,
-    fs
+    fs,
+    gert (>= 0.3)
 Suggests: 
     testthat
 Encoding: UTF-8

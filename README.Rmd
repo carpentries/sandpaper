@@ -94,18 +94,18 @@ to be:
 To acheive this, there will be two branches created: `md-outputs` and `gh-pages`
 that will inerit like so main -> `md-outputs` -> `gh-pages`. Because the build
 time from main to `md-outputs` can be time intensive, this will default to
-updating only files that were changed. Both branches will keep commits aligned
-with the current HEAD and for each version released. 
+updating only files that were changed. 
 
  - `md-outputs`: this branch will contain the files and artifacts generated from
-   rmarkdown in the vignettes directory of a thin package skeleton. This will 
-   create a JSON object of the differences between previous HEAD and current
-   commit. 
+   rmarkdown in the vignettes directory of a thin package skeleton. 
  - `gh-pages`: this branch is generated via `md-outputs` and bundles the html,
    css, and js for the website. This will contain a single `index.html` file
    with several subfolders with different versions of the site. The `index.html`
    file will redirect to the `current/` directory, which contains the up-to-date
    site. 
+
+> I believe that management of these can be done via `git worktree`, but I still
+> need to dig into the mechanics of pkgdown further.
 
 ### Function syntax
 
@@ -203,6 +203,70 @@ This will download the site and the rendered markdown files into the `site/`
 folder. To save bandwidth, you can choose to just download the markdown files
 and artifacts by settin `site = FALSE`. Now, you can edit the Rmarkdown files
 in `episodes/` and quickly render the site.
+
+To upload changes to the lesson repository, you can use the follow
+
+
+### Maintaining a Lesson
+
+When you are maintaining a lesson, there is a high likelihood that you will
+already have a copy on your machine. If not, follow the instructions in the
+[contributing to a lesson](#contributing-to-a-lesson) section above.
+
+The typical workflow will look like this:
+
+1. open the sandpaper project in RStudio and make edits to files in the 
+   `episodes/` folder
+2. in the R console run the following 
+
+
+```{r}
+sandpaper::check_lesson() # validates the structure of the input files
+sandpaper::build_lesson() # builds and validates lesson
+```
+
+### Rendering a portable site
+
+To render a portable site, you can follow the instructions for [contributing
+to a lesson](#contributing-to-a-lesson) or [maintaining a
+lesson](#maintaining-a-lesson) to set up. Once you have the lesson set up, you
+can use the following command:
+
+```{r}
+sandpaper::build_portable_lesson(version = "current")
+```
+
+This will render a fully portable lesson site as a zip file in the `site/`
+folder. You can distribute this lesson to learners who do not have reliable 
+internet access for use offline without sacrificing any of the styling. 
+
+### Rendering with GitHub actions
+
+Ultimately, there should be a minimal number of functions that handle this
+situation because writing CI configuration files is maddening. The most
+straihtforward function is:
+
+```{r}
+sandpaper::ci_deploy(md_branch = "md-outputs", site_branch = "gh-pages")
+```
+
+This will render the markdown files in the `vignettes/` folder of the
+"md-outputs" branch and then build the site from that folder and deploy it to
+the "gh-pages" branch using the [{pkgdown}] machinery. 
+
+Because css and js libraries may need updating before any lesson material does,
+a step can be created just for rebuilding the site that uses:
+
+```{r}
+sandpaper::ci_deploy_site(branch = "gh-pages")
+```
+
+When a lesson is given a release, the current site folder needs to be duplicated
+to a versioned folder and a tag needs to be added to the "md-outputs" branch:
+
+```{r}
+sandpaper::ci_release(tag = "0.1", md_branch = "md-outputs", site_branch = "gh-pages")
+```
 
 
 [The Carpentries]: https://carpentries.org
