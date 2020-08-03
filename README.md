@@ -21,6 +21,16 @@ including customized layouts and callout blocks. Users can also use this
 to generate a
 [{learnr}](https://rstudio.github.io/learnr/index.html)-based package
 
+-----
+
+> Please note: {sandpaper} is very much a work in progress. At the
+> moment, the only thing that is real is the README to serve as a
+> roadmap for the future. Please [open an
+> issue](https://github.com/zkamvar/sandpaper/issues/new) if you have
+> any comments or suggestions\!
+
+-----
+
 ## Installation
 
 {sandpaper} is not currently on CRAN, but it can be installed from
