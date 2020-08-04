@@ -34,7 +34,7 @@ to generate a
 ## Installation
 
 {sandpaper} is not currently on CRAN, but it can be installed from
-github via the {remotes} package:
+github via the [{remotes}](https://remotes.r-lib.org/) package:
 
 ``` r
 # install.packages("remotes")
@@ -52,6 +52,11 @@ RStudio, and [{pkgdown}](https://pkgdown.r-lib.org/) to generate a site
 with the following features:
 
   - optional offline use
+  - lesson versioning (e.g. I can navigate to
+    <https://swcarpentry.github.io/python-novice-gapminder> for the
+    current version and
+    <https://swcarpentry.github.io/python-novice-gapminder/2020-11> for
+    the release in 2020-11)
   - seamless updates to the Carpentries’ style
   - caching of rendered content for rapid deployment
   - packaging of [{learnr}](https://rstudio.github.io/learnr/index.html)
@@ -115,10 +120,40 @@ The functions in {sandpaper} have the following prefixes:
 
   - `create_` will create/amend files or folders in your workspace
   - `build_` will build files from your source
+  - `check_` validates either the elements of the lesson and/or episodes
   - `fetch_` will download files or resources from the internet
   - `get_` will retrieve information from your source files as an R
     object
   - `ci_` interacts with continous integration to build the website
+
+Here is a working list of user-facing functions:
+
+**Lesson and Episode Creation**
+
+  - `create_lesson()` creates a lesson from scratch
+  - `create_episode()` creates a new episode with the correct number
+    prefix
+  - `create_dataset()` creates a csv or text data set from an R object
+
+**Website Creation and Validation**
+
+  - `check_lesson()` checks and validates the source files and lesson
+    structure
+  - `build_lesson()` builds the lesson into a static website
+  - `build_portable_lesson()` builds the lesson into a portable static
+    website
+  - `fetch_lesson()` fetches the static website from the lesson
+    repository
+  - `get_episode()` reads in an episode as an XML object
+
+**Continuous Integration Utilities**
+
+  - `ci_deploy()` builds and deploys the lesson on CI from the source
+    files
+  - `ci_deploy_site()` deploys the lesson on CI from pre-rendered
+    markdown files
+  - `ci_release()` builds and deploys the lesson on CI from the source
+    files and adds a release tag
 
 ## Usage
 
