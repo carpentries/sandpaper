@@ -19,7 +19,8 @@ Imports:
 Suggests: 
     testthat,
     cli (>= 2.0.2),
-    covr
+    covr,
+    withr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
