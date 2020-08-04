@@ -9,6 +9,10 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/sandpaper)](https://CRAN.R-project.org/package=sandpaper)
+[![R build
+status](https://github.com/zkamvar/sandpaper/workflows/R-CMD-check/badge.svg)](https://github.com/zkamvar/sandpaper/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/zkamvar/sandpaper/branch/master/graph/badge.svg)](https://codecov.io/gh/zkamvar/sandpaper?branch=master)
 <!-- badges: end -->
 
 The {sandpaper} package was created by [The
@@ -17,9 +21,10 @@ creating lesson websites for our workshops. This package will take a
 series of [Markdown](https://daringfireball.net/projects/markdown/) or
 [RMarkdown](https://rmarkdown.rstudio.com/) files and generate a static
 website with the features and styling of The Carpentries lessons
-including customized layouts and callout blocks. Users can also use this
-to generate a
-[{learnr}](https://rstudio.github.io/learnr/index.html)-based package
+including customized layouts and callout blocks. Much of the
+functionality in this package is inspired by [Jenny
+Bryan’s](https://jennybryan.org/) work with the
+[{usethis}](https://usethis.r-lib.org/) package.
 
 -----
 

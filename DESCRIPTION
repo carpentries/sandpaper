@@ -7,14 +7,19 @@ Authors@R:
            role = c("aut", "cre"),
            email = "zkamvar@gmail.com",
            comment = c(ORCID = "0000-0003-1458-7108"))
-Description: Boilerplate directory structure, build tools, and hosting tools for your lesson
+Description: Boilerplate directory structure, build tools, and hosting tools for your lesson. 
 License: MIT + file LICENSE
 Imports: 
     pkgdown,
     fs,
-    gert (>= 0.3)
+    gert (>= 0.3),
+    rstudioapi,
+    rlang (>= 0.4.3),
+    glue
 Suggests: 
-    testthat
+    testthat,
+    cli (>= 2.0.2),
+    covr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
