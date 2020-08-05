@@ -15,7 +15,8 @@ Imports:
     gert (> 0.3),
     rstudioapi,
     rlang (>= 0.4.3),
-    glue
+    glue,
+    assertthat
 Suggests: 
     testthat,
     cli (>= 2.0.2),

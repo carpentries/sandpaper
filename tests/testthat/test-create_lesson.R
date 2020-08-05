@@ -20,6 +20,15 @@ test_that("lessons can be created in empty directories", {
   expect_match(readLines(fs::path(tmp, "README.md"))[1], "lesson-example", fixed = TRUE) 
   expect_true(fs::file_exists(fs::path(tmp, "site/README.md")))
   expect_true(fs::file_exists(fs::path(tmp, ".gitignore")))
+  expect_setequal(
+    readLines(fs::path(tmp, ".gitignore")), 
+    readLines(system.file("gitignore.txt", package = "sandpaper"))
+  )
+  
+  expect_true(nrow(gert::git_status(repo = tmp)) == 0)
+  # create a new file in the site directory
+  fs::file_touch(fs::path(tmp, "site", "DESCRIPTION"))
+  expect_true(nrow(gert::git_status(repo = tmp)) == 0)
   
   # Ensure it is a git repo
   expect_true(fs::dir_exists(fs::path(tmp, ".git")))

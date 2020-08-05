@@ -32,7 +32,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   fs::dir_create(fs::path(path, "site"))
   fs::file_create(fs::path(path, "README.md"))
   fs::file_create(fs::path(path, "site", "README.md"))
-  fs::file_create(fs::path(path, ".gitignore"))
+  create_gitignore(path)
 
   writeLines(glue::glue("# {name}
       
@@ -44,7 +44,6 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   here.  
   "), con = fs::path(path, "site", "README.md"))
   
-  writeLines("^episodes/*html\n", con = fs::path(path, ".gitignore"))
  
   check_git_user(path)
   gert::git_add(".", repo = path)

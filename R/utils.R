@@ -25,3 +25,9 @@ reset_git_user <- function(path) {
   }
 }
 
+create_gitignore <- function(path) {
+  fs::file_copy(
+    system.file("gitignore.txt", package = "sandpaper"), 
+    new_path = fs::path(path, ".gitignore")
+  )
+}
