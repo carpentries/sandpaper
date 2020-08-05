@@ -1,6 +1,7 @@
 test_that("lessons can be created in empty directories", {
 
   tmpdir <- fs::file_temp()
+  fs::dir_create(tmpdir)
   tmp    <- fs::path(tmpdir, "lesson-example")
 
   withr::defer(fs::dir_delete(tmp))
@@ -16,7 +17,7 @@ test_that("lessons can be created in empty directories", {
   expect_true(fs::dir_exists(fs::path(tmp, "episodes", "figures")))
   expect_true(fs::dir_exists(fs::path(tmp, "episodes", "extras")))
   expect_true(fs::file_exists(fs::path(tmp, "README.md")))
-  expect_match(readLines(fs::path(tmp, "README.md")), "lesson-example", fixed = TRUE) 
+  expect_match(readLines(fs::path(tmp, "README.md"))[1], "lesson-example", fixed = TRUE) 
   expect_true(fs::file_exists(fs::path(tmp, "site/README.md")))
   expect_true(fs::file_exists(fs::path(tmp, ".gitignore")))
   
@@ -49,6 +50,7 @@ test_that("lessons can be created in empty directories", {
 test_that("lessons cannot be created in directories that are occupied", {
 
   tmpdir <- fs::file_temp()
+  fs::dir_create(tmpdir)
   tmp    <- fs::path(tmpdir, "lesson-example")
 
   withr::defer(fs::dir_delete(tmp))
