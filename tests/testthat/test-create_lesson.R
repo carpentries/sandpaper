@@ -9,6 +9,7 @@ test_that("lessons can be created in empty directories", {
   res <- create_lesson(tmp)
 
   # Make sure everything exists
+  expect_true(check_lesson(tmp))
   expect_true(fs::dir_exists(tmp))
   expect_true(fs::dir_exists(fs::path(tmp, "site")))
   expect_true(fs::dir_exists(fs::path(tmp, "episodes")))
@@ -25,10 +26,17 @@ test_that("lessons can be created in empty directories", {
     readLines(system.file("gitignore.txt", package = "sandpaper"))
   )
   
+  
   expect_true(nrow(gert::git_status(repo = tmp)) == 0)
+
   # create a new file in the site directory
   fs::file_touch(fs::path(tmp, "site", "DESCRIPTION"))
   expect_true(nrow(gert::git_status(repo = tmp)) == 0)
+
+  # add a new thing to gitignore
+  cat("# No ticket\nticket.txt\n", file = fs::path(tmp, ".gitignore"), append = TRUE)
+  expect_true(check_lesson(tmp))
+
   
   # Ensure it is a git repo
   expect_true(fs::dir_exists(fs::path(tmp, ".git")))
@@ -54,6 +62,8 @@ test_that("lessons can be created in empty directories", {
     expect_false(length(config$value[config$name == "user.email"]) > 0)
   }
 
+  fs::file_delete(fs::path(tmp, ".gitignore"))
+  expect_error(check_lesson(tmp), "There were errors with the lesson structure")
 })
 
 test_that("lessons cannot be created in directories that are occupied", {
