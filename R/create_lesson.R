@@ -21,7 +21,6 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
     stop(glue::glue("{path} is not an empty directory."))
   }
 
-
   gert::git_init(path)
 
   fs::dir_create(fs::path(path, "episodes"))
@@ -46,9 +45,11 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   "), con = fs::path(path, "site", "README.md"))
   
   writeLines("^episodes/*html\n", con = fs::path(path, ".gitignore"))
-  
+ 
+  check_git_user(path)
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
+  reset_git_user(path)
   
   return(path)
   
