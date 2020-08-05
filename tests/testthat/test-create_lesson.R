@@ -33,8 +33,13 @@ test_that("lessons can be created in empty directories", {
   }
 
   # Temporary configurations are not permanent
-  expect_false(config$value[config$name == "user.name"] == "carpenter")
-  expect_false(config$value[config$name == "user.email"] == "team@carpentries.org")
+  if (gert::user_is_configured()) {
+    expect_false(config$value[config$name == "user.name"] == "carpenter")
+    expect_false(config$value[config$name == "user.email"] == "team@carpentries.org")
+  } else {
+    expect_false(length(config$value[config$name == "user.name"]) > 0)
+    expect_false(length(config$value[config$name == "user.email"]) > 0)
+  }
 
 })
 
