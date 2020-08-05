@@ -19,9 +19,22 @@ test_that("lessons can be created in empty directories", {
   
   # Ensure it is a git repo
   expect_true(fs::dir_exists(fs::path(tmp, ".git")))
+
   commits <- gert::git_log(repo = tmp)
+  config <- gert::git_config(repo = tmp)
+
   expect_equal(nrow(commits), 1L)
   expect_match(commits$message[1L], "Initial commit")
+
+  if (gert::user_is_configured()) {
+    expect_match(commits$author[1L], config$value[config$name == "user.name"], fixed = TRUE)
+  } else {
+    expect_match(commits$author[1L], "carpenter <team@carpentries.org>", fixed = TRUE)
+  }
+
+  # Temporary configurations are not permanent
+  expect_false(config$value[config$name == "user.name"] == "carpenter")
+  expect_false(config$value[config$name == "user.email"] == "team@carpentries.org")
 
 })
 
