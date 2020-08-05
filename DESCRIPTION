@@ -12,7 +12,7 @@ License: MIT + file LICENSE
 Imports: 
     pkgdown,
     fs,
-    gert (>= 0.3),
+    gert (> 0.3),
     rstudioapi,
     rlang (>= 0.4.3),
     glue
@@ -21,6 +21,8 @@ Suggests:
     cli (>= 2.0.2),
     covr,
     withr
+Remotes:
+  r-lib/gert
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
