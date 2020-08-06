@@ -190,5 +190,4 @@ use `@solution` to indicate a nested solution block.
 
 
 ```{r links, child = sandpaper::template_links()}
-# This will generate the external links 
 ```
