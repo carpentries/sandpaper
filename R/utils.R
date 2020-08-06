@@ -41,10 +41,13 @@ create_gitignore <- function(path) {
   )
 }
 
+# Make it easy to contribute to our gitignore template, but also avoid having
+# to reload this thing every time we need it 
 gitignore_items <- function() {
   ours <- readLines(system.file("gitignore.txt", package = "sandpaper"))
   ours[!grepl("^([#].+?|)$", trimws(ours))]
 }
+
 .onLoad <- function(libname, pkgname) {
   ns <- asNamespace(pkgname)
   delayedAssign("GITIGNORED", gitignore_items(), eval.env = ns, assign.env = ns)
