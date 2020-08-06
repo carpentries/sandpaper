@@ -32,7 +32,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   fs::dir_create(fs::path(path, "site"))
   fs::file_create(fs::path(path, "README.md"))
   fs::file_create(fs::path(path, "site", "README.md"))
-  create_gitignore(path)
+  copy_template("gitignore", path, ".gitignore")
 
   writeLines(glue::glue("# {name}
       
@@ -46,6 +46,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   
  
   check_git_user(path)
+  create_episode("introduction", path = path)
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
   reset_git_user(path)

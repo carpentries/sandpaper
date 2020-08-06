@@ -33,18 +33,11 @@ reset_git_user <- function(path) {
   }
 }
 
-# Creates a gitignore file from the template in inst
-create_gitignore <- function(path) {
-  fs::file_copy(
-    system.file("gitignore.txt", package = "sandpaper"), 
-    new_path = fs::path(path, ".gitignore")
-  )
-}
-
+#nocov start
 # Make it easy to contribute to our gitignore template, but also avoid having
 # to reload this thing every time we need it 
 gitignore_items <- function() {
-  ours <- readLines(system.file("gitignore.txt", package = "sandpaper"))
+  ours <- readLines(template_gitignore())
   ours[!grepl("^([#].+?|)$", trimws(ours))]
 }
 
@@ -52,3 +45,4 @@ gitignore_items <- function() {
   ns <- asNamespace(pkgname)
   delayedAssign("GITIGNORED", gitignore_items(), eval.env = ns, assign.env = ns)
 }
+#nocov end

@@ -1,0 +1,194 @@
+---
+title: "Using RMarkdown"
+teaching: 10
+exercises: 2
+questions:
+- "How to write a lesson using RMarkdown?"
+objectives:
+- "Explain how to use RMarkdown with the new lesson template."
+- "Demonstrate how to include pieces of code, figures, and challenges."
+keypoints:
+- "Edit the .Rmd files not the .md files"
+- "Run `make serve` to knit documents and preview lesson website locally"
+---
+
+```{r setup, include=FALSE}
+library("dovetail")
+```
+
+This episode demonstrates all the features that can be used when writing a
+lesson in [RMarkdown][r-markdown].
+
+To generate the site, you will need to have the following packages installed:
+
+```{r, eval=FALSE}
+install.packages(c("dovetail", "sandpaper"))
+```
+
+If the lesson uses additional packages, {sandpaper} will automatically detect
+and install them if they are not already installed[^if running interactively, 
+prompt will ask for your permission first]. This document is a normal RMarkdown
+document, with a few extra features available for the Carpentries from the 
+{dovetail} package to help with formatting. 
+
+Normal output:
+
+```{r}
+1 + 1
+```
+
+Output with error message:
+
+```{r}
+sum[41]
+```
+
+Output generating figures:
+
+```{r plot-example}
+library(ggplot2)
+ggplot(diamonds, aes(x = carat,  y = price, color = cut)) +
+    geom_point()
+```
+
+You can write code without output in two ways:
+
+
+```r
+2 + 2
+```
+
+or
+
+```{r eval = FALSE}
+2 + 4
+```
+
+# Information blocks 
+
+Informational blocks allow us to grab the attention of the learner and give them
+a chance to pause to think about an important concept or address a challenge.
+
+The {dovetail} package allows you to write these challenge blocks as code chunks
+so that they are clearly visible from within your editor window. If you prefer,
+you can also use [fenced divs](https://pandoc.org/MANUAL.html#divs-and-spans)
+from pandoc or straight HTML div tags, but we will be demonstrating the 
+{dovetail} blocks as we believe they provide a cleaner alternative. 
+
+With dovetail, you can write markdown as markdown and it will automatically 
+wrap the content in HTML `<div>` tags. For example, here is a callout block:
+
+```{callout}
+## `.callout`
+
+An aside or other comment with maybe [a link](https://carpentries.org)
+```
+
+You can also include the `#' ` prefix inside of the block to include code chunks:
+
+```{callout}
+#' ## `callout`
+#' 
+#' This is an R chunk
+#' ```{r echo = TRUE}
+print("hello from this code chunk!")
+#' ```
+```
+
+If you want to nest blocks, you can use the `@<blockname>` syntax to generate
+a nested block:
+
+```{challenge}
+#' ## `challenge` with nested blocks
+#' 
+#' This is a challenge
+#'
+#' @challenge Nested `challenge`
+#'
+#' This is a nested challenge
+```
+
+If you want to pop out of the nested block, you can use the `@end` tag to close
+the div. Below are the blocks we use in our episodes:
+
+
+```{challenge}
+## `challenge`
+
+An exercise.
+```
+
+```{checklist}
+## `checklist`
+
+ - [x] check
+ - [x] lists
+ - [ ] off-by-one-errors
+```
+
+```{discussion}
+## `discussion`
+
+Discussion questions. 
+```
+
+```{keypoints}
+## `keypoints`
+
+ - Keypoints in a list
+```
+
+
+```{objectives}
+## `objectives`
+
+ - Episode objectives in a list
+```
+
+```{prereq}
+## `prereq`
+
+Episode prerequisites
+```
+
+```{solution}
+## `solution`
+
+A solution (usually to a challenge)
+```
+
+```{testimonial}
+## `testimonial`
+
+A lauditory quote from a user. 
+```
+
+## Challenges and solutions
+
+Solutions are normally nested within challenges. As demonstrated above, you can
+use `@solution` to indicate a nested solution block. 
+
+
+
+```{challenge}
+#' ## Challenge: Can you do it?
+#'
+#' What is the output of this command?
+#'
+#' ```{r, eval=FALSE}
+#' paste("This", "new", "template", "looks", "good")
+#' ```
+#'
+#' @solution Output Solution
+#'
+#' ```{r, echo=FALSE}
+#' paste("This", "new", "template", "looks", "good")
+#' ```
+```
+
+
+
+
+```{r links, child = sandpaper::template_links()}
+# This will generate the external links 
+```

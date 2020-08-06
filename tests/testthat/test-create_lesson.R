@@ -19,13 +19,17 @@ test_that("lessons can be created in empty directories", {
   expect_true(fs::dir_exists(fs::path(tmp, "episodes", "extras")))
   expect_true(fs::file_exists(fs::path(tmp, "README.md")))
   expect_match(readLines(fs::path(tmp, "README.md"))[1], "lesson-example", fixed = TRUE) 
-  expect_true(fs::file_exists(fs::path(tmp, "site/README.md")))
+  expect_true(fs::file_exists(fs::path(tmp, "site", "README.md")))
+  expect_true(fs::file_exists(fs::path(tmp, "episodes", "01-introduction.Rmd")))
   expect_true(fs::file_exists(fs::path(tmp, ".gitignore")))
   expect_setequal(
     readLines(fs::path(tmp, ".gitignore")), 
-    readLines(system.file("gitignore.txt", package = "sandpaper"))
+    readLines(template_gitignore())
   )
-  
+  expect_setequal(
+    readLines(fs::path(tmp, "episodes", "01-introduction.Rmd")), 
+    readLines(template_episode())
+  )
   
   expect_true(nrow(gert::git_status(repo = tmp)) == 0)
 
@@ -36,6 +40,7 @@ test_that("lessons can be created in empty directories", {
   # add a new thing to gitignore
   cat("# No ticket\nticket.txt\n", file = fs::path(tmp, ".gitignore"), append = TRUE)
   expect_true(check_lesson(tmp))
+  expect_true(check_episode(fs::path(tmp, "episodes", "01-introduction.Rmd")))
 
   
   # Ensure it is a git repo

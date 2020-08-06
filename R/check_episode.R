@@ -1,3 +1,5 @@
+#' @rdname check_lesson
+#' @export
 check_episode <- function(path) {
   episode_name <- fs::path_file(path)
   
@@ -6,7 +8,7 @@ check_episode <- function(path) {
   # Validators are stored in validators.R
   checklist <- list(
     validate_that(assertthat::has_extension(path, "Rmd")),
-    validate_that(check_exists(path)),
+    validate_that(check_exists(fs::path_dir(path), episode_name)),
     validate_that(assertthat::is.readable(path)),
     validate_that(check_episode_name(path))
 

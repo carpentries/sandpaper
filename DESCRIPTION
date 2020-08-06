@@ -21,9 +21,11 @@ Suggests:
     testthat,
     cli (>= 2.0.2),
     covr,
-    withr
-Remotes:
-  r-lib/gert
+    withr,
+    dovetail
+Remotes: 
+    r-lib/gert,
+    carpentries/dovetail
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
