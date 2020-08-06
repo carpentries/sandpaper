@@ -20,46 +20,59 @@
 #' try(check_lesson(tmp))
 #' 
 #' unlink(tmp)
+#' @importFrom assertthat validate_that
 check_lesson <- function(path = ".") {
 
-  x     <- fs::dir_info(path, all = TRUE)
-  files <- fs::path_file(x$path)
+  x      <- fs::dir_info(path, all = TRUE)
+  files  <- fs::path_file(x$path)
+  # gitingore
+  g      <- fs::path(path, ".gitignore")
+  theirs <- if (fs::file_exists(g)) readLines(g) else character(0)
+  theirs <- theirs[!grepl("^([#].+?|)$", trimws(theirs))]
 
+  # Validators -----------------------------------------------------------------
   check_dir <- function(path, i) {
-    assertthat::see_if(assertthat::is.dir(fs::path(path, i)),
-      msg = paste0(i, "/ does not exist")
+    assertthat::is.dir(fs::path(path, i))
+  }
+  assertthat::on_failure(check_dir) <- function(call, env) {
+    paste0("The folder '", eval(call$i, envir = env), "' does not exist")
+  }
+
+  check_exists <- function(path, i) fs::file_exists(fs::path(path, i))
+  assertthat::on_failure(check_exists) <- function(call, env) {
+    paste0("The file '", eval(call$i, envir = env), "' does not exist")
+  }
+
+  check_gitignore <- function(theirs) {
+    length(setdiff(GITIGNORED, theirs)) == 0
+  }
+
+  assertthat::on_failure(check_gitignore) <- function(call, env) {
+    paste0("The .gitignore file is missing some elements: ", 
+      paste(setdiff(GITIGNORED, eval(call$theirs, env)), collapse = ", ")
     )
   }
 
-  check_gitignore <- function(path) {
-    g <- fs::path(path, ".gitignore")
-    if (fs::file_exists(g)) {
-      theirs <- readLines(g)
-      ours   <- readLines(system.file("gitignore.txt", package = "sandpaper"))
-      assertthat::see_if(length(setdiff(ours, theirs)) == 0, 
-        msg = ".gitignore does not contain the correct elements"
-      )
-    } else {
-      assertthat::see_if(FALSE, msg = ".gitignore does not exist")
-    }
-  }
-
-
   checklist <- list(
-    check_dir(path, "episodes"),
-    check_dir(path, "site"),
-    check_dir(path, ".git"),
-    check_gitignore(path)
+    validate_that(check_dir(path, "episodes")),
+    validate_that(check_dir(path, "site")),
+    validate_that(check_dir(path, ".git")),
+    validate_that(check_gitignore(theirs)),
+    validate_that(check_exists(path, "README.md")),
+    validate_that(check_exists(path, fs::path("site", "README.md")))
   )
 
-  if (all(unlist(checklist, use.names = FALSE))) return(invisible(TRUE))
+  # Reporting ------------------------------------------------------------------
+  errs <- Filter(Negate(isTRUE), checklist)
+
+  if (length(errs) == 0) return(invisible(TRUE))
 
   msg <- "There were errors with the lesson structure"
-  for (i in Filter(isFALSE, checklist)) {
+  for (i in errs) {
     if (requireNamespace("cli", quietly = TRUE)) {
-      cli::cli_alert_danger(attr(i, "msg"))
+      cli::cli_alert_danger(i)
     } else {
-      msg <- paste(attr(i, "msg"), msg, sep = "\n")
+      msg <- paste(i, msg, sep = "\n", collapse = "\n")
     }
   }
   stop(msg)

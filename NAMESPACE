@@ -2,3 +2,4 @@
 
 export(check_lesson)
 export(create_lesson)
+importFrom(assertthat,validate_that)

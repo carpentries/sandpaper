@@ -40,3 +40,12 @@ create_gitignore <- function(path) {
     new_path = fs::path(path, ".gitignore")
   )
 }
+
+gitignore_items <- function() {
+  ours <- readLines(system.file("gitignore.txt", package = "sandpaper"))
+  ours[!grepl("^([#].+?|)$", trimws(ours))]
+}
+.onLoad <- function(libname, pkgname) {
+  ns <- asNamespace(pkgname)
+  delayedAssign("GITIGNORED", gitignore_items(), eval.env = ns, assign.env = ns)
+}
