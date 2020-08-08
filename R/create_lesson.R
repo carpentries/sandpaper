@@ -22,6 +22,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   }
 
   gert::git_init(path)
+  check_git_user(path)
 
   fs::dir_create(fs::path(path, "episodes"))
   fs::dir_create(fs::path(path, "episodes", "data"))
@@ -30,6 +31,9 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   fs::dir_create(fs::path(path, "episodes", "extras"))
 
   fs::dir_create(fs::path(path, "site"))
+  fs::dir_create(fs::path(path, "site", "vignettes"))
+
+  fs::file_create(fs::path(path, "site", "DESCRIPTION"))
   fs::file_create(fs::path(path, "README.md"))
   fs::file_create(fs::path(path, "site", "README.md"))
   copy_template("gitignore", path, ".gitignore")
@@ -45,8 +49,18 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   "), con = fs::path(path, "site", "README.md"))
   
  
-  check_git_user(path)
   create_episode("introduction", path = path)
+  author_string <- format(utils::as.person(gert::git_signature_default(path)), style = "R")
+  desc <- desc::desc(text = 
+    paste0(
+      "Package: lesson\n",
+      "Authors@R:", paste(author_string, collapse = "\n"), "\n",
+      "Version: 0.1.0"
+    )
+  )
+  writeLines(desc$str(by_field = TRUE, normalize = FALSE, mode = "file"),
+    fs::path(path, "site", "DESCRIPTION")
+  )
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
   reset_git_user(path)

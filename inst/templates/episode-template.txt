@@ -2,176 +2,51 @@
 title: "Using RMarkdown"
 teaching: 10
 exercises: 2
-questions:
-- "How to write a lesson using RMarkdown?"
-objectives:
-- "Explain how to use RMarkdown with the new lesson template."
-- "Demonstrate how to include pieces of code, figures, and challenges."
-keypoints:
-- "Edit the .Rmd files not the .md files"
-- "Run `make serve` to knit documents and preview lesson website locally"
 ---
 
 ```{r setup, include=FALSE}
+# Please do not delete this chunk
 library("dovetail")
 ```
 
-This episode demonstrates all the features that can be used when writing a
-lesson in [RMarkdown][r-markdown].
+## Introduction
 
-To generate the site, you will need to have the following packages installed:
+This is the new Carpentries template. It is written in [RMarkdown][r-markdown],
+which is a variant of Markdown that allows you to render code inside the
+lesson. Please refer to the [lesson
+example](https://carpentries.github.io/lesson-example) for full documentation.
 
-```{r, eval=FALSE}
-install.packages(c("dovetail", "sandpaper"))
+What you need to know is that there are three block quotes required for a valid
+Carpentries lesson template:
+
+ 1. `questions` These are displayed at the beginning of the episode to prime the
+    learner for the content.
+ 2. `objectives` These are the learning objectives for an episode
+ 3. `keypoints` These are displayed at the end of the episode to reinforce the
+    objectives.
+
+No matter where these blocks appear, they will always be placed at the right
+part of the html page.
+
+<!-- TODO: add questions engine to {dovetail} -->
+
+```{prereq}
+#' - How do you write a lesson using RMarkdown with {dovtail} and {sandpaper}?
 ```
 
-If the lesson uses additional packages, {sandpaper} will automatically detect
-and install them if they are not already installed[^if running interactively, 
-prompt will ask for your permission first]. This document is a normal RMarkdown
-document, with a few extra features available for the Carpentries from the 
-{dovetail} package to help with formatting. 
-
-Normal output:
-
-```{r}
-1 + 1
-```
-
-Output with error message:
-
-```{r}
-sum[41]
-```
-
-Output generating figures:
-
-```{r plot-example}
-library(ggplot2)
-ggplot(diamonds, aes(x = carat,  y = price, color = cut)) +
-    geom_point()
-```
-
-You can write code without output in two ways:
-
-
-```r
-2 + 2
-```
-
-or
-
-```{r eval = FALSE}
-2 + 4
-```
-
-# Information blocks 
-
-Informational blocks allow us to grab the attention of the learner and give them
-a chance to pause to think about an important concept or address a challenge.
-
-The {dovetail} package allows you to write these challenge blocks as code chunks
-so that they are clearly visible from within your editor window. If you prefer,
-you can also use [fenced divs](https://pandoc.org/MANUAL.html#divs-and-spans)
-from pandoc or straight HTML div tags, but we will be demonstrating the 
-{dovetail} blocks as we believe they provide a cleaner alternative. 
-
-With dovetail, you can write markdown as markdown and it will automatically 
-wrap the content in HTML `<div>` tags. For example, here is a callout block:
-
-```{callout}
-## `.callout`
-
-An aside or other comment with maybe [a link](https://carpentries.org)
-```
-
-You can also include the `#' ` prefix inside of the block to include code chunks:
-
-```{callout}
-#' ## `callout`
-#' 
-#' This is an R chunk
-#' ```{r echo = TRUE}
-print("hello from this code chunk!")
-#' ```
-```
-
-If you want to nest blocks, you can use the `@<blockname>` syntax to generate
-a nested block:
-
-```{challenge}
-#' ## `challenge` with nested blocks
-#' 
-#' This is a challenge
-#'
-#' @challenge Nested `challenge`
-#'
-#' This is a nested challenge
-```
-
-If you want to pop out of the nested block, you can use the `@end` tag to close
-the div. Below are the blocks we use in our episodes:
-
-
-```{challenge}
-## `challenge`
-
-An exercise.
-```
-
-```{checklist}
-## `checklist`
-
- - [x] check
- - [x] lists
- - [ ] off-by-one-errors
-```
-
-```{discussion}
-## `discussion`
-
-Discussion questions. 
+```{objectives}
+#' - Explain how to use markdown with the new lesson template
+#' - Demonstrate how to include pieces of code, figures, and nested challenge blocks
 ```
 
 ```{keypoints}
-## `keypoints`
-
- - Keypoints in a list
+#' - Use `.Rmd` files for lessons even if you don't need to generate any code
+#' - Run `sandpaper::check_lesson()` to identify any issues with your lesson
+#' - Run `sandpaper::build_lesson()` to preview your lesson locally
 ```
-
-
-```{objectives}
-## `objectives`
-
- - Episode objectives in a list
-```
-
-```{prereq}
-## `prereq`
-
-Episode prerequisites
-```
-
-```{solution}
-## `solution`
-
-A solution (usually to a challenge)
-```
-
-```{testimonial}
-## `testimonial`
-
-A lauditory quote from a user. 
-```
-
-## Challenges and solutions
-
-Solutions are normally nested within challenges. As demonstrated above, you can
-use `@solution` to indicate a nested solution block. 
-
-
 
 ```{challenge}
-#' ## Challenge: Can you do it?
+#' ## Challenge 1: Can you do it?
 #'
 #' What is the output of this command?
 #'
@@ -179,15 +54,24 @@ use `@solution` to indicate a nested solution block.
 #' paste("This", "new", "template", "looks", "good")
 #' ```
 #'
-#' @solution Output Solution
+#' @solution Output
 #'
 #' ```{r, echo=FALSE}
 #' paste("This", "new", "template", "looks", "good")
 #' ```
+#' 
+#' @end
+#'
+#' ## Challenge 2: how do you nest solutions within challenge blocks?
+#'
+#' @solution Nest Solution
+#'
+#' You can use the `@solution` tag inside of the blocks to open a nested block.
+#' If you want to close a nested block early, use the `@end` tag, otherwise, it
+#' will be closed at the end of the challenge block.
 ```
 
-
-
+<!-- Please do not delete anything below this line -->
 
 ```{r links, child = sandpaper::template_links()}
 ```

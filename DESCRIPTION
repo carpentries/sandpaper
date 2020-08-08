@@ -16,7 +16,12 @@ Imports:
     rstudioapi,
     rlang (>= 0.4.3),
     glue,
-    assertthat
+    assertthat,
+    yaml,
+    desc,
+    utils,
+    tools,
+    knitr
 Suggests: 
     testthat,
     cli (>= 2.0.2),
