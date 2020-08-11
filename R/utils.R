@@ -49,6 +49,33 @@ gitignore_items <- function() {
 }
 #nocov end
 
+
+create_description <- function(path) {
+  the_author <- paste(gert::git_signature_default(path), "[aut, cre]")
+  the_author <- utils::as.person(the_author)
+  author_string <- format(the_author, style = "R")
+  desc <- desc::desc(text = 
+    paste0(
+      "Package: lesson\n",
+      "Authors@R:", paste(author_string, collapse = "\n"), "\n",
+      "Version: 0.1.0\n",
+      "Description: Lesson Template (not a real package)]\n",
+      "License: CC-0\n",
+      "Encoding: UTF-8\n"
+    )
+  )
+  writeLines(desc$str(by_field = TRUE, normalize = FALSE, mode = "file"),
+    fs::path(path_site(path), "DESCRIPTION")
+  )
+}
+
+create_pkgdown_yaml <- function(path) {
+  cat(
+    yaml::as.yaml(list(template = list(package = "sandpaper"))),
+    file = fs::path(path_site(path), "_pkgdown.yml")
+  )
+}
+
 # Query only the yaml header. This is faster than slurping the entire file...
 # useful for determining timings :)
 politely_get_yaml <- function(path) {
@@ -81,4 +108,46 @@ politely_get_yaml <- function(path) {
 get_hash <- function(path) {
   yml <- politely_get_yaml(path)
   sub("sandpaper-digest: ", "", grep("sandpaper-digest: ", yml, value = TRUE))
+}
+
+root_path <- function(path) rprojroot::find_root(rprojroot::is_git_root, path)
+
+make_here <- function(ROOT) {
+  force(ROOT)
+  function(leaf = "") fs::path(ROOT, leaf)
+}
+
+path_site <- function(path) {
+  home <- root_path(path)
+  fs::path(home, "site")
+}
+path_pkgdown <- function(inpath) {
+  home <- root_path(inpath)
+  fs::path(home, "site", "vignettes")
+}
+
+path_episode <- function(inpath) {
+  home <- root_path(inpath)
+  fs::path(home, "episodes")
+}
+
+get_source_files <- function(path) {
+  fs::dir_ls(path_episode(path), regexp = "*R?md")
+}
+
+get_built_files <- function(path) {
+  fs::dir_ls(path_pkgdown(path), glob = "*Rmd")
+}
+
+get_episode_slug <- function(path) {
+  fs::path_ext_remove(fs::path_file(path))
+}
+
+get_artifact_files <- function(path) {
+  fs::dir_ls(path_episode(path), 
+    regexp = "*R?md", 
+    invert = TRUE, 
+    type = "file", 
+    all = TRUE
+  )
 }

@@ -21,7 +21,8 @@ Imports:
     desc,
     utils,
     tools,
-    knitr
+    knitr,
+    rprojroot
 Suggests: 
     testthat,
     cli (>= 2.0.2),

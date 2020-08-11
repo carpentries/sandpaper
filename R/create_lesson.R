@@ -50,17 +50,8 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   
  
   create_episode("introduction", path = path)
-  author_string <- format(utils::as.person(gert::git_signature_default(path)), style = "R")
-  desc <- desc::desc(text = 
-    paste0(
-      "Package: lesson\n",
-      "Authors@R:", paste(author_string, collapse = "\n"), "\n",
-      "Version: 0.1.0"
-    )
-  )
-  writeLines(desc$str(by_field = TRUE, normalize = FALSE, mode = "file"),
-    fs::path(path, "site", "DESCRIPTION")
-  )
+  create_description(path)
+  create_pkgdown_yaml(path)
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
   reset_git_user(path)

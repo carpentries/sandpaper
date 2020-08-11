@@ -12,7 +12,7 @@ test_that("markdown vignettes can be built without fail", {
   expect_output(build_markdown_vignettes(res), "ordinary text without R code")
 
   expected_hash <- tools::md5sum(fs::path(res, "episodes", "01-introduction.Rmd"))
-  actual_hash   <- get_hash(fs::path(res, "site", "vignettes", "01-introduction.md"))
+  actual_hash   <- get_hash(fs::path(res, "site", "vignettes", "01-introduction.Rmd"))
   expect_equivalent(expected_hash, actual_hash)
 
   # But will not built if things are not changed
