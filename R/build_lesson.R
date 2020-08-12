@@ -30,6 +30,6 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = T
 
   # step 2: build the package site
   pkgdown::init_site(path_site(path))
-  pkgdown::build_home(path_site(path), preview = preview, quiet = quiet)
+  pkgdown::build_home(path_site(path), quiet = quiet)
   pkgdown::build_articles(path_site(path), preview = preview, quiet = quiet)
 } 
