@@ -10,11 +10,20 @@
 #' @param rebuild if `TRUE`, everything will be built from scratch as if there
 #' was no cache. Defaults to `FALSE`, which will only build markdown files that
 #' haven't been built before. 
+#' @param quiet when `TRUE`, output is supressed
+#' @param preview if `TRUE`, the rendered website is opened in a new window
 #' 
 #' @return `TRUE` if it was successful, a character vector of issues if it was
 #'   unsuccessful.
 #' 
 #' @export
+#' @examples
+#'
+#' tmp <- tempfile()
+#' create_lesson(tmp)
+#' create_episode("first-script", path = tmp)
+#' check_lesson(tmp)
+#' build_lesson(tmp)
 build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = TRUE) {
   # step 1: build the markdown vignettes
   build_markdown_vignettes(path = path, rebuild = rebuild, quiet = quiet)

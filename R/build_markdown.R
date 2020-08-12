@@ -17,7 +17,7 @@
 #' @keywords internal
 build_markdown_vignettes <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 
-  episode_path <- make_here(path_episode(path))
+  episode_path <- make_here(path_episodes(path))
   # IDEA: expansion to other generators will be able to switch this part and
   #       still be able to copy things correctly
   site_path    <- make_here(path_pkgdown(path))

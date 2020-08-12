@@ -2,9 +2,9 @@
 % Please edit documentation in R/build_lesson.R
 \name{build_lesson}
 \alias{build_lesson}
-\title{Build plain markdown from the RMarkdown episodes}
+\title{Build your lesson sitf}
 \usage{
-build_lesson(path = ".", rebuild = FALSE, quiet = FALSE)
+build_lesson(path = ".", rebuild = FALSE, quiet = FALSE, preview = TRUE)
 }
 \arguments{
 \item{path}{the path to your repository (defaults to your current working
@@ -13,6 +13,10 @@ directory)}
 \item{rebuild}{if \code{TRUE}, everything will be built from scratch as if there
 was no cache. Defaults to \code{FALSE}, which will only build markdown files that
 haven't been built before.}
+
+\item{quiet}{when \code{TRUE}, output is supressed}
+
+\item{preview}{if \code{TRUE}, the rendered website is opened in a new window}
 }
 \value{
 \code{TRUE} if it was successful, a character vector of issues if it was
@@ -23,4 +27,12 @@ In the spirit of {hugodown}, This function will build plain markdown files
 as a minimal R package in the \verb{site/} folder of your {sandpaper} lesson
 repository tagged with the hash of your file to ensure that only files that
 have changed are rebuilt.
+}
+\examples{
+
+tmp <- tempfile()
+create_lesson(tmp)
+create_episode("first-script", path = tmp)
+check_lesson(tmp)
+build_lesson(tmp)
 }

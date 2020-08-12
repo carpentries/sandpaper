@@ -28,10 +28,12 @@ Suggests:
     cli (>= 2.0.2),
     covr,
     withr,
-    dovetail
+    dovetail,
+    varnish
 Remotes: 
     r-lib/gert,
-    carpentries/dovetail
+    carpentries/dovetail,
+    zkamvar/varnish
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

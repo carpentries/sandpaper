@@ -71,7 +71,7 @@ create_description <- function(path) {
 
 create_pkgdown_yaml <- function(path) {
   cat(
-    yaml::as.yaml(list(template = list(package = "sandpaper"))),
+    yaml::as.yaml(list(template = list(package = "varnish"))),
     file = fs::path(path_site(path), "_pkgdown.yml")
   )
 }
@@ -126,13 +126,13 @@ path_pkgdown <- function(inpath) {
   fs::path(home, "site", "vignettes")
 }
 
-path_episode <- function(inpath) {
+path_episodes <- function(inpath) {
   home <- root_path(inpath)
   fs::path(home, "episodes")
 }
 
 get_source_files <- function(path) {
-  fs::dir_ls(path_episode(path), regexp = "*R?md")
+  fs::dir_ls(path_episodes(path), regexp = "*R?md")
 }
 
 get_built_files <- function(path) {
@@ -144,7 +144,7 @@ get_episode_slug <- function(path) {
 }
 
 get_artifact_files <- function(path) {
-  fs::dir_ls(path_episode(path), 
+  fs::dir_ls(path_episodes(path), 
     regexp = "*R?md", 
     invert = TRUE, 
     type = "file", 
