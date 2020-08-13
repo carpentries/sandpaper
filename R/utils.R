@@ -3,15 +3,9 @@
 
 `%nin%` <- Negate("%in%")
 
-dir_available <- function(path) {
-  !fs::dir_exists(path) || nrow(fs::dir_info(path)) == 0L
-}
-
-
 # Functions for backwards compatibility for R < 3.5
 isFALSE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && !x
 isTRUE  <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && x
-
 
 # If the git user is not set, we set a temporary one, note that this is paired
 # with reset_git_user()
@@ -69,10 +63,39 @@ create_description <- function(path) {
   )
 }
 
+timestamp <- function(x) format(x, "%F %T %z", tz = "UTC")
+
+which_carpentry <- function(carpentry) {
+  switch(carpentry,
+    lc = "Library Carpentry",
+    dc = "Data Carpentry",
+    swc = "Software Carpentry",
+    cp = "The Carpentries",
+  )
+}
+
 create_pkgdown_yaml <- function(path) {
-  cat(
-    yaml::as.yaml(list(template = list(package = "varnish"))),
-    file = fs::path(path_site(path), "_pkgdown.yml")
+  usr <- yaml::read_yaml(fs::path(path, "config.yml"))
+  config <- list(
+    title = usr$title,
+    template = list(
+      package = "varnish",
+      params = list(
+        time = Sys.time(),
+        cslug = usr$carpentry,
+        carpentry = which_carpentry(usr$carpentry),
+        life_cycle = if (usr$life_cycle == "stable") NULL else usr$life_cycle,
+        pre_alpha = if (usr$life_cycle == "pre-alpha") TRUE else NULL,
+        alpha = if (usr$life_cycle == "alpha") TRUE else NULL,
+        beta = if (usr$life_cycle == "beta") TRUE else NULL
+      )
+    )
+  )
+  out <- fs::path(path_site(path), "_pkgdown.yml")
+  yaml::write_yaml(
+    config, 
+    file = out,
+    handlers = list(POSIXct = timestamp)
   )
 }
 
@@ -113,44 +136,3 @@ get_hash <- function(path) {
   sub("sandpaper-digest: ", "", grep("sandpaper-digest: ", yml, value = TRUE))
 }
 
-root_path <- function(path) rprojroot::find_root(rprojroot::is_git_root, path)
-
-make_here <- function(ROOT) {
-  force(ROOT)
-  function(leaf = "") fs::path(ROOT, leaf)
-}
-
-path_site <- function(path) {
-  home <- root_path(path)
-  fs::path(home, "site")
-}
-path_pkgdown <- function(inpath) {
-  home <- root_path(inpath)
-  fs::path(home, "site", "vignettes")
-}
-
-path_episodes <- function(inpath) {
-  home <- root_path(inpath)
-  fs::path(home, "episodes")
-}
-
-get_source_files <- function(path) {
-  fs::dir_ls(path_episodes(path), regexp = "*R?md")
-}
-
-get_built_files <- function(path) {
-  fs::dir_ls(path_pkgdown(path), glob = "*Rmd")
-}
-
-get_episode_slug <- function(path) {
-  fs::path_ext_remove(fs::path_file(path))
-}
-
-get_artifact_files <- function(path) {
-  fs::dir_ls(path_episodes(path), 
-    regexp = "*R?md", 
-    invert = TRUE, 
-    type = "file", 
-    all = TRUE
-  )
-}
