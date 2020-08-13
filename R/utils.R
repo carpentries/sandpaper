@@ -96,8 +96,11 @@ politely_get_yaml <- function(path) {
         nlines = 10,
         encoding = "UTF-8",
         quiet = TRUE,
+        blank.lines.skip = FALSE,
+        skipNul = FALSE
       )
       header <- c(header, next_ten)
+      message(header)
       barriers <- grep("^---$", header)
       to_skip <- to_skip + 10L
     }
