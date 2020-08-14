@@ -59,7 +59,7 @@ Note that this will also install development versions of the following packages:
 | [{testthat}] version 3 | runs tests for the package. If you aren't developing, you shouldn't worry |
 
 [{varnish}]: https://github.com/zkamvar/varnish#readme
-[{dovetial}]: https://github.com/carpentries/dovetail#readme
+[{dovetail}]: https://github.com/carpentries/dovetail#readme
 [{gert}]: https://github.com/r-lib/gert#readme
 [{testthat}]: https://github.com/r-lib/testthat#readme
 

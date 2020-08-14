@@ -52,7 +52,7 @@ packages:
 | package                                                          | What it does                                                              |
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | [{varnish}](https://github.com/zkamvar/varnish#readme)           | html, css, and javascript templates for The Carpentries (in progress)     |
-| \[{dovetail}\]                                                   | drop-in knitr engine for parsing challenge/solution blocks                |
+| [{dovetail}](https://github.com/carpentries/dovetail#readme)     | drop-in knitr engine for parsing challenge/solution blocks                |
 | [{gert}](https://github.com/r-lib/gert#readme)                   | a “batteries included” git interface for R                                |
 | [{testthat}](https://github.com/r-lib/testthat#readme) version 3 | runs tests for the package. If you aren’t developing, you shouldn’t worry |
 
