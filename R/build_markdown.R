@@ -62,10 +62,10 @@ build_markdown_vignettes <- function(path = ".", rebuild = FALSE, quiet = FALSE)
   fs::dir_copy(episode_path("data"), site_path("data"), overwrite = TRUE)
   fs::dir_copy(episode_path("files"), site_path("files"), overwrite = TRUE)
   fs::dir_copy(episode_path("extras"), site_path("extras"), overwrite = TRUE)
-  fs::dir_copy(episode_path("figures"), site_path("figures"), overwrite = TRUE)
-  fs::file_copy(fs::path_abs(artifacts), site_path(artifacts), overwrite = TRUE) 
+  fs::dir_copy(episode_path("figure"), site_path("figure"), overwrite = TRUE)
+  fs::file_copy(fs::path_abs(artifacts), site_path(fs::path_file(artifacts)), overwrite = TRUE) 
 
-  if (length(to_be_removed)) fs::file_delete(built[to_be_removed])
+  if (length(to_be_removed)) fs::file_delete(stats::na.omit(built[to_be_removed]))
 
   invisible(TRUE)
 }
@@ -74,6 +74,9 @@ build_single_episode <- function(path, hash, env = new.env(), quiet = FALSE) {
   # get output directory
   md <- fs::path_ext_set(fs::path_file(path), "Rmd")
   outpath <- fs::path(path_pkgdown(path), md)
+  wd <- getwd()
+  on.exit(setwd(wd), add = TRUE)
+  setwd(path_episodes(path))
 
   # Generate markdown  
   res <- knitr::knit(

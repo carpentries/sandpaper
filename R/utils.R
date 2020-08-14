@@ -43,6 +43,21 @@ gitignore_items <- function() {
 }
 #nocov end
 
+create_lesson_readme <- function(name, path) {
+
+  writeLines(glue::glue("# {name}
+      
+      This is the lesson repository for {name}
+  "), con = fs::path(path, "README.md"))
+
+}
+
+create_site_readme <- function(path) {
+  writeLines(glue::glue("
+  This directory contains rendered lesson materials. Please do not edit files
+  here.  
+  "), con = fs::path(path, "site", "README.md"))
+}
 
 create_description <- function(path) {
   the_author <- paste(gert::git_signature_default(path), "[aut, cre]")
@@ -124,7 +139,6 @@ politely_get_yaml <- function(path) {
         skipNul = FALSE
       )
       header <- c(header, next_ten)
-      message(header)
       barriers <- grep("^---$", header)
       to_skip <- to_skip + 10L
     }

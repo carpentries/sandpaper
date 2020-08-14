@@ -3,6 +3,7 @@
 export(build_lesson)
 export(check_episode)
 export(check_lesson)
+export(clear_site)
 export(create_episode)
 export(create_lesson)
 export(template_config)

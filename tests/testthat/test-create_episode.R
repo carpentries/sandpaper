@@ -20,7 +20,7 @@ test_that("episodes can be created", {
   second_episode <- create_episode("first-script", path = tmp) %>%
     expect_match("02-first-script.Rmd", fixed = TRUE)
 
-  expect_equivalent(tools::md5sum(second_episode), initial_episode_md5)
+  expect_equal(tools::md5sum(second_episode), initial_episode_md5, ignore_attr = TRUE)
 
   expect_true(check_episode(initial_episode))
   expect_true(check_episode(second_episode))

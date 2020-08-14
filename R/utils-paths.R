@@ -36,6 +36,7 @@ get_episode_slug <- function(path) {
 }
 
 get_artifact_files <- function(path) {
+  
   fs::dir_ls(path_episodes(path), 
     regexp = "*R?md", 
     invert = TRUE, 

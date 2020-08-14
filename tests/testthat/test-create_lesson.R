@@ -15,11 +15,14 @@ test_that("lessons can be created in empty directories", {
   expect_true(fs::dir_exists(fs::path(tmp, "episodes")))
   expect_true(fs::dir_exists(fs::path(tmp, "episodes", "data")))
   expect_true(fs::dir_exists(fs::path(tmp, "episodes", "files")))
-  expect_true(fs::dir_exists(fs::path(tmp, "episodes", "figures")))
+  expect_true(fs::dir_exists(fs::path(tmp, "episodes", "figure")))
   expect_true(fs::dir_exists(fs::path(tmp, "episodes", "extras")))
   expect_true(fs::file_exists(fs::path(tmp, "README.md")))
   expect_match(readLines(fs::path(tmp, "README.md"))[1], "lesson-example", fixed = TRUE) 
   expect_true(fs::file_exists(fs::path(tmp, "site", "README.md")))
+  expect_true(fs::file_exists(fs::path(tmp, "site", "DESCRIPTION")))
+  expect_true(fs::file_exists(fs::path(tmp, "site", "_pkgdown.yml")))
+  expect_true(fs::file_exists(fs::path(tmp, "site", "vignettes")))
   expect_true(fs::file_exists(fs::path(tmp, "episodes", "01-introduction.Rmd")))
   expect_true(fs::file_exists(fs::path(tmp, ".gitignore")))
   expect_setequal(
@@ -68,7 +71,12 @@ test_that("lessons can be created in empty directories", {
   }
 
   fs::file_delete(fs::path(tmp, ".gitignore"))
-  expect_error(check_lesson(tmp), "There were errors with the lesson structure")
+    suppressMessages({
+    expect_error( 
+      check_lesson(tmp), 
+      "There were errors with the lesson structure"
+    )
+    })
 })
 
 test_that("lessons cannot be created in directories that are occupied", {

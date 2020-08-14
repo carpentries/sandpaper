@@ -8,15 +8,17 @@ test_that("lessons can be built sanely", {
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp)
   create_episode("second-episode", path = tmp)
-  expect_equivalent(res, tmp)
+  expect_equal(res, tmp, ignore_attr = TRUE)
 
   # It's noisy at first
+  suppressMessages({
   expect_output(build_lesson(res, preview = FALSE), "ordinary text without R code")
+  })
 
   # see helper-hash.R
   h1 <- expect_hashed(res, "01-introduction.Rmd")
   h2 <- expect_hashed(res, "02-second-episode.Rmd")
-  expect_equivalent(h1, h2)
+  expect_equal(h1, h2, ignore_attr = TRUE)
 
   sitepath <- fs::path(tmp, "site", "docs", "articles")
   expect_true(fs::file_exists(fs::path(sitepath, "01-introduction.html")))

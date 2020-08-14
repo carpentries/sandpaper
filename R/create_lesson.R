@@ -27,7 +27,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   fs::dir_create(fs::path(path, "episodes"))
   fs::dir_create(fs::path(path, "episodes", "data"))
   fs::dir_create(fs::path(path, "episodes", "files"))
-  fs::dir_create(fs::path(path, "episodes", "figures"))
+  fs::dir_create(fs::path(path, "episodes", "figure"))
   fs::dir_create(fs::path(path, "episodes", "extras"))
 
   fs::dir_create(fs::path(path, "site"))
@@ -39,26 +39,17 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   copy_template("gitignore", path, ".gitignore")
   copy_template("config", path, "config.yml")
 
-  writeLines(glue::glue("# {name}
-      
-      This is the lesson repository for {name}
-  "), con = fs::path(path, "README.md"))
-
-  writeLines(glue::glue("
-  This directory contains rendered lesson materials. Please do not edit files
-  here.  
-  "), con = fs::path(path, "site", "README.md"))
-  
- 
+  create_lesson_readme(name, path)
+  create_site_readme(path)
   create_episode("introduction", path = path)
   create_description(path)
   create_pkgdown_yaml(path)
+
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
   reset_git_user(path)
   
   return(path)
-  
 
 }
 
