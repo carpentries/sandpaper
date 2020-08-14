@@ -15,6 +15,5 @@
 clear_site <- function(path = ".") {
   check_lesson(path)
   fs::dir_delete(path_site(path))
-  fs::dir_create(path_site(path))
-  create_site_readme(path)
+  create_site(path)
 }

@@ -89,6 +89,14 @@ which_carpentry <- function(carpentry) {
   )
 }
 
+yaml_writer <- function(yml, path) {
+  yaml::write_yaml(
+    yml, 
+    file = path,
+    handlers = list(POSIXct = timestamp)
+  )
+}
+
 create_pkgdown_yaml <- function(path) {
   usr <- yaml::read_yaml(fs::path(path, "config.yml"))
   usr$life_cycle <- "pre-alpha"
@@ -108,11 +116,13 @@ create_pkgdown_yaml <- function(path) {
     )
   )
   out <- fs::path(path_site(path), "_pkgdown.yml")
-  yaml::write_yaml(
-    config, 
-    file = out,
-    handlers = list(POSIXct = timestamp)
-  )
+  yaml_writer(config, out)
+}
+
+update_site_timestamp <- function(path) {
+  yml <- yaml::read_yaml(fs::path(path, "site", "_pkgdown.yml")) 
+  yml$template$params$time <- Sys.time()
+  yaml_writer(yml, fs::path(path, "site", "_pkgdown.yml"))
 }
 
 # Query only the yaml header. This is faster than slurping the entire file...

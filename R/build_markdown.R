@@ -67,6 +67,9 @@ build_markdown_vignettes <- function(path = ".", rebuild = FALSE, quiet = FALSE)
 
   if (length(to_be_removed)) fs::file_delete(stats::na.omit(built[to_be_removed]))
 
+  if (nrow(to_be_built) > 0) {
+    update_site_timestamp(path)
+  }
   invisible(TRUE)
 }
 
