@@ -99,7 +99,6 @@ yaml_writer <- function(yml, path) {
 
 create_pkgdown_yaml <- function(path) {
   usr <- yaml::read_yaml(fs::path(path, "config.yml"))
-  usr$life_cycle <- "pre-alpha"
   config <- list(
     title = usr$title,
     template = list(
