@@ -5,6 +5,7 @@ create_site <- function(path) {
   fs::file_create(fs::path(path, "site", "DESCRIPTION"))
   fs::file_create(fs::path(path, "site", "README.md"))
   create_site_readme(path)
+  check_git_user(path)
   create_description(path)
   create_pkgdown_yaml(path)
 }
