@@ -28,6 +28,13 @@ Carpentries lesson template:
 No matter where these blocks appear, they will always be placed at the right
 part of the html page.
 
+
+| An example table |     |
+| ---------------- | --- |
+| item 1           | a   |
+| item 2           | b   |  
+| item 3           | c   |  
+
 <!-- TODO: add questions engine to {dovetail} -->
 
 ```{prereq}
@@ -44,6 +51,13 @@ part of the html page.
 #' - Run `sandpaper::check_lesson()` to identify any issues with your lesson
 #' - Run `sandpaper::build_lesson()` to preview your lesson locally
 ```
+
+```{r, error-warn-message, error = TRUE}
+message("your code could output a message")
+warning("or it could output a warning")
+stop("or it could show an error")
+```
+
 
 ```{challenge}
 #' ## Challenge 1: Can you do it?
