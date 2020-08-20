@@ -6,6 +6,7 @@
 # Functions for backwards compatibility for R < 3.5
 isFALSE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && !x
 isTRUE  <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && x
+quot <- function(x) paste0("\"", x, "\"")
 
 # If the git user is not set, we set a temporary one, note that this is paired
 # with reset_git_user()
@@ -97,31 +98,55 @@ yaml_writer <- function(yml, path) {
   )
 }
 
+write_pkgdown_yaml <- function(yml, path) {
+  yaml_writer(yml, path_site_yaml(path))
+}
+
 create_pkgdown_yaml <- function(path) {
   usr <- yaml::read_yaml(fs::path(path, "config.yml"))
-  config <- list(
-    title = usr$title,
-    template = list(
-      package = "varnish",
-      params = list(
-        time = Sys.time(),
-        cslug = usr$carpentry,
-        carpentry = which_carpentry(usr$carpentry),
-        life_cycle = if (usr$life_cycle == "stable") NULL else usr$life_cycle,
-        pre_alpha = if (usr$life_cycle == "pre-alpha") TRUE else NULL,
-        alpha = if (usr$life_cycle == "alpha") TRUE else NULL,
-        beta = if (usr$life_cycle == "beta") TRUE else NULL
-      )
-    )
-  )
-  out <- fs::path(path_site(path), "_pkgdown.yml")
-  yaml_writer(config, out)
+  life_cycle <- if (usr$life_cycle == "stable")    "~"  else usr$life_cycle
+  pre_alpha  <- if (usr$life_cycle == "pre-alpha") TRUE else "~"
+  alpha      <- if (usr$life_cycle == "alpha")     TRUE else "~"
+  beta       <- if (usr$life_cycle == "beta")      TRUE else "~"
+  yml <- " 
+  home:
+    title: {usr$title} 
+  navbar:
+    title: {usr$title}
+    type: default
+    left:
+      - text: Episodes
+        menu: ~ # episodes will be populated here
+  template:
+    package: varnish
+    params:
+      time: {Sys.time()}
+      cslug: {usr$carpentry}
+      carpentry: {which_carpentry(usr$carpentry)}
+      life_cycle: {life_cycle}
+      pre_alpha: {pre_alpha}
+      alpha: {alpha}
+      beta: {beta}
+  "
+  yaml::yaml.load(glue::glue(yml))
 }
 
 update_site_timestamp <- function(path) {
-  yml <- yaml::read_yaml(fs::path(path, "site", "_pkgdown.yml")) 
+  yml <- yaml::read_yaml(path_site_yaml(path)) 
   yml$template$params$time <- Sys.time()
-  yaml_writer(yml, fs::path(path, "site", "_pkgdown.yml"))
+  write_pkgdown_yaml(yml, path)
+}
+
+update_site_menu <- function(path, episodes) {
+  yml <- yaml::read_yaml(path_site_yaml(path))
+  res <- lapply(episodes, function(i) {
+    list(
+      text = yaml::yaml.load(politely_get_yaml(i))$title, 
+      href = fs::path_ext_set(fs::path_file(i), "html") 
+    )
+  })
+  yml$navbar$left[[1]]$menu <- unname(res)
+  write_pkgdown_yaml(yml, path)
 }
 
 # Query only the yaml header. This is faster than slurping the entire file...

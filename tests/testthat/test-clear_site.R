@@ -19,8 +19,6 @@ test_that("the site can be cleared", {
   invisible(capture.output(build_lesson(tmp, preview = FALSE, quiet = TRUE)))
 
   fs::dir_ls(fs::path(tmp, "site")) %>%
-    expect_length(5) %>%
-    expect_setequal(fs::path(tmp, "site", c(expected, "docs")))
-
+    expect_length(10)
 
 })

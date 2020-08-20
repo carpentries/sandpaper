@@ -20,7 +20,7 @@ test_that("lessons can be built sanely", {
   h2 <- expect_hashed(res, "02-second-episode.Rmd")
   expect_equal(h1, h2, ignore_attr = TRUE)
 
-  sitepath <- fs::path(tmp, "site", "docs", "articles")
+  sitepath <- fs::path(tmp, "site", "docs")
   expect_true(fs::file_exists(fs::path(sitepath, "01-introduction.html")))
   expect_true(fs::file_exists(fs::path(sitepath, "02-second-episode.html")))
   expect_true(any(grepl(

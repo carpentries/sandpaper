@@ -1,5 +1,6 @@
 expect_hashed <- function(path, file) {
-  expected_hash <- tools::md5sum(fs::path(path, "episodes", file))
-  actual_hash   <- get_hash(fs::path(path, "site", "vignettes", file))
+  expected_hash <- tools::md5sum(fs::path(path_episodes(path), file))
+  md <- fs::path_ext_set(file, "md")
+  actual_hash   <- get_hash(fs::path(path_pkgdown(path), md))
   expect_equal(expected_hash, actual_hash, ignore_attr = TRUE)
 }

@@ -7,5 +7,6 @@ create_site <- function(path) {
   create_site_readme(path)
   check_git_user(path)
   create_description(path)
-  create_pkgdown_yaml(path)
+  yml <- create_pkgdown_yaml(path)
+  write_pkgdown_yaml(yml, path)
 }

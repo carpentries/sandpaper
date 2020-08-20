@@ -69,13 +69,14 @@ build_markdown_vignettes <- function(path = ".", rebuild = FALSE, quiet = FALSE)
 
   if (nrow(to_be_built) > 0) {
     update_site_timestamp(path)
+    update_site_menu(path, episodes)
   }
   invisible(TRUE)
 }
 
 build_single_episode <- function(path, hash, env = new.env(), quiet = FALSE) {
   # get output directory
-  md <- fs::path_ext_set(fs::path_file(path), "Rmd")
+  md <- fs::path_ext_set(fs::path_file(path), "md")
   outpath <- fs::path(path_pkgdown(path), md)
   wd <- getwd()
   on.exit(setwd(wd), add = TRUE)

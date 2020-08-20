@@ -1,4 +1,5 @@
 root_path <- function(path) rprojroot::find_root(rprojroot::is_git_root, path)
+no_readme <- function() "(?<![/]README)([.]md)$"
 
 dir_available <- function(path) {
   !fs::dir_exists(path) || nrow(fs::dir_info(path)) == 0L
@@ -13,9 +14,14 @@ path_site <- function(path) {
   home <- root_path(path)
   fs::path(home, "site")
 }
+
+path_site_yaml <- function(path) {
+  fs::path(path_pkgdown(path), "_pkgdown.yml")
+}
+
 path_pkgdown <- function(inpath) {
   home <- root_path(inpath)
-  fs::path(home, "site", "vignettes")
+  fs::path(home, "site")#, "vignettes")
 }
 
 path_episodes <- function(inpath) {
@@ -28,7 +34,7 @@ get_source_files <- function(path) {
 }
 
 get_built_files <- function(path) {
-  fs::dir_ls(path_pkgdown(path), glob = "*Rmd")
+  fs::dir_ls(path_pkgdown(path), regexp = no_readme(), perl = TRUE)
 }
 
 get_episode_slug <- function(path) {
