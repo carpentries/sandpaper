@@ -7,7 +7,7 @@ dir_available <- function(path) {
 
 make_here <- function(ROOT) {
   force(ROOT)
-  function(leaf = "") fs::path(ROOT, leaf)
+  function(...) fs::path(ROOT, ...)
 }
 
 path_site <- function(path) {
