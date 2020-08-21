@@ -16,9 +16,11 @@ test_that("the site can be cleared", {
     expect_length(4) %>%
     expect_setequal(fs::path(tmp, "site", expected))
 
+  saveRDS(expected, file = fs::path(tmp, "episodes", "data", "test.rds"))
+
   invisible(capture.output(build_lesson(tmp, preview = FALSE, quiet = TRUE)))
 
   fs::dir_ls(fs::path(tmp, "site")) %>%
-    expect_length(10)
+    expect_length(7)
 
 })

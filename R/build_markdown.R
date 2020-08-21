@@ -59,11 +59,11 @@ build_markdown_vignettes <- function(path = ".", rebuild = FALSE, quiet = FALSE)
     build_single_episode(to_be_built$episode[i], to_be_built$hash[i], quiet = quiet)
   }
 
-  fs::dir_copy(episode_path("data"), site_path("data"), overwrite = TRUE)
-  fs::dir_copy(episode_path("files"), site_path("files"), overwrite = TRUE)
-  fs::dir_copy(episode_path("extras"), site_path("extras"), overwrite = TRUE)
-  fs::dir_copy(episode_path("figure"), site_path("figure"), overwrite = TRUE)
-  fs::file_copy(fs::path_abs(artifacts), site_path(fs::path_file(artifacts)), overwrite = TRUE) 
+  fs::dir_copy(episode_path("data"), site_path("assets", "data"), overwrite = TRUE)
+  fs::dir_copy(episode_path("files"), site_path("assets", "files"), overwrite = TRUE)
+  fs::dir_copy(episode_path("extras"), site_path("assets", "extras"), overwrite = TRUE)
+  fs::dir_copy(episode_path("figure"), site_path("assets", "figure"), overwrite = TRUE)
+  fs::file_copy(fs::path_abs(artifacts), site_path("assets", fs::path_file(artifacts)), overwrite = TRUE) 
 
   if (length(to_be_removed)) fs::file_delete(stats::na.omit(built[to_be_removed]))
 
