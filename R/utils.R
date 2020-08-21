@@ -61,22 +61,20 @@ create_site_readme <- function(path) {
 }
 
 create_description <- function(path) {
+  yml <- yaml::read_yaml(fs::path(path, "config.yml"))
   the_author <- paste(gert::git_signature_default(path), "[aut, cre]")
   the_author <- utils::as.person(the_author)
-  author_string <- format(the_author, style = "R")
-  desc <- desc::desc(text = 
-    paste0(
-      "Package: lesson\n",
-      "Authors@R:", paste(author_string, collapse = "\n"), "\n",
-      "Version: 0.1.0\n",
-      "Description: Lesson Template (not a real package)]\n",
-      "License: CC-0\n",
-      "Encoding: UTF-8\n"
-    )
+  desc <- desc::description$new("!new")
+  desc$del(c("BugReports", "LazyData"))
+  desc$set_authors(the_author)
+  desc$set(
+    Package     = "lesson",
+    Title       = yml$title,
+    Description = "Lesson Template (not a real package).",
+    License     = yml$license,
+    Encoding    = "UTF-8"
   )
-  writeLines(desc$str(by_field = TRUE, normalize = FALSE, mode = "file"),
-    fs::path(path_site(path), "DESCRIPTION")
-  )
+  desc$write(fs::path(path_site(path), "DESCRIPTION"))
 }
 
 timestamp <- function(x) format(x, "%F %T %z", tz = "UTC")
@@ -108,9 +106,14 @@ create_pkgdown_yaml <- function(path) {
   pre_alpha  <- if (usr$life_cycle == "pre-alpha") TRUE else "~"
   alpha      <- if (usr$life_cycle == "alpha")     TRUE else "~"
   beta       <- if (usr$life_cycle == "beta")      TRUE else "~"
+  usr$carpentry <- "swc"
+  cname      <- which_carpentry(usr$carpentry)
   yml <- " 
+  title: {cname}
   home:
-    title: {usr$title} 
+    strip_header: true
+    title: {usr$title}
+    description: ~
   navbar:
     title: {usr$title}
     type: default
@@ -121,8 +124,12 @@ create_pkgdown_yaml <- function(path) {
     package: varnish
     params:
       time: {Sys.time()}
-      cslug: {usr$carpentry}
-      carpentry: {which_carpentry(usr$carpentry)}
+      cp: {usr$carpentry == 'cp'}
+      lc: {usr$carpentry == 'lc'}
+      dc: {usr$carpentry == 'dc'}
+      swc: {usr$carpentry == 'swc'}
+      carpentry: {usr$carpentry}
+      carpentry_name: {cname}
       life_cycle: {life_cycle}
       pre_alpha: {pre_alpha}
       alpha: {alpha}
@@ -140,9 +147,11 @@ update_site_timestamp <- function(path) {
 update_site_menu <- function(path, episodes) {
   yml <- yaml::read_yaml(path_site_yaml(path))
   res <- lapply(episodes, function(i) {
+    txt <- yaml::yaml.load(politely_get_yaml(i))$title
     list(
-      text = yaml::yaml.load(politely_get_yaml(i))$title, 
-      href = fs::path_ext_set(fs::path_file(i), "html") 
+      pagetitle = txt,
+      text  = txt,
+      href  = fs::path_ext_set(fs::path_file(i), "html")
     )
   })
   yml$navbar$left[[1]]$menu <- unname(res)
