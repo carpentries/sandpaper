@@ -26,7 +26,7 @@
 #' build_lesson(tmp)
 build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = TRUE) {
   # step 1: build the markdown vignettes
-  build_markdown_vignettes(path = path, rebuild = rebuild, quiet = quiet)
+  build_markdown(path = path, rebuild = rebuild, quiet = quiet)
 
   pkg <- pkgdown::as_pkgdown(path_site(path))
   # step 2: build the package site
@@ -78,7 +78,7 @@ html_from_md <- function(path_in, quiet = FALSE) {
     output = tmp, 
     from = from,
     to = "html", options = c(
-      "--indented-code-classes=sh", "--section-divs"
+      "--indented-code-classes=sh", "--section-divs", "--mathjax"
     ),
     verbose = !quiet
   )

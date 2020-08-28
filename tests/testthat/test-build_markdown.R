@@ -1,4 +1,4 @@
-test_that("markdown vignettes can be built without fail", {
+test_that("markdown sources can be built without fail", {
   
   tmpdir <- fs::file_temp()
   fs::dir_create(tmpdir)
@@ -22,8 +22,8 @@ test_that("markdown vignettes can be built without fail", {
 
 
   # But will not built if things are not changed
-  expect_silent(build_markdown_vignettes(res))
+  expect_silent(build_markdown(res))
   fs::file_touch(fs::path(res, "episodes", "01-introduction.Rmd"))
-  expect_silent(build_markdown_vignettes(res))
+  expect_silent(build_markdown(res))
 
 })

@@ -15,7 +15,7 @@
 #'   unsuccessful.
 #' 
 #' @keywords internal
-build_markdown_vignettes <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
+build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 
   episode_path <- make_here(path_episodes(path))
   # IDEA: expansion to other generators will be able to switch this part and
@@ -82,13 +82,12 @@ build_single_episode <- function(path, hash, env = new.env(), quiet = FALSE) {
   # get output directory
   md      <- fs::path_ext_set(fs::path_file(path), "md")
   outpath <- fs::path(path_built(path), md)
-  wd      <- getwd()
-  oknit   <- knitr::opts_chunk$get()
-  print(knitr::opts_chunk$get("fig.path"))
+
+  oknit <- knitr::opts_chunk$get()
   on.exit(knitr::opts_chunk$restore(oknit), add = TRUE)
   set_fig_path(fs::path_ext_remove(fs::path_file(md)))
-  print(knitr::opts_chunk$get("fig.path"))
 
+  wd <- getwd()
   on.exit(setwd(wd), add = TRUE)
   setwd(path_episodes(path))
 

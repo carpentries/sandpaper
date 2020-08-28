@@ -98,6 +98,16 @@ pie(
 )
 ```
 
+
+# Math
+
+One of our episodes contains $\LaTeX$ equations when describing how to create
+dynamic reports with {knitr}, so we now use mathjax to describe this:
+
+`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
+
+Cool, right?
+
 <!-- Please do not delete anything below this line -->
 
 ```{r links, child = sandpaper::template_links()}
