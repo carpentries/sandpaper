@@ -16,12 +16,12 @@ path_site <- function(path) {
 }
 
 path_site_yaml <- function(path) {
-  fs::path(path_pkgdown(path), "_pkgdown.yml")
+  fs::path(path_site(path), "_pkgdown.yml")
 }
 
-path_pkgdown <- function(inpath) {
+path_built <- function(inpath) {
   home <- root_path(inpath)
-  fs::path(home, "site")#, "vignettes")
+  fs::path(home, "site", "built")
 }
 
 path_episodes <- function(inpath) {
@@ -34,7 +34,7 @@ get_source_files <- function(path) {
 }
 
 get_built_files <- function(path) {
-  fs::dir_ls(path_pkgdown(path), regexp = no_readme(), perl = TRUE)
+  fs::dir_ls(path_built(path), regexp = no_readme(), perl = TRUE)
 }
 
 get_episode_slug <- function(path) {

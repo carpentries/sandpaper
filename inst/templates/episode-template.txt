@@ -85,6 +85,19 @@ stop("or it could show an error")
 #' will be closed at the end of the challenge block.
 ```
 
+# Figures
+
+You can also include figures:
+
+```{r pyramid}
+pie(
+  c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
+  init.angle = 315, 
+  col = c("deepskyblue", "yellow", "yellow3"), 
+  border = FALSE
+)
+```
+
 <!-- Please do not delete anything below this line -->
 
 ```{r links, child = sandpaper::template_links()}

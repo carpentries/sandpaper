@@ -11,7 +11,7 @@ test_that("the site can be cleared", {
   # Make sure everything exists
   expect_true(check_lesson(tmp))
 
-  expected <- c("DESCRIPTION", "README.md", "_pkgdown.yml", "vignettes")
+  expected <- c("DESCRIPTION", "README.md", "_pkgdown.yml", "built")
   fs::dir_ls(fs::path(tmp, "site")) %>%
     expect_length(4) %>%
     expect_setequal(fs::path(tmp, "site", expected))
@@ -21,6 +21,5 @@ test_that("the site can be cleared", {
   invisible(capture.output(build_lesson(tmp, preview = FALSE, quiet = TRUE)))
 
   fs::dir_ls(fs::path(tmp, "site")) %>%
-    expect_length(7)
-
+    expect_length(5)
 })

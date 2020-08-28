@@ -20,7 +20,7 @@ build_markdown_vignettes <- function(path = ".", rebuild = FALSE, quiet = FALSE)
   episode_path <- make_here(path_episodes(path))
   # IDEA: expansion to other generators will be able to switch this part and
   #       still be able to copy things correctly
-  site_path    <- make_here(path_pkgdown(path))
+  site_path    <- make_here(path_built(path))
 
   episodes  <- get_source_files(path)
   artifacts <- get_artifact_files(path)
@@ -55,6 +55,10 @@ build_markdown_vignettes <- function(path = ".", rebuild = FALSE, quiet = FALSE)
     to_be_removed <- character(0)
   }
 
+  ochunk <- knitr::opts_chunk$get()
+  on.exit(knitr::opts_chunk$restore(ochunk), add = TRUE)
+  set_knitr_opts()
+
   for (i in seq_len(nrow(to_be_built))) {
     build_single_episode(to_be_built$episode[i], to_be_built$hash[i], quiet = quiet)
   }
@@ -62,7 +66,7 @@ build_markdown_vignettes <- function(path = ".", rebuild = FALSE, quiet = FALSE)
   fs::dir_copy(episode_path("data"), site_path("assets", "data"), overwrite = TRUE)
   fs::dir_copy(episode_path("files"), site_path("assets", "files"), overwrite = TRUE)
   fs::dir_copy(episode_path("extras"), site_path("assets", "extras"), overwrite = TRUE)
-  fs::dir_copy(episode_path("figure"), site_path("assets", "figure"), overwrite = TRUE)
+  fs::dir_copy(episode_path("fig"), site_path("assets", "fig"), overwrite = TRUE)
   fs::file_copy(fs::path_abs(artifacts), site_path("assets", fs::path_file(artifacts)), overwrite = TRUE) 
 
   if (length(to_be_removed)) fs::file_delete(stats::na.omit(built[to_be_removed]))
@@ -76,9 +80,15 @@ build_markdown_vignettes <- function(path = ".", rebuild = FALSE, quiet = FALSE)
 
 build_single_episode <- function(path, hash, env = new.env(), quiet = FALSE) {
   # get output directory
-  md <- fs::path_ext_set(fs::path_file(path), "md")
-  outpath <- fs::path(path_pkgdown(path), md)
-  wd <- getwd()
+  md      <- fs::path_ext_set(fs::path_file(path), "md")
+  outpath <- fs::path(path_built(path), md)
+  wd      <- getwd()
+  oknit   <- knitr::opts_chunk$get()
+  print(knitr::opts_chunk$get("fig.path"))
+  on.exit(knitr::opts_chunk$restore(oknit), add = TRUE)
+  set_fig_path(fs::path_ext_remove(fs::path_file(md)))
+  print(knitr::opts_chunk$get("fig.path"))
+
   on.exit(setwd(wd), add = TRUE)
   setwd(path_episodes(path))
 

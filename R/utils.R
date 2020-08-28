@@ -30,6 +30,21 @@ reset_git_user <- function(path) {
   }
 }
 
+set_knitr_opts <- function() {
+  knitr::opts_chunk$set(
+    comment = "",
+    fig.align = "center",
+    class.output = "output",
+    class.error = "error",
+    class.warning = "warning",
+    class.message = "output"
+  )
+}
+
+set_fig_path <- function(slug) {
+  knitr::opts_chunk$set(fig.path = file.path("fig", paste0(slug, "-")))
+}
+
 #nocov start
 # Make it easy to contribute to our gitignore template, but also avoid having
 # to reload this thing every time we need it 
@@ -192,5 +207,14 @@ politely_get_yaml <- function(path) {
 get_hash <- function(path) {
   yml <- politely_get_yaml(path)
   sub("sandpaper-digest: ", "", grep("sandpaper-digest: ", yml, value = TRUE))
+}
+
+copy_assets <- function(src, dst) {
+  dst <- fs::path(dst, fs::path_file(src))
+  if (fs::is_dir(src)) {
+    fs::dir_copy(src, dst, overwrite = TRUE)
+  } else {
+    fs::file_copy(src, dst, overwrite = TRUE)
+  }
 }
 

@@ -1,6 +1,6 @@
 create_site <- function(path) {
   fs::dir_create(fs::path(path, "site"))
-  fs::dir_create(fs::path(path, "site", "vignettes"))
+  fs::dir_create(fs::path(path, "site", "built"))
 
   fs::file_create(fs::path(path, "site", "DESCRIPTION"))
   fs::file_create(fs::path(path, "site", "README.md"))

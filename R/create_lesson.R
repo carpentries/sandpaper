@@ -27,7 +27,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   fs::dir_create(fs::path(path, "episodes"))
   fs::dir_create(fs::path(path, "episodes", "data"))
   fs::dir_create(fs::path(path, "episodes", "files"))
-  fs::dir_create(fs::path(path, "episodes", "figure"))
+  fs::dir_create(fs::path(path, "episodes", "fig"))
   fs::dir_create(fs::path(path, "episodes", "extras"))
   fs::file_create(fs::path(path, "README.md"))
 
