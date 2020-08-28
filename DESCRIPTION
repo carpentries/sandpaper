@@ -22,6 +22,7 @@ Imports:
     utils,
     tools,
     knitr,
+    rmarkdown,
     rprojroot
 Suggests: 
     testthat,
