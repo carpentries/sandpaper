@@ -26,14 +26,28 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
     stop("schedule must have an order")
   }
   yml <- get_config(path)
+  sched <- yml$schedule
   yml$schedule <- order
 
   if (write) {
     yaml_writer(yml, path_config(path))
   } else {
-    cat(yaml::as.yaml(yml))
+    removed <- sched %nin% order
+    added   <- order %nin% sched
+    order[added] <- cli::style_bold(cli::col_green(order[added]))
+    if (requireNamespace("cli", quietly = TRUE)) {
+      cli::cat_line(yaml::as.yaml(yml[names(yml) != "schedule"]), col = "silver")
+      cli::cat_line("schedule:")
+      cli::cat_bullet(order, bullet = "line")
+      if (any(removed)) {
+        cli::rule("Removed episodes")
+        cli::cat_bullet(sched[removed], bullet = "cross", bullet_col = "red")
+      }
+    } else {
+      cat(yaml::as.yaml(yml))
+    }
   }
-  invisible(yml)
+  invisible()
 }
 #' Create the episode schedule for the lesson
 #'
