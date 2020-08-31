@@ -41,8 +41,15 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = T
   }
     pkgdown::init_site(pkg)
   episodes <- get_built_files(path)
-  for (i in episodes) {
-    build_episode(i, pkg, quiet = quiet)
+  n <- length(episodes)
+  for (i in seq_along(episodes)) {
+    build_episode(
+      path_in = episodes[i], 
+      page_back = if (i > 1) episodes[i - 1] else "index.md",
+      page_forward = if (i < n) episodes[i + 1] else "index.md",
+      pkg, 
+      quiet = quiet
+    )
   }
   fs::dir_walk(
     fs::path(pkg$src_path, "built", "assets"), 
@@ -54,16 +61,26 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = T
   
 } 
 
-build_episode <- function(path_in, pkg, quiet = FALSE) {
+build_episode <- function(path_in, page_back = NULL, page_forward = NULL, pkg, quiet = FALSE) {
   body <- html_from_md(path_in, quiet = quiet)
   yml  <- yaml::yaml.load(politely_get_yaml(path_in))
+  as_html <- function(i) fs::path_ext_set(fs::path_file(i), "html")
   pkgdown::render_page(pkg, 
     "title-body",
     data = list(
-      pagetitle = yml$title, 
-      body = body
+      # NOTE: we can add anything we want from the YAML header in here to
+      # pass on to the template.
+      pagetitle          = yml$title,
+      body               = body,
+      teaching           = yml$teaching,
+      exercises          = yml$exercises,
+      page_back          = as_html(page_back),
+      left               = if (page_back == "index.md") "up" else "left",
+      page_forward       = as_html(page_forward),
+      right              = if (page_forward == "index.md") "up" else "right",
+      `sandpaper-digest` = yml[["sandpaper-digest"]]
     ), 
-    path = fs::path_ext_set(fs::path_file(path_in), "html"),
+    path = as_html(path_in),
     quiet = quiet
   )
 } 
