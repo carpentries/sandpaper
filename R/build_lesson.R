@@ -25,11 +25,12 @@
 #' check_lesson(tmp)
 #' build_lesson(tmp)
 build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = TRUE) {
-  # step 1: build the markdown vignettes
+  # step 1: build the markdown vignettes and site (if it doesn't exist)
   build_markdown(path = path, rebuild = rebuild, quiet = quiet)
+  create_site(path)
 
-  pkg <- pkgdown::as_pkgdown(path_site(path))
   # step 2: build the package site
+  pkg <- pkgdown::as_pkgdown(path_site(path))
   pkgdown::init_site(pkg)
   episodes <- get_built_files(path)
   for (i in episodes) {

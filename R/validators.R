@@ -33,7 +33,7 @@ assertthat::on_failure(check_episode_name) <- function(call, env) {
   paste0("The file '", eval(call$path, env), "' must start with a two-digit number") 
 }
 
-# reporting of validators
+# reporting of validators ------------------------------------------------------
 report_validation <- function(checklist, msg = "There were errors") {
   errs <- Filter(Negate(isTRUE), checklist)
 

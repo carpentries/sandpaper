@@ -1,12 +1,21 @@
 create_site <- function(path) {
-  fs::dir_create(fs::path(path, "site"))
-  fs::dir_create(fs::path(path, "site", "built"))
 
-  fs::file_create(fs::path(path, "site", "DESCRIPTION"))
-  fs::file_create(fs::path(path, "site", "README.md"))
-  create_site_readme(path)
-  check_git_user(path)
-  create_description(path)
-  yml <- create_pkgdown_yaml(path)
-  write_pkgdown_yaml(yml, path)
+  chk <- check_site_rendered(path)
+
+  if (!isTRUE(chk$site)) fs::dir_create(fs::path(path, "site"))
+
+  if (!isTRUE(chk$readme)) create_site_readme(path)
+
+  if (!isTRUE(chk$built)) fs::dir_create(fs::path(path, "site", "built"))
+
+  if (!isTRUE(chk$description)) {
+    fs::file_create(fs::path(path, "site", "DESCRIPTION"))
+    check_git_user(path)
+    create_description(path)
+  }
+
+  if (!isTRUE(chk$config)) {
+    yml <- create_pkgdown_yaml(path)
+    write_pkgdown_yaml(yml, path)
+  }
 }

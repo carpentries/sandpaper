@@ -69,10 +69,14 @@ create_lesson_readme <- function(name, path) {
 }
 
 create_site_readme <- function(path) {
+  readme <- fs::path(path, "site", "README.md")
+  if (!fs::file_exists(readme)) {
+    fs::file_create(readme)
+  }
   writeLines(glue::glue("
   This directory contains rendered lesson materials. Please do not edit files
   here.  
-  "), con = fs::path(path, "site", "README.md"))
+  "), con = readme)
 }
 
 create_description <- function(path) {
@@ -213,8 +217,10 @@ copy_assets <- function(src, dst) {
   dst <- fs::path(dst, fs::path_file(src))
   if (fs::is_dir(src)) {
     fs::dir_copy(src, dst, overwrite = TRUE)
-  } else {
+  } else if (fs::is_file(src)) {
     fs::file_copy(src, dst, overwrite = TRUE)
+  } else {
+    stop(paste(src, "does not exist"), call. = FALSE)
   }
 }
 
