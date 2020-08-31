@@ -55,6 +55,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
     to_be_removed <- character(0)
   }
 
+  # Render the episode files to the built directory ----------------------------
   ochunk <- knitr::opts_chunk$get()
   on.exit(knitr::opts_chunk$restore(ochunk), add = TRUE)
   set_knitr_opts()
@@ -63,11 +64,16 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
     build_single_episode(to_be_built$episode[i], to_be_built$hash[i], quiet = quiet)
   }
 
-  fs::dir_copy(episode_path("data"), site_path("assets", "data"), overwrite = TRUE)
-  fs::dir_copy(episode_path("files"), site_path("assets", "files"), overwrite = TRUE)
-  fs::dir_copy(episode_path("extras"), site_path("assets", "extras"), overwrite = TRUE)
-  fs::dir_copy(episode_path("fig"), site_path("assets", "fig"), overwrite = TRUE)
-  fs::file_copy(fs::path_abs(artifacts), site_path("assets", fs::path_file(artifacts)), overwrite = TRUE) 
+  # Copy the files to the assets directory -------------------------------------
+  to_copy <- vapply(
+    c("data", "files", "extras", "fig"), 
+    FUN = function(i) enforce_dir(episode_path(i)),
+    FUN.VALUE = character(1)
+  )
+  to_copy <- c(to_copy, artifacts)
+  for (f in to_copy) {
+    copy_assets(f, site_path("assets"))
+  }
 
   if (length(to_be_removed)) fs::file_delete(stats::na.omit(built[to_be_removed]))
 

@@ -10,6 +10,14 @@ make_here <- function(ROOT) {
   function(...) fs::path(ROOT, ...)
 }
 
+# creates a directory if it doesn't exist
+enforce_dir <- function(path) {
+  if (!fs::dir_exists(path)) {
+    fs::dir_create(path)
+  }
+  invisible(path)
+}
+
 path_site <- function(path) {
   home <- root_path(path)
   fs::path(home, "site")
@@ -30,11 +38,13 @@ path_episodes <- function(inpath) {
 }
 
 get_source_files <- function(path) {
-  fs::dir_ls(path_episodes(path), regexp = "*R?md")
+  pe <- enforce_dir(path_episodes(path))
+  fs::dir_ls(pe, regexp = "*R?md")
 }
 
 get_built_files <- function(path) {
-  fs::dir_ls(path_built(path), regexp = no_readme(), perl = TRUE)
+  pb <- enforce_dir(path_built(path))
+  fs::dir_ls(pb, regexp = no_readme(), perl = TRUE)
 }
 
 get_episode_slug <- function(path) {
@@ -42,11 +52,12 @@ get_episode_slug <- function(path) {
 }
 
 get_artifact_files <- function(path) {
-  
-  fs::dir_ls(path_episodes(path), 
+  pe <- enforce_dir(path_episodes(path))
+  fs::dir_ls(pe,
     regexp = "*R?md", 
     invert = TRUE, 
     type = "file", 
     all = TRUE
   )
 }
+
