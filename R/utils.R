@@ -17,6 +17,16 @@ check_git_user <- function(path) {
   }
 }
 
+yaml_commenter <- function(comment) {
+  function(i) {
+    paste0(
+      paste("#", strwrap(comment, width = 78), collapse = "\n"),
+      "\n",
+      yaml::as.yaml(unclass(i))
+    )
+  }
+}
+
 # This checks if we have set a temporary git user and then unsets it. It will 
 # supriously unset a user if they happened to have 
 # "carpenter <team@carpentries.org>" as their email.
@@ -107,12 +117,40 @@ which_carpentry <- function(carpentry) {
   )
 }
 
-yaml_writer <- function(yml, path) {
-  yaml::write_yaml(
+# This is a bit of a hack because the yaml writer doesn't detect comments,
+# so I'm having to mix them in.
+yaml_comments <- c(
+  carpentry = '#------------------------------------------------------------
+# Values for this lesson.
+#------------------------------------------------------------
+
+# Which carpentry is this ("swc", "dc", "lc", or "cp")?
+# swc: Software Carpentry
+# dc: Data Carpentry
+# lc: Library Carpentry
+# cp: Carpentries (to use for instructor traning for instance)',
+  title = '# Overall title for pages.',
+  life_cycle = '# Life cycle stage of the lesson
+# possible values: "pre-alpha", "alpha", "beta", "stable"',
+  license = '# License of the lesson',
+  schedule = '# Rearrange this schedule to match your lesson'
+)
+
+yaml_writer <- function(yml, path, comments = NULL) {
+  yml <- yaml::as.yaml(
     yml, 
-    file = path,
     handlers = list(POSIXct = timestamp)
   )
+  if (!is.null(comments)) {
+    # add in comments for the user
+    for (what in names(comments)) {
+      before <- if (grepl(paste0("\n", what), yml)) "\n\n" else ""
+      key <- paste0("\n?", what, "[:]")
+      value <- paste0(before, comments[[what]], "\n",  what, ":")
+      yml <- sub(key, value, yml)
+    }
+  }
+  cat(yml, file = path)
 }
 
 write_pkgdown_yaml <- function(yml, path) {

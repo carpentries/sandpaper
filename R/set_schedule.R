@@ -30,7 +30,7 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
   yml$schedule <- order
 
   if (write) {
-    yaml_writer(yml, path_config(path))
+    yaml_writer(yml, path_config(path), comments = yaml_comments)
   } else {
     removed <- sched %nin% order
     added   <- order %nin% sched
