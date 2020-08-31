@@ -38,6 +38,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   create_site(path)
 
   create_episode("introduction", path = path)
+  update_schedule(path)
 
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)

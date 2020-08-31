@@ -23,6 +23,11 @@ path_site <- function(path) {
   fs::path(home, "site")
 }
 
+path_config <- function(path) {
+  home <- root_path(path)
+  fs::path(home, "config.yml")
+}
+
 path_site_yaml <- function(path) {
   fs::path(path_site(path), "_pkgdown.yml")
 }

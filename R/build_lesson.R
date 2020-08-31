@@ -31,7 +31,15 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = T
 
   # step 2: build the package site
   pkg <- pkgdown::as_pkgdown(path_site(path))
-  pkgdown::init_site(pkg)
+  if (quiet) {
+    f <- file()
+    on.exit({
+      sink()
+      close(f)
+    }, add = TRUE)
+    sink(f)
+  }
+    pkgdown::init_site(pkg)
   episodes <- get_built_files(path)
   for (i in episodes) {
     build_episode(i, pkg, quiet = quiet)
@@ -55,7 +63,8 @@ build_episode <- function(path_in, pkg, quiet = FALSE) {
       pagetitle = yml$title, 
       body = body
     ), 
-    path = fs::path_ext_set(fs::path_file(path_in), "html")
+    path = fs::path_ext_set(fs::path_file(path_in), "html"),
+    quiet = quiet
   )
 } 
 

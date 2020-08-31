@@ -21,5 +21,6 @@ create_episode <- function(title, make_prefix = TRUE, path = ".") {
   } 
   ename <- paste0(prefix, "-", title, ".Rmd")
   copy_template("episode", fs::path(path, "episodes"), ename)
+  update_schedule(path)
   invisible(fs::path(path, "episodes", ename))
 }

@@ -22,7 +22,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   #       still be able to copy things correctly
   site_path    <- make_here(path_built(path))
 
-  episodes  <- get_source_files(path)
+  episodes  <- episode_path(get_schedule(path))
   artifacts <- get_artifact_files(path)
   built     <- get_built_files(path)
   any_built <- if (rebuild || length(built) == 0) FALSE else TRUE
@@ -79,8 +79,8 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 
   if (nrow(to_be_built) > 0) {
     update_site_timestamp(path)
-    update_site_menu(path, episodes)
   }
+  update_site_menu(path, episodes)
   invisible(TRUE)
 }
 
