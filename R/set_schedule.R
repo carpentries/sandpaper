@@ -32,10 +32,11 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
   if (write) {
     yaml_writer(yml, path_config(path), comments = yaml_comments)
   } else {
-    removed <- sched %nin% order
-    added   <- order %nin% sched
-    order[added] <- cli::style_bold(cli::col_green(order[added]))
     if (requireNamespace("cli", quietly = TRUE)) {
+      # display for the user to distinguish what was added and what was taken 
+      removed <- sched %nin% order
+      added   <- order %nin% sched
+      order[added] <- cli::style_bold(cli::col_green(order[added]))
       cli::cat_line(yaml::as.yaml(yml[names(yml) != "schedule"]), col = "silver")
       cli::cat_line("schedule:")
       cli::cat_bullet(order, bullet = "line")
@@ -49,6 +50,7 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
   }
   invisible()
 }
+
 #' Create the episode schedule for the lesson
 #'
 #' Note: this is not a public-facing function
