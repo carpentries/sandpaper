@@ -166,13 +166,11 @@ create_pkgdown_yaml <- function(path) {
   usr$carpentry <- "swc"
   cname      <- which_carpentry(usr$carpentry)
   yml <- " 
-  title: {cname}
+  title: {usr$title} # needed to set the site title
   home:
     strip_header: true
-    title: {usr$title}
     description: ~
   navbar:
-    title: {usr$title}
     type: default
     left:
       - text: Episodes

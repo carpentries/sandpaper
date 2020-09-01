@@ -26,7 +26,11 @@
 #' build_lesson(tmp)
 build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = TRUE) {
   # step 1: build the markdown vignettes and site (if it doesn't exist)
-  create_site(path)
+  if (rebuild) {
+    clear_site(path)
+  } else {
+    create_site(path)
+  }
   build_markdown(path = path, rebuild = rebuild, quiet = quiet)
 
   # step 2: build the package site
@@ -62,23 +66,22 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = T
 } 
 
 build_episode <- function(path_in, page_back = NULL, page_forward = NULL, pkg, quiet = FALSE) {
-  body <- html_from_md(path_in, quiet = quiet)
-  yml  <- yaml::yaml.load(politely_get_yaml(path_in))
+  body    <- html_from_md(path_in, quiet = quiet)
+  yml     <- yaml::yaml.load(politely_get_yaml(path_in))
   as_html <- function(i) fs::path_ext_set(fs::path_file(i), "html")
   pkgdown::render_page(pkg, 
     "title-body",
     data = list(
       # NOTE: we can add anything we want from the YAML header in here to
       # pass on to the template.
-      pagetitle          = yml$title,
-      body               = body,
-      teaching           = yml$teaching,
-      exercises          = yml$exercises,
-      page_back          = as_html(page_back),
-      left               = if (page_back == "index.md") "up" else "left",
-      page_forward       = as_html(page_forward),
-      right              = if (page_forward == "index.md") "up" else "right",
-      `sandpaper-digest` = yml[["sandpaper-digest"]]
+      body         = body,
+      pagetitle    = yml$title,
+      teaching     = yml$teaching,
+      exercises    = yml$exercises,
+      page_back    = as_html(page_back),
+      left         = if (page_back == "index.md") "up" else "left",
+      page_forward = as_html(page_forward),
+      right        = if (page_forward == "index.md") "up" else "right"
     ), 
     path = as_html(path_in),
     quiet = quiet
