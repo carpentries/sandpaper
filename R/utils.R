@@ -168,6 +168,7 @@ create_pkgdown_yaml <- function(path) {
   yml <- " 
   title: {usr$title} # needed to set the site title
   home:
+    title: Home
     strip_header: true
     description: ~
   navbar:
