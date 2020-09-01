@@ -55,6 +55,12 @@ packages:
 | [{dovetail}](https://github.com/carpentries/dovetail#readme)     | drop-in knitr engine for parsing challenge/solution blocks                |
 | [{gert}](https://github.com/r-lib/gert#readme)                   | a “batteries included” git interface for R                                |
 | [{testthat}](https://github.com/r-lib/testthat#readme) version 3 | runs tests for the package. If you aren’t developing, you shouldn’t worry |
+| [{pkgdown}](https://github.com/r-lib/pkgdown#readme)             | provides utilities to generate templates                                  |
+
+## In-progress example
+
+An in-progress example of this package can be found at
+<https://github.com/zkamvar/miniature-octo-waffle>
 
 ## Design
 
@@ -63,8 +69,8 @@ maintainers easier by separating the tools needed to build the site from
 the user-defined content of the site itself. It will no longer rely on
 Jekyll or any of the other [\>450 static site
 generators](https://staticsitegenerators.net), but instead rely on R,
-RStudio, and [{pkgdown}](https://pkgdown.r-lib.org/) to generate a site
-with the following features:
+RStudio, and [{pkgdown}](https://github.com/r-lib/pkgdown#readme) to
+generate a site with the following features:
 
   - optional offline use
   - lesson versioning (e.g. I can navigate to
@@ -139,6 +145,7 @@ The functions in {sandpaper} have the following prefixes:
   - `fetch_` will download files or resources from the internet
   - `get_` will retrieve information from your source files as an R
     object
+  - `set_` will update information in files.
   - `ci_` interacts with continous integration to build the website
 
 Here is a working list of user-facing functions:
@@ -149,6 +156,7 @@ Here is a working list of user-facing functions:
   - `create_episode()` creates a new episode with the correct number
     prefix
   - `create_dataset()` creates a csv or text data set from an R object
+  - `set_schedule()` arranges the episodes in a user-specified order
 
 **Website Creation and Validation**
 
@@ -305,7 +313,7 @@ sandpaper::ci_deploy(md_branch = "md-outputs", site_branch = "gh-pages")
 This will render the markdown files in the `vignettes/` folder of the
 “md-outputs” branch and then build the site from that folder and
 deploy it to the “gh-pages” branch using the
-[{pkgdown}](https://pkgdown.r-lib.org/) machinery.
+[{pkgdown}](https://github.com/r-lib/pkgdown#readme) machinery.
 
 Because css and js libraries may need updating before any lesson
 material does, a step can be created just for rebuilding the site that

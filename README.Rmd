@@ -57,11 +57,12 @@ Note that this will also install development versions of the following packages:
 | [{dovetail}] | drop-in knitr engine for parsing challenge/solution blocks |
 | [{gert}] | a "batteries included" git interface for R |
 | [{testthat}] version 3 | runs tests for the package. If you aren't developing, you shouldn't worry |
+| [{pkgdown}] | provides utilities to generate templates | 
 
-[{varnish}]: https://github.com/zkamvar/varnish#readme
-[{dovetail}]: https://github.com/carpentries/dovetail#readme
-[{gert}]: https://github.com/r-lib/gert#readme
-[{testthat}]: https://github.com/r-lib/testthat#readme
+
+## In-progress example
+
+An in-progress example of this package can be found at https://github.com/zkamvar/miniature-octo-waffle
 
 ## Design
 
@@ -137,6 +138,7 @@ The functions in {sandpaper} have the following prefixes:
  - `check_` validates either the elements of the lesson and/or episodes
  - `fetch_` will download files or resources from the internet
  - `get_` will retrieve information from your source files as an R object
+ - `set_` will update information in files.
  - `ci_` interacts with continous integration to build the website
 
 Here is a working list of user-facing functions:
@@ -146,6 +148,7 @@ Here is a working list of user-facing functions:
  - `create_lesson()` creates a lesson from scratch
  - `create_episode()` creates a new episode with the correct number prefix
  - `create_dataset()` creates a csv or text data set from an R object
+ - `set_schedule()` arranges the episodes in a user-specified order
 
 **Website Creation and Validation**
 
@@ -160,7 +163,6 @@ Here is a working list of user-facing functions:
  - `ci_deploy()` builds and deploys the lesson on CI from the source files
  - `ci_deploy_site()` deploys the lesson on CI from pre-rendered markdown files
  - `ci_release()` builds and deploys the lesson on CI from the source files and adds a release tag
-
 
 ## Usage
 
@@ -318,6 +320,10 @@ sandpaper::ci_release(tag = "0.1", md_branch = "md-outputs", site_branch = "gh-p
 [Markdown]: https://daringfireball.net/projects/markdown/
 [RMarkdown]: https://rmarkdown.rstudio.com/
 [{learnr}]: https://rstudio.github.io/learnr/index.html
-[{pkgdown}]: https://pkgdown.r-lib.org/
 [{remotes}]: https://remotes.r-lib.org/
 [{usethis}]: https://usethis.r-lib.org/
+[{varnish}]: https://github.com/zkamvar/varnish#readme
+[{dovetail}]: https://github.com/carpentries/dovetail#readme
+[{gert}]: https://github.com/r-lib/gert#readme
+[{testthat}]: https://github.com/r-lib/testthat#readme
+[{pkgdown}]: https://github.com/r-lib/pkgdown#readme
