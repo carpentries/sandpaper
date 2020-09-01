@@ -35,9 +35,8 @@ part of the html page.
 | item 2           | b   |  
 | item 3           | c   |  
 
-<!-- TODO: add questions engine to {dovetail} -->
 
-```{prereq}
+```{questions}
 #' - How do you write a lesson using RMarkdown with {dovtail} and {sandpaper}?
 ```
 
