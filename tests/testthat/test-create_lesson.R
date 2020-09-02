@@ -6,7 +6,12 @@ test_that("lessons can be created in empty directories", {
 
   withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp)
+  wd  <- getwd()
+  suppressMessages({expect_message({
+    res <- create_lesson(tmp, rstudio = TRUE, open = TRUE)
+  }, "Setting active project to")})
+  expect_false(wd == getwd())
+  expect_equal(fs::path(getwd()), tmp)
 
   # Make sure everything exists
   expect_true(check_lesson(tmp))
@@ -25,6 +30,7 @@ test_that("lessons can be created in empty directories", {
   expect_true(fs::file_exists(fs::path(tmp, "site", "built")))
   expect_true(fs::file_exists(fs::path(tmp, "episodes", "01-introduction.Rmd")))
   expect_true(fs::file_exists(fs::path(tmp, ".gitignore")))
+  expect_true(fs::file_exists(fs::path(tmp, paste0(basename(tmp), ".Rproj"))))
   expect_setequal(
     readLines(fs::path(tmp, ".gitignore")), 
     readLines(template_gitignore())

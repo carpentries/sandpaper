@@ -23,7 +23,8 @@ Imports:
     tools,
     knitr,
     rmarkdown,
-    rprojroot
+    rprojroot,
+    usethis
 Suggests: 
     testthat,
     cli (>= 2.0.2),
@@ -31,12 +32,13 @@ Suggests:
     withr,
     dovetail,
     varnish
-Remotes: 
+Remotes:  
     r-lib/testthat,
     r-lib/gert,
     carpentries/dovetail,
     zkamvar/varnish,
-    r-lib/pkgdown
+    r-lib/pkgdown,
+    r-lib/usethis
 Encoding: UTF-8
 LazyData: true
 Config/testthat/edition: 3

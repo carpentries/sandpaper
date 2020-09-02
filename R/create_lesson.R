@@ -40,11 +40,22 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   create_episode("introduction", path = path)
   update_schedule(path)
 
+  if (rstudio) {
+    usethis::with_project(path, usethis::use_rstudio())
+    gi <- readLines(fs::path(path, ".gitignore"))
+    writeLines(gi[-length(gi)], fs::path(path, ".gitignore"))
+  }
+
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
   reset_git_user(path)
   
-  return(path)
+  if (open) {
+    if (usethis::proj_activate(path)) {
+      on.exit()
+    }
+  }
+  invisible(return(path))
 
 }
 
