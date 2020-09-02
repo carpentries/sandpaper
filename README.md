@@ -73,6 +73,8 @@ RStudio, and [{pkgdown}](https://github.com/r-lib/pkgdown#readme) to
 generate a site with the following features:
 
   - optional offline use
+  - filename-agnostic episode arrangements
+  - clear definitions of package versions needed to build the lesson
   - lesson versioning (e.g. I can navigate to
     <https://swcarpentry.github.io/python-novice-gapminder> for the
     current version and
@@ -134,6 +136,19 @@ intensive, this will default to updating only files that were changed.
 
 > I believe that management of these can be done via `git worktree`, but
 > I still need to dig into the mechanics of pkgdown further.
+
+#### Scheduled builds
+
+  - `gh-pages` website: Because we are designing the lessons to have
+    content separated from the styling, we will set up the CI to
+    generate the webpage from the pre-built sources on a weekly basis,
+    which will check if there has been an update to the styles (which I
+    have in the [{varnish}](https://github.com/zkamvar/varnish#readme)
+    package) and then rebuild the site without rebuilding the content.
+  - `md-outputs` branch: This will be rerun every month from scratch
+    with the most recent version of R and R packages. If there is a
+    change, a pull request can be generated to update the `renv.lock`
+    file with a link to the changed markdown files in this branch.
 
 ### Function syntax
 
@@ -304,7 +319,7 @@ the styling.
 
 Ultimately, there should be a minimal number of functions that handle
 this situation because writing CI configuration files is maddening. The
-most straihtforward function is:
+most straightforward function is:
 
 ``` r
 sandpaper::ci_deploy(md_branch = "md-outputs", site_branch = "gh-pages")
