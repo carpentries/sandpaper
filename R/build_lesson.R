@@ -24,7 +24,7 @@
 #' create_episode("first-script", path = tmp)
 #' check_lesson(tmp)
 #' build_lesson(tmp)
-build_lesson <- function(path = ".", rebuild = FALSE, quiet = !rlang::is_interactive(), preview = TRUE) {
+build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), preview = TRUE) {
   # step 1: build the markdown vignettes and site (if it doesn't exist)
   if (rebuild) {
     clear_site(path)

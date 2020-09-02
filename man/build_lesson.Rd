@@ -4,7 +4,12 @@
 \alias{build_lesson}
 \title{Build your lesson sitf}
 \usage{
-build_lesson(path = ".", rebuild = FALSE, quiet = FALSE, preview = TRUE)
+build_lesson(
+  path = ".",
+  rebuild = FALSE,
+  quiet = !interactive(),
+  preview = TRUE
+)
 }
 \arguments{
 \item{path}{the path to your repository (defaults to your current working
