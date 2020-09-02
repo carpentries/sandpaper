@@ -24,7 +24,7 @@
 #' create_episode("first-script", path = tmp)
 #' check_lesson(tmp)
 #' build_lesson(tmp)
-build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = TRUE) {
+build_lesson <- function(path = ".", rebuild = FALSE, quiet = !rlang::is_interactive(), preview = TRUE) {
   # step 1: build the markdown vignettes and site (if it doesn't exist)
   if (rebuild) {
     clear_site(path)
@@ -46,7 +46,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = T
   pkgdown::init_site(pkg)
   episodes <- get_built_files(path)
   n <- length(episodes)
-  if (requireNamespace("cli", quietly = TRUE)) {
+  if (!quiet && requireNamespace("cli", quietly = TRUE)) {
     cli::cli_rule(cli::style_bold("Scanning episodes"))
   }
   for (i in seq_along(episodes)) {

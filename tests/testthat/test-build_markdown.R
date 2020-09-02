@@ -12,7 +12,7 @@ test_that("markdown sources can be built without fail", {
 
   # It's noisy at first
   suppressMessages({
-  expect_output(build_lesson(res, preview = FALSE), "ordinary text without R code")
+  expect_output(build_lesson(res, preview = FALSE, quiet = FALSE), "ordinary text without R code")
   })
 
   # see helper-hash.R
