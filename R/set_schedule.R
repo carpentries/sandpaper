@@ -41,7 +41,7 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
       cli::cat_line("schedule:")
       cli::cat_bullet(order, bullet = "line")
       if (any(removed)) {
-        cli::rule("Removed episodes")
+        cli::cli_rule("Removed episodes")
         cli::cat_bullet(sched[removed], bullet = "cross", bullet_col = "red")
       }
     } else {

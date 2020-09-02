@@ -43,9 +43,12 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = FALSE, preview = T
     }, add = TRUE)
     sink(f)
   }
-    pkgdown::init_site(pkg)
+  pkgdown::init_site(pkg)
   episodes <- get_built_files(path)
   n <- length(episodes)
+  if (requireNamespace("cli", quietly = TRUE)) {
+    cli::cli_rule(cli::style_bold("Scanning episodes"))
+  }
   for (i in seq_along(episodes)) {
     build_episode(
       path_in = episodes[i], 
@@ -110,7 +113,7 @@ html_from_md <- function(path_in, quiet = FALSE) {
     to = "html", options = c(
       "--indented-code-classes=sh", "--section-divs", "--mathjax"
     ),
-    verbose = !quiet
+    verbose = FALSE
   )
   paste(readLines(tmp), collapse = "\n")
 }
