@@ -10,7 +10,7 @@
 #'   links, and questions associated
 #' @keywords internal
 #' @export
-create_syllabus <- function(path = ".", questions = FALSE) {
+get_syllabus <- function(path = ".", questions = FALSE) {
   check_lesson(path)
    
   # The home page contains three things: 
