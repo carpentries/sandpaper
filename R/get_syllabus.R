@@ -6,33 +6,31 @@
 #' @param path the path to a lesson
 #' @param questions if `TRUE`, the questions in the episodes will be added to
 #'   the table. Defaults to `FALSE`.
+#' @param use_built if `TRUE` (default), the rendered episodes will be used to
+#'   generate the syllabus
 #' @return a data frame containing the syllabus for the lesson with the timing,
 #'   links, and questions associated
 #' @keywords internal
 #' @export
-get_syllabus <- function(path = ".", questions = FALSE) {
+get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
   check_lesson(path)
    
   # The home page contains three things: 
   # 0. The main title as a header
-  # 1. the content of index.md from the top level of the lesson directory.
+  # 1. the content of index.md from the top level of the lesson directory
   # 2. The computed syllabus
   #
   # The syllabus is a table containing timings, links, and questions associated
   # with each episode.
   
-  # step 1: gather the episodes
   sched    <- get_schedule(path)
   episodes <- lapply(fs::path(path_episodes(path), sched), function(i) pegboard::Episode$new(i))
   
-  # step 2: get the questions
   quest <- if (questions) vapply(episodes, get_questions, character(1)) else NULL
 
-  # step 3: get yaml data
   timings <- vapply(episodes, get_timings, numeric(1))
   titles  <- vapply(episodes, get_titles, character(1))
 
-  # step 4: get the paths
   paths <- fs::path(pkgdown::as_pkgdown(path_site(path))$dst_path, sched)
   paths <- fs::path_ext_set(paths, "html")
   

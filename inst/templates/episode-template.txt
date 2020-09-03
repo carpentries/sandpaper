@@ -37,7 +37,7 @@ part of the html page.
 
 
 ```{questions}
-#' - How do you write a lesson using RMarkdown with {dovtail} and {sandpaper}?
+#' - How do you write a lesson using RMarkdown with `{dovetail}` and `{sandpaper}`?
 ```
 
 ```{objectives}

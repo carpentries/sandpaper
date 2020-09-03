@@ -12,6 +12,7 @@ License: MIT + file LICENSE
 Imports: 
     pkgdown (>= 1.5.1.9000),
     pegboard (>= 0.0.0.9001),
+    commonmark,
     xml2,
     fs,
     gert (> 0.3),
@@ -21,20 +22,20 @@ Imports:
     assertthat,
     yaml,
     desc,
-    utils,
-    tools,
     knitr,
     rmarkdown,
     rprojroot,
-    usethis
+    usethis,
+    utils,
+    tools
 Suggests: 
     testthat,
     cli (>= 2.0.2),
     covr,
     withr,
     dovetail,
-    varnish
-Remotes:  
+    varnish (>= 0.0.0.9001)
+Remotes: 
     r-lib/testthat,
     r-lib/gert,
     carpentries/dovetail,

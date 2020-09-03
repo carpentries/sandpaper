@@ -4,13 +4,16 @@
 \alias{get_syllabus}
 \title{Create a syllabus for the lesson}
 \usage{
-get_syllabus(path = ".", questions = FALSE)
+get_syllabus(path = ".", questions = FALSE, use_built = TRUE)
 }
 \arguments{
 \item{path}{the path to a lesson}
 
 \item{questions}{if \code{TRUE}, the questions in the episodes will be added to
 the table. Defaults to \code{FALSE}.}
+
+\item{use_built}{if \code{TRUE} (default), the rendered episodes will be used to
+generate the syllabus}
 }
 \value{
 a data frame containing the syllabus for the lesson with the timing,

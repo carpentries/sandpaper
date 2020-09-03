@@ -15,7 +15,7 @@ test_that("syllabus can be extracted from source files", {
   expect_equal(res$episode, c("Using RMarkdown", "Finish"))
   expect_equal(fs::path_file(res$path), c("01-introduction.html", ""))
 
-  q <- "How do you write a lesson using RMarkdown with {dovtail} and {sandpaper}?"
+  q <- "How do you write a lesson using RMarkdown with `{dovetail}` and `{sandpaper}`?"
   create_episode("postroduction", path = tmp)
   res <- get_syllabus(tmp, questions = TRUE)
   expect_named(res, c("episode", "timings", "path", "questions"))
