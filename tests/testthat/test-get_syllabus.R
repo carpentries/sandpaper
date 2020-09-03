@@ -8,7 +8,7 @@ test_that("syllabus can be extracted from source files", {
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp, open = FALSE, rstudio = FALSE)
 
-  res <- create_syllabus(tmp)
+  res <- get_syllabus(tmp)
   expect_named(res, c("episode", "timings", "path"))
   expect_equal(nrow(res), 1)
   expect_equal(res$timings, "00:12")
@@ -17,7 +17,7 @@ test_that("syllabus can be extracted from source files", {
 
   q <- "How do you write a lesson using RMarkdown with {dovtail} and {sandpaper}?"
   create_episode("postroduction", path = tmp)
-  res <- create_syllabus(tmp, questions = TRUE)
+  res <- get_syllabus(tmp, questions = TRUE)
   expect_named(res, c("episode", "timings", "path", "questions"))
   expect_equal(nrow(res), 2)
   expect_equal(res$timings, c("00:12", "00:24"))
