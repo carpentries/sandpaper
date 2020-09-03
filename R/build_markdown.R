@@ -81,7 +81,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
     update_site_timestamp(path)
   }
   update_site_menu(path, episodes)
-  invisible(TRUE)
+  invisible(to_be_built)
 }
 
 build_single_episode <- function(path, hash, env = new.env(), quiet = FALSE) {

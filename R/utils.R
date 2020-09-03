@@ -3,6 +3,8 @@
 
 `%nin%` <- Negate("%in%")
 
+as_html <- function(i) fs::path_ext_set(fs::path_file(i), "html")
+
 # Functions for backwards compatibility for R < 3.5
 isFALSE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && !x
 isTRUE  <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && x

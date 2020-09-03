@@ -20,7 +20,7 @@
 #' @examples
 #'
 #' tmp <- tempfile()
-#' create_lesson(tmp)
+#' create_lesson(tmp, open = FALSE)
 #' create_episode("first-script", path = tmp)
 #' check_lesson(tmp)
 #' build_lesson(tmp)
@@ -31,7 +31,8 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   } else {
     create_site(path)
   }
-  build_markdown(path = path, rebuild = rebuild, quiet = quiet)
+
+  built <- build_markdown(path = path, rebuild = rebuild, quiet = quiet)
 
   # step 2: build the package site
   pkg <- pkgdown::as_pkgdown(path_site(path))
@@ -63,7 +64,10 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
     function(d) copy_assets(d, pkg$dst_path),
     all = TRUE
   )
-  pkgdown::build_home(pkg, quiet = quiet, preview = FALSE)
+  if (!quiet && requireNamespace("cli", quietly = TRUE)) {
+    cli::cli_rule(cli::style_bold("Creating Schedule"))
+  }
+  build_home(pkg, quiet = quiet)
   pkgdown::preview_site(pkg, "/", preview = preview)
   
 } 
@@ -71,7 +75,6 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
 build_episode <- function(path_in, page_back = NULL, page_forward = NULL, pkg, quiet = FALSE) {
   body    <- html_from_md(path_in, quiet = quiet)
   yml     <- yaml::yaml.load(politely_get_yaml(path_in))
-  as_html <- function(i) fs::path_ext_set(fs::path_file(i), "html")
   pkgdown::render_page(pkg, 
     "title-body",
     data = list(
