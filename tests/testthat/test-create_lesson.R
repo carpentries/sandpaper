@@ -2,7 +2,7 @@ test_that("lessons can be created in empty directories", {
 
   tmpdir <- fs::file_temp()
   fs::dir_create(tmpdir)
-  tmp    <- fs::path(tmpdir, "lesson-example")
+  tmp    <- normalizePath(fs::path(tmpdir, "lesson-example"))
 
   withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
