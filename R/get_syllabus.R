@@ -37,16 +37,17 @@ get_syllabus <- function(path = ".", questions = FALSE) {
   paths <- fs::path_ext_set(paths, "html")
   
   start <- as.POSIXlt("00:00", format = "%H:%M", tz = "UTC")
-  cumulative_minutes <- cumsum(timings)
+  # Note: we are creating a start time of 0 and adding "Finish" to the end.
+  cumulative_minutes <- cumsum(c(0, timings))
 
   out <- data.frame(
-    episode = titles, 
+    episode = c(titles, "Finish"), 
     timings = format(start + cumulative_minutes * 60L, "%H:%M"),
-    path = paths,
+    path = c(paths, ""),
     stringsAsFactors = FALSE
   )
   if (questions) {
-    out$questions <- quest
+    out$questions <- c(quest, "")
   }
   return(out)
 }
