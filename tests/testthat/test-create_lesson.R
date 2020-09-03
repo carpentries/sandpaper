@@ -2,16 +2,17 @@ test_that("lessons can be created in empty directories", {
 
   tmpdir <- fs::file_temp()
   fs::dir_create(tmpdir)
-  tmp    <- normalizePath(fs::path(tmpdir, "lesson-example"))
+  tmp    <- fs::path(tmpdir, "lesson-example")
 
   withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
-  wd  <- normalizePath(getwd())
+  wd  <- fs::path(normalizePath(getwd()))
   suppressMessages({expect_message({
     res <- create_lesson(tmp, rstudio = TRUE, open = TRUE)
   }, "Setting active project to")})
-  expect_false(wd == normalizePath(getwd()))
-  expect_equal(fs::path(normalizePath(getwd())), tmp)
+  tmp <- normalizePath(tmp)
+  expect_false(wd == fs::path(normalizePath(getwd())))
+  expect_equal(normalizePath(getwd()), tmp)
 
   # Make sure everything exists
   expect_true(check_lesson(tmp))
