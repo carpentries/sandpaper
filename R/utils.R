@@ -106,6 +106,9 @@ create_pkgdown_yaml <- function(path) {
       config  = path_config(path),
       title   = usr$title,
       time    = UTC_timestamp(Sys.time()),
+      source  = usr$source,
+      branch  = usr$branch,
+      contact = usr$contact,
       # What carpentry are we dealing with?
       carpentry_name = which_carpentry(usr$carpentry),
       carpentry      = usr$carpentry,

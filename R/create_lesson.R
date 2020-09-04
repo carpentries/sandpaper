@@ -34,10 +34,13 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   copy_template("gitignore", path, ".gitignore")
   copy_template("config", path, "config.yml",
     values = list(
-      title = "Lesson Title",
-      carpentry = "swc",
+      title      = "Lesson Title",
+      carpentry  = "cp",
       life_cycle = "pre-alpha",
-      license = "CC-BY 4.0",
+      license    = "CC-BY 4.0",
+      source     = "https://github.com/carpentries/sandpaper",
+      branch     = "main",
+      contact    = "team@carpentries.org",
       NULL
     )
   )

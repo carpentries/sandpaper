@@ -19,5 +19,14 @@ life_cycle: {{ life_cycle }}
 # License of the lesson
 license: {{ license }}
 
+# Link to the source repository for this lesson
+source: {{ source }}
+
+# Default branch of your lesson
+branch: {{ branch }}
+
+# Who to contact if there are any issues
+contact: {{ contact }}
+
 # Rearrange this schedule to match your lesson
 {{ schedule }}

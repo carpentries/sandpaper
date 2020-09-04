@@ -73,8 +73,9 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
 } 
 
 build_episode <- function(path_in, page_back = NULL, page_forward = NULL, pkg, quiet = FALSE) {
-  body    <- html_from_md(path_in, quiet = quiet)
-  yml     <- yaml::yaml.load(politely_get_yaml(path_in))
+  home <- root_path(path_in)
+  body <- html_from_md(path_in, quiet = quiet)
+  yml  <- yaml::yaml.load(politely_get_yaml(path_in))
   pkgdown::render_page(pkg, 
     "title-body",
     data = list(
@@ -84,6 +85,7 @@ build_episode <- function(path_in, page_back = NULL, page_forward = NULL, pkg, q
       pagetitle    = yml$title,
       teaching     = yml$teaching,
       exercises    = yml$exercises,
+      file_source  = fs::path_rel(get_source_buddy(path_in), start = home),
       page_back    = as_html(page_back),
       left         = if (page_back == "index.md") "up" else "left",
       page_forward = as_html(page_forward),

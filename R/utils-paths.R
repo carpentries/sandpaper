@@ -52,6 +52,16 @@ get_built_files <- function(path) {
   fs::dir_ls(pb, regexp = no_readme(), perl = TRUE)
 }
 
+get_source_buddy <- function(path) {
+  slug <- get_episode_slug(path)
+  fs::dir_ls(path_episodes(path), regexp = paste0(slug, "[.]R?md"))
+}
+
+get_built_buddy <- function(path) {
+  slug <- get_episode_slug(path)
+  fs::dir_ls(path_built(path), regexp = paste0(slug, ".md"), fixed = TRUE)
+}
+
 get_episode_slug <- function(path) {
   fs::path_ext_remove(fs::path_file(path))
 }
