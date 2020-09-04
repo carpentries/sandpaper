@@ -27,7 +27,8 @@ Imports:
     rprojroot,
     usethis,
     utils,
-    tools
+    tools,
+    whisker
 Suggests: 
     testthat,
     cli (>= 2.0.2),

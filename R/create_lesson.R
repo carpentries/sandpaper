@@ -32,7 +32,15 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   fs::file_create(fs::path(path, "README.md"))
 
   copy_template("gitignore", path, ".gitignore")
-  copy_template("config", path, "config.yml")
+  copy_template("config", path, "config.yml",
+    values = list(
+      title = "Lesson Title",
+      carpentry = "swc",
+      life_cycle = "pre-alpha",
+      license = "CC-BY 4.0",
+      NULL
+    )
+  )
 
   create_lesson_readme(name, path)
   create_site(path)

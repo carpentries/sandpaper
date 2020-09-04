@@ -2,11 +2,7 @@ tmpdir <- fs::file_temp()
 fs::dir_create(tmpdir)
 tmp    <- fs::path(tmpdir, "lesson-example")
 withr::defer(fs::dir_delete(tmp))
-res <- create_lesson(tmp)
-
-test_that("template has no schedule element", {
-  expect_null(yaml::read_yaml(template_config())$schedule)
-})
+res <- create_lesson(tmp, open = FALSE)
 
 test_that("adding episodes will concatenate the schedule", {
 

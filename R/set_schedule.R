@@ -30,7 +30,17 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
   yml$schedule <- order
 
   if (write) {
-    yaml_writer(yml, path_config(path), comments = yaml_comments)
+    copy_template("config", path, "config.yml",
+      values = list(
+        title      = yml$title,
+        carpentry  = yml$carpentry,
+        life_cycle = yml$life_cycle,
+        license    = yml$license,
+        schedule   = yaml::as.yaml(yml['schedule']),
+        NULL
+      )
+    )
+    # yaml_writer(yml, path_config(path), comments = yaml_comments)
   } else {
     if (requireNamespace("cli", quietly = TRUE)) {
       # display for the user to distinguish what was added and what was taken 

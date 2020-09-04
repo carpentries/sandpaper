@@ -10,9 +10,14 @@ generate_template_function <- function(f) {
 #nocov end
 
 # copy template on disk
-copy_template <- function(template, path, name) {
+copy_template <- function(template, path, name, values = NULL) {
   template <- eval(parse(text = paste0("template_", template, "()")))
-  fs::file_copy(template, new_path = fs::path(path, name))
+  if (!is.null(values)) {
+    temp <- readLines(template, encoding = "UTF-8")
+    writeLines(whisker::whisker.render(temp, values), fs::path(path, name))
+  } else {
+    fs::file_copy(template, new_path = fs::path(path, name))
+  }
 }
 
 # Exported ---------------------------------------------------------------------
@@ -40,6 +45,10 @@ template_links <- generate_template_function("links")
 #' @rdname template
 #' @export
 template_config <- generate_template_function("config")
+
+#' @rdname template
+#' @export
+template_pkgdown <- generate_template_function("pkgdown-yaml")
 
 
 

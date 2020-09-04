@@ -5,10 +5,11 @@
 
 as_html <- function(i) fs::path_ext_set(fs::path_file(i), "html")
 
+UTC_timestamp <- function(x) format(x, "%F %T %z", tz = "UTC")
+
 # Functions for backwards compatibility for R < 3.5
 isFALSE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && !x
 isTRUE  <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && x
-quot <- function(x) paste0("\"", x, "\"")
 
 # If the git user is not set, we set a temporary one, note that this is paired
 # with reset_git_user()
@@ -16,16 +17,6 @@ check_git_user <- function(path) {
   if (!gert::user_is_configured(path)) {
     gert::git_config_set("user.name", "carpenter", repo = path)
     gert::git_config_set("user.email", "team@carpentries.org", repo = path)
-  }
-}
-
-yaml_commenter <- function(comment) {
-  function(i) {
-    paste0(
-      paste("#", strwrap(comment, width = 78), collapse = "\n"),
-      "\n",
-      yaml::as.yaml(unclass(i))
-    )
   }
 }
 
@@ -57,20 +48,6 @@ set_fig_path <- function(slug) {
   knitr::opts_chunk$set(fig.path = file.path("fig", paste0(slug, "-")))
 }
 
-#nocov start
-# Make it easy to contribute to our gitignore template, but also avoid having
-# to reload this thing every time we need it 
-gitignore_items <- function() {
-  ours <- readLines(template_gitignore(), encoding = "UTF-8")
-  ours[!grepl("^([#].+?|)$", trimws(ours))]
-}
-
-.onLoad <- function(libname, pkgname) {
-  ns <- asNamespace(pkgname)
-  delayedAssign("GITIGNORED", gitignore_items(), eval.env = ns, assign.env = ns)
-}
-#nocov end
-
 create_lesson_readme <- function(name, path) {
 
   writeLines(glue::glue("# {name}
@@ -92,7 +69,7 @@ create_site_readme <- function(path) {
 }
 
 create_description <- function(path) {
-  yml <- yaml::read_yaml(fs::path(path, "config.yml"))
+  yml <- yaml::read_yaml(path_config(path))
   the_author <- paste(gert::git_signature_default(path), "[aut, cre]")
   the_author <- utils::as.person(the_author)
   desc <- desc::description$new("!new")
@@ -108,8 +85,6 @@ create_description <- function(path) {
   desc$write(fs::path(path_site(path), "DESCRIPTION"))
 }
 
-timestamp <- function(x) format(x, "%F %T %z", tz = "UTC")
-
 which_carpentry <- function(carpentry) {
   switch(carpentry,
     lc = "Library Carpentry",
@@ -119,132 +94,54 @@ which_carpentry <- function(carpentry) {
   )
 }
 
-# This is a bit of a hack because the yaml writer doesn't detect comments,
-# so I'm having to mix them in.
-yaml_comments <- c(
-  carpentry = '#------------------------------------------------------------
-# Values for this lesson.
-#------------------------------------------------------------
-
-# Which carpentry is this ("swc", "dc", "lc", or "cp")?
-# swc: Software Carpentry
-# dc: Data Carpentry
-# lc: Library Carpentry
-# cp: Carpentries (to use for instructor traning for instance)',
-  title = '# Overall title for pages.',
-  life_cycle = '# Life cycle stage of the lesson
-# possible values: "pre-alpha", "alpha", "beta", "stable"',
-  license = '# License of the lesson',
-  schedule = '# Rearrange this schedule to match your lesson'
-)
-
-yaml_writer <- function(yml, path, comments = NULL) {
-  yml <- yaml::as.yaml(
-    yml, 
-    handlers = list(POSIXct = timestamp)
-  )
-  if (!is.null(comments)) {
-    # add in comments for the user
-    for (what in names(comments)) {
-      before <- if (grepl(paste0("\n", what), yml)) "\n\n" else ""
-      key <- paste0("\n?", what, "[:]")
-      value <- paste0(before, comments[[what]], "\n",  what, ":")
-      yml <- sub(key, value, yml)
-    }
-  }
-  cat(yml, file = path)
-}
-
-write_pkgdown_yaml <- function(yml, path) {
-  yaml_writer(yml, path_site_yaml(path))
-}
-
 create_pkgdown_yaml <- function(path) {
-  usr <- yaml::read_yaml(fs::path(path, "config.yml"))
-  life_cycle <- if (usr$life_cycle == "stable")    "~"  else usr$life_cycle
-  pre_alpha  <- if (usr$life_cycle == "pre-alpha") TRUE else "~"
-  alpha      <- if (usr$life_cycle == "alpha")     TRUE else "~"
-  beta       <- if (usr$life_cycle == "beta")      TRUE else "~"
-  usr$carpentry <- "swc"
-  cname      <- which_carpentry(usr$carpentry)
-  yml <- " 
-  title: {usr$title} # needed to set the site title
-  home:
-    title: Home
-    strip_header: true
-    description: ~
-  navbar:
-    type: default
-    left:
-      - text: Episodes
-        menu: ~ # episodes will be populated here
-  template:
-    package: varnish
-    params:
-      time: {Sys.time()}
-      cp: {usr$carpentry == 'cp'}
-      lc: {usr$carpentry == 'lc'}
-      dc: {usr$carpentry == 'dc'}
-      swc: {usr$carpentry == 'swc'}
-      carpentry: {usr$carpentry}
-      carpentry_name: {cname}
-      life_cycle: {life_cycle}
-      pre_alpha: {pre_alpha}
-      alpha: {alpha}
-      beta: {beta}
-  "
-  yaml::yaml.load(glue::glue(yml))
+  # The user does not interact with this and {{mustache}} is logic-less, so we
+  # can be super-verbose here and create any logic we need on the R-side.
+  usr <- yaml::read_yaml(path_config(path))
+  yml <- get_yaml_text(template_pkgdown())
+  yml <- whisker::whisker.render(yml, 
+    data = list(
+      # Basic information
+      version = utils::packageVersion("sandpaper"),
+      config  = path_config(path),
+      title   = usr$title,
+      time    = UTC_timestamp(Sys.time()),
+      # What carpentry are we dealing with?
+      carpentry_name = which_carpentry(usr$carpentry),
+      carpentry      = usr$carpentry,
+      cp             = usr$carpentry == 'cp',
+      lc             = usr$carpentry == 'lc',
+      dc             = usr$carpentry == 'dc',
+      swc            = usr$carpentry == 'swc',
+      # Should we display a lifecycle banner?
+      life_cycle = if (usr$life_cycle == "stable")    "~"  else usr$life_cycle,
+      pre_alpha  = if (usr$life_cycle == "pre-alpha") TRUE else "~",
+      alpha      = if (usr$life_cycle == "alpha")     TRUE else "~",
+      beta       = if (usr$life_cycle == "beta")      TRUE else "~",
+      NULL     
+    )
+  )
+  structure(yaml::yaml.load(yml), header = get_information_header(yml))
 }
 
 update_site_timestamp <- function(path) {
-  yml <- yaml::read_yaml(path_site_yaml(path)) 
+  yml <- get_path_site_yaml(path) 
   yml$template$params$time <- Sys.time()
   write_pkgdown_yaml(yml, path)
 }
 
 update_site_menu <- function(path, episodes) {
-  yml <- yaml::read_yaml(path_site_yaml(path))
+  yml <- get_path_site_yaml(path)
   res <- lapply(episodes, function(i) {
     txt <- yaml::yaml.load(politely_get_yaml(i))$title
     list(
       pagetitle = txt,
       text  = txt,
-      href  = fs::path_ext_set(fs::path_file(i), "html")
+      href  = as_html(i)
     )
   })
   yml$navbar$left[[1]]$menu <- unname(res)
   write_pkgdown_yaml(yml, path)
-}
-
-# Query only the yaml header. This is faster than slurping the entire file...
-# useful for determining timings :)
-politely_get_yaml <- function(path) {
-  header <- readLines(path, n = 10, encoding = "UTF-8")
-  barriers <- grep("^---$", header)
-  if (length(barriers) == 0) {
-    stop("No yaml header")
-  }
-  if (length(barriers) == 1) {
-    to_skip <- 10L
-    next_ten <- vector(mode = "character", length = 10)
-    while (length(barriers) < 2) {
-      next_ten <- scan(
-        path, 
-        what = character(),
-        sep = "\n",
-        skip = to_skip,
-        nlines = 10,
-        encoding = "UTF-8",
-        quiet = TRUE,
-        blank.lines.skip = FALSE,
-        skipNul = FALSE
-      )
-      header <- c(header, next_ten)
-      barriers <- grep("^---$", header)
-      to_skip <- to_skip + 10L
-    }
-  }
-  return(header[barriers[1]:barriers[2]])
 }
 
 get_hash <- function(path) {
@@ -263,3 +160,16 @@ copy_assets <- function(src, dst) {
   }
 }
 
+#nocov start
+# Make it easy to contribute to our gitignore template, but also avoid having
+# to reload this thing every time we need it 
+gitignore_items <- function() {
+  ours <- readLines(template_gitignore(), encoding = "UTF-8")
+  ours[!grepl("^([#].+?|)$", trimws(ours))]
+}
+
+.onLoad <- function(libname, pkgname) {
+  ns <- asNamespace(pkgname)
+  delayedAssign("GITIGNORED", gitignore_items(), eval.env = ns, assign.env = ns)
+}
+#nocov end

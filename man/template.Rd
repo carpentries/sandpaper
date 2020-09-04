@@ -5,6 +5,7 @@
 \alias{template_episode}
 \alias{template_links}
 \alias{template_config}
+\alias{template_pkgdown}
 \title{Template files}
 \usage{
 template_gitignore()
@@ -14,6 +15,8 @@ template_episode()
 template_links()
 
 template_config()
+
+template_pkgdown()
 }
 \value{
 a character string with the path to the template within the
