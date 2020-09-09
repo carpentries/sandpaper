@@ -10,8 +10,8 @@ Authors@R:
 Description: Boilerplate directory structure, build tools, and hosting tools for your lesson. 
 License: MIT + file LICENSE
 Imports: 
-    pkgdown (>= 1.5.1.9000),
-    pegboard (>= 0.0.0.9001),
+    pkgdown (>= 1.6.0),
+    pegboard (>= 0.0.0.9002),
     commonmark,
     xml2,
     fs,
@@ -42,7 +42,6 @@ Remotes:
     carpentries/dovetail,
     carpentries/pegboard,
     zkamvar/varnish,
-    r-lib/pkgdown,
     r-lib/usethis
 Encoding: UTF-8
 LazyData: true
