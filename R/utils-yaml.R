@@ -29,23 +29,23 @@ politely_get_yaml <- function(path) {
   return(header[barriers[1]:barriers[2]])
 }
 
-yaml_writer <- function(yml, path) {
+yaml_writer <- function(yaml, path) {
   # if this is null, no harm done
-  header <- attr(yml, "header")
-  yml <- yaml::as.yaml(
-    yml, 
+  header <- attr(yaml, "header")
+  yaml <- yaml::as.yaml(
+    yaml, 
     handlers = list(POSIXct = UTC_timestamp)
   )
-  writeLines(c(header, yml), path)
+  writeLines(c(header, yaml), path)
 }
 
-write_pkgdown_yaml <- function(yml, path) {
-  yaml_writer(yml, path_site_yaml(path))
+write_pkgdown_yaml <- function(yaml, path) {
+  yaml_writer(yaml, path_site_yaml(path))
 }
 
-get_information_header <- function(yml) {
-  last_pos   <- gregexpr("- information", yml, fixed = TRUE)[[1]][[2]]
-  substring(yml, 1, last_pos + nchar("- information"))
+get_information_header <- function(yaml) {
+  last_pos   <- gregexpr("- information", yaml, fixed = TRUE)[[1]][[2]]
+  substring(yaml, 1, last_pos + nchar("- information"))
 }
 
 # Returns a character vector of the yaml file with comments in tact
@@ -63,6 +63,6 @@ get_yaml_text <- function(path, collapse = TRUE) {
 }
 
 get_path_site_yaml <- function(path) {
-  yml <- get_yaml_text(path_site_yaml(path))
-  structure(yaml::yaml.load(yml), header = get_information_header(yml))
+  yaml <- get_yaml_text(path_site_yaml(path))
+  structure(yaml::yaml.load(yaml), header = get_information_header(yaml))
 }

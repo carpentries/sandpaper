@@ -25,21 +25,21 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
   if (is.null(order)) {
     stop("schedule must have an order")
   }
-  yml <- get_config(path)
-  sched <- yml$schedule
-  yml$schedule <- if (length(order) == 1L) list(order) else order
+  yaml <- get_config(path)
+  sched <- yaml$schedule
+  yaml$schedule <- if (length(order) == 1L) list(order) else order
 
   if (write) {
-    copy_template("config", path, "config.yml",
+    copy_template("config", path, "config.yaml",
       values = list(
-        title      = yml$title,
-        carpentry  = yml$carpentry,
-        life_cycle = yml$life_cycle,
-        license    = yml$license,
-        source     = yml$source,
-        branch     = yml$branch,
-        contact    = yml$contact,
-        schedule   = paste0('\n', yaml::as.yaml(yml[['schedule']])),
+        title      = yaml$title,
+        carpentry  = yaml$carpentry,
+        life_cycle = yaml$life_cycle,
+        license    = yaml$license,
+        source     = yaml$source,
+        branch     = yaml$branch,
+        contact    = yaml$contact,
+        schedule   = paste0('\n', yaml::as.yaml(yaml[['schedule']])),
         NULL
       )
     )
@@ -49,7 +49,7 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
       removed <- sched %nin% order
       added   <- order %nin% sched
       order[added] <- cli::style_bold(cli::col_green(order[added]))
-      cli::cat_line(yaml::as.yaml(yml[names(yml) != "schedule"]), col = "silver")
+      cli::cat_line(yaml::as.yaml(yaml[names(yaml) != "schedule"]), col = "silver")
       cli::cat_line("schedule:")
       cli::cat_bullet(order, bullet = "line")
       if (any(removed)) {
@@ -57,7 +57,7 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
         cli::cat_bullet(sched[removed], bullet = "cross", bullet_col = "red")
       }
     } else {
-      cat(yaml::as.yaml(yml))
+      cat(yaml::as.yaml(yaml))
     }
   }
   invisible()

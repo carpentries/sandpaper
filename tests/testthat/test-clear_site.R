@@ -13,7 +13,7 @@ test_that("the site can be cleared", {
   # Make sure everything exists
   expect_true(check_lesson(tmp))
 
-  expected <- c("DESCRIPTION", "README.md", "_pkgdown.yml", "built")
+  expected <- c("DESCRIPTION", "README.md", "_pkgdown.yaml", "built")
   clean_site <- fs::dir_ls(fs::path(tmp, "site"))
   expect_length(clean_site, 4)
   expect_setequal(clean_site, fs::path(tmp, "site", expected))

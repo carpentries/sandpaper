@@ -7,7 +7,7 @@ test_that("null pipe works", {
 
 test_that("polite yaml works", {
 
-yml <- "---
+yaml <- "---
 a: |
   this
   
@@ -38,7 +38,7 @@ This is not poetry
 "
 
   tmp <- tempfile()
-  cat(yml, file = tmp, sep = "\n")
+  cat(yaml, file = tmp, sep = "\n")
   rl <- readLines(tmp)
   pgy <- politely_get_yaml(tmp)
   YML <- yaml::yaml.load(pgy)

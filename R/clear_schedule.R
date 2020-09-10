@@ -14,16 +14,16 @@
 #' get_schedule(tmp) # produces warning again because there is no schedule
 clear_schedule <- function(path = ".") {
   check_lesson(path)
-  yml <- get_config(path)
-  copy_template("config", path, "config.yml",
+  yaml <- get_config(path)
+  copy_template("config", path, "config.yaml",
     values = list(
-      title      = yml$title,
-      carpentry  = yml$carpentry,
-      life_cycle = yml$life_cycle,
-      license    = yml$license,
-      source     = yml$source,
-      branch     = yml$branch,
-      contact    = yml$contact,
+      title      = yaml$title,
+      carpentry  = yaml$carpentry,
+      life_cycle = yaml$life_cycle,
+      license    = yaml$license,
+      source     = yaml$source,
+      branch     = yaml$branch,
+      contact    = yaml$contact,
       NULL
     )
   )

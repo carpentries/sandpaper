@@ -69,7 +69,7 @@ create_site_readme <- function(path) {
 }
 
 create_description <- function(path) {
-  yml <- yaml::read_yaml(path_config(path))
+  yaml <- yaml::read_yaml(path_config(path))
   the_author <- paste(gert::git_signature_default(path), "[aut, cre]")
   the_author <- utils::as.person(the_author)
   desc <- desc::description$new("!new")
@@ -77,9 +77,9 @@ create_description <- function(path) {
   desc$set_authors(the_author)
   desc$set(
     Package     = "lesson",
-    Title       = yml$title,
+    Title       = yaml$title,
     Description = "Lesson Template (not a real package).",
-    License     = yml$license,
+    License     = yaml$license,
     Encoding    = "UTF-8"
   )
   desc$write(fs::path(path_site(path), "DESCRIPTION"))
@@ -98,8 +98,8 @@ create_pkgdown_yaml <- function(path) {
   # The user does not interact with this and {{mustache}} is logic-less, so we
   # can be super-verbose here and create any logic we need on the R-side.
   usr <- yaml::read_yaml(path_config(path))
-  yml <- get_yaml_text(template_pkgdown())
-  yml <- whisker::whisker.render(yml, 
+  yaml <- get_yaml_text(template_pkgdown())
+  yaml <- whisker::whisker.render(yaml, 
     data = list(
       # Basic information
       version = utils::packageVersion("sandpaper"),
@@ -124,17 +124,17 @@ create_pkgdown_yaml <- function(path) {
       NULL     
     )
   )
-  structure(yaml::yaml.load(yml), header = get_information_header(yml))
+  structure(yaml::yaml.load(yaml), header = get_information_header(yaml))
 }
 
 update_site_timestamp <- function(path) {
-  yml <- get_path_site_yaml(path) 
-  yml$template$params$time <- Sys.time()
-  write_pkgdown_yaml(yml, path)
+  yaml <- get_path_site_yaml(path) 
+  yaml$template$params$time <- Sys.time()
+  write_pkgdown_yaml(yaml, path)
 }
 
 update_site_menu <- function(path, episodes) {
-  yml <- get_path_site_yaml(path)
+  yaml <- get_path_site_yaml(path)
   res <- lapply(episodes, function(i) {
     txt <- yaml::yaml.load(politely_get_yaml(i))$title
     list(
@@ -143,13 +143,13 @@ update_site_menu <- function(path, episodes) {
       href  = as_html(i)
     )
   })
-  yml$navbar$left[[1]]$menu <- unname(res)
-  write_pkgdown_yaml(yml, path)
+  yaml$navbar$left[[1]]$menu <- unname(res)
+  write_pkgdown_yaml(yaml, path)
 }
 
 get_hash <- function(path) {
-  yml <- politely_get_yaml(path)
-  sub("sandpaper-digest: ", "", grep("sandpaper-digest: ", yml, value = TRUE))
+  yaml <- politely_get_yaml(path)
+  sub("sandpaper-digest: ", "", grep("sandpaper-digest: ", yaml, value = TRUE))
 }
 
 copy_assets <- function(src, dst) {
