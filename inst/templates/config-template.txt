@@ -7,7 +7,7 @@
 # dc: Data Carpentry
 # lc: Library Carpentry
 # cp: Carpentries (to use for instructor traning for instance)
-carpentry: {{ carpentry }} 
+carpentry: {{ carpentry }}
 
 # Overall title for pages.
 title: {{ title }}
@@ -29,4 +29,4 @@ branch: {{ branch }}
 contact: {{ contact }}
 
 # Rearrange this schedule to match your lesson
-{{ schedule }}
+schedule: {{ schedule }}

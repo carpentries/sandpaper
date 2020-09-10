@@ -49,7 +49,6 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   create_site(path)
 
   create_episode("introduction", path = path)
-  update_schedule(path)
 
   if (rstudio) {
     usethis::with_project(path, usethis::use_rstudio())

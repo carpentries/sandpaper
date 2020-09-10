@@ -7,19 +7,33 @@ test_that("the site can be cleared", {
   withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp)
+  expect_warning(s <- get_schedule(tmp), "set_schedule")
+  set_schedule(tmp, s, write = TRUE)
 
   # Make sure everything exists
   expect_true(check_lesson(tmp))
 
   expected <- c("DESCRIPTION", "README.md", "_pkgdown.yml", "built")
-  fs::dir_ls(fs::path(tmp, "site")) %>%
-    expect_length(4) %>%
-    expect_setequal(fs::path(tmp, "site", expected))
+  clean_site <- fs::dir_ls(fs::path(tmp, "site"))
+  expect_length(clean_site, 4)
+  expect_setequal(clean_site, fs::path(tmp, "site", expected))
 
   saveRDS(expected, file = fs::path(tmp, "episodes", "data", "test.rds"))
 
-  invisible(capture.output(build_lesson(tmp, preview = FALSE, quiet = TRUE)))
+  build_lesson(tmp, preview = FALSE, quiet = TRUE)
 
-  fs::dir_ls(fs::path(tmp, "site")) %>%
-    expect_length(5)
+  built_site <- fs::dir_ls(fs::path(tmp, "site"))
+  expect_length(built_site, 5)
+  expect_setequal(built_site, fs::path(tmp, "site", c(expected, "docs")))
+
+  rds <- fs::path(tmp, "site", "built", "assets", "data", "test.rds")
+  expect_length(fs::dir_ls(fs::path(tmp, "site", "built")), 2L)
+  expect_true(fs::file_exists(rds))
+  expect_equal(readRDS(rds), expected)
+
+  clear_site(tmp)
+
+  expect_length(fs::dir_ls(fs::path(tmp, "site")), 4L)
+  expect_length(fs::dir_ls(fs::path(tmp, "site", "built")), 0L)
+
 })

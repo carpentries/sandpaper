@@ -5,12 +5,13 @@
 #'   automatically determined by the files already present. Otherwise, it assumes
 #'   you have added the prefix.
 #' @param path the path to the {sandpaper} lesson.
+#' @param add if `TRUE`, the lesson is added to the schedule. Defaults to `FALSE`
 #' @export
 #' @examples
 #' tmp <- tempfile()
 #' create_lesson(tmp)
 #' create_episode("getting-started", path = tmp)
-create_episode <- function(title, make_prefix = TRUE, path = ".") {
+create_episode <- function(title, make_prefix = TRUE, add = FALSE, path = ".") {
   check_lesson(path)
   prefix <- ""
   if (make_prefix) {
@@ -21,6 +22,9 @@ create_episode <- function(title, make_prefix = TRUE, path = ".") {
   } 
   ename <- paste0(prefix, "-", title, ".Rmd")
   copy_template("episode", fs::path(path, "episodes"), ename)
-  update_schedule(path)
+  if (add) {
+    suppressWarnings(sched <- get_schedule(path))
+    set_schedule(path, c(sched, ename), write = TRUE)
+  }
   invisible(fs::path(path, "episodes", ename))
 }

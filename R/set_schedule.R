@@ -27,7 +27,7 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
   }
   yml <- get_config(path)
   sched <- yml$schedule
-  yml$schedule <- order
+  yml$schedule <- if (length(order) == 1L) list(order) else order
 
   if (write) {
     copy_template("config", path, "config.yml",
@@ -36,11 +36,13 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
         carpentry  = yml$carpentry,
         life_cycle = yml$life_cycle,
         license    = yml$license,
-        schedule   = yaml::as.yaml(yml['schedule']),
+        source     = yml$source,
+        branch     = yml$branch,
+        contact    = yml$contact,
+        schedule   = paste0('\n', yaml::as.yaml(yml[['schedule']])),
         NULL
       )
     )
-    # yaml_writer(yml, path_config(path), comments = yaml_comments)
   } else {
     if (requireNamespace("cli", quietly = TRUE)) {
       # display for the user to distinguish what was added and what was taken 
@@ -59,34 +61,5 @@ set_schedule <- function(path, order = NULL, write = FALSE) {
     }
   }
   invisible()
-}
-
-#' Create the episode schedule for the lesson
-#'
-#' Note: this is not a public-facing function
-#'
-#' This will create a schedule in the `config.yml` file for the episodes in the
-#' `episodes/` directory. By default, it will use alphabetical order, but you
-#' can rearrange the episodes in the `config.yml` file manually. The `config.yml`
-#' file will be the source of truth for building the site, so creating the
-#' schedule in that file is important.
-#'
-#' @param path path to your lesson
-#' @param write if `TRUE`, the modified schedule will be written to your config
-#'   file. Defaults to `FALSE`.
-#'
-#' @return NULL, invisibly. This is used for the side-effect of modifying the
-#' `config.yml` file.
-#'
-#' @keywords internal
-update_schedule <- function(path) {
-
-  current  <- get_schedule(path)
-  # episode slug
-  episodes <- fs::path_file(get_source_files(path))
-  
-  matching <- episodes %in% current # returns FALSE if there are none in common
-  new      <- episodes[!matching]
-  set_schedule(path, order = c(current, new), write = TRUE)
 }
 
