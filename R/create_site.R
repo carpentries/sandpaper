@@ -15,7 +15,7 @@ create_site <- function(path) {
   }
 
   if (!isTRUE(chk$config)) {
-    yml <- create_pkgdown_yaml(path)
-    write_pkgdown_yaml(yml, path)
+    yaml <- create_pkgdown_yaml(path)
+    write_pkgdown_yaml(yaml, path)
   }
 }

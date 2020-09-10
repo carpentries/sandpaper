@@ -32,7 +32,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   fs::file_create(fs::path(path, "README.md"))
 
   copy_template("gitignore", path, ".gitignore")
-  copy_template("config", path, "config.yml",
+  copy_template("config", path, "config.yaml",
     values = list(
       title      = "Lesson Title",
       carpentry  = "cp",
@@ -49,7 +49,6 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   create_site(path)
 
   create_episode("introduction", path = path)
-  update_schedule(path)
 
   if (rstudio) {
     usethis::with_project(path, usethis::use_rstudio())

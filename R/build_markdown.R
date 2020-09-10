@@ -22,7 +22,8 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   #       still be able to copy things correctly
   site_path    <- make_here(path_built(path))
 
-  episodes  <- episode_path(get_schedule(path))
+  episodes  <- get_schedule(path)
+  episodes  <- episode_path(episodes)
   artifacts <- get_artifact_files(path)
   built     <- get_built_files(path)
   any_built <- if (rebuild || length(built) == 0) FALSE else TRUE

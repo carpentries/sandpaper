@@ -51,14 +51,14 @@ get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
 }
 
 get_titles <- function(ep) {
-  yml <- ep$get_yaml()
-  yml$title
+  yaml <- ep$get_yaml()
+  yaml$title
 }
 
 
 get_timings <- function(ep) {
-  yml <- ep$get_yaml()
-  as.numeric(sum(yml$teaching, yml$exercises, na.rm = TRUE))
+  yaml <- ep$get_yaml()
+  as.numeric(sum(yaml$teaching, yaml$exercises, na.rm = TRUE))
 }
 
 get_questions <- function(ep) {

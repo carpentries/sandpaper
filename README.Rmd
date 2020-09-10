@@ -9,9 +9,7 @@ knitr::opts_chunk$set(
   eval = FALSE,
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
+  fig.path = "man/figures/README-", out.width = "100%")
 ```
 
 # sandpaper
@@ -152,6 +150,7 @@ The functions in {sandpaper} have the following prefixes:
  - `build_` will build files from your source
  - `check_` validates either the elements of the lesson and/or episodes
  - `fetch_` will download files or resources from the internet
+ - `clear_` removes files or information
  - `get_` will retrieve information from your source files as an R object
  - `set_` will update information in files.
  - `ci_` interacts with continous integration to build the website
@@ -220,8 +219,13 @@ the following structure:
 ```
 
 Once you have your site set up, you can add your RMarkdown files in the episodes
-folder. The only thing controling how these files will appear is the name of the
-file themselves, no config necessary :)
+folder. By default, they will be built in alphabetical order, but you can use
+the `set_schedule()` command to build the schedule in your `config.yaml` file:
+
+```{r}
+s <- sandpaper::get_schedule()
+sandpaper::set_schedule(order = s, write = TRUE)
+```
 
 When you want to preview your site, use the following:
 

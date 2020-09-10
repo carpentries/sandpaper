@@ -4,7 +4,7 @@
 \alias{create_episode}
 \title{Create an Episode from a template}
 \usage{
-create_episode(title, make_prefix = TRUE, path = ".")
+create_episode(title, make_prefix = TRUE, add = FALSE, path = ".")
 }
 \arguments{
 \item{title}{the title of the episode}
@@ -12,6 +12,8 @@ create_episode(title, make_prefix = TRUE, path = ".")
 \item{make_prefix}{a logical. If \code{TRUE}, the prefix for the file will be
 automatically determined by the files already present. Otherwise, it assumes
 you have added the prefix.}
+
+\item{add}{if \code{TRUE}, the lesson is added to the schedule. Defaults to \code{FALSE}}
 
 \item{path}{the path to the {sandpaper} lesson.}
 }

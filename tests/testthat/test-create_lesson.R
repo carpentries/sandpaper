@@ -27,7 +27,7 @@ test_that("lessons can be created in empty directories", {
   expect_match(readLines(fs::path(tmp, "README.md"))[1], "lesson-example", fixed = TRUE) 
   expect_true(fs::file_exists(fs::path(tmp, "site", "README.md")))
   expect_true(fs::file_exists(fs::path(tmp, "site", "DESCRIPTION")))
-  expect_true(fs::file_exists(fs::path(tmp, "site", "_pkgdown.yml")))
+  expect_true(fs::file_exists(fs::path(tmp, "site", "_pkgdown.yaml")))
   expect_true(fs::file_exists(fs::path(tmp, "site", "built")))
   expect_true(fs::file_exists(fs::path(tmp, "episodes", "01-introduction.Rmd")))
   expect_true(fs::file_exists(fs::path(tmp, ".gitignore")))

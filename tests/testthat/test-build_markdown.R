@@ -8,6 +8,8 @@ test_that("markdown sources can be built without fail", {
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp)
   create_episode("second-episode", path = tmp)
+  expect_warning(s <- get_schedule(tmp), "set_schedule")
+  set_schedule(tmp, s, write = TRUE)
   expect_equal(res, tmp, ignore_attr = TRUE)
 
   # It's noisy at first
