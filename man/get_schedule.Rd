@@ -4,10 +4,10 @@
 \alias{get_schedule}
 \title{Get the lesson schedule}
 \usage{
-get_schedule(path)
+get_schedule(path = ".")
 }
 \arguments{
-\item{path}{the path to the lesson}
+\item{path}{the path to the lesson, defaults to the current working directory}
 }
 \value{
 a character vector of episodes in order of presentation

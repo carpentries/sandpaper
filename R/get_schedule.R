@@ -1,6 +1,6 @@
 #' Get the lesson schedule
 #'
-#' @param path the path to the lesson
+#' @param path the path to the lesson, defaults to the current working directory
 #' @return a character vector of episodes in order of presentation
 #'
 #' @export
@@ -8,7 +8,7 @@
 #' tmp <- tempfile()
 #' create_lesson(tmp)
 #' get_schedule(tmp)
-get_schedule <- function(path) {
+get_schedule <- function(path = ".") {
   cfg <- path_config(path)
   if (!fs::file_exists(cfg)) {
     stop("config file does not exist")
