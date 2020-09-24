@@ -12,6 +12,8 @@
 #' haven't been built before. 
 #' @param quiet when `TRUE`, output is supressed
 #' @param preview if `TRUE`, the rendered website is opened in a new window
+#' @param override options to override (e.g. building to alternative paths). 
+#'   This is used internally. 
 #' 
 #' @return `TRUE` if it was successful, a character vector of issues if it was
 #'   unsuccessful.
@@ -24,7 +26,7 @@
 #' create_episode("first-script", path = tmp)
 #' check_lesson(tmp)
 #' build_lesson(tmp)
-build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), preview = TRUE) {
+build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), preview = TRUE, override = list()) {
   # step 1: build the markdown vignettes and site (if it doesn't exist)
   if (rebuild) {
     clear_site(path)
@@ -35,7 +37,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   built <- build_markdown(path = path, rebuild = rebuild, quiet = quiet)
 
   # step 2: build the package site
-  pkg <- pkgdown::as_pkgdown(path_site(path))
+  pkg <- pkgdown::as_pkgdown(path_site(path), override = override)
   if (quiet) {
     f <- file()
     on.exit({
