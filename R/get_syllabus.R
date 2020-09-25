@@ -55,24 +55,12 @@ get_titles <- function(ep) {
   yaml$title
 }
 
-
 get_timings <- function(ep) {
   yaml <- ep$get_yaml()
   as.numeric(sum(yaml$teaching, yaml$exercises, na.rm = TRUE))
 }
 
 get_questions <- function(ep) {
-  # which filters out NA entries
-  q <- ep$code[which(xml2::xml_attr(ep$code, "language") == "questions")]
-  if (length(q) == 0) {
-    q <- xml2::xml_find_all(
-      ep$blocks, 
-      ".//div[contains(@class, 'questions')] | .//section[contains(@class, 'questions')]"
-    )
-  }
-  # low-tech solution: trim all of the \n#' -
-  txt <- gsub("\n?#' ?-?", "\n", xml2::xml_text(q), perl = TRUE)
-  txt <- gsub("\n{2,}", "\n", txt, perl = TRUE)
-  trimws(txt)
+  paste(ep$questions, collapse = "\n")
 }
 

@@ -8,7 +8,8 @@ build_lesson(
   path = ".",
   rebuild = FALSE,
   quiet = !interactive(),
-  preview = TRUE
+  preview = TRUE,
+  override = list()
 )
 }
 \arguments{
@@ -22,6 +23,9 @@ haven't been built before.}
 \item{quiet}{when \code{TRUE}, output is supressed}
 
 \item{preview}{if \code{TRUE}, the rendered website is opened in a new window}
+
+\item{override}{options to override (e.g. building to alternative paths).
+This is used internally.}
 }
 \value{
 \code{TRUE} if it was successful, a character vector of issues if it was

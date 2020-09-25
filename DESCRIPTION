@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -11,7 +11,7 @@ Description: Boilerplate directory structure, build tools, and hosting tools for
 License: MIT + file LICENSE
 Imports: 
     pkgdown (>= 1.6.0),
-    pegboard (>= 0.0.0.9002),
+    pegboard (>= 0.0.0.9006),
     commonmark,
     xml2,
     fs,
@@ -51,3 +51,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 URL: https://github.com/zkamvar/sandpaper
 BugReports: https://github.com/zkamvar/sandpaper/issues
+VignetteBuilder: knitr
