@@ -78,13 +78,15 @@ build_episode <- function(path_in, page_back = NULL, page_forward = NULL, pkg, q
   home <- root_path(path_in)
   body <- html_from_md(path_in, quiet = quiet)
   yaml  <- yaml::yaml.load(politely_get_yaml(path_in))
+  title <- commonmark::markdown_html(yaml$title)
+  title <- substring(title, 4, nchar(title) - 5)
   pkgdown::render_page(pkg, 
     "title-body",
     data = list(
       # NOTE: we can add anything we want from the YAML header in here to
       # pass on to the template.
       body         = body,
-      pagetitle    = yaml$title,
+      pagetitle    = title,
       teaching     = yaml$teaching,
       exercises    = yaml$exercises,
       file_source  = fs::path_rel(get_source_buddy(path_in), start = home),
