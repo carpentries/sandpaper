@@ -37,6 +37,27 @@ test_that("get_schedule() returns episodes in dir if schedule is not set", {
 
 })
 
+test_that("set_schedule() will display the modifications if write is not specified", {
+
+  clear_schedule(tmp)
+  expect_warning(s <- get_schedule(tmp), "set_schedule")
+  expect_equal(s, c("01-introduction.Rmd", "02-new.Rmd"))
+  set_schedule(tmp, s, write = TRUE)
+  expect_equal(get_schedule(tmp), s)
+  expect_snapshot_output(set_schedule(tmp, s[1]))
+  expect_equal(get_schedule(tmp), s)
+  set_schedule(tmp, s[1], write = TRUE)
+  expect_equal(get_schedule(tmp), s[1])
+
+})
+
+test_that("set_schedule() will error if no proposal is defined", {
+
+  expect_error(set_schedule(tmp), "schedule must have an order")
+
+})
+
+
 test_that("adding episodes will concatenate the schedule", {
 
   expect_equal(get_schedule(tmp), "01-introduction.Rmd")

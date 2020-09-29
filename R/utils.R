@@ -33,21 +33,6 @@ reset_git_user <- function(path) {
   }
 }
 
-set_knitr_opts <- function() {
-  knitr::opts_chunk$set(
-    comment = "",
-    fig.align = "center",
-    class.output = "output",
-    class.error = "error",
-    class.warning = "warning",
-    class.message = "output"
-  )
-}
-
-set_fig_path <- function(slug) {
-  knitr::opts_chunk$set(fig.path = file.path("fig", paste0(slug, "-")))
-}
-
 create_lesson_readme <- function(name, path) {
 
   writeLines(glue::glue("# {name}
