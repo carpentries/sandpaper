@@ -14,7 +14,7 @@ test_that("markdown sources can be built without fail", {
 
   # It's noisy at first
   suppressMessages({
-  expect_output(build_lesson(res, preview = FALSE, quiet = FALSE), "ordinary text without R code")
+  expect_output(build_markdown(res, quiet = FALSE), "ordinary text without R code")
   })
 
   # see helper-hash.R
@@ -22,6 +22,15 @@ test_that("markdown sources can be built without fail", {
   h2 <- expect_hashed(res, "02-second-episode.Rmd")
   expect_equal(h1, h2, ignore_attr = TRUE)
 
+  # Output is not commented
+  built  <- get_built_files(res)
+  ep     <- trimws(readLines(built[[1]]))
+  ep     <- ep[ep != ""]
+  outid  <- grep("[1]", ep, fixed = TRUE)
+  output <- ep[outid[1]]
+  fence  <- ep[outid[1] - 1]
+  expect_match(output, "^\\[1\\]")
+  expect_match(fence, "^[`]{3}[{]\\.output[}]")
 
   # But will not built if things are not changed
   expect_silent(build_markdown(res))

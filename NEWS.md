@@ -1,3 +1,10 @@
+# sandpaper 0.0.0.9003
+
+* A regression in `build_markdown()` due to being called in a separate process
+  was fixed.
+* Internal functions for setting {knitr} options were migrated to live inside
+  `build_markdown()`
+
 # sandpaper 0.0.0.9002
 
 * Migrate template to use fenced divs instead of {dovetail}. 
