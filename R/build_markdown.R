@@ -57,9 +57,6 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   }
 
   # Render the episode files to the built directory ----------------------------
-  # ochunk <- knitr::opts_chunk$get()
-  # on.exit(knitr::opts_chunk$restore(ochunk), add = TRUE)
-  # set_knitr_opts()
 
   for (i in seq_len(nrow(to_be_built))) {
     build_single_episode(to_be_built$episode[i], to_be_built$hash[i], quiet = quiet)
