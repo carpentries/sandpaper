@@ -13,7 +13,7 @@ html_from_md <- function(path_in, quiet = FALSE) {
     sep = "+"
   )
   from <- paste0("markdown", "-hard_line_breaks", "+", exts)
-  rmarkdown::pandoc_convert(
+  args <- list(
     input = path_in, 
     output = htm, 
     from = from,
@@ -22,5 +22,6 @@ html_from_md <- function(path_in, quiet = FALSE) {
     ),
     verbose = FALSE
   )
+  callr::r(function(...) rmarkdown::pandoc_convert(...), args = args, show = !quiet)
   paste(readLines(htm), collapse = "\n")
 }

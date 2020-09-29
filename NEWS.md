@@ -1,3 +1,10 @@
+# sandpaper 0.0.0.9002
+
+* Migrate template to use fenced divs instead of {dovetail}. 
+* `build_lesson()` will now render HTML in episode titles. 
+* {callr} is now imported to protect the processes building markdown and HTML
+  files. 
+
 # sandpaper 0.0.0.9001
 
 * Add `override` argument to `build_lesson()`. This gets passed on to 

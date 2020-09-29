@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Authors@R: 
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -28,7 +28,8 @@ Imports:
     usethis,
     utils,
     tools,
-    whisker
+    whisker,
+    callr
 Suggests: 
     testthat,
     cli (>= 2.0.2),

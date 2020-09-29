@@ -16,7 +16,7 @@ test_that("the formatted syllabus renders markdown", {
 
   expect_type(fmt, "character")
   expect_length(fmt, 1)
-  expect_true(grepl("<code>{dovetail}</code>", fmt, fixed  = TRUE))
+  expect_true(grepl("<code>{sandpaper}</code>", fmt, fixed  = TRUE))
   
 
 })

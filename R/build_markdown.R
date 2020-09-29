@@ -99,12 +99,13 @@ build_single_episode <- function(path, hash, env = new.env(), quiet = FALSE) {
   setwd(path_episodes(path))
 
   # Generate markdown  
-  res <- knitr::knit(
+  args <- list(
     text = readLines(path, encoding = "UTF-8"), 
     envir = env, 
     quiet = quiet,
     encoding = "UTF-8"
   )
+  res <- callr::r(function(...) knitr::knit(...), args = args, show = !quiet)
 
   # append md5 hash to top of file
   output <- sub(
