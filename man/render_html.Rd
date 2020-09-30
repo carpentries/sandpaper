@@ -33,6 +33,6 @@ ex <- c("# Markdown",
   ":::"
 )
 writeLines(ex, tmp)
-cat(render_html(tmp))
+cat(sandpaper:::render_html(tmp))
 }
 \keyword{internal}

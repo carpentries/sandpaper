@@ -24,7 +24,7 @@
 #'   ":::"
 #' )
 #' writeLines(ex, tmp)
-#' cat(render_html(tmp))
+#' cat(sandpaper:::render_html(tmp))
 render_html <- function(path_in, quiet = FALSE) {
   htm <- tempfile(fileext = ".html")
   on.exit(unlink(htm), add = TRUE)
