@@ -5,6 +5,16 @@
 
 as_html <- function(i) fs::path_ext_set(fs::path_file(i), "html")
 
+# Parse a markdown title to html
+#
+# Note that commonmark wraps the content in <p> tags, so the substring gets rid
+# of those:
+# <p>Title</p>\n
+parse_title <- function(title) {
+  title <- commonmark::markdown_html(title)
+  substring(title, 4, nchar(title) - 5)
+}
+
 UTC_timestamp <- function(x) format(x, "%F %T %z", tz = "UTC")
 
 # Functions for backwards compatibility for R < 3.5

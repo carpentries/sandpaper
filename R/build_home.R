@@ -1,7 +1,7 @@
 build_home <- function(pkg, quiet) {
   path  <- root_path(pkg$src_path)
   syl   <- get_syllabus(path, questions = TRUE)
-  index <- html_from_md(fs::path(path, "README.md"))
+  index <- render_html(fs::path(path, "README.md"))
   pkgdown::render_page(pkg, 
     "syllabus",
     data = list(
@@ -29,5 +29,5 @@ format_syllabus <- function(syl) {
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp), add = TRUE)
   writeLines(out, tmp)
-  html_from_md(tmp)
+  render_html(tmp)
 }

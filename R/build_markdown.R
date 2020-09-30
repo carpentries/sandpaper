@@ -57,9 +57,12 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   }
 
   # Render the episode files to the built directory ----------------------------
-
   for (i in seq_len(nrow(to_be_built))) {
-    build_single_episode(to_be_built$episode[i], to_be_built$hash[i], quiet = quiet)
+    build_episode_md(
+      path = to_be_built$episode[i],
+      hash = to_be_built$hash[i],
+      quiet = quiet
+    )
   }
 
   # Copy the files to the assets directory -------------------------------------
@@ -68,6 +71,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
     FUN = function(i) enforce_dir(episode_path(i)),
     FUN.VALUE = character(1)
   )
+  
   to_copy <- c(to_copy, artifacts)
   for (f in to_copy) {
     copy_assets(f, site_path("assets"))
@@ -84,65 +88,5 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 
 
 
-build_single_episode <- function(path, hash, env = new.env(), quiet = FALSE) {
-  
-  args <- list(
-    path    = path,
-    hash    = hash,
-    env     = env,
-    outdir  = path_built(path),
-    workdir = path_episodes(path),
-    quiet   = quiet
-  )
-
-  # Build the article in a separate process via {callr}
-  # ==========================================================
-  #
-  # Note that this process can NOT use any internal functions
-  callr::r(function(path, hash, env, outdir, workdir, quiet) {
-    # define the output --------------------------------------
-    md      <- fs::path_ext_set(fs::path_file(path), "md")
-    outpath <- fs::path(outdir, md)
-
-    # Set knitr options for output ---------------------------
-    oknit <- knitr::opts_chunk$get()
-    on.exit(knitr::opts_chunk$restore(oknit), add = TRUE)
-
-    slug <- fs::path_ext_remove(fs::path_file(md))
-
-    knitr::opts_chunk$set(
-      comment       = "",
-      fig.align     = "center",
-      class.output  = "output",
-      class.error   = "error",
-      class.warning = "warning",
-      class.message = "output",
-      fig.path      = fs::path("fig", paste0(slug, "-"))
-    )
-
-    # Set the working directory -----------------------------
-    wd <- getwd()
-    on.exit(setwd(wd), add = TRUE)
-    setwd(workdir)
-
-    # Generate markdown -------------------------------------
-    res <- knitr::knit(
-      text = readLines(path, encoding = "UTF-8"), 
-      envir = env, 
-      quiet = quiet,
-      encoding = "UTF-8"
-    )
-
-    # append md5 hash to top of file ------------------------
-    output <- sub(
-      "^---",
-      paste("---\nsandpaper-digest:", hash),
-      res
-    )
-
-    # write file to disk ------------------------------------
-    writeLines(output, outpath)
-  }, args = args, show = !quiet)
-}
 
 
