@@ -7,8 +7,8 @@
 build_episode_html(
   path_md,
   path_src = path_md,
-  page_back = NULL,
-  page_forward = NULL,
+  page_back = "index.md",
+  page_forward = "index.md",
   pkg,
   quiet = FALSE
 )
@@ -55,8 +55,6 @@ writeLines(txt, fun_file)
 hash <- tools::md5sum(fun_file)
 res <- build_episode_md(fun_file, hash)
 build_episode_html(res, 
-  page_back = "index.md",
-  page_forward = "index.md",
   pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
 )
 }

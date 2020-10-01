@@ -32,12 +32,11 @@
 #' hash <- tools::md5sum(fun_file)
 #' res <- build_episode_md(fun_file, hash)
 #' build_episode_html(res, 
-#'   page_back = "index.md",
-#'   page_forward = "index.md",
 #'   pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
 #' )
-build_episode_html <- function(path_md, path_src = path_md, page_back = NULL, 
-                               page_forward = NULL, pkg, quiet = FALSE) {
+build_episode_html <- function(path_md, path_src = path_md, 
+                               page_back = "index.md", page_forward = "index.md", 
+                               pkg, quiet = FALSE) {
   home <- root_path(path_md)
   body <- render_html(path_md, quiet = quiet)
   yaml <- yaml::yaml.load(politely_get_yaml(path_md))
