@@ -10,10 +10,11 @@ name: R-CMD-check
 
 jobs:
   R-CMD-check:
-    if: github.event_name == 'push' && contains(toJson(github.event.commits), '[ci skip]') == false && contains(toJson(github.event.commits), '[skip ci]') == false 
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    if: "!contains(github.event.commits[0].message, '[skip ci]')"
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
       fail-fast: false
