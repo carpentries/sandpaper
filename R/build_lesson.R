@@ -53,9 +53,10 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
     cli::cli_rule(cli::style_bold("Scanning episodes"))
   }
   for (i in seq_along(episodes)) {
-    build_episode(
-      path_in = episodes[i], 
-      page_back = if (i > 1) episodes[i - 1] else "index.md",
+    build_episode_html(
+      path_md      = episodes[i],
+      path_src     = get_source_buddy(episodes[i]),
+      page_back    = if (i > 1) episodes[i - 1] else "index.md",
       page_forward = if (i < n) episodes[i + 1] else "index.md",
       pkg, 
       quiet = quiet
@@ -72,31 +73,5 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   build_home(pkg, quiet = quiet)
   pkgdown::preview_site(pkg, "/", preview = preview)
   
-} 
-
-build_episode <- function(path_in, page_back = NULL, page_forward = NULL, pkg, quiet = FALSE) {
-  home <- root_path(path_in)
-  body <- html_from_md(path_in, quiet = quiet)
-  yaml  <- yaml::yaml.load(politely_get_yaml(path_in))
-  title <- commonmark::markdown_html(yaml$title)
-  title <- substring(title, 4, nchar(title) - 5)
-  pkgdown::render_page(pkg, 
-    "title-body",
-    data = list(
-      # NOTE: we can add anything we want from the YAML header in here to
-      # pass on to the template.
-      body         = body,
-      pagetitle    = title,
-      teaching     = yaml$teaching,
-      exercises    = yaml$exercises,
-      file_source  = fs::path_rel(get_source_buddy(path_in), start = home),
-      page_back    = as_html(page_back),
-      left         = if (page_back == "index.md") "up" else "left",
-      page_forward = as_html(page_forward),
-      right        = if (page_forward == "index.md") "up" else "right"
-    ), 
-    path = as_html(path_in),
-    quiet = quiet
-  )
 } 
 

@@ -1,3 +1,12 @@
+# sandpaper 0.0.0.9004
+
+* Internal `html_from_md()` renamed to `render_html()`
+* Internal `build_episode()` renamed to `build_episode_html()` and exported,
+  but documentation still internal
+* Internal `build_single_episode()` renamed to `build_episode_md()` and exported,
+  but documentation still internal
+
+
 # sandpaper 0.0.0.9003
 
 * A regression in `build_markdown()` due to being called in a separate process
