@@ -53,7 +53,8 @@ packages:
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | [{varnish}](https://github.com/zkamvar/varnish#readme)           | html, css, and javascript templates for The Carpentries (in progress)     |
 | [{dovetail}](https://github.com/carpentries/dovetail#readme)     | drop-in knitr engine for parsing challenge/solution blocks                |
-| [{gert}](https://github.com/r-lib/gert#readme)                   | a “batteries included” git interface for R                                |
+| [{usethis}](https://usethis.r-lib.org/)                          | Helper tools for R users that makes the experience of contribution easier |
+| \[{gh}\]                                                         | interface to the github API                                               |
 | [{testthat}](https://github.com/r-lib/testthat#readme) version 3 | runs tests for the package. If you aren’t developing, you shouldn’t worry |
 | [{pkgdown}](https://github.com/r-lib/pkgdown#readme)             | provides utilities to generate templates                                  |
 
@@ -72,20 +73,17 @@ generators](https://staticsitegenerators.net), but instead rely on R,
 RStudio, and [{pkgdown}](https://github.com/r-lib/pkgdown#readme) to
 generate a site with the following features:
 
-  - optional offline use
-  - filename-agnostic episode arrangements
-  - clear definitions of package versions needed to build the lesson
-  - lesson versioning (e.g. I can navigate to
-    <https://swcarpentry.github.io/python-novice-gapminder> for the
-    current version and
-    <https://swcarpentry.github.io/python-novice-gapminder/2020-11> for
-    the release in 2020-11)
-  - seamless updates to the Carpentries’ style
-  - caching of rendered content for rapid deployment
-  - packaging of [{learnr}](https://rstudio.github.io/learnr/index.html)
-    materials
-  - validation of lesson structure
-  - git aware, but does not require contributors to have git installed
+\-\[ \] optional offline use -\[x\] filename-agnostic episode
+arrangements -\[ \] clear definitions of package versions needed to
+build the lesson -\[ \] lesson versioning (e.g. I can navigate to
+<https://swcarpentry.github.io/python-novice-gapminder> for the current
+version and
+<https://swcarpentry.github.io/python-novice-gapminder/2020-11> for the
+release in 2020-11) -\[ \] seamless updates to the Carpentries’ style
+-\[x\] caching of rendered content for rapid deployment -\[ \] packaging
+of [{learnr}](https://rstudio.github.io/learnr/index.html) materials -\[
+\] validation of lesson structure -\[x\] git aware, but does not require
+contributors to have git installed
 
 ### Rendering locally
 
@@ -99,7 +97,9 @@ The website is generated in two steps:
     for the source file so that these need only be re-rendered when they
     change.
 2.  html files are generated from the rendered markdown files and the
-    CSS and JS sources in the {sandpaper} package for the preview.
+    CSS and JS sources in the
+    [{varnish}](https://github.com/zkamvar/varnish#readme) package for
+    the preview.
 
 To ensure there are no clashes between minor differences in the user
 setup, no artifacts are committed to the main branch of the repository.
@@ -158,6 +158,7 @@ The functions in {sandpaper} have the following prefixes:
   - `build_` will build files from your source
   - `check_` validates either the elements of the lesson and/or episodes
   - `fetch_` will download files or resources from the internet
+  - `clear_` removes files or information
   - `get_` will retrieve information from your source files as an R
     object
   - `set_` will update information in files.
@@ -173,16 +174,27 @@ Here is a working list of user-facing functions:
   - `create_dataset()` creates a csv or text data set from an R object
   - `set_schedule()` arranges the episodes in a user-specified order
 
+Accessors
+
+  - `get_episode()` reads in an episode as an XML object
+  - `get_config()` reads the contents of `config.yaml` as a list
+  - `get_schedule()` returns the schedule as a vector
+  - `get_syllabus()` returns the syllabus with timings, titles, and
+    questions
+
 **Website Creation and Validation**
 
   - `check_lesson()` checks and validates the source files and lesson
     structure
+  - `build_markdown_md()` renders an individual file to markdown
+    (internal use)
+  - `build_markdown_html()` renders a built markdown file to html
+    (internal use)
   - `build_lesson()` builds the lesson into a static website
   - `build_portable_lesson()` builds the lesson into a portable static
     website
   - `fetch_lesson()` fetches the static website from the lesson
     repository
-  - `get_episode()` reads in an episode as an XML object
 
 **Continuous Integration Utilities**
 
@@ -192,6 +204,11 @@ Here is a working list of user-facing functions:
     markdown files
   - `ci_release()` builds and deploys the lesson on CI from the source
     files and adds a release tag
+
+Cleanup
+
+  - `clear_schedule()` removes the schedule from the config.yaml file
+  - `clear_site()` clears the website and cache
 
 ## Usage
 
@@ -231,8 +248,14 @@ with the following structure:
     `-- README.md                # - Use this to tell folks how to contribute
 
 Once you have your site set up, you can add your RMarkdown files in the
-episodes folder. The only thing controling how these files will appear
-is the name of the file themselves, no config necessary :)
+episodes folder. By default, they will be built in alphabetical order,
+but you can use the `set_schedule()` command to build the schedule in
+your `config.yaml` file:
+
+``` r
+s <- sandpaper::get_schedule()
+sandpaper::set_schedule(order = s, write = TRUE)
+```
 
 When you want to preview your site, use the following:
 
