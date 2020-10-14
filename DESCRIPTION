@@ -42,6 +42,7 @@ Remotes:
     carpentries/dovetail,
     carpentries/pegboard,
     zkamvar/varnish,
+    r-lib/gh,
     r-lib/usethis
 Encoding: UTF-8
 LazyData: true
