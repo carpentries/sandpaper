@@ -15,7 +15,7 @@ Imports:
     commonmark,
     xml2,
     fs,
-    gert (> 0.3),
+    gert (>= 1.0.1),
     rstudioapi,
     rlang (>= 0.4.3),
     glue,
@@ -39,10 +39,10 @@ Suggests:
     varnish (>= 0.0.0.9001)
 Remotes: 
     r-lib/testthat,
-    r-lib/gert,
     carpentries/dovetail,
     carpentries/pegboard,
     zkamvar/varnish,
+    r-lib/gh,
     r-lib/usethis
 Encoding: UTF-8
 LazyData: true
