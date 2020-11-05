@@ -49,14 +49,12 @@ remotes::install_github("zkamvar/sandpaper", dep = TRUE)
 Note that this will also install development versions of the following
 packages:
 
-| package                                                          | What it does                                                              |
-| ---------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| [{varnish}](https://github.com/zkamvar/varnish#readme)           | html, css, and javascript templates for The Carpentries (in progress)     |
-| [{dovetail}](https://github.com/carpentries/dovetail#readme)     | drop-in knitr engine for parsing challenge/solution blocks                |
-| [{usethis}](https://usethis.r-lib.org/)                          | Helper tools for R users that makes the experience of contribution easier |
-| \[{gh}\]                                                         | interface to the github API                                               |
-| [{testthat}](https://github.com/r-lib/testthat#readme) version 3 | runs tests for the package. If you aren’t developing, you shouldn’t worry |
-| [{pkgdown}](https://github.com/r-lib/pkgdown#readme)             | provides utilities to generate templates                                  |
+| package                                                      | What it does                                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------- |
+| [{varnish}](https://github.com/zkamvar/varnish#readme)       | html, css, and javascript templates for The Carpentries (in progress)     |
+| [{dovetail}](https://github.com/carpentries/dovetail#readme) | drop-in knitr engine for parsing challenge/solution blocks                |
+| [{usethis}](https://usethis.r-lib.org/)                      | Helper tools for R users that makes the experience of contribution easier |
+| [{gh}](https://gh.r-lib.org/)                                | interface to the github API                                               |
 
 ## In-progress example
 
@@ -73,17 +71,21 @@ generators](https://staticsitegenerators.net), but instead rely on R,
 RStudio, and [{pkgdown}](https://github.com/r-lib/pkgdown#readme) to
 generate a site with the following features:
 
-\-\[ \] optional offline use -\[x\] filename-agnostic episode
-arrangements -\[ \] clear definitions of package versions needed to
-build the lesson -\[ \] lesson versioning (e.g. I can navigate to
-<https://swcarpentry.github.io/python-novice-gapminder> for the current
-version and
-<https://swcarpentry.github.io/python-novice-gapminder/2020-11> for the
-release in 2020-11) -\[ \] seamless updates to the Carpentries’ style
--\[x\] caching of rendered content for rapid deployment -\[ \] packaging
-of [{learnr}](https://rstudio.github.io/learnr/index.html) materials -\[
-\] validation of lesson structure -\[x\] git aware, but does not require
-contributors to have git installed
+  - [ ] optional offline use
+  - [x] filename-agnostic episode arrangements
+  - [ ] clear definitions of package versions needed to build the lesson
+  - [ ] lesson versioning (e.g. I can navigate to
+    <https://swcarpentry.github.io/python-novice-gapminder> for the
+    current version and
+    <https://swcarpentry.github.io/python-novice-gapminder/2020-11> for
+    the release in 2020-11)
+  - [ ] seamless updates to the Carpentries’ style
+  - [x] caching of rendered content for rapid deployment
+  - [ ] packaging of
+    [{learnr}](https://rstudio.github.io/learnr/index.html) materials
+  - [ ] validation of lesson structure
+  - [x] git aware, but does not require contributors to have git
+    installed
 
 ### Rendering locally
 
@@ -234,7 +236,9 @@ with the following structure:
     |-- .gitignore               # - Ignore everything in the site/ folder
     |-- .github/                 # 
     |   `-- workflows/           #
-    |       `-- workshop.yaml    # - Automatically build the source files on github pages
+    |       |-- deploy-site.yaml # - Build the source files on github pages
+    |       |-- build-md.yaml    # - Build the markdown files on github pages
+    |       `-- cron.yaml        # - reset package cache and test
     |-- episodes/                # - PUT YOUR MARKDOWN FILES IN THIS FOLDER
     |   |-- data/                # - Data for your lesson goes here
     |   |-- extras/              # - Supplemental lesson material goes here
