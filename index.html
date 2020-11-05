@@ -84,14 +84,14 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>{sandpaper} is not currently on CRAN, but it can be installed from github via the <a href="https://remotes.r-lib.org/">{remotes}</a> package:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"zkamvar/sandpaper"</span>, dep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"zkamvar/sandpaper"</span>, dep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Note that this will also install development versions of the following packages:</p>
 <table class="table">
 <colgroup>
-<col width="46%">
-<col width="53%">
+<col width="45%">
+<col width="54%">
 </colgroup>
 <thead><tr class="header">
 <th>package</th>
@@ -111,19 +111,8 @@
 <td>Helper tools for R users that makes the experience of contribution easier</td>
 </tr>
 <tr class="even">
-<td>
-<br><span class="math display"><em>g</em><em>h</em></span><br>
-</td>
+<td><a href="https://gh.r-lib.org/">{gh}</a></td>
 <td>interface to the github API</td>
-</tr>
-<tr class="odd">
-<td>
-<a href="https://github.com/r-lib/testthat#readme">{testthat}</a> version 3</td>
-<td>runs tests for the package. If you aren’t developing, you shouldn’t worry</td>
-</tr>
-<tr class="even">
-<td><a href="https://github.com/r-lib/pkgdown#readme">{pkgdown}</a></td>
-<td>provides utilities to generate templates</td>
 </tr>
 </tbody>
 </table>
@@ -137,7 +126,35 @@
 <h2 class="hasAnchor">
 <a href="#design" class="anchor"></a>Design</h2>
 <p>This package is designed to make the life of the lesson contributors and maintainers easier by separating the tools needed to build the site from the user-defined content of the site itself. It will no longer rely on Jekyll or any of the other <a href="https://staticsitegenerators.net">&gt;450 static site generators</a>, but instead rely on R, RStudio, and <a href="https://github.com/r-lib/pkgdown#readme">{pkgdown}</a> to generate a site with the following features:</p>
-<p>-<br><span class="math display"></span><br> optional offline use -<br><span class="math display"><em>x</em></span><br> filename-agnostic episode arrangements -<br><span class="math display"></span><br> clear definitions of package versions needed to build the lesson -<br><span class="math display"></span><br> lesson versioning (e.g. I can navigate to <a href="https://swcarpentry.github.io/python-novice-gapminder" class="uri">https://swcarpentry.github.io/python-novice-gapminder</a> for the current version and <a href="https://swcarpentry.github.io/python-novice-gapminder/2020-11" class="uri">https://swcarpentry.github.io/python-novice-gapminder/2020-11</a> for the release in 2020-11) -<br><span class="math display"></span><br> seamless updates to the Carpentries’ style -<br><span class="math display"><em>x</em></span><br> caching of rendered content for rapid deployment -<br><span class="math display"></span><br> packaging of <a href="https://rstudio.github.io/learnr/index.html">{learnr}</a> materials -<br><span class="math display"></span><br> validation of lesson structure -<br><span class="math display"><em>x</em></span><br> git aware, but does not require contributors to have git installed</p>
+<ul>
+<li>
+<input type="checkbox" disabled>
+optional offline use</li>
+<li>
+<input type="checkbox" disabled checked>
+filename-agnostic episode arrangements</li>
+<li>
+<input type="checkbox" disabled>
+clear definitions of package versions needed to build the lesson</li>
+<li>
+<input type="checkbox" disabled>
+lesson versioning (e.g. I can navigate to <a href="https://swcarpentry.github.io/python-novice-gapminder" class="uri">https://swcarpentry.github.io/python-novice-gapminder</a> for the current version and <a href="https://swcarpentry.github.io/python-novice-gapminder/2020-11" class="uri">https://swcarpentry.github.io/python-novice-gapminder/2020-11</a> for the release in 2020-11)</li>
+<li>
+<input type="checkbox" disabled>
+seamless updates to the Carpentries’ style</li>
+<li>
+<input type="checkbox" disabled checked>
+caching of rendered content for rapid deployment</li>
+<li>
+<input type="checkbox" disabled>
+packaging of <a href="https://rstudio.github.io/learnr/index.html">{learnr}</a> materials</li>
+<li>
+<input type="checkbox" disabled>
+validation of lesson structure</li>
+<li>
+<input type="checkbox" disabled checked>
+git aware, but does not require contributors to have git installed</li>
+</ul>
 <div id="rendering-locally" class="section level3">
 <h3 class="hasAnchor">
 <a href="#rendering-locally" class="anchor"></a>Rendering locally</h3>
@@ -273,47 +290,49 @@
 <h3 class="hasAnchor">
 <a href="#creating-a-lesson" class="anchor"></a>Creating a lesson</h3>
 <p>To create a lesson with {sandpaper}, use the <code><a href="reference/create_lesson.html">create_lesson()</a></code> function:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="st">"~/Desktop/r-intermediate-penguins"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="st">"~/Desktop/r-intermediate-penguins"</span><span class="op">)</span></code></pre></div>
 <p>This will create folder on your desktop called <code>r-intermediate-penguins</code> with the following structure:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">|--</span><span class="st"> </span>.gitignore               <span class="co"># - Ignore everything in the site/ folder</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="op">|--</span><span class="st"> </span>.github<span class="op">/</span><span class="st">                 </span><span class="co"># </span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="er">|</span><span class="st">   `</span><span class="dt">-- workflows/           #</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="dt">|       </span><span class="st">`</span><span class="op">--</span><span class="st"> </span>workshop.yaml    <span class="co"># - Automatically build the source files on github pages</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="op">|--</span><span class="st"> </span>episodes<span class="op">/</span><span class="st">                </span><span class="co"># - PUT YOUR MARKDOWN FILES IN THIS FOLDER</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>data<span class="op">/</span><span class="st">                </span><span class="co"># - Data for your lesson goes here</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>extras<span class="op">/</span><span class="st">              </span><span class="co"># - Supplemental lesson material goes here</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>figures<span class="op">/</span><span class="st">             </span><span class="co"># - All static figures and diagrams are here</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>files<span class="op">/</span><span class="st">               </span><span class="co"># - Additional files (e.g. handouts) </span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="er">|</span><span class="st">   `</span><span class="dt">-- 00-introducition.Rmd # - Lessons start with a two-digit number</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="dt">|-- site/                    # - This folder is where the rendered markdown files and static site will live</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="dt">|   </span><span class="st">`</span><span class="op">--</span><span class="st"> </span>README.md            <span class="co">#</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="op">|--</span><span class="st"> </span>config.yaml              <span class="co"># - Use this to configure commonly used variables</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="op">|--</span><span class="st"> </span>CODE_OF_CONDUCT.md       <span class="co"># - Carpentries Code of Conduct (REQUIRED)</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="st">`</span><span class="dt">-- README.md                # - Use this to tell folks how to contribute</span></span></code></pre></div>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="dt">|       |-- deploy-site.yaml # - Build the source files on github pages</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="dt">|       |-- build-md.yaml    # - Build the markdown files on github pages</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="dt">|       </span><span class="st">`</span><span class="op">--</span><span class="st"> </span>cron.yaml        <span class="co"># - reset package cache and test</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="op">|--</span><span class="st"> </span>episodes<span class="op">/</span><span class="st">                </span><span class="co"># - PUT YOUR MARKDOWN FILES IN THIS FOLDER</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>data<span class="op">/</span><span class="st">                </span><span class="co"># - Data for your lesson goes here</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>extras<span class="op">/</span><span class="st">              </span><span class="co"># - Supplemental lesson material goes here</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>figures<span class="op">/</span><span class="st">             </span><span class="co"># - All static figures and diagrams are here</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>files<span class="op">/</span><span class="st">               </span><span class="co"># - Additional files (e.g. handouts) </span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="er">|</span><span class="st">   `</span><span class="dt">-- 00-introducition.Rmd # - Lessons start with a two-digit number</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="dt">|-- site/                    # - This folder is where the rendered markdown files and static site will live</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="dt">|   </span><span class="st">`</span><span class="op">--</span><span class="st"> </span>README.md            <span class="co">#</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="op">|--</span><span class="st"> </span>config.yaml              <span class="co"># - Use this to configure commonly used variables</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="op">|--</span><span class="st"> </span>CODE_OF_CONDUCT.md       <span class="co"># - Carpentries Code of Conduct (REQUIRED)</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="st">`</span><span class="dt">-- README.md                # - Use this to tell folks how to contribute</span></span></code></pre></div>
 <p>Once you have your site set up, you can add your RMarkdown files in the episodes folder. By default, they will be built in alphabetical order, but you can use the <code><a href="reference/set_schedule.html">set_schedule()</a></code> command to build the schedule in your <code>config.yaml</code> file:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/get_schedule.html">get_schedule</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/set_schedule.html">set_schedule</a></span><span class="op">(</span>order <span class="op">=</span> <span class="va">s</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/get_schedule.html">get_schedule</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/set_schedule.html">set_schedule</a></span><span class="op">(</span>order <span class="op">=</span> <span class="va">s</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>When you want to preview your site, use the following:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>This will create the website structure inside of the the <code>site/</code> folder, render the RMarkdown files to markdown (for inspection and quick rendering), render the markdown files to HTML, and then enable a preview within your browser window.</p>
 </div>
 <div id="contributing-to-a-lesson" class="section level3">
 <h3 class="hasAnchor">
 <a href="#contributing-to-a-lesson" class="anchor"></a>Contributing to a Lesson</h3>
 <p>To contribute to a lesson, you can either fork the lesson to your own repository and clone it to your computer manually from GitHub, or you can use the {usethis} package to automate it. For example, This is how you can create a copy of <a href="http://swcarpentry.github.io/r-novice-inflammation/"><strong>Programming With R</strong></a> to your computer’s Desktop.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/create_from_github.html">create_from_github</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/create_from_github.html">create_from_github</a></span><span class="op">(</span>
   repo <span class="op">=</span> <span class="st">"swcarpentry/r-novice-gapminder"</span>, 
   destdir <span class="op">=</span> <span class="st">"~/Desktop/r-novice-gampinder"</span>,
   fork <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></pre></div>
+<span class="op">)</span></code></pre></div>
 <p>This will copy all of the source files to your computer and move you to the directory.</p>
 <p>Note that the rendered website will not be immediately available. To download the site as it currently appears on the web, use:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">fetch_lesson</span><span class="op">(</span>markdown <span class="op">=</span> <span class="cn">TRUE</span>, site <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">fetch_lesson</span><span class="op">(</span>markdown <span class="op">=</span> <span class="cn">TRUE</span>, site <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>This will download the site and the rendered markdown files into the <code>site/</code> folder. To save bandwidth, you can choose to just download the markdown files and artifacts by settin <code>site = FALSE</code>. Now, you can edit the Rmarkdown files in <code>episodes/</code> and quickly render the site.</p>
 <p>To upload changes to the lesson repository, you can use the follow</p>
 </div>
@@ -326,31 +345,31 @@
 <li>open the sandpaper project in RStudio and make edits to files in the <code>episodes/</code> folder</li>
 <li>in the R console run the following</li>
 </ol>
-<!-- end list --><div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/check_episode.html">check_lesson</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># validates the structure of the input files</span>
-<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># builds and validates lesson</span></pre></div>
+<!-- end list --><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/check_episode.html">check_lesson</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># validates the structure of the input files</span>
+<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># builds and validates lesson</span></code></pre></div>
 </div>
 <div id="rendering-a-portable-site" class="section level3">
 <h3 class="hasAnchor">
 <a href="#rendering-a-portable-site" class="anchor"></a>Rendering a portable site</h3>
 <p>To render a portable site, you can follow the instructions for <a href="#contributing-to-a-lesson">contributing to a lesson</a> or <a href="#maintaining-a-lesson">maintaining a lesson</a> to set up. Once you have the lesson set up, you can use the following command:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">build_portable_lesson</span><span class="op">(</span>version <span class="op">=</span> <span class="st">"current"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">build_portable_lesson</span><span class="op">(</span>version <span class="op">=</span> <span class="st">"current"</span><span class="op">)</span></code></pre></div>
 <p>This will render a fully portable lesson site as a zip file in the <code>site/</code> folder. You can distribute this lesson to learners who do not have reliable internet access for use offline without sacrificing any of the styling.</p>
 </div>
 <div id="rendering-with-github-actions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#rendering-with-github-actions" class="anchor"></a>Rendering with GitHub actions</h3>
 <p>Ultimately, there should be a minimal number of functions that handle this situation because writing CI configuration files is maddening. The most straightforward function is:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">ci_deploy</span><span class="op">(</span>md_branch <span class="op">=</span> <span class="st">"md-outputs"</span>, site_branch <span class="op">=</span> <span class="st">"gh-pages"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">ci_deploy</span><span class="op">(</span>md_branch <span class="op">=</span> <span class="st">"md-outputs"</span>, site_branch <span class="op">=</span> <span class="st">"gh-pages"</span><span class="op">)</span></code></pre></div>
 <p>This will render the markdown files in the <code>vignettes/</code> folder of the “md-outputs” branch and then build the site from that folder and deploy it to the “gh-pages” branch using the <a href="https://github.com/r-lib/pkgdown#readme">{pkgdown}</a> machinery.</p>
 <p>Because css and js libraries may need updating before any lesson material does, a step can be created just for rebuilding the site that uses:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">ci_deploy_site</span><span class="op">(</span>branch <span class="op">=</span> <span class="st">"gh-pages"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">ci_deploy_site</span><span class="op">(</span>branch <span class="op">=</span> <span class="st">"gh-pages"</span><span class="op">)</span></code></pre></div>
 <p>When a lesson is given a release, the current site folder needs to be duplicated to a versioned folder and a tag needs to be added to the “md-outputs” branch:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">ci_release</span><span class="op">(</span>tag <span class="op">=</span> <span class="st">"0.1"</span>, md_branch <span class="op">=</span> <span class="st">"md-outputs"</span>, site_branch <span class="op">=</span> <span class="st">"gh-pages"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">ci_release</span><span class="op">(</span>tag <span class="op">=</span> <span class="st">"0.1"</span>, md_branch <span class="op">=</span> <span class="st">"md-outputs"</span>, site_branch <span class="op">=</span> <span class="st">"gh-pages"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 </div>
