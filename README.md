@@ -1,7 +1,7 @@
+The New Carpentries Lesson Template: {sandpaper}
+================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# sandpaper
 
 <!-- badges: start -->
 
