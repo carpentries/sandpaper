@@ -50,24 +50,15 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
     same_name <- intersect(names(old_hashes), names(new_hashes))
 
     # Only build the episodes that have changed. 
-    to_be_built   <- to_be_built[new_hashes %nin% old_hashes[same_name], ]
+    to_be_built   <- to_be_built[new_hashes %nin% old_hashes[same_name], , drop = FALSE]
     to_be_removed <- setdiff(names(old_hashes), names(new_hashes))
   } else {
     to_be_removed <- character(0)
   }
 
-  # Render the episode files to the built directory ----------------------------
-  for (i in seq_len(nrow(to_be_built))) {
-    build_episode_md(
-      path = to_be_built$episode[i],
-      hash = to_be_built$hash[i],
-      quiet = quiet
-    )
-  }
-
   # Copy the files to the assets directory -------------------------------------
   to_copy <- vapply(
-    c("data", "files", "extras", "fig"), 
+    c("data", "files", "fig"), 
     FUN = function(i) enforce_dir(episode_path(i)),
     FUN.VALUE = character(1)
   )
@@ -77,8 +68,20 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
     copy_assets(f, site_path("assets"))
   }
 
+  # Render the episode files to the built directory ----------------------------
+  for (i in seq_len(nrow(to_be_built))) {
+    build_episode_md(
+      path    = to_be_built$episode[i],
+      hash    = to_be_built$hash[i],
+      workdir = site_path("assets"),
+      quiet   = quiet
+    )
+  }
+
+  # Remove detritus ------------------------------------------------------------
   if (length(to_be_removed)) fs::file_delete(stats::na.omit(built[to_be_removed]))
 
+  # Update metadata and navbar -------------------------------------------------
   if (nrow(to_be_built) > 0) {
     update_site_timestamp(path)
   }

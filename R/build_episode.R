@@ -92,7 +92,7 @@ build_episode_html <- function(path_md, path_src = path_md,
 #' hash <- tools::md5sum(fun_file)
 #' res <- build_episode_md(fun_file, hash, outdir = fun_dir, workdir = fun_dir)
 build_episode_md <- function(path, hash, outdir = path_built(path), 
-                             workdir = path_episodes(path), 
+                             workdir = path_built(path), 
                              env = new.env(), quiet = FALSE) {
 
   # define the output

@@ -38,6 +38,8 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
 
   # step 2: build the package site
   pkg <- pkgdown::as_pkgdown(path_site(path), override = override)
+  # NOTE: This is a kludge to prevent pkgdown from displaying a bunch of noise
+  #       if the user asks for quiet. 
   if (quiet) {
     f <- file()
     on.exit({

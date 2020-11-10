@@ -8,7 +8,7 @@ build_episode_md(
   path,
   hash,
   outdir = path_built(path),
-  workdir = path_episodes(path),
+  workdir = path_built(path),
   env = new.env(),
   quiet = FALSE
 )

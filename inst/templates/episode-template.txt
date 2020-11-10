@@ -61,7 +61,7 @@ What is the output of this command?
 paste("This", "new", "template", "looks", "good")
 ```
 
-:::::::::::::::::::::::: soultion 
+:::::::::::::::::::::::: solution 
 
 ## Output
  
@@ -74,7 +74,7 @@ paste("This", "new", "template", "looks", "good")
 
 ## Challenge 2: how do you nest solutions within challenge blocks?
 
-:::::::::::::::::::::::: soultion 
+:::::::::::::::::::::::: solution 
 
 ## Nest Solution
  

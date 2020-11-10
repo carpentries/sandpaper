@@ -11,11 +11,28 @@ test_that("markdown sources can be built without fail", {
   expect_warning(s <- get_schedule(tmp), "set_schedule")
   set_schedule(tmp, s, write = TRUE)
   expect_equal(res, tmp, ignore_attr = TRUE)
+  # The episodes should be the only things in the directory
+  e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
+  expect_equal(fs::path_file(e), s)
+   
 
   # It's noisy at first
   suppressMessages({
   expect_output(build_markdown(res, quiet = FALSE), "ordinary text without R code")
   })
+  
+  # No artifacts should be present in the directory
+  e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
+  expect_equal(fs::path_file(e), s)
+  # The artifacts are present in the built directory
+  b <- c(
+    # Markdown files
+    fs::path_ext_set(s, "md"), 
+    # Generated figures
+    paste0(fs::path_ext_remove(s), "-pyramid-1.png")
+  )
+  a <- fs::dir_ls(fs::path(tmp, "site", "built"), recurse = TRUE, type = "file")
+  expect_equal(fs::path_file(a), b)
 
   # see helper-hash.R
   h1 <- expect_hashed(res, "01-introduction.Rmd")
