@@ -20,6 +20,7 @@ test_that("build_episode_md() works independently", {
   expect_equal(basename(res), "fun.md")
   lines <- readLines(res)
   expect_equal(lines[[2]], paste("sandpaper-digest:", hash))
+  expect_equal(lines[[3]], paste("sandpaper-source:", fun_file))
   expect_match(lines[length(lines)], "This is coming from R (version|Under)")
 
 })

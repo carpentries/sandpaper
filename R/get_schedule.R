@@ -17,7 +17,7 @@ get_schedule <- function(path = ".") {
   scd <- yaml[["schedule"]]
   if (is.null(scd)) {
     warning("No schedule set, using Rmd files in `episodes/` directory.\nTo remove this warning, define your schedule in `config.yaml` or use `set_schedule()` to generate it.")
-    scd <- basename(get_source_files(path))
+    scd <- basename(get_episode_sources(path))
   }
   return(scd)
 }

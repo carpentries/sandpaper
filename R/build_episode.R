@@ -2,7 +2,9 @@
 #'
 #' @param path_md the path to the episode markdown (not RMarkdown) file
 #'   (usually via [build_episode_md()]).
-#' @param path_src the path to the source file (defaults `path_md`)
+#' @param path_src the default is `NULL` indicating that the source file should
+#'   be determined from the `sandpaper-source` entry in the yaml header. If this
+#'   is not present, then this option allows you to specify that file. 
 #' @param page_back the URL for the previous page
 #' @param page_forward the URL for the next page
 #' @param pkg a `pkgdown` object containing metadata for the site
@@ -34,12 +36,13 @@
 #' build_episode_html(res, 
 #'   pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
 #' )
-build_episode_html <- function(path_md, path_src = path_md, 
+build_episode_html <- function(path_md, path_src = NULL, 
                                page_back = "index.md", page_forward = "index.md", 
                                pkg, quiet = FALSE) {
   home <- root_path(path_md)
   body <- render_html(path_md, quiet = quiet)
   yaml <- yaml::yaml.load(politely_get_yaml(path_md))
+  path_src <- if (is.null(path_src)) yaml[["sandpaper-source"]] else path_src
   pkgdown::render_page(pkg, 
     "title-body",
     data = list(
@@ -63,7 +66,7 @@ build_episode_html <- function(path_md, path_src = path_md,
 #' Build an episode to markdown
 #'
 #' This uses [knitr::knit()] with custom options set for the Carpentries
-#' template and prepends a hash to the yaml header
+#' template and prepends a hash and the source file to the yaml header
 #'
 #' @param path path to the RMarkdown file
 #' @param hash hash to prepend to the output
@@ -144,9 +147,13 @@ build_episode_md <- function(path, hash, outdir = path_built(path),
     )
 
     # append md5 hash to top of file ------------------------
+    sandpaper_yaml <- yaml::as.yaml(list(
+      "sandpaper-digest" = hash,
+      "sandpaper-source" = path
+    ))
     output <- sub(
       "^---",
-      paste("---\nsandpaper-digest:", hash),
+      paste("---", sandpaper_yaml, sep = "\n"),
       res
     )
 

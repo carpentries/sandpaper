@@ -6,7 +6,7 @@
 \usage{
 build_episode_html(
   path_md,
-  path_src = path_md,
+  path_src = NULL,
   page_back = "index.md",
   page_forward = "index.md",
   pkg,
@@ -17,7 +17,9 @@ build_episode_html(
 \item{path_md}{the path to the episode markdown (not RMarkdown) file
 (usually via \code{\link[=build_episode_md]{build_episode_md()}}).}
 
-\item{path_src}{the path to the source file (defaults \code{path_md})}
+\item{path_src}{the default is \code{NULL} indicating that the source file should
+be determined from the \code{sandpaper-source} entry in the yaml header. If this
+is not present, then this option allows you to specify that file.}
 
 \item{page_back}{the URL for the previous page}
 

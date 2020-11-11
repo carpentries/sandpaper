@@ -49,7 +49,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
     sink(f)
   }
   pkgdown::init_site(pkg)
-  episodes <- get_built_files(path)
+  episodes <- get_markdown_files(path_built(path))
   n <- length(episodes)
   if (!quiet && requireNamespace("cli", quietly = TRUE)) {
     cli::cli_rule(cli::style_bold("Scanning episodes"))
@@ -57,11 +57,10 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   for (i in seq_along(episodes)) {
     build_episode_html(
       path_md      = episodes[i],
-      path_src     = get_source_buddy(episodes[i]),
       page_back    = if (i > 1) episodes[i - 1] else "index.md",
       page_forward = if (i < n) episodes[i + 1] else "index.md",
-      pkg, 
-      quiet = quiet
+      pkg          = pkg, 
+      quiet        = quiet
     )
   }
   fs::dir_walk(

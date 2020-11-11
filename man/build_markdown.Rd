@@ -4,7 +4,7 @@
 \alias{build_markdown}
 \title{Build plain markdown from the RMarkdown episodes}
 \usage{
-build_markdown(path = ".", rebuild = FALSE, quiet = FALSE)
+build_markdown(path = ".", rebuild = FALSE, quiet = FALSE, outdir = NULL)
 }
 \arguments{
 \item{path}{the path to your repository (defaults to your current working
@@ -13,6 +13,10 @@ directory)}
 \item{rebuild}{if \code{TRUE}, everything will be built from scratch as if there
 was no cache. Defaults to \code{FALSE}, which will only build markdown files that
 haven't been built before.}
+
+\item{outdir}{defaults to \code{NULL}, which means that the output directory is
+under \code{site/built} of main sandpaper project. If this is set, it will
+build to the directory where the output is specified.}
 }
 \value{
 \code{TRUE} if it was successful, a character vector of issues if it was

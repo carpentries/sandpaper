@@ -32,7 +32,7 @@ the path to the output, invisibly
 }
 \description{
 This uses \code{\link[knitr:knit]{knitr::knit()}} with custom options set for the Carpentries
-template and prepends a hash to the yaml header
+template and prepends a hash and the source file to the yaml header
 }
 \note{
 this function is for internal use, but exported for those who know what
