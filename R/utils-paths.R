@@ -54,7 +54,7 @@ get_source_files <- function(path) {
 
 get_built_files <- function(path) {
   pb <- enforce_dir(path_built(path))
-  fs::dir_ls(pb, regexp = no_readme(), perl = TRUE)
+  fs::dir_ls(pb, regexp = no_readme(), perl = TRUE, recurse = TRUE)
 }
 
 get_source_buddy <- function(path) {
