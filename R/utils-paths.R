@@ -58,16 +58,18 @@ get_built_files <- function(path) {
 }
 
 get_source_buddy <- function(path) {
-  slug <- get_episode_slug(path)
+  slug <- get_slug(path)
+  # Returns nothing if the pattern cannot be found
   fs::dir_ls(path_episodes(path), regexp = paste0(slug, "[.]R?md"))
 }
 
 get_built_buddy <- function(path) {
-  slug <- get_episode_slug(path)
+  slug <- get_slug(path)
+  # Returns nothing if the pattern cannot be found
   fs::dir_ls(path_built(path), regexp = paste0(slug, ".md"), fixed = TRUE)
 }
 
-get_episode_slug <- function(path) {
+get_slug <- function(path) {
   fs::path_ext_remove(fs::path_file(path))
 }
 

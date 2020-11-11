@@ -170,7 +170,7 @@ get_build_status <- function(episodes, built, rebuild = FALSE) {
 
   if (any_built) {
     old_hashes        <- vapply(built, get_hash, character(1))
-    names(old_hashes) <- get_episode_slug(built)
+    names(old_hashes) <- get_slug(built)
   } else {
     old_hashes <- character(0)
   }

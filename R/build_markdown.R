@@ -26,7 +26,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   episodes  <- get_schedule(path)
   episodes  <- episode_path(episodes)
   built     <- get_built_files(path)
-  names(episodes) <- get_episode_slug(episodes)
+  names(episodes) <- get_slug(episodes)
   build_status    <- get_build_status(episodes, built, rebuild)
 
   # Copy the files to the assets directory -------------------------------------
