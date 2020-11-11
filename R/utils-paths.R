@@ -42,6 +42,11 @@ path_episodes <- function(inpath) {
   fs::path(home, "episodes")
 }
 
+path_extras <- function(inpath) {
+  home <- root_path(inpath)
+  fs::path(home, "extras")
+}
+
 get_source_files <- function(path) {
   pe <- enforce_dir(path_episodes(path))
   fs::dir_ls(pe, regexp = "*R?md")

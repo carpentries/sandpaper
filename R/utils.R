@@ -158,6 +158,43 @@ copy_assets <- function(src, dst) {
   }
 }
 
+# Get the build status for a vector of episodes against a vector of markdown
+# files. Return a list with a data frame of episodes that need to be built or
+# rebuilt and a vector of built episodes that need to be removed.
+get_build_status <- function(episodes, built, rebuild = FALSE) {
+
+  any_built <- if (rebuild || length(built) == 0) FALSE else TRUE
+
+  new_hashes        <- tools::md5sum(episodes)
+  names(new_hashes) <- names(episodes)
+
+  if (any_built) {
+    old_hashes        <- vapply(built, get_hash, character(1))
+    names(old_hashes) <- get_episode_slug(built)
+  } else {
+    old_hashes <- character(0)
+  }
+
+  to_be_built <- data.frame(
+    episode = episodes,
+    hash = new_hashes,
+    stringsAsFactors = FALSE
+  )
+
+  if (any_built) {
+    # Find all episods that have the same name
+    same_name <- intersect(names(old_hashes), names(new_hashes))
+
+    # Only build the episodes that have changed. 
+    to_be_built   <- to_be_built[new_hashes %nin% old_hashes[same_name], , drop = FALSE]
+    to_be_removed <- setdiff(names(old_hashes), names(new_hashes))
+  } else {
+    to_be_removed <- character(0)
+  }
+
+  list(build = to_be_built, remove = to_be_removed)
+}
+
 #nocov start
 # Make it easy to contribute to our gitignore template, but also avoid having
 # to reload this thing every time we need it 
