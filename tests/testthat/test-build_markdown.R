@@ -8,8 +8,8 @@ test_that("markdown sources can be built without fail", {
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp)
   create_episode("second-episode", path = tmp)
-  expect_warning(s <- get_schedule(tmp), "set_schedule")
-  set_schedule(tmp, s, write = TRUE)
+  expect_warning(s <- get_episodes(tmp), "set_episodes")
+  set_episodes(tmp, s, write = TRUE)
   expect_equal(res, tmp, ignore_attr = TRUE)
   # The episodes should be the only things in the directory
   e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")

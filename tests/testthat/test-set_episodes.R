@@ -7,10 +7,10 @@ res <- create_lesson(tmp, open = FALSE)
 test_that("schedule is empty by default", {
 
   cfg <- get_config(tmp)
-  expect_warning(s <- get_schedule(tmp), "set_schedule")
+  expect_warning(s <- get_episodes(tmp), "set_episodes")
   expect_equal(s, "01-introduction.Rmd")
-  expect_null(set_schedule(tmp, s, write = TRUE))
-  expect_silent(s <- get_schedule(tmp))
+  expect_null(set_episodes(tmp, s, write = TRUE))
+  expect_silent(s <- get_episodes(tmp))
   expect_equal(s, "01-introduction.Rmd")
 
   # the config files should be unchanged from the schedule
@@ -21,50 +21,50 @@ test_that("schedule is empty by default", {
 
 test_that("new episodes will not add to the schedule by default", {
 
-  set_schedule(tmp, "01-introduction.Rmd", write = TRUE)
+  set_episodes(tmp, "01-introduction.Rmd", write = TRUE)
   create_episode("new", path = tmp)
-  expect_equal(get_schedule(tmp), "01-introduction.Rmd")
+  expect_equal(get_episodes(tmp), "01-introduction.Rmd")
 
 })
 
 
-test_that("get_schedule() returns episodes in dir if schedule is not set", {
+test_that("get_episodes() returns episodes in dir if schedule is not set", {
 
-  clear_schedule(tmp)
-  expect_warning(s <- get_schedule(tmp), "set_schedule")
+  clear_episodes(tmp)
+  expect_warning(s <- get_episodes(tmp), "set_episodes")
   expect_equal(s, c("01-introduction.Rmd", "02-new.Rmd"))
-  set_schedule(tmp, s[1], write = TRUE)
-  expect_equal(get_schedule(tmp), s[1])
+  set_episodes(tmp, s[1], write = TRUE)
+  expect_equal(get_episodes(tmp), s[1])
 
 })
 
-test_that("set_schedule() will display the modifications if write is not specified", {
+test_that("set_episodes() will display the modifications if write is not specified", {
 
-  clear_schedule(tmp)
-  expect_warning(s <- get_schedule(tmp), "set_schedule")
+  clear_episodes(tmp)
+  expect_warning(s <- get_episodes(tmp), "set_episodes")
   expect_equal(s, c("01-introduction.Rmd", "02-new.Rmd"))
-  set_schedule(tmp, s, write = TRUE)
-  expect_equal(get_schedule(tmp), s)
-  expect_snapshot_output(set_schedule(tmp, s[1]))
-  expect_equal(get_schedule(tmp), s)
-  set_schedule(tmp, s[1], write = TRUE)
-  expect_equal(get_schedule(tmp), s[1])
+  set_episodes(tmp, s, write = TRUE)
+  expect_equal(get_episodes(tmp), s)
+  expect_snapshot_output(set_episodes(tmp, s[1]))
+  expect_equal(get_episodes(tmp), s)
+  set_episodes(tmp, s[1], write = TRUE)
+  expect_equal(get_episodes(tmp), s[1])
 
 })
 
-test_that("set_schedule() will error if no proposal is defined", {
+test_that("set_episodes() will error if no proposal is defined", {
 
-  expect_error(set_schedule(tmp), "schedule must have an order")
+  expect_error(set_episodes(tmp), "schedule must have an order")
 
 })
 
 
 test_that("adding episodes will concatenate the schedule", {
 
-  expect_equal(get_schedule(tmp), "01-introduction.Rmd")
+  expect_equal(get_episodes(tmp), "01-introduction.Rmd")
   create_episode("second-episode", add = TRUE, path = tmp)
   expect_equal(res, tmp, ignore_attr = TRUE)
-  expect_equal(get_schedule(tmp), c("01-introduction.Rmd", "03-second-episode.Rmd"))
+  expect_equal(get_episodes(tmp), c("01-introduction.Rmd", "03-second-episode.Rmd"))
   expect_silent(build_lesson(tmp, quiet = TRUE, preview = FALSE))
   yaml <- yaml::read_yaml(path_site_yaml(tmp))$navbar$left[[3L]]$menu
   expect_length(yaml, 2)
@@ -76,8 +76,8 @@ test_that("adding episodes will concatenate the schedule", {
 
 test_that("the schedule can be rearranged", {
 
-  set_schedule(tmp, rev(get_schedule(tmp)), write = TRUE)
-  expect_equal(get_schedule(tmp), c("03-second-episode.Rmd", "01-introduction.Rmd"))
+  set_episodes(tmp, rev(get_episodes(tmp)), write = TRUE)
+  expect_equal(get_episodes(tmp), c("03-second-episode.Rmd", "01-introduction.Rmd"))
   expect_silent(build_lesson(tmp, quiet = TRUE, preview = FALSE))
   yaml <- yaml::read_yaml(path_site_yaml(tmp))$navbar$left[[3L]]$menu
   expect_length(yaml, 2)
@@ -88,8 +88,8 @@ test_that("the schedule can be rearranged", {
 
 test_that("the schedule can be truncated", {
 
-  set_schedule(tmp, rev(get_schedule(tmp))[1], write = TRUE)
-  expect_equal(get_schedule(tmp), "01-introduction.Rmd")
+  set_episodes(tmp, rev(get_episodes(tmp))[1], write = TRUE)
+  expect_equal(get_episodes(tmp), "01-introduction.Rmd")
   expect_silent(build_lesson(tmp, quiet = TRUE, preview = FALSE))
   yaml <- yaml::read_yaml(path_site_yaml(tmp))$navbar$left[[3L]]$menu
   expect_length(yaml, 1)

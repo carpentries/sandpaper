@@ -19,11 +19,11 @@
 #' @examples
 #' tmp <- tempfile()
 #' create_lesson(tmp, open = FALSE)
-#' suppressWarnings(set_schedule(tmp, get_schedule(tmp), write = TRUE))
+#' suppressWarnings(set_episodes(tmp, get_episodes(tmp), write = TRUE))
 #' build_lesson(tmp)
 #' 
 #' # create a new file in extras
-#' fun_file <- file.path(tmp, "episodes", "extras", "fun.Rmd")
+#' fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
 #' txt <- c(
 #'  "---\ntitle: Fun times\n---\n\n",
 #'  "# new page\n", 

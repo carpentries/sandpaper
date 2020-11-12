@@ -1,4 +1,4 @@
-# set_schedule() will display the modifications if write is not specified
+# set_episodes() will display the modifications if write is not specified
 
     carpentry: cp
     title: Lesson Title

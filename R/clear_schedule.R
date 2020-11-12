@@ -7,12 +7,12 @@
 #' @examples
 #' tmp <- tempfile()
 #' create_lesson(tmp)
-#' get_schedule(tmp) # produces warning
-#' set_schedule(tmp, get_schedule(tmp), write = TRUE)
-#' get_schedule(tmp) # no warning
-#' clear_schedule(tmp)
-#' get_schedule(tmp) # produces warning again because there is no schedule
-clear_schedule <- function(path = ".") {
+#' get_episodes(tmp) # produces warning
+#' set_episodes(tmp, get_episodes(tmp), write = TRUE)
+#' get_episodes(tmp) # no warning
+#' clear_episodes(tmp)
+#' get_episodes(tmp) # produces warning again because there is no schedule
+clear_episodes <- function(path = ".") {
   check_lesson(path)
   yaml <- get_config(path)
   copy_template("config", path, "config.yaml",

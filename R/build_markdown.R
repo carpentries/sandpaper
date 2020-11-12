@@ -27,7 +27,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, outdir = 
   build_path <- make_here(outdir)
 
   # Determine build status for the episodes ------------------------------------
-  episodes  <- episode_path(get_schedule(path)) # use get_schedule here for order
+  episodes  <- episode_path(get_episodes(path)) # use get_episodes here for order
   built     <- get_markdown_files(outdir)
   names(episodes) <- get_slug(episodes)
   build_status    <- get_build_status(episodes, built, rebuild)

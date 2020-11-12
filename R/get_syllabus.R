@@ -23,7 +23,7 @@ get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
   # The syllabus is a table containing timings, links, and questions associated
   # with each episode.
   
-  sched    <- get_schedule(path)
+  sched    <- get_episodes(path)
   episodes <- lapply(fs::path(path_episodes(path), sched), function(i) pegboard::Episode$new(i))
   
   quest <- if (questions) vapply(episodes, get_questions, character(1)) else NULL

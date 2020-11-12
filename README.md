@@ -174,13 +174,13 @@ Here is a working list of user-facing functions:
   - `create_episode()` creates a new episode with the correct number
     prefix
   - `create_dataset()` creates a csv or text data set from an R object
-  - `set_schedule()` arranges the episodes in a user-specified order
+  - `set_episodes()` arranges the episodes in a user-specified order
 
 Accessors
 
   - `get_episode()` reads in an episode as an XML object
   - `get_config()` reads the contents of `config.yaml` as a list
-  - `get_schedule()` returns the schedule as a vector
+  - `get_episodes()` returns the schedule as a vector
   - `get_syllabus()` returns the syllabus with timings, titles, and
     questions
 
@@ -209,7 +209,7 @@ Accessors
 
 Cleanup
 
-  - `clear_schedule()` removes the schedule from the config.yaml file
+  - `clear_episodes()` removes the schedule from the config.yaml file
   - `clear_site()` clears the website and cache
 
 ## Usage
@@ -253,12 +253,12 @@ with the following structure:
 
 Once you have your site set up, you can add your RMarkdown files in the
 episodes folder. By default, they will be built in alphabetical order,
-but you can use the `set_schedule()` command to build the schedule in
+but you can use the `set_episodes()` command to build the schedule in
 your `config.yaml` file:
 
 ``` r
-s <- sandpaper::get_schedule()
-sandpaper::set_schedule(order = s, write = TRUE)
+s <- sandpaper::get_episodes()
+sandpaper::set_episodes(order = s, write = TRUE)
 ```
 
 When you want to preview your site, use the following:

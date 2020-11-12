@@ -11,17 +11,17 @@
 #' tmp <- tempfile()
 #' create_lesson(tmp)
 #' create_episode("using-R", path = tmp)
-#' print(sched <- get_schedule(tmp))
+#' print(sched <- get_episodes(tmp))
 #' 
 #' # reverse the schedule
-#' set_schedule(tmp, order = rev(sched))
+#' set_episodes(tmp, order = rev(sched))
 #' # write it
-#' set_schedule(tmp, order = rev(sched), write = TRUE)
+#' set_episodes(tmp, order = rev(sched), write = TRUE)
 #'
 #' # see it
-#' get_schedule(tmp)
+#' get_episodes(tmp)
 #'
-set_schedule <- function(path, order = NULL, write = FALSE) {
+set_episodes <- function(path, order = NULL, write = FALSE) {
   if (is.null(order)) {
     stop("schedule must have an order")
   }
