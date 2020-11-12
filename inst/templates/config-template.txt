@@ -28,5 +28,29 @@ branch: {{ branch }}
 # Who to contact if there are any issues
 contact: {{ contact }}
 
-# Rearrange this schedule to match your lesson
-schedule: {{ schedule }}
+# Navigation ------------------------------------------------
+# The menu bar will be in the following order:
+# 
+# - Code of Conduct      (CODE_OF_CONDUCT.md)
+# - Setup                (Setup.md)
+# - Episodes             (episodes/)
+# - Learner Resources    (learners/)
+# - Instructor Resources (instructors/)
+# - Learner Profiles     (profiles/)
+# - License              (LICENSE.md)
+# 
+# Use the following menu items to specify the order of
+# individual pages in each dropdown section
+
+# Order of episodes in your lesson 
+episodes: {{ episodes }}
+
+# Information for Learners
+learners: {{ learners }}
+
+# Information for Instructors
+instructors: {{ instructors }}
+
+# Learner Profiles
+profiles: {{ profiles }}
+

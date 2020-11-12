@@ -7,8 +7,11 @@
     source: https://github.com/carpentries/sandpaper
     branch: main
     contact: team@carpentries.org
+    learners: ~
+    instructors: ~
+    profiles: ~
     
-    schedule:
+    episodes:
     - 01-introduction.Rmd
     x 02-new.Rmd
 

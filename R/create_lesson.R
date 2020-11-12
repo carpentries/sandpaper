@@ -23,7 +23,9 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   fs::dir_create(fs::path(path, "episodes", "data"))
   fs::dir_create(fs::path(path, "episodes", "files"))
   fs::dir_create(fs::path(path, "episodes", "fig"))
-  fs::dir_create(fs::path(path, "episodes", "extras"))
+  fs::dir_create(fs::path(path, "instructors"))
+  fs::dir_create(fs::path(path, "learners"))
+  fs::dir_create(fs::path(path, "profiles"))
   fs::file_create(fs::path(path, "README.md"))
 
   copy_template("gitignore", path, ".gitignore")

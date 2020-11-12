@@ -14,7 +14,7 @@ get_schedule <- function(path = ".") {
     stop("config file does not exist")
   }
   yaml <- yaml::read_yaml(cfg)
-  scd <- yaml[["schedule"]]
+  scd <- yaml[["episodes"]] %||% yaml[["schedule"]]
   if (is.null(scd)) {
     warning("No schedule set, using Rmd files in `episodes/` directory.\nTo remove this warning, define your schedule in `config.yaml` or use `set_schedule()` to generate it.")
     scd <- basename(get_episode_sources(path))

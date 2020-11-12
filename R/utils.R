@@ -128,17 +128,31 @@ update_site_timestamp <- function(path) {
   write_pkgdown_yaml(yaml, path)
 }
 
-update_site_menu <- function(path, episodes) {
-  yaml <- get_path_site_yaml(path)
-  res <- lapply(episodes, function(i) {
-    txt <- yaml::yaml.load(politely_get_yaml(i))$title
-    list(
-      pagetitle = txt,
-      text  = txt,
-      href  = as_html(i)
-    )
-  })
-  yaml$navbar$left[[1]]$menu <- unname(res)
+get_navbar_info <- function(i) {
+  txt <- yaml::yaml.load(politely_get_yaml(i))$title
+  list(
+    pagetitle = txt,
+    text  = txt,
+    href  = as_html(i)
+  )
+}
+
+site_menu <- function(yaml, files = NULL, position = 3L) {
+  if (is.null(files)) return(yaml)
+  res <- lapply(files, get_navbar_info)
+  yaml$navbar$left[[position]]$menu <- unname(res)
+  yaml
+}
+
+
+# Take a list of episodes and update the yaml configuration. 
+update_site_menu <- function(path, 
+  episodes = NULL, learners = NULL, instructors = NULL, profiles = NULL) {
+  yaml <- get_path_site_yaml(path) 
+  yaml <- site_menu(yaml, episodes,    3L)
+  yaml <- site_menu(yaml, learners,    4L)
+  yaml <- site_menu(yaml, instructors, 5L)
+  yaml <- site_menu(yaml, profiles,    6L)
   write_pkgdown_yaml(yaml, path)
 }
 

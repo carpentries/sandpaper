@@ -38,7 +38,7 @@ test_that("build_episode_html() works independently", {
   
 
   # create a new file in extras
-  fun_file <- file.path(tmp, "episodes", "extras", "fun.Rmd")
+  fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
   txt <- c(
     "---\ntitle: Fun times\n---\n\n",
     "# new page\n", 
