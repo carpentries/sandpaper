@@ -5,6 +5,10 @@
 \alias{template_episode}
 \alias{template_links}
 \alias{template_config}
+\alias{template_conduct}
+\alias{template_license}
+\alias{template_contributing}
+\alias{template_setup}
 \alias{template_pkgdown}
 \title{Template files}
 \usage{
@@ -15,6 +19,14 @@ template_episode()
 template_links()
 
 template_config()
+
+template_conduct()
+
+template_license()
+
+template_contributing()
+
+template_setup()
 
 template_pkgdown()
 }

@@ -48,6 +48,22 @@ template_config <- generate_template_function("config")
 
 #' @rdname template
 #' @export
+template_conduct <- generate_template_function("conduct")
+
+#' @rdname template
+#' @export
+template_license <- generate_template_function("license")
+
+#' @rdname template
+#' @export
+template_contributing <- generate_template_function("contributing")
+
+#' @rdname template
+#' @export
+template_setup <- generate_template_function("setup")
+
+#' @rdname template
+#' @export
 template_pkgdown <- generate_template_function("pkgdown-yaml")
 
 

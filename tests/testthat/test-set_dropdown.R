@@ -54,7 +54,7 @@ test_that("set_episodes() will display the modifications if write is not specifi
 
 test_that("set_episodes() will error if no proposal is defined", {
 
-  expect_error(set_episodes(tmp), "schedule must have an order")
+  expect_error(set_episodes(tmp), "episodes must have an order")
 
 })
 

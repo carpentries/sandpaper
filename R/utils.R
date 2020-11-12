@@ -209,6 +209,37 @@ get_build_status <- function(episodes, built, rebuild = FALSE) {
   list(build = to_be_built, remove = to_be_removed)
 }
 
+check_order <- function(order, what) {
+  if (is.null(order)) {
+    stop(paste(what, "must have an order"), call. = FALSE)
+  }
+}
+
+show_changed_yaml <- function(sched, order, what = "episodes") {
+
+  if (requireNamespace("cli", quietly = TRUE)) {
+    # display for the user to distinguish what was added and what was taken 
+    removed <- sched %nin% order
+    added   <- order %nin% sched
+    order[added] <- cli::style_bold(cli::col_green(order[added]))
+    cli::cat_line(paste0(what, ":"))
+    cli::cat_bullet(order, bullet = "line")
+    if (any(removed)) {
+      cli::cli_rule(paste("Removed", what))
+      cli::cat_bullet(sched[removed], bullet = "cross", bullet_col = "red")
+    }
+  } else {
+    cat(yaml::as.yaml(yaml)[[what]])
+  }
+}
+
+# This creates a valid yaml list for a template
+yaml_list <- function(thing) {
+  thing <- if (length(thing) == 1L && !is.list(thing)) list(thing) else thing
+  pad <- if (is.list(thing) && length(names(thing)) == 1L) "" else "\n"
+  paste0(pad, yaml::as.yaml(thing))
+}
+
 #nocov start
 # Make it easy to contribute to our gitignore template, but also avoid having
 # to reload this thing every time we need it 

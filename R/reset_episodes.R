@@ -13,6 +13,7 @@
 #' reset_episodes(tmp)
 #' get_episodes(tmp) # produces warning again because there is no schedule
 reset_episodes <- function(path = ".") {
+  # FIXME: This needs to change to reset_dropdown and friends.
   check_lesson(path)
   yaml <- get_config(path)
   copy_template("config", path, "config.yaml",

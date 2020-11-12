@@ -29,6 +29,10 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   fs::file_create(fs::path(path, "README.md"))
 
   copy_template("gitignore", path, ".gitignore")
+  copy_template("conduct", path, "CODE_OF_CONDUCT.md")
+  copy_template("license", path, "LICENSE.md")
+  copy_template("contributing", path, "CONTRIBUTING.md")
+  copy_template("setup", fs::path(path, "learners"), "Setup.md") 
   copy_template("config", path, "config.yaml",
     values = list(
       title      = "Lesson Title",

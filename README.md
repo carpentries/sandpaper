@@ -178,9 +178,8 @@ Here is a working list of user-facing functions:
 
 Accessors
 
-  - `get_episode()` reads in an episode as an XML object
   - `get_config()` reads the contents of `config.yaml` as a list
-  - `get_episodes()` returns the schedule as a vector
+  - `get_episodes()` returns the episode filenames as a vector
   - `get_syllabus()` returns the syllabus with timings, titles, and
     questions
 
@@ -234,22 +233,27 @@ This will create folder on your desktop called `r-intermediate-penguins`
 with the following structure:
 
     |-- .gitignore               # - Ignore everything in the site/ folder
-    |-- .github/                 # 
+    |-- .github/                 # - Scripts used for continuous integration
     |   `-- workflows/           #
-    |       |-- deploy-site.yaml # - Build the source files on github pages
-    |       |-- build-md.yaml    # - Build the markdown files on github pages
-    |       `-- cron.yaml        # - reset package cache and test
+    |       |-- deploy-site.yaml # -   Build the source files on github pages
+    |       |-- build-md.yaml    # -   Build the markdown files on github pages
+    |       `-- cron.yaml        # -   reset package cache and test
     |-- episodes/                # - PUT YOUR MARKDOWN FILES IN THIS FOLDER
-    |   |-- data/                # - Data for your lesson goes here
-    |   |-- extras/              # - Supplemental lesson material goes here
-    |   |-- figures/             # - All static figures and diagrams are here
-    |   |-- files/               # - Additional files (e.g. handouts) 
-    |   `-- 00-introducition.Rmd # - Lessons start with a two-digit number
+    |   |-- data/                # -   Data for your lesson goes here
+    |   |-- figures/             # -   All static figures and diagrams are here
+    |   |-- files/               # -   Additional files (e.g. handouts) 
+    |   `-- 00-introducition.Rmd # -   Lessons start with a two-digit number
+    |-- instructors/             # - Information for Instructors
+    |-- learners/                # - Information for Learners
+    |   `-- Setup.md             # -   setup instructions (REQUIRED)
+    |-- profiles/                # - Learner and/or Instructor Profiles
     |-- site/                    # - This folder is where the rendered markdown files and static site will live
-    |   `-- README.md            #
+    |   `-- README.md            # -   placeholder
     |-- config.yaml              # - Use this to configure commonly used variables
+    |-- CONTRIBUTING.md          # - Carpentries Rules for Contributions (REQUIRED)
     |-- CODE_OF_CONDUCT.md       # - Carpentries Code of Conduct (REQUIRED)
-    `-- README.md                # - Use this to tell folks how to contribute
+    |-- LICENSE.md               # - Carpentries Licenses (REQUIRED)
+    `-- README.md                # - Introduces folks how to use this lesson and where they can find more information.
 
 Once you have your site set up, you can add your RMarkdown files in the
 episodes folder. By default, they will be built in alphabetical order,

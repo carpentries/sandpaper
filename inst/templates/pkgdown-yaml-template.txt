@@ -12,8 +12,6 @@ navbar:
   left:
     - text: Code of Conduct
       link: CODE_OF_CONDUCT.html
-    - text: Setup
-      link: Setup.html
     - text: Episodes
       menu: ~ # episodes will be populated here
     - text: For Learners
