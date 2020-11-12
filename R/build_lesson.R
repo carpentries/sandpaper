@@ -33,7 +33,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
 
   # step 1: build the markdown vignettes and site (if it doesn't exist)
   if (rebuild) {
-    clear_site(path)
+    reset_site(path)
   } else {
     create_site(path)
   }

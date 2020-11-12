@@ -32,7 +32,7 @@ test_that("build_episode_html() works independently", {
   fs::dir_create(tmpdir)
   tmp    <- fs::path(tmpdir, "lesson-example")
   expect_equal(basename(create_lesson(tmp, open = FALSE)), basename(tmp))
-  clear_site(tmp)
+  reset_site(tmp)
   pkg <- pkgdown::as_pkgdown(file.path(tmp, "site"))
   expect_output(pkgdown::init_site(pkg))
   

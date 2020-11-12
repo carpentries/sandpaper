@@ -10,9 +10,9 @@
 #' create_lesson(tmp)
 #' build_lesson(tmp, preview = FALSE)
 #' dir(file.path(tmp, "site"))
-#' clear_site(tmp)
+#' reset_site(tmp)
 #' dir(file.path(tmp, "site"))
-clear_site <- function(path = ".") {
+reset_site <- function(path = ".") {
   check_lesson(path)
   fs::dir_delete(path_site(path))
   create_site(path)

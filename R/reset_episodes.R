@@ -10,9 +10,9 @@
 #' get_episodes(tmp) # produces warning
 #' set_episodes(tmp, get_episodes(tmp), write = TRUE)
 #' get_episodes(tmp) # no warning
-#' clear_episodes(tmp)
+#' reset_episodes(tmp)
 #' get_episodes(tmp) # produces warning again because there is no schedule
-clear_episodes <- function(path = ".") {
+reset_episodes <- function(path = ".") {
   check_lesson(path)
   yaml <- get_config(path)
   copy_template("config", path, "config.yaml",

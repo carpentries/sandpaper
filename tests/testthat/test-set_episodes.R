@@ -30,7 +30,7 @@ test_that("new episodes will not add to the schedule by default", {
 
 test_that("get_episodes() returns episodes in dir if schedule is not set", {
 
-  clear_episodes(tmp)
+  reset_episodes(tmp)
   expect_warning(s <- get_episodes(tmp), "set_episodes")
   expect_equal(s, c("01-introduction.Rmd", "02-new.Rmd"))
   set_episodes(tmp, s[1], write = TRUE)
@@ -40,7 +40,7 @@ test_that("get_episodes() returns episodes in dir if schedule is not set", {
 
 test_that("set_episodes() will display the modifications if write is not specified", {
 
-  clear_episodes(tmp)
+  reset_episodes(tmp)
   expect_warning(s <- get_episodes(tmp), "set_episodes")
   expect_equal(s, c("01-introduction.Rmd", "02-new.Rmd"))
   set_episodes(tmp, s, write = TRUE)

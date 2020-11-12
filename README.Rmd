@@ -148,7 +148,7 @@ The functions in {sandpaper} have the following prefixes:
  - `build_` will build files from your source
  - `check_` validates either the elements of the lesson and/or episodes
  - `fetch_` will download files or resources from the internet
- - `clear_` removes files or information
+ - `reset_` removes files or information
  - `get_` will retrieve information from your source files as an R object
  - `set_` will update information in files.
  - `ci_` interacts with continous integration to build the website
@@ -186,8 +186,8 @@ Accessors
 
 Cleanup
 
- - `clear_episodes()` removes the schedule from the config.yaml file
- - `clear_site()` clears the website and cache 
+ - `reset_episodes()` removes the schedule from the config.yaml file
+ - `reset_site()` clears the website and cache 
 
 ## Usage
 

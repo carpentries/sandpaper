@@ -31,7 +31,7 @@ test_that("the site can be cleared", {
   expect_true(fs::file_exists(rds))
   expect_equal(readRDS(rds), expected)
 
-  clear_site(tmp)
+  reset_site(tmp)
 
   expect_length(fs::dir_ls(fs::path(tmp, "site")), 4L)
   expect_length(fs::dir_ls(fs::path(tmp, "site", "built")), 0L)
