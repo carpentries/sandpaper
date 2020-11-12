@@ -17,12 +17,7 @@
 #' lsn
 create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi::isAvailable(), open = rlang::is_interactive()) {
 
-  if (!dir_available(path)) {
-    stop(glue::glue("{path} is not an empty directory."))
-  }
-
-  gert::git_init(path)
-  check_git_user(path)
+  init_source_path(path)
 
   fs::dir_create(fs::path(path, "episodes"))
   fs::dir_create(fs::path(path, "episodes", "data"))

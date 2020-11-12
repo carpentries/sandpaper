@@ -27,6 +27,10 @@
 #' check_lesson(tmp)
 #' build_lesson(tmp)
 build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), preview = TRUE, override = list()) {
+
+  # step 0: build_lesson is only called locally
+  set_local_build(path)
+
   # step 1: build the markdown vignettes and site (if it doesn't exist)
   if (rebuild) {
     clear_site(path)
