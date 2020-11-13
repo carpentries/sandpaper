@@ -138,7 +138,7 @@ get_navbar_info <- function(i) {
 }
 
 site_menu <- function(yaml, files = NULL, position = 3L) {
-  if (is.null(files)) return(yaml)
+  if (is.null(files) || length(files) == 0L) return(yaml)
   res <- lapply(files, get_navbar_info)
   yaml$navbar$left[[position]]$menu <- unname(res)
   yaml
@@ -149,10 +149,11 @@ site_menu <- function(yaml, files = NULL, position = 3L) {
 update_site_menu <- function(path, 
   episodes = NULL, learners = NULL, instructors = NULL, profiles = NULL) {
   yaml <- get_path_site_yaml(path) 
-  yaml <- site_menu(yaml, episodes,    3L)
-  yaml <- site_menu(yaml, learners,    4L)
-  yaml <- site_menu(yaml, instructors, 5L)
-  yaml <- site_menu(yaml, profiles,    6L)
+  # NOTE: change tests/testthat/test-set_dropdown.R
+  yaml <- site_menu(yaml, episodes,    2L)
+  yaml <- site_menu(yaml, learners,    3L)
+  yaml <- site_menu(yaml, instructors, 4L)
+  yaml <- site_menu(yaml, profiles,    5L)
   write_pkgdown_yaml(yaml, path)
 }
 
@@ -215,7 +216,7 @@ check_order <- function(order, what) {
   }
 }
 
-show_changed_yaml <- function(sched, order, what = "episodes") {
+show_changed_yaml <- function(sched, order, yaml, what = "episodes") {
 
   if (requireNamespace("cli", quietly = TRUE)) {
     # display for the user to distinguish what was added and what was taken 

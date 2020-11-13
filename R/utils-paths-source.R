@@ -10,9 +10,19 @@ path_episodes <- function(inpath) {
   fs::path(home, "episodes")
 }
 
-path_extras <- function(inpath) {
+path_learners <- function(inpath) {
   home <- root_path(inpath)
-  fs::path(home, "extras")
+  fs::path(home, "learners")
+}
+
+path_instructors <- function(inpath) {
+  home <- root_path(inpath)
+  fs::path(home, "instructors")
+}
+
+path_profiles <- function(inpath) {
+  home <- root_path(inpath)
+  fs::path(home, "profiles")
 }
 
 get_sources <- function(path, subfolder = "episodes") {
@@ -27,21 +37,5 @@ get_artifacts <- function(path, subfolder = "episodes") {
     type = "file", 
     all = TRUE
   )
-}
-
-get_episode_sources <- function(path) {
-  get_sources(path, "episodes")
-}
-
-get_episode_artifacts <- function(path) {
-  get_artifacts(path, "episodes")
-}
-
-get_extra_sources <- function(path) {
-  get_sources(path, "extras")
-}
-
-get_extra_artifacts <- function(path) {
-  get_artifacts(path, "extras")
 }
 

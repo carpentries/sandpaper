@@ -28,6 +28,9 @@ test_that("markdown sources can be built without fail", {
   b <- c(
     # Markdown files
     fs::path_ext_set(s, "md"), 
+    "CODE_OF_CONDUCT.md",
+    "LICENSE.md",
+    "Setup.md",
     # Generated figures
     paste0(fs::path_ext_remove(s), "-pyramid-1.png")
   )

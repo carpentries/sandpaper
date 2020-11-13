@@ -21,7 +21,7 @@ get_profiles(path = ".")
 \arguments{
 \item{path}{the path to the lesson, defaults to the current working directory}
 
-\item{the}{name of the folder containing the dropdown items}
+\item{folder}{the name of the folder containing the dropdown items}
 }
 \value{
 a character vector of episodes in order of presentation
@@ -33,4 +33,5 @@ Get the contents of a dropdown on the site
 tmp <- tempfile()
 create_lesson(tmp)
 get_episodes(tmp)
+get_learners(tmp) # information for learners
 }

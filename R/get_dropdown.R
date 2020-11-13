@@ -1,7 +1,7 @@
 #' Get the contents of a dropdown on the site
 #'
 #' @param path the path to the lesson, defaults to the current working directory
-#' @param the name of the folder containing the dropdown items
+#' @param folder the name of the folder containing the dropdown items
 #' @return a character vector of episodes in order of presentation
 #'
 #' @export

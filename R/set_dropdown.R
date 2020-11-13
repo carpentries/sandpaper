@@ -33,7 +33,7 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
   if (write) {
     copy_template("config", path, "config.yaml", values = yaml)
   } else {
-    show_changed_yaml(sched, order, folder)
+    show_changed_yaml(sched, order, yaml, folder)
   }
   invisible()
 }

@@ -21,19 +21,32 @@
 build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, outdir = NULL) {
 
   episode_path <- make_here(path_episodes(path))
+  learner_path <- make_here(path_learners(path))
+  instructor_path <- make_here(path_instructors(path))
+  profile_path <- make_here(path_profiles(path))
+  
   # IDEA: expansion to other generators will be able to switch this part and
   #       still be able to copy things correctly
   outdir    <- if (is.null(outdir)) path_built(path) else outdir
   build_path <- make_here(outdir)
 
   # Determine build status for the episodes ------------------------------------
-  episodes  <- episode_path(get_episodes(path)) # use get_episodes here for order
-  built     <- get_markdown_files(outdir)
-  names(episodes) <- get_slug(episodes)
-  build_status    <- get_build_status(episodes, built, rebuild)
+  source_list <- list(
+    conduct = fs::path(path, "CODE_OF_CONDUCT.md"),
+    episodes = episode_path(get_episodes(path)), # use get_episodes here for order
+    learners = learner_path(get_learners(path)), # use get_learners here for order
+    instructors = instructor_path(get_instructors(path)), # use get_instructors here for order
+    profiles = profile_path(get_profiles(path)), # use get_profiles here for order
+    license  = fs::path(path, "LICENSE.md"),
+    NULL
+  )
+  sources <- unlist(source_list, use.names = FALSE)
+  names(sources) <- get_slug(sources)
+  built <- get_markdown_files(outdir)
+  build_status <- get_build_status(sources, built, rebuild)
 
   # Copy the files to the assets directory -------------------------------------
-  artifacts <- get_episode_artifacts(path)
+  artifacts <- get_artifacts(path, "episodes")
   to_copy <- vapply(
     c("data", "files", "fig"), 
     FUN = function(i) enforce_dir(episode_path(i)),
@@ -63,7 +76,12 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, outdir = 
   if (nrow(build_status$build) > 0) {
     update_site_timestamp(path)
   }
-  update_site_menu(path, episodes)
+  update_site_menu(path,
+    episodes    = source_list$episodes,
+    learners    = source_list$learners,
+    instructors = source_list$instructors,
+    profiles    = source_list$profiles
+  )
   invisible(build_status$build)
 }
 

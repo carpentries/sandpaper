@@ -11,7 +11,7 @@ navbar:
   type: default
   left:
     - text: Code of Conduct
-      link: CODE_OF_CONDUCT.html
+      href: CODE_OF_CONDUCT.html
     - text: Episodes
       menu: ~ # episodes will be populated here
     - text: For Learners
@@ -21,7 +21,7 @@ navbar:
     - text: Learner Profiles
       menu: ~ # profiles will be populated here
     - text: License
-      link: LICENSE.html
+      href: LICENSE.html
 template:
   package: varnish
   params:
