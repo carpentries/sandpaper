@@ -43,7 +43,7 @@ test_that("markdown sources can be built without fail", {
   expect_equal(h1, h2, ignore_attr = TRUE)
 
   # Output is not commented
-  built  <- get_markdown_files(path_built(res))
+  built  <- get_markdown_files(res)
   ep     <- trimws(readLines(built[[1]]))
   ep     <- ep[ep != ""]
   outid  <- grep("[1]", ep, fixed = TRUE)

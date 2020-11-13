@@ -1,4 +1,4 @@
-#' Build your lesson sitf 
+#' Build your lesson site
 #'
 #' In the spirit of {hugodown}, This function will build plain markdown files
 #' as a minimal R package in the `site/` folder of your {sandpaper} lesson
@@ -28,8 +28,9 @@
 #' build_lesson(tmp)
 build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), preview = TRUE, override = list()) {
 
-  # step 0: build_lesson is only called locally
-  set_local_build(path)
+  # step 0: build_lesson defaults to a local build
+  path <- set_source_path(path)
+  on.exit(reset_build_paths())
 
   # step 1: build the markdown vignettes and site (if it doesn't exist)
   if (rebuild) {
@@ -53,7 +54,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
     sink(f)
   }
   pkgdown::init_site(pkg)
-  episodes <- get_markdown_files(path_built(path))
+  episodes <- get_markdown_files()
   n <- length(episodes)
   if (!quiet && requireNamespace("cli", quietly = TRUE)) {
     cli::cli_rule(cli::style_bold("Scanning episodes"))

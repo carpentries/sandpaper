@@ -53,7 +53,7 @@ create_lesson_readme <- function(name, path) {
 }
 
 create_site_readme <- function(path) {
-  readme <- fs::path(path, "site", "README.md")
+  readme <- fs::path(path_site(path), "README.md")
   if (!fs::file_exists(readme)) {
     fs::file_create(readme)
   }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/build_lesson.R
 \name{build_lesson}
 \alias{build_lesson}
-\title{Build your lesson sitf}
+\title{Build your lesson site}
 \usage{
 build_lesson(
   path = ".",

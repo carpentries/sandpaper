@@ -1,4 +1,7 @@
-root_path <- function(path) rprojroot::find_root(rprojroot::is_git_root, path)
+root_path <- function(path) {
+  rprojroot::find_root(rprojroot::has_dir("episodes"), path)
+}
+
 no_readme <- function() "(?<![/]README)([.]md)$"
 
 dir_available <- function(path) {
@@ -22,21 +25,24 @@ enforce_dir <- function(path) {
   invisible(path)
 }
 
-path_site <- function(path) {
-  .build_paths$site
+path_site <- function(path = NULL) {
+  if (is.null(path)) {
+    fs::path(.build_paths$source, "site")
+  } else {
+    fs::path(root_path(path), "site")
+  }
 }
 
-
-path_site_yaml <- function(path) {
-  fs::path(.build_paths$site, "_pkgdown.yaml")
+path_site_yaml <- function(path = NULL) {
+  fs::path(path_site(path), "_pkgdown.yaml")
 }
 
-path_built <- function(inpath) {
-  .build_paths$markdown
+path_built <- function(inpath = NULL) {
+  fs::path(path_site(inpath), "built")
 }
 
-get_markdown_files <- function(path) {
-  fs::dir_ls(.build_paths$markdown, 
+get_markdown_files <- function(path = NULL) {
+  fs::dir_ls(path_built(path), 
     regexp = no_readme(), 
     perl = TRUE, 
     recurse = TRUE)
@@ -45,7 +51,7 @@ get_markdown_files <- function(path) {
 get_built_buddy <- function(path) {
   pat <- fs::path_ext_set(get_slug(path), "md")
   # Returns nothing if the pattern cannot be found
-  fs::dir_ls(.build_paths$markdown, regexp = pat, fixed = TRUE)
+  fs::dir_ls(path_built(path), regexp = pat, fixed = TRUE)
 }
 
 
