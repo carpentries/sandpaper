@@ -8,12 +8,14 @@
 #' @param path_in path to a markdown file
 #' @param quiet if `TRUE`, no output is produced. Default is `FALSE`, which 
 #'   reports the markdown build via pandoc
+#' @param ... extra options (e.g. lua filters) to be passed to pandoc
 #'
 #' @return a character containing the rendred HTML file
 #'
 #' @keywords internal
 #' @examples
 #'
+#' # first example---markdown to HTML
 #' tmp <- tempfile()
 #' ex <- c("# Markdown", 
 #'   "", 
@@ -25,7 +27,19 @@
 #' )
 #' writeLines(ex, tmp)
 #' cat(sandpaper:::render_html(tmp))
-render_html <- function(path_in, quiet = FALSE) {
+#'
+#' # adding a lua filter
+#'
+#' lua <- tempfile()
+#' lu <- c("Str = function (elem)",
+#' "  if elem.text == 'markdown' then",
+#' "    return pandoc.Emph {pandoc.Str 'mowdrank'}",
+#' "  end",
+#' "end")
+#' writeLines(lu, lua)
+#' lf <- paste0("--lua-filter=", lua)
+#' cat(sandpaper:::render_html(tmp, lf))
+render_html <- function(path_in, ..., quiet = FALSE) {
   htm <- tempfile(fileext = ".html")
   on.exit(unlink(htm), add = TRUE)
   exts <- paste(
@@ -45,7 +59,7 @@ render_html <- function(path_in, quiet = FALSE) {
     output = htm, 
     from = from,
     to = "html", options = c(
-      "--indented-code-classes=sh", "--section-divs", "--mathjax"
+      "--indented-code-classes=sh", "--section-divs", "--mathjax", ...
     ),
     verbose = FALSE
   )

@@ -23,8 +23,8 @@ create_episode <- function(title, make_prefix = TRUE, add = FALSE, path = ".") {
   ename <- paste0(prefix, "-", title, ".Rmd")
   copy_template("episode", fs::path(path, "episodes"), ename)
   if (add) {
-    suppressWarnings(sched <- get_schedule(path))
-    set_schedule(path, c(sched, ename), write = TRUE)
+    suppressWarnings(sched <- get_episodes(path))
+    set_episodes(path, c(sched, ename), write = TRUE)
   }
   invisible(fs::path(path, "episodes", ename))
 }

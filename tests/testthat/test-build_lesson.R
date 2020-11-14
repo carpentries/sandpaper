@@ -8,8 +8,8 @@ test_that("lessons can be built sanely", {
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp)
   create_episode("second-episode", path = tmp)
-  expect_warning(s <- get_schedule(tmp), "set_schedule")
-  set_schedule(tmp, s, write = TRUE)
+  expect_warning(s <- get_episodes(tmp), "set_episodes")
+  set_episodes(tmp, s, write = TRUE)
   expect_equal(res, tmp, ignore_attr = TRUE)
 
   # It's noisy at first
@@ -58,8 +58,8 @@ test_that("episodes with HTML in the title are rendered correctly", {
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp)
   create_episode("second-episode", path = tmp)
-  expect_warning(s <- get_schedule(tmp), "set_schedule")
-  set_schedule(tmp, s, write = TRUE)
+  expect_warning(s <- get_episodes(tmp), "set_episodes")
+  set_episodes(tmp, s, write = TRUE)
   expect_equal(res, tmp, ignore_attr = TRUE)
 
   se <- readLines(fs::path(tmp, "episodes", "02-second-episode.Rmd"))

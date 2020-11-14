@@ -53,7 +53,7 @@ create_lesson_readme <- function(name, path) {
 }
 
 create_site_readme <- function(path) {
-  readme <- fs::path(path, "site", "README.md")
+  readme <- fs::path(path_site(path), "README.md")
   if (!fs::file_exists(readme)) {
     fs::file_create(readme)
   }
@@ -128,17 +128,32 @@ update_site_timestamp <- function(path) {
   write_pkgdown_yaml(yaml, path)
 }
 
-update_site_menu <- function(path, episodes) {
-  yaml <- get_path_site_yaml(path)
-  res <- lapply(episodes, function(i) {
-    txt <- yaml::yaml.load(politely_get_yaml(i))$title
-    list(
-      pagetitle = txt,
-      text  = txt,
-      href  = as_html(i)
-    )
-  })
-  yaml$navbar$left[[1]]$menu <- unname(res)
+get_navbar_info <- function(i) {
+  txt <- yaml::yaml.load(politely_get_yaml(i))$title
+  list(
+    pagetitle = txt,
+    text  = txt,
+    href  = as_html(i)
+  )
+}
+
+site_menu <- function(yaml, files = NULL, position = 3L) {
+  if (is.null(files) || length(files) == 0L) return(yaml)
+  res <- lapply(files, get_navbar_info)
+  yaml$navbar$left[[position]]$menu <- unname(res)
+  yaml
+}
+
+
+# Take a list of episodes and update the yaml configuration. 
+update_site_menu <- function(path, 
+  episodes = NULL, learners = NULL, instructors = NULL, profiles = NULL) {
+  yaml <- get_path_site_yaml(path) 
+  # NOTE: change tests/testthat/test-set_dropdown.R
+  yaml <- site_menu(yaml, episodes,    2L)
+  yaml <- site_menu(yaml, learners,    3L)
+  yaml <- site_menu(yaml, instructors, 4L)
+  yaml <- site_menu(yaml, profiles,    5L)
   write_pkgdown_yaml(yaml, path)
 }
 
@@ -156,6 +171,74 @@ copy_assets <- function(src, dst) {
   } else {
     stop(paste(src, "does not exist"), call. = FALSE)
   }
+}
+
+# Get the build status for a vector of episodes against a vector of markdown
+# files. Return a list with a data frame of episodes that need to be built or
+# rebuilt and a vector of built episodes that need to be removed.
+get_build_status <- function(episodes, built, rebuild = FALSE) {
+
+  any_built <- if (rebuild || length(built) == 0) FALSE else TRUE
+
+  new_hashes        <- tools::md5sum(episodes)
+  names(new_hashes) <- names(episodes)
+
+  if (any_built) {
+    old_hashes        <- vapply(built, get_hash, character(1))
+    names(old_hashes) <- get_slug(built)
+  } else {
+    old_hashes <- character(0)
+  }
+
+  to_be_built <- data.frame(
+    episode = episodes,
+    hash = new_hashes,
+    stringsAsFactors = FALSE
+  )
+
+  if (any_built) {
+    # Find all episods that have the same name
+    same_name <- intersect(names(old_hashes), names(new_hashes))
+
+    # Only build the episodes that have changed. 
+    to_be_built   <- to_be_built[new_hashes %nin% old_hashes[same_name], , drop = FALSE]
+    to_be_removed <- setdiff(names(old_hashes), names(new_hashes))
+  } else {
+    to_be_removed <- character(0)
+  }
+
+  list(build = to_be_built, remove = to_be_removed)
+}
+
+check_order <- function(order, what) {
+  if (is.null(order)) {
+    stop(paste(what, "must have an order"), call. = FALSE)
+  }
+}
+
+show_changed_yaml <- function(sched, order, yaml, what = "episodes") {
+
+  if (requireNamespace("cli", quietly = TRUE)) {
+    # display for the user to distinguish what was added and what was taken 
+    removed <- sched %nin% order
+    added   <- order %nin% sched
+    order[added] <- cli::style_bold(cli::col_green(order[added]))
+    cli::cat_line(paste0(what, ":"))
+    cli::cat_bullet(order, bullet = "line")
+    if (any(removed)) {
+      cli::cli_rule(paste("Removed", what))
+      cli::cat_bullet(sched[removed], bullet = "cross", bullet_col = "red")
+    }
+  } else {
+    cat(yaml::as.yaml(yaml)[[what]])
+  }
+}
+
+# This creates a valid yaml list for a template
+yaml_list <- function(thing) {
+  thing <- if (length(thing) == 1L && !is.list(thing)) list(thing) else thing
+  pad <- if (is.list(thing) && length(names(thing)) == 1L) "" else "\n"
+  paste0(pad, yaml::as.yaml(thing))
 }
 
 #nocov start

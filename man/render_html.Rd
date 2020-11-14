@@ -4,10 +4,12 @@
 \alias{render_html}
 \title{Render html from a markdown file}
 \usage{
-render_html(path_in, quiet = FALSE)
+render_html(path_in, ..., quiet = FALSE)
 }
 \arguments{
 \item{path_in}{path to a markdown file}
+
+\item{...}{extra options (e.g. lua filters) to be passed to pandoc}
 
 \item{quiet}{if \code{TRUE}, no output is produced. Default is \code{FALSE}, which
 reports the markdown build via pandoc}
@@ -23,6 +25,7 @@ Carpentries such as \code{markdown_in_html_blocks}, \code{tex_math_dollars}, and
 }
 \examples{
 
+# first example---markdown to HTML
 tmp <- tempfile()
 ex <- c("# Markdown", 
   "", 
@@ -34,5 +37,17 @@ ex <- c("# Markdown",
 )
 writeLines(ex, tmp)
 cat(sandpaper:::render_html(tmp))
+
+# adding a lua filter
+
+lua <- tempfile()
+lu <- c("Str = function (elem)",
+"  if elem.text == 'markdown' then",
+"    return pandoc.Emph {pandoc.Str 'mowdrank'}",
+"  end",
+"end")
+writeLines(lu, lua)
+lf <- paste0("--lua-filter=", lua)
+cat(sandpaper:::render_html(tmp, lf))
 }
 \keyword{internal}

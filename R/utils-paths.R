@@ -1,8 +1,15 @@
-root_path <- function(path) rprojroot::find_root(rprojroot::is_git_root, path)
+root_path <- function(path) {
+  rprojroot::find_root(rprojroot::has_dir("episodes"), path)
+}
+
 no_readme <- function() "(?<![/]README)([.]md)$"
 
 dir_available <- function(path) {
   !fs::dir_exists(path) || nrow(fs::dir_info(path)) == 0L
+}
+
+get_slug <- function(path) {
+  fs::path_ext_remove(fs::path_file(path))
 }
 
 make_here <- function(ROOT) {
@@ -18,61 +25,34 @@ enforce_dir <- function(path) {
   invisible(path)
 }
 
-path_site <- function(path) {
-  home <- root_path(path)
-  fs::path(home, "site")
+path_site <- function(path = NULL) {
+  if (is.null(path)) {
+    fs::path(.build_paths$source, "site")
+  } else {
+    fs::path(root_path(path), "site")
+  }
 }
 
-path_config <- function(path) {
-  home <- root_path(path)
-  fs::path(home, "config.yaml")
-}
-
-path_site_yaml <- function(path) {
+path_site_yaml <- function(path = NULL) {
   fs::path(path_site(path), "_pkgdown.yaml")
 }
 
-path_built <- function(inpath) {
-  home <- root_path(inpath)
-  fs::path(home, "site", "built")
+path_built <- function(inpath = NULL) {
+  fs::path(path_site(inpath), "built")
 }
 
-path_episodes <- function(inpath) {
-  home <- root_path(inpath)
-  fs::path(home, "episodes")
-}
-
-get_source_files <- function(path) {
-  pe <- enforce_dir(path_episodes(path))
-  fs::dir_ls(pe, regexp = "*R?md")
-}
-
-get_built_files <- function(path) {
-  pb <- enforce_dir(path_built(path))
-  fs::dir_ls(pb, regexp = no_readme(), perl = TRUE)
-}
-
-get_source_buddy <- function(path) {
-  slug <- get_episode_slug(path)
-  fs::dir_ls(path_episodes(path), regexp = paste0(slug, "[.]R?md"))
+get_markdown_files <- function(path = NULL) {
+  fs::dir_ls(path_built(path), 
+    regexp = no_readme(), 
+    perl = TRUE, 
+    recurse = TRUE)
 }
 
 get_built_buddy <- function(path) {
-  slug <- get_episode_slug(path)
-  fs::dir_ls(path_built(path), regexp = paste0(slug, ".md"), fixed = TRUE)
+  pat <- fs::path_ext_set(get_slug(path), "md")
+  # Returns nothing if the pattern cannot be found
+  fs::dir_ls(path_built(path), regexp = pat, fixed = TRUE)
 }
 
-get_episode_slug <- function(path) {
-  fs::path_ext_remove(fs::path_file(path))
-}
 
-get_artifact_files <- function(path) {
-  pe <- enforce_dir(path_episodes(path))
-  fs::dir_ls(pe,
-    regexp = "*R?md", 
-    invert = TRUE, 
-    type = "file", 
-    all = TRUE
-  )
-}
 

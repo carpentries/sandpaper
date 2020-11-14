@@ -20,6 +20,7 @@ test_that("build_episode_md() works independently", {
   expect_equal(basename(res), "fun.md")
   lines <- readLines(res)
   expect_equal(lines[[2]], paste("sandpaper-digest:", hash))
+  expect_equal(lines[[3]], paste("sandpaper-source:", fun_file))
   expect_match(lines[length(lines)], "This is coming from R (version|Under)")
 
 })
@@ -31,13 +32,13 @@ test_that("build_episode_html() works independently", {
   fs::dir_create(tmpdir)
   tmp    <- fs::path(tmpdir, "lesson-example")
   expect_equal(basename(create_lesson(tmp, open = FALSE)), basename(tmp))
-  clear_site(tmp)
+  reset_site(tmp)
   pkg <- pkgdown::as_pkgdown(file.path(tmp, "site"))
   expect_output(pkgdown::init_site(pkg))
   
 
   # create a new file in extras
-  fun_file <- file.path(tmp, "episodes", "extras", "fun.Rmd")
+  fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
   txt <- c(
     "---\ntitle: Fun times\n---\n\n",
     "# new page\n", 

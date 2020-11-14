@@ -1,4 +1,4 @@
-#' Build your lesson sitf 
+#' Build your lesson site
 #'
 #' In the spirit of {hugodown}, This function will build plain markdown files
 #' as a minimal R package in the `site/` folder of your {sandpaper} lesson
@@ -27,9 +27,14 @@
 #' check_lesson(tmp)
 #' build_lesson(tmp)
 build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), preview = TRUE, override = list()) {
+
+  # step 0: build_lesson defaults to a local build
+  path <- set_source_path(path)
+  on.exit(reset_build_paths())
+
   # step 1: build the markdown vignettes and site (if it doesn't exist)
   if (rebuild) {
-    clear_site(path)
+    reset_site(path)
   } else {
     create_site(path)
   }
@@ -38,6 +43,8 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
 
   # step 2: build the package site
   pkg <- pkgdown::as_pkgdown(path_site(path), override = override)
+  # NOTE: This is a kludge to prevent pkgdown from displaying a bunch of noise
+  #       if the user asks for quiet. 
   if (quiet) {
     f <- file()
     on.exit({
@@ -47,7 +54,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
     sink(f)
   }
   pkgdown::init_site(pkg)
-  episodes <- get_built_files(path)
+  episodes <- get_markdown_files()
   n <- length(episodes)
   if (!quiet && requireNamespace("cli", quietly = TRUE)) {
     cli::cli_rule(cli::style_bold("Scanning episodes"))
@@ -55,11 +62,10 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   for (i in seq_along(episodes)) {
     build_episode_html(
       path_md      = episodes[i],
-      path_src     = get_source_buddy(episodes[i]),
       page_back    = if (i > 1) episodes[i - 1] else "index.md",
       page_forward = if (i < n) episodes[i + 1] else "index.md",
-      pkg, 
-      quiet = quiet
+      pkg          = pkg, 
+      quiet        = quiet
     )
   }
   fs::dir_walk(

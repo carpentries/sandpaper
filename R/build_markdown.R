@@ -17,73 +17,69 @@
 #' @keywords internal
 build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 
-  episode_path <- make_here(path_episodes(path))
+  episode_path    <- make_here(path_episodes(path))
+  learner_path    <- make_here(path_learners(path))
+  instructor_path <- make_here(path_instructors(path))
+  profile_path    <- make_here(path_profiles(path))
+  
   # IDEA: expansion to other generators will be able to switch this part and
   #       still be able to copy things correctly
-  site_path    <- make_here(path_built(path))
+  outdir     <- path_built()
+  build_path <- make_here(outdir)
 
-  episodes  <- get_schedule(path)
-  episodes  <- episode_path(episodes)
-  artifacts <- get_artifact_files(path)
-  built     <- get_built_files(path)
-  any_built <- if (rebuild || length(built) == 0) FALSE else TRUE
-
-  names(episodes)   <- get_episode_slug(episodes)
-  new_hashes        <- tools::md5sum(episodes)
-  names(new_hashes) <- names(episodes)
-
-  if (any_built) {
-    old_hashes        <- vapply(built, get_hash, character(1))
-    names(old_hashes) <- get_episode_slug(built)
-  } else {
-    old_hashes <- character(0)
-  }
-
-  to_be_built <- data.frame(
-    episode = episodes, 
-    hash = new_hashes, 
-    stringsAsFactors = FALSE
+  # Determine build status for the episodes ------------------------------------
+  source_list <- list(
+    conduct = fs::path(root_path(path), "CODE_OF_CONDUCT.md"),
+    episodes = episode_path(get_episodes(path)), # use get_episodes here for order
+    learners = learner_path(get_learners(path)), # use get_learners here for order
+    instructors = instructor_path(get_instructors(path)), # use get_instructors here for order
+    profiles = profile_path(get_profiles(path)), # use get_profiles here for order
+    license  = fs::path(root_path(path), "LICENSE.md"),
+    NULL
   )
-
-  if (any_built) {
-    # Find all episods that have the same name
-    same_name <- intersect(names(old_hashes), names(new_hashes))
-
-    # Only build the episodes that have changed. 
-    to_be_built   <- to_be_built[new_hashes %nin% old_hashes[same_name], ]
-    to_be_removed <- setdiff(names(old_hashes), names(new_hashes))
-  } else {
-    to_be_removed <- character(0)
-  }
-
-  # Render the episode files to the built directory ----------------------------
-  for (i in seq_len(nrow(to_be_built))) {
-    build_episode_md(
-      path = to_be_built$episode[i],
-      hash = to_be_built$hash[i],
-      quiet = quiet
-    )
-  }
+  sources <- unlist(source_list, use.names = FALSE)
+  names(sources) <- get_slug(sources)
+  built <- get_markdown_files()
+  build_status <- get_build_status(sources, built, rebuild)
 
   # Copy the files to the assets directory -------------------------------------
+  artifacts <- get_artifacts(path, "episodes")
   to_copy <- vapply(
-    c("data", "files", "extras", "fig"), 
+    c("data", "files", "fig"), 
     FUN = function(i) enforce_dir(episode_path(i)),
     FUN.VALUE = character(1)
   )
-  
   to_copy <- c(to_copy, artifacts)
   for (f in to_copy) {
-    copy_assets(f, site_path("assets"))
+    copy_assets(f, build_path("assets"))
   }
 
-  if (length(to_be_removed)) fs::file_delete(stats::na.omit(built[to_be_removed]))
+  # Render the episode files to the built directory ----------------------------
+  for (i in seq_len(nrow(build_status$build))) {
+    build_episode_md(
+      path    = build_status$build$episode[i],
+      hash    = build_status$build$hash[i],
+      outdir  = outdir,
+      workdir = build_path("assets"),
+      quiet   = quiet
+    )
+  }
 
-  if (nrow(to_be_built) > 0) {
+  # Remove detritus ------------------------------------------------------------
+  remove <- build_status$remove
+  if (length(remove)) fs::file_delete(stats::na.omit(built[remove]))
+
+  # Update metadata and navbar -------------------------------------------------
+  if (nrow(build_status$build) > 0) {
     update_site_timestamp(path)
   }
-  update_site_menu(path, episodes)
-  invisible(to_be_built)
+  update_site_menu(path,
+    episodes    = source_list$episodes,
+    learners    = source_list$learners,
+    instructors = source_list$instructors,
+    profiles    = source_list$profiles
+  )
+  invisible(build_status$build)
 }
 
 

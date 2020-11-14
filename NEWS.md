@@ -1,3 +1,20 @@
+# sandpaper 0.0.0.9005
+
+* sandpaper now requires and uses additional folders and files:
+  - CODE_OF_CONDUCT.md
+  - learners/Setup.md
+  - instructors/
+  - profiles/
+  - LICENSE.md 
+* `_schedule()` functions have been renamed to `_episodes()`.
+* `clean_*()` functions are now renamed to `reset_*()`
+* Generic `set/get/reset_dropdown()` functions have been created to facilitate
+  modification/access of folders that are dropdown menus inside of the lesson
+* questionable practices with directories mucking about. 
+* `build_markdown()` will now generate artifacts in the `site/built/assets/`
+  directory instead of `episodes/` directory to prevent generated artifacts from
+  being included in git (See https://github.com/zkamvar/sandpaper/issues/24)
+
 # sandpaper 0.0.0.9004
 
 * Internal `html_from_md()` renamed to `render_html()`

@@ -35,6 +35,9 @@ check_lesson <- function(path = ".") {
   # Validators are stored in validators.R
   checklist <- list(
     validate_that(check_dir(path, "episodes")),
+    validate_that(check_dir(path, "instructors")),
+    validate_that(check_dir(path, "learners")),
+    validate_that(check_dir(path, "profiles")),
     validate_that(check_dir(path, "site")),
     validate_that(check_dir(path, ".git")),
     validate_that(check_gitignore(theirs)),

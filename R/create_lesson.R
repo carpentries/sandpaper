@@ -17,21 +17,22 @@
 #' lsn
 create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi::isAvailable(), open = rlang::is_interactive()) {
 
-  if (!dir_available(path)) {
-    stop(glue::glue("{path} is not an empty directory."))
-  }
-
-  gert::git_init(path)
-  check_git_user(path)
+  init_source_path(path)
 
   fs::dir_create(fs::path(path, "episodes"))
   fs::dir_create(fs::path(path, "episodes", "data"))
   fs::dir_create(fs::path(path, "episodes", "files"))
   fs::dir_create(fs::path(path, "episodes", "fig"))
-  fs::dir_create(fs::path(path, "episodes", "extras"))
+  fs::dir_create(fs::path(path, "instructors"))
+  fs::dir_create(fs::path(path, "learners"))
+  fs::dir_create(fs::path(path, "profiles"))
   fs::file_create(fs::path(path, "README.md"))
 
   copy_template("gitignore", path, ".gitignore")
+  copy_template("conduct", path, "CODE_OF_CONDUCT.md")
+  copy_template("license", path, "LICENSE.md")
+  copy_template("contributing", path, "CONTRIBUTING.md")
+  copy_template("setup", fs::path(path, "learners"), "Setup.md") 
   copy_template("config", path, "config.yaml",
     values = list(
       title      = "Lesson Title",
