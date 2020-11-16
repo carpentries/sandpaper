@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check the lesson structure for errors — check_episode • sandpaper</title>
+<title>Set the order of items in a dropdown menu — set_dropdown • sandpaper</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Check the lesson structure for errors — check_episode" />
-<meta property="og:description" content="Check the lesson structure for errors" />
+<meta property="og:title" content="Set the order of items in a dropdown menu — set_dropdown" />
+<meta property="og:description" content="Set the order of items in a dropdown menu" />
 
 
 
@@ -111,48 +111,67 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check the lesson structure for errors</h1>
-    <small class="dont-index">Source: <a href='https://github.com/zkamvar/sandpaper/blob/master/R/check_episode.R'><code>R/check_episode.R</code></a>, <a href='https://github.com/zkamvar/sandpaper/blob/master/R/check_lesson.R'><code>R/check_lesson.R</code></a></small>
-    <div class="hidden name"><code>check_lesson.Rd</code></div>
+    <h1>Set the order of items in a dropdown menu</h1>
+    <small class="dont-index">Source: <a href='https://github.com/zkamvar/sandpaper/blob/master/R/set_dropdown.R'><code>R/set_dropdown.R</code></a></small>
+    <div class="hidden name"><code>set_dropdown.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Check the lesson structure for errors</p>
+    <p>Set the order of items in a dropdown menu</p>
     </div>
 
-    <pre class="usage"><span class='fu'>check_episode</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>set_dropdown</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, order <span class='op'>=</span> <span class='cn'>NULL</span>, write <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>folder</span><span class='op'>)</span>
 
-<span class='fu'>check_lesson</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span></pre>
+<span class='fu'>set_episodes</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, order <span class='op'>=</span> <span class='cn'>NULL</span>, write <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='fu'>set_learners</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, order <span class='op'>=</span> <span class='cn'>NULL</span>, write <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='fu'>set_instructors</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, order <span class='op'>=</span> <span class='cn'>NULL</span>, write <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='fu'>set_profiles</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, order <span class='op'>=</span> <span class='cn'>NULL</span>, write <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>path</th>
-      <td><p>the path to your lesson</p></td>
+      <td><p>path to the lesson. Defaults to the current directory.</p></td>
+    </tr>
+    <tr>
+      <th>order</th>
+      <td><p>the files in the order presented (with extension)</p></td>
+    </tr>
+    <tr>
+      <th>write</th>
+      <td><p>if <code>TRUE</code>, the schedule will overwrite the schedule in the
+current file.</p></td>
+    </tr>
+    <tr>
+      <th>folder</th>
+      <td><p>one of four folders that sandpaper recognises where the files
+listed in <code>order</code> are located: episodes, learners, instructors, profiles.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>TRUE</code> (invisibly) if the lesson is cromulent, otherwise, it will
-error with a list of things to fix.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'># Everything should work out of the box</span>
 <span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='fu'><a href='create_lesson.html'>create_lesson</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpKhNF7M/filebe66dc11453"</div><div class='input'><span class='fu'>check_lesson</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpKhNF7M/filebe63f0d9163"</div><div class='input'><span class='fu'><a href='create_episode.html'>create_episode</a></span><span class='op'>(</span><span class='st'>"using-R"</span>, path <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sched</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_dropdown.html'>get_episodes</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: No schedule set, using Rmd files in `episodes/` directory.</span>
+#&gt; <span class='warning'>To remove this warning, define your schedule in `config.yaml` or use `set_episodes()` to generate it.</span></div><div class='output co'>#&gt; [1] "01-introduction.Rmd" "02-using-R.Rmd"     </div><div class='input'>
+<span class='co'># reverse the schedule</span>
+<span class='fu'>set_episodes</span><span class='op'>(</span><span class='va'>tmp</span>, order <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>sched</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; episodes:
+#&gt; ─ <span style='color: #00BB00;font-weight: bold;'>02-using-R.Rmd</span><span>
+#&gt; ─ </span><span style='color: #00BB00;font-weight: bold;'>01-introduction.Rmd</span><span></div><div class='input'><span class='co'># write it</span>
+<span class='fu'>set_episodes</span><span class='op'>(</span><span class='va'>tmp</span>, order <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>sched</span><span class='op'>)</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='co'># if things do not work, then an error is thrown with information about </span>
-<span class='co'># what has failed you</span>
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='st'>".gitignore"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='st'>"site"</span><span class='op'>)</span>, recursive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'>check_lesson</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #BB0000;'>✖</span><span> Path '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpKhNF7M/filebe66dc11453/site' does not exist</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #BB0000;'>✖</span><span> The .gitignore file is missing some elements: episodes/*html, site/*, !site/README.md, .Rhistory, .Rapp.history, .RData, .Ruserdata, *-Ex.R, /*.tar.gz, /*.Rcheck/, .Rproj.user/, vignettes/*.html, vignettes/*.pdf, .httr-oauth, *_cache/, /cache/, *.utf8.md, *.knit.md, .Renviron, docs/, po/*~</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #BB0000;'>✖</span><span> The file 'site/README.md' does not exist</span></div><div class='output co'>#&gt; Error in report_validation(checklist, "There were errors with the lesson structure.") : 
-#&gt;   There were errors with the lesson structure.</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+<span class='co'># see it</span>
+<span class='fu'><a href='get_dropdown.html'>get_episodes</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "02-using-R.Rmd"      "01-introduction.Rmd"</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

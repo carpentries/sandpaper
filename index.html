@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
       </span>
     </div>
 
@@ -212,7 +212,7 @@ git aware, but does not require contributors to have git installed</li>
 <li>
 <code>fetch_</code> will download files or resources from the internet</li>
 <li>
-<code>clear_</code> removes files or information</li>
+<code>reset_</code> removes files or information</li>
 <li>
 <code>get_</code> will retrieve information from your source files as an R object</li>
 <li>
@@ -230,16 +230,14 @@ git aware, but does not require contributors to have git installed</li>
 <li>
 <code>create_dataset()</code> creates a csv or text data set from an R object</li>
 <li>
-<code><a href="reference/set_schedule.html">set_schedule()</a></code> arranges the episodes in a user-specified order</li>
+<code><a href="reference/set_dropdown.html">set_episodes()</a></code> arranges the episodes in a user-specified order</li>
 </ul>
 <p>Accessors</p>
 <ul>
 <li>
-<code>get_episode()</code> reads in an episode as an XML object</li>
-<li>
 <code><a href="reference/get_config.html">get_config()</a></code> reads the contents of <code>config.yaml</code> as a list</li>
 <li>
-<code><a href="reference/get_schedule.html">get_schedule()</a></code> returns the schedule as a vector</li>
+<code><a href="reference/get_dropdown.html">get_episodes()</a></code> returns the episode filenames as a vector</li>
 <li>
 <code><a href="reference/get_syllabus.html">get_syllabus()</a></code> returns the syllabus with timings, titles, and questions</li>
 </ul>
@@ -270,9 +268,9 @@ git aware, but does not require contributors to have git installed</li>
 <p>Cleanup</p>
 <ul>
 <li>
-<code><a href="reference/clear_schedule.html">clear_schedule()</a></code> removes the schedule from the config.yaml file</li>
+<code><a href="reference/reset_episodes.html">reset_episodes()</a></code> removes the schedule from the config.yaml file</li>
 <li>
-<code><a href="reference/clear_site.html">clear_site()</a></code> clears the website and cache</li>
+<code><a href="reference/reset_site.html">reset_site()</a></code> clears the website and cache</li>
 </ul>
 </div>
 </div>
@@ -295,26 +293,31 @@ git aware, but does not require contributors to have git installed</li>
 <code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="st">"~/Desktop/r-intermediate-penguins"</span><span class="op">)</span></code></pre></div>
 <p>This will create folder on your desktop called <code>r-intermediate-penguins</code> with the following structure:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">|--</span><span class="st"> </span>.gitignore               <span class="co"># - Ignore everything in the site/ folder</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="op">|--</span><span class="st"> </span>.github<span class="op">/</span><span class="st">                 </span><span class="co"># </span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="op">|--</span><span class="st"> </span>.github<span class="op">/</span><span class="st">                 </span><span class="co"># - Scripts used for continuous integration</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="er">|</span><span class="st">   `</span><span class="dt">-- workflows/           #</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="dt">|       |-- deploy-site.yaml # - Build the source files on github pages</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="dt">|       |-- build-md.yaml    # - Build the markdown files on github pages</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="dt">|       </span><span class="st">`</span><span class="op">--</span><span class="st"> </span>cron.yaml        <span class="co"># - reset package cache and test</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="dt">|       |-- deploy-site.yaml # -   Build the source files on github pages</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="dt">|       |-- build-md.yaml    # -   Build the markdown files on github pages</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="dt">|       </span><span class="st">`</span><span class="op">--</span><span class="st"> </span>cron.yaml        <span class="co"># -   reset package cache and test</span></span>
 <span id="cb3-7"><a href="#cb3-7"></a><span class="op">|--</span><span class="st"> </span>episodes<span class="op">/</span><span class="st">                </span><span class="co"># - PUT YOUR MARKDOWN FILES IN THIS FOLDER</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>data<span class="op">/</span><span class="st">                </span><span class="co"># - Data for your lesson goes here</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>extras<span class="op">/</span><span class="st">              </span><span class="co"># - Supplemental lesson material goes here</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>figures<span class="op">/</span><span class="st">             </span><span class="co"># - All static figures and diagrams are here</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>files<span class="op">/</span><span class="st">               </span><span class="co"># - Additional files (e.g. handouts) </span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="er">|</span><span class="st">   `</span><span class="dt">-- 00-introducition.Rmd # - Lessons start with a two-digit number</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="dt">|-- site/                    # - This folder is where the rendered markdown files and static site will live</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="dt">|   </span><span class="st">`</span><span class="op">--</span><span class="st"> </span>README.md            <span class="co">#</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="op">|--</span><span class="st"> </span>config.yaml              <span class="co"># - Use this to configure commonly used variables</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="op">|--</span><span class="st"> </span>CODE_OF_CONDUCT.md       <span class="co"># - Carpentries Code of Conduct (REQUIRED)</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="st">`</span><span class="dt">-- README.md                # - Use this to tell folks how to contribute</span></span></code></pre></div>
-<p>Once you have your site set up, you can add your RMarkdown files in the episodes folder. By default, they will be built in alphabetical order, but you can use the <code><a href="reference/set_schedule.html">set_schedule()</a></code> command to build the schedule in your <code>config.yaml</code> file:</p>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>data<span class="op">/</span><span class="st">                </span><span class="co"># -   Data for your lesson goes here</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>figures<span class="op">/</span><span class="st">             </span><span class="co"># -   All static figures and diagrams are here</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>files<span class="op">/</span><span class="st">               </span><span class="co"># -   Additional files (e.g. handouts) </span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="er">|</span><span class="st">   `</span><span class="dt">-- 00-introducition.Rmd # -   Lessons start with a two-digit number</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="dt">|-- instructors/             # - Information for Instructors</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="dt">|-- learners/                # - Information for Learners</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="dt">|   </span><span class="st">`</span><span class="op">--</span><span class="st"> </span>Setup.md             <span class="co"># -   setup instructions (REQUIRED)</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="op">|--</span><span class="st"> </span>profiles<span class="op">/</span><span class="st">                </span><span class="co"># - Learner and/or Instructor Profiles</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="er">|</span><span class="op">--</span><span class="st"> </span>site<span class="op">/</span><span class="st">                    </span><span class="co"># - This folder is where the rendered markdown files and static site will live</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="er">|</span><span class="st">   `</span><span class="dt">-- README.md            # -   placeholder</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="dt">|-- config.yaml              # - Use this to configure commonly used variables</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="dt">|-- CONTRIBUTING.md          # - Carpentries Rules for Contributions (REQUIRED)</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="dt">|-- CODE_OF_CONDUCT.md       # - Carpentries Code of Conduct (REQUIRED)</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="dt">|-- LICENSE.md               # - Carpentries Licenses (REQUIRED)</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="st">`</span><span class="op">--</span><span class="st"> </span>README.md                <span class="co"># - Introduces folks how to use this lesson and where they can find more information.</span></span></code></pre></div>
+<p>Once you have your site set up, you can add your RMarkdown files in the episodes folder. By default, they will be built in alphabetical order, but you can use the <code><a href="reference/set_dropdown.html">set_episodes()</a></code> command to build the schedule in your <code>config.yaml</code> file:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/get_schedule.html">get_schedule</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/set_schedule.html">set_schedule</a></span><span class="op">(</span>order <span class="op">=</span> <span class="va">s</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/get_dropdown.html">get_episodes</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/set_dropdown.html">set_episodes</a></span><span class="op">(</span>order <span class="op">=</span> <span class="va">s</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>When you want to preview your site, use the following:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • sandpaper</title>
+<title>Remove all files associated with the site — reset_site • sandpaper</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Remove all files associated with the site — reset_site" />
+<meta property="og:description" content="Use this if you want to rebuild your site from scratch." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -110,80 +111,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/zkamvar/sandpaper/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Remove all files associated with the site</h1>
+    <small class="dont-index">Source: <a href='https://github.com/zkamvar/sandpaper/blob/master/R/reset_site.R'><code>R/reset_site.R</code></a></small>
+    <div class="hidden name"><code>reset_site.Rd</code></div>
     </div>
 
-    <div id="sandpaper-0009005" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0.9005">
-<a href="#sandpaper-0009005" class="anchor"></a>sandpaper 0.0.0.9005</h1>
-<ul>
-<li>sandpaper now requires and uses additional folders and files:
-<ul>
-<li>CODE_OF_CONDUCT.md</li>
-<li>learners/Setup.md</li>
-<li>instructors/</li>
-<li>profiles/</li>
-<li>LICENSE.md</li>
-</ul>
-</li>
-<li>
-<code>_schedule()</code> functions have been renamed to <code>_episodes()</code>.</li>
-<li>
-<code>clean_*()</code> functions are now renamed to <code>reset_*()</code>
-</li>
-<li>Generic <code>set/get/reset_dropdown()</code> functions have been created to facilitate modification/access of folders that are dropdown menus inside of the lesson</li>
-<li>questionable practices with directories mucking about.</li>
-<li>
-<code><a href="../reference/build_markdown.html">build_markdown()</a></code> will now generate artifacts in the <code>site/built/assets/</code> directory instead of <code>episodes/</code> directory to prevent generated artifacts from being included in git (See <a href="https://github.com/zkamvar/sandpaper/issues/24" class="uri">https://github.com/zkamvar/sandpaper/issues/24</a>)</li>
-</ul>
-</div>
-    <div id="sandpaper-0009004" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0.9004">
-<a href="#sandpaper-0009004" class="anchor"></a>sandpaper 0.0.0.9004</h1>
-<ul>
-<li>Internal <code>html_from_md()</code> renamed to <code><a href="../reference/render_html.html">render_html()</a></code>
-</li>
-<li>Internal <code>build_episode()</code> renamed to <code><a href="../reference/build_episode_html.html">build_episode_html()</a></code> and exported, but documentation still internal</li>
-<li>Internal <code>build_single_episode()</code> renamed to <code><a href="../reference/build_episode_md.html">build_episode_md()</a></code> and exported, but documentation still internal</li>
-</ul>
-</div>
-    <div id="sandpaper-0009003" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0.9003">
-<a href="#sandpaper-0009003" class="anchor"></a>sandpaper 0.0.0.9003</h1>
-<ul>
-<li>A regression in <code><a href="../reference/build_markdown.html">build_markdown()</a></code> due to being called in a separate process was fixed.</li>
-<li>Internal functions for setting {knitr} options were migrated to live inside <code><a href="../reference/build_markdown.html">build_markdown()</a></code>
-</li>
-</ul>
-</div>
-    <div id="sandpaper-0009002" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0.9002">
-<a href="#sandpaper-0009002" class="anchor"></a>sandpaper 0.0.0.9002</h1>
-<ul>
-<li>Migrate template to use fenced divs instead of {dovetail}.</li>
-<li>
-<code><a href="../reference/build_lesson.html">build_lesson()</a></code> will now render HTML in episode titles.</li>
-<li>{callr} is now imported to protect the processes building markdown and HTML files.</li>
-</ul>
-</div>
-    <div id="sandpaper-0009001" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0.9001">
-<a href="#sandpaper-0009001" class="anchor"></a>sandpaper 0.0.0.9001</h1>
-<ul>
-<li>Add <code>override</code> argument to <code><a href="../reference/build_lesson.html">build_lesson()</a></code>. This gets passed on to <code><a href="https://pkgdown.r-lib.org/reference/as_pkgdown.html">pkgdown::as_pkgdown()</a></code> for more control over where the site gets built.</li>
-<li>Update dependency of {pegboard} to 0.0.0.9006, which includes the $questions field to make parsing the ever shifting landscape a bit easier.</li>
-<li>First tracking version with NEWS</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Use this if you want to rebuild your site from scratch.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>reset_site</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>path</th>
+      <td><p>the path to the site</p></td>
+    </tr>
+    </table>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='create_lesson.html'>create_lesson</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpKhNF7M/filebe66e43ecc5"</div><div class='input'><span class='fu'><a href='build_lesson.html'>build_lesson</a></span><span class='op'>(</span><span class='va'>tmp</span>, preview <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: No schedule set, using Rmd files in `episodes/` directory.</span>
+#&gt; <span class='warning'>To remove this warning, define your schedule in `config.yaml` or use `set_episodes()` to generate it.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: No schedule set, using Rmd files in `episodes/` directory.</span>
+#&gt; <span class='warning'>To remove this warning, define your schedule in `config.yaml` or use `set_episodes()` to generate it.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>dir</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='st'>"site"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "_pkgdown.yaml" "built"         "DESCRIPTION"   "docs"         
+#&gt; [5] "README.md"    </div><div class='input'><span class='fu'>reset_site</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>dir</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='st'>"site"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "_pkgdown.yaml" "built"         "DESCRIPTION"   "README.md"    </div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
