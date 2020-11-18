@@ -51,7 +51,6 @@ Note that this will also install development versions of the following packages:
 | package     | What it does | 
 | ------------| ------------ |
 | [{varnish}] | html, css, and javascript templates for The Carpentries (in progress) |
-| [{dovetail}] | drop-in knitr engine for parsing challenge/solution blocks |
 | [{usethis}] | Helper tools for R users that makes the experience of contribution easier |
 | [{gh}] | interface to the github API |
 
@@ -359,7 +358,6 @@ sandpaper::ci_release(tag = "0.1", md_branch = "md-outputs", site_branch = "gh-p
 [{usethis}]: https://usethis.r-lib.org/
 [{gh}]: https://gh.r-lib.org/
 [{varnish}]: https://github.com/zkamvar/varnish#readme
-[{dovetail}]: https://github.com/carpentries/dovetail#readme
 [{gert}]: https://github.com/r-lib/gert#readme
 [{testthat}]: https://github.com/r-lib/testthat#readme
 [{pkgdown}]: https://github.com/r-lib/pkgdown#readme

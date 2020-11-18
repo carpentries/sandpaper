@@ -42,10 +42,12 @@ path_built <- function(inpath = NULL) {
 }
 
 get_markdown_files <- function(path = NULL) {
-  fs::dir_ls(path_built(path), 
+  fs::dir_ls(
+    path_built(path), 
     regexp = no_readme(), 
     perl = TRUE, 
-    recurse = TRUE)
+    recurse = TRUE
+  )
 }
 
 get_built_buddy <- function(path) {

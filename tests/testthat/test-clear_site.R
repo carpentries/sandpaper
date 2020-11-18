@@ -18,6 +18,7 @@ test_that("the site can be cleared", {
   expect_length(clean_site, 4)
   expect_setequal(clean_site, fs::path(tmp, "site", expected))
 
+  # I can save a file in the episodes directory and it will be propogated 
   saveRDS(expected, file = fs::path(tmp, "episodes", "data", "test.rds"))
 
   build_lesson(tmp, preview = FALSE, quiet = TRUE)
@@ -26,8 +27,8 @@ test_that("the site can be cleared", {
   expect_length(built_site, 5)
   expect_setequal(built_site, fs::path(tmp, "site", c(expected, "docs")))
 
-  rds <- fs::path(tmp, "site", "built", "assets", "data", "test.rds")
-  expect_length(fs::dir_ls(fs::path(tmp, "site", "built")), 5L)
+  rds <- fs::path(tmp, "site", "built", "data", "test.rds")
+  expect_length(fs::dir_ls(fs::path(tmp, "site", "built")), 7L)
   expect_true(fs::file_exists(rds))
   expect_equal(readRDS(rds), expected)
 

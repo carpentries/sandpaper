@@ -17,23 +17,16 @@
 #' @keywords internal
 build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 
-  episode_path    <- make_here(path_episodes(path))
-  learner_path    <- make_here(path_learners(path))
-  instructor_path <- make_here(path_instructors(path))
-  profile_path    <- make_here(path_profiles(path))
-  
-  # IDEA: expansion to other generators will be able to switch this part and
-  #       still be able to copy things correctly
-  outdir     <- path_built()
-  build_path <- make_here(outdir)
+  episode_path <- path_episodes(path)
+  outdir       <- path_built()
 
   # Determine build status for the episodes ------------------------------------
   source_list <- list(
     conduct = fs::path(root_path(path), "CODE_OF_CONDUCT.md"),
-    episodes = episode_path(get_episodes(path)), # use get_episodes here for order
-    learners = learner_path(get_learners(path)), # use get_learners here for order
-    instructors = instructor_path(get_instructors(path)), # use get_instructors here for order
-    profiles = profile_path(get_profiles(path)), # use get_profiles here for order
+    episodes = get_episodes(path, trim = FALSE), # use get_episodes here for order
+    learners = get_learners(path, trim = FALSE), # use get_learners here for order
+    instructors = get_instructors(path, trim = FALSE), # use get_instructors here for order
+    profiles = get_profiles(path, trim = FALSE), # use get_profiles here for order
     license  = fs::path(root_path(path), "LICENSE.md"),
     NULL
   )
@@ -46,21 +39,21 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   artifacts <- get_artifacts(path, "episodes")
   to_copy <- vapply(
     c("data", "files", "fig"), 
-    FUN = function(i) enforce_dir(episode_path(i)),
+    FUN = function(i) enforce_dir(fs::path(episode_path, i)),
     FUN.VALUE = character(1)
   )
   to_copy <- c(to_copy, artifacts)
   for (f in to_copy) {
-    copy_assets(f, build_path("assets"))
+    copy_assets(f, outdir)
   }
 
   # Render the episode files to the built directory ----------------------------
   for (i in seq_len(nrow(build_status$build))) {
     build_episode_md(
-      path    = build_status$build$episode[i],
+      path    = build_status$build$source[i],
       hash    = build_status$build$hash[i],
       outdir  = outdir,
-      workdir = build_path("assets"),
+      workdir = outdir,
       quiet   = quiet
     )
   }
@@ -69,10 +62,11 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   remove <- build_status$remove
   if (length(remove)) fs::file_delete(stats::na.omit(built[remove]))
 
-  # Update metadata and navbar -------------------------------------------------
+  # Update metadata ------------------------------------------------------------
   if (nrow(build_status$build) > 0) {
     update_site_timestamp(path)
   }
+  # Update the navbar ----------------------------------------------------------
   update_site_menu(path,
     episodes    = source_list$episodes,
     learners    = source_list$learners,
