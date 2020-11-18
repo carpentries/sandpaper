@@ -69,10 +69,11 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   remove <- build_status$remove
   if (length(remove)) fs::file_delete(stats::na.omit(built[remove]))
 
-  # Update metadata and navbar -------------------------------------------------
+  # Update metadata ------------------------------------------------------------
   if (nrow(build_status$build) > 0) {
     update_site_timestamp(path)
   }
+  # Update the navbar ----------------------------------------------------------
   update_site_menu(path,
     episodes    = source_list$episodes,
     learners    = source_list$learners,

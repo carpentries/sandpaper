@@ -146,6 +146,7 @@ site_menu <- function(yaml, files = NULL, position = 3L) {
 
 
 # Take a list of episodes and update the yaml configuration. 
+# TODO: This implementation needs to change!!!
 update_site_menu <- function(path, 
   episodes = NULL, learners = NULL, instructors = NULL, profiles = NULL) {
   yaml <- get_path_site_yaml(path) 
