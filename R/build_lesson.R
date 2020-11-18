@@ -69,7 +69,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
     )
   }
   fs::dir_walk(
-    fs::path(pkg$src_path, "built", "assets"), 
+    fs::path(pkg$src_path, "built"), 
     function(d) copy_assets(d, pkg$dst_path),
     all = TRUE
   )

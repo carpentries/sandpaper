@@ -49,12 +49,11 @@ remotes::install_github("zkamvar/sandpaper", dep = TRUE)
 Note that this will also install development versions of the following
 packages:
 
-| package                                                      | What it does                                                              |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------- |
-| [{varnish}](https://github.com/zkamvar/varnish#readme)       | html, css, and javascript templates for The Carpentries (in progress)     |
-| [{dovetail}](https://github.com/carpentries/dovetail#readme) | drop-in knitr engine for parsing challenge/solution blocks                |
-| [{usethis}](https://usethis.r-lib.org/)                      | Helper tools for R users that makes the experience of contribution easier |
-| [{gh}](https://gh.r-lib.org/)                                | interface to the github API                                               |
+| package                                                | What it does                                                              |
+| ------------------------------------------------------ | ------------------------------------------------------------------------- |
+| [{varnish}](https://github.com/zkamvar/varnish#readme) | html, css, and javascript templates for The Carpentries (in progress)     |
+| [{usethis}](https://usethis.r-lib.org/)                | Helper tools for R users that makes the experience of contribution easier |
+| [{gh}](https://gh.r-lib.org/)                          | interface to the github API                                               |
 
 ## In-progress example
 

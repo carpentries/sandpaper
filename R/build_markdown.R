@@ -18,9 +18,6 @@
 build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 
   episode_path    <- make_here(path_episodes(path))
-  learner_path    <- make_here(path_learners(path))
-  instructor_path <- make_here(path_instructors(path))
-  profile_path    <- make_here(path_profiles(path))
   
   # IDEA: expansion to other generators will be able to switch this part and
   #       still be able to copy things correctly
@@ -30,10 +27,10 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   # Determine build status for the episodes ------------------------------------
   source_list <- list(
     conduct = fs::path(root_path(path), "CODE_OF_CONDUCT.md"),
-    episodes = episode_path(get_episodes(path)), # use get_episodes here for order
-    learners = learner_path(get_learners(path)), # use get_learners here for order
-    instructors = instructor_path(get_instructors(path)), # use get_instructors here for order
-    profiles = profile_path(get_profiles(path)), # use get_profiles here for order
+    episodes = get_episodes(path, trim = FALSE), # use get_episodes here for order
+    learners = get_learners(path, trim = FALSE), # use get_learners here for order
+    instructors = get_instructors(path, trim = FALSE), # use get_instructors here for order
+    profiles = get_profiles(path, trim = FALSE), # use get_profiles here for order
     license  = fs::path(root_path(path), "LICENSE.md"),
     NULL
   )
@@ -51,7 +48,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   )
   to_copy <- c(to_copy, artifacts)
   for (f in to_copy) {
-    copy_assets(f, build_path("assets"))
+    copy_assets(f, build_path())
   }
 
   # Render the episode files to the built directory ----------------------------
@@ -60,7 +57,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
       path    = build_status$build$source[i],
       hash    = build_status$build$hash[i],
       outdir  = outdir,
-      workdir = build_path("assets"),
+      workdir = build_path(),
       quiet   = quiet
     )
   }

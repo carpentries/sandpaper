@@ -8,20 +8,23 @@
 \alias{get_profiles}
 \title{Get the contents of a dropdown on the site}
 \usage{
-get_dropdown(path = ".", folder)
+get_dropdown(path = ".", folder, trim = TRUE)
 
-get_episodes(path = ".")
+get_episodes(path = ".", trim = TRUE)
 
-get_learners(path = ".")
+get_learners(path = ".", trim = TRUE)
 
-get_instructors(path = ".")
+get_instructors(path = ".", trim = TRUE)
 
-get_profiles(path = ".")
+get_profiles(path = ".", trim = TRUE)
 }
 \arguments{
 \item{path}{the path to the lesson, defaults to the current working directory}
 
 \item{folder}{the name of the folder containing the dropdown items}
+
+\item{trim}{if \code{TRUE} (default), only the file name will be presented. When
+\code{FALSE}, the full path will be prepended.}
 }
 \value{
 a character vector of episodes in order of presentation

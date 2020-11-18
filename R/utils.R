@@ -164,7 +164,13 @@ get_hash <- function(path) {
 }
 
 copy_assets <- function(src, dst) {
+  # Do not take markdown files.
+  if (fs::path_ext(src) == "md") return(invisible(NULL))
+
+  # FIXME: modify this to allow for non-flat file structure
   dst <- fs::path(dst, fs::path_file(src))
+
+  # Copy either directories or files.
   if (fs::is_dir(src)) {
     fs::dir_copy(src, dst, overwrite = TRUE)
   } else if (fs::is_file(src)) {
@@ -172,6 +178,7 @@ copy_assets <- function(src, dst) {
   } else {
     stop(paste(src, "does not exist"), call. = FALSE)
   }
+  return(invisible(NULL))
 }
 
 #' Generate a data frame of markdown files to be updated

@@ -26,11 +26,20 @@ test_that("markdown sources can be built without fail", {
   expect_equal(fs::path_file(e), s)
   # The artifacts are present in the built directory
   b <- c(
-    # Markdown files
+    # Generated markdown files
     fs::path_ext_set(s, "md"), 
-    "CODE_OF_CONDUCT.md",
-    "LICENSE.md",
-    "Setup.md",
+    "CODE_OF_CONDUCT.md", 
+    "LICENSE.md", 
+    "Setup.md", 
+    # Folders
+    "data", 
+    "fig",
+    "files"
+  )
+  a <- fs::dir_ls(fs::path(tmp, "site", "built"))
+  expect_equal(fs::path_file(a), b)
+  b <- c(
+    b[seq(length(s) + 3)], # Files without folders
     # Generated figures
     paste0(fs::path_ext_remove(s), "-pyramid-1.png")
   )
