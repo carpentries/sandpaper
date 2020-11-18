@@ -17,12 +17,8 @@
 #' @keywords internal
 build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 
-  episode_path    <- make_here(path_episodes(path))
-  
-  # IDEA: expansion to other generators will be able to switch this part and
-  #       still be able to copy things correctly
-  outdir     <- path_built()
-  build_path <- make_here(outdir)
+  episode_path <- path_episodes(path)
+  outdir       <- path_built()
 
   # Determine build status for the episodes ------------------------------------
   source_list <- list(
@@ -43,12 +39,12 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   artifacts <- get_artifacts(path, "episodes")
   to_copy <- vapply(
     c("data", "files", "fig"), 
-    FUN = function(i) enforce_dir(episode_path(i)),
+    FUN = function(i) enforce_dir(fs::path(episode_path, i)),
     FUN.VALUE = character(1)
   )
   to_copy <- c(to_copy, artifacts)
   for (f in to_copy) {
-    copy_assets(f, build_path())
+    copy_assets(f, outdir)
   }
 
   # Render the episode files to the built directory ----------------------------
@@ -57,7 +53,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
       path    = build_status$build$source[i],
       hash    = build_status$build$hash[i],
       outdir  = outdir,
-      workdir = build_path(),
+      workdir = outdir,
       quiet   = quiet
     )
   }
