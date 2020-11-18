@@ -57,7 +57,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   # Render the episode files to the built directory ----------------------------
   for (i in seq_len(nrow(build_status$build))) {
     build_episode_md(
-      path    = build_status$build$episode[i],
+      path    = build_status$build$source[i],
       hash    = build_status$build$hash[i],
       outdir  = outdir,
       workdir = build_path("assets"),

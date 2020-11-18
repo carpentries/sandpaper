@@ -173,15 +173,24 @@ copy_assets <- function(src, dst) {
   }
 }
 
-# Get the build status for a vector of episodes against a vector of markdown
-# files. Return a list with a data frame of episodes that need to be built or
-# rebuilt and a vector of built episodes that need to be removed.
-get_build_status <- function(episodes, built, rebuild = FALSE) {
+#' Generate a data frame of markdown files to be updated
+#'
+#' Get the build status for a vector of episodes against a vector of markdown
+#' files using MD5 sums. 
+#'
+#'Return a list with a data frame of episodes that need to be built or
+#' rebuilt and a vector of built episodes that need to be removed.
+#'
+#' @param episodes a vector of full paths to RMarkdown files to be generated
+#' @param built a vector of sandpaper-generated markdown files
+#' @param rebuild if `TRUE`, all of the input files are forced to rebuild. 
+#' @keywords internal
+get_build_status <- function(sources, built, rebuild = FALSE) {
 
   any_built <- if (rebuild || length(built) == 0) FALSE else TRUE
 
-  new_hashes        <- tools::md5sum(episodes)
-  names(new_hashes) <- names(episodes)
+  new_hashes        <- tools::md5sum(sources)
+  names(new_hashes) <- names(sources)
 
   if (any_built) {
     old_hashes        <- vapply(built, get_hash, character(1))
@@ -191,16 +200,16 @@ get_build_status <- function(episodes, built, rebuild = FALSE) {
   }
 
   to_be_built <- data.frame(
-    episode = episodes,
+    source = sources,
     hash = new_hashes,
     stringsAsFactors = FALSE
   )
 
   if (any_built) {
-    # Find all episods that have the same name
+    # Find all sources that have the same name
     same_name <- intersect(names(old_hashes), names(new_hashes))
 
-    # Only build the episodes that have changed. 
+    # Only build the sources that have changed. 
     to_be_built   <- to_be_built[new_hashes %nin% old_hashes[same_name], , drop = FALSE]
     to_be_removed <- setdiff(names(old_hashes), names(new_hashes))
   } else {
