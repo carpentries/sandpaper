@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Remove all files associated with the site — reset_site • sandpaper</title>
+<title>Generate a data frame of markdown files to be updated — get_build_status • sandpaper</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Remove all files associated with the site — reset_site" />
-<meta property="og:description" content="Use this if you want to rebuild your site from scratch." />
+<meta property="og:title" content="Generate a data frame of markdown files to be updated — get_build_status" />
+<meta property="og:description" content="Get the build status for a vector of episodes against a vector of markdown
+files using MD5 sums." />
 
 
 
@@ -111,38 +112,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Remove all files associated with the site</h1>
-    <small class="dont-index">Source: <a href='https://github.com/zkamvar/sandpaper/blob/master/R/reset_site.R'><code>R/reset_site.R</code></a></small>
-    <div class="hidden name"><code>reset_site.Rd</code></div>
+    <h1>Generate a data frame of markdown files to be updated</h1>
+    <small class="dont-index">Source: <a href='https://github.com/zkamvar/sandpaper/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>get_build_status.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Use this if you want to rebuild your site from scratch.</p>
+    <p>Get the build status for a vector of episodes against a vector of markdown
+files using MD5 sums.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reset_site</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_build_status</span><span class='op'>(</span><span class='va'>sources</span>, <span class='va'>built</span>, rebuild <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>the path to the site</p></td>
+      <th>built</th>
+      <td><p>a vector of sandpaper-generated markdown files</p></td>
+    </tr>
+    <tr>
+      <th>rebuild</th>
+      <td><p>if <code>TRUE</code>, all of the input files are forced to rebuild.</p></td>
+    </tr>
+    <tr>
+      <th>episodes</th>
+      <td><p>a vector of full paths to RMarkdown files to be generated</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='create_lesson.html'>create_lesson</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpfLmCB0/filea1e4f8e65cb"</div><div class='input'><span class='fu'><a href='build_lesson.html'>build_lesson</a></span><span class='op'>(</span><span class='va'>tmp</span>, preview <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: No schedule set, using Rmd files in `episodes/` directory.</span>
-#&gt; <span class='warning'>To remove this warning, define your schedule in `config.yaml` or use `set_episodes()` to generate it.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: No schedule set, using Rmd files in `episodes/` directory.</span>
-#&gt; <span class='warning'>To remove this warning, define your schedule in `config.yaml` or use `set_episodes()` to generate it.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>dir</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='st'>"site"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "_pkgdown.yaml" "built"         "DESCRIPTION"   "docs"         
-#&gt; [5] "README.md"    </div><div class='input'><span class='fu'>reset_site</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>dir</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='st'>"site"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "_pkgdown.yaml" "built"         "DESCRIPTION"   "README.md"    </div></pre>
+    <p>Return a list with a data frame of episodes that need to be built or
+rebuilt and a vector of built episodes that need to be removed.</p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
