@@ -170,8 +170,8 @@ Accessors
 **Website Creation and Validation**
 
  - `check_lesson()` checks and validates the source files and lesson structure
- - `build_markdown_md()` renders an individual file to markdown (internal use)
- - `build_markdown_html()` renders a built markdown file to html (internal use)
+ - `build_episode_md()` renders an individual file to markdown (internal use)
+ - `build_episode_html()` renders a built markdown file to html (internal use)
  - `build_lesson()` builds the lesson into a static website
  - `build_portable_lesson()` builds the lesson into a portable static website
  - `fetch_lesson()` fetches the static website from the lesson repository

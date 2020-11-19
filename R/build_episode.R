@@ -15,7 +15,7 @@
 #' @note this function is for internal use, but exported for those who know what
 #'   they are doing. 
 #' @keywords internal
-#' @seealso [build_episode_md()], [build_lesson()], [build_markdown()]
+#' @seealso [build_episode_md()], [build_lesson()], [build_markdown()], [render_html()]
 #' @examples
 #' tmp <- tempfile()
 #' create_lesson(tmp, open = FALSE)
@@ -80,7 +80,7 @@ build_episode_html <- function(path_md, path_src = NULL,
 #' @export
 #' @note this function is for internal use, but exported for those who know what
 #'   they are doing. 
-#' @seealso [build_episode_html()]
+#' @seealso [render_html()], [build_episode_html()]
 #' @examples
 #' fun_dir <- tempfile()
 #' dir.create(fun_dir)

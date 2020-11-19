@@ -53,6 +53,6 @@ hash <- tools::md5sum(fun_file)
 res <- build_episode_md(fun_file, hash, outdir = fun_dir, workdir = fun_dir)
 }
 \seealso{
-\code{\link[=build_episode_html]{build_episode_html()}}
+\code{\link[=render_html]{render_html()}}, \code{\link[=build_episode_html]{build_episode_html()}}
 }
 \keyword{internal}

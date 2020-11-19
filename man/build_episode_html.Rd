@@ -61,6 +61,6 @@ build_episode_html(res,
 )
 }
 \seealso{
-\code{\link[=build_episode_md]{build_episode_md()}}, \code{\link[=build_lesson]{build_lesson()}}, \code{\link[=build_markdown]{build_markdown()}}
+\code{\link[=build_episode_md]{build_episode_md()}}, \code{\link[=build_lesson]{build_lesson()}}, \code{\link[=build_markdown]{build_markdown()}}, \code{\link[=render_html]{render_html()}}
 }
 \keyword{internal}

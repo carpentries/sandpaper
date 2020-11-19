@@ -24,4 +24,7 @@ as a minimal R package in the \verb{site/} folder of your {sandpaper} lesson
 repository tagged with the hash of your file to ensure that only files that
 have changed are rebuilt.
 }
+\seealso{
+\code{\link[=build_episode_md]{build_episode_md()}}
+}
 \keyword{internal}

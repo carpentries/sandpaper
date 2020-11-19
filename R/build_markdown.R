@@ -15,6 +15,7 @@
 #'   unsuccessful.
 #' 
 #' @keywords internal
+#' @seealso [build_episode_md()]
 build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 
   episode_path <- path_episodes(path)

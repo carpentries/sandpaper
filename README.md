@@ -186,9 +186,9 @@ Accessors
 
   - `check_lesson()` checks and validates the source files and lesson
     structure
-  - `build_markdown_md()` renders an individual file to markdown
+  - `build_episode_md()` renders an individual file to markdown
     (internal use)
-  - `build_markdown_html()` renders a built markdown file to html
+  - `build_episode_html()` renders a built markdown file to html
     (internal use)
   - `build_lesson()` builds the lesson into a static website
   - `build_portable_lesson()` builds the lesson into a portable static
