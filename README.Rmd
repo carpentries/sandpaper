@@ -16,8 +16,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/sandpaper)](https://CRAN.R-project.org/package=sandpaper)
-[![R build status](https://github.com/zkamvar/sandpaper/workflows/R-CMD-check/badge.svg)](https://github.com/zkamvar/sandpaper/actions)
-[![Codecov test coverage](https://codecov.io/gh/zkamvar/sandpaper/branch/master/graph/badge.svg)](https://codecov.io/gh/zkamvar/sandpaper?branch=master)
+[![R build status](https://github.com/carpentries/sandpaper/workflows/R-CMD-check/badge.svg)](https://github.com/carpentries/sandpaper/actions)
+[![Codecov test coverage](https://codecov.io/gh/carpentries/sandpaper/branch/master/graph/badge.svg)](https://codecov.io/gh/carpentries/sandpaper?branch=master)
 <!-- badges: end -->
 
 The {sandpaper} package was created by [The Carpentries] to re-imagine our method
@@ -31,7 +31,7 @@ callout blocks. Much of the functionality in this package is inspired by
 
 > Please note: {sandpaper} is very much a work in progress. At the moment, the
 > only thing that is real is the README to serve as a roadmap for the future.
-> Please [open an issue](https://github.com/zkamvar/sandpaper/issues/new) if you
+> Please [open an issue](https://github.com/carpentries/sandpaper/issues/new) if you
 > have any comments or suggestions!
 
 --------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ the [{remotes}] package:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("zkamvar/sandpaper", dep = TRUE)
+remotes::install_github("carpentries/sandpaper", dep = TRUE)
 ```
 
 Note that this will also install development versions of the following packages:
