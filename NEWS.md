@@ -13,7 +13,7 @@
 * questionable practices with directories mucking about. 
 * `build_markdown()` will now generate artifacts in the `site/built/assets/`
   directory instead of `episodes/` directory to prevent generated artifacts from
-  being included in git (See https://github.com/zkamvar/sandpaper/issues/24)
+  being included in git (See https://github.com/carpentries/sandpaper/issues/24)
 
 # sandpaper 0.0.0.9004
 
