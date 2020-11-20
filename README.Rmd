@@ -331,9 +331,10 @@ straightforward function is:
 sandpaper::ci_deploy(md_branch = "md-outputs", site_branch = "gh-pages")
 ```
 
-This will render the markdown files in the `vignettes/` folder of the
-"md-outputs" branch and then build the site from that folder and deploy it to
-the "gh-pages" branch using the [{pkgdown}] machinery. 
+This functionw will create [git
+worktrees](https://git-scm.com/docs/git-worktree) for the orphan `md-outputs`
+branch in the `site/built` folder and the orphan `gh-pages` branch in the
+`site/docs` folder. After that, we generate the site as normal.
 
 Because css and js libraries may need updating before any lesson material does,
 a step can be created just for rebuilding the site that uses:
