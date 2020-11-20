@@ -32,6 +32,7 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   message(remote, "/", md_branch)
   message(remote, "/", site_branch)
 
+  print(fs::dir_tree(path_site(path)))
   # Set up the worktrees and make sure to remove them when the function exits
   # (gracefully or ungracefully so)
   del_md <- git_worktree_setup(path, built, 
@@ -39,7 +40,8 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   )
   on.exit(eval(del_md), add = TRUE)
 
-  print(fs::dir_tree(path_site(path)))
+  print(list.files(path_site(path)))
+
   build_markdown(path = path, quiet = TRUE, rebuild = FALSE)
 
   github_worktree_commit(built, 
