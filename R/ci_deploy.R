@@ -52,7 +52,6 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
 git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin") {
 
   no_branch <- !git_has_remote_branch(remote, branch)
-  print(gert::git_remote_ls(path))
   
   # create the branch if it doesn't exist
   if (no_branch) {
@@ -99,18 +98,20 @@ github_worktree_add <- function (dir, remote, branch) {
 }
 
 
-github_worktree_commit <- function(dir, msg, remote, branch) {
-  if (requireNamespace("cli", quietly = TRUE))
-    cli::rule("Committing", line = "c")
-  gert::git_add(files = ".", repo = dir)
-  gert::git_commit(message = msg, repo = dir)
-  gert::git_push(
-    remote = remote, 
-    refspec = paste0("HEAD:refs/remotes/", remote, "/", branch), 
-    repo = dir,
-    force = TRUE,
-  )
-} 
+github_worktree_commit <- function (dir, commit_message, remote, branch) {
+    force(commit_message)
+    if (requireNamespace("cli", quietly = TRUE))
+      cli::rule("Committing", line = "c")
+    if (!requireNamespace("withr", quietly = TRUE))
+      stop("withr must be installed")
+    withr::with_dir(dir, {
+        git("add", "-A", ".")
+        git("commit", "--allow-empty", "-m", commit_message)
+        rule("Deploying", line = 1)
+        git("remote", "-v")
+        git("push", "--force", remote, paste0("HEAD:", branch))
+    })
+}
 
 github_worktree_remove <- function (dir) {
   if (requireNamespace("cli", quietly = TRUE)) 
@@ -133,18 +134,6 @@ github_worktree_remove <- function (dir) {
 #   invisible()
 # }
 
-# function (dir, commit_message, remote, branch) 
-# {
-#     force(commit_message)
-#     rule("Commiting updated site", line = 1)
-#     with_dir(dir, {
-#         git("add", "-A", ".")
-#         git("commit", "--allow-empty", "-m", commit_message)
-#         rule("Deploying to GitHub Pages", line = 1)
-#         git("remote", "-v")
-#         git("push", "--force", remote, paste0("HEAD:", branch))
-#     })
-# }
 # <bytecode: 0x7646870>
 # <environment: namespace:pkgdown>
 
