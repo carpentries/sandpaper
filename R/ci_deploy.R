@@ -102,7 +102,10 @@ github_worktree_commit <- function(dir, msg, remote, branch) {
     cli::rule("Committing", line = "c")
   gert::git_add(files = ".", repo = dir)
   gert::git_commit(message = msg, repo = dir)
-  gert::git_push(remote = remote, refspec = paste0("HEAD:", branch), repo = dir)
+  gert::git_push(
+    remote = remote, 
+    refspec = paste0("HEAD:refs/remotes/", remote, "/", branch), 
+    repo = dir)
 } 
 
 github_worktree_remove <- function (dir) {
