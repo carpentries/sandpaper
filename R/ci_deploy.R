@@ -47,7 +47,7 @@ git <- function (..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
 }
 
 github_worktree_add <- function (dir, remote, branch) {
-  if (requirePackageNamespace("cli", quietly = TRUE))
+  if (requireNamespace("cli", quietly = TRUE))
     cli::rule("Adding worktree", line = "+")
   git("worktree", "add", 
     "--track", "-B", branch, dir, 
@@ -56,7 +56,7 @@ github_worktree_add <- function (dir, remote, branch) {
 }
 
 github_worktree_commit <- function(dir, msg, remote, branch) {
-  if (requirePackageNamespace("cli", quietly = TRUE))
+  if (requireNamespace("cli", quietly = TRUE))
     cli::rule("Committing", line = "c")
   gert::git_add(files = ".", repo = dir)
   gert::git_commit(message = msg, repo = dir)
@@ -64,7 +64,7 @@ github_worktree_commit <- function(dir, msg, remote, branch) {
 } 
 
 github_worktree_remove <- function (dir) {
-  if (requirePackageNamespace("cli", quietly = TRUE)) 
+  if (requireNamespace("cli", quietly = TRUE)) 
     cli::rule("Removing worktree", line = "-")
   git("worktree", "remove", dir)
 }
