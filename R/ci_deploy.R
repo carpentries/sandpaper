@@ -22,7 +22,7 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
     branch = md_branch, remote = remote
   )
   on.exit(eval(del_md), add = TRUE)
-  del_site <- git_worktree_setup(path, built, 
+  del_site <- git_worktree_setup(path, site, 
     branch = site_branch, remote = remote
   )
   on.exit(eval(del_site), add = TRUE)
