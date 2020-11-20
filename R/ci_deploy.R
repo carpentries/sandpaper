@@ -1,4 +1,4 @@
-#' [INTERNAL] Build and deploy the site with continous integration
+#' (INTERNAL) Build and deploy the site with continous integration
 #'
 #' @param path path to the lesson
 #' @param md_branch the branch name that contains the markdown outputs
@@ -29,11 +29,11 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
 
   build_lesson(path, quiet = TRUE, preview = FALSE)
   writeLines("", fs::path(html, ".nojekyll"))
-  git_worktree_commit(built, 
+  github_worktree_commit(built, 
     "markdown source builds",
     remote, md_branch
   )
-  git_worktree_commit(html,
+  github_worktree_commit(html,
     "deploy site",
     remote, site_branch
   )

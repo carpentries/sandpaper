@@ -2,10 +2,10 @@
 % Please edit documentation in R/ci_deploy.R
 \name{ci_deploy}
 \alias{ci_deploy}
-\title{\link{INTERNAL} Build and deploy the site with continous integration}
+\title{(INTERNAL) Build and deploy the site with continous integration}
 \usage{
 ci_deploy(
-  path,
+  path = ".",
   md_branch = "md-outputs",
   site_branch = "gh-pages",
   remote = "origin"
@@ -24,7 +24,7 @@ ci_deploy(
 NOTHING
 }
 \description{
-\link{INTERNAL} Build and deploy the site with continous integration
+(INTERNAL) Build and deploy the site with continous integration
 }
 \note{
 this function is not for interactive use. It requires git to be
