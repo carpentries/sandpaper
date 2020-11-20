@@ -50,17 +50,8 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
 }
 
 git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin") {
-  remote_branch <- paste0(remote, "/", branch)
-  cli::rule("PATHS!")
-  message(path)
-  message(dest_dir)
-  
-  cli::rule("GIT")
-  message(remote_branch)
-  branches <- gert::git_branch_list(repo = path)
-  print(branches)
-  no_branch <- remote_branch %nin% branches$name
-  print(no_branch)
+
+  no_branch <- !git_has_remote_branch(remote, branch)
   
   # create the branch if it doesn't exist
   if (no_branch) {
@@ -80,14 +71,21 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
   github_worktree_add(dest_dir, remote, branch)
   # This allows me to evaluate this expression at the top of the calling
   # function.
-  expression(github_worktree_remove(dest_dir))
+  parse(text = paste0("github_worktree_remove('", dest_dir, "')"))
 }
+
 
 
 # Shamelessly stolen from {pkgdown}, originally authored by Hadley Wickam
 git <- function (..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
   callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, 
     error_on_status = error_on_status)
+}
+
+git_has_remote_branch <- function (remote, branch) {
+  has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", 
+    remote, branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 
+  0
 }
 
 github_worktree_add <- function (dir, remote, branch) {
