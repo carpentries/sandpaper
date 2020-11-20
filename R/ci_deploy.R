@@ -61,7 +61,7 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
   print(no_branch)
   
   # create the branch if it doesn't exist
-  if () {
+  if (no_branch) {
     old_branch <- gert::git_branch(repo = path)
     git("checkout", "--orphan", branch)
     git("rm", "-rf", "--quiet", ".")
