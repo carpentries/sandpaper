@@ -107,7 +107,7 @@ github_worktree_commit <- function (dir, commit_message, remote, branch) {
     withr::with_dir(dir, {
         git("add", "-A", ".")
         git("commit", "--allow-empty", "-m", commit_message)
-        rule("Deploying", line = 1)
+        cli::rule("Deploying", line = 1)
         git("remote", "-v")
         git("push", "--force", remote, paste0("HEAD:", branch))
     })
