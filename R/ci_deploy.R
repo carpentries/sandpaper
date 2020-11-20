@@ -116,7 +116,7 @@ github_worktree_commit <- function (dir, commit_message, remote, branch) {
 github_worktree_remove <- function (dir) {
   if (requireNamespace("cli", quietly = TRUE)) 
     cli::rule("Removing worktree", line = "-")
-  git("worktree", "remove", dir)
+  git("worktree", "remove", "--force", dir)
 }
 
 
