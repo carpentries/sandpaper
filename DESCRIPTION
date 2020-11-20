@@ -35,10 +35,8 @@ Suggests:
     cli (>= 2.0.2),
     covr,
     withr,
-    dovetail,
     varnish (>= 0.0.0.9001)
 Remotes: 
-    carpentries/dovetail,
     carpentries/pegboard,
     zkamvar/varnish,
     r-lib/gh,
