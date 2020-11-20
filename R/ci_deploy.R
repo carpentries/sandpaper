@@ -39,6 +39,7 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   )
   on.exit(eval(del_md), add = TRUE)
 
+  print(fs::dir_tree(path_site(path)))
   build_markdown(path = path, quiet = TRUE, rebuild = FALSE)
 
   github_worktree_commit(built, 
