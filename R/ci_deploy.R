@@ -17,6 +17,8 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   path <- set_source_path(path)
   on.exit(reset_build_paths())
 
+  create_site(path)
+
   built <- path_built(path)
   html  <- fs::path(path_site(path), "docs")
 
