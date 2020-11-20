@@ -57,8 +57,9 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
   
   cli::rule("GIT")
   message(remote_branch)
-  print(gert::git_branch_list())
-  no_branch <- !gert::git_branch_exists(remote_branch, local = FALSE, repo = path)
+  branches <- gert::git_branch_list(repo = path)
+  print(branches)
+  no_branch <- remote_branch %nin% branches$name
   print(no_branch)
   
   # create the branch if it doesn't exist
