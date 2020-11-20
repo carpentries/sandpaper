@@ -11,7 +11,7 @@
 #'   `site/` folder. 
 #' 
 #' @keywords internal
-ci_deploy <- function(path, md_branch = "md-outputs", site_branch = "gh-pages", remote = "origin") {
+ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pages", remote = "origin") {
   path  <- root_path(path)
   built <- path_built(path)
   html  <- fs::path(path_site(path), "docs")
