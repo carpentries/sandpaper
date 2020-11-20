@@ -32,17 +32,19 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
     branch = md_branch, remote = remote
   )
   on.exit(eval(del_md), add = TRUE)
-  del_site <- git_worktree_setup(path, html, 
-    branch = site_branch, remote = remote
-  )
-  on.exit(eval(del_site), add = TRUE)
 
-  build_lesson(path, quiet = TRUE, preview = FALSE)
-  writeLines("", fs::path(html, ".nojekyll"))
+  build_markdown(path = path, quiet = TRUE, rebuild = FALSE)
   github_worktree_commit(built, 
     "markdown source builds",
     remote, md_branch
   )
+
+  del_site <- git_worktree_setup(path, html, 
+    branch = site_branch, remote = remote
+  )
+  on.exit(eval(del_site), add = TRUE)
+  build_lesson(path, quiet = TRUE, preview = FALSE)
+  writeLines("", fs::path(html, ".nojekyll"))
   github_worktree_commit(html,
     "deploy site",
     remote, site_branch
