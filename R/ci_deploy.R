@@ -12,6 +12,7 @@
 #' 
 #' @keywords internal
 ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pages", remote = "origin") {
+  opath <- path
   path  <- root_path(path)
   built <- path_built(path)
   html  <- fs::path(path_site(path), "docs")
@@ -33,7 +34,7 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   )
   on.exit(eval(del_md), add = TRUE)
 
-  build_markdown(path = path, quiet = TRUE, rebuild = FALSE)
+  build_markdown(path = opath, quiet = TRUE, rebuild = FALSE)
   github_worktree_commit(built, 
     "markdown source builds",
     remote, md_branch
