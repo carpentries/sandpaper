@@ -12,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/sandpaper)](https://CRAN.R-project.
 [![R build
 status](https://github.com/carpentries/sandpaper/workflows/R-CMD-check/badge.svg)](https://github.com/carpentries/sandpaper/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/carpentries/sandpaper/branch/master/graph/badge.svg)](https://codecov.io/gh/carpentries/sandpaper?branch=master)
+coverage](https://codecov.io/gh/carpentries/sandpaper/branch/main/graph/badge.svg)](https://codecov.io/gh/carpentries/sandpaper?branch=main)
 <!-- badges: end -->
 
 The {sandpaper} package was created by [The

@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/sandpaper)](https://CRAN.R-project.org/package=sandpaper)
 [![R build status](https://github.com/carpentries/sandpaper/workflows/R-CMD-check/badge.svg)](https://github.com/carpentries/sandpaper/actions)
-[![Codecov test coverage](https://codecov.io/gh/carpentries/sandpaper/branch/master/graph/badge.svg)](https://codecov.io/gh/carpentries/sandpaper?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/carpentries/sandpaper/branch/main/graph/badge.svg)](https://codecov.io/gh/carpentries/sandpaper?branch=main)
 <!-- badges: end -->
 
 The {sandpaper} package was created by [The Carpentries] to re-imagine our method
