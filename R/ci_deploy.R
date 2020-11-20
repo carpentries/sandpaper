@@ -52,6 +52,7 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
 git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin") {
 
   no_branch <- !git_has_remote_branch(remote, branch)
+  print(gert::git_remote_ls(path))
   
   # create the branch if it doesn't exist
   if (no_branch) {
@@ -97,6 +98,7 @@ github_worktree_add <- function (dir, remote, branch) {
   )
 }
 
+
 github_worktree_commit <- function(dir, msg, remote, branch) {
   if (requireNamespace("cli", quietly = TRUE))
     cli::rule("Committing", line = "c")
@@ -105,7 +107,9 @@ github_worktree_commit <- function(dir, msg, remote, branch) {
   gert::git_push(
     remote = remote, 
     refspec = paste0("HEAD:refs/remotes/", remote, "/", branch), 
-    repo = dir)
+    repo = dir,
+    force = TRUE,
+  )
 } 
 
 github_worktree_remove <- function (dir) {
