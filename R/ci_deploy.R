@@ -16,13 +16,23 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   built <- path_built(path)
   html  <- fs::path(path_site(path), "docs")
 
+  cli::rule("PATHS")
+  message(path)
+  message(built)
+  message(html)
+  message(fs::path_wd())
+
+  cli::rule("BRANCHES")
+  message(remote, "/", md_branch)
+  message(remote, "/", site_branch)
+
   # Set up the worktrees and make sure to remove them when the function exits
   # (gracefully or ungracefully so)
   del_md <- git_worktree_setup(path, built, 
     branch = md_branch, remote = remote
   )
   on.exit(eval(del_md), add = TRUE)
-  del_site <- git_worktree_setup(path, site, 
+  del_site <- git_worktree_setup(path, html, 
     branch = site_branch, remote = remote
   )
   on.exit(eval(del_site), add = TRUE)
@@ -37,6 +47,38 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
     "deploy site",
     remote, site_branch
   )
+}
+
+git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin") {
+  remote_branch <- paste0(remote, "/", branch)
+  cli::rule("PATHS!")
+  message(path)
+  message(dest_dir)
+  
+  cli::rule("GIT")
+  message(remote_branch)
+  no_branch <- !gert::git_branch_exists(remote_branch, local = FALSE, repo = path)
+  print(no_branch)
+  
+  # create the branch if it doesn't exist
+  if () {
+    old_branch <- gert::git_branch(repo = path)
+    git("checkout", "--orphan", branch)
+    git("rm", "-rf", "--quiet", ".")
+    git("commit", "--allow-empty", "-m", 
+      sprintf("Initializing %s branch", branch)
+    )
+    git("push", remote, paste0("HEAD:", branch))
+    git("checkout", old_branch)
+  }
+  # fetch the content of only the branch in question
+  # https://stackoverflow.com/a/62264058/2752888
+  git("remote", "set-branches", remote, branch)
+  git("fetch", remote, branch)
+  github_worktree_add(dest_dir, remote, branch)
+  # This allows me to evaluate this expression at the top of the calling
+  # function.
+  expression(github_worktree_remove(dest_dir))
 }
 
 
@@ -69,28 +111,6 @@ github_worktree_remove <- function (dir) {
   git("worktree", "remove", dir)
 }
 
-git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin") {
-  remote_branch <- paste0(remote, "/", branch)
-  # create the branch if it doesn't exist
-  if (!gert::git_branch_exists(remote_branch, local = FALSE, repo = path)) {
-    old_branch <- gert::git_branch(repo = path)
-    git("checkout", "--orphan", branch)
-    git("rm", "-rf", "--quiet", ".")
-    git("commit", "--allow-empty", "-m", 
-      sprintf("Initializing %s branch", branch)
-    )
-    git("push", remote, paste0("HEAD:", branch))
-    git("checkout", old_branch)
-  }
-  # fetch the content of only the branch in question
-  # https://stackoverflow.com/a/62264058/2752888
-  git("remote", "set-branches", remote, branch)
-  git("fetch", remote, branch)
-  github_worktree_add(dest_dir, remote, branch)
-  # This allows me to evaluate this expression at the top of the calling
-  # function.
-  expression(github_worktree_remove(dest_dir))
-}
 
 #   pkg <- as_pkgdown(pkg, override = list(destination = dest_dir))
 #   if (clean) {
