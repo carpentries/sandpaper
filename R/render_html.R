@@ -54,12 +54,15 @@ render_html <- function(path_in, ..., quiet = FALSE) {
     sep = "+"
   )
   from <- paste0("markdown", "-hard_line_breaks", "+", exts)
+  luaf <- system.file("filters", "lesson.lua", package = "sandpaper")
   args <- list(
     input = path_in, 
     output = htm, 
     from = from,
     to = "html", options = c(
-      "--indented-code-classes=sh", "--section-divs", "--mathjax", ...
+      "--indented-code-classes=sh", "--section-divs", "--mathjax",
+      paste0("--lua-filter=", luaf), 
+      ...
     ),
     verbose = FALSE
   )
