@@ -28,13 +28,13 @@ test_that("render_html applies the internal lua filter", {
   res <- render_html(tmp)
   expect_snapshot(cat(res))
   # Challenge header automatically added
-  expect_match(res, "<h2>Challenge</h2>", fixed = TRUE)
+  expect_match(res, "Challenge</h2>", fixed = TRUE)
   # Solution header modified
-  expect_match(res, "<h2>Write now</h2>", fixed = TRUE)
+  expect_match(res, "Write now</h2>", fixed = TRUE)
   # Aside tag applied
   expect_match(res, "<aside class=\"instructor\">", fixed = TRUE)
   # Instructor header doesn't need to exist
-  expect_failure(expect_match(res, "<h2>Instructor</h2>", fixed = TRUE))
+  expect_failure(expect_match(res, "Instructor</h2>", fixed = TRUE))
 
 
 })
