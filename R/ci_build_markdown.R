@@ -68,11 +68,15 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
     branch = md, remote = remote
   )
   on.exit(eval(del_md), add = TRUE)
+  print(gert::git_status(path))
+  print(gert::git_status(built))
 
   # ------------ site worktree
   del_site <- git_worktree_setup(path, html,
     branch = branch, remote = remote
   )
+  print(gert::git_status(path))
+  print(gert::git_status(html))
 
   on.exit(eval(del_site), add = TRUE)
 
