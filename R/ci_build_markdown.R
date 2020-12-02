@@ -77,7 +77,7 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
   on.exit(eval(del_site), add = TRUE)
 
   # Will not rebuild the files that were already built
-  build_site(path = path, quiet = TRUE, rebuild = FALSE)
+  build_lesson(path = path, quiet = TRUE, rebuild = FALSE)
 
   github_worktree_commit(html,
     "site deploy",
