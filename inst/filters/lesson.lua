@@ -54,7 +54,8 @@ function head_of_the_class(el)
     -- capitalize the first letter and insert it at the top of the block
     local C = text.upper(text.sub(class, 1, 1))
     local lass = text.sub(class, 2, -1)
-    el.content:insert(1, pandoc.Header(2, C..lass))
+    local header = pandoc.Header(2, C..lass)
+    table.insert(el.content, 1, header)
   elseif header ~= 2 then
     -- force the header level to be 2
     el.content[1].level = 2
