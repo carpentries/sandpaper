@@ -34,16 +34,53 @@ function step_aside(el, i)
   return res
 end
 
+local text = require('text')
+-- Add a header to a Div element if it doesn't exist
+-- 
+-- @param el a pandoc.Div element
+--
+-- @return the element with a header if it doesn't exist
+function head_of_the_class(el)
+
+  -- bail early if there is no class
+  local class = el.classes[1]
+  if class == nil then
+    return el
+  end
+
+  -- check if the header exists
+  local header = el.content[1].level
+  if header == nil then
+    -- capitalize the first letter and insert it at the top of the block
+    local C = text.upper(text.sub(class, 1, 1))
+    local lass = text.sub(class, 2, -1)
+    el.content:insert(1, pandoc.Header(2, C..lass))
+  elseif header ~= 2 then
+    -- force the header level to be 2
+    el.content[1].level = 2
+  end
+
+  return el
+end
+
 -- Deal with fenced divs
 Div = function(el)
+
+  -- Instructor notes should be aside tags
   v,i = el.classes:find("instructor")
   if i ~= nil then
     return step_aside(el, i)
   end
+
+  -- All other Div tags should have level 2 headers
+  head_of_the_class(el)
+
+  -- Callouts should be asides
   v,i = el.classes:find("callout")
   if i ~= nil then
     return step_aside(el, i)
   end
+
   return el
 end
 
