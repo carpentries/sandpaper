@@ -35,6 +35,16 @@ function step_aside(el, i)
 end
 
 local text = require('text')
+-- TODO: figure out how to get matching to work
+local our_classes = "callout"..
+  "|".."objectives"..
+  "|".."challenge"..
+  "|".."prereq"..
+  "|".."checklist"..
+  "|".."solution"..
+  "|".."discussion"..
+  "|".."testimonial"..
+  "|".."keypoints"
 -- Add a header to a Div element if it doesn't exist
 -- 
 -- @param el a pandoc.Div element
@@ -43,8 +53,8 @@ local text = require('text')
 function head_of_the_class(el)
 
   -- bail early if there is no class
-  local class = el.classes[1]
-  if class == nil then
+  local class = pandoc.utils.stringify(el.classes[1])
+  if class == nil then -- or not class:match(our_classes) then
     return el
   end
 
@@ -56,7 +66,9 @@ function head_of_the_class(el)
     local lass = text.sub(class, 2, -1)
     local header = pandoc.Header(2, C..lass)
     table.insert(el.content, 1, header)
-  elseif header ~= 2 then
+  end
+
+  if header ~= 2 then
     -- force the header level to be 2
     el.content[1].level = 2
   end
