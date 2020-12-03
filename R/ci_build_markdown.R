@@ -22,16 +22,6 @@ ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origi
   built <- path_built(path)
   html  <- fs::path(path_site(path), "docs")
 
-  cli::rule("PATHS")
-  message(path)
-  message(built)
-  message(html)
-  message(fs::path_wd())
-
-  cli::rule("BRANCHES")
-  message(remote, "/", branch)
-
-  print(fs::dir_tree(path_site(path)))
   # Set up the worktrees and make sure to remove them when the function exits
   # (gracefully or ungracefully so)
   del_md <- git_worktree_setup(path, built, 
@@ -88,6 +78,7 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
     "site deploy",
     remote, branch
   )
+
   print(git("worktree", "list"))
   print(git("log", "--oneline", "--decorate", "--graph", "--all"))
 }
