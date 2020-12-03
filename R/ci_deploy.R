@@ -95,9 +95,10 @@ git <- function (..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
 }
 
 git_has_remote_branch <- function (remote, branch) {
-  has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", 
-    remote, branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 
-  0
+  git(
+    "ls-remote", "--quiet", "--exit-code", remote, branch, 
+    echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE
+  )$status == 0
 }
 
 github_worktree_add <- function (dir, remote, branch) {
@@ -110,18 +111,23 @@ github_worktree_add <- function (dir, remote, branch) {
 }
 
 
-github_worktree_commit <- function (dir, commit_message, remote, branch) {
+github_worktree_commit <- function (dir, commit_message, from, remote, branch) {
     force(commit_message)
     if (requireNamespace("cli", quietly = TRUE))
       cli::rule("Committing", line = "c")
     if (!requireNamespace("withr", quietly = TRUE))
       stop("withr must be installed")
     withr::with_dir(dir, {
-        git("add", "-A", ".")
-        git("commit", "--allow-empty", "-m", commit_message)
-        cli::rule("Deploying", line = 1)
-        git("remote", "-v")
-        git("push", "--force", remote, paste0("HEAD:", branch))
+      # Only commit if we have something to add
+      added <- gert::git_add(".", repo = dir)
+      if (nrow(added) == 0) {
+        message("nothing to commit!")
+        return(NULL)
+      }
+      git("commit", "--allow-empty", "-m", commit_message)
+      cli::rule("Deploying", line = 1)
+      git("remote", "-v")
+      git("push", "--force", remote, paste0("HEAD:", branch))
     })
 }
 
@@ -131,35 +137,16 @@ github_worktree_remove <- function (dir) {
   git("worktree", "remove", "--force", dir)
 }
 
+message_source <- function(commit_message, source_branch, dir) {
+  log <- gert::git_log(ref = source_branch, max = 1L, repo = dir)
+  paste0(commit_message,
+    "\n",
+    "\nAuto-generated via {sandpaper}\n",
+    "Source  : ", log$commit, "\n",
+    "Branch  : ", source_branch, "\n",
+    "Author  : ", log$author, "\n",
+    "Time    : ", UTC_timestamp(log$time), "\n",
+    "Message : ", log$message
+  )
+}
 
-#   pkg <- as_pkgdown(pkg, override = list(destination = dest_dir))
-#   if (clean) {
-#     rule("Cleaning files from old site", line = 1)
-#     clean_site(pkg)
-#   }
-#   build_site(pkg, devel = FALSE, preview = FALSE, install = FALSE, 
-#     ...)
-#   if (github_pages) {
-#     build_github_pages(pkg)
-#   }
-#   github_push(dest_dir, commit_message, remote, branch)
-#   invisible()
-# }
-
-# <bytecode: 0x7646870>
-# <environment: namespace:pkgdown>
-
-# function (pkg = ".") 
-# {
-#     rule("Extra files for GitHub pages")
-#     pkg <- as_pkgdown(pkg)
-#     write_if_different(pkg, "", ".nojekyll", check = FALSE)
-#     cname <- cname_url(pkg$meta$url)
-#     if (is.null(cname)) {
-#         return(invisible())
-#     }
-#     write_if_different(pkg, cname, "CNAME", check = FALSE)
-#     invisible()
-# }
-# <bytecode: 0x74072e8>
-# <environment: namespace:pkgdown>

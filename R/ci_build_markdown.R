@@ -15,6 +15,7 @@ ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origi
 
   # step 0: build_lesson defaults to a local build
   path <- set_source_path(path)
+  current <- gert::git_branch(path)
   on.exit(reset_build_paths())
 
   create_site(path)
@@ -35,7 +36,7 @@ ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origi
   build_markdown(path = path, quiet = TRUE, rebuild = FALSE)
 
   github_worktree_commit(built, 
-    "markdown source builds",
+    message_source("markdown source builds", current, dir = path),
     remote, branch
   )
 }
@@ -44,6 +45,7 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
 
   # step 0: build_lesson defaults to a local build
   path <- set_source_path(path)
+  current <- gert::git_branch(path)
   on.exit(reset_build_paths())
 
   create_site(path)
@@ -70,7 +72,7 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
   build_lesson(path = path, quiet = TRUE, rebuild = FALSE)
 
   github_worktree_commit(html,
-    "site deploy",
+    message_source("site deploy", current, dir = path),
     remote, branch
   )
 }
