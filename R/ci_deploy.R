@@ -111,7 +111,7 @@ github_worktree_add <- function (dir, remote, branch) {
 }
 
 
-github_worktree_commit <- function (dir, commit_message, from, remote, branch) {
+github_worktree_commit <- function (dir, commit_message, remote, branch) {
     force(commit_message)
     if (requireNamespace("cli", quietly = TRUE))
       cli::rule("Committing", line = "c")
