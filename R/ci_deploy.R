@@ -22,17 +22,6 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   built <- path_built(path)
   html  <- fs::path(path_site(path), "docs")
 
-  cli::rule("PATHS")
-  message(path)
-  message(built)
-  message(html)
-  message(fs::path_wd())
-
-  cli::rule("BRANCHES")
-  message(remote, "/", md_branch)
-  message(remote, "/", site_branch)
-
-  print(fs::dir_tree(path_site(path)))
   # Set up the worktrees and make sure to remove them when the function exits
   # (gracefully or ungracefully so)
   del_md <- git_worktree_setup(path, built, 
