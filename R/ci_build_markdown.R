@@ -68,23 +68,23 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
     branch = md, remote = remote
   )
   on.exit(eval(del_md), add = TRUE)
-  print(gert::git_status(path))
-  print(gert::git_status(built))
+  print(git("status"))
+  print(git("worktree list"))
 
   # ------------ site worktree
   del_site <- git_worktree_setup(path, html,
     branch = branch, remote = remote
   )
-  print(gert::git_status(path))
-  print(gert::git_status(html))
+  print(git("status"))
+  print(git("worktree list"))
 
   on.exit(eval(del_site), add = TRUE)
 
-  # Will not rebuild the files that were already built
-  build_lesson(path = path, quiet = TRUE, rebuild = FALSE)
+  # # Will not rebuild the files that were already built
+  # build_lesson(path = path, quiet = TRUE, rebuild = FALSE)
 
-  github_worktree_commit(html,
-    "site deploy",
-    remote, branch
-  )
+  # github_worktree_commit(html,
+  #   "site deploy",
+  #   remote, branch
+  # )
 }

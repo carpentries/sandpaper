@@ -61,6 +61,17 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   )
 }
 
+# worktree setup
+# [IF BRANCH DOES NOT EXIST]
+#   git checkout --orphan <branch>
+#   git rm -rf --quiet .
+#   git commit --allow-empty -m
+#   git push remote HEAD:<branch>
+#   git checkout -
+# git remote set-branches <remote> <branch>
+# git fetch <remote> <branch>
+# git worktree add --track -B <branch> /path/to/dir <remote>/<branch>
+
 git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin") {
 
   no_branch <- !git_has_remote_branch(remote, branch)
