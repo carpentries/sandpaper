@@ -71,8 +71,13 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
   # # Will not rebuild the files that were already built
   build_lesson(path = path, quiet = TRUE, rebuild = FALSE)
 
+  github_worktree_commit(built, 
+    message_source("markdown source builds", current, dir = path),
+    remote, md 
+  )
+
   github_worktree_commit(html,
-    message_source("site deploy", current, dir = path),
+    message_source("site deploy", md, dir = built),
     remote, branch
   )
 }
