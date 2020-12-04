@@ -1,3 +1,23 @@
+# sandpaper 0.0.0.9006
+
+Continuous integration functions added:
+
+* `ci_deploy()` will build the markdown source and the site and commit them to
+  separate branches, including information about their source. 
+* `ci_build_markdown()` will build the markdown source files and commit them
+  to a separate branch, including information about the source commit.
+* `ci_build_site()` will build the site directly from the markdown branch,
+  bypassing re-rendering the markdown files. 
+
+Miscellaneous additions
+
+* {dovetail} no longer in suggests
+* new internal function `build_site()` compartmentalizes the conversion from 
+  markdown to html 
+* any files or folders named `.git` in the episodes directory will not be
+  copied over to the website.
+
+
 # sandpaper 0.0.0.9005
 
 * sandpaper now requires and uses additional folders and files:
