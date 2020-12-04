@@ -17,6 +17,12 @@ ex <- c("# Markdown",
   "This should be aside",
   "", 
   ":::",
+  "", 
+  "::: nothing", 
+  "", 
+  "This should be",
+  "", 
+  ":::",
   NULL
 )
 test_that("render_html applies the internal lua filter", {
@@ -26,7 +32,11 @@ test_that("render_html applies the internal lua filter", {
 
   writeLines(ex, tmp)
   res <- render_html(tmp)
-  expect_snapshot(cat(res))
+  
+  if (rmarkdown::pandoc_available("2.10")) {
+    expect_snapshot(cat(res))
+  }
+
   # Challenge header automatically added
   expect_match(res, "Challenge</h2>", fixed = TRUE)
   # Solution header modified
@@ -35,6 +45,9 @@ test_that("render_html applies the internal lua filter", {
   expect_match(res, "<aside class=\"instructor\">", fixed = TRUE)
   # Instructor header doesn't need to exist
   expect_failure(expect_match(res, "Instructor</h2>", fixed = TRUE))
+  # Div class nothing should be left alone
+  expect_match(res, "div class=\"nothing\"", fixed = TRUE)
+  expect_failure(expect_match(res, "Nothing</h2>", fixed = TRUE))
 
 
 })

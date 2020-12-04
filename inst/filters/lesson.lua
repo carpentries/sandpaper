@@ -1,3 +1,69 @@
+local text = require('text')
+
+-- Lua Set for checking existence of item
+-- https://www.lua.org/pil/11.5.html
+function Set (list)
+  local set = {}
+  for _, l in ipairs(list) do set[l] = true end
+  return set
+end
+local blocks = Set{
+  "callout",
+  "objectives",
+  "challenge",
+  "prereq",
+  "checklist",
+  "solution",
+  "discussion",
+  "testimonial",
+  "keypoints",
+}
+
+-- get the timing elements from the metadata and store them in a global var
+local timings = {}
+function get_timings (meta)
+  for k, v in pairs(meta) do
+    if type(v) == 'table' and v.t == 'MetaInlines' then
+      vars[k] = {table.unpack(v)}
+    end
+  end
+end
+
+--[[
+-- TODO: Create combination Timings, Questions, and Objectives block:
+--
+-- This block in practice looks like this, but I think it could probably be
+-- improved.
+--
+-- <div class="objectives">
+--   <div class="row">
+--     <div class="col-md-3">
+--       pandoc.Strong { pandoc.Str "Teaching:" } vars["teaching"]..
+--       pandoc.LineBreak..
+--       pandoc.Strong { pandoc.Str "Exercises:" } vars["exercises"]
+--     </div>
+--     <div class="col-md-9">
+--       pandoc.Strong { pandoc.Str "Questions" }..
+--       pandoc.LineBreak..
+--       pandoc.BulletList {  }
+--     </div>
+--   </div>
+--   <div class="row">
+--     <div class="col-md-3">
+--     </div>
+--     <div class="col-md-9">
+--       pandoc.Strong { pandoc.Str "Objectives" }..
+--       pandoc.LineBreak..
+--       pandoc.BulletList {  }
+--     </div>
+--   </div>
+-- </div>
+function first_block(questions, objectives)
+  local res = pandoc.List:new{}
+
+end
+--]]
+
 -- Convert Div elements to semantic HTML <aside> tags
 --
 -- NOTE: This destructively converts div tags, so do not apply this to a div
@@ -27,24 +93,13 @@ function step_aside(el, i)
   for _, block in ipairs(el.content) do
     table.insert(res, block)
   end
-  
+
   -- Step 3: insert the HTML closing tag
   table.insert(res, pandoc.RawBlock('html', '</aside>'))
 
   return res
 end
 
-local text = require('text')
--- TODO: figure out how to get matching to work
-local our_classes = "callout"..
-  "|".."objectives"..
-  "|".."challenge"..
-  "|".."prereq"..
-  "|".."checklist"..
-  "|".."solution"..
-  "|".."discussion"..
-  "|".."testimonial"..
-  "|".."keypoints"
 -- Add a header to a Div element if it doesn't exist
 -- 
 -- @param el a pandoc.Div element
@@ -52,9 +107,9 @@ local our_classes = "callout"..
 -- @return the element with a header if it doesn't exist
 function head_of_the_class(el)
 
-  -- bail early if there is no class
+  -- bail early if there is no class or it's not one of ours
   local class = pandoc.utils.stringify(el.classes[1])
-  if class == nil then -- or not class:match(our_classes) then
+  if class == nil or blocks[class] == nil then
     return el
   end
 
@@ -75,6 +130,8 @@ function head_of_the_class(el)
 
   return el
 end
+
+
 
 -- Deal with fenced divs
 Div = function(el)

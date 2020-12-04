@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9007
+
+* HTML will now be processed with pandoc lua filters that will do the following:
+ - instructor and callout divs will be converted to `<aside>` tags
+ - divs without H2 level headers will have them automatically inserted
+ - divs with incorrect level headers will have them converted to H2
+ - only divs in our list of carpentries divs will be converted
+
 # sandpaper 0.0.0.9006
 
 Continuous integration functions added:

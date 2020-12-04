@@ -18,5 +18,8 @@
       <aside class="instructor">
       <p>This should be aside</p>
       </aside>
+      <div class="nothing">
+      <p>This should be</p>
+      </div>
       </div>
 
