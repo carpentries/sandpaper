@@ -21,10 +21,12 @@ local blocks = Set{
 
 -- get the timing elements from the metadata and store them in a global var
 local timings = {}
+local questions
+local objectives
 function get_timings (meta)
   for k, v in pairs(meta) do
     if type(v) == 'table' and v.t == 'MetaInlines' then
-      vars[k] = {table.unpack(v)}
+      timings[k] = {table.unpack(v)}
     end
   end
 end
@@ -38,9 +40,9 @@ end
 -- <div class="objectives">
 --   <div class="row">
 --     <div class="col-md-3">
---       pandoc.Strong { pandoc.Str "Teaching:" } vars["teaching"]..
+--       pandoc.Strong { pandoc.Str "Teaching:" } timings["teaching"]..
 --       pandoc.LineBreak..
---       pandoc.Strong { pandoc.Str "Exercises:" } vars["exercises"]
+--       pandoc.Strong { pandoc.Str "Exercises:" } timings["exercises"]
 --     </div>
 --     <div class="col-md-9">
 --       pandoc.Strong { pandoc.Str "Questions" }..
@@ -58,11 +60,59 @@ end
 --     </div>
 --   </div>
 -- </div>
-function first_block(questions, objectives)
-  local res = pandoc.List:new{}
-
-end
 --]]
+function first_block()
+  local res = pandoc.List:new{}
+  local html_open
+  local html_col9
+  local html_close
+  local teach = pandoc.utils.stringify(timings["teaching"])
+  local exercise = pandoc.utils.stringify(timings["exercises"])
+  html_open = pandoc.RawBlock('html', [[
+  <div class="row">
+    <div class="col-md-3">
+  ]])
+  html_col9 = pandoc.RawBlock('html', [[
+    </div>
+    <div class="col-md-9">
+  ]])
+  html_close = pandoc.RawBlock('html', [[
+    </div>
+  </div>
+  ]])
+  table.insert(res, pandoc.RawBlock('html', '<div class="objectives">'))
+  table.insert(res, pandoc.Header(2, "Overview"))
+  table.insert(res, html_open)
+  texercises = pandoc.List:new{
+    pandoc.Strong {pandoc.Str "Teaching: "},
+    pandoc.Space(),
+    pandoc.Str(teach),
+    pandoc.LineBreak(),
+    pandoc.Strong {pandoc.Str "Exercises: "},
+    pandoc.Space(),
+    pandoc.Str(exercise),
+  }
+  table.insert(res, pandoc.Para(texercises))
+  table.insert(res, html_col9)
+  table.insert(res, pandoc.Para(pandoc.List:new {
+    pandoc.Strong {pandoc.Str "Questions"}
+  }))
+  for _, block in ipairs(questions.content) do
+    table.insert(res, block)
+  end
+  table.insert(res, html_close)
+  table.insert(res, html_open)
+  table.insert(res, html_col9)
+  table.insert(res, pandoc.Para(pandoc.List:new {
+    pandoc.Strong {pandoc.Str "Objectives"}
+  }))
+  for _, block in ipairs(objectives.content) do
+    table.insert(res, block)
+  end
+  table.insert(res, html_close)
+  table.insert(res, pandoc.RawBlock('html', '</div>'))
+  return(res)
+end
 
 -- Convert Div elements to semantic HTML <aside> tags
 --
@@ -132,9 +182,25 @@ function head_of_the_class(el)
 end
 
 
-
 -- Deal with fenced divs
-Div = function(el)
+handle_our_divs = function(el)
+
+  -- Questions and Objectives should be grouped
+  v,i = el.classes:find("questions")
+  if i ~= nil then
+    questions = el
+    if objectives ~= nil then
+      return first_block()
+    end
+  end
+
+  v,i = el.classes:find("objectives")
+  if i ~= nil then
+    objectives = el
+    if questions ~= nil then
+      return first_block()
+    end
+  end
 
   -- Instructor notes should be aside tags
   v,i = el.classes:find("instructor")
@@ -154,3 +220,7 @@ Div = function(el)
   return el
 end
 
+return {
+  {Meta = get_timings},
+  {Div = handle_our_divs}
+}
