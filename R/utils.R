@@ -171,10 +171,12 @@ copy_assets <- function(src, dst) {
   dst <- fs::path(dst, fs::path_file(src))
 
   # Copy either directories or files.
-  if (fs::is_dir(src)) {
+  if (fs::is_dir(src) && fs::path_file(src) != ".git") {
     fs::dir_copy(src, dst, overwrite = TRUE)
-  } else if (fs::is_file(src)) {
+  } else if (fs::is_file(src) && fs::path_file(src) != ".git") {
     fs::file_copy(src, dst, overwrite = TRUE)
+  } else if (fs::path_file(src) == ".git") {
+    # skipping git
   } else {
     stop(paste(src, "does not exist"), call. = FALSE)
   }
