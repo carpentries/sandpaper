@@ -192,7 +192,7 @@ handle_our_divs = function(el)
     if objectives ~= nil then
       return first_block()
     else 
-      return nil
+      return pandoc.Null()
     end
   end
 
@@ -202,7 +202,7 @@ handle_our_divs = function(el)
     if questions ~= nil then
       return first_block()
     else 
-      return nil
+      return pandoc.Null()
     end
   end
 
