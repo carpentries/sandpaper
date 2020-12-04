@@ -191,6 +191,8 @@ handle_our_divs = function(el)
     questions = el
     if objectives ~= nil then
       return first_block()
+    else 
+      return nil
     end
   end
 
@@ -199,6 +201,8 @@ handle_our_divs = function(el)
     objectives = el
     if questions ~= nil then
       return first_block()
+    else 
+      return nil
     end
   end
 
