@@ -32,34 +32,16 @@ function get_timings (meta)
 end
 
 --[[
--- TODO: Create combination Timings, Questions, and Objectives block:
+-- Create Overview block that is a combination of questions and objectives.
 --
--- This block in practice looks like this, but I think it could probably be
--- improved.
+-- This was originally taken care of by Jekyll, but since we are not necessarily
+-- relying on a logic-based templating language (liquid can diaf), we can create
+-- this here. 
 --
--- <div class="objectives">
---   <div class="row">
---     <div class="col-md-3">
---       pandoc.Strong { pandoc.Str "Teaching:" } timings["teaching"]..
---       pandoc.LineBreak..
---       pandoc.Strong { pandoc.Str "Exercises:" } timings["exercises"]
---     </div>
---     <div class="col-md-9">
---       pandoc.Strong { pandoc.Str "Questions" }..
---       pandoc.LineBreak..
---       pandoc.BulletList {  }
---     </div>
---   </div>
---   <div class="row">
---     <div class="col-md-3">
---     </div>
---     <div class="col-md-9">
---       pandoc.Strong { pandoc.Str "Objectives" }..
---       pandoc.LineBreak..
---       pandoc.BulletList {  }
---     </div>
---   </div>
--- </div>
+-- This relies on a couple of things
+--
+-- Meta: teaching and exercises
+-- Body: questions and objectives. 
 --]]
 function first_block()
   local res = pandoc.List:new{}
@@ -68,6 +50,10 @@ function first_block()
   local html_close
   local teach = pandoc.utils.stringify(timings["teaching"])
   local exercise = pandoc.utils.stringify(timings["exercises"])
+  -- At the moment, I'm inserting raw HTML blocks here because that's how they
+  -- would appear if they were written in markdown, but it is also possible to
+  -- do this in a native pandoc way, but I get the feeling that these will
+  -- change in the future, so I didn't want to spend too much time on it. 
   html_open = pandoc.RawBlock('html', [[
   <div class="row">
     <div class="col-md-3">
