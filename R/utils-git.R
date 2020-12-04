@@ -13,7 +13,7 @@
 git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin") {
 
   no_branch <- !git_has_remote_branch(remote, branch)
-  
+
   # create the branch if it doesn't exist
   if (no_branch) {
     old_branch <- gert::git_branch(repo = path)
@@ -49,7 +49,7 @@ git_has_remote_branch <- function (remote, branch) {
   git(
     "ls-remote", "--quiet", "--exit-code", remote, branch, 
     echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE
-  )$status == 0
+    )$status == 0
 }
 
 # Add a branch to a folder as a worktree
@@ -66,24 +66,24 @@ github_worktree_add <- function (dir, remote, branch) {
 # Commit on a worktree
 # Modified from pkgdown:::github_push by Hadley Wickham
 github_worktree_commit <- function (dir, commit_message, remote, branch) {
-    force(commit_message)
-    if (requireNamespace("cli", quietly = TRUE))
-      cli::rule("Committing", line = "c")
-    # ZNK: add explicit check for withr
-    if (!requireNamespace("withr", quietly = TRUE))
-      stop("withr must be installed")
-    withr::with_dir(dir, {
-      # ZNK: Change to gert::git_add(); only commit if we have something to add
-      added <- gert::git_add(".", repo = dir)
-      if (nrow(added) == 0) {
-        message("nothing to commit!")
-        return(NULL)
-      }
-      git("commit", "--allow-empty", "-m", commit_message)
-      cli::rule("Deploying", line = 1)
-      git("remote", "-v")
-      git("push", "--force", remote, paste0("HEAD:", branch))
-    })
+  force(commit_message)
+  if (requireNamespace("cli", quietly = TRUE))
+    cli::rule("Committing", line = "c")
+  # ZNK: add explicit check for withr
+  if (!requireNamespace("withr", quietly = TRUE))
+    stop("withr must be installed")
+  withr::with_dir(dir, {
+    # ZNK: Change to gert::git_add(); only commit if we have something to add
+    added <- gert::git_add(".", repo = dir)
+    if (nrow(added) == 0) {
+      message("nothing to commit!")
+      return(NULL)
+    }
+    git("commit", "--allow-empty", "-m", commit_message)
+    cli::rule("Deploying", line = 1)
+    git("remote", "-v")
+    git("push", "--force", remote, paste0("HEAD:", branch))
+  })
 }
 
 # Remove a git worktree

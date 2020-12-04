@@ -1,4 +1,21 @@
-ex <- c("# Markdown", 
+ex <- c("---",
+  "teaching: 6",
+  "exercises: 9",
+  "---",
+  "",
+  "::: questions", 
+  "", 
+  " - What's the point?",
+  "", 
+  ":::",
+  "",
+  "::: objectives", 
+  "", 
+  " - Bake him away, toys",
+  "", 
+  ":::",
+  "",
+  "# Markdown", 
   "", 
   "::: challenge", 
   "", 
@@ -37,6 +54,15 @@ test_that("render_html applies the internal lua filter", {
     expect_snapshot(cat(res))
   }
 
+  # Metadata blocks are parsed
+  expect_match(res, "div class=\"row\"", fixed = TRUE)
+  expect_match(res, "div class=\"col-md-3\"", fixed = TRUE)
+  expect_match(res, "div class=\"col-md-9\"", fixed = TRUE)
+  expect_match(res, "div class=\"objectives\"", fixed = TRUE)
+  expect_match(res, "Teaching: ", fixed = TRUE)
+  expect_match(res, "Exercises: ", fixed = TRUE)
+  expect_match(res, "Questions", fixed = TRUE)
+  expect_match(res, "Objectives", fixed = TRUE)
   # Challenge header automatically added
   expect_match(res, "Challenge</h2>", fixed = TRUE)
   # Solution header modified
@@ -48,7 +74,6 @@ test_that("render_html applies the internal lua filter", {
   # Div class nothing should be left alone
   expect_match(res, "div class=\"nothing\"", fixed = TRUE)
   expect_failure(expect_match(res, "Nothing</h2>", fixed = TRUE))
-
 
 })
 
