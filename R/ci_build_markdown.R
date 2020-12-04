@@ -28,10 +28,7 @@ ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origi
   del_md <- git_worktree_setup(path, built, 
     branch = branch, remote = remote
   )
-
   on.exit(eval(del_md), add = TRUE)
-
-  print(list.files(path_site(path)))
 
   build_markdown(path = path, quiet = TRUE, rebuild = FALSE)
 
@@ -68,14 +65,10 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
 
   on.exit(eval(del_site), add = TRUE)
 
-  # # Will not rebuild the files that were already built
-  build_lesson(path = path, quiet = TRUE, rebuild = FALSE)
+  # Build the site quickly using the markdown files as-is
+  build_site(path = path, quiet = TRUE)
 
-  github_worktree_commit(built, 
-    message_source("markdown source builds", current, dir = path),
-    remote, md 
-  )
-
+  # Commit using the markdown branch as a reference
   github_worktree_commit(html,
     message_source("site deploy", md, dir = built),
     remote, branch
