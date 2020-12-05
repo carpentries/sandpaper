@@ -35,6 +35,7 @@ Suggests:
     cli (>= 2.0.2),
     covr,
     withr,
+    jsonlite,
     varnish (>= 0.0.0.9001)
 Remotes: 
     carpentries/pegboard,
