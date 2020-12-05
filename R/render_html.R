@@ -42,6 +42,12 @@
 render_html <- function(path_in, ..., quiet = FALSE) {
   htm <- tempfile(fileext = ".html")
   on.exit(unlink(htm), add = TRUE)
+  args <- construct_pandoc_args(path_in, output = htm, to = "html", ...)
+  callr::r(function(...) rmarkdown::pandoc_convert(...), args = args, show = !quiet)
+  paste(readLines(htm), collapse = "\n")
+}
+
+construct_pandoc_args <- function(path_in, output, to = "html", ...) {
   exts <- paste(
     "smart",
     "auto_identifiers",
@@ -54,15 +60,19 @@ render_html <- function(path_in, ..., quiet = FALSE) {
     sep = "+"
   )
   from <- paste0("markdown", "-hard_line_breaks", "+", exts)
-  args <- list(
-    input = path_in, 
-    output = htm, 
-    from = from,
-    to = "html", options = c(
-      "--indented-code-classes=sh", "--section-divs", "--mathjax", ...
+  luaf <- system.file("filters", "lesson.lua", package = "sandpaper")
+  list(
+    input   = path_in,
+    output  = output,
+    from    = from,
+    to      = to,
+    options = c(
+      "--indented-code-classes=sh", 
+      "--section-divs", 
+      "--mathjax",
+      paste0("--lua-filter=", luaf), 
+      ...
     ),
     verbose = FALSE
   )
-  callr::r(function(...) rmarkdown::pandoc_convert(...), args = args, show = !quiet)
-  paste(readLines(htm), collapse = "\n")
 }

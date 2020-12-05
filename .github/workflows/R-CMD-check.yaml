@@ -44,6 +44,8 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
       - uses: r-lib/actions/setup-pandoc@master
+        with:
+          pandoc-version: '2.10' # NOTE: we need to add version catches for the tests.
 
       - name: Query dependencies
         run: |

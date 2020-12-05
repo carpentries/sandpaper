@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.0.0.9005
+Version: 0.0.0.9007
 Authors@R: 
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -35,6 +35,7 @@ Suggests:
     cli (>= 2.0.2),
     covr,
     withr,
+    jsonlite,
     varnish (>= 0.0.0.9001)
 Remotes: 
     carpentries/pegboard,

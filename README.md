@@ -31,8 +31,8 @@ Bryan’s](https://jennybryan.org/) work with the
 > Please note: {sandpaper} is very much a work in progress. At the
 > moment, the only thing that is real is the README to serve as a
 > roadmap for the future. Please [open an
-> issue](https://github.com/carpentries/sandpaper/issues/new) if you have
-> any comments or suggestions\!
+> issue](https://github.com/carpentries/sandpaper/issues/new) if you
+> have any comments or suggestions\!
 
 -----
 
@@ -200,7 +200,9 @@ Accessors
 
   - `ci_deploy()` builds and deploys the lesson on CI from the source
     files
-  - `ci_deploy_site()` deploys the lesson on CI from pre-rendered
+  - `ci_build_markdown()` builds the markdown files on CI from the
+    source and deploys them to the markdown branch.
+  - `ci_build_site()` deploys the lesson on CI from pre-rendered
     markdown files
   - `ci_release()` builds and deploys the lesson on CI from the source
     files and adds a release tag
@@ -355,22 +357,23 @@ most straightforward function is:
 sandpaper::ci_deploy(md_branch = "md-outputs", site_branch = "gh-pages")
 ```
 
-This will render the markdown files in the `vignettes/` folder of the
-“md-outputs” branch and then build the site from that folder and
-deploy it to the “gh-pages” branch using the
-[{pkgdown}](https://github.com/r-lib/pkgdown#readme) machinery.
+This functionw will create [git
+worktrees](https://git-scm.com/docs/git-worktree) for the orphan
+`md-outputs` branch in the `site/built` folder and the orphan `gh-pages`
+branch in the `site/docs` folder. After that, we generate the site as
+normal.
 
 Because css and js libraries may need updating before any lesson
 material does, a step can be created just for rebuilding the site that
 uses:
 
 ``` r
-sandpaper::ci_deploy_site(branch = "gh-pages")
+sandpaper::ci_build_site(branch = "gh-pages")
 ```
 
 When a lesson is given a release, the current site folder needs to be
 duplicated to a versioned folder and a tag needs to be added to the
-“md-outputs” branch:
+`md-outputs` branch:
 
 ``` r
 sandpaper::ci_release(tag = "0.1", md_branch = "md-outputs", site_branch = "gh-pages")

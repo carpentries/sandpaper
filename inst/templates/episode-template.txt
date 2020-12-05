@@ -26,15 +26,11 @@ part of the html page.
 
 :::::::::::::::: questions :::::::::::::::::::::
 
-## Questions
-
 - How do you write a lesson using RMarkdown and `{sandpaper}`?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::: objectives ::::::::::::::::::::
-
-## Objectives
 
 - Explain how to use markdown with the new lesson template
 - Demonstrate how to include pieces of code, figures, and nested challenge blocks
@@ -42,8 +38,6 @@ part of the html page.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::: keypoints :::::::::::::::::::::
-
-## Keypoints
 
 - Use `.Rmd` files for lessons even if you don't need to generate any code
 - Run `sandpaper::check_lesson()` to identify any issues with your lesson
@@ -76,8 +70,6 @@ paste("This", "new", "template", "looks", "good")
 
 :::::::::::::::::::::::: solution 
 
-## Nest Solution
- 
 You can add a line with at least three colons and a `solution` tag.
 
 :::::::::::::::::::::::::::::::::

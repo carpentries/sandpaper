@@ -1,3 +1,15 @@
+# sandpaper 0.0.0.9007
+
+* HTML will now be processed with pandoc lua filters that will do the following:
+  - overview block will be constructed from the teaching and exercises metadata
+    with the question and objectives blocks
+  - instructor and callout divs will be converted to `<aside>` tags
+  - divs without H2 level headers will have them automatically inserted
+  - divs with incorrect level headers will have them converted to H2
+  - only divs in our list of carpentries divs will be converted
+
+* README updated to reflect API changes
+
 # sandpaper 0.0.0.9006
 
 Continuous integration functions added:
