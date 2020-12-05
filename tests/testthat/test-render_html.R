@@ -42,6 +42,22 @@ ex <- c("---",
   ":::",
   NULL
 )
+
+test_that("pandoc_json is rendered correctly", {
+  
+  skip_if_not_installed("jsonlite")
+  skip_if_not(rmarkdown::pandoc_available("2.10"))
+  tmp <- fs::file_temp()
+  out <- fs::file_temp()
+  withr::local_file(tmp, out)
+
+  writeLines(ex, tmp)
+  args <- construct_pandoc_args(tmp, out, to = "json")
+  callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
+  expect_snapshot(jsonlite::prettify(readLines(out), indent = 2))
+
+})
+
 test_that("render_html applies the internal lua filter", {
 
   tmp <- fs::file_temp()
