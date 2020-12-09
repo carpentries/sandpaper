@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
 
@@ -114,6 +114,41 @@
       <small>Source: <a href='https://github.com/carpentries/sandpaper/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="sandpaper-0009007" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9007">
+<a href="#sandpaper-0009007" class="anchor"></a>sandpaper 0.0.0.9007</h1>
+<ul>
+<li>HTML will now be processed with pandoc lua filters that will do the following:
+<ul>
+<li>overview block will be constructed from the teaching and exercises metadata with the question and objectives blocks</li>
+<li>instructor and callout divs will be converted to <code>&lt;aside&gt;</code> tags</li>
+<li>divs without H2 level headers will have them automatically inserted</li>
+<li>divs with incorrect level headers will have them converted to H2</li>
+<li>only divs in our list of carpentries divs will be converted</li>
+</ul>
+</li>
+<li>README updated to reflect API changes</li>
+</ul>
+</div>
+    <div id="sandpaper-0009006" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9006">
+<a href="#sandpaper-0009006" class="anchor"></a>sandpaper 0.0.0.9006</h1>
+<p>Continuous integration functions added:</p>
+<ul>
+<li>
+<code><a href="../reference/ci_deploy.html">ci_deploy()</a></code> will build the markdown source and the site and commit them to separate branches, including information about their source.</li>
+<li>
+<code><a href="../reference/ci_build_markdown.html">ci_build_markdown()</a></code> will build the markdown source files and commit them to a separate branch, including information about the source commit.</li>
+<li>
+<code>ci_build_site()</code> will build the site directly from the markdown branch, bypassing re-rendering the markdown files.</li>
+</ul>
+<p>Miscellaneous additions</p>
+<ul>
+<li>{dovetail} no longer in suggests</li>
+<li>new internal function <code><a href="../reference/build_site.html">build_site()</a></code> compartmentalizes the conversion from markdown to html</li>
+<li>any files or folders named <code>.git</code> in the episodes directory will not be copied over to the website.</li>
+</ul>
+</div>
     <div id="sandpaper-0009005" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9005">
 <a href="#sandpaper-0009005" class="anchor"></a>sandpaper 0.0.0.9005</h1>

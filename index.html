@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
 
@@ -255,9 +255,11 @@ git aware, but does not require contributors to have git installed</li>
 <p><strong>Continuous Integration Utilities</strong></p>
 <ul>
 <li>
-<code>ci_deploy()</code> builds and deploys the lesson on CI from the source files</li>
+<code><a href="reference/ci_deploy.html">ci_deploy()</a></code> builds and deploys the lesson on CI from the source files</li>
 <li>
-<code>ci_deploy_site()</code> deploys the lesson on CI from pre-rendered markdown files</li>
+<code><a href="reference/ci_build_markdown.html">ci_build_markdown()</a></code> builds the markdown files on CI from the source and deploys them to the markdown branch.</li>
+<li>
+<code>ci_build_site()</code> deploys the lesson on CI from pre-rendered markdown files</li>
 <li>
 <code>ci_release()</code> builds and deploys the lesson on CI from the source files and adds a release tag</li>
 </ul>
@@ -362,12 +364,12 @@ git aware, but does not require contributors to have git installed</li>
 <a href="#rendering-with-github-actions" class="anchor"></a>Rendering with GitHub actions</h3>
 <p>Ultimately, there should be a minimal number of functions that handle this situation because writing CI configuration files is maddening. The most straightforward function is:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">ci_deploy</span><span class="op">(</span>md_branch <span class="op">=</span> <span class="st">"md-outputs"</span>, site_branch <span class="op">=</span> <span class="st">"gh-pages"</span><span class="op">)</span></code></pre></div>
-<p>This will render the markdown files in the <code>vignettes/</code> folder of the “md-outputs” branch and then build the site from that folder and deploy it to the “gh-pages” branch using the <a href="https://github.com/r-lib/pkgdown#readme">{pkgdown}</a> machinery.</p>
+<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/ci_deploy.html">ci_deploy</a></span><span class="op">(</span>md_branch <span class="op">=</span> <span class="st">"md-outputs"</span>, site_branch <span class="op">=</span> <span class="st">"gh-pages"</span><span class="op">)</span></code></pre></div>
+<p>This functionw will create <a href="https://git-scm.com/docs/git-worktree">git worktrees</a> for the orphan <code>md-outputs</code> branch in the <code>site/built</code> folder and the orphan <code>gh-pages</code> branch in the <code>site/docs</code> folder. After that, we generate the site as normal.</p>
 <p>Because css and js libraries may need updating before any lesson material does, a step can be created just for rebuilding the site that uses:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">ci_deploy_site</span><span class="op">(</span>branch <span class="op">=</span> <span class="st">"gh-pages"</span><span class="op">)</span></code></pre></div>
-<p>When a lesson is given a release, the current site folder needs to be duplicated to a versioned folder and a tag needs to be added to the “md-outputs” branch:</p>
+<code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">ci_build_site</span><span class="op">(</span>branch <span class="op">=</span> <span class="st">"gh-pages"</span><span class="op">)</span></code></pre></div>
+<p>When a lesson is given a release, the current site folder needs to be duplicated to a versioned folder and a tag needs to be added to the <code>md-outputs</code> branch:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">ci_release</span><span class="op">(</span>tag <span class="op">=</span> <span class="st">"0.1"</span>, md_branch <span class="op">=</span> <span class="st">"md-outputs"</span>, site_branch <span class="op">=</span> <span class="st">"gh-pages"</span><span class="op">)</span></code></pre></div>
 </div>
@@ -412,7 +414,7 @@ git aware, but does not require contributors to have git installed</li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://CRAN.R-project.org/package=sandpaper"><img src="https://www.r-pkg.org/badges/version/sandpaper" alt="CRAN status"></a></li>
 <li><a href="https://github.com/carpentries/sandpaper/actions"><img src="https://github.com/carpentries/sandpaper/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/carpentries/sandpaper?branch=master"><img src="https://codecov.io/gh/carpentries/sandpaper/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://codecov.io/gh/carpentries/sandpaper?branch=main"><img src="https://codecov.io/gh/carpentries/sandpaper/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
