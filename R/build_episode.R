@@ -130,7 +130,7 @@ build_episode_md <- function(path, hash, outdir = path_built(path),
       class.error   = "error",
       class.warning = "warning",
       class.message = "output",
-      fig.path      = fs::path("fig", paste0(slug, "-"))
+      fig.path      = fs::path("fig", paste0(slug, "-rendered-"))
     )
 
     # Set the working directory -----------------------------

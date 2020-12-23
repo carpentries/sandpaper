@@ -1,6 +1,18 @@
+# sandpaper 0.0.0.9009
+
+BUG FIX
+-------
+
+* A bug introduced in version 0.0.0.9008 was fixed. This bug improperly used 
+  regex resulting in the accidental removal of cached rendered images. This
+  fixes issue #49
+* Rendered images now have the prefix of `{SOURCE}-rendered-` in the 
+  `site/built/fig/` subdir. 
+
 # sandpaper 0.0.0.9008
 
 BUG FIX
+-------
 
 * files that were removed from the source are now also removed in the site/built
   directory. This fixes issue #47
