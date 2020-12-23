@@ -39,3 +39,11 @@ get_artifacts <- function(path, subfolder = "episodes") {
   )
 }
 
+get_figs <- function(path, slug) {
+  fs::path_abs(
+    fs::dir_ls(
+      path = fs::path(path_built(path), "fig"),
+      regexp = paste0(slug, "-", "*")
+    )
+  )
+}

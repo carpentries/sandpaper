@@ -204,7 +204,7 @@ get_build_status <- function(sources, built, rebuild = FALSE) {
 
   if (any_built) {
     old_hashes        <- vapply(built, get_hash, character(1))
-    names(old_hashes) <- get_slug(built)
+    names(old_hashes) <- names(built)
   } else {
     old_hashes <- character(0)
   }
@@ -219,9 +219,12 @@ get_build_status <- function(sources, built, rebuild = FALSE) {
     # Find all sources that have the same name
     same_name <- intersect(names(old_hashes), names(new_hashes))
 
-    # Only build the sources that have changed. 
-    to_be_built   <- to_be_built[new_hashes %nin% old_hashes[same_name], , drop = FALSE]
+    # slug of the file to be removed
     to_be_removed <- setdiff(names(old_hashes), names(new_hashes))
+
+    # Only build the sources that have changed. 
+    changed_source <- new_hashes %nin% old_hashes[same_name]
+    to_be_built    <- to_be_built[changed_source, , drop = FALSE]
   } else {
     to_be_removed <- character(0)
   }

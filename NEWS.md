@@ -1,3 +1,10 @@
+# sandpaper 0.0.0.9008
+
+BUG FIX
+
+* files that were removed from the source are now also removed in the site/built
+  directory. This fixes issue #47
+
 # sandpaper 0.0.0.9007
 
 * HTML will now be processed with pandoc lua filters that will do the following:
