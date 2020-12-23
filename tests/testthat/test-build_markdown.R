@@ -66,4 +66,18 @@ test_that("markdown sources can be built without fail", {
   fs::file_touch(fs::path(res, "episodes", "01-introduction.Rmd"))
   expect_silent(build_markdown(res))
 
+  # Removing files will result in the markdown files being removed
+  e2 <- fs::path(res, "episodes", "02-second-episode.Rmd")
+  fs::file_delete(e2)
+  reset_episodes(res)
+  set_episodes(res, "01-introduction.Rmd", write = TRUE)
+  build_markdown(res)
+  h1 <- expect_hashed(res, "01-introduction.Rmd")
+  expect_length(get_figs(res, "01-introduction"), 1)
+  # The second episode should not exist
+  expect_false(fs::file_exists(e2))
+  expect_false(fs::file_exists(fs::path(res, "built", "02-second-episode.md")))
+  # The figures for the second episode should not exist either
+  expect_length(get_figs(res, "02-second-episode"), 0)
+  
 })
