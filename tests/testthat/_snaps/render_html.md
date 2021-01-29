@@ -567,11 +567,38 @@
 # paragraphs after objectives block are parsed correctly
 
     Code
-      render_html(tmp)
+      cat(render_html(tmp))
     Output
-      -\ 
-    Output
-      [1] "<div class=\"section level2 objectives\">\n<h2>Overview</h2>\n<div class=\"row\">\n<div class=\"col-md-3\">\n<p><strong>Teaching: </strong> 6<br />\n<strong>Exercises: </strong> 9</p>\n</div>\n<div class=\"col-md-9\">\n<p><strong>Questions</strong></p>\n<ul>\n<li>What’s the point?</li>\n</ul>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"col-md-3\">\n\n</div>\n<div class=\"col-md-9\">\n<p><strong>Objectives</strong></p>\n<ul>\n<li>Bake him away, toys</li>\n</ul>\n</div>\n</div>\n</div>\n<p>Do you think he saurus?</p>\n<div id=\"markdown\" class=\"section level1\">\n<h1>Markdown</h1>\n</div>"
+      -\ <div class="section level2 objectives">
+      <h2>Overview</h2>
+      <div class="row">
+      <div class="col-md-3">
+      <p><strong>Teaching: </strong> 6<br />
+      <strong>Exercises: </strong> 9</p>
+      </div>
+      <div class="col-md-9">
+      <p><strong>Questions</strong></p>
+      <ul>
+      <li>What’s the point?</li>
+      </ul>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col-md-3">
+      
+      </div>
+      <div class="col-md-9">
+      <p><strong>Objectives</strong></p>
+      <ul>
+      <li>Bake him away, toys</li>
+      </ul>
+      </div>
+      </div>
+      </div>
+      <p>Do you think he saurus?</p>
+      <div id="markdown" class="section level1">
+      <h1>Markdown</h1>
+      </div>
 
 # render_html applies the internal lua filter
 
