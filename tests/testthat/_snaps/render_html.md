@@ -9,20 +9,12 @@
             "t": "Null"
           },
           {
-            "t": "RawBlock",
+            "t": "Div",
             "c": [
-              "html",
-              "<div class=\"objectives\">"
-            ]
-          },
-          {
-            "t": "Header",
-            "c": [
-              2,
               [
                 "",
                 [
-      
+                  "objectives"
                 ],
                 [
       
@@ -30,194 +22,259 @@
               ],
               [
                 {
-                  "t": "Str",
-                  "c": "Overview"
-                }
-              ]
-            ]
-          },
-          {
-            "t": "RawBlock",
-            "c": [
-              "html",
-              "  <div class=\"row\">\n    <div class=\"col-md-3\">\n  "
-            ]
-          },
-          {
-            "t": "Para",
-            "c": [
-              {
-                "t": "Strong",
-                "c": [
-                  {
-                    "t": "Str",
-                    "c": "Teaching: "
-                  }
-                ]
-              },
-              {
-                "t": "Space"
-              },
-              {
-                "t": "Str",
-                "c": "6"
-              },
-              {
-                "t": "LineBreak"
-              },
-              {
-                "t": "Strong",
-                "c": [
-                  {
-                    "t": "Str",
-                    "c": "Exercises: "
-                  }
-                ]
-              },
-              {
-                "t": "Space"
-              },
-              {
-                "t": "Str",
-                "c": "9"
-              }
-            ]
-          },
-          {
-            "t": "RawBlock",
-            "c": [
-              "html",
-              "    <\/div>\n    <div class=\"col-md-9\">\n  "
-            ]
-          },
-          {
-            "t": "Para",
-            "c": [
-              {
-                "t": "Strong",
-                "c": [
-                  {
-                    "t": "Str",
-                    "c": "Questions"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "t": "BulletList",
-            "c": [
-              [
-                {
-                  "t": "Plain",
+                  "t": "Header",
                   "c": [
-                    {
-                      "t": "Str",
-                      "c": "What’s"
-                    },
-                    {
-                      "t": "Space"
-                    },
-                    {
-                      "t": "Str",
-                      "c": "the"
-                    },
-                    {
-                      "t": "Space"
-                    },
-                    {
-                      "t": "Str",
-                      "c": "point?"
-                    }
+                    2,
+                    [
+                      "",
+                      [
+      
+                      ],
+                      [
+      
+                      ]
+                    ],
+                    [
+                      {
+                        "t": "Str",
+                        "c": "Overview"
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "t": "Div",
+                  "c": [
+                    [
+                      "",
+                      [
+                        "row"
+                      ],
+                      [
+      
+                      ]
+                    ],
+                    [
+                      {
+                        "t": "Div",
+                        "c": [
+                          [
+                            "",
+                            [
+                              "col-md-3"
+                            ],
+                            [
+      
+                            ]
+                          ],
+                          [
+                            {
+                              "t": "Para",
+                              "c": [
+                                {
+                                  "t": "Strong",
+                                  "c": [
+                                    {
+                                      "t": "Str",
+                                      "c": "Teaching: "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "t": "Space"
+                                },
+                                {
+                                  "t": "Str",
+                                  "c": "6"
+                                },
+                                {
+                                  "t": "LineBreak"
+                                },
+                                {
+                                  "t": "Strong",
+                                  "c": [
+                                    {
+                                      "t": "Str",
+                                      "c": "Exercises: "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "t": "Space"
+                                },
+                                {
+                                  "t": "Str",
+                                  "c": "9"
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      },
+                      {
+                        "t": "Div",
+                        "c": [
+                          [
+                            "",
+                            [
+                              "col-md-9"
+                            ],
+                            [
+      
+                            ]
+                          ],
+                          [
+                            {
+                              "t": "Para",
+                              "c": [
+                                {
+                                  "t": "Strong",
+                                  "c": [
+                                    {
+                                      "t": "Str",
+                                      "c": "Questions"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "t": "BulletList",
+                              "c": [
+                                [
+                                  {
+                                    "t": "Plain",
+                                    "c": [
+                                      {
+                                        "t": "Str",
+                                        "c": "What’s"
+                                      },
+                                      {
+                                        "t": "Space"
+                                      },
+                                      {
+                                        "t": "Str",
+                                        "c": "the"
+                                      },
+                                      {
+                                        "t": "Space"
+                                      },
+                                      {
+                                        "t": "Str",
+                                        "c": "point?"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "t": "Div",
+                  "c": [
+                    [
+                      "",
+                      [
+                        "row"
+                      ],
+                      [
+      
+                      ]
+                    ],
+                    [
+                      {
+                        "t": "Div",
+                        "c": [
+                          [
+                            "",
+                            [
+                              "col-md-3"
+                            ],
+                            [
+      
+                            ]
+                          ],
+                          [
+      
+                          ]
+                        ]
+                      },
+                      {
+                        "t": "Div",
+                        "c": [
+                          [
+                            "",
+                            [
+                              "col-md-9"
+                            ],
+                            [
+      
+                            ]
+                          ],
+                          [
+                            {
+                              "t": "Para",
+                              "c": [
+                                {
+                                  "t": "Strong",
+                                  "c": [
+                                    {
+                                      "t": "Str",
+                                      "c": "Objectives"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "t": "BulletList",
+                              "c": [
+                                [
+                                  {
+                                    "t": "Plain",
+                                    "c": [
+                                      {
+                                        "t": "Str",
+                                        "c": "Bake"
+                                      },
+                                      {
+                                        "t": "Space"
+                                      },
+                                      {
+                                        "t": "Str",
+                                        "c": "him"
+                                      },
+                                      {
+                                        "t": "Space"
+                                      },
+                                      {
+                                        "t": "Str",
+                                        "c": "away,"
+                                      },
+                                      {
+                                        "t": "Space"
+                                      },
+                                      {
+                                        "t": "Str",
+                                        "c": "toys"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    ]
                   ]
                 }
               ]
-            ]
-          },
-          {
-            "t": "RawBlock",
-            "c": [
-              "html",
-              "    <\/div>\n  <\/div>\n  "
-            ]
-          },
-          {
-            "t": "RawBlock",
-            "c": [
-              "html",
-              "  <div class=\"row\">\n    <div class=\"col-md-3\">\n  "
-            ]
-          },
-          {
-            "t": "RawBlock",
-            "c": [
-              "html",
-              "    <\/div>\n    <div class=\"col-md-9\">\n  "
-            ]
-          },
-          {
-            "t": "Para",
-            "c": [
-              {
-                "t": "Strong",
-                "c": [
-                  {
-                    "t": "Str",
-                    "c": "Objectives"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "t": "BulletList",
-            "c": [
-              [
-                {
-                  "t": "Plain",
-                  "c": [
-                    {
-                      "t": "Str",
-                      "c": "Bake"
-                    },
-                    {
-                      "t": "Space"
-                    },
-                    {
-                      "t": "Str",
-                      "c": "him"
-                    },
-                    {
-                      "t": "Space"
-                    },
-                    {
-                      "t": "Str",
-                      "c": "away,"
-                    },
-                    {
-                      "t": "Space"
-                    },
-                    {
-                      "t": "Str",
-                      "c": "toys"
-                    }
-                  ]
-                }
-              ]
-            ]
-          },
-          {
-            "t": "RawBlock",
-            "c": [
-              "html",
-              "    <\/div>\n  <\/div>\n  "
-            ]
-          },
-          {
-            "t": "RawBlock",
-            "c": [
-              "html",
-              "<\/div>"
             ]
           },
           {
@@ -507,42 +564,44 @@
       }
        
 
+# paragraphs after objectives block are parsed correctly
+
+    Code
+      render_html(tmp)
+    Output
+      -\ 
+    Output
+      [1] "<div class=\"section level2 objectives\">\n<h2>Overview</h2>\n<div class=\"row\">\n<div class=\"col-md-3\">\n<p><strong>Teaching: </strong> 6<br />\n<strong>Exercises: </strong> 9</p>\n</div>\n<div class=\"col-md-9\">\n<p><strong>Questions</strong></p>\n<ul>\n<li>What’s the point?</li>\n</ul>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"col-md-3\">\n\n</div>\n<div class=\"col-md-9\">\n<p><strong>Objectives</strong></p>\n<ul>\n<li>Bake him away, toys</li>\n</ul>\n</div>\n</div>\n</div>\n<p>Do you think he saurus?</p>\n<div id=\"markdown\" class=\"section level1\">\n<h1>Markdown</h1>\n</div>"
+
 # render_html applies the internal lua filter
 
     Code
       cat(res)
     Output
-      <div class="objectives">
-      <div class="section level2">
+      <div class="section level2 objectives">
       <h2>Overview</h2>
-        <div class="row">
-          <div class="col-md-3">
-        
+      <div class="row">
+      <div class="col-md-3">
       <p><strong>Teaching: </strong> 6<br />
       <strong>Exercises: </strong> 9</p>
-          </div>
-          <div class="col-md-9">
-        
+      </div>
+      <div class="col-md-9">
       <p><strong>Questions</strong></p>
       <ul>
       <li>What’s the point?</li>
       </ul>
-          </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-md-3">
-        
-          </div>
-          <div class="col-md-9">
-        
+      </div>
+      </div>
+      <div class="row">
+      <div class="col-md-3">
+      
+      </div>
+      <div class="col-md-9">
       <p><strong>Objectives</strong></p>
       <ul>
       <li>Bake him away, toys</li>
       </ul>
-          </div>
-        </div>
-        
+      </div>
       </div>
       </div>
       <div id="markdown" class="section level1">

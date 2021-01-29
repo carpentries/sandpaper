@@ -45,30 +45,29 @@ end
 --]]
 function first_block()
   local res = pandoc.List:new{}
-  local html_open
-  local html_col9
-  local html_close
   local teach = pandoc.utils.stringify(timings["teaching"])
   local exercise = pandoc.utils.stringify(timings["exercises"])
-  -- At the moment, I'm inserting raw HTML blocks here because that's how they
-  -- would appear if they were written in markdown, but it is also possible to
-  -- do this in a native pandoc way, but I get the feeling that these will
-  -- change in the future, so I didn't want to spend too much time on it. 
-  html_open = pandoc.RawBlock('html', [[
-  <div class="row">
-    <div class="col-md-3">
-  ]])
-  html_col9 = pandoc.RawBlock('html', [[
-    </div>
-    <div class="col-md-9">
-  ]])
-  html_close = pandoc.RawBlock('html', [[
-    </div>
-  </div>
-  ]])
-  table.insert(res, pandoc.RawBlock('html', '<div class="objectives">'))
-  table.insert(res, pandoc.Header(2, "Overview"))
-  table.insert(res, html_open)
+
+  -- The objectives block has six divs nested inside of it 
+  -- (
+  --  ( ()() )
+  --  ( ()() )
+  -- )
+  -- We are creating the div blocks, inserting the content, and then nesting
+  -- them inside each other before adding them to the block. 
+  local objectives_div = pandoc.Div({}, {class='objectives'});
+  local row1 = pandoc.Div({}, {class='row'});
+  local row2 = pandoc.Div({}, {class='row'});
+  local row1_left_col = pandoc.Div({}, {class='col-md-3'});
+  local row1_right_col = pandoc.Div({}, {class='col-md-9'});
+  local row2_left_col = pandoc.Div({}, {class='col-md-3'});
+  local row2_right_col = pandoc.Div({}, {class='col-md-9'});
+
+  -- ## Objectives
+  table.insert(objectives_div.content, pandoc.Header(2, "Overview"))
+
+  -- Teaching: NN
+  -- Objectives: NN
   texercises = pandoc.List:new{
     pandoc.Strong {pandoc.Str "Teaching: "},
     pandoc.Space(),
@@ -78,25 +77,45 @@ function first_block()
     pandoc.Space(),
     pandoc.Str(exercise),
   }
-  table.insert(res, pandoc.Para(texercises))
-  table.insert(res, html_col9)
-  table.insert(res, pandoc.Para(pandoc.List:new {
+  table.insert(row1_left_col.content, pandoc.Para(texercises))
+
+  -- **Questions**
+  --
+  -- - What?
+  -- - Who?
+  -- - Why?
+  table.insert(row1_right_col.content, pandoc.Para(pandoc.List:new {
     pandoc.Strong {pandoc.Str "Questions"}
   }))
   for _, block in ipairs(questions.content) do
-    table.insert(res, block)
+    table.insert(row1_right_col.content, block)
   end
-  table.insert(res, html_close)
-  table.insert(res, html_open)
-  table.insert(res, html_col9)
-  table.insert(res, pandoc.Para(pandoc.List:new {
+
+  -- **Objectives**
+  --
+  -- - S3
+  -- - S4
+  -- - R6
+  table.insert(row2_right_col.content, pandoc.Para(pandoc.List:new {
     pandoc.Strong {pandoc.Str "Objectives"}
-  }))
+  }));
   for _, block in ipairs(objectives.content) do
-    table.insert(res, block)
+    table.insert(row2_right_col.content, block);
   end
-  table.insert(res, html_close)
-  table.insert(res, pandoc.RawBlock('html', '</div>'))
+
+  -- Adding columns to rows
+  table.insert(row1.content, row1_left_col);
+  table.insert(row1.content, row1_right_col);
+  table.insert(row2.content, row2_left_col);
+  table.insert(row2.content, row2_right_col);
+  
+  -- Adding rows to div
+  table.insert(objectives_div.content, row1);
+  table.insert(objectives_div.content, row2);
+
+  -- Adding div to main table
+  table.insert(res, objectives_div)
+
   return(res)
 end
 

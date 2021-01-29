@@ -1,3 +1,13 @@
+# sandpaper 0.0.0.9009
+
+BUG FIX
+
+* The lua filter responsible for creating the Objectives summary block at the
+  beginning of episodes now uses native pandoc divs instead of HTML block shims.
+  This ensures that the content is not corrupted by pandoc's section divs 
+  extension. This fixes issue #64
+
+
 # sandpaper 0.0.0.9008
 
 BUG FIX

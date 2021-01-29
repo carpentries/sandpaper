@@ -58,6 +58,18 @@ test_that("pandoc_json is rendered correctly", {
 
 })
 
+test_that("paragraphs after objectives block are parsed correctly", {
+  
+  skip_if_not(rmarkdown::pandoc_available("2.10"))
+  tmp <- fs::file_temp()
+  withr::local_file(tmp)
+
+  ex2 <- c(ex[1:16], "", "Do you think he saurus?", ex[17:18])
+  writeLines(ex2, tmp)
+  expect_snapshot(render_html(tmp))
+
+})
+
 test_that("render_html applies the internal lua filter", {
 
   tmp <- fs::file_temp()
@@ -74,7 +86,7 @@ test_that("render_html applies the internal lua filter", {
   expect_match(res, "div class=\"row\"", fixed = TRUE)
   expect_match(res, "div class=\"col-md-3\"", fixed = TRUE)
   expect_match(res, "div class=\"col-md-9\"", fixed = TRUE)
-  expect_match(res, "div class=\"objectives\"", fixed = TRUE)
+  expect_match(res, "div class=\"section level2 objectives\"", fixed = TRUE)
   expect_match(res, "Teaching: ", fixed = TRUE)
   expect_match(res, "Exercises: ", fixed = TRUE)
   expect_match(res, "Questions", fixed = TRUE)
