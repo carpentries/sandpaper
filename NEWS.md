@@ -1,6 +1,7 @@
 # sandpaper 0.0.0.9009
 
 BUG FIX
+-------
 
 * The lua filter responsible for creating the Objectives summary block at the
   beginning of episodes now uses native pandoc divs instead of HTML block shims.
@@ -12,11 +13,17 @@ BUG FIX
   after it.
 * The Objectives and Questions blocks will no longer include their headers in 
   the initial summary block.
+* A bug introduced in version 0.0.0.9008 was fixed. This bug improperly used 
+  regex resulting in the accidental removal of cached rendered images. This
+  fixes issue #49
+* Rendered images now have the prefix of `{SOURCE}-rendered-` in the 
+  `site/built/fig/` subdir. 
 
 
 # sandpaper 0.0.0.9008
 
 BUG FIX
+-------
 
 * files that were removed from the source are now also removed in the site/built
   directory. This fixes issue #47
