@@ -174,18 +174,21 @@ function level_head(el, level)
   end
 
   -- check if the header exists
-  local header = el.content[1].level
-  if header == nil then
+  local id = 1
+  local header = el.content[id]
+
+  if header.level == nil then
     -- capitalize the first letter and insert it at the top of the block
     local C = text.upper(text.sub(class, 1, 1))
     local lass = text.sub(class, 2, -1)
     local header = pandoc.Header(level, C..lass)
-    table.insert(el.content, 1, header)
+    table.insert(el.content, id, header)
   end
+
 
   if header ~= level then
     -- force the header level to be 2
-    el.content[1].level = level
+    el.content[id].level = level
   end
 
   return el
