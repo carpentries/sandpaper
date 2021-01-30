@@ -177,7 +177,7 @@ function level_head(el, level)
   local id = 1
   local header = el.content[id]
 
-  if header.level == nil then
+  if level ~= 0 and header.level == nil then
     -- capitalize the first letter and insert it at the top of the block
     local C = text.upper(text.sub(class, 1, 1))
     local lass = text.sub(class, 2, -1)
@@ -185,6 +185,9 @@ function level_head(el, level)
     table.insert(el.content, id, header)
   end
 
+  if level == 0 and header.level ~= nil then
+    el.content:remove(id)
+  end
 
   if header ~= level then
     -- force the header level to be 2
@@ -201,6 +204,7 @@ handle_our_divs = function(el)
   -- Questions and Objectives should be grouped
   v,i = el.classes:find("questions")
   if i ~= nil then
+    level_head(el, 0)
     questions = el
     if objectives ~= nil then
       return first_block()
@@ -211,6 +215,7 @@ handle_our_divs = function(el)
 
   v,i = el.classes:find("objectives")
   if i ~= nil then
+    level_head(el, 0)
     objectives = el
     if questions ~= nil then
       return first_block()
@@ -253,7 +258,6 @@ handle_our_divs = function(el)
 
   -- All other Div tags should have level 2 headers
   level_head(el, 2)
-
 
   return el
 end
