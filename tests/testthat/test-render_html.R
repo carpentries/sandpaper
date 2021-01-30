@@ -43,18 +43,17 @@ ex <- c("---",
   NULL
 )
 
-test_that("pandoc_json is rendered correctly", {
+test_that("pandoc structure is rendered correctly", {
   
-  skip_if_not_installed("jsonlite")
   skip_if_not(rmarkdown::pandoc_available("2.10"))
   tmp <- fs::file_temp()
   out <- fs::file_temp()
   withr::local_file(tmp, out)
 
   writeLines(ex, tmp)
-  args <- construct_pandoc_args(tmp, out, to = "json")
+  args <- construct_pandoc_args(tmp, out, to = "native")
   callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
-  expect_snapshot(jsonlite::prettify(readLines(out), indent = 2))
+  expect_snapshot(cat(readLines(out), sep = "\n"))
 
 })
 

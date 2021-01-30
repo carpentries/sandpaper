@@ -134,6 +134,8 @@ function step_aside(el, i)
   -- and fill it with the content of the div block
   local class = el.classes[i]
   local html
+  -- need an inner div to make sure that headers are not accidentally runed
+  local inner_div = pandoc.Div({});
   local res = pandoc.List:new{}
 
   -- remove this class from the div tag
@@ -146,10 +148,12 @@ function step_aside(el, i)
 
   -- Step 2: insert the content of the Div block into the output List
   for _, block in ipairs(el.content) do
-    table.insert(res, block)
+    table.insert(inner_div.content, block)
   end
 
-  -- Step 3: insert the HTML closing tag
+  -- Step 3: insert div block
+  table.insert(res, inner_div);
+  -- Step 4: insert the HTML closing tag
   table.insert(res, pandoc.RawBlock('html', '</aside>'))
 
   return res
@@ -158,9 +162,10 @@ end
 -- Add a header to a Div element if it doesn't exist
 -- 
 -- @param el a pandoc.Div element
+-- @param level an integer specifying the level of the header
 --
 -- @return the element with a header if it doesn't exist
-function head_of_the_class(el)
+function level_head(el, level)
 
   -- bail early if there is no class or it's not one of ours
   local class = pandoc.utils.stringify(el.classes[1])
@@ -174,13 +179,13 @@ function head_of_the_class(el)
     -- capitalize the first letter and insert it at the top of the block
     local C = text.upper(text.sub(class, 1, 1))
     local lass = text.sub(class, 2, -1)
-    local header = pandoc.Header(2, C..lass)
+    local header = pandoc.Header(level, C..lass)
     table.insert(el.content, 1, header)
   end
 
-  if header ~= 2 then
+  if header ~= level then
     -- force the header level to be 2
-    el.content[1].level = 2
+    el.content[1].level = level
   end
 
   return el
@@ -214,17 +219,38 @@ handle_our_divs = function(el)
   -- Instructor notes should be aside tags
   v,i = el.classes:find("instructor")
   if i ~= nil then
-    return step_aside(el, i)
+    level_head(el, 3) -- force level to be 3
+    return step_aside(el, i) -- create aside padding
+  end
+
+  -- Callouts should be asides
+  -- 2021-01-29: There is still a persistent issue with --section-divs if there
+  -- is a header in the aside tag. Because --section-divs will take a header and
+  -- figure collapse everything until the next header of equal or greater value
+  -- into a section and it does not interpret asides as a valid section, it
+  -- will close the previous section after the aside tag because it assumes that
+  -- the aside belongs to the previous section (which it kind of does). Example:
+  --
+  -- <section id="this-should-be-in-the-main-content" class="level2">
+  -- <h2>This should be in the main content</h2>
+  -- <p>There usually is text before a callout.</p>
+  -- <aside class="callout">
+  --> </section> <-- section closes here, trapping the initial aside tag
+  -- <section id="main-aside" class="level1">
+  -- <h1>Main Aside</h1>
+  -- <p>This should be <code>&lt;aside&gt;</code>, but appear in the main body.</p>
+  -- </section>
+  -- </aside>
+  --
+  v,i = el.classes:find("callout")
+  if i ~= nil then
+    level_head(el, 3) -- force level to be 3
+    return step_aside(el, i) -- create aside padding
   end
 
   -- All other Div tags should have level 2 headers
-  head_of_the_class(el)
+  level_head(el, 2)
 
-  -- Callouts should be asides
-  v,i = el.classes:find("callout")
-  if i ~= nil then
-    return step_aside(el, i)
-  end
 
   return el
 end
