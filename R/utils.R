@@ -232,6 +232,16 @@ get_build_status <- function(sources, built, rebuild = FALSE) {
   list(build = to_be_built, remove = to_be_removed)
 }
 
+get_figs <- function(path, slug) {
+  fs::path_abs(
+    fs::dir_ls(
+      path = fs::path(path_built(path), "fig"),
+      regexp = paste0(slug, "-rendered-"),
+      fixed = TRUE
+    )
+  )
+}
+
 check_order <- function(order, what) {
   if (is.null(order)) {
     stop(paste(what, "must have an order"), call. = FALSE)
