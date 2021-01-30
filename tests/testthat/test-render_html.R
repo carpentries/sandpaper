@@ -61,11 +61,14 @@ test_that("paragraphs after objectives block are parsed correctly", {
   
   skip_if_not(rmarkdown::pandoc_available("2.10"))
   tmp <- fs::file_temp()
-  withr::local_file(tmp)
+  out <- fs::file_temp()
+  withr::local_file(tmp, out)
 
   ex2 <- c(ex[1:16], "", "Do you think he saurus?", ex[17:18])
   writeLines(ex2, tmp)
-  expect_snapshot(cat(render_html(tmp)))
+  args <- construct_pandoc_args(tmp, out, to = "native")
+  callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
+  expect_snapshot(cat(readLines(out), sep = "\n"))
 
 })
 

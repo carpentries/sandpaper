@@ -37,38 +37,27 @@
 # paragraphs after objectives block are parsed correctly
 
     Code
-      cat(render_html(tmp))
+      cat(readLines(out), sep = "\n")
     Output
-      -\ <div class="section level2 objectives">
-      <h2>Overview</h2>
-      <div class="row">
-      <div class="col-md-3">
-      <p><strong>Teaching: </strong> 6<br />
-      <strong>Exercises: </strong> 9</p>
-      </div>
-      <div class="col-md-9">
-      <p><strong>Questions</strong></p>
-      <ul>
-      <li>What’s the point?</li>
-      </ul>
-      </div>
-      </div>
-      <div class="row">
-      <div class="col-md-3">
-      
-      </div>
-      <div class="col-md-9">
-      <p><strong>Objectives</strong></p>
-      <ul>
-      <li>Bake him away, toys</li>
-      </ul>
-      </div>
-      </div>
-      </div>
-      <p>Do you think he saurus?</p>
-      <div id="markdown" class="section level1">
-      <h1>Markdown</h1>
-      </div>
+      [Null
+      ,Div ("",["objectives"],[])
+       [Header 2 ("",[],[]) [Str "Overview"]
+       ,Div ("",["row"],[])
+        [Div ("",["col-md-3"],[])
+         [Para [Strong [Str "Teaching: "],Space,Str "6",LineBreak,Strong [Str "Exercises: "],Space,Str "9"]]
+        ,Div ("",["col-md-9"],[])
+         [Para [Strong [Str "Questions"]]
+         ,BulletList
+          [[Plain [Str "What\8217s",Space,Str "the",Space,Str "point?"]]]]]
+       ,Div ("",["row"],[])
+        [Div ("",["col-md-3"],[])
+         []
+        ,Div ("",["col-md-9"],[])
+         [Para [Strong [Str "Objectives"]]
+         ,BulletList
+          [[Plain [Str "Bake",Space,Str "him",Space,Str "away,",Space,Str "toys"]]]]]]
+      ,Para [Str "Do",Space,Str "you",Space,Str "think",Space,Str "he",Space,Str "saurus?"]
+      ,Header 1 ("markdown",[],[]) [Str "Markdown"]]
 
 # render_html applies the internal lua filter
 
