@@ -43,18 +43,32 @@ ex <- c("---",
   NULL
 )
 
-test_that("pandoc_json is rendered correctly", {
+test_that("pandoc structure is rendered correctly", {
   
-  skip_if_not_installed("jsonlite")
   skip_if_not(rmarkdown::pandoc_available("2.10"))
   tmp <- fs::file_temp()
   out <- fs::file_temp()
   withr::local_file(tmp, out)
 
   writeLines(ex, tmp)
-  args <- construct_pandoc_args(tmp, out, to = "json")
+  args <- construct_pandoc_args(tmp, out, to = "native")
   callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
-  expect_snapshot(jsonlite::prettify(readLines(out), indent = 2))
+  expect_snapshot(cat(readLines(out), sep = "\n"))
+
+})
+
+test_that("paragraphs after objectives block are parsed correctly", {
+  
+  skip_if_not(rmarkdown::pandoc_available("2.10"))
+  tmp <- fs::file_temp()
+  out <- fs::file_temp()
+  withr::local_file(tmp, out)
+
+  ex2 <- c(ex[1:16], "", "Do you think he saurus?", ex[17:18])
+  writeLines(ex2, tmp)
+  args <- construct_pandoc_args(tmp, out, to = "native")
+  callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
+  expect_snapshot(cat(readLines(out), sep = "\n"))
 
 })
 
@@ -74,7 +88,7 @@ test_that("render_html applies the internal lua filter", {
   expect_match(res, "div class=\"row\"", fixed = TRUE)
   expect_match(res, "div class=\"col-md-3\"", fixed = TRUE)
   expect_match(res, "div class=\"col-md-9\"", fixed = TRUE)
-  expect_match(res, "div class=\"objectives\"", fixed = TRUE)
+  expect_match(res, "div class=\"section level2 objectives\"", fixed = TRUE)
   expect_match(res, "Teaching: ", fixed = TRUE)
   expect_match(res, "Exercises: ", fixed = TRUE)
   expect_match(res, "Questions", fixed = TRUE)

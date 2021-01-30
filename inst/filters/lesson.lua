@@ -45,30 +45,29 @@ end
 --]]
 function first_block()
   local res = pandoc.List:new{}
-  local html_open
-  local html_col9
-  local html_close
   local teach = pandoc.utils.stringify(timings["teaching"])
   local exercise = pandoc.utils.stringify(timings["exercises"])
-  -- At the moment, I'm inserting raw HTML blocks here because that's how they
-  -- would appear if they were written in markdown, but it is also possible to
-  -- do this in a native pandoc way, but I get the feeling that these will
-  -- change in the future, so I didn't want to spend too much time on it. 
-  html_open = pandoc.RawBlock('html', [[
-  <div class="row">
-    <div class="col-md-3">
-  ]])
-  html_col9 = pandoc.RawBlock('html', [[
-    </div>
-    <div class="col-md-9">
-  ]])
-  html_close = pandoc.RawBlock('html', [[
-    </div>
-  </div>
-  ]])
-  table.insert(res, pandoc.RawBlock('html', '<div class="objectives">'))
-  table.insert(res, pandoc.Header(2, "Overview"))
-  table.insert(res, html_open)
+
+  -- The objectives block has six divs nested inside of it 
+  -- (
+  --  ( ()() )
+  --  ( ()() )
+  -- )
+  -- We are creating the div blocks, inserting the content, and then nesting
+  -- them inside each other before adding them to the block. 
+  local objectives_div = pandoc.Div({}, {class='objectives'});
+  local row1 = pandoc.Div({}, {class='row'});
+  local row2 = pandoc.Div({}, {class='row'});
+  local row1_left_col = pandoc.Div({}, {class='col-md-3'});
+  local row1_right_col = pandoc.Div({}, {class='col-md-9'});
+  local row2_left_col = pandoc.Div({}, {class='col-md-3'});
+  local row2_right_col = pandoc.Div({}, {class='col-md-9'});
+
+  -- ## Objectives
+  table.insert(objectives_div.content, pandoc.Header(2, "Overview"))
+
+  -- Teaching: NN
+  -- Objectives: NN
   texercises = pandoc.List:new{
     pandoc.Strong {pandoc.Str "Teaching: "},
     pandoc.Space(),
@@ -78,25 +77,45 @@ function first_block()
     pandoc.Space(),
     pandoc.Str(exercise),
   }
-  table.insert(res, pandoc.Para(texercises))
-  table.insert(res, html_col9)
-  table.insert(res, pandoc.Para(pandoc.List:new {
+  table.insert(row1_left_col.content, pandoc.Para(texercises))
+
+  -- **Questions**
+  --
+  -- - What?
+  -- - Who?
+  -- - Why?
+  table.insert(row1_right_col.content, pandoc.Para(pandoc.List:new {
     pandoc.Strong {pandoc.Str "Questions"}
   }))
   for _, block in ipairs(questions.content) do
-    table.insert(res, block)
+    table.insert(row1_right_col.content, block)
   end
-  table.insert(res, html_close)
-  table.insert(res, html_open)
-  table.insert(res, html_col9)
-  table.insert(res, pandoc.Para(pandoc.List:new {
+
+  -- **Objectives**
+  --
+  -- - S3
+  -- - S4
+  -- - R6
+  table.insert(row2_right_col.content, pandoc.Para(pandoc.List:new {
     pandoc.Strong {pandoc.Str "Objectives"}
-  }))
+  }));
   for _, block in ipairs(objectives.content) do
-    table.insert(res, block)
+    table.insert(row2_right_col.content, block);
   end
-  table.insert(res, html_close)
-  table.insert(res, pandoc.RawBlock('html', '</div>'))
+
+  -- Adding columns to rows
+  table.insert(row1.content, row1_left_col);
+  table.insert(row1.content, row1_right_col);
+  table.insert(row2.content, row2_left_col);
+  table.insert(row2.content, row2_right_col);
+  
+  -- Adding rows to div
+  table.insert(objectives_div.content, row1);
+  table.insert(objectives_div.content, row2);
+
+  -- Adding div to main table
+  table.insert(res, objectives_div)
+
   return(res)
 end
 
@@ -115,6 +134,8 @@ function step_aside(el, i)
   -- and fill it with the content of the div block
   local class = el.classes[i]
   local html
+  -- need an inner div to make sure that headers are not accidentally runed
+  local inner_div = pandoc.Div({});
   local res = pandoc.List:new{}
 
   -- remove this class from the div tag
@@ -127,10 +148,12 @@ function step_aside(el, i)
 
   -- Step 2: insert the content of the Div block into the output List
   for _, block in ipairs(el.content) do
-    table.insert(res, block)
+    table.insert(inner_div.content, block)
   end
 
-  -- Step 3: insert the HTML closing tag
+  -- Step 3: insert div block
+  table.insert(res, inner_div);
+  -- Step 4: insert the HTML closing tag
   table.insert(res, pandoc.RawBlock('html', '</aside>'))
 
   return res
@@ -139,9 +162,10 @@ end
 -- Add a header to a Div element if it doesn't exist
 -- 
 -- @param el a pandoc.Div element
+-- @param level an integer specifying the level of the header
 --
 -- @return the element with a header if it doesn't exist
-function head_of_the_class(el)
+function level_head(el, level)
 
   -- bail early if there is no class or it's not one of ours
   local class = pandoc.utils.stringify(el.classes[1])
@@ -150,18 +174,24 @@ function head_of_the_class(el)
   end
 
   -- check if the header exists
-  local header = el.content[1].level
-  if header == nil then
+  local id = 1
+  local header = el.content[id]
+
+  if level ~= 0 and header.level == nil then
     -- capitalize the first letter and insert it at the top of the block
     local C = text.upper(text.sub(class, 1, 1))
     local lass = text.sub(class, 2, -1)
-    local header = pandoc.Header(2, C..lass)
-    table.insert(el.content, 1, header)
+    local header = pandoc.Header(level, C..lass)
+    table.insert(el.content, id, header)
   end
 
-  if header ~= 2 then
+  if level == 0 and header.level ~= nil then
+    el.content:remove(id)
+  end
+
+  if header ~= level then
     -- force the header level to be 2
-    el.content[1].level = 2
+    el.content[id].level = level
   end
 
   return el
@@ -174,6 +204,7 @@ handle_our_divs = function(el)
   -- Questions and Objectives should be grouped
   v,i = el.classes:find("questions")
   if i ~= nil then
+    level_head(el, 0)
     questions = el
     if objectives ~= nil then
       return first_block()
@@ -184,6 +215,7 @@ handle_our_divs = function(el)
 
   v,i = el.classes:find("objectives")
   if i ~= nil then
+    level_head(el, 0)
     objectives = el
     if questions ~= nil then
       return first_block()
@@ -195,17 +227,37 @@ handle_our_divs = function(el)
   -- Instructor notes should be aside tags
   v,i = el.classes:find("instructor")
   if i ~= nil then
-    return step_aside(el, i)
+    level_head(el, 3) -- force level to be 3
+    return step_aside(el, i) -- create aside padding
+  end
+
+  -- Callouts should be asides
+  -- 2021-01-29: There is still a persistent issue with --section-divs if there
+  -- is a header in the aside tag. Because --section-divs will take a header and
+  -- figure collapse everything until the next header of equal or greater value
+  -- into a section and it does not interpret asides as a valid section, it
+  -- will close the previous section after the aside tag because it assumes that
+  -- the aside belongs to the previous section (which it kind of does). Example:
+  --
+  -- <section id="this-should-be-in-the-main-content" class="level2">
+  -- <h2>This should be in the main content</h2>
+  -- <p>There usually is text before a callout.</p>
+  -- <aside class="callout">
+  --> </section> <-- section closes here, trapping the initial aside tag
+  -- <section id="main-aside" class="level1">
+  -- <h1>Main Aside</h1>
+  -- <p>This should be <code>&lt;aside&gt;</code>, but appear in the main body.</p>
+  -- </section>
+  -- </aside>
+  --
+  v,i = el.classes:find("callout")
+  if i ~= nil then
+    level_head(el, 3) -- force level to be 3
+    return step_aside(el, i) -- create aside padding
   end
 
   -- All other Div tags should have level 2 headers
-  head_of_the_class(el)
-
-  -- Callouts should be asides
-  v,i = el.classes:find("callout")
-  if i ~= nil then
-    return step_aside(el, i)
-  end
+  level_head(el, 2)
 
   return el
 end
