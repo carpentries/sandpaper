@@ -5,7 +5,13 @@ BUG FIX
 * The lua filter responsible for creating the Objectives summary block at the
   beginning of episodes now uses native pandoc divs instead of HTML block shims.
   This ensures that the content is not corrupted by pandoc's section divs 
-  extension. This fixes issue #64
+  extension. This addresses issue #64
+* All aside elements will be forced to have level 3 headers (this fixes an issue
+  with pandocs --section-divs where it couldn't understand when an HTML block
+  contained only the start of an aside tag and decided to end the section right
+  after it.
+* The Objectives and Questions blocks will no longer include their headers in 
+  the initial summary block.
 
 
 # sandpaper 0.0.0.9008
