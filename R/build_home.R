@@ -1,7 +1,9 @@
 build_home <- function(pkg, quiet) {
   path  <- root_path(pkg$src_path)
   syl   <- get_syllabus(path, questions = TRUE)
-  index <- render_html(fs::path(path, "README.md"))
+  idx   <- fs::path(path, "index.md")
+  readme   <- fs::path(path, "README.md")
+  index <- render_html(if (fs::file_exists(idx)) idx else readme)
   pkgdown::render_page(pkg, 
     "syllabus",
     data = list(
