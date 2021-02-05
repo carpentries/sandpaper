@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9010
+
+BUG FIX
+-------
+
+* If `index.md` exists at the top level, it will be used instead of `README.md`
+  for the lesson index page (fix #56). 
+
 # sandpaper 0.0.0.9009
 
 BUG FIX

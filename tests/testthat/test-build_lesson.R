@@ -25,6 +25,7 @@ test_that("lessons can be built sanely", {
   sitepath <- fs::path(tmp, "site", "docs")
   expect_true(fs::file_exists(fs::path(sitepath, "01-introduction.html")))
   expect_true(fs::file_exists(fs::path(sitepath, "02-second-episode.html")))
+  expect_true(fs::file_exists(fs::path(sitepath, "index.html")))
   expect_true(any(grepl(
         ".div class..challenge", 
         readLines(fs::path(sitepath, "01-introduction.html"))
@@ -32,6 +33,10 @@ test_that("lessons can be built sanely", {
   expect_true(any(grepl(
         ".div class..challenge", 
         readLines(fs::path(sitepath, "02-second-episode.html"))
+  )))
+  expect_true(any(grepl(
+        "the lesson repository for lesson-example",
+        readLines(fs::path(sitepath, "index.html"))
   )))
 
   # But will not built if things are not changed
@@ -45,6 +50,16 @@ test_that("lessons can be built sanely", {
 
   expect_true(fs::file_exists(fs::path(sitepath, "01-introduction.html")))
   expect_true(fs::file_exists(fs::path(sitepath, "02-second-episode.html")))
+
+  # If index.md exists, it will use that for the index
+  writeLines("I am an INDEX\n", fs::path(res, "index.md"))
+  build_lesson(res, quiet = TRUE, preview = FALSE)
+
+  expect_true(any(grepl(
+        "I am an INDEX",
+        readLines(fs::path(sitepath, "index.html"))
+  )))
+
 })
 
 
