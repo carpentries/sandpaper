@@ -1,23 +1,3 @@
-# emoji are rendered
-
-    
-    -
-    
-    \
-    
-     
-    <p>Emojis work <span class="emoji" data-emoji="wink">😉</span></p>
-
-# links are auto rendered
-
-    
-    -
-    
-    \
-    
-     
-    <p>Links work: <a href="https://carpentries.org/" class="uri">https://carpentries.org/</a>.</p>
-
 # pandoc structure is rendered correctly
 
     Code
