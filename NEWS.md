@@ -4,7 +4,7 @@ BUG FIX
 -------
 
 * Bare links and text emoji (e.g. :wink:) are now rendered (fix #67).
-
+* Objectives and Questions headings will now no longer be rendered (fix #64).
 
 # sandpaper 0.0.0.9010
 
