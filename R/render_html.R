@@ -51,6 +51,8 @@ construct_pandoc_args <- function(path_in, output, to = "html", ...) {
   exts <- paste(
     "smart",
     "auto_identifiers",
+    "autolink_bare_uris",
+    "emoji",
     "tex_math_dollars",
     "tex_math_single_backslash",
     "markdown_in_html_blocks",
@@ -70,7 +72,7 @@ construct_pandoc_args <- function(path_in, output, to = "html", ...) {
       "--indented-code-classes=sh", 
       "--section-divs", 
       "--mathjax",
-      paste0("--lua-filter=", luaf), 
+      rmarkdown::pandoc_lua_filter_args(luaf),
       ...
     ),
     verbose = FALSE
