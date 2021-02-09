@@ -43,6 +43,24 @@ ex <- c("---",
   NULL
 )
 
+
+
+test_that("emoji are rendered", {
+  skip_if_not(rmarkdown::pandoc_available("2.10"))
+  tmp <- fs::file_temp()
+  withr::local_file(tmp)
+  writeLines("Emojis work :wink:", tmp)
+  expect_match(render_html(tmp), "data-emoji", fixed = TRUE)
+})
+
+test_that("links are auto rendered", {
+  skip_if_not(rmarkdown::pandoc_available("2.10"))
+  tmp <- fs::file_temp()
+  withr::local_file(tmp)
+  writeLines("Links work: https://carpentries.org/.", tmp)
+  expect_match(render_html(tmp), "href=", fixed = TRUE)
+})
+
 test_that("pandoc structure is rendered correctly", {
   
   skip_if_not(rmarkdown::pandoc_available("2.10"))

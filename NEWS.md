@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9011
+
+BUG FIX
+-------
+
+* Bare links and text emoji (e.g. :wink:) are now rendered (fix #67).
+
+
 # sandpaper 0.0.0.9010
 
 BUG FIX

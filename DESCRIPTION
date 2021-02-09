@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.0.0.9010
+Version: 0.0.0.9011
 Authors@R: 
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -23,7 +23,7 @@ Imports:
     yaml,
     desc,
     knitr,
-    rmarkdown,
+    rmarkdown (>= 2.4),
     rprojroot,
     usethis (>= 2.0.0),
     utils,
