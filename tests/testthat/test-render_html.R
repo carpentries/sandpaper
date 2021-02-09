@@ -48,7 +48,7 @@ test_that("emoji are rendered", {
   tmp <- fs::file_temp()
   withr::local_file(tmp)
   writeLines("Emojis work :wink:", tmp)
-  expect_snapshot(cat(render_html(tmp)))
+  expect_snapshot_output(cat(render_html(tmp)))
 })
 
 test_that("links are auto rendered", {
@@ -56,7 +56,7 @@ test_that("links are auto rendered", {
   tmp <- fs::file_temp()
   withr::local_file(tmp)
   writeLines("Links work: https://carpentries.org/.", tmp)
-  expect_snapshot(cat(render_html(tmp)))
+  expect_snapshot_output(cat(render_html(tmp)))
 })
 
 test_that("pandoc structure is rendered correctly", {

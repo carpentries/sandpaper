@@ -1,16 +1,22 @@
 # emoji are rendered
 
-    Code
-      cat(render_html(tmp))
-    Output
-      -\ <p>Emojis work <span class="emoji" data-emoji="wink">😉</span></p>
+    
+    -
+    
+    \
+    
+     
+    <p>Emojis work <span class="emoji" data-emoji="wink">😉</span></p>
 
 # links are auto rendered
 
-    Code
-      cat(render_html(tmp))
-    Output
-      -\ <p>Links work: <a href="https://carpentries.org/" class="uri">https://carpentries.org/</a>.</p>
+    
+    -
+    
+    \
+    
+     
+    <p>Links work: <a href="https://carpentries.org/" class="uri">https://carpentries.org/</a>.</p>
 
 # pandoc structure is rendered correctly
 
