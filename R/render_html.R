@@ -62,7 +62,7 @@ construct_pandoc_args <- function(path_in, output, to = "html", ...) {
     sep = "+"
   )
   from <- paste0("markdown", "-hard_line_breaks", "+", exts)
-  luaf <- system.file("filters", "lesson.lua", package = "sandpaper")
+  lua_filter <- rmarkdown::pkg_file_lua("lesson.lua", "sandpaper")
   list(
     input   = path_in,
     output  = output,
@@ -72,7 +72,8 @@ construct_pandoc_args <- function(path_in, output, to = "html", ...) {
       "--indented-code-classes=sh", 
       "--section-divs", 
       "--mathjax",
-      rmarkdown::pandoc_lua_filter_args(luaf),
+      "--lua-filter",
+      lua_filter,
       ...
     ),
     verbose = FALSE

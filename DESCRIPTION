@@ -23,7 +23,7 @@ Imports:
     yaml,
     desc,
     knitr,
-    rmarkdown,
+    rmarkdown (>= 2.4),
     rprojroot,
     usethis (>= 2.0.0),
     utils,
