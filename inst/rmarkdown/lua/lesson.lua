@@ -88,7 +88,9 @@ function first_block()
     pandoc.Strong {pandoc.Str "Questions"}
   }))
   for _, block in ipairs(questions.content) do
-    table.insert(row1_right_col.content, block)
+    if block.t ~= "Header" then
+      table.insert(row1_right_col.content, block)
+    end
   end
 
   -- **Objectives**
@@ -100,7 +102,9 @@ function first_block()
     pandoc.Strong {pandoc.Str "Objectives"}
   }));
   for _, block in ipairs(objectives.content) do
-    table.insert(row2_right_col.content, block);
+    if block.t ~= "Header" then
+      table.insert(row2_right_col.content, block);
+    end
   end
 
   -- Adding columns to rows
@@ -204,7 +208,6 @@ handle_our_divs = function(el)
   -- Questions and Objectives should be grouped
   v,i = el.classes:find("questions")
   if i ~= nil then
-    level_head(el, 0)
     questions = el
     if objectives ~= nil then
       return first_block()
@@ -215,7 +218,6 @@ handle_our_divs = function(el)
 
   v,i = el.classes:find("objectives")
   if i ~= nil then
-    level_head(el, 0)
     objectives = el
     if questions ~= nil then
       return first_block()
