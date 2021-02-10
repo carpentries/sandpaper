@@ -61,6 +61,19 @@ test_that("links are auto rendered", {
   expect_match(render_html(tmp), "href=", fixed = TRUE)
 })
 
+test_that("footnotes are rendered", {
+  skip_if_not(rmarkdown::pandoc_available("2.10"))
+  tmp <- fs::file_temp()
+  withr::local_file(tmp)
+  writeLines("Footnotes work^[maybe they do?].", tmp)
+  inline <- render_html(tmp)
+  writeLines("Footnotes work[^1].\n\n[^1]: maybe they do?", tmp)
+  ref <- render_html(tmp)
+  expect_match(inline, "footnote-ref", fixed = TRUE)
+  expect_match(ref, "footnote-ref", fixed = TRUE)
+  expect_equal(inline, ref)
+})
+
 test_that("pandoc structure is rendered correctly", {
   
   skip_if_not(rmarkdown::pandoc_available("2.10"))
