@@ -1,3 +1,10 @@
+# sandpaper 0.0.0.9012
+
+NEW FEATURES
+------------
+
+* Inline and reference-based footnotes are now supported.
+
 # sandpaper 0.0.0.9011
 
 BUG FIX
