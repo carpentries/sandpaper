@@ -53,6 +53,8 @@ construct_pandoc_args <- function(path_in, output, to = "html", ...) {
     "auto_identifiers",
     "autolink_bare_uris",
     "emoji",
+    "footnotes",
+    "inline_notes",
     "tex_math_dollars",
     "tex_math_single_backslash",
     "markdown_in_html_blocks",
