@@ -6,6 +6,7 @@
 \alias{template_links}
 \alias{template_config}
 \alias{template_conduct}
+\alias{template_index}
 \alias{template_license}
 \alias{template_contributing}
 \alias{template_setup}
@@ -21,6 +22,8 @@ template_links()
 template_config()
 
 template_conduct()
+
+template_index()
 
 template_license()
 

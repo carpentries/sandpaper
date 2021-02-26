@@ -3,8 +3,13 @@
 #' @note this assumes that the markdown files have already been built and will
 #' not work otherwise
 #' @inheritParams build_lesson
+#' @param slug The slug for the file to preview in RStudio.
+#'   If this is `NULL`, the preview will default to the home page. If you have
+#'   an episode whose slug is 01-introduction, then setting `slug =
+#'   "01-introduction"` will allow RStudio to open the preview window to the
+#'   right page. 
 #' @keywords internal
-build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, override = list()) {
+build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, override = list(), slug = NULL) {
   # step 2: build the package site
   pkg <- pkgdown::as_pkgdown(path_site(path), override = override)
   # NOTE: This is a kludge to prevent pkgdown from displaying a bunch of noise
@@ -41,5 +46,10 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     cli::cli_rule(cli::style_bold("Creating Schedule"))
   }
   build_home(pkg, quiet = quiet)
+  out <- if (is.null(slug)) "index.html" else paste0(slug, ".html")
   pkgdown::preview_site(pkg, "/", preview = preview)
+  if (!quiet) {
+    dst <- fs::path_rel(path = pkg$dst_path, start = path)
+    message("\nOutput created: ", fs::path(pkg$dst_path, out))
+  }
 }

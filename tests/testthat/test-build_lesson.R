@@ -35,7 +35,7 @@ test_that("lessons can be built sanely", {
         readLines(fs::path(sitepath, "02-second-episode.html"))
   )))
   expect_true(any(grepl(
-        "the lesson repository for lesson-example",
+        "02-second-episode.html",
         readLines(fs::path(sitepath, "index.html"))
   )))
 

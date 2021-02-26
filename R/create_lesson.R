@@ -33,6 +33,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   copy_template("license", path, "LICENSE.md")
   copy_template("contributing", path, "CONTRIBUTING.md")
   copy_template("setup", fs::path(path, "learners"), "Setup.md") 
+  copy_template("index", path, "index.md")
   copy_template("config", path, "config.yaml",
     values = list(
       title      = "Lesson Title",

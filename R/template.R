@@ -52,6 +52,10 @@ template_conduct <- generate_template_function("conduct")
 
 #' @rdname template
 #' @export
+template_index <- generate_template_function("index")
+
+#' @rdname template
+#' @export
 template_license <- generate_template_function("license")
 
 #' @rdname template
