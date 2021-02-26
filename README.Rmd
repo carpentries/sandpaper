@@ -249,6 +249,12 @@ When you want to preview your site, use the following:
 sandpaper::build_lesson()
 ```
 
+> #### Working in RStudio?
+> 
+> If you are using RStudio, you can preview the lesson site using the keyboard
+> shortcut <kbd>ctrl + shift + B</kbd> (which corresponds to the "Build Website" button in the "Build" tab. To preview individual files, you can use
+> <kbd>ctrl + shift + K</kbd> (This corresponds to the "Knit" button in the editor pane) 
+
 This will create the website structure inside of the the `site/` folder, render
 the RMarkdown files to markdown (for inspection and quick rendering), render the
 markdown files to HTML, and then enable a preview within your browser window.
