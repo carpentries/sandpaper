@@ -17,6 +17,10 @@ test_that("lessons can be created in empty directories", {
   # Make sure everything exists
   expect_true(check_lesson(tmp))
   expect_true(fs::dir_exists(tmp))
+  expect_equal(
+    politely_get_yaml(fs::path(tmp, "index.md"))[[2]], 
+    "site: sandpaper::sandpaper_site"
+  ) 
   expect_true(fs::dir_exists(fs::path(tmp, "site")))
   expect_true(fs::dir_exists(fs::path(tmp, "episodes")))
   expect_true(fs::dir_exists(fs::path(tmp, "episodes", "data")))
