@@ -3,13 +3,15 @@
 NEW FEATURES
 ------------
 
-* In RStudio, the **knit button works** :tada:
+* In RStudio, the **knit button works** :tada: (fix #77; @zkamvar, #82)
 * `sandpaper_site()` is a site generator function that allows {rmarkdown} to
   use the {sandpaper} machinery to build the site from
   `rmarkdown::render_site()`
 * `build_site()` gains a `slug` argument that tailors the previewed content.
 * `create_lesson()` will now create a blank `index.md` with `site:
   sandpaper_site` as the only YAML item. 
+* HTML accidentally rendered to the source directories are silently removed
+  when the site is built. (fix #78, @zkamvar, #84)
 
 # sandpaper 0.0.0.9012
 
