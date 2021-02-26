@@ -8,13 +8,14 @@ test_that("markdown sources can be built without fail", {
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp)
   create_episode("second-episode", path = tmp)
+  instruct <- fs::path(tmp, "instructors", "pyramid.md")
   writeLines(c(
     "---",
     "title: Pyramid",
     "---",
     "One of the best albums by MJQ"
    ),
-    con = fs::path(tmp, "instructors", "pyramid.md")
+    con = instruct
   )
   expect_warning(s <- get_episodes(tmp), "set_episodes")
   set_episodes(tmp, s, write = TRUE)
@@ -22,12 +23,18 @@ test_that("markdown sources can be built without fail", {
   # The episodes should be the only things in the directory
   e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
   expect_equal(fs::path_file(e), s)
-   
+
+  # Accidentally rendered html live in their parent folders
+  rmarkdown::render(instruct, quiet = TRUE)
+  expect_true(fs::file_exists(fs::path_ext_set(instruct, "html"))) 
 
   # It's noisy at first
   suppressMessages({
   expect_output(build_markdown(res, quiet = FALSE), "ordinary text without R code")
   })
+
+  # Accidentaly rendered HTML is removed before building
+  expect_false(fs::file_exists(fs::path_ext_set(instruct, "html")))
   
   # No artifacts should be present in the directory
   e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")

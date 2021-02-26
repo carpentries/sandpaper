@@ -31,8 +31,16 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
     license  = fs::path(root_path(path), "LICENSE.md"),
     NULL
   )
+  
+
   sources <- unlist(source_list, use.names = FALSE)
   names(sources) <- get_slug(sources)
+
+  # If the user accidentally used rmarkdown::render(), then they would end up
+  # with an html artifact in here and it will clog up the machinery. Best to 
+  # remove it at the source.
+  remove_rendered_html(sources)
+
   built          <- get_markdown_files()
   if (length(built)) names(built) <- get_slug(built)
 
@@ -90,6 +98,14 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 }
 
 
+
+remove_rendered_html <- function(episodes) {
+  htmls <- fs::path_ext_set(episodes, "html")
+  exists <- fs::file_exists(htmls)
+  if (any(exists)) {
+    fs::file_delete(htmls[exists])
+  }
+}
 
 
 
