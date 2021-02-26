@@ -29,6 +29,7 @@
 build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), preview = TRUE, override = list()) {
 
   # step 0: build_lesson defaults to a local build
+  slug <- if (fs::is_file(path)) get_slug(path) else NULL
   path <- set_source_path(path)
   on.exit(reset_build_paths())
 
@@ -41,7 +42,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
 
   built <- build_markdown(path = path, rebuild = rebuild, quiet = quiet)
 
-  build_site(path = path, quiet = quiet, preview = preview, override = override)
+  build_site(path = path, quiet = quiet, preview = preview, override = override, slug = slug)
   
 } 
 

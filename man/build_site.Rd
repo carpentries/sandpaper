@@ -8,7 +8,8 @@ build_site(
   path = ".",
   quiet = !interactive(),
   preview = TRUE,
-  override = list()
+  override = list(),
+  slug = NULL
 )
 }
 \arguments{
@@ -21,6 +22,11 @@ directory)}
 
 \item{override}{options to override (e.g. building to alternative paths).
 This is used internally.}
+
+\item{slug}{The slug for the file to preview in RStudio.
+If this is \code{NULL}, the preview will default to the home page. If you have
+an episode whose slug is 01-introduction, then setting \code{slug = "01-introduction"} will allow RStudio to open the preview window to the
+right page.}
 }
 \description{
 Wrapper for site builder
