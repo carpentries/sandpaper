@@ -25,6 +25,31 @@ path_profiles <- function(inpath) {
   fs::path(home, "profiles")
 }
 
+# TODO: configure this so that it gives me the full relative path of the
+# resources. 
+get_resource_list <- function(path, include = character(0), exclude = character(0)) {
+  pth <- root_path(path)
+  cfg <- get_config(pth)
+  res <- rmarkdown::site_resources(
+    site_dir  = pth,
+    include   = c("*md", include),
+    exclude   = c("site", exclude),
+    recursive = TRUE
+  )
+  res <- split(fs::path_file(res), fs::path_dir(res))
+  # At the moment, these are the only four items that we need to consider order
+  # for. 
+  for (i in c("episodes", "learners", "instructors", "profiles")) {
+    config_order <- cfg[[i]]
+    # If the configuration is not missing, then we have to rearrange the order.
+    if (!is.null(config_order)) {
+      alphie_order <- res[[i]]
+      res[[i]] <- alphie_order[match(config_order, alphie_order, nomatch = 0)]
+    }
+  }
+  res
+}
+
 get_sources <- function(path, subfolder = "episodes") {
   pe <- enforce_dir(fs::path(root_path(path), subfolder))
   fs::path_abs(fs::dir_ls(pe, regexp = "*R?md"))
