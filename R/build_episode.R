@@ -33,7 +33,7 @@
 #' writeLines(txt, fun_file)
 #' hash <- tools::md5sum(fun_file)
 #' res <- build_episode_md(fun_file, hash)
-#' build_episode_html(res, 
+#' build_episode_html(res, path_src = fun_file, 
 #'   pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
 #' )
 build_episode_html <- function(path_md, path_src = NULL, 
