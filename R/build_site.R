@@ -12,6 +12,7 @@
 build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, override = list(), slug = NULL) {
   # step 2: build the package site
   pkg <- pkgdown::as_pkgdown(path_site(path), override = override)
+  built_path <- fs::path(pkg$src_path, "built")
   # NOTE: This is a kludge to prevent pkgdown from displaying a bunch of noise
   #       if the user asks for quiet. 
   if (quiet) {
@@ -23,25 +24,29 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     sink(f)
   }
   pkgdown::init_site(pkg)
-  episodes <- get_markdown_files()
-  n <- length(episodes)
+
+  db <- get_built_db(fs::path(built_path, "md5sum.txt"))
+  db <- db[!grepl("(index|README|CONTRIBUTING)[.]md", db$built), , drop = FALSE]
+  # Find all the episodes and get their range
+  er <- range(grep("/episodes/", db$file, fixed = TRUE))
+  `%w%` <- function(a, b) a >= b[[1]] && a <= b[[2]]
+
   if (!quiet && requireNamespace("cli", quietly = TRUE)) {
     cli::cli_rule(cli::style_bold("Scanning episodes"))
   }
-  for (i in seq_along(episodes)) {
+
+  for (i in seq_along(db$built)) {
     build_episode_html(
-      path_md      = episodes[i],
-      page_back    = if (i > 1) episodes[i - 1] else "index.md",
-      page_forward = if (i < n) episodes[i + 1] else "index.md",
+      path_md      = db$built[i],
+      path_src     = db$file[i],
+      page_back    = if (i %w% er && i > er[1]) db$built[i - 1] else "index.md",
+      page_forward = if (i %w% er && i < er[2]) db$built[i + 1] else "index.md",
       pkg          = pkg, 
       quiet        = quiet
     )
   }
-  fs::dir_walk(
-    fs::path(pkg$src_path, "built"), 
-    function(d) copy_assets(d, pkg$dst_path),
-    all = TRUE
-  )
+
+  fs::dir_walk(built_path, function(d) copy_assets(d, pkg$dst_path), all = TRUE)
   if (!quiet && requireNamespace("cli", quietly = TRUE)) {
     cli::cli_rule(cli::style_bold("Creating Schedule"))
   }

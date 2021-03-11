@@ -94,7 +94,7 @@ build_episode_html <- function(path_md, path_src = NULL,
 #' writeLines(txt, fun_file)
 #' hash <- tools::md5sum(fun_file)
 #' res <- build_episode_md(fun_file, hash, outdir = fun_dir, workdir = fun_dir)
-build_episode_md <- function(path, hash, outdir = path_built(path), 
+build_episode_md <- function(path, hash = NULL, outdir = path_built(path), 
                              workdir = path_built(path), 
                              env = new.env(), quiet = FALSE) {
 
@@ -117,6 +117,11 @@ build_episode_md <- function(path, hash, outdir = path_built(path),
   #
   # Note that this process can NOT use any internal functions
   callr::r(function(path, hash, env, outpath, workdir, quiet) {
+    # Shortcut if the source is a markdown file
+    if (fs::path_ext(path) == "md") {
+      fs::file_copy(path, outpath, overwrite = TRUE)
+      return(NULL)
+    }
     # Set knitr options for output ---------------------------
     oknit <- knitr::opts_chunk$get()
     on.exit(knitr::opts_chunk$restore(oknit), add = TRUE)
@@ -147,18 +152,18 @@ build_episode_md <- function(path, hash, outdir = path_built(path),
     )
 
     # append md5 hash to top of file ------------------------
-    sandpaper_yaml <- yaml::as.yaml(list(
-      "sandpaper-digest" = hash,
-      "sandpaper-source" = path
-    ))
-    output <- sub(
-      "^---",
-      paste("---", sandpaper_yaml, sep = "\n"),
-      res
-    )
+    # sandpaper_yaml <- yaml::as.yaml(list(
+    #   "sandpaper-digest" = hash,
+    #   "sandpaper-source" = path
+    # ))
+    # output <- sub(
+    #   "^---",
+    #   paste("---", sandpaper_yaml, sep = "\n"),
+    #   res
+    # )
 
     # write file to disk ------------------------------------
-    writeLines(output, outpath)
+    writeLines(res, outpath)
   }, args = args, show = !quiet)
 
   invisible(outpath)
