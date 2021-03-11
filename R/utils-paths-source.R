@@ -25,6 +25,15 @@ path_profiles <- function(inpath) {
   fs::path(home, "profiles")
 }
 
+#' Get the full resource list of markdown files
+#'
+#' @param path path to the lesson
+#' @param trim if `TRUE`, trim the paths to be relative to the lesson directory.
+#'   Defaults to `FALSE`, which will return the absolute paths
+#' @return a list of files by subfolder in the order they should appear in the
+#'   menu.
+#' @keywords internal
+#' @seealso [build_status()]
 get_resource_list <- function(path, trim = FALSE) {
   root <- root_path(path)
   cfg  <- get_config(root)
