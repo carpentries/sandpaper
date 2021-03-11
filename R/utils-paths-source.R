@@ -25,23 +25,39 @@ path_profiles <- function(inpath) {
   fs::path(home, "profiles")
 }
 
-# TODO: configure this so that it gives me the full relative path of the
-# resources. 
-get_resource_list <- function(path, include = character(0), exclude = character(0), trim = FALSE) {
+get_resource_list <- function(path, trim = FALSE) {
   root <- root_path(path)
   cfg  <- get_config(root)
-  res  <- rmarkdown::site_resources(
-    site_dir  = root,
-    include   = c("*md", include),
-    exclude   = c("site", exclude),
-    recursive = TRUE
+  # res  <- rmarkdown::site_resources(
+  #   site_dir  = root,
+  #   include   = c("*md", include),
+  #   exclude   = c("site", exclude),
+  #   recursive = TRUE
+  # )
+  res <- fs::dir_ls(
+    root,
+    regexp = "*[.](R?md|ipynb)$", # at the moment, we will only recognize Rmd,
+                                  # and ipynb files (although we do not support
+                                  # the latter at the moment).
+    recurse = 1,# only move into the source folders
+    type = "file",
+    fail = FALSE
   )
-  # Get the full path if trim is FALSE
-  res <- if (trim) res else fs::path(root, res)
 
-  res <- split(res, fs::path_rel(fs::path_dir(res), root))
-  # At the moment, these are the only four items that we need to consider order
-  # for. 
+  # Remove github-specific files
+  gh_files <- c("README", "CONTRIBUTING")
+  no_gh    <- fs::path_ext_remove(fs::path_file(res)) %nin% gh_files
+  res      <- res[no_gh]
+
+  # Split the files into a list.
+  if (trim) {
+    res <- fs::path_rel(res, root)
+    res <- split(res, fs::path_dir(res))
+  } else {
+    res <- split(res, fs::path_rel(fs::path_dir(res), root))
+  }
+
+  # These are the only four items that we need to consider order for. 
   for (i in c("episodes", "learners", "instructors", "profiles")) {
     config_order <- cfg[[i]]
     # If the configuration is not missing, then we have to rearrange the order.
@@ -51,7 +67,7 @@ get_resource_list <- function(path, include = character(0), exclude = character(
       res[[i]]      <- paths[match(config_order, default_order, nomatch = 0)]
     }
   }
-  res
+  res[names(res) != "site"]
 }
 
 get_sources <- function(path, subfolder = "episodes") {

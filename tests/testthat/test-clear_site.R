@@ -28,7 +28,7 @@ test_that("the site can be cleared", {
   expect_setequal(built_site, fs::path(tmp, "site", c(expected, "docs")))
 
   rds <- fs::path(tmp, "site", "built", "data", "test.rds")
-  expect_length(fs::dir_ls(fs::path(tmp, "site", "built")), 11L)
+  expect_length(fs::dir_ls(fs::path(tmp, "site", "built")), 9L)
   expect_true(fs::file_exists(rds))
   expect_equal(readRDS(rds), expected)
 

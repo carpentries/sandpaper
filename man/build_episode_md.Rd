@@ -6,7 +6,7 @@
 \usage{
 build_episode_md(
   path,
-  hash,
+  hash = NULL,
   outdir = path_built(path),
   workdir = path_built(path),
   env = new.env(),

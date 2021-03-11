@@ -219,19 +219,21 @@ build_status <- function(sources, db = "built/md5sum.txt", rebuild = FALSE, writ
   # old checksums (2 columns: file path and checksum)
   old = read.table(db, header = TRUE)  
   one = merge(md5, old, 'file', all = TRUE, suffixes = c('', '.old'), sort = FALSE)
-  # merge destroys the order, so we need to reset it
-  one <- one[match(sources, one$file), , drop = FALSE]
-  # exclude files if checksums are not changed
   newsum <- names(one)[2]
   oldsum <- paste0(newsum, ".old")
-  files = setdiff(sources, one[one[[newsum]] == one[[oldsum]], 'file'])
-  to_remove = is.na(one[[2]])
+  # Find the files that need to be removed because they don't exist anymore.
+  to_remove <- one[['built.old']][is.na(one[[newsum]])]
+  # merge destroys the order, so we need to reset it. Consequently, it will
+  # also remove the files that no longer exist in the sources list.
+  one <- one[match(sources, one$file), , drop = FALSE]
+  # exclude files if checksums are not changed
+  files = setdiff(sources, one[['file']][one[[newsum]] == one[[oldsum]]])
   if (write) 
-    write_build_db(one[!to_remove, 1:3], db)
+    write_build_db(one[, 1:3], db)
   list(
     build = files,
-    remove = one[[1]][to_remove],
-    new = one[!to_remove, 1:3],
+    remove = to_remove,
+    new = one[, 1:3],
     old = old
   )
 }

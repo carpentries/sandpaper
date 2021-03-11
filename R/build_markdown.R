@@ -22,21 +22,14 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   outdir       <- path_built()
 
   # Determine build status for the episodes ------------------------------------
-  source_list <- get_resource_list(path)
-
-  # The only sources we want are in the top-level folders, but we need to
-  # filter out the non-source material (e.g. yaml and images)
-  sources <- source_list[!grepl("/", names(source_list), fixed = TRUE)]
-  sources <- unlist(sources, use.names = FALSE)
-  sources <- sources[tolower(fs::path_ext(sources)) %nin% c("yaml", "yml")]
+  source_list    <- get_resource_list(path)
+  sources        <- unlist(source_list, use.names = FALSE)
   names(sources) <- get_slug(sources)
 
   # If the user accidentally used rmarkdown::render(), then they would end up
   # with an html artifact in here and it will clog up the machinery. Best to 
   # remove it at the source.
-  # At the moment, it's not working because I can't get the html unstuck from
-  # the resource list... which means that I've been using it wrong. 
-  tryCatch(remove_rendered_html(sources), error = function(e) NULL)
+  remove_rendered_html(sources)
 
   db_path <- fs::path(outdir, "md5sum.txt")
   db <- build_status(sources, db_path, rebuild, write = FALSE)
