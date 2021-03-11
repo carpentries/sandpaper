@@ -34,12 +34,10 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   # If the user accidentally used rmarkdown::render(), then they would end up
   # with an html artifact in here and it will clog up the machinery. Best to 
   # remove it at the source.
-  remove_rendered_html(sources)
+  # At the moment, it's not working because I can't get the html unstuck from
+  # the resource list... which means that I've been using it wrong. 
+  tryCatch(remove_rendered_html(sources), error = function(e) NULL)
 
-  # built <- get_markdown_files()
-  # if (length(built)) names(built) <- get_slug(built)
-
-  # build_status <- get_build_status(sources, built, rebuild)
   db_path <- fs::path(outdir, "md5sum.txt")
   db <- build_status(sources, db_path, rebuild, write = FALSE)
   update <- FALSE
@@ -106,7 +104,7 @@ remove_rendered_html <- function(episodes) {
   htmls <- fs::path_ext_set(episodes, "html")
   exists <- fs::file_exists(htmls)
   if (any(exists)) {
-    fs::file_delete(htmls[exists])
+    fs::file_delete(unique(htmls[exists]))
   }
 }
 

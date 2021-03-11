@@ -24,7 +24,6 @@ Imports:
     desc,
     knitr,
     rmarkdown (>= 2.4),
-    blogdown (>= 1.0.0),
     rprojroot,
     usethis (>= 2.0.0),
     utils,

@@ -158,9 +158,9 @@ update_site_menu <- function(path,
   write_pkgdown_yaml(yaml, path)
 }
 
-get_hash <- function(path) {
-  yaml <- politely_get_yaml(path)
-  sub("sandpaper-digest: ", "", grep("sandpaper-digest: ", yaml, value = TRUE))
+get_hash <- function(path, db = fs::path(path_built(path), "md5sum.txt")) {
+  db <- read.table(db, header = TRUE)
+  db$checksum[db$built == path]
 }
 
 copy_assets <- function(src, dst) {

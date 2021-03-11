@@ -12,15 +12,13 @@ test_that("build_episode_md() works independently", {
     "This is coming from `r R.version.string`"
   )
   writeLines(txt, fun_file)
-  hash <- tools::md5sum(fun_file)
   expect_output({
-    res <- build_episode_md(fun_file, hash, outdir = fun_dir, workdir = fun_dir)
+    res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
   }, "inline R code fragments")
 
   expect_equal(basename(res), "fun.md")
   lines <- readLines(res)
-  expect_equal(lines[[2]], paste("sandpaper-digest:", hash))
-  expect_equal(lines[[3]], paste("sandpaper-source:", fun_file))
+  expect_match(lines[[2]], "title: Fun times")
   expect_match(lines[length(lines)], "This is coming from R (version|Under)")
 
 })
@@ -46,21 +44,21 @@ test_that("build_episode_html() works independently", {
   )
   file.create(fun_file)
   writeLines(txt, fun_file)
-  hash <- tools::md5sum(fun_file)
 
   expect_output({
-    res <- build_episode_md(fun_file, hash, workdir = dirname(fun_file))
+    res <- build_episode_md(fun_file, workdir = dirname(fun_file))
   }, "inline R code fragments")
 
   expect_equal(basename(res), "fun.md")
   expect_true(file.exists(file.path(tmp, "site", "built", "fun.md")))
   lines <- readLines(res)
-  expect_equal(lines[[2]], paste("sandpaper-digest:", hash))
+  expect_equal(lines[[2]], "title: Fun times")
   expect_match(lines[length(lines)], "This is coming from R (version|Under)")
 
   expect_false(file.exists(file.path(tmp, "site", "docs", "fun.html")))
   expect_output({
     build_episode_html(res, 
+      fun_file,
       page_back = "index.md",
       page_forward = "index.md",
       pkg = pkg
