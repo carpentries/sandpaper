@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a carpentries lesson — create_lesson • sandpaper</title>
+<title>Get the full resource list of markdown files — get_resource_list • sandpaper</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a carpentries lesson — create_lesson" />
-<meta property="og:description" content="This will create a boilerplate directory structure for a Carpentries lesson
-and initialize a git repository." />
+<meta property="og:title" content="Get the full resource list of markdown files — get_resource_list" />
+<meta property="og:description" content="Get the full resource list of markdown files" />
 
 
 
@@ -112,54 +111,39 @@ and initialize a git repository." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a carpentries lesson</h1>
-    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/create_lesson.R'><code>R/create_lesson.R</code></a></small>
-    <div class="hidden name"><code>create_lesson.Rd</code></div>
+    <h1>Get the full resource list of markdown files</h1>
+    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/utils-paths-source.R'><code>R/utils-paths-source.R</code></a></small>
+    <div class="hidden name"><code>get_resource_list.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This will create a boilerplate directory structure for a Carpentries lesson
-and initialize a git repository.</p>
+    <p>Get the full resource list of markdown files</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_lesson</span><span class='op'>(</span>
-  <span class='va'>path</span>,
-  name <span class='op'>=</span> <span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='http://fs.r-lib.org/reference/path_file.html'>path_file</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>,
-  rstudio <span class='op'>=</span> <span class='fu'>rstudioapi</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rstudioapi/man/isAvailable.html'>isAvailable</a></span><span class='op'>(</span><span class='op'>)</span>,
-  open <span class='op'>=</span> <span class='fu'>rlang</span><span class='fu'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/is_interactive.html'>is_interactive</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_resource_list</span><span class='op'>(</span><span class='va'>path</span>, trim <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>path</th>
-      <td><p>the path to the new lesson folder</p></td>
+      <td><p>path to the lesson</p></td>
     </tr>
     <tr>
-      <th>name</th>
-      <td><p>the name of the lesson. If not provided, the folder name will be used.</p></td>
-    </tr>
-    <tr>
-      <th>rstudio</th>
-      <td><p>create an RStudio project (defaults to if RStudio exits)</p></td>
-    </tr>
-    <tr>
-      <th>open</th>
-      <td><p>if interactive, the lesson will open in a new editor window.</p></td>
+      <th>trim</th>
+      <td><p>if <code>TRUE</code>, trim the paths to be relative to the lesson directory.
+Defaults to <code>FALSE</code>, which will return the absolute paths</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>the path to the new lesson</p>
+    <p>a list of files by subfolder in the order they should appear in the
+menu.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/on.exit.html'>on.exit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>lsn</span> <span class='op'>&lt;-</span> <span class='fu'>create_lesson</span><span class='op'>(</span><span class='va'>tmp</span>, name <span class='op'>=</span> <span class='st'>"This Lesson"</span><span class='op'>)</span>
-<span class='va'>lsn</span>
-</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpStY1Q8/filed5669237f42"</div></pre>
+    <div class='dont-index'><p><code><a href='build_status.html'>build_status()</a></code></p></div>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

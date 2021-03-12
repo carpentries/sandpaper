@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a carpentries lesson — create_lesson • sandpaper</title>
+<title>Get the database of built files and their hashes — get_built_db • sandpaper</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a carpentries lesson — create_lesson" />
-<meta property="og:description" content="This will create a boilerplate directory structure for a Carpentries lesson
-and initialize a git repository." />
+<meta property="og:title" content="Get the database of built files and their hashes — get_built_db" />
+<meta property="og:description" content="Get the database of built files and their hashes" />
 
 
 
@@ -112,54 +111,42 @@ and initialize a git repository." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a carpentries lesson</h1>
-    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/create_lesson.R'><code>R/create_lesson.R</code></a></small>
-    <div class="hidden name"><code>create_lesson.Rd</code></div>
+    <h1>Get the database of built files and their hashes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/utils-built-db.R'><code>R/utils-built-db.R</code></a></small>
+    <div class="hidden name"><code>get_built_db.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This will create a boilerplate directory structure for a Carpentries lesson
-and initialize a git repository.</p>
+    <p>Get the database of built files and their hashes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_lesson</span><span class='op'>(</span>
-  <span class='va'>path</span>,
-  name <span class='op'>=</span> <span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='http://fs.r-lib.org/reference/path_file.html'>path_file</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>,
-  rstudio <span class='op'>=</span> <span class='fu'>rstudioapi</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rstudioapi/man/isAvailable.html'>isAvailable</a></span><span class='op'>(</span><span class='op'>)</span>,
-  open <span class='op'>=</span> <span class='fu'>rlang</span><span class='fu'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/is_interactive.html'>is_interactive</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_built_db</span><span class='op'>(</span>db <span class='op'>=</span> <span class='st'>"site/built/md5sum.txt"</span>, filter <span class='op'>=</span> <span class='st'>"*R?md"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>the path to the new lesson folder</p></td>
+      <th>db</th>
+      <td><p>the path to the database.</p></td>
     </tr>
     <tr>
-      <th>name</th>
-      <td><p>the name of the lesson. If not provided, the folder name will be used.</p></td>
-    </tr>
-    <tr>
-      <th>rstudio</th>
-      <td><p>create an RStudio project (defaults to if RStudio exits)</p></td>
-    </tr>
-    <tr>
-      <th>open</th>
-      <td><p>if interactive, the lesson will open in a new editor window.</p></td>
+      <th>filter</th>
+      <td><p>regex describing files to include.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>the path to the new lesson</p>
+    <p>a data frame with three columns:</p><ul>
+<li><p>file: the path to the source file</p></li>
+<li><p>checksum: the hash of the source file to generate the built file</p></li>
+<li><p>built: the path to the built file</p></li>
+</ul>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/on.exit.html'>on.exit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>lsn</span> <span class='op'>&lt;-</span> <span class='fu'>create_lesson</span><span class='op'>(</span><span class='va'>tmp</span>, name <span class='op'>=</span> <span class='st'>"This Lesson"</span><span class='op'>)</span>
-<span class='va'>lsn</span>
-</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpStY1Q8/filed5669237f42"</div></pre>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='build_status.html'>build_status()</a></code>, <code><a href='get_hash.html'>get_hash()</a></code></p></div>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -41,7 +41,8 @@
 
 <meta property="og:title" content="Build an episode to markdown — build_episode_md" />
 <meta property="og:description" content="This uses knitr::knit() with custom options set for the Carpentries
-template and prepends a hash and the source file to the yaml header" />
+template. It runs in a separate process to avoid issues with user-specific
+options bleeding in." />
 
 
 
@@ -73,7 +74,7 @@ template and prepends a hash and the source file to the yaml header" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
       </span>
     </div>
 
@@ -119,12 +120,13 @@ template and prepends a hash and the source file to the yaml header" />
 
     <div class="ref-description">
     <p>This uses <code><a href='https://rdrr.io/pkg/knitr/man/knit.html'>knitr::knit()</a></code> with custom options set for the Carpentries
-template and prepends a hash and the source file to the yaml header</p>
+template. It runs in a separate process to avoid issues with user-specific
+options bleeding in.</p>
     </div>
 
     <pre class="usage"><span class='fu'>build_episode_md</span><span class='op'>(</span>
   <span class='va'>path</span>,
-  <span class='va'>hash</span>,
+  hash <span class='op'>=</span> <span class='cn'>NULL</span>,
   outdir <span class='op'>=</span> <span class='fu'>path_built</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>,
   workdir <span class='op'>=</span> <span class='fu'>path_built</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>,
   env <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>new.env</a></span><span class='op'>(</span><span class='op'>)</span>,
@@ -140,7 +142,8 @@ template and prepends a hash and the source file to the yaml header</p>
     </tr>
     <tr>
       <th>hash</th>
-      <td><p>hash to prepend to the output</p></td>
+      <td><p>hash to prepend to the output. This parameter is deprecated and
+is effectively useless.</p></td>
     </tr>
     <tr>
       <th>outdir</th>
@@ -183,8 +186,7 @@ they are doing.</p>
  <span class='st'>"This is coming from `r R.version.string`"</span>
 <span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>txt</span>, <span class='va'>fun_file</span><span class='op'>)</span>
-<span class='va'>hash</span> <span class='op'>&lt;-</span> <span class='fu'>tools</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/tools/md5sum.html'>md5sum</a></span><span class='op'>(</span><span class='va'>fun_file</span><span class='op'>)</span>
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>build_episode_md</span><span class='op'>(</span><span class='va'>fun_file</span>, <span class='va'>hash</span>, outdir <span class='op'>=</span> <span class='va'>fun_dir</span>, workdir <span class='op'>=</span> <span class='va'>fun_dir</span><span class='op'>)</span>
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>build_episode_md</span><span class='op'>(</span><span class='va'>fun_file</span>, outdir <span class='op'>=</span> <span class='va'>fun_dir</span>, workdir <span class='op'>=</span> <span class='va'>fun_dir</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |......................................................................| 100%
 #&gt;    inline R code fragments
 #&gt; 
