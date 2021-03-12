@@ -1,10 +1,11 @@
+# setup test fixture
+tmpdir <- fs::file_temp()
+fs::dir_create(tmpdir)
+tmp <- res <- fs::path(tmpdir, "lesson-example")
+withr::defer(fs::dir_delete(tmp))
+
 test_that("markdown sources can be built without fail", {
   
-  tmpdir <- fs::file_temp()
-  fs::dir_create(tmpdir)
-  tmp    <- fs::path(tmpdir, "lesson-example")
-
-  withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp)
   create_episode("second-episode", path = tmp)
@@ -33,9 +34,14 @@ test_that("markdown sources can be built without fail", {
   expect_output(build_markdown(res, quiet = FALSE), "ordinary text without R code")
   })
 
-  # Accidentaly rendered HTML is removed before building
+  # # Accidentaly rendered HTML is removed before building
   expect_false(fs::file_exists(fs::path_ext_set(instruct, "html")))
   
+})
+
+test_that("Artifacts are accounted for", {
+
+  s <- get_episodes(tmp)
   # No artifacts should be present in the directory
   e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
   expect_equal(fs::path_file(e), s)
@@ -50,6 +56,8 @@ test_that("markdown sources can be built without fail", {
     "data", 
     "fig",
     "files",
+    "index.md",
+    "md5sum.txt",
     "pyramid.md"
   )
   a <- fs::dir_ls(fs::path(tmp, "site", "built"))
@@ -62,16 +70,24 @@ test_that("markdown sources can be built without fail", {
     "Setup.md", 
     # Generated figures
     paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png"),
+    "index.md",
+    "md5sum.txt",
     "pyramid.md"
   )
   a <- fs::dir_ls(fs::path(tmp, "site", "built"), recurse = TRUE, type = "file")
   expect_equal(fs::path_file(a), b)
 
+})
+
+test_that("Hashes are correct", {
   # see helper-hash.R
   h1 <- expect_hashed(res, "01-introduction.Rmd")
   h2 <- expect_hashed(res, "02-second-episode.Rmd")
   expect_equal(h1, h2, ignore_attr = TRUE)
 
+})
+
+test_that("Output is not commented", {
   # Output is not commented
   built  <- get_markdown_files(res)
   ep     <- trimws(readLines(built[[1]]))
@@ -82,11 +98,15 @@ test_that("markdown sources can be built without fail", {
   expect_match(output, "^\\[1\\]")
   expect_match(fence, "^[`]{3}[{]\\.output[}]")
 
-  # But will not built if things are not changed
+})
+
+test_that("Markdown rendering does not happen if content is not changed", {
   expect_silent(build_markdown(res))
   fs::file_touch(fs::path(res, "episodes", "01-introduction.Rmd"))
   expect_silent(build_markdown(res))
+})
 
+test_that("Removing source removes built", {
   # Removing files will result in the markdown files being removed
   e2 <- fs::path(res, "episodes", "02-second-episode.Rmd")
   built_path <- path_built(res)
@@ -94,16 +114,20 @@ test_that("markdown sources can be built without fail", {
   reset_episodes(res)
   set_episodes(res, "01-introduction.Rmd", write = TRUE)
   build_markdown(res)
-  h1 <- expect_hashed(res, "01-introduction.Rmd")
+#  h1 <- expect_hashed(res, "01-introduction.Rmd")
   expect_length(get_figs(res, "01-introduction"), 1)
 
   # The second episode should not exist
   expect_false(fs::file_exists(e2))
   expect_false(fs::file_exists(fs::path(built_path, "02-second-episode.md")))
+
   # The figures for the second episode should not exist either
   expect_length(get_figs(res, "02-second-episode"), 0)
+})
+
+test_that("Removing partially matching slugs will not have side-effects", {
+  built_path <- path_built(res)
   
-  # Removing files with sub-slugs will not have side-effects
   fs::file_delete(fs::path(res, "instructors", "pyramid.md"))
   build_markdown(res)
   h1 <- expect_hashed(res, "01-introduction.Rmd")

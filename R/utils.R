@@ -158,11 +158,6 @@ update_site_menu <- function(path,
   write_pkgdown_yaml(yaml, path)
 }
 
-get_hash <- function(path) {
-  yaml <- politely_get_yaml(path)
-  sub("sandpaper-digest: ", "", grep("sandpaper-digest: ", yaml, value = TRUE))
-}
-
 copy_assets <- function(src, dst) {
   # Do not take markdown files.
   if (fs::path_ext(src) == "md") return(invisible(NULL))
@@ -181,55 +176,6 @@ copy_assets <- function(src, dst) {
     stop(paste(src, "does not exist"), call. = FALSE)
   }
   return(invisible(NULL))
-}
-
-#' Generate a data frame of markdown files to be updated
-#'
-#' Get the build status for a vector of episodes against a vector of markdown
-#' files using MD5 sums. 
-#'
-#'Return a list with a data frame of episodes that need to be built or
-#' rebuilt and a vector of built episodes that need to be removed.
-#'
-#' @param episodes a vector of full paths to RMarkdown files to be generated
-#' @param built a vector of sandpaper-generated markdown files
-#' @param rebuild if `TRUE`, all of the input files are forced to rebuild. 
-#' @keywords internal
-get_build_status <- function(sources, built, rebuild = FALSE) {
-
-  any_built <- if (rebuild || length(built) == 0) FALSE else TRUE
-
-  new_hashes        <- tools::md5sum(sources)
-  names(new_hashes) <- names(sources)
-
-  if (any_built) {
-    old_hashes        <- vapply(built, get_hash, character(1))
-    names(old_hashes) <- names(built)
-  } else {
-    old_hashes <- character(0)
-  }
-
-  to_be_built <- data.frame(
-    source = sources,
-    hash = new_hashes,
-    stringsAsFactors = FALSE
-  )
-
-  if (any_built) {
-    # Find all sources that have the same name
-    same_name <- intersect(names(old_hashes), names(new_hashes))
-
-    # slug of the file to be removed
-    to_be_removed <- setdiff(names(old_hashes), names(new_hashes))
-
-    # Only build the sources that have changed. 
-    changed_source <- new_hashes %nin% old_hashes[same_name]
-    to_be_built    <- to_be_built[changed_source, , drop = FALSE]
-  } else {
-    to_be_removed <- character(0)
-  }
-
-  list(build = to_be_built, remove = to_be_removed)
 }
 
 get_figs <- function(path, slug) {

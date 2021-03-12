@@ -6,7 +6,7 @@
 \usage{
 build_episode_md(
   path,
-  hash,
+  hash = NULL,
   outdir = path_built(path),
   workdir = path_built(path),
   env = new.env(),
@@ -16,7 +16,8 @@ build_episode_md(
 \arguments{
 \item{path}{path to the RMarkdown file}
 
-\item{hash}{hash to prepend to the output}
+\item{hash}{hash to prepend to the output. This parameter is deprecated and
+is effectively useless.}
 
 \item{outdir}{the directory to write to}
 
@@ -32,7 +33,8 @@ the path to the output, invisibly
 }
 \description{
 This uses \code{\link[knitr:knit]{knitr::knit()}} with custom options set for the Carpentries
-template and prepends a hash and the source file to the yaml header
+template. It runs in a separate process to avoid issues with user-specific
+options bleeding in.
 }
 \note{
 this function is for internal use, but exported for those who know what
@@ -49,8 +51,7 @@ txt <- c(
  "This is coming from `r R.version.string`"
 )
 writeLines(txt, fun_file)
-hash <- tools::md5sum(fun_file)
-res <- build_episode_md(fun_file, hash, outdir = fun_dir, workdir = fun_dir)
+res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
 }
 \seealso{
 \code{\link[=render_html]{render_html()}}, \code{\link[=build_episode_html]{build_episode_html()}}

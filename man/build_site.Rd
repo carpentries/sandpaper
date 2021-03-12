@@ -21,7 +21,7 @@ directory)}
 \item{preview}{if \code{TRUE}, the rendered website is opened in a new window}
 
 \item{override}{options to override (e.g. building to alternative paths).
-This is used internally.}
+This is used internally and will likely be changed.}
 
 \item{slug}{The slug for the file to preview in RStudio.
 If this is \code{NULL}, the preview will default to the home page. If you have

@@ -33,7 +33,9 @@ is not present, then this option allows you to specify that file.}
 \code{TRUE} if the page was successful, \code{FALSE} otherwise.
 }
 \description{
-Build a single episode html file
+This is a Carpentries-specific wrapper around \code{\link[pkgdown:render_page]{pkgdown::render_page()}} with
+templates from {varnish}. This function is largely for internal use and will
+likely change.
 }
 \note{
 this function is for internal use, but exported for those who know what
@@ -56,7 +58,7 @@ file.create(fun_file)
 writeLines(txt, fun_file)
 hash <- tools::md5sum(fun_file)
 res <- build_episode_md(fun_file, hash)
-build_episode_html(res, 
+build_episode_html(res, path_src = fun_file, 
   pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
 )
 }

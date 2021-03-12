@@ -1,10 +1,9 @@
 #' Build your lesson site
 #'
-#' In the spirit of {hugodown}, This function will build plain markdown files
-#' as a minimal R package in the `site/` folder of your {sandpaper} lesson
-#' repository tagged with the hash of your file to ensure that only files that
-#' have changed are rebuilt. 
-#' 
+#' This function orchestrates rendering generated lesson content and applying
+#' the theme for the HTML site. 
+#'
+#'
 #' @param path the path to your repository (defaults to your current working
 #' directory)
 #' @param rebuild if `TRUE`, everything will be built from scratch as if there
@@ -13,7 +12,7 @@
 #' @param quiet when `TRUE`, output is supressed
 #' @param preview if `TRUE`, the rendered website is opened in a new window
 #' @param override options to override (e.g. building to alternative paths). 
-#'   This is used internally. 
+#'   This is used internally and will likely be changed. 
 #' 
 #' @return `TRUE` if it was successful, a character vector of issues if it was
 #'   unsuccessful.

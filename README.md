@@ -135,9 +135,6 @@ intensive, this will default to updating only files that were changed.
     the site. The `index.html` file will redirect to the `current/`
     directory, which contains the up-to-date site.
 
-> I believe that management of these can be done via `git worktree`, but
-> I still need to dig into the mechanics of pkgdown further.
-
 #### Scheduled builds
 
   - `gh-pages` website: Because we are designing the lessons to have

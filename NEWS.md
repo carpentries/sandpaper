@@ -1,3 +1,24 @@
+# sandpaper 0.0.0.9014
+
+BUG FIX
+-------
+
+* Episode order is retained in the HTML navigation (#85)
+* index.md is recorded in the site/build/ directory, and thus in the md-pages
+  branch on deployment.
+
+ENGINE UPDATE
+-------------
+
+The caching mechanism is now similar to that of {blogdown} where a database of
+source files and their checksum hashes is kept and only the updated files are
+built. This provides two advantages, the first is that we no longer have to peek
+at the top of the files to check if they need to be updated and the second is
+that we can keep the files in the right order (see #85)
+
+Importantly, the workflow itself should not be affected, but there will be
+changes in what gets displayed on the github diff of the md-outputs branch.
+
 # sandpaper 0.0.0.9013
 
 NEW FEATURES

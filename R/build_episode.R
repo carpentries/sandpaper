@@ -1,5 +1,9 @@
 #' Build a single episode html file
 #'
+#' This is a Carpentries-specific wrapper around [pkgdown::render_page()] with
+#' templates from {varnish}. This function is largely for internal use and will
+#' likely change.
+#'
 #' @param path_md the path to the episode markdown (not RMarkdown) file
 #'   (usually via [build_episode_md()]).
 #' @param path_src the default is `NULL` indicating that the source file should
@@ -33,7 +37,7 @@
 #' writeLines(txt, fun_file)
 #' hash <- tools::md5sum(fun_file)
 #' res <- build_episode_md(fun_file, hash)
-#' build_episode_html(res, 
+#' build_episode_html(res, path_src = fun_file, 
 #'   pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
 #' )
 build_episode_html <- function(path_md, path_src = NULL, 
@@ -66,10 +70,12 @@ build_episode_html <- function(path_md, path_src = NULL,
 #' Build an episode to markdown
 #'
 #' This uses [knitr::knit()] with custom options set for the Carpentries
-#' template and prepends a hash and the source file to the yaml header
+#' template. It runs in a separate process to avoid issues with user-specific
+#' options bleeding in. 
 #'
 #' @param path path to the RMarkdown file
-#' @param hash hash to prepend to the output
+#' @param hash hash to prepend to the output. This parameter is deprecated and
+#'   is effectively useless.
 #' @param outdir the directory to write to
 #' @param workdir the directory where the episode should be rendered
 #' @param env a blank environment
@@ -92,9 +98,8 @@ build_episode_html <- function(path_md, path_src = NULL,
 #'  "This is coming from `r R.version.string`"
 #' )
 #' writeLines(txt, fun_file)
-#' hash <- tools::md5sum(fun_file)
-#' res <- build_episode_md(fun_file, hash, outdir = fun_dir, workdir = fun_dir)
-build_episode_md <- function(path, hash, outdir = path_built(path), 
+#' res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
+build_episode_md <- function(path, hash = NULL, outdir = path_built(path), 
                              workdir = path_built(path), 
                              env = new.env(), quiet = FALSE) {
 
@@ -117,6 +122,11 @@ build_episode_md <- function(path, hash, outdir = path_built(path),
   #
   # Note that this process can NOT use any internal functions
   callr::r(function(path, hash, env, outpath, workdir, quiet) {
+    # Shortcut if the source is a markdown file
+    if (fs::path_ext(path) == "md") {
+      fs::file_copy(path, outpath, overwrite = TRUE)
+      return(NULL)
+    }
     # Set knitr options for output ---------------------------
     oknit <- knitr::opts_chunk$get()
     on.exit(knitr::opts_chunk$restore(oknit), add = TRUE)
@@ -146,19 +156,8 @@ build_episode_md <- function(path, hash, outdir = path_built(path),
       encoding = "UTF-8"
     )
 
-    # append md5 hash to top of file ------------------------
-    sandpaper_yaml <- yaml::as.yaml(list(
-      "sandpaper-digest" = hash,
-      "sandpaper-source" = path
-    ))
-    output <- sub(
-      "^---",
-      paste("---", sandpaper_yaml, sep = "\n"),
-      res
-    )
-
     # write file to disk ------------------------------------
-    writeLines(output, outpath)
+    writeLines(res, outpath)
   }, args = args, show = !quiet)
 
   invisible(outpath)
