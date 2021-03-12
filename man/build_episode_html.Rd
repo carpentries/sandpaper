@@ -33,7 +33,9 @@ is not present, then this option allows you to specify that file.}
 \code{TRUE} if the page was successful, \code{FALSE} otherwise.
 }
 \description{
-Build a single episode html file
+This is a Carpentries-specific wrapper around \code{\link[pkgdown:render_page]{pkgdown::render_page()}} with
+templates from {varnish}. This function is largely for internal use and will
+likely change.
 }
 \note{
 this function is for internal use, but exported for those who know what

@@ -25,17 +25,15 @@ haven't been built before.}
 \item{preview}{if \code{TRUE}, the rendered website is opened in a new window}
 
 \item{override}{options to override (e.g. building to alternative paths).
-This is used internally.}
+This is used internally and will likely be changed.}
 }
 \value{
 \code{TRUE} if it was successful, a character vector of issues if it was
 unsuccessful.
 }
 \description{
-In the spirit of {hugodown}, This function will build plain markdown files
-as a minimal R package in the \verb{site/} folder of your {sandpaper} lesson
-repository tagged with the hash of your file to ensure that only files that
-have changed are rebuilt.
+This function orchestrates rendering generated lesson content and applying
+the theme for the HTML site.
 }
 \examples{
 
