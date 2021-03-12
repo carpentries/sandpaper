@@ -31,7 +31,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Install libgit2
-        run: brew install libgit2
+        run: brew install libgit2 harfbuzz fribidi
 
       - name: Install dependencies
         run: |
