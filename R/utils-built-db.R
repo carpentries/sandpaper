@@ -6,8 +6,10 @@
 #' @keywords internal
 #' @seealso [build_status()], [get_built_db()]
 get_hash <- function(path, db = fs::path(path_built(path), "md5sum.txt")) {
+  opt = options(stringsAsFactors = FALSE)
+  on.exit(options(opt), add = TRUE)
   db <- read.table(db, header = TRUE)
-  db$checksum[db$built %in% path]
+  db$checksum[fs::path_file(db$built) %in% fs::path_file(path)]
 }
 
 #' Get the database of built files and their hashes
@@ -75,7 +77,8 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   # also remove the files that no longer exist in the sources list.
   one <- one[match(sources, one$file), , drop = FALSE]
   # exclude files if checksums are not changed
-  files = setdiff(sources, one[['file']][one[[newsum]] == one[[oldsum]]])
+  unchanged <- one[[newsum]] == one[[oldsum]]
+  files = setdiff(sources, one[['file']][unchanged])
   if (write) 
     write_build_db(one[, 1:3], db)
   list(
