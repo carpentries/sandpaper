@@ -1,11 +1,11 @@
+tmpdir <- fs::file_temp()
+fs::dir_create(tmpdir)
+tmp    <- fs::path(tmpdir, "lesson-example")
+
+withr::defer(fs::dir_delete(tmp))
+
 test_that("the formatted syllabus renders markdown", {
 
-  
-  tmpdir <- fs::file_temp()
-  fs::dir_create(tmpdir)
-  tmp    <- fs::path(tmpdir, "lesson-example")
-
-  withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp, open = FALSE, rstudio = FALSE)
   expect_warning(s <- get_episodes(tmp), "set_episodes")
@@ -17,6 +17,6 @@ test_that("the formatted syllabus renders markdown", {
   expect_type(fmt, "character")
   expect_length(fmt, 1)
   expect_true(grepl("<code>{sandpaper}</code>", fmt, fixed  = TRUE))
-  
 
 })
+
