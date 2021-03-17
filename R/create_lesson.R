@@ -57,6 +57,9 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
     gi <- readLines(fs::path(path, ".gitignore"))
     writeLines(gi[-length(gi)], fs::path(path, ".gitignore"))
   }
+  suppressMessages({
+    usethis::with_project(path, fetch_github_workflows())
+  })
 
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)

@@ -5,6 +5,16 @@
 
 as_html <- function(i) fs::path_ext_set(fs::path_file(i), "html")
 
+is_online <- function() {
+  tmp <- tempfile()
+  on.exit(if (file.exists(tmp))  file.remove(tmp))
+  res <- tryCatch(
+    suppressWarnings(utils::download.file("https://example.com/", tmp, quiet = TRUE)),
+    error = function(e) e
+  )
+  return(!inherits(res, "error"))
+}
+
 # Parse a markdown title to html
 #
 # Note that commonmark wraps the content in <p> tags, so the substring gets rid
