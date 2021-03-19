@@ -1,3 +1,13 @@
+# sandpaper 0.0.0.9015
+
+NEW FEATURES
+------------
+
+* `fetch_github_workflows()` will download and update the GitHub workflows from
+  the Carpentries actions repository. 
+* `update_varnish()` will download and update the {varnish} styling package to
+  your local repository. 
+
 # sandpaper 0.0.0.9014
 
 BUG FIX

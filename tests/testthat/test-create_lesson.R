@@ -94,6 +94,7 @@ test_that("lessons can be created in empty directories", {
 
 test_that("lessons cannot be created in directories that are occupied", {
 
+  skip("needs evaluation, but not critical infrastructure tool")
   tmpdir <- fs::file_temp()
   fs::dir_create(tmpdir)
   tmp    <- fs::path(tmpdir, "lesson-example")
