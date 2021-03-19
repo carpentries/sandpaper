@@ -11,7 +11,7 @@ test_that("github workflows can be fetched", {
   expect_equal(ls_file(tmp), ".git")
   
   suppressMessages({
-    usethis::with_project(tmp, fetch_github_workflows("sandpaper-main.yaml"))
+    fetch_github_workflows(tmp, "sandpaper-main.yaml")
   })
 
   expect_equal(ls_file(tmp), c(".Rbuildignore", ".git", ".github"))
@@ -22,10 +22,28 @@ test_that("github workflows can be fetched", {
 
 })
 
+test_that("github workflows can be updated", {
+
+  skip_if_offline()
+
+  sm <- fs::path(tmp, ".github", "workflows", "sandpaper-main.yaml")
+  l <- readLines(sm)
+  writeLines(c("# HELLO!!!!", l), sm)
+  expect_equal(readLines(sm, n = 1), "# HELLO!!!!")
+  suppressMessages({
+    fetch_github_workflows(tmp, "sandpaper-main.yaml")
+  })
+  expect_failure(expect_equal(readLines(sm, n = 1), "# HELLO!!!!"))
+  
+
+})
+
 test_that("github workflows can be added", {
 
+  skip_if_offline()
+
   suppressMessages({
-    usethis::with_project(tmp, fetch_github_workflows())
+    fetch_github_workflows(tmp)
   })
 
   files_we_need <- eval(formals(fetch_github_workflows)$files)

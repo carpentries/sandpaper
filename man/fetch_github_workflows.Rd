@@ -5,15 +5,22 @@
 \title{Fetch GitHub Workflows}
 \usage{
 fetch_github_workflows(
+  path = ".",
   files = c("comment-pr.yaml", "pr-close.yaml", "pull-request.yaml",
     "remove-branch.yaml", "sandpaper-main.yaml"),
-  base = "https://raw.githubusercontent.com/zkamvar/actions/main/workflows/"
+  base = "https://raw.githubusercontent.com/zkamvar/actions/main/workflows/",
+  overwrite = TRUE
 )
 }
 \arguments{
-\item{files}{a character vector of file names}
+\item{path}{path to the current lesson.}
+
+\item{files}{a character vector of file names. Defaults to the workflows
+needed for sandpaper to work on github.}
 
 \item{base}{the base URL for the workflows}
+
+\item{overwrite}{if \code{TRUE} (default), the file(s) will be overwritten.}
 }
 \value{
 the output of \code{\link[usethis:use_github_action]{usethis::use_github_action()}}
