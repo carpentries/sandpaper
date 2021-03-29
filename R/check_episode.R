@@ -9,8 +9,9 @@ check_episode <- function(path) {
   checklist <- list(
     validate_that(assertthat::has_extension(path, "Rmd")),
     validate_that(check_exists(fs::path_dir(path), episode_name)),
-    validate_that(assertthat::is.readable(path)),
-    validate_that(check_episode_name(path))
+    validate_that(assertthat::is.readable(path))
+    # Removed 2021-03-29 because we don't enforce numbered names 
+    # validate_that(check_episode_name(path))
 
   )
 
