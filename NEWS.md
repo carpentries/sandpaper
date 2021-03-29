@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9016
+
+BUG FIX
+-------
+
+ * `create_episode()` with `make_prefix = FALSE` will no longer create episodes
+   prefixed with `-` (see #93).
+
 # sandpaper 0.0.0.9015
 
 NEW FEATURES
