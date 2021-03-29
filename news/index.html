@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9015</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -114,6 +114,18 @@
       <small>Source: <a href='https://github.com/carpentries/sandpaper/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="sandpaper-0009016" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9016">
+<a href="#sandpaper-0009016" class="anchor"></a>sandpaper 0.0.0.9016</h1>
+<div id="bug-fix" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fix" class="anchor"></a>BUG FIX</h2>
+<ul>
+<li>
+<code><a href="../reference/create_episode.html">create_episode()</a></code> with <code>make_prefix = FALSE</code> will no longer create episodes prefixed with <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> (see <a href='https://github.com/carpentries/sandpaper/issues/93'>#93</a>).</li>
+</ul>
+</div>
+</div>
     <div id="sandpaper-0009015" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9015">
 <a href="#sandpaper-0009015" class="anchor"></a>sandpaper 0.0.0.9015</h1>
@@ -131,9 +143,9 @@
     <div id="sandpaper-0009014" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9014">
 <a href="#sandpaper-0009014" class="anchor"></a>sandpaper 0.0.0.9014</h1>
-<div id="bug-fix" class="section level2">
+<div id="bug-fix-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-1" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>Episode order is retained in the HTML navigation (<a href='https://github.com/carpentries/sandpaper/issues/85'>#85</a>)</li>
 <li>index.md is recorded in the site/build/ directory, and thus in the md-pages branch on deployment.</li>
@@ -179,9 +191,9 @@
     <div id="sandpaper-0009011" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9011">
 <a href="#sandpaper-0009011" class="anchor"></a>sandpaper 0.0.0.9011</h1>
-<div id="bug-fix-1" class="section level2">
+<div id="bug-fix-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-1" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-2" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>Bare links and text emoji (e.g. <span class="emoji" data-emoji="wink">😉</span>) are now rendered (fix <a href='https://github.com/carpentries/sandpaper/issues/67'>#67</a>).</li>
 <li>Objectives and Questions headings will now no longer be rendered (fix <a href='https://github.com/carpentries/sandpaper/issues/64'>#64</a>).</li>
@@ -191,9 +203,9 @@
     <div id="sandpaper-0009010" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9010">
 <a href="#sandpaper-0009010" class="anchor"></a>sandpaper 0.0.0.9010</h1>
-<div id="bug-fix-2" class="section level2">
+<div id="bug-fix-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-2" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-3" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>If <code>index.md</code> exists at the top level, it will be used instead of <code>README.md</code> for the lesson index page (fix <a href='https://github.com/carpentries/sandpaper/issues/56'>#56</a>).</li>
 </ul>
@@ -202,9 +214,9 @@
     <div id="sandpaper-0009009" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9009">
 <a href="#sandpaper-0009009" class="anchor"></a>sandpaper 0.0.0.9009</h1>
-<div id="bug-fix-3" class="section level2">
+<div id="bug-fix-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-3" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-4" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>The lua filter responsible for creating the Objectives summary block at the beginning of episodes now uses native pandoc divs instead of HTML block shims. This ensures that the content is not corrupted by pandoc’s section divs extension. This addresses issue <a href='https://github.com/carpentries/sandpaper/issues/64'>#64</a></li>
 <li>All aside elements will be forced to have level 3 headers (this fixes an issue with pandocs –section-divs where it couldn’t understand when an HTML block contained only the start of an aside tag and decided to end the section right after it.</li>
@@ -217,9 +229,9 @@
     <div id="sandpaper-0009008" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9008">
 <a href="#sandpaper-0009008" class="anchor"></a>sandpaper 0.0.0.9008</h1>
-<div id="bug-fix-4" class="section level2">
+<div id="bug-fix-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-4" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-5" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>files that were removed from the source are now also removed in the site/built directory. This fixes issue <a href='https://github.com/carpentries/sandpaper/issues/47'>#47</a></li>
 </ul>
