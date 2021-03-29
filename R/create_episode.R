@@ -18,9 +18,9 @@ create_episode <- function(title, make_prefix = TRUE, add = FALSE, path = ".") {
     episodes <- fs::path_file(fs::dir_ls(path_episodes(path), regexp = "*.[Rr]?md"))
     suppressWarnings(prefix <- as.integer(sub("^([0-9]{2}).+$", "\\1", episodes)))
     no_prefix <- length(prefix) == 0 || all(is.na(prefix))
-    prefix <- if (no_prefix) "01" else sprintf("%02d", max(prefix, na.rm = TRUE) + 1L)
+    prefix <- if (no_prefix) "01-" else sprintf("%02d-", max(prefix, na.rm = TRUE) + 1L)
   } 
-  ename <- paste0(prefix, "-", title, ".Rmd")
+  ename <- paste0(prefix, title, ".Rmd")
   copy_template("episode", fs::path(path, "episodes"), ename)
   if (add) {
     suppressWarnings(sched <- get_episodes(path))
