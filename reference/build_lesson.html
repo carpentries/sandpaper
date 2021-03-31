@@ -73,7 +73,7 @@ the theme for the HTML site." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9017</span>
       </span>
     </div>
 
@@ -168,10 +168,11 @@ unsuccessful.</p>
     <pre class="examples"><div class='input'>
 <span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='fu'><a href='create_lesson.html'>create_lesson</a></span><span class='op'>(</span><span class='va'>tmp</span>, open <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpqGuDNx/filee6028065cda"</div><div class='input'><span class='fu'><a href='create_episode.html'>create_episode</a></span><span class='op'>(</span><span class='st'>"first-script"</span>, path <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpUUdWXg/filea3c44a6fe11"</div><div class='input'><span class='fu'><a href='create_episode.html'>create_episode</a></span><span class='op'>(</span><span class='st'>"first-script"</span>, path <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
 <span class='fu'><a href='check_episode.html'>check_lesson</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
 <span class='fu'>build_lesson</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error: callr subprocess failed: pandoc document conversion failed with error 83</span></div></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error: {sandpaper} requires pandoc version 2.11 or higher </span>
+#&gt; <span class='error'>You have version 2.7.3 in '/usr/local/bin'</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
