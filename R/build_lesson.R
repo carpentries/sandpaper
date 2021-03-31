@@ -27,7 +27,8 @@
 #' build_lesson(tmp)
 build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), preview = TRUE, override = list()) {
 
-  # step 0: build_lesson defaults to a local build
+  # step 0: check pandoc installation; build_lesson defaults to a local build
+  check_pandoc()
   slug <- if (fs::is_file(path)) get_slug(path) else NULL
   path <- set_source_path(path)
   on.exit(reset_build_paths())
