@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9017
+
+ENGINE UPDATE
+-------------
+
+* The version of pandoc will be explicitly checked to ensure that the version
+  used is at least 2.10.
+
 # sandpaper 0.0.0.9016
 
 BUG FIX
