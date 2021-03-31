@@ -4,7 +4,7 @@ ENGINE UPDATE
 -------------
 
 * The version of pandoc will be explicitly checked to ensure that the version
-  used is at least 2.10.
+  used is at least 2.11.
 
 # sandpaper 0.0.0.9016
 
