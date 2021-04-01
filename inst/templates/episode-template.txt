@@ -4,7 +4,20 @@ teaching: 10
 exercises: 2
 ---
 
-# Introduction
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using RMarkdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
 
 This is the new Carpentries template. It is written in [RMarkdown][r-markdown],
 which is a variant of Markdown that allows you to render code inside the
@@ -14,38 +27,14 @@ example](https://carpentries.github.io/lesson-example) for full documentation.
 What you need to know is that there are three block quotes required for a valid
 Carpentries lesson template:
 
- 1. `questions` These are displayed at the beginning of the episode to prime the
+ 1. `questions` are displayed at the beginning of the episode to prime the
     learner for the content.
- 2. `objectives` These are the learning objectives for an episode
- 3. `keypoints` These are displayed at the end of the episode to reinforce the
+ 2. `objectives` are the learning objectives for an episode displayed with
+    the questions.
+ 3. `keypoints` are displayed at the end of the episode to reinforce the
     objectives.
 
-No matter where these blocks appear, they will always be placed at the right
-part of the html page.
-
-
-:::::::::::::::: questions :::::::::::::::::::::
-
-- How do you write a lesson using RMarkdown and `{sandpaper}`?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::: objectives ::::::::::::::::::::
-
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::: keypoints :::::::::::::::::::::
-
-- Use `.Rmd` files for lessons even if you don't need to generate any code
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::: challenge ::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 1: Can you do it?
 
@@ -75,7 +64,7 @@ You can add a line with at least three colons and a `solution` tag.
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-# Figures
+## Figures
 
 You can also include figures:
 
@@ -89,7 +78,7 @@ pie(
 ```
 
 
-# Math
+## Math
 
 One of our episodes contains $\LaTeX$ equations when describing how to create
 dynamic reports with {knitr}, so we now use mathjax to describe this:
@@ -97,6 +86,14 @@ dynamic reports with {knitr}, so we now use mathjax to describe this:
 `$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
 
 Cool, right?
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.Rmd` files for lessons even if you don't need to generate any code
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 <!-- Please do not delete anything below this line -->
 
