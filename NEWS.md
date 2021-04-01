@@ -1,3 +1,7 @@
+# sandpaper 0.0.0.9018
+
+* The episode template has been rearranged slightly and given level 2 headers.
+
 # sandpaper 0.0.0.9017
 
 ENGINE UPDATE
