@@ -243,21 +243,3 @@ gitignore_items <- function() {
 }
 #nocov end
 
-check_pandoc <- function(quiet = TRUE) {
-  pan <- rmarkdown::find_pandoc()
-  if (rmarkdown::pandoc_available("2.11")) {
-    if (!quiet) {
-      message("pandoc found")
-      message("version : ", pan$version)
-      message("path    : ", shQuote(pan$dir))
-    }
-  } else {
-    msg <- "{sandpaper} requires pandoc version 2.11 or higher"
-    if (pan$version == 0) {
-      msg <- paste(msg, "\nplease use RStudio or visit <https://pandoc.org/installing.html> to install")
-    } else {
-      msg <- paste(msg, "\nYou have version", pan$version, "in", shQuote(pan$dir))
-    }
-    stop(msg, call. = FALSE)
-  }
-}
