@@ -1,3 +1,9 @@
+# sandpaper 0.0.0.9019
+
+* The required version of {pegboard} has been bumped to 0.0.0.9012, which gives
+  better error messages and allows us to read in {sandpaper} lessons with the
+  Lesson object. 
+
 # sandpaper 0.0.0.9018
 
 * The episode template has been rearranged slightly and given level 2 headers.
