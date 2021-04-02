@@ -11,7 +11,7 @@ Description: Boilerplate directory structure, build tools, and hosting tools for
 License: MIT + file LICENSE
 Imports: 
     pkgdown (>= 1.6.0),
-    pegboard (>= 0.0.0.9010),
+    pegboard (>= 0.0.0.9012),
     commonmark,
     xml2,
     fs,
