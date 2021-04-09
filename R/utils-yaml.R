@@ -43,6 +43,78 @@ write_pkgdown_yaml <- function(yaml, path) {
   yaml_writer(yaml, path_site_yaml(path))
 }
 
+show_changed_yaml <- function(sched, order, yaml, what = "episodes") {
+
+  if (requireNamespace("cli", quietly = TRUE)) {
+    # display for the user to distinguish what was added and what was taken 
+    removed <- sched %nin% order
+    added   <- order %nin% sched
+    order[added] <- cli::style_bold(cli::col_green(order[added]))
+    cli::cat_line(paste0(what, ":"))
+    cli::cat_bullet(order, bullet = "line")
+    if (any(removed)) {
+      cli::cli_rule(paste("Removed", what))
+      cli::cat_bullet(sched[removed], bullet = "cross", bullet_col = "red")
+    }
+  } else {
+    cat(yaml::as.yaml(yaml)[[what]])
+  }
+}
+
+#' Create a valid, opinionated yaml list for insertion into a whisker template
+#' 
+#' @param thing a vector or list
+#' @return a character vector
+#'
+#' We want to manipulate our config file from the command line AND preserve 
+#' comments. Unfortunately, the yaml C library does not parse comments and it
+#' makes things difficult to handle. At the moment we have a hack where we use
+#' whisker templates for these, but the drawback for whisker is that it does not
+#' know how to handle lists, so it concatenates them with commas:
+#'
+#' ```{r}
+#' x <- c("a", "b", "c")
+#' hx <- list(hello = x)
+#' cat(yaml::as.yaml(hx)) # representation in yaml
+#' cat(whisker::whisker.render("hello: {{hello}}", hx)) # messed up whisker
+#' ```
+#'
+#' Moreover, we want to indicate that a yaml list is not a single key/value pair
+#' so we want to enforce that we have 
+#'
+#' ```
+#' key:
+#' - value1
+#' ```
+#'
+#' and not
+#'
+#' ```
+#' key: value1
+#' ```
+#'
+#' This converts the elements to a yaml list before it enters whisker and makes
+#' sure that the values are clearly lists.
+#'
+#' ```{r}
+#' hx[["hello"]] <- sandpaper:::yaml_list(hx[["hello"]])
+#' cat(whisker::whisker.render("hello: {{hello}}", hx)) # good whisker
+#' ```
+#'
+#' @keywords internal
+#' @note there IS a better solution than this hack, but for now, we will
+#' keep what we are doing because it's okay for our purposes: 
+#'   https://github.com/rstudio/blogdown/issues/560
+yaml_list <- function(thing) {
+  # If the yaml item is empty, then return a blank line.
+  if (length(thing) == 0) return("")
+  # If a thing is not a list, then make it a list
+  thing <- if (length(thing) == 1L && !is.list(thing)) list(thing) else thing
+  # If it's named, there's no need to create padding.
+  pad <- if (is.list(thing) && length(names(thing)) == 1L) "" else "\n"
+  paste0(pad, yaml::as.yaml(thing))
+}
+
 get_information_header <- function(yaml) {
   last_pos   <- gregexpr("- information", yaml, fixed = TRUE)[[1]][[2]]
   substring(yaml, 1, last_pos + nchar("- information"))

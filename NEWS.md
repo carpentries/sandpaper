@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9020
+
+BUG FIX
+-------
+
+* the `set_*()` functions no longer mess up yaml lists in `config.yaml`. This
+  fixes #53. 
+
 # sandpaper 0.0.0.9019
 
 * The required version of {pegboard} has been bumped to 0.0.0.9012, which gives
