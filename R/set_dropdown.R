@@ -29,8 +29,12 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
   yaml  <- get_config(path)
   sched <- yaml[[folder]] 
   sched <- if (is.null(sched) && folder == "episodes") yaml[["schedule"]] else sched
-  yaml[[folder]] <- yaml_list(fs::path_file(order))
+  yaml[[folder]] <- fs::path_file(order)
   if (write) {
+    # Avoid whisker from interpreting the list incorrectly.
+    for (i in c("episodes", "learners", "instructors", "profiles")) {
+      yaml[[i]] <- yaml_list(yaml[[i]])
+    }
     copy_template("config", path, "config.yaml", values = yaml)
   } else {
     show_changed_yaml(sched, order, yaml, folder)

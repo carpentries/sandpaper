@@ -86,6 +86,15 @@ test_that("the schedule can be rearranged", {
 
 })
 
+test_that("yaml lists are preserved with other schedule updates", {
+  
+  # regression test for https://github.com/carpentries/sandpaper/issues/53
+  expect_equal(get_episodes(tmp), c("03-second-episode.Rmd", "01-introduction.Rmd"))
+  set_learners(tmp, order = "setup.md", write = TRUE)
+  expect_equal(get_episodes(tmp), c("03-second-episode.Rmd", "01-introduction.Rmd"))
+
+})
+
 test_that("the schedule can be truncated", {
 
   set_episodes(tmp, rev(get_episodes(tmp))[1], write = TRUE)
