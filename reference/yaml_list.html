@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a carpentries lesson — create_lesson • sandpaper</title>
+<title>Create a valid, opinionated yaml list for insertion into a whisker template — yaml_list • sandpaper</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a carpentries lesson — create_lesson" />
-<meta property="og:description" content="This will create a boilerplate directory structure for a Carpentries lesson
-and initialize a git repository." />
+<meta property="og:title" content="Create a valid, opinionated yaml list for insertion into a whisker template — yaml_list" />
+<meta property="og:description" content="Create a valid, opinionated yaml list for insertion into a whisker template" />
 
 
 
@@ -112,54 +111,67 @@ and initialize a git repository." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a carpentries lesson</h1>
-    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/create_lesson.R'><code>R/create_lesson.R</code></a></small>
-    <div class="hidden name"><code>create_lesson.Rd</code></div>
+    <h1>Create a valid, opinionated yaml list for insertion into a whisker template</h1>
+    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/utils-yaml.R'><code>R/utils-yaml.R</code></a></small>
+    <div class="hidden name"><code>yaml_list.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This will create a boilerplate directory structure for a Carpentries lesson
-and initialize a git repository.</p>
+    <p>Create a valid, opinionated yaml list for insertion into a whisker template</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_lesson</span><span class='op'>(</span>
-  <span class='va'>path</span>,
-  name <span class='op'>=</span> <span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='http://fs.r-lib.org/reference/path_file.html'>path_file</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>,
-  rstudio <span class='op'>=</span> <span class='fu'>rstudioapi</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rstudioapi/man/isAvailable.html'>isAvailable</a></span><span class='op'>(</span><span class='op'>)</span>,
-  open <span class='op'>=</span> <span class='fu'>rlang</span><span class='fu'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/is_interactive.html'>is_interactive</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>yaml_list</span><span class='op'>(</span><span class='va'>thing</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>the path to the new lesson folder</p></td>
-    </tr>
-    <tr>
-      <th>name</th>
-      <td><p>the name of the lesson. If not provided, the folder name will be used.</p></td>
-    </tr>
-    <tr>
-      <th>rstudio</th>
-      <td><p>create an RStudio project (defaults to if RStudio exits)</p></td>
-    </tr>
-    <tr>
-      <th>open</th>
-      <td><p>if interactive, the lesson will open in a new editor window.</p></td>
+      <th>thing</th>
+      <td><p>a vector or list</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>the path to the new lesson</p>
+    <p>a character vector</p>
+<p>We want to manipulate our config file from the command line AND preserve
+comments. Unfortunately, the yaml C library does not parse comments and it
+makes things difficult to handle. At the moment we have a hack where we use
+whisker templates for these, but the drawback for whisker is that it does not
+know how to handle lists, so it concatenates them with commas:<div class="r"></p><pre><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span>
+<span class='va'>hx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>hello <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>yaml</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/yaml/man/as.yaml.html'>as.yaml</a></span><span class='op'>(</span><span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># representation in yaml</span>
+</pre><p></div></p><pre><span class='co'>## hello:</span>
+<span class='co'>## - a</span>
+<span class='co'>## - b</span>
+<span class='co'>## - c</span>
+</pre><p><div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>whisker</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/whisker/man/whisker.render.html'>whisker.render</a></span><span class='op'>(</span><span class='st'>"hello: {{hello}}"</span>, <span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># messed up whisker</span>
+</pre><p></div></p><pre><span class='co'>## hello: a,b,c</span>
+</pre>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/on.exit.html'>on.exit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>lsn</span> <span class='op'>&lt;-</span> <span class='fu'>create_lesson</span><span class='op'>(</span><span class='va'>tmp</span>, name <span class='op'>=</span> <span class='st'>"This Lesson"</span><span class='op'>)</span>
-<span class='va'>lsn</span>
-</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmplorTZW/fileb04598d2506"</div></pre>
+<p>Moreover, we want to indicate that a yaml list is not a single key/value pair
+so we want to enforce that we have</p><pre><span class='va'>key</span><span class='op'>:</span>
+<span class='op'>-</span> <span class='va'>value1</span>
+</pre>
+
+<p>and not</p><pre><span class='va'>key</span><span class='op'>:</span> <span class='va'>value1</span>
+</pre>
+
+<p>This converts the elements to a yaml list before it enters whisker and makes
+sure that the values are clearly lists.<div class="r"></p><pre><span class='va'>hx</span><span class='op'>[[</span><span class='st'>"hello"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'>sandpaper</span><span class='fu'>:::</span><span class='fu'>yaml_list</span><span class='op'>(</span><span class='va'>hx</span><span class='op'>[[</span><span class='st'>"hello"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>whisker</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/whisker/man/whisker.render.html'>whisker.render</a></span><span class='op'>(</span><span class='st'>"hello: {{hello}}"</span>, <span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># good whisker</span>
+</pre><p></div></p><pre><span class='co'>## hello: </span>
+<span class='co'>## - a</span>
+<span class='co'>## - b</span>
+<span class='co'>## - c</span>
+</pre>
+
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>there IS a better solution than this hack, but for now, we will
+keep what we are doing because it's okay for our purposes:
+https://github.com/rstudio/blogdown/issues/560</p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
