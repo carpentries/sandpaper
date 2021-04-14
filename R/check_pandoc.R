@@ -23,6 +23,8 @@ check_pandoc <- function(quiet = TRUE, pv = "2.11", rv = "1.4") {
     msg <- paste("{sandpaper} requires pandoc version", pv, "or higher.")
     if (pan$version > 0) {
       pan_msg <- paste("You have pandoc version", pan$version, "in", shQuote(pan$dir))
+    } else {
+      pan_msg <- "You do not have pandoc installed on your PATH"
     }
     if (rstudioapi::isAvailable()) {
       rs_ver <- rstudioapi::getVersion()
