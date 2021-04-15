@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9021
+
+BUG FIX
+-------
+
+* the template will be initialized with ALL folders with placeholders inside
+  of the `instructor/` and `profile/` menus. This fixes #103.
+
 # sandpaper 0.0.0.9020
 
 BUG FIX

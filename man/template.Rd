@@ -11,6 +11,7 @@
 \alias{template_contributing}
 \alias{template_setup}
 \alias{template_pkgdown}
+\alias{template_placeholder}
 \title{Template files}
 \usage{
 template_gitignore()
@@ -32,6 +33,8 @@ template_contributing()
 template_setup()
 
 template_pkgdown()
+
+template_placeholder()
 }
 \value{
 a character string with the path to the template within the
