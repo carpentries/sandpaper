@@ -70,6 +70,7 @@ template_setup <- generate_template_function("setup")
 #' @export
 template_pkgdown <- generate_template_function("pkgdown-yaml")
 
-
-
+#' @rdname template
+#' @export
+template_placeholder <- generate_template_function("placeholder")
 

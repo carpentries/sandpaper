@@ -57,6 +57,8 @@ test_that("Artifacts are accounted for", {
     "fig",
     "files",
     "index.md",
+    "instructor-notes.md",
+    "learner-profiles.md",
     "md5sum.txt",
     "pyramid.md"
   )
@@ -71,6 +73,8 @@ test_that("Artifacts are accounted for", {
     # Generated figures
     paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png"),
     "index.md",
+    "instructor-notes.md",
+    "learner-profiles.md",
     "md5sum.txt",
     "pyramid.md"
   )

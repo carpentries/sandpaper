@@ -8,6 +8,7 @@ res <- create_lesson(tmp)
 create_episode("outroduction", path = res)
 outro <- fs::path(res, "episodes", "02-outroduction.Rmd")
 fs::file_move(outro, fs::path_ext_set(outro, "md"))
+
 # NOTE: make sure that filenames do not clash at the moment... they will. 
 lt <- fs::file_create(fs::path(tmp, "learners", c("learner-test.md")))
 it <- fs::file_create(fs::path(tmp, "instructors", c("test1.md", "test2.md")))
@@ -62,7 +63,7 @@ test_that("get_learners() works as expected", {
 test_that("get_instructors() works as expected", {
 
   expected <- basename(as.character(fs::dir_ls(fs::path(tmp, "instructors"))))
-  expect_equal(basename(it), expected)
+  expect_equal(c("instructor-notes.md", basename(it)), expected)
 
   expect_silent(i <- get_instructors(res))
   expect_equal(i, expected)
@@ -78,7 +79,7 @@ test_that("get_instructors() works as expected", {
 test_that("get_profiles() works as expected", {
 
   expected <- basename(as.character(fs::dir_ls(fs::path(tmp, "profiles"))))
-  expect_equal(basename(pt), expected)
+  expect_equal(c("learner-profiles.md", basename(pt)), expected)
   
   expect_silent(p <- get_profiles(res))
   expect_equal(p, expected)
