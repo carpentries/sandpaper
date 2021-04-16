@@ -13,7 +13,7 @@ test_that("markdown sources can be built without fail", {
   writeLines(c(
     "---",
     "title: Pyramid",
-    "---",
+    "---\n",
     "One of the best albums by MJQ"
    ),
     con = instruct
@@ -37,6 +37,18 @@ test_that("markdown sources can be built without fail", {
   # # Accidentaly rendered HTML is removed before building
   expect_false(fs::file_exists(fs::path_ext_set(instruct, "html")))
   
+})
+
+
+test_that("markdown sources can be rebuilt without fail", {
+  
+  # no building needed
+  expect_silent(build_markdown(res, quiet = FALSE))
+  
+  # everything rebuilt
+  suppressMessages({
+  expect_output(build_markdown(res, quiet = FALSE, rebuild = TRUE), "ordinary text without R code")
+  })
 })
 
 test_that("Artifacts are accounted for", {
