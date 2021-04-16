@@ -48,6 +48,7 @@ write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE, write = FALSE) {
   # Modified on 2021-03-10 from blogdown::filter_md5sum version 1.2
   # Original author: Yihui Xie
+  # My additional commands use arrows.
   opt = options(stringsAsFactors = FALSE)
   on.exit(options(opt), add = TRUE)
   built <- fs::path(fs::path_dir(db), fs::path_file(sources))
@@ -78,6 +79,7 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   one <- one[match(sources, one$file), , drop = FALSE]
   if (rebuild) {
     files = one[['file']]
+    to_remove <- old[['built']]
   } else {
     # exclude files if checksums are not changed
     unchanged <- one[[newsum]] == one[[oldsum]]

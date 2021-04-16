@@ -36,28 +36,37 @@ callout blocks. Much of the functionality in this package is inspired by
 
 --------------------------------------------------------------------------------
 
+## Documentation
+
+The documentation for using {sandpaper} as the new template, presented as a 
+Carpentries-style lesson can be found at 
+<https://zkamvar.github.io/sandpaper-docs/>. If, instead, you are interested in
+understanding how the functions in {sandpaper} work, you can visit this package
+documentation site at <https://carpentries.github.io/sandpaper/>.
+
 ## Installation
 
-{sandpaper} is not currently on CRAN, but it can be installed from github via
-the [{remotes}] package:
+{sandpaper} is not currently on CRAN, but it can be installed from our 
+[Carpentries drat repository](https://carpentries.github.io/drat/) (updated 
+every 12 hours) with the following commands:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("carpentries/sandpaper", dep = TRUE)
+options(repos = c(
+  carpentries = "https://carpentries.github.io/drat/", # {sandpaper}, {pegboard}, {varnish}
+  ropensci = "https://ropensci.r-universe.dev/", # {tinkr}
+  CRAN = "https://cran.rstudio.com/"
+))
+install.packages("sandpaper", dep = TRUE)
 ```
 
 Note that this will also install development versions of the following packages:
 
-| package     | What it does | 
-| ------------| ------------ |
-| [{varnish}] | html, css, and javascript templates for The Carpentries (in progress) |
-| [{usethis}] | Helper tools for R users that makes the experience of contribution easier |
-| [{gh}] | interface to the github API |
+| package      | What it does | 
+| -------------| ------------ |
+| [{varnish}]  | html, css, and javascript templates for The Carpentries (in progress) |
+| [{tinkr}]    | manipulation of knitr markdown documents built on the commonmark xml library |
+| [{pegboard}] | programmatic interface to lesson components for validation (in progress) |
 
-
-## In-progress example
-
-An in-progress example of this package can be found at https://github.com/zkamvar/miniature-octo-waffle
 
 ## Design
 
@@ -75,7 +84,7 @@ following features:
    https://swcarpentry.github.io/python-novice-gapminder for the current
    version and https://swcarpentry.github.io/python-novice-gapminder/2020-11
    for the release in 2020-11)
-- [ ] seamless updates to the Carpentries' style
+- [x] seamless updates to the Carpentries' style
 - [x] caching of rendered content for rapid deployment
 - [ ] packaging of [{learnr}] materials
 - [ ] validation of lesson structure

@@ -53,13 +53,20 @@ test_that("markdown sources can be rebuilt without fail", {
 
 test_that("modifying a file suffix will force the file to be rebuilt", {
   
-  # If we change a markdown file to an Rmarkdown file, it should rebuild that
-  # file
   instruct <- fs::path(tmp, "instructors", "pyramid.md")
-  fs::file_move(instruct, fs::path_ext_set(instruct, "Rmd"))
+  instruct_rmd <- fs::path_ext_set(instruct, "Rmd")
+  expect_true(fs::file_exists(instruct))
+
+  # If we change a markdown file to an Rmarkdown file, 
+  # that file should be rebuilt
+  fs::file_move(instruct, instruct_rmd)
+  expect_false(fs::file_exists(instruct))
+  expect_true(fs::file_exists(instruct_rmd))
+
   withr::defer({
-    # clean up: reset file and rebuild
-    fs::file_move(fs::path_ext_set(instruct, "Rmd"), instruct)
+    # reset source file
+    fs::file_move(instruct_rmd, instruct)
+    # rebuild database
     build_markdown(res, quiet = TRUE)
   })
 

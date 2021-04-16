@@ -2,7 +2,6 @@ The New Carpentries Lesson Template: {sandpaper}
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 <!-- badges: start -->
 
 [![Lifecycle:
@@ -26,64 +25,73 @@ functionality in this package is inspired by [Jenny
 Bryan’s](https://jennybryan.org/) work with the
 [{usethis}](https://usethis.r-lib.org/) package.
 
------
+------------------------------------------------------------------------
 
 > Please note: {sandpaper} is very much a work in progress. At the
 > moment, the only thing that is real is the README to serve as a
 > roadmap for the future. Please [open an
 > issue](https://github.com/carpentries/sandpaper/issues/new) if you
-> have any comments or suggestions\!
+> have any comments or suggestions!
 
------
+------------------------------------------------------------------------
+
+## Documentation
+
+The documentation for using {sandpaper} as the new template, presented
+as a Carpentries-style lesson can be found at
+<https://zkamvar.github.io/sandpaper-docs/>. If, instead, you are
+interested in understanding how the functions in {sandpaper} work, you
+can visit this package documentation site at
+<https://carpentries.github.io/sandpaper/>.
 
 ## Installation
 
-{sandpaper} is not currently on CRAN, but it can be installed from
-github via the [{remotes}](https://remotes.r-lib.org/) package:
+{sandpaper} is not currently on CRAN, but it can be installed from our
+[Carpentries drat repository](https://carpentries.github.io/drat/)
+(updated every 12 hours) with the following commands:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("carpentries/sandpaper", dep = TRUE)
+options(repos = c(
+  carpentries = "https://carpentries.github.io/drat/", # {sandpaper}, {pegboard}, {varnish}
+  ropensci = "https://ropensci.r-universe.dev/", # {tinkr}
+  CRAN = "https://cran.rstudio.com/"
+))
+install.packages("sandpaper", dep = TRUE)
 ```
 
 Note that this will also install development versions of the following
 packages:
 
-| package                                                | What it does                                                              |
-| ------------------------------------------------------ | ------------------------------------------------------------------------- |
-| [{varnish}](https://github.com/zkamvar/varnish#readme) | html, css, and javascript templates for The Carpentries (in progress)     |
-| [{usethis}](https://usethis.r-lib.org/)                | Helper tools for R users that makes the experience of contribution easier |
-| [{gh}](https://gh.r-lib.org/)                          | interface to the github API                                               |
-
-## In-progress example
-
-An in-progress example of this package can be found at
-<https://github.com/zkamvar/miniature-octo-waffle>
+| package                                                | What it does                                                                 |
+|--------------------------------------------------------|------------------------------------------------------------------------------|
+| [{varnish}](https://github.com/zkamvar/varnish#readme) | html, css, and javascript templates for The Carpentries (in progress)        |
+| \[{tinkr}\]                                            | manipulation of knitr markdown documents built on the commonmark xml library |
+| \[{pegboard}\]                                         | programmatic interface to lesson components for validation (in progress)     |
 
 ## Design
 
 This package is designed to make the life of the lesson contributors and
 maintainers easier by separating the tools needed to build the site from
 the user-defined content of the site itself. It will no longer rely on
-Jekyll or any of the other [\>450 static site
+Jekyll or any of the other [&gt;450 static site
 generators](https://staticsitegenerators.net), but instead rely on R,
 RStudio, and [{pkgdown}](https://github.com/r-lib/pkgdown#readme) to
 generate a site with the following features:
 
-  - [ ] optional offline use
-  - [x] filename-agnostic episode arrangements
-  - [ ] clear definitions of package versions needed to build the lesson
-  - [ ] lesson versioning (e.g. I can navigate to
+-   [ ] optional offline use
+-   [x] filename-agnostic episode arrangements
+-   [ ] clear definitions of package versions needed to build the lesson
+-   [ ] lesson versioning (e.g. I can navigate to
     <https://swcarpentry.github.io/python-novice-gapminder> for the
     current version and
     <https://swcarpentry.github.io/python-novice-gapminder/2020-11> for
     the release in 2020-11)
-  - [ ] seamless updates to the Carpentries’ style
-  - [x] caching of rendered content for rapid deployment
-  - [ ] packaging of
+-   [ ] seamless updates to the Carpentries’ style
+-   [x] caching of rendered content for rapid deployment
+-   [ ] packaging of
     [{learnr}](https://rstudio.github.io/learnr/index.html) materials
-  - [ ] validation of lesson structure
-  - [x] git aware, but does not require contributors to have git
+-   [ ] validation of lesson structure
+-   [x] git aware, but does not require contributors to have git
     installed
 
 ### Rendering locally
@@ -114,22 +122,22 @@ Continuous integration will act as the single source-of-truth for how
 the outputs of the lessons are rendered. For this, we want the resulting
 website to be:
 
-  - CI agnostic (but currently set up with GitHub)
-  - easy to set up
-  - auditable (e.g. I can see changes between the content of two
+-   CI agnostic (but currently set up with GitHub)
+-   easy to set up
+-   auditable (e.g. I can see changes between the content of two
     commits)
-  - versionable (e.g. I can instruct learners to go to `<WEBSITE>/1.1`.
+-   versionable (e.g. I can instruct learners to go to `<WEBSITE>/1.1`.
     This is inspired from the python documentation style)
 
 To acheive this, there will be two branches created: `md-outputs` and
-`gh-pages` that will inerit like so main -\> `md-outputs` -\>
+`gh-pages` that will inerit like so main -&gt; `md-outputs` -&gt;
 `gh-pages`. Because the build time from main to `md-outputs` can be time
 intensive, this will default to updating only files that were changed.
 
-  - `md-outputs`: this branch will contain the files and artifacts
+-   `md-outputs`: this branch will contain the files and artifacts
     generated from rmarkdown in the vignettes directory of a thin
     package skeleton.
-  - `gh-pages`: this branch is generated via `md-outputs` and bundles
+-   `gh-pages`: this branch is generated via `md-outputs` and bundles
     the html, css, and js for the website. This will contain a single
     `index.html` file with several subfolders with different versions of
     the site. The `index.html` file will redirect to the `current/`
@@ -137,13 +145,13 @@ intensive, this will default to updating only files that were changed.
 
 #### Scheduled builds
 
-  - `gh-pages` website: Because we are designing the lessons to have
+-   `gh-pages` website: Because we are designing the lessons to have
     content separated from the styling, we will set up the CI to
     generate the webpage from the pre-built sources on a weekly basis,
     which will check if there has been an update to the styles (which I
     have in the [{varnish}](https://github.com/zkamvar/varnish#readme)
     package) and then rebuild the site without rebuilding the content.
-  - `md-outputs` branch: This will be rerun every month from scratch
+-   `md-outputs` branch: This will be rerun every month from scratch
     with the most recent version of R and R packages. If there is a
     change, a pull request can be generated to update the `renv.lock`
     file with a link to the changed markdown files in this branch.
@@ -152,62 +160,62 @@ intensive, this will default to updating only files that were changed.
 
 The functions in {sandpaper} have the following prefixes:
 
-  - `create_` will create/amend files or folders in your workspace
-  - `build_` will build files from your source
-  - `check_` validates either the elements of the lesson and/or episodes
-  - `fetch_` will download files or resources from the internet
-  - `reset_` removes files or information
-  - `get_` will retrieve information from your source files as an R
+-   `create_` will create/amend files or folders in your workspace
+-   `build_` will build files from your source
+-   `check_` validates either the elements of the lesson and/or episodes
+-   `fetch_` will download files or resources from the internet
+-   `reset_` removes files or information
+-   `get_` will retrieve information from your source files as an R
     object
-  - `set_` will update information in files.
-  - `ci_` interacts with continous integration to build the website
+-   `set_` will update information in files.
+-   `ci_` interacts with continous integration to build the website
 
 Here is a working list of user-facing functions:
 
 **Lesson and Episode Creation**
 
-  - `create_lesson()` creates a lesson from scratch
-  - `create_episode()` creates a new episode with the correct number
+-   `create_lesson()` creates a lesson from scratch
+-   `create_episode()` creates a new episode with the correct number
     prefix
-  - `create_dataset()` creates a csv or text data set from an R object
-  - `set_episodes()` arranges the episodes in a user-specified order
+-   `create_dataset()` creates a csv or text data set from an R object
+-   `set_episodes()` arranges the episodes in a user-specified order
 
 Accessors
 
-  - `get_config()` reads the contents of `config.yaml` as a list
-  - `get_episodes()` returns the episode filenames as a vector
-  - `get_syllabus()` returns the syllabus with timings, titles, and
+-   `get_config()` reads the contents of `config.yaml` as a list
+-   `get_episodes()` returns the episode filenames as a vector
+-   `get_syllabus()` returns the syllabus with timings, titles, and
     questions
 
 **Website Creation and Validation**
 
-  - `check_lesson()` checks and validates the source files and lesson
+-   `check_lesson()` checks and validates the source files and lesson
     structure
-  - `build_episode_md()` renders an individual file to markdown
+-   `build_episode_md()` renders an individual file to markdown
     (internal use)
-  - `build_episode_html()` renders a built markdown file to html
+-   `build_episode_html()` renders a built markdown file to html
     (internal use)
-  - `build_lesson()` builds the lesson into a static website
-  - `build_portable_lesson()` builds the lesson into a portable static
+-   `build_lesson()` builds the lesson into a static website
+-   `build_portable_lesson()` builds the lesson into a portable static
     website
-  - `fetch_lesson()` fetches the static website from the lesson
+-   `fetch_lesson()` fetches the static website from the lesson
     repository
 
 **Continuous Integration Utilities**
 
-  - `ci_deploy()` builds and deploys the lesson on CI from the source
+-   `ci_deploy()` builds and deploys the lesson on CI from the source
     files
-  - `ci_build_markdown()` builds the markdown files on CI from the
+-   `ci_build_markdown()` builds the markdown files on CI from the
     source and deploys them to the markdown branch.
-  - `ci_build_site()` deploys the lesson on CI from pre-rendered
+-   `ci_build_site()` deploys the lesson on CI from pre-rendered
     markdown files
-  - `ci_release()` builds and deploys the lesson on CI from the source
+-   `ci_release()` builds and deploys the lesson on CI from the source
     files and adds a release tag
 
 Cleanup
 
-  - `reset_episodes()` removes the schedule from the config.yaml file
-  - `reset_site()` clears the website and cache
+-   `reset_episodes()` removes the schedule from the config.yaml file
+-   `reset_site()` clears the website and cache
 
 ## Usage
 
@@ -270,7 +278,7 @@ sandpaper::build_lesson()
 ```
 
 > #### Working in RStudio?
-> 
+>
 > If you are using RStudio, you can preview the lesson site using the
 > keyboard shortcut <kbd>ctrl + shift + B</kbd> (which corresponds to
 > the “Build Website” button in the “Build” tab. To preview individual
@@ -328,8 +336,6 @@ The typical workflow will look like this:
 1.  open the sandpaper project in RStudio and make edits to files in the
     `episodes/` folder
 2.  in the R console run the following
-
-<!-- end list -->
 
 ``` r
 sandpaper::check_lesson() # validates the structure of the input files
