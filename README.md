@@ -17,7 +17,7 @@ coverage](https://codecov.io/gh/carpentries/sandpaper/branch/main/graph/badge.sv
 The {sandpaper} package was created by [The
 Carpentries](https://carpentries.org) to re-imagine our method of
 creating lesson websites for our workshops. This package will take a
-series of [Markdown](https://daringfireball.net/projects/markdown/) or
+series of [Markdown](https://www.markdownguide.org/getting-started/) or
 [RMarkdown](https://rmarkdown.rstudio.com/) files and generate a static
 website with the features and styling of The Carpentries lessons
 including customized layouts and callout blocks. Much of the
@@ -37,11 +37,12 @@ Bryan’s](https://jennybryan.org/) work with the
 
 ## Documentation
 
-The documentation for using {sandpaper} as the new template, presented
-as a Carpentries-style lesson can be found at
-<https://zkamvar.github.io/sandpaper-docs/>. If, instead, you are
-interested in understanding how the functions in {sandpaper} work, you
-can visit this package documentation site at
+Want to know how this works in a lesson format? Head over to
+<https://zkamvar.github.io/sandpaper-docs/>.
+
+If, instead, you already know how a lesson is built and are interested
+in understanding how the functions in {sandpaper} work, you can visit
+this package documentation site at
 <https://carpentries.github.io/sandpaper/>.
 
 ## Installation
@@ -65,8 +66,8 @@ packages:
 | package                                                | What it does                                                                 |
 |--------------------------------------------------------|------------------------------------------------------------------------------|
 | [{varnish}](https://github.com/zkamvar/varnish#readme) | html, css, and javascript templates for The Carpentries (in progress)        |
-| \[{tinkr}\]                                            | manipulation of knitr markdown documents built on the commonmark xml library |
-| \[{pegboard}\]                                         | programmatic interface to lesson components for validation (in progress)     |
+| [{tinkr}](https://docs.ropensci.org/tinkr/)            | manipulation of knitr markdown documents built on the commonmark xml library |
+| [{pegboard}](https://carpentries.github.io/pegboard)   | programmatic interface to lesson components for validation (in progress)     |
 
 ## Design
 
@@ -86,7 +87,7 @@ generate a site with the following features:
     current version and
     <https://swcarpentry.github.io/python-novice-gapminder/2020-11> for
     the release in 2020-11)
--   [ ] seamless updates to the Carpentries’ style
+-   [x] seamless updates to the Carpentries’ style
 -   [x] caching of rendered content for rapid deployment
 -   [ ] packaging of
     [{learnr}](https://rstudio.github.io/learnr/index.html) materials
