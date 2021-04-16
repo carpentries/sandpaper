@@ -1,3 +1,14 @@
+# sandpaper 0.0.0.9022
+
+BUG FIX
+-------
+
+* `build_markdown(rebuild = TRUE)` now actually rebuilds the lesson
+* Changing an episode suffix will no longer result in a build error. This was
+  due to `build_markdown()` trying to clean _after_ building the output instead
+  of before. It's a situation of throwing the baby out with the bathwater. In
+  any case, this fixes #102.
+
 # sandpaper 0.0.0.9021
 
 BUG FIX

@@ -76,9 +76,13 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   # merge destroys the order, so we need to reset it. Consequently, it will
   # also remove the files that no longer exist in the sources list.
   one <- one[match(sources, one$file), , drop = FALSE]
-  # exclude files if checksums are not changed
-  unchanged <- one[[newsum]] == one[[oldsum]]
-  files = setdiff(sources, one[['file']][unchanged])
+  if (rebuild) {
+    files = one[['file']]
+  } else {
+    # exclude files if checksums are not changed
+    unchanged <- one[[newsum]] == one[[oldsum]]
+    files = setdiff(sources, one[['file']][unchanged])
+  }
   if (write) 
     write_build_db(one[, 1:3], db)
   list(

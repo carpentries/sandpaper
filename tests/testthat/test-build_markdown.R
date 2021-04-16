@@ -13,7 +13,7 @@ test_that("markdown sources can be built without fail", {
   writeLines(c(
     "---",
     "title: Pyramid",
-    "---",
+    "---\n",
     "One of the best albums by MJQ"
    ),
     con = instruct
@@ -37,6 +37,39 @@ test_that("markdown sources can be built without fail", {
   # # Accidentaly rendered HTML is removed before building
   expect_false(fs::file_exists(fs::path_ext_set(instruct, "html")))
   
+})
+
+
+test_that("markdown sources can be rebuilt without fail", {
+  
+  # no building needed
+  expect_silent(build_markdown(res, quiet = FALSE))
+  
+  # everything rebuilt
+  suppressMessages({
+  expect_output(build_markdown(res, quiet = FALSE, rebuild = TRUE), "ordinary text without R code")
+  })
+})
+
+test_that("modifying a file suffix will force the file to be rebuilt", {
+  
+  # If we change a markdown file to an Rmarkdown file, it should rebuild that
+  # file
+  instruct <- fs::path(tmp, "instructors", "pyramid.md")
+  fs::file_move(instruct, fs::path_ext_set(instruct, "Rmd"))
+  withr::defer({
+    # clean up: reset file and rebuild
+    fs::file_move(fs::path_ext_set(instruct, "Rmd"), instruct)
+    build_markdown(res, quiet = TRUE)
+  })
+
+  # Test that the birth times are changed.
+  old_info <- fs::file_info(fs::path(tmp, "site", "built", "pyramid.md"))
+  suppressMessages({
+    build_markdown(res, quiet = TRUE)
+  })
+  new_info <- fs::file_info(fs::path(tmp, "site", "built", "pyramid.md"))
+  expect_gt(new_info$birth_time, old_info$birth_time)
 })
 
 test_that("Artifacts are accounted for", {
