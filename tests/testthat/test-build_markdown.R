@@ -51,6 +51,27 @@ test_that("markdown sources can be rebuilt without fail", {
   })
 })
 
+test_that("modifying a file suffix will force the file to be rebuilt", {
+  
+  # If we change a markdown file to an Rmarkdown file, it should rebuild that
+  # file
+  instruct <- fs::path(tmp, "instructors", "pyramid.md")
+  fs::file_move(instruct, fs::path_ext_set(instruct, "Rmd"))
+  withr::defer({
+    # clean up: reset file and rebuild
+    fs::file_move(fs::path_ext_set(instruct, "Rmd"), instruct)
+    build_markdown(res, quiet = TRUE)
+  })
+
+  # Test that the birth times are changed.
+  old_info <- fs::file_info(fs::path(tmp, "site", "built", "pyramid.md"))
+  suppressMessages({
+    build_markdown(res, quiet = TRUE)
+  })
+  new_info <- fs::file_info(fs::path(tmp, "site", "built", "pyramid.md"))
+  expect_gt(new_info$birth_time, old_info$birth_time)
+})
+
 test_that("Artifacts are accounted for", {
 
   s <- get_episodes(tmp)

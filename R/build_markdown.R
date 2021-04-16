@@ -19,7 +19,7 @@
 build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 
   episode_path <- path_episodes(path)
-  outdir       <- path_built()
+  outdir       <- path_built(path)
 
   # Determine build status for the episodes ------------------------------------
   source_list    <- get_resource_list(path)
@@ -51,16 +51,6 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
     copy_assets(f, outdir)
   }
 
-  # Render the episode files to the built directory ----------------------------
-  for (i in seq_along(db$build)) {
-    build_episode_md(
-      path    = db$build[i],
-      outdir  = outdir,
-      workdir = outdir,
-      quiet   = quiet
-    )
-  }
-
   # Remove detritus ------------------------------------------------------------
   remove <- db$remove
   if (length(remove)) {
@@ -72,6 +62,17 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
       if (length(figs)) fs::file_delete(figs)
     }
   }
+
+  # Render the episode files to the built directory ----------------------------
+  for (i in seq_along(db$build)) {
+    build_episode_md(
+      path    = db$build[i],
+      outdir  = outdir,
+      workdir = outdir,
+      quiet   = quiet
+    )
+  }
+
 
   # Update metadata ------------------------------------------------------------
   if (length(db$build) > 0) {
