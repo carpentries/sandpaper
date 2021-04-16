@@ -38,9 +38,10 @@ callout blocks. Much of the functionality in this package is inspired by
 
 ## Documentation
 
-The documentation for using {sandpaper} as the new template, presented as a 
-Carpentries-style lesson can be found at 
-<https://zkamvar.github.io/sandpaper-docs/>. If, instead, you are interested in
+Want to know how this works in a lesson format? Head over to 
+<https://zkamvar.github.io/sandpaper-docs/>. 
+
+If, instead, you already know how a lesson is built and are interested in
 understanding how the functions in {sandpaper} work, you can visit this package
 documentation site at <https://carpentries.github.io/sandpaper/>.
 
@@ -365,13 +366,15 @@ sandpaper::ci_release(tag = "0.1", md_branch = "md-outputs", site_branch = "gh-p
 
 
 [The Carpentries]: https://carpentries.org
-[Markdown]: https://daringfireball.net/projects/markdown/
+[Markdown]: https://www.markdownguide.org/getting-started/ 
 [RMarkdown]: https://rmarkdown.rstudio.com/
 [{learnr}]: https://rstudio.github.io/learnr/index.html
 [{remotes}]: https://remotes.r-lib.org/
 [{usethis}]: https://usethis.r-lib.org/
 [{gh}]: https://gh.r-lib.org/
 [{varnish}]: https://github.com/zkamvar/varnish#readme
+[{pegboard}]: https://carpentries.github.io/pegboard
+[{tinkr}]: https://docs.ropensci.org/tinkr/
 [{gert}]: https://github.com/r-lib/gert#readme
 [{testthat}]: https://github.com/r-lib/testthat#readme
 [{pkgdown}]: https://github.com/r-lib/pkgdown#readme
