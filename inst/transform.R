@@ -114,9 +114,9 @@ rewrite(here("index.md"), here())
 
 # Copy Figures (N.B. this was one of the pain points for the Jekyll lessons: figures lived above the RMarkdown documents)
 fs::dir_create(here("episodes", c("fig", "data", "files")))
-fs::dir_copy(here("fig"), here("episodes", "fig"))
-fs::dir_copy(here("files"), here("episodes", "files"))
-fs::dir_copy(here("data"), here("episodes", "data"))
+fs::dir_copy(here("fig"), here("episodes"))
+fs::dir_copy(here("files"), here("episodes"))
+fs::dir_copy(here("data"), here("episodes"))
 fs::dir_delete(here(c("data", "fig")))
 
 # Remove unnecessary dirs
