@@ -40,14 +40,14 @@ rewrite <- function(x, out) {
 }
 
 set_config <- function(key, value, path = here()) {
-  sandpaper::set_dropdown(path, 
+  sandpaper::set_dropdown(path,
     order = value,
     write = TRUE,
     folder = key
-  ) 
+  )
 }
 
-# Create a branch for us to work in 
+# Create a branch for us to work in
 current_branch <- git_branch()
 message(glue::glue("switching from {current_branch} to sandpaper"))
 if (git_branch_exists("sandpaper")) git_branch_delete("sandpaper")
@@ -57,6 +57,8 @@ git_branch_create("sandpaper", ref = "HEAD", checkout = TRUE)
 cfg <- yaml::read_yaml(here("_config.yml"))
 tmp <- tempfile()
 sandpaper::create_lesson(tmp, name = cfg$title, open = FALSE)
+# appending our gitignore file
+file.append(".gitignore", fs::path(tmp, ".gitignore"))
 fs::dir_delete(fs::path(tmp, ".git"))
 fs::file_delete(fs::path(tmp, c("README.md", "index.md", ".gitignore")))
 fs::file_delete(fs::path(tmp, "episodes", "01-introduction.Rmd"))
@@ -82,14 +84,14 @@ if (length(gert::git_remote_list()) == 0) {
   url <- rmt$url[[i]]
   rmt <- gh:::github_remote_parse(rmt$url[[i]])$username
   set_config("source", url)
-  set_config("carpentry", 
-    switch(rmt, 
+  set_config("carpentry",
+    switch(rmt,
       swcarpentry = "swc",
       datacarpentry = "dc",
       librarycarpentry = "lc",
       "carpentries-incubator" = "incubator",
       "cp" # default
-  ))  
+  ))
 }
 
 
