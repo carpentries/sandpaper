@@ -123,8 +123,17 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
   # Note that this process can NOT use any internal functions
   callr::r(function(path, hash, env, outpath, workdir, quiet) {
     # Shortcut if the source is a markdown file
-    if (fs::path_ext(path) == "md") {
-      fs::file_copy(path, outpath, overwrite = TRUE)
+    # Taken directly from tools::file_ext
+    file_ext <- function (x) {
+      pos <- regexpr("\\.([[:alnum:]]+)$", x)
+      ifelse(pos > -1L, substring(x, pos + 1L), "")
+    }
+    # Also taken directly from tools::file_path_sans_ext
+    file_path_sans_ext <- function (x) {
+      sub("([^.]+)\\.[[:alnum:]]+$", "\\1", x)
+    }
+    if (file_ext(path) == "md") {
+      file.copy(path, outpath, overwrite = TRUE)
       return(NULL)
     }
     # Set knitr options for output ---------------------------
@@ -133,7 +142,7 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
     on.exit(knitr::opts_chunk$restore(ochunk), add = TRUE)
     on.exit(knitr::opts_knit$restore(oknit), add = TRUE)
 
-    slug <- fs::path_ext_remove(fs::path_file(outpath))
+    slug <- file_path_sans_ext(basename(outpath))
 
     knitr::opts_chunk$set(
       comment       = "",
@@ -142,7 +151,7 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
       class.error   = "error",
       class.warning = "warning",
       class.message = "output",
-      fig.path      = fs::path("fig", paste0(slug, "-rendered-"))
+      fig.path      = file.path("fig", paste0(slug, "-rendered-"))
     )
 
     # Ensure HTML options like caption are respected by code chunks
