@@ -66,9 +66,9 @@ You can add a line with at least three colons and a `solution` tag.
 
 ## Figures
 
-You can also include figures:
+You can also include figures generated from RMarkdown:
 
-```{r pyramid}
+```{r pyramid, fig.alt = "pie chart illusion of a pyramid", fig.cap = "Sun arise each and every morning"}
 pie(
   c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
   init.angle = 315, 
@@ -76,6 +76,10 @@ pie(
   border = FALSE
 )
 ```
+
+Or you can use standard markdown for static figures:
+
+![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt = 'Blue Carpentries hex person logo with no text.'}
 
 
 ## Math

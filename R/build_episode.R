@@ -128,8 +128,10 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
       return(NULL)
     }
     # Set knitr options for output ---------------------------
-    oknit <- knitr::opts_chunk$get()
-    on.exit(knitr::opts_chunk$restore(oknit), add = TRUE)
+    ochunk <- knitr::opts_chunk$get()
+    oknit  <- knitr::opts_knit$get()
+    on.exit(knitr::opts_chunk$restore(ochunk), add = TRUE)
+    on.exit(knitr::opts_knit$restore(oknit), add = TRUE)
 
     slug <- fs::path_ext_remove(fs::path_file(outpath))
 
@@ -143,6 +145,11 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
       fig.path      = fs::path("fig", paste0(slug, "-rendered-"))
     )
 
+    # Ensure HTML options like caption are respected by code chunks
+    knitr::opts_knit$set(
+      rmarkdown.pandoc.to = "markdown"
+    )
+
     # Set the working directory -----------------------------
     wd <- getwd()
     on.exit(setwd(wd), add = TRUE)
@@ -150,14 +157,15 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
 
     # Generate markdown -------------------------------------
     res <- knitr::knit(
-      text = readLines(path, encoding = "UTF-8"), 
+      input = path,
+      output = outpath,
       envir = env, 
       quiet = quiet,
       encoding = "UTF-8"
     )
 
     # write file to disk ------------------------------------
-    writeLines(res, outpath)
+    # writeLines(res, outpath)
   }, args = args, show = !quiet)
 
   invisible(outpath)

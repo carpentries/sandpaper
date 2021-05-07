@@ -22,7 +22,7 @@ Imports:
     assertthat,
     yaml,
     desc,
-    knitr,
+    knitr (>= 1.33),
     rmarkdown (>= 2.4),
     rprojroot,
     usethis (>= 2.0.0),
