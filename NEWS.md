@@ -1,3 +1,23 @@
+# sandpaper 0.0.0.9023
+
+BUG FIX
+-------
+
+* `build_episode_md()` now sets the `knitr.pandoc.to` knit option to allow for
+  the chunk option `fig.cap` to be rendered as a caption. This fixes #114.
+
+NEW FEATURES
+------------
+
+* `set_dropdown()` is now generalized to set any item in the dropdown menu
+  (though this will likely be wrapped into a better-named function for
+  generalized editing).
+* `system.file("transform.R", pacakge = "sandpaper")` points to a file that 
+  will be used for transforming styles-repo era lessons to sandpaper lessons.
+* read/write cycles were reduced in markdown generation because we are no longer
+  interfering with the manipulation of the files at this stage (and haven't been
+  for a while now).
+
 # sandpaper 0.0.0.9022
 
 BUG FIX
