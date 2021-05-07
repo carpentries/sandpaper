@@ -26,10 +26,13 @@ test_that("lessons can be built sanely", {
   expect_true(fs::file_exists(fs::path(sitepath, "01-introduction.html")))
   expect_true(fs::file_exists(fs::path(sitepath, "02-second-episode.html")))
   expect_true(fs::file_exists(fs::path(sitepath, "index.html")))
-  expect_true(any(grepl(
-        ".div class..challenge", 
-        readLines(fs::path(sitepath, "01-introduction.html"))
-  )))
+  ep <- readLines(fs::path(sitepath, "01-introduction.html"))
+
+  # Div tags show up as expected
+  expect_true(any(grepl(".div class..challenge", ep)))
+  # figure captions show up from knitr 
+  # (https://github.com/carpentries/sandpaper/issues/114) 
+  expect_true(any(grepl("Sun arise each and every morning", ep)))
   expect_true(any(grepl(
         ".div class..challenge", 
         readLines(fs::path(sitepath, "02-second-episode.html"))
