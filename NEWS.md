@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9025
+
+DEPENDENCY UPDATE
+-----------------
+
+ * required {pegboard} has been bumped to version 0.0.0.9014
+ * {renv} and {sessioninfo} added to Suggested packages.
+
 # sandpaper 0.0.0.9024
 
 BUG FIX
