@@ -40,6 +40,38 @@ check_git_user <- function(path) {
   }
 }
 
+# It's clear that we cannot rely on folks having the correct libgit2 version,
+# so the way we enforce the main branch is to do it after we make the initial
+# commit like so:
+#
+#  1. create a new branch called "main"
+#  2. change "master" to "main" in .git/HEAD (txt file)
+#  3. delete "master" branch 
+# 
+# If the user HAS set a default branch, we will use that one.
+enforce_main_branch <- function(path) {
+  current <- gert::git_branch(path)
+  default <- get_default_branch()
+  if (current != "master") {
+    # the user set up their init.defaultBranch correctly
+    return(path)
+  }
+  # Create and move to main branch
+  gert::git_branch_create(default, repo = path)
+  # modify .git/HEAD file
+  HFILE <- file.path(path, ".git", "HEAD")
+  HEAD <- readLines(HFILE, encoding = "UTF-8")
+  writeLines(sub("master", default, HEAD), HFILE)
+  # remove master
+  gert::git_branch_delete("master", repo = path)
+}
+
+get_default_branch <- function() {
+  cfg <- gert::git_config_global()
+  default <- cfg$value[cfg$name == "init.defaultbranch"]
+  if (length(default) == 0) "main" else default
+}
+
 # This checks if we have set a temporary git user and then unsets it. It will 
 # supriously unset a user if they happened to have 
 # "carpenter <team@carpentries.org>" as their email.
