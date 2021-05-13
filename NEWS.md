@@ -1,3 +1,13 @@
+# sandpaper 0.0.0.9024
+
+BUG FIX
+-------
+
+ * `create_lesson()` will now enforce "main" or the default branch (if 
+   init.defaultBranch is set) as the default branch for the new lesson. It will
+   also try to make the URL match the project name and user name (but the latter
+   is limited to users who have GitHub PAT set up that {gh} recognises).
+
 # sandpaper 0.0.0.9023
 
 BUG FIX
