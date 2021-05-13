@@ -27,20 +27,20 @@ Imports:
     rmarkdown (>= 2.4),
     rprojroot,
     usethis (>= 2.0.0),
-    utils,
-    tools,
     whisker,
-    callr
+    callr,
+    utils,
+    tools
 Suggests: 
     testthat (>= 3.0.0),
     cli (>= 2.0.2),
     covr,
     withr,
     jsonlite,
+    renv (>= 0.13.2),
+    sessioninfo,
     varnish (>= 0.0.0.9002)
 Additional_repositories: https://carpentries.github.io/drat/
-Remotes:
-  ropensci/tinkr
 Encoding: UTF-8
 LazyData: true
 Config/testthat/edition: 3
