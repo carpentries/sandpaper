@@ -36,14 +36,16 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   copy_template("index", path, "index.md")
   copy_template("placeholder", fs::path(path, "instructors"), "instructor-notes.md")
   copy_template("placeholder", fs::path(path, "profiles"), "learner-profiles.md")
+
+  account <- tryCatch(gh::gh_whoami()$login, error = function(e) "carpentries")
   copy_template("config", path, "config.yaml",
     values = list(
       title      = "Lesson Title",
       carpentry  = "cp",
       life_cycle = "pre-alpha",
       license    = "CC-BY 4.0",
-      source     = "https://github.com/carpentries/sandpaper",
-      branch     = "main",
+      source     = glue::glue("https://github.com/{account}/{basename(path)}"),
+      branch     = get_default_branch(),
       contact    = "team@carpentries.org",
       NULL
     )
@@ -66,6 +68,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
 
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
+  enforce_main_branch(path)
   reset_git_user(path)
   
   if (open) {

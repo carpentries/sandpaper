@@ -15,6 +15,7 @@ Imports:
     commonmark,
     xml2,
     fs,
+    gh,
     gert (>= 1.0.1),
     rstudioapi,
     rlang (>= 0.4.3),
