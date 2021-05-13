@@ -13,6 +13,11 @@ test_that("lessons can be created in empty directories", {
   tmp <- normalizePath(tmp)
   expect_false(wd == fs::path(normalizePath(getwd())))
   expect_equal(normalizePath(getwd()), tmp)
+  # enforce that we do NOT have a master branch
+  expect_false(gert::git_branch(tmp) == "master")
+  expect_false(gert::git_branch_exists("master", repo = tmp))
+  # enforce that our new branch matches the user's default branch (or main)
+  expect_true(gert::git_branch(tmp) == sandpaper:::get_default_branch())
 
   # Make sure everything exists
   expect_true(check_lesson(tmp))
