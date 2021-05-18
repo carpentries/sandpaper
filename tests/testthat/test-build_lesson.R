@@ -12,6 +12,8 @@ test_that("lessons can be built sanely", {
   set_episodes(tmp, s, write = TRUE)
   expect_equal(res, tmp, ignore_attr = TRUE)
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+
   # It's noisy at first
   suppressMessages({
     expect_output(build_lesson(res, preview = FALSE, quiet = FALSE), "ordinary text without R code")
@@ -79,6 +81,8 @@ test_that("episodes with HTML in the title are rendered correctly", {
   expect_warning(s <- get_episodes(tmp), "set_episodes")
   set_episodes(tmp, s, write = TRUE)
   expect_equal(res, tmp, ignore_attr = TRUE)
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
 
   se <- readLines(fs::path(tmp, "episodes", "02-second-episode.Rmd"))
   se[[2]] <- "title: A **bold** title"

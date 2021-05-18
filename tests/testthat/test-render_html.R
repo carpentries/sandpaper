@@ -46,7 +46,7 @@ ex <- c("---",
 
 
 test_that("emoji are rendered", {
-  skip_if_not(rmarkdown::pandoc_available("2.10"))
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
   withr::local_file(tmp)
   writeLines("Emojis work :wink:", tmp)
@@ -54,7 +54,7 @@ test_that("emoji are rendered", {
 })
 
 test_that("links are auto rendered", {
-  skip_if_not(rmarkdown::pandoc_available("2.10"))
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
   withr::local_file(tmp)
   writeLines("Links work: https://carpentries.org/.", tmp)
@@ -62,7 +62,7 @@ test_that("links are auto rendered", {
 })
 
 test_that("footnotes are rendered", {
-  skip_if_not(rmarkdown::pandoc_available("2.10"))
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
   withr::local_file(tmp)
   writeLines("Footnotes work^[maybe they do?].", tmp)
@@ -76,7 +76,7 @@ test_that("footnotes are rendered", {
 
 test_that("pandoc structure is rendered correctly", {
   
-  skip_if_not(rmarkdown::pandoc_available("2.10"))
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
   out <- fs::file_temp()
   withr::local_file(tmp, out)
@@ -90,7 +90,7 @@ test_that("pandoc structure is rendered correctly", {
 
 test_that("paragraphs after objectives block are parsed correctly", {
   
-  skip_if_not(rmarkdown::pandoc_available("2.10"))
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
   out <- fs::file_temp()
   withr::local_file(tmp, out)
@@ -105,15 +105,15 @@ test_that("paragraphs after objectives block are parsed correctly", {
 
 test_that("render_html applies the internal lua filter", {
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+
   tmp <- fs::file_temp()
   withr::local_file(tmp)
 
   writeLines(ex, tmp)
   res <- render_html(tmp)
   
-  if (rmarkdown::pandoc_available("2.10")) {
-    expect_snapshot(cat(res))
-  }
+  expect_snapshot(cat(res))
 
   # Metadata blocks are parsed
   expect_match(res, "div class=\"row\"", fixed = TRUE)
@@ -140,6 +140,7 @@ test_that("render_html applies the internal lua filter", {
 
 test_that("render_html applies external lua filters", {
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
   lua <- fs::file_temp()
   withr::local_file(tmp, lua)

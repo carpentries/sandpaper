@@ -65,6 +65,9 @@ test_that("adding episodes will concatenate the schedule", {
   create_episode("second-episode", add = TRUE, path = tmp)
   expect_equal(res, tmp, ignore_attr = TRUE)
   expect_equal(get_episodes(tmp), c("01-introduction.Rmd", "03-second-episode.Rmd"))
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+
   expect_silent(build_lesson(tmp, quiet = TRUE, preview = FALSE))
   yaml <- yaml::read_yaml(path_site_yaml(tmp))$navbar$left[[2L]]$menu
   expect_length(yaml, 2)
@@ -76,8 +79,12 @@ test_that("adding episodes will concatenate the schedule", {
 
 test_that("the schedule can be rearranged", {
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   set_episodes(tmp, rev(get_episodes(tmp)), write = TRUE)
   expect_equal(get_episodes(tmp), c("03-second-episode.Rmd", "01-introduction.Rmd"))
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+
   expect_silent(build_lesson(tmp, quiet = TRUE, preview = FALSE))
   yaml <- yaml::read_yaml(path_site_yaml(tmp))$navbar$left[[2L]]$menu
   expect_length(yaml, 2)
@@ -99,6 +106,9 @@ test_that("the schedule can be truncated", {
 
   set_episodes(tmp, rev(get_episodes(tmp))[1], write = TRUE)
   expect_equal(get_episodes(tmp), "01-introduction.Rmd")
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+
   expect_silent(build_lesson(tmp, quiet = TRUE, preview = FALSE))
   yaml <- yaml::read_yaml(path_site_yaml(tmp))$navbar$left[[2L]]$menu
   expect_length(yaml, 1)

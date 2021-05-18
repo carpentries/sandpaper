@@ -35,6 +35,7 @@ test_that("build_episode_html() works independently", {
   expect_output(pkgdown::init_site(pkg))
   
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   # create a new file in extras
   fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
   txt <- c(

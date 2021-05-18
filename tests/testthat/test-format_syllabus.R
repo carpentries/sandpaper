@@ -6,6 +6,7 @@ withr::defer(fs::dir_delete(tmp))
 
 test_that("the formatted syllabus renders markdown", {
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp, open = FALSE, rstudio = FALSE)
   expect_warning(s <- get_episodes(tmp), "set_episodes")

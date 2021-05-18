@@ -25,6 +25,7 @@ test_that("markdown sources can be built without fail", {
   e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
   expect_equal(fs::path_file(e), s)
 
+  skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   # Accidentally rendered html live in their parent folders
   rmarkdown::render(instruct, quiet = TRUE)
   expect_true(fs::file_exists(fs::path_ext_set(instruct, "html"))) 
