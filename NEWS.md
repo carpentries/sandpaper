@@ -1,3 +1,14 @@
+# sandpaper 0.0.0.9026
+
+MISC
+----
+
+* callout blocks with headers greater than h3 are now rendered properly and no
+  longer forced to h3
+* tests now clean up after themselves and no longer change the working directory
+  by default
+* {varnish} version bumped
+
 # sandpaper 0.0.0.9025
 
 DEPENDENCY UPDATE
