@@ -79,7 +79,6 @@ test_that("adding episodes will concatenate the schedule", {
 
 test_that("the schedule can be rearranged", {
 
-  skip_if_not(rmarkdown::pandoc_available("2.11"))
   set_episodes(tmp, rev(get_episodes(tmp)), write = TRUE)
   expect_equal(get_episodes(tmp), c("03-second-episode.Rmd", "01-introduction.Rmd"))
 
