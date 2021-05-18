@@ -6,7 +6,7 @@ test_that("lessons can be built sanely", {
 
   withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp)
+  res <- create_lesson(tmp, open = FALSE)
   create_episode("second-episode", path = tmp)
   expect_warning(s <- get_episodes(tmp), "set_episodes")
   set_episodes(tmp, s, write = TRUE)
@@ -14,7 +14,7 @@ test_that("lessons can be built sanely", {
 
   # It's noisy at first
   suppressMessages({
-  expect_output(build_lesson(res, preview = FALSE, quiet = FALSE), "ordinary text without R code")
+    expect_output(build_lesson(res, preview = FALSE, quiet = FALSE), "ordinary text without R code")
   })
 
   # see helper-hash.R
@@ -74,7 +74,7 @@ test_that("episodes with HTML in the title are rendered correctly", {
 
   withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp)
+  res <- create_lesson(tmp, open = FALSE)
   create_episode("second-episode", path = tmp)
   expect_warning(s <- get_episodes(tmp), "set_episodes")
   set_episodes(tmp, s, write = TRUE)

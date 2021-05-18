@@ -4,7 +4,7 @@ tmp    <- fs::path(tmpdir, "lesson-example")
 
 withr::defer(fs::dir_delete(tmp))
 expect_false(fs::dir_exists(tmp))
-res <- create_lesson(tmp)
+res <- create_lesson(tmp, open = FALSE)
 
 test_that("prefixed episodes can be created", {
 

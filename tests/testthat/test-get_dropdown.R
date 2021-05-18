@@ -4,7 +4,7 @@ tmp    <- fs::path(tmpdir, "lesson-example")
 
 withr::defer(fs::dir_delete(tmp))
 expect_false(fs::dir_exists(tmp))
-res <- create_lesson(tmp)
+res <- create_lesson(tmp, open = FALSE)
 create_episode("outroduction", path = res)
 outro <- fs::path(res, "episodes", "02-outroduction.Rmd")
 fs::file_move(outro, fs::path_ext_set(outro, "md"))

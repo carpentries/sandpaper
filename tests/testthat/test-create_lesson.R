@@ -7,6 +7,7 @@ test_that("lessons can be created in empty directories", {
   withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
   wd  <- fs::path(normalizePath(getwd()))
+  withr::defer(setwd(wd))
   suppressMessages({expect_message({
     res <- create_lesson(tmp, rstudio = TRUE, open = TRUE)
   }, "Setting active project to")})
@@ -106,12 +107,12 @@ test_that("lessons cannot be created in directories that are occupied", {
 
   withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp)
+  res <- create_lesson(tmp, open = FALSE)
 
   # Make sure everything exists
   expect_true(fs::dir_exists(tmp))
 
   # This should fail
-  expect_error(create_lesson(tmp), "lesson-example is not an empty directory.")
+  expect_error(create_lesson(tmp, open = FALSE), "lesson-example is not an empty directory.")
 
 })

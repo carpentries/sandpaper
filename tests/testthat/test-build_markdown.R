@@ -7,7 +7,7 @@ withr::defer(fs::dir_delete(tmp))
 test_that("markdown sources can be built without fail", {
   
   expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp)
+  res <- create_lesson(tmp, open = FALSE)
   create_episode("second-episode", path = tmp)
   instruct <- fs::path(tmp, "instructors", "pyramid.md")
   writeLines(c(

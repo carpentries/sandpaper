@@ -6,7 +6,7 @@ test_that("sandpaper_site produces a renderer", {
 
   withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp)
+  res <- create_lesson(tmp, open = FALSE)
   withr::with_dir(tmp, res <- sandpaper_site())
   expect_type(res, "list")
   expect_named(res, c("name", "output_dir", "render", "clean", "subdirs"))
