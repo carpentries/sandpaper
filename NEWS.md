@@ -7,7 +7,10 @@ MISC
   longer forced to h3
 * tests now clean up after themselves and no longer change the working directory
   by default
-* {varnish} version bumped
+* {varnish} version bumped to 0.0.0.9005
+* tests that require pandoc will be skipped if pandoc is not available
+* tests for the presences of multiple files will use setequal instead of equal
+  to allow for alternate sorting orders. 
 
 # sandpaper 0.0.0.9025
 
