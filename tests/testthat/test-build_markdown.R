@@ -103,7 +103,7 @@ test_that("Artifacts are accounted for", {
     "pyramid.md"
   )
   a <- fs::dir_ls(fs::path(tmp, "site", "built"))
-  expect_equal(fs::path_file(a), b)
+  expect_setequal(fs::path_file(a), b)
   b <- c(
     # Generated markdown files
     fs::path_ext_set(s, "md"), 
@@ -119,7 +119,7 @@ test_that("Artifacts are accounted for", {
     "pyramid.md"
   )
   a <- fs::dir_ls(fs::path(tmp, "site", "built"), recurse = TRUE, type = "file")
-  expect_equal(fs::path_file(a), b)
+  expect_setequal(fs::path_file(a), b)
 
 })
 
