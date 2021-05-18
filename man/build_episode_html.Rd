@@ -52,7 +52,8 @@ fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
 txt <- c(
  "---\ntitle: Fun times\n---\n\n",
  "# new page\n", 
- "This is coming from `r R.version.string`"
+ "This is coming from `r R.version.string`\n",
+ "::: testimonial\n\n#### testimony!\n\nwhat\n:::\n"
 )
 file.create(fun_file)
 writeLines(txt, fun_file)
