@@ -24,7 +24,10 @@
 #' tmp <- tempfile()
 #' create_lesson(tmp, open = FALSE)
 #' suppressWarnings(set_episodes(tmp, get_episodes(tmp), write = TRUE))
-#' build_lesson(tmp)
+#' if (rmarkdown::pandoc_available("2.11")) {
+#'   # we can only build this if we have pandoc
+#'   build_lesson(tmp)
+#' }
 #' 
 #' # create a new file in extras
 #' fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")

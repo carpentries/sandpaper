@@ -72,6 +72,7 @@ test_that("modifying a file suffix will force the file to be rebuilt", {
   })
 
   # Test that the birth times are changed.
+  skip_on_os("windows")
   old_info <- fs::file_info(fs::path(tmp, "site", "built", "pyramid.md"))
   suppressMessages({
     build_markdown(res, quiet = TRUE)
