@@ -15,6 +15,7 @@
 #' @keywords internal
 #' @examples
 #'
+#' if (rmarkdown::pandoc_available("2.11")) {
 #' # first example---markdown to HTML
 #' tmp <- tempfile()
 #' ex <- c("# Markdown", 
@@ -39,6 +40,7 @@
 #' writeLines(lu, lua)
 #' lf <- paste0("--lua-filter=", lua)
 #' cat(sandpaper:::render_html(tmp, lf))
+#' }
 render_html <- function(path_in, ..., quiet = FALSE) {
   htm <- tempfile(fileext = ".html")
   on.exit(unlink(htm), add = TRUE)

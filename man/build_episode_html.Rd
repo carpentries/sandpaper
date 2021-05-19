@@ -45,22 +45,29 @@ they are doing.
 tmp <- tempfile()
 create_lesson(tmp, open = FALSE)
 suppressWarnings(set_episodes(tmp, get_episodes(tmp), write = TRUE))
-build_lesson(tmp)
+if (rmarkdown::pandoc_available("2.11")) {
+  # we can only build this if we have pandoc
+  build_lesson(tmp)
+}
 
 # create a new file in extras
 fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
 txt <- c(
  "---\ntitle: Fun times\n---\n\n",
  "# new page\n", 
- "This is coming from `r R.version.string`"
+ "This is coming from `r R.version.string`\n",
+ "::: testimonial\n\n#### testimony!\n\nwhat\n:::\n"
 )
 file.create(fun_file)
 writeLines(txt, fun_file)
 hash <- tools::md5sum(fun_file)
 res <- build_episode_md(fun_file, hash)
-build_episode_html(res, path_src = fun_file, 
-  pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
-)
+if (rmarkdown::pandoc_available("2.11")) {
+  # we can only build this if we have pandoc
+  build_episode_html(res, path_src = fun_file, 
+    pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
+  )
+}
 }
 \seealso{
 \code{\link[=build_episode_md]{build_episode_md()}}, \code{\link[=build_lesson]{build_lesson()}}, \code{\link[=build_markdown]{build_markdown()}}, \code{\link[=render_html]{render_html()}}

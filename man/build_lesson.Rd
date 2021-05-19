@@ -41,5 +41,6 @@ tmp <- tempfile()
 create_lesson(tmp, open = FALSE)
 create_episode("first-script", path = tmp)
 check_lesson(tmp)
-build_lesson(tmp)
+if (rmarkdown::pandoc_available())
+  build_lesson(tmp)
 }

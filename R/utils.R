@@ -69,7 +69,8 @@ enforce_main_branch <- function(path) {
 get_default_branch <- function() {
   cfg <- gert::git_config_global()
   default <- cfg$value[cfg$name == "init.defaultbranch"]
-  if (length(default) == 0) "main" else default
+  invalid <- length(default) == 0 || default == "master"
+  if (invalid) "main" else default
 }
 
 # This checks if we have set a temporary git user and then unsets it. It will 

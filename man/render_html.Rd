@@ -25,6 +25,7 @@ Carpentries such as \code{markdown_in_html_blocks}, \code{tex_math_dollars}, and
 }
 \examples{
 
+if (rmarkdown::pandoc_available("2.11")) {
 # first example---markdown to HTML
 tmp <- tempfile()
 ex <- c("# Markdown", 
@@ -49,5 +50,6 @@ lu <- c("Str = function (elem)",
 writeLines(lu, lua)
 lf <- paste0("--lua-filter=", lua)
 cat(sandpaper:::render_html(tmp, lf))
+}
 }
 \keyword{internal}

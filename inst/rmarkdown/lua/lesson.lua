@@ -193,8 +193,8 @@ function level_head(el, level)
     el.content:remove(id)
   end
 
-  if header ~= level then
-    -- force the header level to be 2
+  if header.level ~= nil and header.level < level then
+    -- force the header level to increase
     el.content[id].level = level
   end
 
@@ -229,7 +229,7 @@ handle_our_divs = function(el)
   -- Instructor notes should be aside tags
   v,i = el.classes:find("instructor")
   if i ~= nil then
-    level_head(el, 3) -- force level to be 3
+    level_head(el, 3) -- force level to be at most 3
     return step_aside(el, i) -- create aside padding
   end
 
@@ -254,11 +254,19 @@ handle_our_divs = function(el)
   --
   v,i = el.classes:find("callout")
   if i ~= nil then
-    level_head(el, 3) -- force level to be 3
+    level_head(el, 3) -- force level to be at most 3
     return step_aside(el, i) -- create aside padding
   end
 
-  -- All other Div tags should have level 2 headers
+  -- When I finally know how to manipulate jquery, I can implement this, but
+  -- for now, they will remain at level 2 :(
+  -- v,i = el.classes:find("solution")
+  -- if i ~= nil then
+  --   level_head(el, 3) -- force level to be at most 3
+  --   return el
+  -- end
+
+  -- All other Div tags should have at most level 2 headers
   level_head(el, 2)
 
   return el

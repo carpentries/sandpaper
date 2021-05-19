@@ -8,14 +8,14 @@ test_that("github workflows can be fetched", {
 
   skip_if_offline()
   # default a bare git repo
-  expect_equal(ls_file(tmp), ".git")
+  expect_setequal(ls_file(tmp), ".git")
   
   suppressMessages({
     fetch_github_workflows(tmp, "sandpaper-main.yaml")
   })
 
-  expect_equal(ls_file(tmp), c(".Rbuildignore", ".git", ".github"))
-  expect_equal(
+  expect_setequal(ls_file(tmp), c(".Rbuildignore", ".git", ".github"))
+  expect_setequal(
     ls_file(fs::path(tmp, ".github", "workflows")), 
     "sandpaper-main.yaml"
   )
@@ -48,9 +48,9 @@ test_that("github workflows can be added", {
 
   files_we_need <- eval(formals(fetch_github_workflows)$files)
 
-  expect_equal(
+  expect_setequal(
     ls_file(fs::path(tmp, ".github", "workflows")), 
-    sort(files_we_need)
+    files_we_need
   )
 
 })

@@ -7,7 +7,7 @@ withr::defer(fs::dir_delete(tmp))
 test_that("markdown sources can be built without fail", {
   
   expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp)
+  res <- create_lesson(tmp, open = FALSE)
   create_episode("second-episode", path = tmp)
   instruct <- fs::path(tmp, "instructors", "pyramid.md")
   writeLines(c(
@@ -25,6 +25,7 @@ test_that("markdown sources can be built without fail", {
   e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
   expect_equal(fs::path_file(e), s)
 
+  skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   # Accidentally rendered html live in their parent folders
   rmarkdown::render(instruct, quiet = TRUE)
   expect_true(fs::file_exists(fs::path_ext_set(instruct, "html"))) 
@@ -43,6 +44,7 @@ test_that("markdown sources can be built without fail", {
 test_that("markdown sources can be rebuilt without fail", {
   
   # no building needed
+  skip_on_os("windows")
   expect_silent(build_markdown(res, quiet = FALSE))
   
   # everything rebuilt
@@ -71,6 +73,7 @@ test_that("modifying a file suffix will force the file to be rebuilt", {
   })
 
   # Test that the birth times are changed.
+  skip_on_os("windows")
   old_info <- fs::file_info(fs::path(tmp, "site", "built", "pyramid.md"))
   suppressMessages({
     build_markdown(res, quiet = TRUE)
@@ -103,7 +106,7 @@ test_that("Artifacts are accounted for", {
     "pyramid.md"
   )
   a <- fs::dir_ls(fs::path(tmp, "site", "built"))
-  expect_equal(fs::path_file(a), b)
+  expect_setequal(fs::path_file(a), b)
   b <- c(
     # Generated markdown files
     fs::path_ext_set(s, "md"), 
@@ -119,7 +122,7 @@ test_that("Artifacts are accounted for", {
     "pyramid.md"
   )
   a <- fs::dir_ls(fs::path(tmp, "site", "built"), recurse = TRUE, type = "file")
-  expect_equal(fs::path_file(a), b)
+  expect_setequal(fs::path_file(a), b)
 
 })
 

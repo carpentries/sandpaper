@@ -6,7 +6,7 @@ test_that("the site can be cleared", {
 
   withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp)
+  res <- create_lesson(tmp, open = FALSE)
   expect_warning(s <- get_episodes(tmp), "set_episodes")
   set_episodes(tmp, s, write = TRUE)
 
@@ -21,6 +21,7 @@ test_that("the site can be cleared", {
   # I can save a file in the episodes directory and it will be propogated 
   saveRDS(expected, file = fs::path(tmp, "episodes", "data", "test.rds"))
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   build_lesson(tmp, preview = FALSE, quiet = TRUE)
 
   built_site <- fs::dir_ls(fs::path(tmp, "site"))
