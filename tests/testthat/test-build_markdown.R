@@ -44,6 +44,7 @@ test_that("markdown sources can be built without fail", {
 test_that("markdown sources can be rebuilt without fail", {
   
   # no building needed
+  skip_on_os("windows")
   expect_silent(build_markdown(res, quiet = FALSE))
   
   # everything rebuilt
