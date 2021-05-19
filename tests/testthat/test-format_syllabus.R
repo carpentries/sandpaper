@@ -6,7 +6,7 @@ withr::defer({
   if (fs::is_dir(tmp))
     fs::dir_delete(tmp)
   else
-    fs::file_delete(tmp)
+    fs::dir_delete(tmpdir)
 })
 
 test_that("the formatted syllabus renders markdown", {

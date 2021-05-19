@@ -8,7 +8,8 @@
 #' @examples
 #' tmp <- tempfile()
 #' create_lesson(tmp)
-#' build_lesson(tmp, preview = FALSE)
+#' if (rmarkdown::pandoc_available("2.11"))
+#'   build_lesson(tmp, preview = FALSE)
 #' dir(file.path(tmp, "site"))
 #' reset_site(tmp)
 #' dir(file.path(tmp, "site"))
