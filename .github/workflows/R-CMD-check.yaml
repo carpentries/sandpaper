@@ -22,7 +22,6 @@ jobs:
         config:
           - {os: macOS-latest,   r: 'release', cov: 'true'}
           - {os: windows-latest, r: 'release'}
-          - {os: windows-latest, r: '3.6'}
           - {os: ubuntu-16.04,   r: 'devel', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest", http-user-agent: "R/4.0.0 (ubuntu-16.04) R (4.0.0 x86_64-pc-linux-gnu x86_64 linux-gnu) on GitHub Actions" }
           - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
@@ -42,9 +41,9 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
-      - uses: r-lib/actions/setup-pandoc@master
+      - uses: r-lib/actions/setup-pandoc@v1
         with:
-          pandoc-version: '2.11' # NOTE: we need to add version catches for the tests.
+          pandoc-version: '2.11' 
 
       - name: Query dependencies
         run: |
@@ -54,7 +53,6 @@ jobs:
         shell: Rscript {0}
 
       - name: Restore package cache
-        if: runner.os != 'Windows'
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
