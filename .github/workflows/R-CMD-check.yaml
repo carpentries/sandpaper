@@ -34,6 +34,10 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+      - name: Record Linux Version
+        if: runner.os == 'Linux'
+        run: echo "OS_VERSION=`lsb_release -sr`" >> $GITHUB_ENV
+
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@master
@@ -54,11 +58,10 @@ jobs:
 
       - name: Restore package cache
         uses: actions/cache@v1
-        if: runner.os != "Linux"
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+          key: ${{ runner.os }}-${{ env.OS_VERSION }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ env.OS_VERSION }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Install macOS system dependencies
         if: runner.os == 'macOS'
