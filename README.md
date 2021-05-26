@@ -37,8 +37,8 @@ Bryan’s](https://jennybryan.org/) work with the
 
 ## Documentation
 
-Want to know how this works in a lesson format? Head over to
-<https://zkamvar.github.io/sandpaper-docs/>.
+**Want to know how this works in a lesson format? Head over to
+<https://zkamvar.github.io/sandpaper-docs/>.**
 
 If, instead, you already know how a lesson is built and are interested
 in understanding how the functions in {sandpaper} work, you can visit
@@ -48,13 +48,12 @@ this package documentation site at
 ## Installation
 
 {sandpaper} is not currently on CRAN, but it can be installed from our
-[Carpentries drat repository](https://carpentries.github.io/drat/)
-(updated every 12 hours) with the following commands:
+[Carpentries Universe](https://carpentries.r-universe.dev/ui#builds)
+(updated every hour) with the following commands:
 
 ``` r
 options(repos = c(
-  carpentries = "https://carpentries.github.io/drat/", # {sandpaper}, {pegboard}, {varnish}
-  ropensci = "https://ropensci.r-universe.dev/", # {tinkr}
+  carpentries = "https://carpentries.r-universe.dev/", 
   CRAN = "https://cran.rstudio.com/"
 ))
 install.packages("sandpaper", dep = TRUE)
