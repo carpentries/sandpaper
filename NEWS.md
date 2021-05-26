@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9027
+
+MISC
+----
+
+* `create_schedule()` (internal function) no longer uses pegboard's extensions
+  for fixing reference links. 
+
 # sandpaper 0.0.0.9026
 
 MISC
