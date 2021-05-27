@@ -24,7 +24,7 @@ get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
   # with each episode.
   
   sched    <- get_episodes(path)
-  lesson   <- pegboard::Lesson$new(path, jekyll = FALSE)
+  lesson   <- pegboard::Lesson$new(path, jekyll = FALSE, fix_links = FALSE)
   episodes <- lesson$episodes[sched]
   
   quest <- if (questions) vapply(episodes, get_questions, character(1)) else NULL
