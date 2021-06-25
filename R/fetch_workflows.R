@@ -18,7 +18,7 @@ fetch_github_workflows <- function(path = ".",
   base = "https://raw.githubusercontent.com/zkamvar/actions/main/workflows/",
   overwrite = TRUE) {
 
-  if (!is_online()) {
+  if (!pingr::is_online()) {
     stop("This function requires an internet connection.")
   }
 

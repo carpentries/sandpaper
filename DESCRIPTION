@@ -25,6 +25,7 @@ Imports:
     desc,
     knitr (>= 1.33),
     rmarkdown (>= 2.4),
+    pingr,
     rprojroot,
     usethis (>= 2.0.0),
     whisker,
