@@ -27,10 +27,8 @@ Bryan’s](https://jennybryan.org/) work with the
 
 ------------------------------------------------------------------------
 
-> Please note: {sandpaper} is very much a work in progress. At the
-> moment, the only thing that is real is the README to serve as a
-> roadmap for the future. Please [open an
-> issue](https://github.com/carpentries/sandpaper/issues/new) if you
+> Please note: {sandpaper} is very much a work in progress. Please [open
+> an issue](https://github.com/carpentries/sandpaper/issues/new) if you
 > have any comments or suggestions!
 
 ------------------------------------------------------------------------
@@ -38,7 +36,7 @@ Bryan’s](https://jennybryan.org/) work with the
 ## Documentation
 
 **Want to know how this works in a lesson format? Head over to
-<https://zkamvar.github.io/sandpaper-docs/>.**
+<https://carpentries.github.io/sandpaper-docs/>.**
 
 If, instead, you already know how a lesson is built and are interested
 in understanding how the functions in {sandpaper} work, you can visit
@@ -62,11 +60,11 @@ install.packages("sandpaper", dep = TRUE)
 Note that this will also install development versions of the following
 packages:
 
-| package                                                | What it does                                                                 |
-|--------------------------------------------------------|------------------------------------------------------------------------------|
-| [{varnish}](https://github.com/zkamvar/varnish#readme) | html, css, and javascript templates for The Carpentries (in progress)        |
-| [{tinkr}](https://docs.ropensci.org/tinkr/)            | manipulation of knitr markdown documents built on the commonmark xml library |
-| [{pegboard}](https://carpentries.github.io/pegboard)   | programmatic interface to lesson components for validation (in progress)     |
+| package                                                    | What it does                                                                 |
+|------------------------------------------------------------|------------------------------------------------------------------------------|
+| [{varnish}](https://github.com/carpentries/varnish#readme) | html, css, and javascript templates for The Carpentries (in progress)        |
+| [{tinkr}](https://docs.ropensci.org/tinkr/)                | manipulation of knitr markdown documents built on the commonmark xml library |
+| [{pegboard}](https://carpentries.github.io/pegboard)       | programmatic interface to lesson components for validation (in progress)     |
 
 ## Design
 
@@ -107,8 +105,8 @@ The website is generated in two steps:
     change.
 2.  html files are generated from the rendered markdown files and the
     CSS and JS sources in the
-    [{varnish}](https://github.com/zkamvar/varnish#readme) package for
-    the preview.
+    [{varnish}](https://github.com/carpentries/varnish#readme) package
+    for the preview.
 
 To ensure there are no clashes between minor differences in the user
 setup, no artifacts are committed to the main branch of the repository.
@@ -149,8 +147,9 @@ intensive, this will default to updating only files that were changed.
     content separated from the styling, we will set up the CI to
     generate the webpage from the pre-built sources on a weekly basis,
     which will check if there has been an update to the styles (which I
-    have in the [{varnish}](https://github.com/zkamvar/varnish#readme)
-    package) and then rebuild the site without rebuilding the content.
+    have in the
+    [{varnish}](https://github.com/carpentries/varnish#readme) package)
+    and then rebuild the site without rebuilding the content.
 -   `md-outputs` branch: This will be rerun every month from scratch
     with the most recent version of R and R packages. If there is a
     change, a pull request can be generated to update the `renv.lock`
