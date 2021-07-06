@@ -1,12 +1,17 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.0.0.9027
-Authors@R: 
+Version: 0.0.0.9028
+Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
            role = c("aut", "cre"),
            email = "zkamvar@gmail.com",
-           comment = c(ORCID = "0000-0003-1458-7108"))
+           comment = c(ORCID = "0000-0003-1458-7108")),
+    person(given = "François",
+           family = "Michonneau",
+           role = c("ctb"),
+           email = "fmichonneau@carpentries.org"),
+    person())
 Description: Boilerplate directory structure, build tools, and hosting tools for your lesson. 
 License: MIT + file LICENSE
 Imports: 

@@ -29,8 +29,7 @@ callout blocks. Much of the functionality in this package is inspired by
 
 --------------------------------------------------------------------------------
 
-> Please note: {sandpaper} is very much a work in progress. At the moment, the
-> only thing that is real is the README to serve as a roadmap for the future.
+> Please note: {sandpaper} is very much a work in progress. 
 > Please [open an issue](https://github.com/carpentries/sandpaper/issues/new) if you
 > have any comments or suggestions!
 
@@ -39,7 +38,7 @@ callout blocks. Much of the functionality in this package is inspired by
 ## Documentation
 
 **Want to know how this works in a lesson format? Head over to 
-<https://zkamvar.github.io/sandpaper-docs/>.** 
+<https://carpentries.github.io/sandpaper-docs/>.** 
 
 If, instead, you already know how a lesson is built and are interested in
 understanding how the functions in {sandpaper} work, you can visit this package
@@ -371,7 +370,7 @@ sandpaper::ci_release(tag = "0.1", md_branch = "md-outputs", site_branch = "gh-p
 [{remotes}]: https://remotes.r-lib.org/
 [{usethis}]: https://usethis.r-lib.org/
 [{gh}]: https://gh.r-lib.org/
-[{varnish}]: https://github.com/zkamvar/varnish#readme
+[{varnish}]: https://github.com/carpentries/varnish#readme
 [{pegboard}]: https://carpentries.github.io/pegboard
 [{tinkr}]: https://docs.ropensci.org/tinkr/
 [{gert}]: https://github.com/r-lib/gert#readme

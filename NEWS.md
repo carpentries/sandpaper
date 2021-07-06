@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9028
+
+NEW IMPORTS
+-----------
+
+The {pingr} package is now being imported to check for online access, which will
+marginally decrease data usage (@fmichonneau, #127).
+
 # sandpaper 0.0.0.9027
 
 MISC
