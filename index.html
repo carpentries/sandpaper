@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9027</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9028</span>
       </span>
     </div>
 
@@ -78,13 +78,13 @@
 <p>The {sandpaper} package was created by <a href="https://carpentries.org">The Carpentries</a> to re-imagine our method of creating lesson websites for our workshops. This package will take a series of <a href="https://www.markdownguide.org/getting-started/">Markdown</a> or <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> files and generate a static website with the features and styling of The Carpentries lessons including customized layouts and callout blocks. Much of the functionality in this package is inspired by <a href="https://jennybryan.org/">Jenny Bryan’s</a> work with the <a href="https://usethis.r-lib.org/">{usethis}</a> package.</p>
 <hr>
 <blockquote>
-<p>Please note: {sandpaper} is very much a work in progress. At the moment, the only thing that is real is the README to serve as a roadmap for the future. Please <a href="https://github.com/carpentries/sandpaper/issues/new">open an issue</a> if you have any comments or suggestions!</p>
+<p>Please note: {sandpaper} is very much a work in progress. Please <a href="https://github.com/carpentries/sandpaper/issues/new">open an issue</a> if you have any comments or suggestions!</p>
 </blockquote>
 <hr>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#documentation" class="anchor"></a>Documentation</h2>
-<p><strong>Want to know how this works in a lesson format? Head over to <a href="https://zkamvar.github.io/sandpaper-docs/" class="uri">https://zkamvar.github.io/sandpaper-docs/</a>.</strong></p>
+<p><strong>Want to know how this works in a lesson format? Head over to <a href="https://carpentries.github.io/sandpaper-docs/" class="uri">https://carpentries.github.io/sandpaper-docs/</a>.</strong></p>
 <p>If, instead, you already know how a lesson is built and are interested in understanding how the functions in {sandpaper} work, you can visit this package documentation site at <a href="https://carpentries.github.io/sandpaper/" class="uri">https://carpentries.github.io/sandpaper/</a>.</p>
 </div>
 <div id="installation" class="section level2">
@@ -100,8 +100,8 @@
 <p>Note that this will also install development versions of the following packages:</p>
 <table class="table">
 <colgroup>
-<col width="41%">
-<col width="58%">
+<col width="43%">
+<col width="56%">
 </colgroup>
 <thead><tr class="header">
 <th>package</th>
@@ -109,7 +109,7 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://github.com/zkamvar/varnish#readme">{varnish}</a></td>
+<td><a href="https://github.com/carpentries/varnish#readme">{varnish}</a></td>
 <td>html, css, and javascript templates for The Carpentries (in progress)</td>
 </tr>
 <tr class="even">
@@ -163,7 +163,7 @@ git aware, but does not require contributors to have git installed</li>
 <p>The website is generated in two steps:</p>
 <ol>
 <li>markdown files from the source files are rendered containing a hash for the source file so that these need only be re-rendered when they change.</li>
-<li>html files are generated from the rendered markdown files and the CSS and JS sources in the <a href="https://github.com/zkamvar/varnish#readme">{varnish}</a> package for the preview.</li>
+<li>html files are generated from the rendered markdown files and the CSS and JS sources in the <a href="https://github.com/carpentries/varnish#readme">{varnish}</a> package for the preview.</li>
 </ol>
 <p>To ensure there are no clashes between minor differences in the user setup, no artifacts are committed to the main branch of the repository. Because of the caching mechanism between the website and the rendered markdown files, long-running lessons can be updated and previewed quickly.</p>
 </div>
@@ -189,7 +189,7 @@ git aware, but does not require contributors to have git installed</li>
 <a href="#scheduled-builds" class="anchor"></a>Scheduled builds</h4>
 <ul>
 <li>
-<code>gh-pages</code> website: Because we are designing the lessons to have content separated from the styling, we will set up the CI to generate the webpage from the pre-built sources on a weekly basis, which will check if there has been an update to the styles (which I have in the <a href="https://github.com/zkamvar/varnish#readme">{varnish}</a> package) and then rebuild the site without rebuilding the content.</li>
+<code>gh-pages</code> website: Because we are designing the lessons to have content separated from the styling, we will set up the CI to generate the webpage from the pre-built sources on a weekly basis, which will check if there has been an update to the styles (which I have in the <a href="https://github.com/carpentries/varnish#readme">{varnish}</a> package) and then rebuild the site without rebuilding the content.</li>
 <li>
 <code>md-outputs</code> branch: This will be rerun every month from scratch with the most recent version of R and R packages. If there is a change, a pull request can be generated to update the <code>renv.lock</code> file with a link to the changed markdown files in this branch.</li>
 </ul>
@@ -410,6 +410,7 @@ git aware, but does not require contributors to have git installed</li>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Zhian N. Kamvar <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1458-7108" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
