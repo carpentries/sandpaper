@@ -51,24 +51,31 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   # My additional commands use arrows.
   opt = options(stringsAsFactors = FALSE)
   on.exit(options(opt), add = TRUE)
-  built <- fs::path(fs::path_dir(db), fs::path_file(sources))
+  # To make this portable, we want to record relative paths. The sources coming
+  # in will be absolute paths, so this will check for the common path and then
+  # trim it.
+  root_path  <- fs::path_common(sources)
+  sources    <- fs::path_rel(sources, start = root_path)
+  built_path <- fs::path_rel(fs::path_dir(db), root_path)
+  # built files are flattened here
+  built <- fs::path(built_path, fs::path_file(sources))
   built <- ifelse(
-    fs::path_ext(built) %nin% c("yaml", "yml"), 
+    fs::path_ext(built) %nin% c("yaml", "yml"),
     fs::path_ext_set(built, "md"), built
   )
   md5 = data.frame(
     file     = sources,
-    checksum = tools::md5sum(sources),
+    checksum = tools::md5sum(fs::path(root_path, sources)),
     built    = built
   )
   if (!file.exists(db)) {
     fs::dir_create(dirname(db))
-    if (write) 
+    if (write)
       write_build_db(md5, db)
-    return(list(build = sources, new = md5))
+    return(list(build = fs::path(root_path, sources), new = md5))
   }
   # old checksums (2 columns: file path and checksum)
-  old = read.table(db, header = TRUE)  
+  old = read.table(db, header = TRUE)
   one = merge(md5, old, 'file', all = TRUE, suffixes = c('', '.old'), sort = FALSE)
   newsum <- names(one)[2]
   oldsum <- paste0(newsum, ".old")
@@ -85,8 +92,13 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     unchanged <- one[[newsum]] == one[[oldsum]]
     files = setdiff(sources, one[['file']][unchanged])
   }
-  if (write) 
+  if (write)
     write_build_db(one[, 1:3], db)
+
+  # files and to_remove need absolute paths so that subprocesses can run them
+  files     <- fs::path_abs(files, start = root_path)
+  to_remove <- fs::path_abs(to_remove, start = root_path)
+
   list(
     build = files,
     remove = to_remove,
