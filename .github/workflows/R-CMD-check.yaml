@@ -96,7 +96,7 @@ jobs:
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
-      - name: Checkout Test Lesson
+      - name: Checkout Lesson for Integration Test
         if: runner.os == 'macOS'
         uses: actions/checkout@v2
         with:
@@ -104,18 +104,24 @@ jobs:
           path: ${{ github.workspace }}/sandpaper-docs 
           clean: false
 
-      - name: Check Test Lesson
+      - name: Perform Integration Test
         if: runner.os == 'macOS'
         run: |
           remotes::install_local()
           stopifnot(
             "::warning ::Could not clone test lesson" = fs::dir_exists("sandpaper-docs")
           )
-          sandpaper::build_lesson("sandpaper-docs")
+          ::group::Pre-built lesson tree
+          fs::dir_tree("sandpaper-docs")
+          ::endgroup::
+          ::group::Post-built lesson tree
+          sandpaper::build_lesson("sandpaper-docs", quiet = FALSE)
           stopifnot(
             "::error ::Markdown files not built" = fs::dir_exists("sandpaper-docs/site/built"),
             "::error ::HTML files not built" = fs::dir_exists("sandpaper-docs/site/docs")
           )
+          fs::dir_tree("sandpaper-docs")
+          ::endgroup::
         shell: Rscript {0}
 
       - name: Show testthat output
