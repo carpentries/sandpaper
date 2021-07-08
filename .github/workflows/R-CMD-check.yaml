@@ -107,6 +107,7 @@ jobs:
       - name: Check Test Lesson
         if: runner.os == 'macOS'
         run: |
+          remotes::install_local()
           stopifnot(
             "::warning ::Could not clone test lesson" = fs::dir_exists("sandpaper-docs")
           )
