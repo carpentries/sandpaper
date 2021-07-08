@@ -37,8 +37,9 @@ jobs:
       - name: Record Linux Version
         if: runner.os == 'Linux'
         run: echo "OS_VERSION=`lsb_release -sr`" >> $GITHUB_ENV
-
-      - uses: actions/checkout@v2
+      
+      - name: Checkout Package
+        uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@master
         with:
@@ -95,11 +96,17 @@ jobs:
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
-      - name: Check on Lesson
+      - name: Checkout Test Lesson
+        if: runner.os == 'macOS'
+        uses: actions/checkout@v2
+        with:
+          repository = "carpentries/sandpaper-docs"
+          path: ${{ github.workspace }}/sandpaper-docs 
+          clean: false
+
+      - name: Check Test Lesson
         if: runner.os == 'macOS'
         run: |
-          usethis::create_from_github("carpentries/sandpaper-docs", 
-            destdir = ".", fork = FALSE, open = FALSE)
           stopifnot(
             "::warning ::Could not clone test lesson" = fs::dir_exists("sandpaper-docs")
           )
