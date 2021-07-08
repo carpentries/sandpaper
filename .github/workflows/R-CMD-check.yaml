@@ -111,17 +111,17 @@ jobs:
           stopifnot(
             "::warning ::Could not clone test lesson" = fs::dir_exists("sandpaper-docs")
           )
-          ::group::Pre-built lesson tree
+          cat("::group::Pre-built lesson tree")
           fs::dir_tree("sandpaper-docs")
-          ::endgroup::
-          ::group::Post-built lesson tree
+          cat("::endgroup::")
+          cat("::group::Post-built lesson tree")
           sandpaper::build_lesson("sandpaper-docs", quiet = FALSE)
           stopifnot(
             "::error ::Markdown files not built" = fs::dir_exists("sandpaper-docs/site/built"),
             "::error ::HTML files not built" = fs::dir_exists("sandpaper-docs/site/docs")
           )
           fs::dir_tree("sandpaper-docs")
-          ::endgroup::
+          cat("::endgroup::")
         shell: Rscript {0}
 
       - name: Show testthat output
