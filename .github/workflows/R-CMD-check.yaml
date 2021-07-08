@@ -98,7 +98,7 @@ jobs:
       - name: Check on Lesson
         if: runner.os == 'macOS'
         run: |
-          usethis::use_github("carpentries/sandpaper-docs", 
+          usethis::create_from_github("carpentries/sandpaper-docs", 
             destdir = ".", fork = FALSE, open = FALSE)
           stopifnot(
             "::warning ::Could not clone test lesson" = fs::dir_exists("sandpaper-docs")
