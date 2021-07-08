@@ -172,6 +172,35 @@ test_that("Removing source removes built", {
   expect_length(get_figs(res, "02-second-episode"), 0)
 })
 
+test_that("old md5sum.txt db will work", {
+  # Databases built with sandpaper versions < 0.0.0.9028 will still work:
+  db_path <- fs::path(res, "site", "built", "md5sum.txt")
+  olddb <- db <- get_built_db(db_path)
+  withr::defer({
+    write_build_db(olddb, db_path)
+  })
+  db$file <- fs::path(res, db$file)
+  db$built <- fs::path(res, db$built)
+  write_build_db(db, db_path)
+  sources <- unlist(get_resource_list(res), use.names = FALSE)
+  newdb <- build_status(sources, db_path, rebuild = FALSE, write = FALSE)
+
+  # Pages that used the old version will go through a full revision, meaning
+  # that the previously built pages will need to be removed
+  expect_length(newdb$remove, length(sources))
+
+  # All of the resources appear to exist
+  expect_true(all(fs::file_exists(newdb$remove)))
+  expect_true(all(fs::file_exists(newdb$build)))
+
+  # The absolute paths of the old versions represent actual files
+  expect_identical(db$built, newdb$remove)
+
+  # The new database format is restored
+  expect_identical(olddb$file, as.character(newdb$new$file))
+
+})
+
 test_that("Removing partially matching slugs will not have side-effects", {
   built_path <- path_built(res)
   

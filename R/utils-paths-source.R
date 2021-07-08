@@ -37,12 +37,6 @@ path_profiles <- function(inpath) {
 get_resource_list <- function(path, trim = FALSE) {
   root <- root_path(path)
   cfg  <- get_config(root)
-  # res  <- rmarkdown::site_resources(
-  #   site_dir  = root,
-  #   include   = c("*md", include),
-  #   exclude   = c("site", exclude),
-  #   recursive = TRUE
-  # )
   res <- fs::dir_ls(
     root,
     regexp = "*[.](R?md|ipynb)$", # at the moment, we will only recognize Rmd,

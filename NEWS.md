@@ -1,3 +1,8 @@
+# sandpaper 0.0.0.9029
+
+The internal database is updated to use relative instead of absolute paths. 
+This fixes #129
+
 # sandpaper 0.0.0.9028
 
 NEW IMPORTS
