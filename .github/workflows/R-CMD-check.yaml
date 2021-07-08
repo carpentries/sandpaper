@@ -100,7 +100,7 @@ jobs:
         if: runner.os == 'macOS'
         uses: actions/checkout@v2
         with:
-          repository = "carpentries/sandpaper-docs"
+          repository: "carpentries/sandpaper-docs"
           path: ${{ github.workspace }}/sandpaper-docs 
           clean: false
 
