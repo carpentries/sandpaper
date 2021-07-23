@@ -15,7 +15,7 @@ test_that("the formatted syllabus renders markdown", {
   
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp, open = FALSE, rstudio = FALSE)
-  expect_warning(s <- get_episodes(tmp), "set_episodes")
+  suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
 
   res <- get_syllabus(tmp, questions = TRUE)

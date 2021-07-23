@@ -1,6 +1,20 @@
-# set_episodes() will display the modifications if write is not specified
+# set_episodes() will display the modifications if write is not specified [plain]
 
-    episodes:
-    - 01-introduction.Rmd
-    x 02-new.Rmd
+    Code
+      s <- get_episodes(tmp)
+    Message <cliMessage>
+      i No schedule set, using Rmd files in 'episodes/' directory.
+      > To remove this message, define your schedule in 'config.yaml' or use `set_episodes()` to generate it.
+
+---
+
+    Code
+      set_episodes(tmp, s[1])
+    Output
+      episodes:
+      - 01-introduction.Rmd
+    Message <cliMessage>
+      -- Removed episodes ------------------------------------------------------------
+    Output
+      x 02-new.Rmd
 

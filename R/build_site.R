@@ -63,6 +63,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   pkgdown::preview_site(pkg, "/", preview = preview)
   if (!quiet) {
     dst <- fs::path_rel(path = pkg$dst_path, start = path)
-    message("\nOutput created: ", fs::path(pkg$dst_path, out))
+    pth <- if (identical(Sys.getenv("TESTTHAT"), "true")) "[masked]" else pkg$dst_path
+    message("\nOutput created: ", fs::path(pth, out))
   }
 }

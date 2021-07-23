@@ -1,5 +1,4 @@
-test_that("lessons can be created in empty directories", {
-
+{
   tmpdir <- fs::file_temp()
   fs::dir_create(tmpdir)
   tmp    <- fs::path(tmpdir, "lesson-example")
@@ -8,20 +7,32 @@ test_that("lessons can be created in empty directories", {
   expect_false(fs::dir_exists(tmp))
   wd  <- fs::path(normalizePath(getwd()))
   withr::defer(setwd(wd))
+}
+test_that("lessons can be created in empty directories", {
+
   suppressMessages({expect_message({
     res <- create_lesson(tmp, rstudio = TRUE, open = TRUE)
   }, "Setting active project to")})
   tmp <- normalizePath(tmp)
   expect_false(wd == fs::path(normalizePath(getwd())))
   expect_equal(normalizePath(getwd()), tmp)
+})
+
+test_that("lessons are NOT initialized with a 'master' branch", {
   # enforce that we do NOT have a master branch
   expect_false(gert::git_branch(tmp) == "master")
   expect_false(gert::git_branch_exists("master", repo = tmp))
   # enforce that our new branch matches the user's default branch (or main)
   expect_true(gert::git_branch(tmp) == sandpaper:::get_default_branch())
 
+})
+
+test_that("check_lesson() passes muster on new lessons", {
   # Make sure everything exists
   expect_true(check_lesson(tmp))
+})
+
+test_that("All template files exist", {
   expect_true(fs::dir_exists(tmp))
   expect_equal(
     politely_get_yaml(fs::path(tmp, "index.md"))[[2]], 
@@ -44,6 +55,9 @@ test_that("lessons can be created in empty directories", {
   expect_true(fs::file_exists(fs::path(tmp, "episodes", "01-introduction.Rmd")))
   expect_true(fs::file_exists(fs::path(tmp, ".gitignore")))
   expect_true(fs::file_exists(fs::path(tmp, paste0(basename(tmp), ".Rproj"))))
+})
+
+test_that("Templated files are correct", {
   expect_setequal(
     readLines(fs::path(tmp, ".gitignore")), 
     readLines(template_gitignore())
@@ -53,6 +67,9 @@ test_that("lessons can be created in empty directories", {
     readLines(template_episode())
   )
   
+})
+
+test_that("The site/ directory is ignored by git", {
   expect_true(nrow(gert::git_status(repo = tmp)) == 0)
 
   # create a new file in the site directory
@@ -62,9 +79,13 @@ test_that("lessons can be created in empty directories", {
   # add a new thing to gitignore
   cat("# No ticket\nticket.txt\n", file = fs::path(tmp, ".gitignore"), append = TRUE)
   expect_true(check_lesson(tmp))
-  expect_true(check_episode(fs::path(tmp, "episodes", "01-introduction.Rmd")))
+})
 
+test_that("Episode validation works", {
+  expect_true(check_episode(fs::path(tmp, "episodes", "01-introduction.Rmd")))
+})
   
+test_that("We have a git repo that's correctly configured", {
   # Ensure it is a git repo
   expect_true(fs::dir_exists(fs::path(tmp, ".git")))
 
@@ -88,14 +109,17 @@ test_that("lessons can be created in empty directories", {
     expect_false(length(config$value[config$name == "user.name"]) > 0)
     expect_false(length(config$value[config$name == "user.email"]) > 0)
   }
+})
 
-  fs::file_delete(fs::path(tmp, ".gitignore"))
-    suppressMessages({
+cli::test_that_cli("Destruction of the .gitignore file renders the lesson incorrect", {
+
+  if (fs::file_exists(gi <- fs::path(tmp, ".gitignore"))) fs::file_delete(gi)
+  expect_snapshot({
     expect_error( 
       check_lesson(tmp), 
       "There were errors with the lesson structure"
     )
-    })
+  })
 })
 
 test_that("lessons cannot be created in directories that are occupied", {

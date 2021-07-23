@@ -1,30 +1,43 @@
-test_that("lessons can be built sanely", {
-  
-  tmpdir <- fs::file_temp()
-  fs::dir_create(tmpdir)
-  tmp    <- fs::path(tmpdir, "lesson-example")
 
-  withr::defer(fs::dir_delete(tmp))
+tmpdir <- fs::file_temp()
+fs::dir_create(tmpdir)
+tmp    <- fs::path(tmpdir, "lesson-example")
+sitepath <- fs::path(tmp, "site", "docs")
+withr::defer(fs::dir_delete(tmp))
+
+test_that("A lesson can be created in a non-existent directory", {
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp, open = FALSE)
+})
+
+test_that("Lessons built for the first time are noisy", {
+  
   create_episode("second-episode", path = tmp)
-  expect_warning(s <- get_episodes(tmp), "set_episodes")
+  suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
-  expect_equal(res, tmp, ignore_attr = TRUE)
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
 
   # It's noisy at first
   suppressMessages({
-    expect_output(build_lesson(res, preview = FALSE, quiet = FALSE), "ordinary text without R code")
+    expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
+      "ordinary text without R code")
   })
 
-  # see helper-hash.R
-  h1 <- expect_hashed(res, "01-introduction.Rmd")
-  h2 <- expect_hashed(res, "02-second-episode.Rmd")
-  expect_equal(h1, h2, ignore_attr = TRUE)
+})
 
-  sitepath <- fs::path(tmp, "site", "docs")
+test_that("source files are hashed", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  # see helper-hash.R
+  h1 <- expect_hashed(tmp, "01-introduction.Rmd")
+  h2 <- expect_hashed(tmp, "02-second-episode.Rmd")
+  expect_equal(h1, h2, ignore_attr = TRUE)
+})
+
+test_that("HTML files are present and have the correct elements", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   expect_true(fs::file_exists(fs::path(sitepath, "01-introduction.html")))
   expect_true(fs::file_exists(fs::path(sitepath, "02-second-episode.html")))
   expect_true(fs::file_exists(fs::path(sitepath, "index.html")))
@@ -43,22 +56,38 @@ test_that("lessons can be built sanely", {
         "02-second-episode.html",
         readLines(fs::path(sitepath, "index.html"))
   )))
+})
 
-  # But will not built if things are not changed
-  expect_failure(
-    expect_output(build_lesson(res, preview = FALSE), "ordinary text without R code")
-  )
-  fs::file_touch(fs::path(res, "episodes", "01-introduction.Rmd"))
-  expect_failure(
-    expect_output(build_lesson(res, preview = FALSE), "ordinary text without R code")
-  )
+test_that("files will not be rebuilt unless they change in content", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  # expect_silent(suppressMessages(build_lesson(tmp, preview = FALSE)))
+  suppressMessages({
+    expect_failure({
+      expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
+      "ordinary text without R code")
+    })
+  })
+
+  fs::file_touch(fs::path(tmp, "episodes", "01-introduction.Rmd"))
+
+  # expect_silent(suppressMessages(build_lesson(tmp, preview = FALSE)))
+  suppressMessages({
+    expect_failure({
+      expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
+      "ordinary text without R code")
+    })
+  })
 
   expect_true(fs::file_exists(fs::path(sitepath, "01-introduction.html")))
   expect_true(fs::file_exists(fs::path(sitepath, "02-second-episode.html")))
 
-  # If index.md exists, it will use that for the index
-  writeLines("I am an INDEX\n", fs::path(res, "index.md"))
-  build_lesson(res, quiet = TRUE, preview = FALSE)
+})
+
+test_that("if index.md exists, it will be used for the home page", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  writeLines("I am an INDEX\n", fs::path(tmp, "index.md"))
+  build_lesson(tmp, quiet = TRUE, preview = FALSE)
 
   expect_true(any(grepl(
         "I am an INDEX",
@@ -70,18 +99,6 @@ test_that("lessons can be built sanely", {
 
 test_that("episodes with HTML in the title are rendered correctly", {
 
-  tmpdir <- fs::file_temp()
-  fs::dir_create(tmpdir)
-  tmp    <- fs::path(tmpdir, "lesson-example")
-
-  withr::defer(fs::dir_delete(tmp))
-  expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp, open = FALSE)
-  create_episode("second-episode", path = tmp)
-  expect_warning(s <- get_episodes(tmp), "set_episodes")
-  set_episodes(tmp, s, write = TRUE)
-  expect_equal(res, tmp, ignore_attr = TRUE)
-
   skip_if_not(rmarkdown::pandoc_available("2.11"))
 
   se <- readLines(fs::path(tmp, "episodes", "02-second-episode.Rmd"))
@@ -89,13 +106,11 @@ test_that("episodes with HTML in the title are rendered correctly", {
   writeLines(se, fs::path(tmp, "episodes", "02-second-episode.Rmd"))
 
   suppressMessages({
-  expect_output(build_lesson(res, preview = FALSE, quiet = FALSE), "ordinary text without R code")
+    expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), "ordinary text without R code")
   })
 
-  sitepath <- fs::path(tmp, "site", "docs")
-
-  h1 <- expect_hashed(res, "01-introduction.Rmd")
-  h2 <- expect_hashed(res, "02-second-episode.Rmd")
+  h1 <- expect_hashed(tmp, "01-introduction.Rmd")
+  h2 <- expect_hashed(tmp, "02-second-episode.Rmd")
   expect_failure(expect_equal(h1, h2, ignore_attr = TRUE))
   expect_true(fs::file_exists(fs::path(sitepath, "02-second-episode.html")))
 
