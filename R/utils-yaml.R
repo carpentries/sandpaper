@@ -45,19 +45,15 @@ write_pkgdown_yaml <- function(yaml, path) {
 
 show_changed_yaml <- function(sched, order, yaml, what = "episodes") {
 
-  if (requireNamespace("cli", quietly = TRUE)) {
-    # display for the user to distinguish what was added and what was taken 
-    removed <- sched %nin% order
-    added   <- order %nin% sched
-    order[added] <- cli::style_bold(cli::col_green(order[added]))
-    cli::cat_line(paste0(what, ":"))
-    cli::cat_bullet(order, bullet = "line")
-    if (any(removed)) {
-      cli::cli_rule(paste("Removed", what))
-      cli::cat_bullet(sched[removed], bullet = "cross", bullet_col = "red")
-    }
-  } else {
-    cat(yaml::as.yaml(yaml)[[what]])
+  # display for the user to distinguish what was added and what was taken 
+  removed <- sched %nin% order
+  added   <- order %nin% sched
+  order[added] <- cli::style_bold(cli::col_green(order[added]))
+  cli::cat_line(paste0(what, ":"))
+  cli::cat_bullet(order, bullet = "line")
+  if (any(removed)) {
+    cli::cli_rule(paste("Removed", what))
+    cli::cat_bullet(sched[removed], bullet = "cross", bullet_col = "red")
   }
 }
 

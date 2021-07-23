@@ -7,7 +7,7 @@ test_that("the site can be cleared", {
   withr::defer(fs::dir_delete(tmp))
   expect_false(fs::dir_exists(tmp))
   res <- create_lesson(tmp, open = FALSE)
-  expect_warning(s <- get_episodes(tmp), "set_episodes")
+  suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
 
   # Make sure everything exists

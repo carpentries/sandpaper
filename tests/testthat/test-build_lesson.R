@@ -13,11 +13,7 @@ test_that("A lesson can be created in a non-existent directory", {
 test_that("Lessons built for the first time are noisy", {
   
   create_episode("second-episode", path = tmp)
-  suppressWarnings({
-    withr::with_options(list("sandpaper.no-cli" = TRUE), {
-      s <- get_episodes(tmp)
-    })
-  })
+  suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
@@ -62,15 +58,26 @@ test_that("HTML files are present and have the correct elements", {
   )))
 })
 
-cli::test_that_cli("files will not be rebuilt unless they change in content", {
+test_that("files will not be rebuilt unless they change in content", {
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
-  expect_snapshot(build_lesson(tmp, preview = FALSE))
+  # expect_silent(suppressMessages(build_lesson(tmp, preview = FALSE)))
+  suppressMessages({
+    expect_failure({
+      expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
+      "ordinary text without R code")
+    })
+  })
 
   fs::file_touch(fs::path(tmp, "episodes", "01-introduction.Rmd"))
 
-  tmp2 <- tmp
-  expect_snapshot(build_lesson(tmp2, preview = FALSE))
+  # expect_silent(suppressMessages(build_lesson(tmp, preview = FALSE)))
+  suppressMessages({
+    expect_failure({
+      expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
+      "ordinary text without R code")
+    })
+  })
 
   expect_true(fs::file_exists(fs::path(sitepath, "01-introduction.html")))
   expect_true(fs::file_exists(fs::path(sitepath, "02-second-episode.html")))

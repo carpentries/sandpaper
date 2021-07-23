@@ -1,13 +1,15 @@
+{
 tmpdir <- fs::file_temp()
 fs::dir_create(tmpdir)
 tmp    <- fs::path(tmpdir, "lesson-example")
 withr::defer(fs::dir_delete(tmp))
 res <- create_lesson(tmp, open = FALSE)
+}
 
 test_that("schedule is empty by default", {
 
   cfg <- get_config(tmp)
-  expect_warning(s <- get_episodes(tmp), "set_episodes")
+  suppressMessages(s <- get_episodes(tmp))
   expect_equal(s, "01-introduction.Rmd")
   expect_null(set_episodes(tmp, s, write = TRUE))
   expect_silent(s <- get_episodes(tmp))
@@ -31,21 +33,24 @@ test_that("new episodes will not add to the schedule by default", {
 test_that("get_episodes() returns episodes in dir if schedule is not set", {
 
   reset_episodes(tmp)
-  expect_warning(s <- get_episodes(tmp), "set_episodes")
+  suppressMessages(expect_message(s <- get_episodes(tmp)))
   expect_equal(s, c("01-introduction.Rmd", "02-new.Rmd"))
   set_episodes(tmp, s[1], write = TRUE)
   expect_equal(get_episodes(tmp), s[1])
 
 })
 
-test_that("set_episodes() will display the modifications if write is not specified", {
+
+cli::test_that_cli("set_episodes() will display the modifications if write is not specified", {
 
   reset_episodes(tmp)
-  expect_warning(s <- get_episodes(tmp), "set_episodes")
+  expect_snapshot(s <- get_episodes(tmp))
+
   expect_equal(s, c("01-introduction.Rmd", "02-new.Rmd"))
   set_episodes(tmp, s, write = TRUE)
   expect_equal(get_episodes(tmp), s)
-  expect_snapshot_output(set_episodes(tmp, s[1]))
+
+  expect_snapshot(set_episodes(tmp, s[1]))
   expect_equal(get_episodes(tmp), s)
   set_episodes(tmp, s[1], write = TRUE)
   expect_equal(get_episodes(tmp), s[1])
