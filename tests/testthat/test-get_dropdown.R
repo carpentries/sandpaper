@@ -21,7 +21,7 @@ cli::test_that_cli("get_dropdown works as expected with messages", {
   expect_error(get_dropdown(res), "folder") # folder missing with no default 
   expect_snapshot(s <- get_dropdown(res, "episodes"))
   expect_equal(s, eps)
-})
+}, configs = "plain")
 
 test_that("episodes can be set with the output of get_episodes()", {
 

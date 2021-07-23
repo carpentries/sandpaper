@@ -55,7 +55,7 @@ cli::test_that_cli("set_episodes() will display the modifications if write is no
   set_episodes(tmp, s[1], write = TRUE)
   expect_equal(get_episodes(tmp), s[1])
 
-})
+}, configs = "plain")
 
 test_that("set_episodes() will error if no proposal is defined", {
 
