@@ -63,8 +63,17 @@ get_profiles <- function(path = ".", trim = TRUE) {
 }
 
 warn_schedule <- function() {
-  msg <- "No schedule set, using Rmd files in `episodes/` directory."
-  msg <- paste0(msg, "\n", "To remove this warning, define your schedule in ")
-  msg <- paste0(msg, "`config.yaml` or use `set_episodes()` to generate it.")
-  warning(msg)
+  msg  <- "No schedule set, using Rmd files in {.file episodes/} directory."
+  msg2 <- "To remove this message, define your schedule in {.file config.yaml}"
+  msg3 <- "or use {.code set_episodes()} to generate it."
+  if (is.null(getOption("sandpaper.no-cli")) && requireNamespace("cli", quietly = TRUE)) {
+    thm <- cli::cli_div(theme = sandpaper_cli_theme())
+    cli::cli_alert_info(msg)
+    cli::cli_alert(cli::style_dim(paste(msg2, msg3)), class = "alert-suggestion")
+    cli::cli_end(thm)
+  } else {
+    wrn <- glue::glue("{msg}
+        {msg2} {msg3}")
+    warning(remove_cli_decoration(wrn), call. = FALSE)
+  }
 }

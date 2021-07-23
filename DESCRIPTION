@@ -17,6 +17,7 @@ License: MIT + file LICENSE
 Imports: 
     pkgdown (>= 1.6.0),
     pegboard (>= 0.0.0.9014),
+    cli (>= 2.0.2),
     commonmark,
     xml2,
     fs,
@@ -39,7 +40,6 @@ Imports:
     tools
 Suggests: 
     testthat (>= 3.0.0),
-    cli (>= 2.0.2),
     covr,
     withr,
     jsonlite,

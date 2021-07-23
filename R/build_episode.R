@@ -128,6 +128,7 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
   # ==========================================================
   #
   # Note that this process can NOT use any internal functions
+  sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
   callr::r(function(path, hash, env, outpath, workdir, quiet) {
     # Shortcut if the source is a markdown file
     # Taken directly from tools::file_ext
@@ -182,7 +183,7 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
 
     # write file to disk ------------------------------------
     # writeLines(res, outpath)
-  }, args = args, show = !quiet)
+  }, args = args, show = !quiet, spinner = sho)
 
   invisible(outpath)
 }
