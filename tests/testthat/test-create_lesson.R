@@ -111,15 +111,15 @@ test_that("We have a git repo that's correctly configured", {
   }
 })
 
-test_that("Destruction of the .gitignore file renders the lesson incorrect", {
+cli::test_that_cli("Destruction of the .gitignore file renders the lesson incorrect", {
 
-  fs::file_delete(fs::path(tmp, ".gitignore"))
-    suppressMessages({
+  if (fs::file_exists(gi <- fs::path(tmp, ".gitignore"))) fs::file_delete(gi)
+  expect_snapshot({
     expect_error( 
       check_lesson(tmp), 
       "There were errors with the lesson structure"
     )
-    })
+  })
 })
 
 test_that("lessons cannot be created in directories that are occupied", {

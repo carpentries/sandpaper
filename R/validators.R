@@ -20,8 +20,8 @@ check_gitignore <- function(theirs) {
   length(setdiff(GITIGNORED, theirs)) == 0
 }
 assertthat::on_failure(check_gitignore) <- function(call, env) {
-  paste0("The .gitignore file is missing some elements: ", 
-    paste(setdiff(GITIGNORED, eval(call$theirs, env)), collapse = ", ")
+  paste0("The .gitignore file is missing the following elements:\n", 
+    paste(setdiff(GITIGNORED, eval(call$theirs, env)), collapse = "\n")
   )
 }
 
@@ -39,12 +39,10 @@ report_validation <- function(checklist, msg = "There were errors") {
 
   if (length(errs) == 0) return(invisible(TRUE))
 
+  cli::cli_div(theme = sandpaper_cli_theme())
+  on.exit(cli::cli_end(), add = TRUE)
   for (i in errs) {
-    if (requireNamespace("cli", quietly = TRUE)) {
-      cli::cli_alert_danger(i)
-    } else {
-      msg <- paste(i, msg, sep = "\n", collapse = "\n")
-    }
+    cli::cli_alert_danger(i)
   }
   stop(msg)
 }

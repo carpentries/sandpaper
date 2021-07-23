@@ -1,3 +1,14 @@
+# sandpaper 0.0.0.9031
+
+MISC
+---
+
+ - The {cli} package is now an official import of the package
+ - The warning message issued from the internal `warn_schedule()` function has
+   been changed exclusively use cli messages and can be suppressed with 
+   `suppressMessages()`.
+ - The internal `sandpaper_cli_theme()` is used to style CLI messages. 
+
 # sandpaper 0.0.0.9030
 
 MISC
