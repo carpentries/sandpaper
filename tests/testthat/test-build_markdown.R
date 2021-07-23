@@ -1,28 +1,31 @@
 # setup test fixture
+{
 tmpdir <- fs::file_temp()
 fs::dir_create(tmpdir)
 tmp <- res <- fs::path(tmpdir, "lesson-example")
 withr::defer(fs::dir_delete(tmp))
+res <- create_lesson(tmp, open = FALSE)
+create_episode("second-episode", path = tmp)
+instruct <- fs::path(tmp, "instructors", "pyramid.md")
+writeLines(c(
+  "---",
+  "title: Pyramid",
+  "---\n",
+  "One of the best albums by MJQ"
+ ),
+  con = instruct
+)
+}
+
 
 test_that("markdown sources can be built without fail", {
   
-  expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp, open = FALSE)
-  create_episode("second-episode", path = tmp)
-  instruct <- fs::path(tmp, "instructors", "pyramid.md")
-  writeLines(c(
-    "---",
-    "title: Pyramid",
-    "---\n",
-    "One of the best albums by MJQ"
-   ),
-    con = instruct
-  )
-  expect_warning(s <- get_episodes(tmp), "set_episodes")
+  suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
   expect_equal(res, tmp, ignore_attr = TRUE)
   # The episodes should be the only things in the directory
   e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
+  s <- get_episodes(tmp)
   expect_equal(fs::path_file(e), s)
 
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
