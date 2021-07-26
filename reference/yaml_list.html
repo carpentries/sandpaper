@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9031</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9032</span>
       </span>
     </div>
 
@@ -138,14 +138,14 @@
 comments. Unfortunately, the yaml C library does not parse comments and it
 makes things difficult to handle. At the moment we have a hack where we use
 whisker templates for these, but the drawback for whisker is that it does not
-know how to handle lists, so it concatenates them with commas:<div class="r"></p><pre><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span>
+know how to handle lists, so it concatenates them with commas:<div class="sourceCode r"></p><pre><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span>
 <span class='va'>hx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>hello <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>yaml</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/yaml/man/as.yaml.html'>as.yaml</a></span><span class='op'>(</span><span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># representation in yaml</span>
 </pre><p></div></p><pre><span class='co'>## hello:</span>
 <span class='co'>## - a</span>
 <span class='co'>## - b</span>
 <span class='co'>## - c</span>
-</pre><p><div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>whisker</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/whisker/man/whisker.render.html'>whisker.render</a></span><span class='op'>(</span><span class='st'>"hello: {{hello}}"</span>, <span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># messed up whisker</span>
+</pre><p><div class="sourceCode r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>whisker</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/whisker/man/whisker.render.html'>whisker.render</a></span><span class='op'>(</span><span class='st'>"hello: {{hello}}"</span>, <span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># messed up whisker</span>
 </pre><p></div></p><pre><span class='co'>## hello: a,b,c</span>
 </pre>
 
@@ -158,7 +158,7 @@ so we want to enforce that we have</p><pre><span class='va'>key</span><span clas
 </pre>
 
 <p>This converts the elements to a yaml list before it enters whisker and makes
-sure that the values are clearly lists.<div class="r"></p><pre><span class='va'>hx</span><span class='op'>[[</span><span class='st'>"hello"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'>sandpaper</span><span class='fu'>:::</span><span class='fu'>yaml_list</span><span class='op'>(</span><span class='va'>hx</span><span class='op'>[[</span><span class='st'>"hello"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
+sure that the values are clearly lists.<div class="sourceCode r"></p><pre><span class='va'>hx</span><span class='op'>[[</span><span class='st'>"hello"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'>sandpaper</span><span class='fu'>:::</span><span class='fu'>yaml_list</span><span class='op'>(</span><span class='va'>hx</span><span class='op'>[[</span><span class='st'>"hello"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>whisker</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/whisker/man/whisker.render.html'>whisker.render</a></span><span class='op'>(</span><span class='st'>"hello: {{hello}}"</span>, <span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># good whisker</span>
 </pre><p></div></p><pre><span class='co'>## hello: </span>
 <span class='co'>## - a</span>

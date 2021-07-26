@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9031</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9032</span>
       </span>
     </div>
 
@@ -120,7 +120,7 @@
     <p>Get the full resource list of markdown files</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_resource_list</span><span class='op'>(</span><span class='va'>path</span>, trim <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_resource_list</span><span class='op'>(</span><span class='va'>path</span>, trim <span class='op'>=</span> <span class='cn'>FALSE</span>, subfolder <span class='op'>=</span> <span class='cn'>NULL</span>, warn <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,6 +133,17 @@
       <th>trim</th>
       <td><p>if <code>TRUE</code>, trim the paths to be relative to the lesson directory.
 Defaults to <code>FALSE</code>, which will return the absolute paths</p></td>
+    </tr>
+    <tr>
+      <th>subfolder</th>
+      <td><p>the subfolder to check. If this is <code>NULL</code>, all folders will
+checked and returned (default), otherwise, this should be a string
+specifying the folder name in the lesson (e.g. "episodes").</p></td>
+    </tr>
+    <tr>
+      <th>warn</th>
+      <td><p>if <code>TRUE</code> and <code>subfolder = "episodes"</code>, a message is issued to
+the user if the episodes field of the configuration file is empty.</p></td>
     </tr>
     </table>
 
