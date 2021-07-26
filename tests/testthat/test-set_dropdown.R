@@ -1,10 +1,4 @@
-{
-tmpdir <- fs::file_temp()
-fs::dir_create(tmpdir)
-tmp    <- fs::path(tmpdir, "lesson-example")
-withr::defer(fs::dir_delete(tmp))
-res <- create_lesson(tmp, open = FALSE)
-}
+tmp <- res <- restore_fixture()
 
 test_that("schedule is empty by default", {
 
