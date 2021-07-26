@@ -1,15 +1,15 @@
 {
   tmpdir <- fs::file_temp()
   fs::dir_create(tmpdir)
-  tmp    <- fs::path(tmpdir, "lesson-example")
-
+  tmp    <- fs::path(tmpdir, "lesson-init-example")
   withr::defer(fs::dir_delete(tmp))
-  expect_false(fs::dir_exists(tmp))
   wd  <- fs::path(normalizePath(getwd()))
   withr::defer(setwd(wd))
 }
+
 test_that("lessons can be created in empty directories", {
 
+  expect_false(fs::dir_exists(tmp))
   suppressMessages({expect_message({
     res <- create_lesson(tmp, rstudio = TRUE, open = TRUE)
   }, "Setting active project to")})
@@ -47,7 +47,7 @@ test_that("All template files exist", {
   expect_true(fs::dir_exists(fs::path(tmp, "learners")))
   expect_true(fs::dir_exists(fs::path(tmp, "profiles")))
   expect_true(fs::file_exists(fs::path(tmp, "README.md")))
-  expect_match(readLines(fs::path(tmp, "README.md"))[1], "lesson-example", fixed = TRUE) 
+  expect_match(readLines(fs::path(tmp, "README.md"))[1], "lesson-init-example", fixed = TRUE) 
   expect_true(fs::file_exists(fs::path(tmp, "site", "README.md")))
   expect_true(fs::file_exists(fs::path(tmp, "site", "DESCRIPTION")))
   expect_true(fs::file_exists(fs::path(tmp, "site", "_pkgdown.yaml")))

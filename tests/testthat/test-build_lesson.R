@@ -1,14 +1,7 @@
 
-tmpdir <- fs::file_temp()
-fs::dir_create(tmpdir)
-tmp    <- fs::path(tmpdir, "lesson-example")
+tmp <- res <- restore_fixture()
 sitepath <- fs::path(tmp, "site", "docs")
-withr::defer(fs::dir_delete(tmp))
 
-test_that("A lesson can be created in a non-existent directory", {
-  expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp, open = FALSE)
-})
 
 test_that("Lessons built for the first time are noisy", {
   

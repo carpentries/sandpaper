@@ -6,7 +6,7 @@
 \alias{get_learners}
 \alias{get_instructors}
 \alias{get_profiles}
-\title{Get the contents of a dropdown on the site}
+\title{Helpers to extract contents of dropdown menus on the site}
 \usage{
 get_dropdown(path = ".", folder, trim = TRUE)
 
@@ -21,7 +21,7 @@ get_profiles(path = ".", trim = TRUE)
 \arguments{
 \item{path}{the path to the lesson, defaults to the current working directory}
 
-\item{folder}{the name of the folder containing the dropdown items}
+\item{folder}{the folder to extract fromt he dropdown menues}
 
 \item{trim}{if \code{TRUE} (default), only the file name will be presented. When
 \code{FALSE}, the full path will be prepended.}
@@ -30,7 +30,8 @@ get_profiles(path = ".", trim = TRUE)
 a character vector of episodes in order of presentation
 }
 \description{
-Get the contents of a dropdown on the site
+This fuction will extract the resources that exist and are listed in the
+config file.
 }
 \examples{
 tmp <- tempfile()

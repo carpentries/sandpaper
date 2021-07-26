@@ -26,11 +26,7 @@ test_that("build_episode_md() works independently", {
 test_that("build_episode_html() works independently", {
 
 
-  tmpdir <- fs::file_temp()
-  fs::dir_create(tmpdir)
-  tmp    <- fs::path(tmpdir, "lesson-example")
-  expect_equal(basename(create_lesson(tmp, open = FALSE)), basename(tmp))
-  reset_site(tmp)
+  tmp <- restore_fixture()
   pkg <- pkgdown::as_pkgdown(file.path(tmp, "site"))
   expect_output(pkgdown::init_site(pkg))
   
