@@ -44,12 +44,3 @@ get_profiles <- function(path = ".", trim = TRUE) {
   as.character(get_resource_list(path, trim, "profiles", warn = TRUE))
 }
 
-warn_schedule <- function() {
-  msg  <- "No schedule set, using Rmd files in {.file episodes/} directory."
-  msg2 <- "To remove this message, define your schedule in {.file config.yaml}"
-  msg3 <- "or use {.code set_episodes()} to generate it."
-  thm <- cli::cli_div(theme = sandpaper_cli_theme())
-  cli::cli_alert_info(msg)
-  cli::cli_alert(cli::style_dim(paste(msg2, msg3)), class = "alert-suggestion")
-  cli::cli_end(thm)
-}
