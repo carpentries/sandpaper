@@ -13,12 +13,8 @@
 #' get_episodes(tmp)
 #' get_learners(tmp) # information for learners
 get_dropdown <- function(path = ".", folder, trim = TRUE) {
-  cfg <- path_config(path)
-  if (!fs::file_exists(cfg)) {
-    stop("config file does not exist")
-  }
   episode <- folder == "episodes"
-  yaml <- yaml::read_yaml(cfg)
+  yaml <- get_config(path)
   scd <- yaml[[folder]]
   scd <- if (episode && is.null(scd)) yaml[["schedule"]] else scd
   unset <- is.null(scd)
