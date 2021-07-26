@@ -18,28 +18,32 @@ res <- create_lesson(tmp, open = FALSE)
 
 options(sandpaper.test_fixture = res)
 
-restore_fixture <- function() {
-  tf <- getOption("sandpaper.test_fixture")
-  if (nrow(gert::git_status(tf)) > 0L) {
-    x <- gert::git_reset_hard(repo = tf)
-    if (nrow(x) > 0L) {
-      files <- fs::path(tf, x$file)
-      dirs  <- fs::is_dir(files)
-      tryCatch({
-        fs::file_delete(files[!dirs])
-        fs::dir_delete(files[dirs])
-      },
-        error = function(x) {}
-      )
-      if (any(dirs)) {
-        fs::dir_create(files[dirs])
+generate_restore_fixture <- function(tf) {
+  function() {
+    if (nrow(gert::git_status(repo = tf)) > 0L) {
+      x <- gert::git_reset_hard(repo = tf)
+      if (nrow(x) > 0L) {
+        files <- fs::path(tf, x$file)
+        dirs  <- fs::is_dir(files)
+        tryCatch({
+          fs::file_delete(files[!dirs])
+          fs::dir_delete(files[dirs])
+        },
+          error = function(x) {}
+        )
+        if (any(dirs)) {
+          fs::dir_create(files[dirs])
+        }
       }
     }
+    fs::dir_delete(fs::path(tf, "site"))
+    create_site(tf)
+    tf
   }
-  fs::dir_delete(fs::path(tf, "site"))
-  create_site(tf)
-  tf
 }
+
+restore_fixture <- generate_restore_fixture(res)
+
 if (interactive()) {
   try({
     cli::cli_alert_info(id = stat, "Example lesson in {tmp}")

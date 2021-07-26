@@ -6,7 +6,9 @@ MISC
  - The internal `get_resource_list()` function has been modified to incorporate
    the features of `get_dropdown()`. This means that all `get_dropdown()`
    functions will only report the files in the dropdown menus that actually
-   exist in the directory.
+   exist in the directory (#134).
+ - A persistant test fixture is now included to speed up testing time (#132 via
+   #134)
 
 # sandpaper 0.0.0.9031
 
