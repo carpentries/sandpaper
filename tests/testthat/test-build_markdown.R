@@ -1,10 +1,6 @@
 # setup test fixture
 {
-tmpdir <- fs::file_temp()
-fs::dir_create(tmpdir)
-tmp <- res <- fs::path(tmpdir, "lesson-example")
-withr::defer(fs::dir_delete(tmp))
-res <- create_lesson(tmp, open = FALSE)
+tmp <- res <- restore_fixture()
 create_episode("second-episode", path = tmp)
 instruct <- fs::path(tmp, "instructors", "pyramid.md")
 writeLines(c(

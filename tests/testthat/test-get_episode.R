@@ -1,11 +1,12 @@
 {
-tmpdir <- fs::file_temp()
-fs::dir_create(tmpdir)
-tmp    <- fs::path(tmpdir, "lesson-example")
-withr::defer(fs::dir_delete(tmp))
-res <- create_lesson(tmp, open = FALSE)
-suppressMessages(e <- get_episodes(res))
-set_episodes(res, e, write = TRUE)
+# tmpdir <- fs::file_temp()
+# fs::dir_create(tmpdir)
+# tmp    <- fs::path(tmpdir, "lesson-example")
+# withr::defer(fs::dir_delete(tmp))
+# res <- create_lesson(tmp, open = FALSE)
+# suppressMessages(e <- get_episodes(res))
+# set_episodes(res, e, write = TRUE)
+tmp <- res <- restore_fixture()
 }
 
 test_that("set_episode() will throw a warning if an episode does not exist", {
