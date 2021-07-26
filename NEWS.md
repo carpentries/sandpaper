@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9032
+
+MISC
+----
+
+ - The internal `get_resource_list()` function has been modified to incorporate
+   the features of `get_dropdown()`. 
+
 # sandpaper 0.0.0.9031
 
 MISC

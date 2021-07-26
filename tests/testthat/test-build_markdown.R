@@ -26,7 +26,7 @@ test_that("markdown sources can be built without fail", {
   # The episodes should be the only things in the directory
   e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
   s <- get_episodes(tmp)
-  expect_equal(fs::path_file(e), s)
+  expect_equal(fs::path_file(e), s, ignore_attr = TRUE)
 
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   # Accidentally rendered html live in their parent folders
@@ -90,7 +90,7 @@ test_that("Artifacts are accounted for", {
   s <- get_episodes(tmp)
   # No artifacts should be present in the directory
   e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
-  expect_equal(fs::path_file(e), s)
+  expect_equal(fs::path_file(e), s, ignore_attr = TRUE)
   # The artifacts are present in the built directory
   b <- c(
     # Generated markdown files
