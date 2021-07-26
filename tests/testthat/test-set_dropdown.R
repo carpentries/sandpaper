@@ -43,6 +43,7 @@ test_that("get_episodes() returns episodes in dir if schedule is not set", {
 
 cli::test_that_cli("set_episodes() will display the modifications if write is not specified", {
 
+  # Is this skipped on CRAN?
   reset_episodes(tmp)
   expect_snapshot(s <- get_episodes(tmp))
 
@@ -66,6 +67,7 @@ test_that("set_episodes() will error if no proposal is defined", {
 
 test_that("adding episodes will concatenate the schedule", {
 
+  set_episodes(tmp, "01-introduction.Rmd", write = TRUE)
   expect_equal(get_episodes(tmp), "01-introduction.Rmd")
   create_episode("second-episode", add = TRUE, path = tmp)
   expect_equal(res, tmp, ignore_attr = TRUE)
@@ -84,7 +86,7 @@ test_that("adding episodes will concatenate the schedule", {
 
 test_that("the schedule can be rearranged", {
 
-  set_episodes(tmp, rev(get_episodes(tmp)), write = TRUE)
+  set_episodes(tmp, c("03-second-episode.Rmd", "01-introduction.Rmd"), write = TRUE)
   expect_equal(get_episodes(tmp), c("03-second-episode.Rmd", "01-introduction.Rmd"))
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
@@ -99,6 +101,7 @@ test_that("the schedule can be rearranged", {
 
 test_that("yaml lists are preserved with other schedule updates", {
   
+  set_episodes(tmp, c("03-second-episode.Rmd", "01-introduction.Rmd"), write = TRUE)
   # regression test for https://github.com/carpentries/sandpaper/issues/53
   expect_equal(get_episodes(tmp), c("03-second-episode.Rmd", "01-introduction.Rmd"))
   set_learners(tmp, order = "Setup.md", write = TRUE)
@@ -108,7 +111,7 @@ test_that("yaml lists are preserved with other schedule updates", {
 
 test_that("the schedule can be truncated", {
 
-  set_episodes(tmp, rev(get_episodes(tmp))[1], write = TRUE)
+  set_episodes(tmp, "01-introduction.Rmd", write = TRUE)
   expect_equal(get_episodes(tmp), "01-introduction.Rmd")
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
