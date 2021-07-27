@@ -7,19 +7,19 @@ sandpaper_cli_theme <- function() {
   list(
     ul = list(
       "list-style-type" = function() "-"
-    ),
+      ),
     ".alert-warning" = list(
       before = function() paste0(cli::col_yellow(cli::symbol$cirle), " ")
-    ),
+      ),
     ".alert-danger" = list(
       before = function() paste0(cli::col_red("!"), " ")
-    ),
+      ),
     ".alert-success" = list(
       before = function() paste0(cli::col_cyan(cli::symbol$circle_filled), " ")
-    ),
+      ),
     ".alert-suggestion" = list(
       "font-style" = "italic"
-    ),
+      ),
     NULL
   )
 }
@@ -64,4 +64,34 @@ show_changed_yaml <- function(sched, order, yaml, what = "episodes") {
     cli::cli_end(lid)
 
   }
+}
+message_draft_files <- function(hopes, real_files, subfolder) {
+  thm <- cli::cli_div(theme = sandpaper_cli_theme())
+  on.exit(cli::cli_end(thm), add = TRUE)
+  dreams <- fs::path(subfolder, real_files[real_files %nin% hopes])
+  if (length(dreams)) {
+    cli::cli_alert_info(
+      "{.emph Files are in draft: {.file {dreams}}}"
+    )
+  }
+}
+
+error_missing_config <- function(hopes, reality, subfolder) {
+  thm <- cli::cli_div(theme = sandpaper_cli_theme())
+  on.exit(cli::cli_end(thm), add = TRUE)
+  broken_dreams <- hopes %nin% reality
+  cli::cli_text("{subfolder}:")
+  lid <- cli::cli_ul()
+  for (i in seq(hopes)) {
+    if (broken_dreams[i]) {
+      cli::cli_li("{cli::symbol$cross} {.strong {hopes[i]}}")
+    } else {
+      cli::cli_li("{.file {hopes[i]}}")
+    }
+  }
+  cli::cli_end(lid)
+  cli::cli_abort(c(
+    "All files in {.file config.yaml} must exist",
+    "*" = "Files marked with {cli::symbol$cross} are not present"
+  ))
 }

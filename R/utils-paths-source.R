@@ -138,32 +138,16 @@ parse_file_matches <- function(reality, hopes = NULL, warn = FALSE, subfolder) {
   # Confirm that the order exists
   matches <- match(hopes, real_files, nomatch = 0)
 
-  if (warn) {
-    thm <- cli::cli_div(theme = sandpaper_cli_theme())
-    on.exit(cli::cli_end(thm), add = TRUE)
+  missing_config <- any(matches == 0)
+
+  if (missing_config) {
+    error_missing_config(hopes, real_files, subfolder)
   }
 
-  warn_missing_config <- warn && any(matches == 0)
-  if (warn_missing_config) {
-    broken_dreams <- hopes %nin% real_files
-    cli::cli_alert_warning(c(
-      "The following files were specified in {.file config.yaml}, but do not exist:"
-    ))
-    cli::cli_text("{subfolder}:")
-    lid <- cli::cli_ul()
-    lapply(hopes[broken_dreams], 
-      function(i) cli::cli_li("{.file {i}}")
-    )
-    cli::cli_end(lid)
-  }
+  show_drafts <- warn && getOption("sandpaper.show_draft", FALSE)
 
-  if (warn && getOption("sandpaper.show_draft", FALSE)) {
-    dreams <- reality[real_files %nin% hopes]
-    if (length(dreams)) {
-      cli::cli_alert_info(
-        "The following files are still in draft: {.file {dreams}}"
-      )
-    }
+  if (show_drafts) {
+    message_draft_files(hopes, real_files, subfolder)
   }
 
   reality[matches]
