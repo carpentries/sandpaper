@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Identify what files need to be rebuilt — build_status • sandpaper</title>
+<title>Show files in draft form — get_drafts • sandpaper</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,11 @@
 
 
 
-<meta property="og:title" content="Identify what files need to be rebuilt — build_status" />
-<meta property="og:description" content="Identify what files need to be rebuilt" />
+<meta property="og:title" content="Show files in draft form — get_drafts" />
+<meta property="og:description" content="By default, sandpaper will use the files in alphabetical order as they are
+presented in the folders, however, it is strongly for authors to specify
+the order of the files in their lessons, so that it's easy to rearrange or
+add, split, or rearrange files." />
 
 
 
@@ -111,47 +114,51 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Identify what files need to be rebuilt</h1>
-    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/utils-built-db.R'><code>R/utils-built-db.R</code></a></small>
-    <div class="hidden name"><code>build_status.Rd</code></div>
+    <h1>Show files in draft form</h1>
+    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/get_drafts.R'><code>R/get_drafts.R</code></a></small>
+    <div class="hidden name"><code>get_drafts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Identify what files need to be rebuilt</p>
+    <p>By default, sandpaper will use the files in alphabetical order as they are
+presented in the folders, however, it is <strong>strongly</strong> for authors to specify
+the order of the files in their lessons, so that it's easy to rearrange or
+add, split, or rearrange files.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_status</span><span class='op'>(</span>
-  <span class='va'>sources</span>,
-  db <span class='op'>=</span> <span class='st'>"site/built/md5sum.txt"</span>,
-  rebuild <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  write <span class='op'>=</span> <span class='cn'>FALSE</span>
+    <pre class="usage"><span class='fu'>get_drafts</span><span class='op'>(</span>
+  <span class='va'>path</span>,
+  folder <span class='op'>=</span> <span class='cn'>NULL</span>,
+  message <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"sandpaper.show_draft"</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sources</th>
-      <td><p>a character vector of ALL source files.</p></td>
+      <th>path</th>
+      <td><p>path to the the sandpaper lesson</p></td>
     </tr>
     <tr>
-      <th>db</th>
-      <td><p>the path to the database</p></td>
+      <th>folder</th>
+      <td><p>the specific folder for which to list the draft files. Defaults
+to <code>NULL</code>, which indicates all folders listed in <code>config.yaml</code>.</p></td>
     </tr>
     <tr>
-      <th>rebuild</th>
-      <td><p>if the files should be rebuilt, set this to TRUE (defaults to
-FALSE)</p></td>
-    </tr>
-    <tr>
-      <th>write</th>
-      <td><p>if TRUE, the database will be updated, Defaults to FALSE, meaning that the database will remain the same.</p></td>
+      <th>message</th>
+      <td><p>if <code>TRUE</code> (default), an informative message about the files
+that are in draft status are printed to the screen.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p><code><a href='get_resource_list.html'>get_resource_list()</a></code>, <code><a href='get_built_db.html'>get_built_db()</a></code>, <code><a href='get_hash.html'>get_hash()</a></code></p></div>
+    <p>a vector of paths to files in draft and a message (if specified)</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This mechanism also allows authors to work on files in a draft form without
+them being published. This function will list and show the files in draft for
+automation and audit.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
