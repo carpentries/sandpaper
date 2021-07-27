@@ -111,7 +111,7 @@ get_resource_list <- function(path, trim = FALSE, subfolder = NULL, warn = FALSE
   # These are the only four items that we need to consider order for.
   for (i in subfolder) {
     # If the configuration is not missing, then we have to rearrange the order.
-    res[[i]] <- parse_file_matches(res[[i]], cfg[[i]], warn = warn, subfolder)
+    res[[i]] <- parse_file_matches(res[[i]], cfg[[i]], warn = warn, i)
   }
   if (use_subfolder) res[[subfolder]] else res[names(res) != "site"]
 }

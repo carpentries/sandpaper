@@ -22,7 +22,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   outdir       <- path_built(path)
 
   # Determine build status for the episodes ------------------------------------
-  source_list    <- get_resource_list(path, warn = TRUE)
+  source_list    <- get_resource_list(path, warn = !quiet)
   sources        <- unlist(source_list, use.names = FALSE)
   names(sources) <- get_slug(sources)
 

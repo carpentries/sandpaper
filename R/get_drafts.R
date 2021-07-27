@@ -14,6 +14,7 @@
 #'   to `NULL`, which indicates all folders listed in `config.yaml`.
 #' @param message if `TRUE` (default), an informative message about the files
 #'   that are in draft status are printed to the screen.
+#' @export
 #'
 #' @return a vector of paths to files in draft and a message (if specified)
 get_drafts <- function(path, folder = NULL, message = getOption("sandpaper.show_draft", TRUE)) {
