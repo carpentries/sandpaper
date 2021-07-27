@@ -22,7 +22,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   outdir       <- path_built(path)
 
   # Determine build status for the episodes ------------------------------------
-  source_list    <- get_resource_list(path)
+  source_list    <- get_resource_list(path, warn = TRUE)
   sources        <- unlist(source_list, use.names = FALSE)
   names(sources) <- get_slug(sources)
 
@@ -91,8 +91,6 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   update <- TRUE
   invisible(db$build)
 }
-
-
 
 remove_rendered_html <- function(episodes) {
   htmls <- fs::path_ext_set(episodes, "html")

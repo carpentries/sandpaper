@@ -12,14 +12,15 @@ cli::test_that_cli("check_pandoc() throws a message about installation", {
   expect_snapshot(expect_error(check_pandoc(pv = "42"), "Incorrect pandoc version"))
 })
 
-test_that("check_pandoc throws a message about installation for RStudio", {
-  skip_if_not(rstudioapi::isAvailable())
+cli::test_that_cli("check_pandoc throws a message about installation for RStudio", {
   skip_if_not(rmarkdown::pandoc_available())
 
-  expect_error(check_pandoc(pv = "42", rv = "94"), 
-    "{sandpaper} requires pandoc version 42 or higher", fixed = TRUE)
-
-  expect_error(check_pandoc(pv = "42", rv = "94"), 
-    "Please update your version of RStudio Desktop to version 94 or higher", fixed = TRUE)
+  withr::with_envvar(c(RSTUDIO = "1"), {
+    expect_snapshot({
+      expect_error(check_pandoc(pv = "42", rv = "94"), 
+        "Incorrect pandoc version", 
+        fixed = TRUE)
+    })
+})
 
 })

@@ -32,7 +32,8 @@ check_pandoc <- function(quiet = TRUE, pv = "2.11", rv = "1.4") {
       pan_msg <- "You do not have pandoc installed on your PATH"
     }
     if (Sys.getenv("RSTUDIO", "0") == "1") {
-      rs_ver <- rstudioapi::getVersion()
+      # catch error for tests
+      rs_ver <- tryCatch(rstudioapi::getVersion(), error = function(e) "0.99")
       if (rs_ver < rv) {
         install_msg <- paste(
           "Please update your version of RStudio Desktop to version", 

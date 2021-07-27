@@ -4,7 +4,10 @@ politely_get_yaml <- function(path) {
   header <- readLines(path, n = 10, encoding = "UTF-8")
   barriers <- grep("^---$", header)
   if (length(barriers) == 0) {
-    stop("No yaml header")
+    thm <- cli::cli_div(theme = sandpaper_cli_theme())
+    cli::cli_alert_danger("No yaml header found in the first 10 lines of {path}")
+    cli::cli_end(thm)
+    return(character(0))
   }
   if (length(barriers) == 1) {
     to_skip <- 10L

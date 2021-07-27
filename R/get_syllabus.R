@@ -23,7 +23,7 @@ get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
   # The syllabus is a table containing timings, links, and questions associated
   # with each episode.
   
-  sched    <- get_episodes(path)
+  sched    <- get_resource_list(path, trim = TRUE, subfolder = "episodes")
   lesson   <- pegboard::Lesson$new(path, jekyll = FALSE, fix_links = FALSE)
   episodes <- lesson$episodes[sched]
   

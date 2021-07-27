@@ -4,6 +4,14 @@ test_that("null pipe works", {
   expect_equal(NA_character_ %||% LETTERS, NA_character_)
 })
 
+cli::test_that_cli("polite yaml throws a message when there is no yaml", {
+  
+  withr::local_file(tmp <- tempfile())
+  cat("# A header\n\nbut no yaml :/\n", file = tmp)
+  expect_message(politely_get_yaml(tmp), "No yaml header found in the first 10 lines")
+
+})
+
 
 test_that("polite yaml works", {
 
@@ -37,7 +45,7 @@ b: is it?
 This is not poetry
 "
 
-  tmp <- tempfile()
+  withr::local_file(tmp <- tempfile())
   cat(yaml, file = tmp, sep = "\n")
   rl <- readLines(tmp)
   pgy <- politely_get_yaml(tmp)
