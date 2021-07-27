@@ -110,14 +110,8 @@ get_resource_list <- function(path, trim = FALSE, subfolder = NULL, warn = FALSE
 
   # These are the only four items that we need to consider order for.
   for (i in subfolder) {
-    config_order <- cfg[[i]]
     # If the configuration is not missing, then we have to rearrange the order.
-    if (!is.null(config_order)) {
-      # Confirm that the order exists
-      paths         <- res[[i]]
-      default_order <- fs::path_file(paths)
-      res[[i]]      <- paths[match(config_order, default_order, nomatch = 0)]
-    }
+    res[[i]] <- parse_file_matches(res[[i]], cfg[[i]])
   }
   if (use_subfolder) res[[subfolder]] else res[names(res) != "site"]
 }
@@ -136,3 +130,11 @@ get_artifacts <- function(path, subfolder = "episodes") {
   )
 }
 
+parse_file_matches <- function(reality, hopes = NULL, warn = FALSE) {
+  if (is.null(hopes)) {
+    return(reality)
+  }
+  should_warn <- warn && getOption("sandpaper.show_draft", TRUE)
+  # Confirm that the order exists
+  reality[match(hopes, fs::path_file(reality), nomatch = 0)]
+}
