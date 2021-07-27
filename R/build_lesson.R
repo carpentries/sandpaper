@@ -24,7 +24,7 @@
 #' create_lesson(tmp, open = FALSE)
 #' create_episode("first-script", path = tmp)
 #' check_lesson(tmp)
-#' if (rmarkdown::pandoc_available())
+#' if (rmarkdown::pandoc_available("2.11"))
 #'   build_lesson(tmp)
 build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), preview = TRUE, override = list()) {
 

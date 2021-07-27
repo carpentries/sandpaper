@@ -10,11 +10,10 @@
 
     Code
       set_episodes(tmp, s[1])
-    Output
+    Message <cliMessage>
       episodes:
       - 01-introduction.Rmd
-    Message <cliMessage>
+      
       -- Removed episodes ------------------------------------------------------------
-    Output
-      x 02-new.Rmd
+      - 02-new.Rmd
 

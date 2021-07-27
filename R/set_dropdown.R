@@ -26,6 +26,14 @@
 #'
 set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
   check_order(order, folder)
+  real_files <- fs::path_file(fs::dir_ls(
+    fs::path(path, folder), 
+    type = "file", 
+    regexp = "[.]R?md"
+  ))
+  if (any(!order %in% real_files)) {
+    error_missing_config(order, real_files, folder)
+  }
   yaml  <- get_config(path)
   sched <- yaml[[folder]] 
   sched <- if (is.null(sched) && folder == "episodes") yaml[["schedule"]] else sched
@@ -47,6 +55,7 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
   }
   invisible()
 }
+
 
 #' @export
 #' @rdname set_dropdown

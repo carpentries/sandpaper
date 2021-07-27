@@ -1,5 +1,5 @@
 # All of these helper functions target the source of the lesson... that is, all
-# of the files that git tracks. 
+# of the files that git tracks.
 path_config <- function(path) {
   home <- root_path(path)
   fs::path(home, "config.yaml")
@@ -31,7 +31,7 @@ path_profiles <- function(inpath) {
 #' @param trim if `TRUE`, trim the paths to be relative to the lesson directory.
 #'   Defaults to `FALSE`, which will return the absolute paths
 #' @param subfolder the subfolder to check. If this is `NULL`, all folders will
-#'   checked and returned (default), otherwise, this should be a string 
+#'   checked and returned (default), otherwise, this should be a string
 #'   specifying the folder name in the lesson (e.g. "episodes").
 #' @param warn if `TRUE` and `subfolder = "episodes"`, a message is issued to
 #'   the user if the episodes field of the configuration file is empty.
@@ -44,6 +44,7 @@ get_resource_list <- function(path, trim = FALSE, subfolder = NULL, warn = FALSE
   root_path <- root
   recurse <- 1L
   cfg  <- get_config(root)
+  should_warn <- warn && is.null(cfg[["episodes"]])
   use_subfolder <- !is.null(subfolder) &&
     length(subfolder) == 1L &&
     is.character(subfolder)
@@ -70,13 +71,13 @@ get_resource_list <- function(path, trim = FALSE, subfolder = NULL, warn = FALSE
       ), call. = FALSE)
     }
 
-    should_warn <- warn && is_episodes && is.null(cfg[["episodes"]])
-    if (should_warn) warn_schedule()
+    should_warn <- should_warn && is_episodes
 
     recurse   <- FALSE
     root_path <- fs::path(root, subfolder)
   }
 
+  if (should_warn) warn_schedule()
 
   res <- fs::dir_ls(
     root_path,
@@ -100,23 +101,17 @@ get_resource_list <- function(path, trim = FALSE, subfolder = NULL, warn = FALSE
   } else {
     res <- split(res, fs::path_rel(fs::path_dir(res), root))
   }
-  
+
   if (use_subfolder) {
     names(res) <- subfolder
   } else {
     subfolder <- c("episodes", "learners", "instructors", "profiles")
   }
 
-  # These are the only four items that we need to consider order for. 
+  # These are the only four items that we need to consider order for.
   for (i in subfolder) {
-    config_order <- cfg[[i]]
     # If the configuration is not missing, then we have to rearrange the order.
-    if (!is.null(config_order)) {
-      # Confirm that the order exists
-      paths         <- res[[i]]
-      default_order <- fs::path_file(paths)
-      res[[i]]      <- paths[match(config_order, default_order, nomatch = 0)]
-    }
+    res[[i]] <- parse_file_matches(res[[i]], cfg[[i]], warn = warn, i)
   }
   if (use_subfolder) res[[subfolder]] else res[names(res) != "site"]
 }
@@ -128,10 +123,32 @@ get_sources <- function(path, subfolder = "episodes") {
 
 get_artifacts <- function(path, subfolder = "episodes") {
   pe <- enforce_dir(fs::path(root_path(path), subfolder))
-  fs::dir_ls(pe, regexp = "*R?md", 
-    invert = TRUE, 
-    type = "file", 
+  fs::dir_ls(pe, regexp = "*R?md",
+    invert = TRUE,
+    type = "file",
     all = TRUE
   )
 }
 
+parse_file_matches <- function(reality, hopes = NULL, warn = FALSE, subfolder) {
+  if (is.null(hopes)) {
+    return(reality)
+  }
+  real_files <- fs::path_file(reality)
+  # Confirm that the order exists
+  matches <- match(hopes, real_files, nomatch = 0)
+
+  missing_config <- any(matches == 0)
+
+  if (missing_config) {
+    error_missing_config(hopes, real_files, subfolder)
+  }
+
+  show_drafts <- warn && getOption("sandpaper.show_draft", FALSE)
+
+  if (show_drafts) {
+    message_draft_files(hopes, real_files, subfolder)
+  }
+
+  reality[matches]
+}
