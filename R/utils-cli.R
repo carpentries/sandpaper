@@ -65,6 +65,17 @@ show_changed_yaml <- function(sched, order, yaml, what = "episodes") {
 
   }
 }
+
+message_default_draft <- function(subfolder) {
+  message_no_draft(subfolder, " (config.yaml empty)")
+}
+
+message_no_draft <- function(subfolder, append = "") {
+  thm <- cli::cli_div(theme = sandpaper_cli_theme())
+  on.exit(cli::cli_end(thm), add = TRUE)
+  cli::cli_alert_info("All files in {.file {subfolder}/} published{append}")
+}
+
 message_draft_files <- function(hopes, real_files, subfolder) {
   thm <- cli::cli_div(theme = sandpaper_cli_theme())
   on.exit(cli::cli_end(thm), add = TRUE)

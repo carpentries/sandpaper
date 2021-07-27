@@ -1,3 +1,18 @@
+# sandpaper 0.0.0.9033
+
+NEW FEATURES
+------------
+
+ - `get_drafts()` will report any markdown files that are not currently 
+   published in the lesson.
+ - Draft alert notifications are controlled by the `"sandpaper.show_draft"`
+   option. To turn off these messages, use 
+   `options(sandpaper.show_draft = FALSE)`
+ - The `set_dropdown()` family of functions will now throw an error if an 
+   author attempts to add a file that does not exist
+ - An error will occurr if the files listed in `config.yaml` do not exist in the
+   lesson with an informative message highlighting the files that are missing.
+
 # sandpaper 0.0.0.9032
 
 MISC
