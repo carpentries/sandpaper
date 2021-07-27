@@ -46,19 +46,6 @@ write_pkgdown_yaml <- function(yaml, path) {
   yaml_writer(yaml, path_site_yaml(path))
 }
 
-show_changed_yaml <- function(sched, order, yaml, what = "episodes") {
-
-  # display for the user to distinguish what was added and what was taken 
-  removed <- sched %nin% order
-  added   <- order %nin% sched
-  order[added] <- cli::style_bold(cli::col_green(order[added]))
-  cli::cat_line(paste0(what, ":"))
-  cli::cat_bullet(order, bullet = "line")
-  if (any(removed)) {
-    cli::cli_rule(paste("Removed", what))
-    cli::cat_bullet(sched[removed], bullet = "cross", bullet_col = "red")
-  }
-}
 
 #' Create a valid, opinionated yaml list for insertion into a whisker template
 #' 

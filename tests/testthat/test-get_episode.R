@@ -1,17 +1,11 @@
 {
-# tmpdir <- fs::file_temp()
-# fs::dir_create(tmpdir)
-# tmp    <- fs::path(tmpdir, "lesson-example")
-# withr::defer(fs::dir_delete(tmp))
-# res <- create_lesson(tmp, open = FALSE)
-# suppressMessages(e <- get_episodes(res))
-# set_episodes(res, e, write = TRUE)
 tmp <- res <- restore_fixture()
+suppressMessages(e <- get_episodes(res))
+set_episodes(res, e, write = TRUE)
 }
 
 test_that("set_episode() will throw a warning if an episode does not exist", {
 
-  skip("currently writing")
   bad <- c(e, "I-do-not-exist.md")
 
   expect_message(set_episodes(res, bad, write = TRUE))
@@ -25,7 +19,6 @@ test_that("set_episode() will throw a warning if an episode does not exist", {
 test_that("get_episode() will throw a warning if an episode in config does not exist", {
 
   # Create a new episode that does not exist
-  skip("currently writing")
   cfg <- readLines(fs::path(res, "config.yaml"), encoding = "UTF-8")
   episode_line <- grep("^episodes", cfg)
 
