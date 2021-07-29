@@ -305,7 +305,8 @@ flatten_links = function(el)
   -- rename local markdown/Rmarkdown
   -- link.md goes to link.html
   -- link.md#section1 goes to link.html#section1
-  if text.sub(tgt, 1, 5) ~= "http"  then
+  local proto = text.sub(tgt, 1, 4)
+  if proto ~= "http" and proto ~= "ftp:" then
     tgt,_ = tgt:gsub("%.R?md(#[%S]+)$", ".html%1")
     tgt,_ = tgt:gsub("%.R?md$", ".html")
   end
