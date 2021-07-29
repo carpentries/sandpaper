@@ -25,6 +25,7 @@
        [Header 2 ("",[],[]) [Str "Challenge"]
        ,Para [Str "How",Space,Str "do",Space,Str "you",Space,Str "write",Space,Str "markdown",Space,Str "divs?"]
        ,Para [Str "This",Space,Link ("",[],[]) [Str "link",Space,Str "should",Space,Str "be",Space,Str "transformed"] ("Setup.html","")]
+       ,Para [Str "This",Space,Link ("",[],[]) [Str "rmd",Space,Str "link",Space,Str "also"] ("01-Introduction.html","")]
        ,Para [Str "This",Space,Link ("",[],[]) [Str "too"] ("Setup.html#windows-setup","windows setup")]
        ,Para [Image ("",[],[("alt","alt text")]) [Str "link",Space,Str "should",Space,Str "be",Space,Str "transformed"] ("fig/Setup.png","fig:")]
        ,Div ("",["solution"],[])
@@ -100,6 +101,7 @@
       <h2>Challenge</h2>
       <p>How do you write markdown divs?</p>
       <p>This <a href="Setup.html">link should be transformed</a></p>
+      <p>This <a href="01-Introduction.html">rmd link also</a></p>
       <p>This <a href="Setup.html#windows-setup" title="windows setup">too</a></p>
       <div class="figure">
       <img src="fig/Setup.png" alt="alt text" alt="" />
