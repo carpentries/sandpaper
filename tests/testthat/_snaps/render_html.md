@@ -24,6 +24,11 @@
       ,Div ("",["challenge"],[])
        [Header 2 ("",[],[]) [Str "Challenge"]
        ,Para [Str "How",Space,Str "do",Space,Str "you",Space,Str "write",Space,Str "markdown",Space,Str "divs?"]
+       ,Para [Str "This",Space,Link ("",[],[]) [Str "link",Space,Str "should",Space,Str "be",Space,Str "transformed"] ("Setup.html","")]
+       ,Para [Str "This",Space,Link ("",[],[]) [Str "rmd",Space,Str "link",Space,Str "also"] ("01-Introduction.html","")]
+       ,Para [Str "This",Space,Link ("",[],[]) [Str "rmd",Space,Str "is",Space,Str "safe"] ("https://example.com/01-Introduction.Rmd","")]
+       ,Para [Str "This",Space,Link ("",[],[]) [Str "too"] ("Setup.html#windows-setup","windows setup")]
+       ,Para [Image ("",[],[("alt","alt text")]) [Str "link",Space,Str "should",Space,Str "be",Space,Str "transformed"] ("fig/Setup.png","fig:")]
        ,Div ("",["solution"],[])
         [Header 2 ("write-now",[],[]) [Str "Write",Space,Str "now"]
         ,Para [Str "just",Space,Str "write",Space,Str "it,",Space,Str "silly."]]]
@@ -96,6 +101,14 @@
       <div class="section level2">
       <h2>Challenge</h2>
       <p>How do you write markdown divs?</p>
+      <p>This <a href="Setup.html">link should be transformed</a></p>
+      <p>This <a href="01-Introduction.html">rmd link also</a></p>
+      <p>This <a href="https://example.com/01-Introduction.Rmd">rmd is safe</a></p>
+      <p>This <a href="Setup.html#windows-setup" title="windows setup">too</a></p>
+      <div class="figure">
+      <img src="fig/Setup.png" alt="alt text" alt="" />
+      <p class="caption">link should be transformed</p>
+      </div>
       </div>
       <div id="write-now" class="section level2 solution">
       <h2>Write now</h2>
