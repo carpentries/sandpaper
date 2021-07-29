@@ -1,3 +1,16 @@
+# sandpaper 0.0.0.9034
+
+NEW FEATURES
+------------
+
+ - Authors can now cross-link between files within the lesson as they appear in
+   the lesson instead of trying to guess how the link would appear on the
+   website. For example, if you wanted to reference `learners/setup.md` in 
+   `episodes/introduction.md`, you would write `[setup](../learners/setup.md)`
+   and it will be automatically converted to the correct URL in the website
+   (#43). This is still backwards compatible with the previous iteration of
+   writing the flattened link (as it would appear on the website).
+
 # sandpaper 0.0.0.9033
 
 NEW FEATURES
