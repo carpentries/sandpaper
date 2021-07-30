@@ -110,3 +110,65 @@ message_source <- function(commit_message = "", source_branch = "main", dir = ".
   )
 }
 
+# NOTE: I believe this should work, but for now, I think the variables should be
+# explicitly named in the YAML:
+#
+# - name: "Generate Artifacts"
+#   id: generate-artifacts
+#   run: |
+#     bundle_pr_artifacts(
+#       repo         = '${{ github.repository }}',
+#       pr_number    = '${{ github.event.number }}',
+#       path_md      = '${{ env.MD }}',
+#       path_pr      = '${{ env.PR }}',
+#       path_archive = '${{ env.CHIVE }}',
+#       branch       = "md-outputs"
+#     )
+#   shell: Rscript {0}
+bundle_pr_artifacts <- function(repo, pr_number, 
+  path_md, path_archive, path_pr, 
+  branch = "md-outputs") {
+  if (!fs::dir_exists(path_archive)) fs::dir_create(path_archive)
+  if (!fs::dir_exists(path_pr)) fs::dir_create(path_pr)
+  writeLines(event_number, fs::path(path_pr, "NR"))
+  if (!requireNamespace("withr", quietly = TRUE))
+    stop("withr must be installed")
+  withr::with_dir(path_md, {
+    git("add", "-A", ".")
+    difflist <- git("diff", "--staged", "--compact-summary",
+      echo = FALSE, echo_cmd = FALSE)
+    github_url  <- glue::glue("https://github.com/{repo}/compare/")
+    change_link <- glue::glue("{github_url}{branch}..{branch}-PR-{event_number}")
+    msg         <- glue::glue(
+      "### Rendered Changes
+
+      :mag: Inspect the changes: {change_link}
+
+      ---
+
+      The following changes were observed in the rendered markdown documents
+
+      ```diff
+      {difflist}
+      ```
+
+      <details>
+      <summary>What does this mean?</summary>
+
+      If you have source files that require output and figures to be generated
+      (e.g. R Markdown), then it is important to make sure the generated 
+      figures and output are reproducible. 
+
+      This output provides a way for you to inspect the output in a 
+      diff-friendly manner so that it's easy to see the changes that occurr due
+      to new software versions or randomisation.
+
+      <details>
+      "
+    )
+    writeLines(msg, fs::path(path_archive, "diff.md"))
+    fs::dir_delete(".git")
+  })
+}
+
+
