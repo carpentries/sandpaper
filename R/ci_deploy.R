@@ -13,7 +13,7 @@
 #' @keywords internal
 ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pages", remote = "origin") {
 
-  if (interactive()) {
+  if (interactive() && is.null(getOption('sandpaper.test_fixture'))) {
     stop("This function is for use on continuous integration only", call. = FALSE)
   }
   # step 0: build_lesson defaults to a local build
@@ -26,34 +26,36 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   built <- path_built(path)
   html  <- fs::path(path_site(path), "docs")
 
-  # Set up the worktrees and make sure to remove them when the function exits
-  # (gracefully or ungracefully so)
-  # ------------ markdown worktree
-  del_md <- git_worktree_setup(path, built, 
-    branch = md_branch, remote = remote
-  )
-  on.exit(eval(del_md), add = TRUE)
+  if (requireNamespace("withr", quietly = TRUE)) { withr::with_dir(path, {
+    # Set up the worktrees and make sure to remove them when the function exits
+    # (gracefully or ungracefully so)
+    # ------------ markdown worktree
+    del_md <- git_worktree_setup(path, built, 
+      branch = md_branch, remote = remote
+    )
+    on.exit(eval(del_md), add = TRUE)
 
-  # ------------ site worktree
-  del_site <- git_worktree_setup(path, html,
-    branch = site_branch, remote = remote
-  )
+    # ------------ site worktree
+    del_site <- git_worktree_setup(path, html,
+      branch = site_branch, remote = remote
+    )
 
-  on.exit(eval(del_site), add = TRUE)
+    on.exit(eval(del_site), add = TRUE)
 
-  # Build the site quickly using the markdown files as-is
-  build_lesson(path = path, quiet = TRUE, rebuild = FALSE)
+    # Build the site quickly using the markdown files as-is
+    build_lesson(path = path, quiet = TRUE, rebuild = FALSE, preview = FALSE)
 
-  # Commit the markdown sources
-  github_worktree_commit(built, 
-    message_source("markdown source builds", current, dir = path),
-    remote, md_branch 
-  )
+    # Commit the markdown sources
+    github_worktree_commit(built, 
+      message_source("markdown source builds", current, dir = path),
+      remote, md_branch 
+    )
 
-  # Commit using the markdown branch as a reference
-  github_worktree_commit(html,
-    message_source("site deploy", md_branch, dir = built),
-    remote, site_branch
-  )
+    # Commit using the markdown branch as a reference
+    github_worktree_commit(html,
+      message_source("site deploy", md_branch, dir = built),
+      remote, site_branch
+    )
+  })}
 }
 

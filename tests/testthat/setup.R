@@ -67,8 +67,6 @@ withr::defer({
   if (interactive()) {
     status <- if (identical(res, FALSE)) "could not be" else "successfully"
     try(cli::cli_alert_info("{tf} {status} removed"))
-    status <- if(identical(rem, FALSE)) "could not be" else rem
-    try(cli::cli_alert_info("remote {status} removed"))
   }
 }, teardown_env())
 }

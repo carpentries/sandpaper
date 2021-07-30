@@ -53,14 +53,15 @@ setup_local_remote <- function(repo, remote = tempfile(), name = "sandpaper-loca
   if (!fs::dir_exists(remote)) {
     fs::dir_create(remote)
   }
-  if (requireNamespace("withr", quietly = TRUE)) {
-    withr::with_dir(remote, {
-      git("init", "--bare", echo_cmd = verbose, echo = verbose)
-    })
-    withr::with_dir(repo, {
-      git("remote", "add", name, remote, echo_cmd = verbose, echo = verbose)
-      git("push", name, gert::git_branch(), echo_cmd = verbose, echo = verbose)
-    })
+  gert::git_clone(repo, path = remote, bare = TRUE)
+  # gert::git_init(remote, bare = TRUE)
+  gert::git_remote_add(remote, name, repo = repo)
+  # gert::git_fetch(remote = remote, repo = repo)
+  if (requireNamespace('withr', quietly = TRUE)) {
+    branch <- gert::git_branch(repo = repo)
+    withr::with_dir(repo, 
+      git('push', '--set-upstream', name, branch)
+    )
   }
   return(invisible(repo))
 }
@@ -137,7 +138,10 @@ github_worktree_remove <- function (dir) {
   if (requireNamespace("cli", quietly = TRUE)) 
     cli::rule("Removing worktree", line = "-")
   # ZNK: add --force
-  git("worktree", "remove", "--force", dir)
+  home <- root_path(dir)
+  if (requireNamespace("withr", quietly = TRUE)) {
+    withr::with_dir(home, git("worktree", "remove", "--force", dir))
+  }
 }
 
 # Generate a commit message that includes information about the source of the
