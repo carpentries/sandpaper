@@ -27,6 +27,7 @@ test_that("We can push to the remote", {
 test_that("ci_deploy() will deploy once", {
 
 
+  skip_if_not(rmarkdown::pandoc_avaialable("2.11"))
   ci_deploy(res, md_branch = "MD", site_branch = "SITE", remote = remote_name)
   expect_snapshot(gert::git_info(res)$reflist)
   md_log <- gert::git_log("MD", repo = res)
@@ -42,6 +43,7 @@ test_that("ci_deploy() will deploy once", {
 
 test_that("ci_deploy() will fetch sources from upstream", {
 
+  skip_if_not(rmarkdown::pandoc_avaialable("2.11"))
   # The built directory does _not_ exist right now
   expect_false(fs::dir_exists(path_built(res)))
 
