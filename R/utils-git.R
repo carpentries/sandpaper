@@ -1,3 +1,18 @@
+# Shamelessly stolen from {pkgdown}, originally authored by Hadley Wickam
+git <- function (..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
+  callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, 
+    error_on_status = error_on_status)
+}
+
+# check if a remote branch exists
+# originally authored by Hadley Wickham
+git_has_remote_branch <- function (remote, branch) {
+  git(
+    "ls-remote", "--quiet", "--exit-code", remote, branch, 
+    echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE
+    )$status == 0
+}
+
 # worktree setup
 # [IF BRANCH DOES NOT EXIST]
 #   git checkout --orphan <branch>
@@ -35,68 +50,6 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
   parse(text = paste0("github_worktree_remove('", dest_dir, "')"))
 }
 
-
-#' Helper functions for tests to set a local remote called "sandpaper-local"
-#'
-#' @param repo path to a git repository
-#' @param remote path to an empty or uninitialized directory. Defaults to a
-#'   tempfile
-#' @param name of the remote, defaults to "sandpaper-local"
-#' @param verbose if `TRUE`, messages and output from git will be printed to
-#'   screen. Defaults to `FALSE`.
-#' @return repo, invisibly
-#' @rdname setup_local_remote
-#' @keywords internal
-setup_local_remote <- function(repo, remote = tempfile(), name = "sandpaper-local", verbose = FALSE) {
-  tf <- getOption("sandpaper.test_fixture")
-  stopifnot("This should only be run in a test context" = !is.null(tf))
-  if (!fs::dir_exists(remote)) {
-    fs::dir_create(remote)
-  }
-  gert::git_clone(repo, path = remote, bare = TRUE)
-  # gert::git_init(remote, bare = TRUE)
-  gert::git_remote_add(remote, name, repo = repo)
-  # gert::git_fetch(remote = remote, repo = repo)
-  if (requireNamespace('withr', quietly = TRUE)) {
-    branch <- gert::git_branch(repo = repo)
-    withr::with_dir(repo, 
-      git('push', '--set-upstream', name, branch)
-    )
-  }
-  return(invisible(repo))
-}
-
-#' @rdname setup_local_remote
-remove_local_remote <- function(name = "sandpaper-local", repo) {
-  if (name == "origin") {
-    return(repo)
-  }
-  remotes <- tryCatch(gert::git_remote_list(),
-    error = function(e) data.frame(name = character(0))
-  )
-  if (any(the_remote <- remotes$name %in% name)) {
-    gert::git_remote_remove(name, repo)
-    to_remove <- remotes$url[the_remote]
-    # don't error if we can not delete this.
-    return(tryCatch(fs::dir_delete(to_remove), error = function() FALSE))
-  }
-  return(invisible("(no remote present)"))
-}
-
-# Shamelessly stolen from {pkgdown}, originally authored by Hadley Wickam
-git <- function (..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
-  callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, 
-    error_on_status = error_on_status)
-}
-
-# check if a remote branch exists
-# originally authored by Hadley Wickham
-git_has_remote_branch <- function (remote, branch) {
-  git(
-    "ls-remote", "--quiet", "--exit-code", remote, branch, 
-    echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE
-    )$status == 0
-}
 
 # Add a branch to a folder as a worktree
 # originally authored by Hadley Wickham
