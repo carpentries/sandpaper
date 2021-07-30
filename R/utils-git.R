@@ -36,6 +36,51 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
 }
 
 
+#' Helper functions for tests to set a local remote called "sandpaper-local"
+#'
+#' @param repo path to a git repository
+#' @param remote path to an empty or uninitialized directory. Defaults to a
+#'   tempfile
+#' @param name of the remote, defaults to "sandpaper-local"
+#' @param verbose if `TRUE`, messages and output from git will be printed to
+#'   screen. Defaults to `FALSE`.
+#' @return repo, invisibly
+#' @rdname setup_local_remote
+#' @keywords internal
+setup_local_remote <- function(repo, remote = tempfile(), name = "sandpaper-local", verbose = FALSE) {
+  tf <- getOption("sandpaper.test_fixture")
+  stopifnot("This should only be run in a test context" = !is.null(tf))
+  if (!fs::dir_exists(remote)) {
+    fs::dir_create(remote)
+  }
+  if (requireNamespace("withr", quietly = TRUE)) {
+    withr::with_dir(remote, {
+      git("init", "--bare", echo_cmd = verbose, echo = verbose)
+    })
+    withr::with_dir(repo, {
+      git("remote", "add", name, remote, echo_cmd = verbose, echo = verbose)
+      git("push", name, gert::git_branch(), echo_cmd = verbose, echo = verbose)
+    })
+  }
+  return(invisible(repo))
+}
+
+#' @rdname setup_local_remote
+remove_local_remote <- function(name = "sandpaper-local", repo) {
+  if (name == "origin") {
+    return(repo)
+  }
+  remotes <- tryCatch(gert::git_remote_list(),
+    error = function(e) data.frame(name = character(0))
+  )
+  if (any(the_remote <- remotes$name %in% name)) {
+    gert::git_remote_remove(name, repo)
+    to_remove <- remotes$url[the_remote]
+    # don't error if we can not delete this.
+    return(tryCatch(fs::dir_delete(to_remove), error = function() FALSE))
+  }
+  return(invisible("(no remote present)"))
+}
 
 # Shamelessly stolen from {pkgdown}, originally authored by Hadley Wickam
 git <- function (..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
@@ -130,7 +175,7 @@ bundle_pr_artifacts <- function(repo, pr_number,
   branch = "md-outputs") {
   if (!fs::dir_exists(path_archive)) fs::dir_create(path_archive)
   if (!fs::dir_exists(path_pr)) fs::dir_create(path_pr)
-  writeLines(event_number, fs::path(path_pr, "NR"))
+  writeLines(pr_number, fs::path(path_pr, "NR"))
   if (!requireNamespace("withr", quietly = TRUE))
     stop("withr must be installed")
   withr::with_dir(path_md, {
@@ -138,7 +183,7 @@ bundle_pr_artifacts <- function(repo, pr_number,
     difflist <- git("diff", "--staged", "--compact-summary",
       echo = FALSE, echo_cmd = FALSE)
     github_url  <- glue::glue("https://github.com/{repo}/compare/")
-    change_link <- glue::glue("{github_url}{branch}..{branch}-PR-{event_number}")
+    change_link <- glue::glue("{github_url}{branch}..{branch}-PR-{pr_number}")
     msg         <- glue::glue(
       "### Rendered Changes
 
