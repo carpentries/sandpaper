@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build an episode to markdown — build_episode_md • sandpaper</title>
+<title>Test fixture functions for sandpaper — create_test_lesson • sandpaper</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,9 @@
 
 
 
-<meta property="og:title" content="Build an episode to markdown — build_episode_md" />
-<meta property="og:description" content="This uses knitr::knit() with custom options set for the Carpentries
-template. It runs in a separate process to avoid issues with user-specific
-options bleeding in." />
+<meta property="og:title" content="Test fixture functions for sandpaper — create_test_lesson" />
+<meta property="og:description" content="These functions are for use during testing of sandpaper and are designed to
+create a temporary lesson and associated remote repository (locally)." />
 
 
 
@@ -113,90 +112,91 @@ options bleeding in." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build an episode to markdown</h1>
-    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/build_episode.R'><code>R/build_episode.R</code></a></small>
-    <div class="hidden name"><code>build_episode_md.Rd</code></div>
+    <h1>Test fixture functions for sandpaper</h1>
+    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/test-fixtures.R'><code>R/test-fixtures.R</code></a></small>
+    <div class="hidden name"><code>fixtures.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This uses <code><a href='https://rdrr.io/pkg/knitr/man/knit.html'>knitr::knit()</a></code> with custom options set for the Carpentries
-template. It runs in a separate process to avoid issues with user-specific
-options bleeding in.</p>
+    <p>These functions are for use during testing of sandpaper and are designed to
+create a temporary lesson and associated remote repository (locally).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_episode_md</span><span class='op'>(</span>
-  <span class='va'>path</span>,
-  hash <span class='op'>=</span> <span class='cn'>NULL</span>,
-  outdir <span class='op'>=</span> <span class='fu'>path_built</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>,
-  workdir <span class='op'>=</span> <span class='fu'>path_built</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>,
-  env <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>new.env</a></span><span class='op'>(</span><span class='op'>)</span>,
-  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>create_test_lesson</span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='fu'>generate_restore_fixture</span><span class='op'>(</span><span class='va'>tf</span><span class='op'>)</span>
+
+<span class='fu'>setup_local_remote</span><span class='op'>(</span>
+  <span class='va'>repo</span>,
+  remote <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>,
+  name <span class='op'>=</span> <span class='st'>"sandpaper-local"</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+
+<span class='fu'>remove_local_remote</span><span class='op'>(</span><span class='va'>repo</span>, name <span class='op'>=</span> <span class='st'>"sandpaper-local"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>path to the RMarkdown file</p></td>
+      <th>tf</th>
+      <td><p>(<code>generate_restore_fixture()</code>) the path to the test fixture lesson</p></td>
     </tr>
     <tr>
-      <th>hash</th>
-      <td><p>hash to prepend to the output. This parameter is deprecated and
-is effectively useless.</p></td>
+      <th>repo</th>
+      <td><p>path to a git repository</p></td>
     </tr>
     <tr>
-      <th>outdir</th>
-      <td><p>the directory to write to</p></td>
+      <th>remote</th>
+      <td><p>path to an empty or uninitialized directory. Defaults to a
+tempfile</p></td>
     </tr>
     <tr>
-      <th>workdir</th>
-      <td><p>the directory where the episode should be rendered</p></td>
+      <th>name</th>
+      <td><p>of the remote, defaults to "sandpaper-local"</p></td>
     </tr>
     <tr>
-      <th>env</th>
-      <td><p>a blank environment</p></td>
-    </tr>
-    <tr>
-      <th>quiet</th>
-      <td><p>if <code>TRUE</code>, output is suppressed, default is <code>FALSE</code> to show
-knitr output.</p></td>
+      <th>verbose</th>
+      <td><p>if <code>TRUE</code>, messages and output from git will be printed to
+screen. Defaults to <code>FALSE</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>the path to the output, invisibly</p>
+    <p>(<code>generate_restore_fixture</code>) a function that will restore the test fixture</p>
+<p>(<code>setup_local_remote()</code>) the repo, invisibly</p>
+<p>(<code>remove_local_remote()</code>) FALSE indicating an error or a string
+indicating the path to the remote</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>create_test_lesson()</h3>
+
+
+<p>This creates the test lesson and returns a function that will restore the
+test fixture when called with no arguments</p>
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>generate_restore_fixture()</h3>
+
+
+<p>This creates the restore function for the test lesson</p>
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>setup_local_remote()</h3>
+
+
+<p>Creates a local remote repository in a separate temporary folder, linked to
+the fixture lesson</p>
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>remove_local_remote()</h3>
+
+
+<p>Destorys the local remote repository and removes it from the fixture lesson</p>
+
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>this function is for internal use, but exported for those who know what
-they are doing.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>These are implemented in tests/testthat/setup.md</p>
 
-    <div class='dont-index'><p><code><a href='render_html.html'>render_html()</a></code>, <code><a href='build_episode_html.html'>build_episode_html()</a></code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>fun_dir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='va'>fun_dir</span><span class='op'>)</span>
-<span class='va'>fun_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>fun_dir</span>, <span class='st'>"fun.Rmd"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.create</a></span><span class='op'>(</span><span class='va'>fun_file</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>txt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
- <span class='st'>"---\ntitle: Fun times\n---\n\n"</span>,
- <span class='st'>"# new page\n"</span>, 
- <span class='st'>"This is coming from `r R.version.string`"</span>
-<span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>txt</span>, <span class='va'>fun_file</span><span class='op'>)</span>
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>build_episode_md</span><span class='op'>(</span><span class='va'>fun_file</span>, outdir <span class='op'>=</span> <span class='va'>fun_dir</span>, workdir <span class='op'>=</span> <span class='va'>fun_dir</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #BB0000;'>
-#&gt; 
-#&gt; processing file: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpUSPU8M/filea857f8557f3/fun.Rmd
-#&gt; </span>  |                                                                              |                                                                      |   0%  |                                                                              |......................................................................| 100%
-#&gt;    inline R code fragments
-#&gt; 
-#&gt; 
-#&gt; <span style='color: #BB0000;'>output file: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpUSPU8M/filea857f8557f3/fun.md
-#&gt; 
-#&gt; </span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
