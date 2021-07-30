@@ -1,3 +1,12 @@
+# sandpaper 0.0.0.9035
+
+MISC
+----
+
+ - Tests for git operations were added to be more robust (@zkamvar, #137)
+ - A new test fixture for a local remote repository was added to aid the above
+   git tests.
+
 # sandpaper 0.0.0.9034
 
 NEW FEATURES
