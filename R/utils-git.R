@@ -1,5 +1,10 @@
+has_git <- function() {
+  Sys.which("git") != ""
+}
+
 # Shamelessly stolen from {pkgdown}, originally authored by Hadley Wickam
 git <- function (..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
+  if (!has_git()) stop(cli::format_error("{.pkg git} is not installed"), call. = FALSE)
   callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, 
     error_on_status = error_on_status)
 }
