@@ -22,39 +22,102 @@ make_refspec <- function(remote, branch) {
   glue::glue("+refs/heads/{branch}:refs/remotes/{remote}/{branch}")
 }
 
-# worktree setup
-# [IF BRANCH DOES NOT EXIST]
-#   git checkout --orphan <branch>
-#   git rm -rf --quiet .
-#   git commit --allow-empty -m
-#   git push remote HEAD:<branch>
-#   git checkout -
-# git remote set-branches <remote> <branch>
-# git fetch <remote> <branch>
-# git worktree add --track -B <branch> /path/to/dir <remote>/<branch>
 #
 # Modified from pkgdown::deploy_to_branch() by Hadley Wickham
+
+#' Setup a git worktree for concurrent manipulation of a separate branch
+#'
+#' @param path path to the repository
+#' @param dest_dir path to the destination directory to contain the work tree
+#' @param branch the branch associated with the work tree (default: gh-pages)
+#' @param remote the remote name (default: origin)
+#' @param throwaway if `TRUE`, the worktree created is in a detached HEAD state
+#'   from from the remote branch and will not create a new branch in your 
+#'   repository. Defaults to `FALSE`, which will create the branch from upstream.
+#' @return an [expression()] that calls `git worktree remove` on the worktree
+#'   when evaluated. 
+#' @details
+#'
+#' This function is used in continuous integration settings where we want to
+#' push derived outputs to non-main branches in our repository. We use this to
+#' populate the markdown and HTML outputs from the lesson so that we don't have
+#' to rebuild the lesson from scratch every time. 
+#'
+#' The logic behind this looks like
+#'
+#' ```
+#' worktree setup
+#' [IF BRANCH DOES NOT EXIST]
+#'   git checkout --orphan <branch>
+#'   git rm -rf --quiet .
+#'   git commit --allow-empty -m
+#'   git push remote HEAD:<branch>
+#'   git checkout -
+#' git fetch <remote> +refs/heads/<branch>:refs/remotes/<remote>/<branch>
+#' git worktree add --track -B <branch> /path/to/dir <remote>/<branch>
+#' ```
+#'
+#' @note this internal function has been modified from the logic in 
+#' [pkgdown::deploy_to_branch()], by Hadley Wickham.
+#'
+#' @keywords internal
+#' @examples
+#' if (sandpaper:::has_git() && requireNamespace("withr", quietly = TRUE)) {
+#' cli::cli_h1("Set up")
+#' cli::cli_h2("Create Lesson")
+#' restore_fixture <- sandpaper:::create_test_lesson()
+#' res <- getOption("sandpaper.test_fixture")
+#' cli::cli_h2("Create Remote")
+#' rmt <- fs::file_temp(pattern = "REMOTE-")
+#' sandpaper:::setup_local_remote(repo = res, remote = rmt, verbose = FALSE)
+#' cli::cli_h2("Create Worktrees")
+#' db <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "built"), 
+#'   branch = "md-outputs", remote = "sandpaper-local"
+#' )
+#' ds <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "docs"), 
+#'   branch = "gh-pages", remote = "sandpaper-local"
+#' )
+#' cli::cli_h1("Build Lesson into worktrees")
+#' build_lesson(res, quiet = TRUE, preview = FALSE)
+#' cli::cli_h2("git status: {gert::git_branch(repo = res)}")
+#' print(gert::git_status(repo = res))
+#' cli::cli_h2('git status: {gert::git_branch(repo = fs::path(res, "site", "built"))}')
+#' print(gert::git_status(repo = fs::path(res, "site", "built")))
+#' cli::cli_h2('git status: {gert::git_branch(repo = fs::path(res, "site", "docs"))}')
+#' print(gert::git_status(repo = fs::path(res, "site", "docs")))
+#' cli::cli_h1("Clean Up")
+#' eval(db)
+#' eval(ds)
+#' sandpaper:::remove_local_remote(repo = res)
+#' # remove the test fixture and report
+#' tryCatch(fs::dir_delete(res), error = function() FALSE)
+#' }
 git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin", throwaway = FALSE) {
 
-  no_branch <- !git_has_remote_branch(remote, branch)
-
-  # create the branch if it doesn't exist
-  if (no_branch) {
-    old_branch <- gert::git_branch(repo = path)
-    git("checkout", "--orphan", branch)
-    git("rm", "-rf", "--quiet", ".")
-    git("commit", "--allow-empty", "-m", 
-      sprintf("Initializing %s branch", branch)
-    )
-    git("push", remote, paste0("HEAD:", branch))
-    git("checkout", old_branch)
+  if (!has_git() || !requireNamespace("withr", quietly = TRUE)) {
+    stop(cli::format_error("{.fn git_worktree_setup} requires {.pkg git} and {.pkg withr}"), call. = FALSE)
   }
-  # fetch the content of only the branch in question
-  gert::git_fetch(remote = remote, refspec = make_refspec(remote, branch), repo = path)
-  github_worktree_add(dest_dir, remote, branch, throwaway)
+  withr::with_dir(path, {
+    no_branch <- !git_has_remote_branch(remote, branch)
+    # create the branch if it doesn't exist
+    if (no_branch) {
+      old_branch <- gert::git_branch(repo = path)
+      git("checkout", "--orphan", branch)
+      git("rm", "-rf", "--quiet", ".")
+      git("commit", "--allow-empty", "-m", 
+        sprintf("Initializing %s branch", branch)
+      )
+      git("push", remote, paste0("HEAD:", branch))
+      git("checkout", old_branch)
+    }
+    # fetch the content of only the branch in question
+    refspec <- make_refspec(remote, branch)
+    gert::git_fetch(remote = remote, refspec = refspec, repo = path)
+    github_worktree_add(dest_dir, remote, branch, throwaway)
+  })
   # This allows me to evaluate this expression at the top of the calling
   # function.
-  parse(text = glue::glue("github_worktree_remove('{dest_dir}', '{path}')"))
+  parse(text = glue::glue("sandpaper:::github_worktree_remove('{dest_dir}', '{path}')"))
 }
 
 
