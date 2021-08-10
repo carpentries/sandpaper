@@ -88,9 +88,27 @@ setup_local_remote <- function(repo, remote = tempfile(), name = "sandpaper-loca
     fs::dir_create(remote)
   }
   gert::git_clone(repo, path = remote, bare = TRUE)
+  gert::git_remote_remove(remote = "origin", repo = remote)
   gert::git_remote_add(remote, name, repo = repo)
-  gert::git_push(remote = name, set_upstream = TRUE, repo = repo, verbose = FALSE)
+  gert::git_push(remote = name, set_upstream = TRUE, repo = repo, verbose = verbose)
   return(invisible(repo))
+}
+
+# create and clean branches in the local and remote repositories
+make_branch <- function(repo, nu_branch = "landpaper-socal", remote_name = "sandpaper-local", verbose = FALSE) {
+  gert::git_branch_create(nu_branch, repo = repo)
+  gert::git_push(remote = remote_name, repo = repo, verbose = verbose)
+}
+
+clean_branch <- function(repo, remote_name = "sandpaper-local", verbose = FALSE) {
+  nu_branch <- gert::git_branch(repo)
+  gert::git_branch_checkout("main", repo = repo)
+  gert::git_branch_delete(nu_branch, repo = repo)
+  rmt_url <- gert::git_remote_list(repo)
+  rmt_url <- rmt_url$url[rmt_url$name == remote_name]
+  if (length(rmt_url) > 0) { 
+    gert::git_branch_delete(nu_branch, repo = rmt_url)
+  }
 }
 
 #' @rdname fixtures

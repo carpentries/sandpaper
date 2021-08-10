@@ -1,17 +1,18 @@
 {
-# Creating the Lesson ----------------------------------------------------------
-# Creating the Repository ------------------------------------------------------
-restore_fixture <- create_test_lesson()
-tmp <- getOption("sandpaper.test_fixture")
-rmt <- fs::file_temp(pattern = "REMOTE-")
-setup_local_remote(repo = tmp, remote = rmt, verbose = FALSE)
+  # Creating the Lesson ----------------------------------------------------------
+  # Creating the Repository ------------------------------------------------------
+  restore_fixture <- create_test_lesson()
+  res <- tmp <- getOption("sandpaper.test_fixture")
+  rmt <- fs::file_temp(pattern = "REMOTE-")
+  setup_local_remote(repo = tmp, remote = rmt, verbose = FALSE)
 
-if (interactive()) {
-  cli::cli_alert_info(
-    "{cli::symbol$arrow_down} Example lesson in {tmp}")
-  cli::cli_alert_info(
-    "{cli::symbol$arrow_up} Local remote in {rmt}"
-  )
+  if (interactive()) {
+    cli::cli_alert_info(
+      "{cli::symbol$arrow_down} Example lesson in {tmp}")
+    cli::cli_alert_info(
+      "{cli::symbol$arrow_up} Local remote in {rmt}"
+    )
+  }
 }
 # Run after all tests
 withr::defer({
@@ -26,4 +27,3 @@ withr::defer({
     cli::cli_alert_info("local remote {status} removed")
   }
 }, teardown_env())
-}
