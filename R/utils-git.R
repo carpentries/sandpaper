@@ -30,7 +30,7 @@ git_has_remote_branch <- function (remote, branch) {
 # git worktree add --track -B <branch> /path/to/dir <remote>/<branch>
 #
 # Modified from pkgdown::deploy_to_branch() by Hadley Wickham
-git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin") {
+git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin", throwaway = FALSE) {
 
   no_branch <- !git_has_remote_branch(remote, branch)
 
@@ -48,22 +48,24 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
   # fetch the content of only the branch in question
   refspec <- glue::glue("+refs/heads/{branch}:refs/remotes/{remote}/{branch}")
   gert::git_fetch(remote = remote, refspec = refspec, repo = path)
-  github_worktree_add(dest_dir, remote, branch)
+  github_worktree_add(dest_dir, remote, branch, throwaway)
   # This allows me to evaluate this expression at the top of the calling
   # function.
-  parse(text = paste0("github_worktree_remove('", dest_dir, "')"))
+  parse(text = glue::glue("github_worktree_remove('{dest_dir}', '{path}')"))
 }
 
 
 # Add a branch to a folder as a worktree
 # originally authored by Hadley Wickham
-github_worktree_add <- function (dir, remote, branch) {
+github_worktree_add <- function (dir, remote, branch, throwaway = FALSE) {
   if (requireNamespace("cli", quietly = TRUE))
     cli::rule("Adding worktree", line = "+")
-  git("worktree", "add", 
-    "--track", "-B", branch, dir, 
-    paste0(remote, "/", branch)
-  )
+  if (throwaway) {
+    the_tree <- c("--detach", dir)
+  } else {
+    the_tree <- c("--track", "-B", branch, dir)
+  }
+  git("worktree", "add", the_tree, paste0(remote, "/", branch))
 }
 
 # Commit on a worktree
@@ -91,11 +93,11 @@ github_worktree_commit <- function (dir, commit_message, remote, branch) {
 
 # Remove a git worktree
 # Modified from pkgdown:::github_worktree_remove by Hadley Wickham
-github_worktree_remove <- function (dir) {
+github_worktree_remove <- function (dir, home = NULL) {
   if (requireNamespace("cli", quietly = TRUE)) 
     cli::rule("Removing worktree", line = "-")
   # ZNK: add --force
-  home <- root_path(dir)
+  if (is.null(home)) home <- root_path(dir)
   if (requireNamespace("withr", quietly = TRUE)) {
     withr::with_dir(home, git("worktree", "remove", "--force", dir))
   }

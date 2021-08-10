@@ -28,7 +28,6 @@ ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origi
   del_md <- git_worktree_setup(path, built, 
     branch = branch, remote = remote
   )
-  on.exit(eval(del_md), add = TRUE)
 
   build_markdown(path = path, quiet = TRUE, rebuild = FALSE)
 
@@ -36,6 +35,7 @@ ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origi
     message_source("markdown source builds", current, dir = path),
     remote, branch
   )
+  return(del_md)
 }
 
 ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", remote = "origin") {
