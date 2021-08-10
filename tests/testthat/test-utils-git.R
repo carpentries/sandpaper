@@ -2,11 +2,12 @@ res <- restore_fixture()
 the_remote <- gert::git_remote_list(repo = res)
 remote_name <- "sandpaper-local"
 nu_branch <- "landpaper-socal"
+remote_ref <- glue::glue("refs/remotes/sandpaper-local/{nu_branch}")
+make_branch(res, branch = nu_branch)
 temp_tree <- fs::file_temp(pattern = "worktree")
 fs::dir_create(temp_tree)
 withr::defer(fs::dir_delete(temp_tree))
 
-remote_ref <- glue::glue("refs/remotes/sandpaper-local/{nu_branch}")
 
 test_that("A remote exists", {
 
@@ -18,14 +19,16 @@ test_that("A remote exists", {
 test_that("The remote has a main branch", {
 
   expect_true(gert::git_info(the_remote$url)$bare)
+  expect_equal(gert::git_info(the_remote$url)$shorthand, "main")
 
 })
 
 test_that("We can push to branches on the remote", {
 
   # Create a new commit
-  make_branch(res, branch = nu_branch, checkout = TRUE)
-  withr::defer(clean_branch(res, nu_branch))
+
+  gert::git_branch_checkout(nu_branch, repo = res)
+  withr::defer(gert::git_branch_checkout("main", repo = res))
 
   writeLines("hello", fs::path(res, "deleteme"))
   gert::git_add("deleteme", repo = res)

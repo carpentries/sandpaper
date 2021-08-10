@@ -18,6 +18,10 @@ git_has_remote_branch <- function (remote, branch) {
     )$status == 0
 }
 
+make_refspec <- function(remote, branch) {
+  glue::glue("+refs/heads/{branch}:refs/remotes/{remote}/{branch}")
+}
+
 # worktree setup
 # [IF BRANCH DOES NOT EXIST]
 #   git checkout --orphan <branch>
@@ -46,8 +50,7 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
     git("checkout", old_branch)
   }
   # fetch the content of only the branch in question
-  refspec <- glue::glue("+refs/heads/{branch}:refs/remotes/{remote}/{branch}")
-  gert::git_fetch(remote = remote, refspec = refspec, repo = path)
+  gert::git_fetch(remote = remote, refspec = make_refspec(remote, branch), repo = path)
   github_worktree_add(dest_dir, remote, branch, throwaway)
   # This allows me to evaluate this expression at the top of the calling
   # function.
