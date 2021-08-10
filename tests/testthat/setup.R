@@ -22,8 +22,8 @@ withr::defer({
   res <- tryCatch(fs::dir_delete(tf), error = function() FALSE)
   if (interactive()) {
     status <- if (identical(res, FALSE)) "could not be" else "successfully"
-    cli::cli_alert_info("{tf} {status} removed")
-    status <- if (is.character(rem)) glue::glue("{rem} successfully") else "could not be"
-    cli::cli_alert_info("local remote {status} removed")
+    cli::cli_alert_info("{.file {tf}} {status} removed")
+    status <- if (is.character(rem)) "successfully" else "could not be"
+    cli::cli_alert_info("local remote {.file {rem}} {status} removed")
   }
 }, teardown_env())
