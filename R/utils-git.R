@@ -46,9 +46,8 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
     git("checkout", old_branch)
   }
   # fetch the content of only the branch in question
-  # https://stackoverflow.com/a/62264058/2752888
-  git("remote", "set-branches", remote, branch)
-  git("fetch", remote, branch)
+  refspec <- glue::glue("+refs/heads/{branch}:refs/remotes/{remote}/{branch}")
+  gert::git_fetch(remote = remote, refspec = refspec, repo = path)
   github_worktree_add(dest_dir, remote, branch)
   # This allows me to evaluate this expression at the top of the calling
   # function.
@@ -80,7 +79,7 @@ github_worktree_commit <- function (dir, commit_message, remote, branch) {
     # ZNK: Change to gert::git_add(); only commit if we have something to add
     added <- gert::git_add(".", repo = dir)
     if (nrow(added) == 0) {
-      message("nothing to commit!")
+      message(glue::glue("nothing to commit on {branch}!"))
       return(NULL)
     }
     git("commit", "--allow-empty", "-m", commit_message)
