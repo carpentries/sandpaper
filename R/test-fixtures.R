@@ -95,14 +95,16 @@ setup_local_remote <- function(repo, remote = tempfile(), name = "sandpaper-loca
 }
 
 # create and clean branches in the local and remote repositories
-make_branch <- function(repo, nu_branch = "landpaper-socal", remote_name = "sandpaper-local", verbose = FALSE) {
-  gert::git_branch_create(nu_branch, repo = repo)
+make_branch <- function(repo, ..., remote_name = "sandpaper-local", verbose = FALSE) {
+  gert::git_branch_create(..., repo = repo)
   gert::git_push(remote = remote_name, repo = repo, verbose = verbose)
 }
 
-clean_branch <- function(repo, remote_name = "sandpaper-local", verbose = FALSE) {
-  nu_branch <- gert::git_branch(repo)
-  gert::git_branch_checkout("main", repo = repo)
+clean_branch <- function(repo, nu_branch = NULL, remote_name = "sandpaper-local", verbose = FALSE) {
+  this_branch <- gert::git_branch(repo)
+  if (is.null(nu_branch) || this_branch == nu_branch) {
+    gert::git_branch_checkout("main", repo = repo)
+  }
   gert::git_branch_delete(nu_branch, repo = repo)
   rmt_url <- gert::git_remote_list(repo)
   rmt_url <- rmt_url$url[rmt_url$name == remote_name]

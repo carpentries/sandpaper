@@ -24,8 +24,8 @@ test_that("The remote has a main branch", {
 test_that("We can push to branches on the remote", {
 
   # Create a new commit
-  del_branch <- make_branch(res, nu_branch)
-  withr::defer(clean_branch(res))
+  make_branch(res, branch = nu_branch, checkout = TRUE)
+  withr::defer(clean_branch(res, nu_branch))
 
   writeLines("hello", fs::path(res, "deleteme"))
   gert::git_add("deleteme", repo = res)
