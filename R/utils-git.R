@@ -248,7 +248,7 @@ ci_bundle_pr_artifacts <- function(repo, pr_number,
     # I was using the two-dot method because that's the only thing I learned, 
     # but it can be really overwhelming if there are rapid changes. This way,
     # only the relevant changes are shown (unless there is a conflict).
-    copy_template("pr_artifacts", path_archive, "diff.md",
+    copy_template("pr_diff", path_archive, "diff.md",
       values = list(
         reality = reality,
         possibility = possibility,

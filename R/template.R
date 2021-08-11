@@ -76,5 +76,5 @@ template_placeholder <- generate_template_function("placeholder")
 
 #' @rdname template
 #' @export
-template_pr_artifacts <- generate_template_function("pr_artifacts")
+template_pr_diff <- generate_template_function("pr_diff")
 
