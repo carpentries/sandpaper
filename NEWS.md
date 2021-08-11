@@ -4,8 +4,10 @@ MISC
 ----
 
  - Tests for git operations were added to be more robust (@zkamvar, #137)
- - A new test fixture for a local remote repository was added to aid the above
+ - new test fixtures for a local remote repository was added to aid the above
    git tests.
+ - Documentation for `git_worktree_setup()` has been added for future versions
+   of the maintainer and future contributors.
 
 # sandpaper 0.0.0.9034
 
