@@ -22,7 +22,7 @@ should check for the following:
 The following changes were observed in the _rendered_ markdown documents:
 
 ```
-{{ summary_of_differences }}
+{{{ summary_of_differences }}}
 ```
 
 <details>
