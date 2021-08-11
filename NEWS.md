@@ -1,3 +1,12 @@
+# sandpaper 0.0.0.9037
+
+MISC
+----
+
+ - Output of `ci_bundle_pr_artifacts()` no longer escapes HTML-like output in
+   the diff summary. 
+ - remove {xml2} from explicit dependencies
+
 # sandpaper 0.0.0.9036
 
 MISC
@@ -9,6 +18,7 @@ MISC
    artifacts for GitHub to upload upon receipt of a pull request. This will
    replace clunky shell code that lived inside a YAML configuration file.
    (@zkamvar, #139)
+ - add {brio} to soft dependencies (for testing, but maybe could speed up???)
 
 # sandpaper 0.0.0.9035
 
