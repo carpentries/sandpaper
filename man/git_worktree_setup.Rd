@@ -54,7 +54,27 @@ this internal function has been modified from the logic in
 \code{\link[pkgdown:deploy_to_branch]{pkgdown::deploy_to_branch()}}, by Hadley Wickham.
 }
 \examples{
-if (sandpaper:::has_git() && requireNamespace("withr", quietly = TRUE)) {
+run_ok <- sandpaper:::has_git() &&
+  requireNamespace("withr", quietly = TRUE) &&
+  rmarkdown::pandoc_available("2.11")
+
+# Use Worktrees to deploy a lesson -----------------------------------------
+# This example is a bit inovlved, but it is effectively what we do inside of
+# the `ci_deploy()` function (after setting up the lesson). 
+# 
+# The setup phase will create a new lesson and a corresponding remote (self
+# contained, no GitHub authentication required). 
+# 
+# The worktrees will be created for both the markdown and HTML outputs on the
+# branches "md-outputs" and "gh-pages", respectively. 
+# 
+# After the worktrees are created, we will build the lesson into the
+# worktrees and display the output of `git_status()` for each of the three
+# branches: "main", "md-outputs", and "gh-pages"
+# 
+# During the clean up phase, the output of `git_worktree_setup()` is 
+# evaluated
+if (run_ok) {
 cli::cli_h1("Set up")
 cli::cli_h2("Create Lesson")
 restore_fixture <- sandpaper:::create_test_lesson()
@@ -79,7 +99,9 @@ print(gert::git_status(repo = fs::path(res, "site", "built")))
 cli::cli_h2('git status: {gert::git_branch(repo = fs::path(res, "site", "docs"))}')
 print(gert::git_status(repo = fs::path(res, "site", "docs")))
 cli::cli_h1("Clean Up")
+cli::cli_alert_info("object db is an expression that evaluates to {.code {db}}")
 eval(db)
+cli::cli_alert_info("object ds is an expression that evaluates to {.code {ds}}")
 eval(ds)
 sandpaper:::remove_local_remote(repo = res)
 sandpaper:::reset_git_user(res)
