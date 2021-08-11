@@ -66,6 +66,7 @@ make_refspec <- function(remote, branch) {
 #' cli::cli_h1("Set up")
 #' cli::cli_h2("Create Lesson")
 #' restore_fixture <- sandpaper:::create_test_lesson()
+#' sandpaper:::check_git_user()
 #' res <- getOption("sandpaper.test_fixture")
 #' cli::cli_h2("Create Remote")
 #' rmt <- fs::file_temp(pattern = "REMOTE-")
@@ -89,6 +90,7 @@ make_refspec <- function(remote, branch) {
 #' eval(db)
 #' eval(ds)
 #' sandpaper:::remove_local_remote(repo = res)
+#' sandpaper:::reset_git_user(res)
 #' # remove the test fixture and report
 #' tryCatch(fs::dir_delete(res), error = function() FALSE)
 #' }
@@ -244,4 +246,59 @@ bundle_pr_artifacts <- function(repo, pr_number,
   })
 }
 
+
+# If the git user is not set, we set a temporary one, note that this is paired
+# with reset_git_user()
+check_git_user <- function(path) {
+  if (!gert::user_is_configured(path)) {
+    gert::git_config_set("user.name", "carpenter", repo = path)
+    gert::git_config_set("user.email", "team@carpentries.org", repo = path)
+  }
+}
+
+# It's clear that we cannot rely on folks having the correct libgit2 version,
+# so the way we enforce the main branch is to do it after we make the initial
+# commit like so:
+#
+#  1. create a new branch called "main"
+#  2. change "master" to "main" in .git/HEAD (txt file)
+#  3. delete "master" branch 
+# 
+# If the user HAS set a default branch, we will use that one.
+enforce_main_branch <- function(path) {
+  current <- gert::git_branch(path)
+  default <- get_default_branch()
+  if (current != "master") {
+    # the user set up their init.defaultBranch correctly
+    return(path)
+  }
+  # Create and move to main branch
+  gert::git_branch_create(default, repo = path)
+  # modify .git/HEAD file
+  HFILE <- file.path(path, ".git", "HEAD")
+  HEAD <- readLines(HFILE, encoding = "UTF-8")
+  writeLines(sub("master", default, HEAD), HFILE)
+  # remove master
+  gert::git_branch_delete("master", repo = path)
+}
+
+get_default_branch <- function() {
+  cfg <- gert::git_config_global()
+  default <- cfg$value[cfg$name == "init.defaultbranch"]
+  invalid <- length(default) == 0 || default == "master"
+  if (invalid) "main" else default
+}
+
+# This checks if we have set a temporary git user and then unsets it. It will 
+# supriously unset a user if they happened to have 
+# "carpenter <team@carpentries.org>" as their email.
+reset_git_user <- function(path) {
+  cfg <- gert::git_config(path)
+  it_me <- cfg$value[cfg$name == "user.name"] == "carpenter" &&
+    cfg$value[cfg$name == "user.email"] == "team@carpentries.org"
+  if (gert::user_is_configured(path) && it_me) {
+    gert::git_config_set("user.name", NULL, repo = path)
+    gert::git_config_set("user.email", NULL, repo = path)
+  }
+}
 

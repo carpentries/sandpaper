@@ -58,6 +58,7 @@ if (sandpaper:::has_git() && requireNamespace("withr", quietly = TRUE)) {
 cli::cli_h1("Set up")
 cli::cli_h2("Create Lesson")
 restore_fixture <- sandpaper:::create_test_lesson()
+sandpaper:::check_git_user()
 res <- getOption("sandpaper.test_fixture")
 cli::cli_h2("Create Remote")
 rmt <- fs::file_temp(pattern = "REMOTE-")
@@ -81,6 +82,7 @@ cli::cli_h1("Clean Up")
 eval(db)
 eval(ds)
 sandpaper:::remove_local_remote(repo = res)
+sandpaper:::reset_git_user(res)
 # remove the test fixture and report
 tryCatch(fs::dir_delete(res), error = function() FALSE)
 }
