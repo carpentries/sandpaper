@@ -208,9 +208,9 @@ bundle_pr_artifacts <- function(repo, pr_number,
   if (!requireNamespace("withr", quietly = TRUE))
     stop("withr must be installed")
   withr::with_dir(path_md, {
-    git("add", "-A", ".")
+    git("add", "-A", ".", echo_cmd = FALSE, echo = FALSE)
     difflist <- git("diff", "--staged", "--compact-summary",
-      echo = FALSE, echo_cmd = FALSE)
+      echo = FALSE, echo_cmd = FALSE)$stdout
     github_url  <- glue::glue("https://github.com/{repo}/compare/")
     change_link <- glue::glue("{github_url}{branch}..{branch}-PR-{pr_number}")
     msg         <- glue::glue(
@@ -223,8 +223,7 @@ bundle_pr_artifacts <- function(repo, pr_number,
       The following changes were observed in the rendered markdown documents
 
       ```diff
-      {difflist}
-      ```
+      {difflist}```
 
       <details>
       <summary>What does this mean?</summary>
@@ -241,7 +240,7 @@ bundle_pr_artifacts <- function(repo, pr_number,
       "
     )
     writeLines(msg, fs::path(path_archive, "diff.md"))
-    fs::dir_delete(".git")
+    if (fs::is_dir(".git")) fs::dir_delete(".git")
   })
 }
 

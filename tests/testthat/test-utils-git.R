@@ -156,3 +156,43 @@ test_that("We can create worktrees from random branches", {
   expect_true(gert::git_branch_exists("tree-two", local = TRUE, repo = res))
   clean_branch(res, "tree-two")
 })
+
+
+test_that("bundle_pr_artifacts() will bundle artifacts from a pr", {
+
+  gert::git_branch_checkout("landpaper-socal", repo = res)
+  make_branch(repo = res, branch = "landpaper-norcal")
+  norcal <- fs::path(temp_tree, "norcal")
+  expect_output({
+    del_norcal <- git_worktree_setup(res,
+      dest_dir = norcal,
+      branch = "landpaper-norcal",
+      remote = remote_name,
+      throwaway = TRUE
+    )
+  }, "Preparing worktree \\(detached HEAD [0-9a-f]{7}\\)")
+  cat("hello!", file = fs::path(norcal, "deleteme"), append = TRUE)
+  writeLines("olleh", con = fs::path(norcal, "emeteled"))
+  pr <- fs::path(temp_tree, "PR")
+  cv <- fs::path(temp_tree, "CHIVE")
+
+  expect_false(fs::file_exists(pr))
+  expect_false(fs::file_exists(cv))
+
+  bundle_pr_artifacts(repo = "carpenter/lesson", 
+    pr_number = "42", 
+    path_md = fs::path(temp_tree, "norcal"), 
+    path_archive = cv, 
+    path_pr = pr, 
+    branch = nu_branch
+  )
+
+  expect_true(fs::file_exists(fs::path(pr, "NR")))
+  expect_true(fs::file_exists(fs::path(cv, "diff.md")))
+  expect_equal(readLines(fs::path(pr, "NR")), "42")
+
+  expect_output(eval(del_norcal))
+  # skip("there's something strange with the markdown output due to the git reporting")
+  expect_snapshot_file(fs::path(cv, "diff.md"))
+
+})
