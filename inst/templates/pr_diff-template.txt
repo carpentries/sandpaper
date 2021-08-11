@@ -36,6 +36,6 @@ This output provides a way for you to inspect the output in a diff-friendly
 manner so that it's easy to see the changes that occur due to new software
 versions or randomisation.
 
-<details>
+</details>
 
 :stopwatch: Updated at {{ update_time }}

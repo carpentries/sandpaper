@@ -38,6 +38,6 @@ This output provides a way for you to inspect the output in a diff-friendly
 manner so that it's easy to see the changes that occur due to new software
 versions or randomisation.
 
-<details>
+</details>
 
-:stopwatch: Updated at 2021-08-11 18:11:10 +0000
+:stopwatch: Updated at 2021-08-11 20:44:26 +0000
