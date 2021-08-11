@@ -74,3 +74,7 @@ template_pkgdown <- generate_template_function("pkgdown-yaml")
 #' @export
 template_placeholder <- generate_template_function("placeholder")
 
+#' @rdname template
+#' @export
+template_pr_artifacts <- generate_template_function("pr_artifacts")
+

@@ -8,6 +8,9 @@ MISC
    git tests.
  - Documentation for `git_worktree_setup()` has been added for future versions
    of the maintainer and future contributors.
+ - `ci_bundle_pr_artifacts()` is a new internal function that will create
+   artifacts for GitHub to upload upon receipt of a pull request. This will
+   replace clunky shell code that lived inside a YAML configuration file. 
 
 # sandpaper 0.0.0.9034
 

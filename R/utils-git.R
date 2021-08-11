@@ -214,7 +214,7 @@ message_source <- function(commit_message = "", source_branch = "main", dir = ".
 # - name: "Generate Artifacts"
 #   id: generate-artifacts
 #   run: |
-#     bundle_pr_artifacts(
+#     sandpaper:::ci_bundle_pr_artifacts(
 #       repo         = '${{ github.repository }}',
 #       pr_number    = '${{ github.event.number }}',
 #       path_md      = '${{ env.MD }}',
@@ -223,7 +223,7 @@ message_source <- function(commit_message = "", source_branch = "main", dir = ".
 #       branch       = "md-outputs"
 #     )
 #   shell: Rscript {0}
-bundle_pr_artifacts <- function(repo, pr_number, 
+ci_bundle_pr_artifacts <- function(repo, pr_number, 
   path_md, path_archive, path_pr, 
   branch = "md-outputs") {
   if (!fs::dir_exists(path_archive)) fs::dir_create(path_archive)
@@ -236,34 +236,27 @@ bundle_pr_artifacts <- function(repo, pr_number,
     difflist <- git("diff", "--staged", "--compact-summary",
       echo = FALSE, echo_cmd = FALSE)$stdout
     github_url  <- glue::glue("https://github.com/{repo}/compare/")
-    change_link <- glue::glue("{github_url}{branch}..{branch}-PR-{pr_number}")
-    msg         <- glue::glue(
-      "### Rendered Changes
-
-      :mag: Inspect the changes: {change_link}
-
-      ---
-
-      The following changes were observed in the rendered markdown documents
-
-      ```diff
-      {difflist}```
-
-      <details>
-      <summary>What does this mean?</summary>
-
-      If you have source files that require output and figures to be generated
-      (e.g. R Markdown), then it is important to make sure the generated 
-      figures and output are reproducible. 
-
-      This output provides a way for you to inspect the output in a 
-      diff-friendly manner so that it's easy to see the changes that occurr due
-      to new software versions or randomisation.
-
-      <details>
-      "
+    reality <- glue::glue("{github_url}{branch}")
+    possibility <- glue::glue("{branch}-PR-{pr_number}")
+    # Comparing commit-ish chunks on GitHub can use either two dot or three dot
+    #
+    # Three dot: compare changes that happened _in that instant_
+    # Two dot: compare the changes between the branches as they exist today.
+    #
+    # https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-comparing-branches-in-pull-requests#three-dot-and-two-dot-git-diff-comparisons
+    # 
+    # I was using the two-dot method because that's the only thing I learned, 
+    # but it can be really overwhelming if there are rapid changes. This way,
+    # only the relevant changes are shown (unless there is a conflict).
+    copy_template("pr_artifacts", path_archive, "diff.md",
+      values = list(
+        reality = reality,
+        possibility = possibility,
+        summary_of_differences = trimws(difflist, which = "right"),
+        update_time = UTC_timestamp(Sys.time()),
+        NULL
+      )
     )
-    writeLines(msg, fs::path(path_archive, "diff.md"))
     if (fs::is_dir(".git")) fs::dir_delete(".git")
   })
 }

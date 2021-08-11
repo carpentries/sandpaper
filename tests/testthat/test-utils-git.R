@@ -179,19 +179,29 @@ test_that("bundle_pr_artifacts() will bundle artifacts from a pr", {
   expect_false(fs::file_exists(pr))
   expect_false(fs::file_exists(cv))
 
-  bundle_pr_artifacts(repo = "carpenter/lesson", 
+  ci_bundle_pr_artifacts(repo = "carpenter/lesson", 
     pr_number = "42", 
     path_md = fs::path(temp_tree, "norcal"), 
     path_archive = cv, 
     path_pr = pr, 
     branch = nu_branch
   )
+  # We have a file that records the timestamp and makes it _really_ difficult to
+  # detect regressions
+  compare_file_no_time <- function(old, new) {
+    old <- brio::read_lines(old)
+    new <- brio::read_lines(new)
+    no_time <- function(txt) {
+      txt[!grepl("^(Time)|(:stopwatch:)", txt)]
+    }
+    identical(no_time(old), no_time(new))
+  }
 
   expect_true(fs::file_exists(fs::path(pr, "NR")))
   expect_true(fs::file_exists(fs::path(cv, "diff.md")))
   expect_equal(readLines(fs::path(pr, "NR")), "42")
 
   expect_output(eval(del_norcal))
-  expect_snapshot_file(fs::path(cv, "diff.md"))
+  expect_snapshot_file(fs::path(cv, "diff.md"), compare = compare_file_no_time)
 
 })

@@ -16,15 +16,13 @@ should check for the following:
 
 ### Rendered Changes
 
-:mag: Inspect the changes: https://github.com/carpenter/lesson/compare/landpaper-socal...landpaper-socal-PR-42
+:mag: Inspect the changes: {{ reality }}...{{ possibility }}
 
 
 The following changes were observed in the _rendered_ markdown documents:
 
 ```
- deleteme       | 1 +
- emeteled (new) | 1 +
- 2 files changed, 2 insertions(+)
+{{ summary_of_differences }}
 ```
 
 <details>
@@ -40,4 +38,4 @@ versions or randomisation.
 
 <details>
 
-:stopwatch: Updated at 2021-08-11 18:11:10 +0000
+:stopwatch: Updated at {{ update_time }}
