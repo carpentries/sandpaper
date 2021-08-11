@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.0.0.9035
+Version: 0.0.0.9036
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -40,6 +40,7 @@ Imports:
     tools
 Suggests: 
     testthat (>= 3.0.0),
+    brio,
     covr,
     withr,
     jsonlite,

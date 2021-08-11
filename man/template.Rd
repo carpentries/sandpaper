@@ -12,6 +12,7 @@
 \alias{template_setup}
 \alias{template_pkgdown}
 \alias{template_placeholder}
+\alias{template_pr_diff}
 \title{Template files}
 \usage{
 template_gitignore()
@@ -35,6 +36,8 @@ template_setup()
 template_pkgdown()
 
 template_placeholder()
+
+template_pr_diff()
 }
 \value{
 a character string with the path to the template within the

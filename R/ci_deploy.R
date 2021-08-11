@@ -25,8 +25,9 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
 
   built <- path_built(path)
   html  <- fs::path(path_site(path), "docs")
+  has_withr <- requireNamespace("withr", quietly = TRUE)
 
-  if (requireNamespace("withr", quietly = TRUE)) { withr::with_dir(path, {
+  if (has_git() && has_withr) { withr::with_dir(path, {
     # Set up the worktrees and make sure to remove them when the function exits
     # (gracefully or ungracefully so)
     # ------------ markdown worktree
@@ -57,5 +58,6 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
       remote, site_branch
     )
   })}
+  invisible()
 }
 

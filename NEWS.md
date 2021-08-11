@@ -1,10 +1,22 @@
+# sandpaper 0.0.0.9036
+
+MISC
+----
+
+ - Documentation for `git_worktree_setup()` has been added for future versions
+   of the maintainer and future contributors.
+ - `ci_bundle_pr_artifacts()` is a new internal function that will create
+   artifacts for GitHub to upload upon receipt of a pull request. This will
+   replace clunky shell code that lived inside a YAML configuration file.
+   (@zkamvar, #139)
+
 # sandpaper 0.0.0.9035
 
 MISC
 ----
 
  - Tests for git operations were added to be more robust (@zkamvar, #137)
- - A new test fixture for a local remote repository was added to aid the above
+ - new test fixtures for a local remote repository was added to aid the above
    git tests.
 
 # sandpaper 0.0.0.9034
