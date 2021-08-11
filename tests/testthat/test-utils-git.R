@@ -192,7 +192,6 @@ test_that("bundle_pr_artifacts() will bundle artifacts from a pr", {
   expect_equal(readLines(fs::path(pr, "NR")), "42")
 
   expect_output(eval(del_norcal))
-  # skip("there's something strange with the markdown output due to the git reporting")
   expect_snapshot_file(fs::path(cv, "diff.md"))
 
 })
