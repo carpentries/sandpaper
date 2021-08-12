@@ -1,15 +1,23 @@
+# sandpaper 0.0.0.9039
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - `ci_session_info()` will report the session information, which will help 
+   clean up the workflow files.
+
 # sandpaper 0.0.0.9038
 
-MISC
-----
+CONTINUOUS INTEGRATION
+----------------------
 
  - Fix broken deploy process on continuous integration caused by attempting to
    fetch all branches in a shallow clone (@zkamvar, #142)
 
 # sandpaper 0.0.0.9037
 
-MISC
-----
+CONTINUOUS INTEGRATION
+----------------------
 
  - Output of `ci_bundle_pr_artifacts()` no longer escapes HTML-like output in
    the diff summary. 
@@ -17,8 +25,8 @@ MISC
 
 # sandpaper 0.0.0.9036
 
-MISC
-----
+CONTINUOUS INTEGRATION
+----------------------
 
  - Documentation for `git_worktree_setup()` has been added for future versions
    of the maintainer and future contributors.
@@ -30,8 +38,8 @@ MISC
 
 # sandpaper 0.0.0.9035
 
-MISC
-----
+CONTINUOUS INTEGRATION
+----------------------
 
  - Tests for git operations were added to be more robust (@zkamvar, #137)
  - new test fixtures for a local remote repository was added to aid the above

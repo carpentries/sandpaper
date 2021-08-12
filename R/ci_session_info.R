@@ -13,7 +13,7 @@ ci_session_info <- function() {
     options(width = 100)
     cli::cli_rule("Time Built")
     pkg_tim <- function(p) {
-      paste(format(c(p, "sandpaper"))[1], packageDescription(p)$Packaged)
+      paste(format(c(p, "sandpaper"))[1], utils::packageDescription(p)$Packaged)
     }
     status <- vapply(c("sandpaper", "pegboard", "varnish", "tinkr"), pkg_tim, character(1))
     cli::cli_bullets(status)
