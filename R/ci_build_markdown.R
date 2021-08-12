@@ -32,7 +32,7 @@ ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origi
     )
     if (reset) {
       ci_group("Reset Lesson")
-      git_clean_everyting(path)
+      git_clean_everything(path)
       cli::cat_line("::endgroup::")
     }
 
