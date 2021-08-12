@@ -114,12 +114,24 @@
       <small>Source: <a href='https://github.com/carpentries/sandpaper/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="sandpaper-0009039" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9039">
+<a href="#sandpaper-0009039" class="anchor"></a>sandpaper 0.0.0.9039</h1>
+<div id="continuous-integration" class="section level2">
+<h2 class="hasAnchor">
+<a href="#continuous-integration" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
+<ul>
+<li>
+<code><a href="../reference/ci_session_info.html">ci_session_info()</a></code> will report the session information, which will help clean up the workflow files.</li>
+</ul>
+</div>
+</div>
     <div id="sandpaper-0009038" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9038">
 <a href="#sandpaper-0009038" class="anchor"></a>sandpaper 0.0.0.9038</h1>
-<div id="misc" class="section level2">
+<div id="continuous-integration-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc" class="anchor"></a>MISC</h2>
+<a href="#continuous-integration-1" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>Fix broken deploy process on continuous integration caused by attempting to fetch all branches in a shallow clone (<a href='https://github.com/zkamvar'>@zkamvar</a>, <a href='https://github.com/carpentries/sandpaper/issues/142'>#142</a>)</li>
 </ul>
@@ -128,9 +140,9 @@
     <div id="sandpaper-0009037" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9037">
 <a href="#sandpaper-0009037" class="anchor"></a>sandpaper 0.0.0.9037</h1>
-<div id="misc-1" class="section level2">
+<div id="continuous-integration-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-1" class="anchor"></a>MISC</h2>
+<a href="#continuous-integration-2" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>Output of <code>ci_bundle_pr_artifacts()</code> no longer escapes HTML-like output in the diff summary.</li>
 <li>remove {xml2} from explicit dependencies</li>
@@ -140,9 +152,9 @@
     <div id="sandpaper-0009036" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9036">
 <a href="#sandpaper-0009036" class="anchor"></a>sandpaper 0.0.0.9036</h1>
-<div id="misc-2" class="section level2">
+<div id="continuous-integration-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-2" class="anchor"></a>MISC</h2>
+<a href="#continuous-integration-3" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>Documentation for <code><a href="../reference/git_worktree_setup.html">git_worktree_setup()</a></code> has been added for future versions of the maintainer and future contributors.</li>
 <li>
@@ -154,9 +166,9 @@
     <div id="sandpaper-0009035" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9035">
 <a href="#sandpaper-0009035" class="anchor"></a>sandpaper 0.0.0.9035</h1>
-<div id="misc-3" class="section level2">
+<div id="continuous-integration-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-3" class="anchor"></a>MISC</h2>
+<a href="#continuous-integration-4" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>Tests for git operations were added to be more robust (<a href='https://github.com/zkamvar'>@zkamvar</a>, <a href='https://github.com/carpentries/sandpaper/issues/137'>#137</a>)</li>
 <li>new test fixtures for a local remote repository was added to aid the above git tests.</li>
@@ -193,9 +205,9 @@
     <div id="sandpaper-0009032" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9032">
 <a href="#sandpaper-0009032" class="anchor"></a>sandpaper 0.0.0.9032</h1>
-<div id="misc-4" class="section level2">
+<div id="misc" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-4" class="anchor"></a>MISC</h2>
+<a href="#misc" class="anchor"></a>MISC</h2>
 <ul>
 <li>The internal <code><a href="../reference/get_resource_list.html">get_resource_list()</a></code> function has been modified to incorporate the features of <code><a href="../reference/get_dropdown.html">get_dropdown()</a></code>. This means that all <code><a href="../reference/get_dropdown.html">get_dropdown()</a></code> functions will only report the files in the dropdown menus that actually exist in the directory (<a href='https://github.com/carpentries/sandpaper/issues/134'>#134</a>).</li>
 <li>A persistant test fixture is now included to speed up testing time (<a href='https://github.com/carpentries/sandpaper/issues/132'>#132</a> via
@@ -206,9 +218,9 @@
     <div id="sandpaper-0009031" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9031">
 <a href="#sandpaper-0009031" class="anchor"></a>sandpaper 0.0.0.9031</h1>
-<div id="misc-5" class="section level2">
+<div id="misc-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-5" class="anchor"></a>MISC</h2>
+<a href="#misc-1" class="anchor"></a>MISC</h2>
 <ul>
 <li>The {cli} package is now an official import of the package</li>
 <li>The warning message issued from the internal <code>warn_schedule()</code> function has been changed exclusively use cli messages and can be suppressed with <code><a href="https://rdrr.io/r/base/message.html">suppressMessages()</a></code>.</li>
@@ -219,9 +231,9 @@
     <div id="sandpaper-0009030" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9030">
 <a href="#sandpaper-0009030" class="anchor"></a>sandpaper 0.0.0.9030</h1>
-<div id="misc-6" class="section level2">
+<div id="misc-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-6" class="anchor"></a>MISC</h2>
+<a href="#misc-2" class="anchor"></a>MISC</h2>
 <ul>
 <li>A test that caused problems with a new version of {pegboard} was fixed</li>
 </ul>
@@ -230,9 +242,9 @@
     <div id="sandpaper-0009029" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9029">
 <a href="#sandpaper-0009029" class="anchor"></a>sandpaper 0.0.0.9029</h1>
-<div id="misc-7" class="section level2">
+<div id="misc-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-7" class="anchor"></a>MISC</h2>
+<a href="#misc-3" class="anchor"></a>MISC</h2>
 <ul>
 <li>The internal database is updated to use relative instead of absolute paths. This fixes <a href='https://github.com/carpentries/sandpaper/issues/129'>#129</a></li>
 </ul>
@@ -250,9 +262,9 @@
     <div id="sandpaper-0009027" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9027">
 <a href="#sandpaper-0009027" class="anchor"></a>sandpaper 0.0.0.9027</h1>
-<div id="misc-8" class="section level2">
+<div id="misc-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-8" class="anchor"></a>MISC</h2>
+<a href="#misc-4" class="anchor"></a>MISC</h2>
 <ul>
 <li>
 <code>create_schedule()</code> (internal function) no longer uses pegboard’s extensions for fixing reference links.</li>
@@ -262,9 +274,9 @@
     <div id="sandpaper-0009026" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9026">
 <a href="#sandpaper-0009026" class="anchor"></a>sandpaper 0.0.0.9026</h1>
-<div id="misc-9" class="section level2">
+<div id="misc-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-9" class="anchor"></a>MISC</h2>
+<a href="#misc-5" class="anchor"></a>MISC</h2>
 <ul>
 <li>callout blocks with headers greater than h3 are now rendered properly and no longer forced to h3</li>
 <li>tests now clean up after themselves and no longer change the working directory by default</li>
