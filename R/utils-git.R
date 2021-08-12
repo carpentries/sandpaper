@@ -18,7 +18,7 @@ git_has_remote_branch <- function (remote, branch) {
     )$status == 0
 }
 
-fetch_one_branch <- function(remote, branch, repo = ".") {
+git_fetch_one_branch <- function(remote, branch, repo = ".") {
   # NOTE: We only want to fetch ONE branch and ONE branch, only. We apparently
   # cannot do this by specifying a refspec for fetch, but we _can_ temporarily
   # modify the refspec for for the repo.
@@ -30,6 +30,11 @@ fetch_one_branch <- function(remote, branch, repo = ".") {
   })
   git("fetch", remote, branch)
 }
+
+git_clean_everything <- function(repo = ".") {
+  withr::with_dir(repo, git("rm", "-rf", "--quiet", "."))
+}
+
 
 #
 # Modified from pkgdown::deploy_to_branch() by Hadley Wickham
@@ -146,7 +151,7 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
       cli::cat_line("::endgroup::")
     }
     ci_group(glue::glue("Fetch {remote}/{branch}"))
-    fetch_one_branch(remote, branch, repo = path)
+    git_fetch_one_branch(remote, branch, repo = path)
     cli::cat_line("::endgroup::")
 
     ci_group(glue::glue("Add worktree for {remote}/{branch} in site/{fs::path_file(dest_dir)}"))
@@ -276,10 +281,10 @@ ci_bundle_pr_artifacts <- function(repo, pr_number,
 
 # If the git user is not set, we set a temporary one, note that this is paired
 # with reset_git_user()
-check_git_user <- function(path) {
+check_git_user <- function(path, name = "carpenter", email = "team@carpentries.org") {
   if (!gert::user_is_configured(path)) {
-    gert::git_config_set("user.name", "carpenter", repo = path)
-    gert::git_config_set("user.email", "team@carpentries.org", repo = path)
+    gert::git_config_set("user.name", name, repo = path)
+    gert::git_config_set("user.email", email, repo = path)
   }
 }
 
