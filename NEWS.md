@@ -1,3 +1,13 @@
+# sandpaper 0.0.0.9040
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - `ci_deploy()` gains the `reset` argument, which can be used to clear the 
+   cache for a clean build of the lesson.
+ - `ci_deploy()` now uses `ci_build_markdown()` and `ci_build_site()`, 
+   internally
+
 # sandpaper 0.0.0.9039
 
 CONTINUOUS INTEGRATION
