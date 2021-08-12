@@ -3,7 +3,8 @@
 MISC
 ----
 
- - Trying to find fix for broken builds
+ - Fix broken deploy process on continuous integration caused by attempting to
+   fetch all branches in a shallow clone (@zkamvar, #142)
 
 # sandpaper 0.0.0.9037
 

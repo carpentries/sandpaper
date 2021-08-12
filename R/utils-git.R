@@ -140,9 +140,10 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
     # fetch the content of only the branch in question
     refspec <- make_refspec(remote, branch)
     cli::cat_line(glue::glue("refspec: {refspec}"))
-    # We only want to fetch ONE branch and ONE branch, only. We apparently
+    # NOTE: We only want to fetch ONE branch and ONE branch, only. We apparently
     # cannot do this by specifying a refspec for fetch, but we _can_ temporarily
     # modify the refspec for for the repo.
+    # Past Zhian saw this in {pkgdown}, but removed it for some reason :eyeroll:
     # https://stackoverflow.com/a/62264058/2752888
     git("remote", "set-branches", remote, branch)
     git("fetch", remote, branch)
