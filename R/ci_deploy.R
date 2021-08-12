@@ -43,20 +43,26 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
 
     on.exit(eval(del_site), add = TRUE)
 
+    ci_group("Build Lesson")
     # Build the site quickly using the markdown files as-is
-    build_lesson(path = path, quiet = TRUE, rebuild = FALSE, preview = FALSE)
+    build_lesson(path = path, quiet = FALSE, rebuild = FALSE, preview = FALSE)
+    cli::cat_line("::endgroup::")
 
     # Commit the markdown sources
+    ci_group("Commit Markdown Sources")
     github_worktree_commit(built, 
       message_source("markdown source builds", current, dir = path),
       remote, md_branch 
     )
+    cli::cat_line("::endgroup::")
 
     # Commit using the markdown branch as a reference
+    ci_group("Commit website")
     github_worktree_commit(html,
       message_source("site deploy", md_branch, dir = built),
       remote, site_branch
     )
+    cli::cat_line("::endgroup::")
   })}
   invisible()
 }

@@ -18,8 +18,17 @@ git_has_remote_branch <- function (remote, branch) {
     )$status == 0
 }
 
-make_refspec <- function(remote, branch) {
-  glue::glue("+refs/heads/{branch}:refs/remotes/{remote}/{branch}")
+fetch_one_branch <- function(remote, branch, repo = ".") {
+  # NOTE: We only want to fetch ONE branch and ONE branch, only. We apparently
+  # cannot do this by specifying a refspec for fetch, but we _can_ temporarily
+  # modify the refspec for for the repo.
+  # https://stackoverflow.com/a/62264058/2752888
+  git("remote", "set-branches", remote, branch)
+  on.exit({
+    # https://stackoverflow.com/a/47726250/2752888
+    git("remote", "set-branches", remote, "*")
+  })
+  git("fetch", remote, branch)
 }
 
 #
@@ -125,6 +134,7 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
     no_branch <- !git_has_remote_branch(remote, branch)
     # create the branch if it doesn't exist
     if (no_branch) {
+      ci_group("Create New Branch")
       old_branch <- gert::git_branch(repo = path)
       git("checkout", "--orphan", branch)
       git("rm", "-rf", "--quiet", ".")
@@ -133,11 +143,15 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
       )
       git("push", remote, paste0("HEAD:", branch))
       git("checkout", old_branch)
+      cli::cat_line("::endgroup::")
     }
-    # fetch the content of only the branch in question
-    refspec <- make_refspec(remote, branch)
-    gert::git_fetch(remote = remote, refspec = refspec, repo = path)
+    ci_group(glue::glue("Fetch {remote}/{branch}"))
+    fetch_one_branch(remote, branch, repo = path)
+    cli::cat_line("::endgroup::")
+
+    ci_group(glue::glue("Add worktree for {remote}/{branch} in site/{fs::path_file(dest_dir)}"))
     github_worktree_add(dest_dir, remote, branch, throwaway)
+    cli::cat_line("::endgroup::")
   })
   # This allows me to evaluate this expression at the top of the calling
   # function.
@@ -148,8 +162,6 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
 # Add a branch to a folder as a worktree
 # originally authored by Hadley Wickham
 github_worktree_add <- function (dir, remote, branch, throwaway = FALSE) {
-  if (requireNamespace("cli", quietly = TRUE))
-    cli::rule("Adding worktree", line = "+")
   if (throwaway) {
     the_tree <- c("--detach", dir)
   } else {

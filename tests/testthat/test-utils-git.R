@@ -158,7 +158,7 @@ test_that("We can create worktrees from random branches", {
 })
 
 
-test_that("bundle_pr_artifacts() will bundle artifacts from a pr", {
+test_that("ci_bundle_pr_artifacts() will bundle artifacts from a pr", {
 
   gert::git_branch_checkout("landpaper-socal", repo = res)
   make_branch(repo = res, branch = "landpaper-norcal")
