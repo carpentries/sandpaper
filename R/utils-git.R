@@ -281,10 +281,10 @@ ci_bundle_pr_artifacts <- function(repo, pr_number,
 
 # If the git user is not set, we set a temporary one, note that this is paired
 # with reset_git_user()
-check_git_user <- function(path) {
+check_git_user <- function(path, name = "carpenter", email = "team@carpentries.org") {
   if (!gert::user_is_configured(path)) {
-    gert::git_config_set("user.name", "carpenter", repo = path)
-    gert::git_config_set("user.email", "team@carpentries.org", repo = path)
+    gert::git_config_set("user.name", name, repo = path)
+    gert::git_config_set("user.email", email, repo = path)
   }
 }
 
