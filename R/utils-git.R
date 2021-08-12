@@ -32,7 +32,7 @@ git_fetch_one_branch <- function(remote, branch, repo = ".") {
 }
 
 git_clean_everything <- function(repo = ".") {
-  git("rm", "-rf", "--quiet", ".")
+  withr::with_dir(repo, git("rm", "-rf", "--quiet", "."))
 }
 
 
