@@ -141,7 +141,7 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
     refspec <- make_refspec(remote, branch)
     cli::cat_line(glue::glue("refspec: {refspec}"))
     # git("fetch", "origin", refspec)
-    # gert::git_fetch(remote = remote, refspec = refspec, repo = path, verbose = TRUE)
+    gert::git_fetch(remote = remote, repo = path, verbose = TRUE)
     cli::cat_line("::endgroup::")
 
     ci_group(glue::glue("Add worktree for {remote}/{branch} in site/{fs::path_file(dest_dir)}"))
