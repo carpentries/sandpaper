@@ -1,36 +1,50 @@
-#' Fetch GitHub Workflows
-#' 
-#' This is a wrapper around [usethis::use_github_action()] to download and
-#' install github workflow files in your sandpaper lesson.
+#' Update github workflows
+#'
+#' This function copies and updates the workflows to run {sandpaper}. 
 #'
 #' @param path path to the current lesson.
-#' @param files a character vector of file names. Defaults to the workflows 
-#'    needed for sandpaper to work on github. 
-#' @param base the base URL for the workflows
+#' @param files the files to include in the update. Defaults to an empty string, 
+#'   which will update all files
 #' @param overwrite if `TRUE` (default), the file(s) will be overwritten.
-#' @return the output of [usethis::use_github_action()]
+#' @return the paths to the new files. 
 #' @export
 #'
 #' @note this assumes that you have an active internet connection.
-fetch_github_workflows <- function(path = ".", 
-  files = c("comment-pr.yaml", "pr-close.yaml", "pull-request.yaml",
-    "remove-branch.yaml", "sandpaper-main.yaml"), 
-  base = "https://raw.githubusercontent.com/zkamvar/actions/main/workflows/",
-  overwrite = TRUE) {
+update_github_workflows <- function(path = ".", files = "", overwrite = TRUE) {
 
   if (!pingr::is_online()) {
     stop("This function requires an internet connection.")
   }
 
   wf <- fs::path(path, ".github", "workflows")
-  wf_exist <- fs::dir_exists(wf)
-  for (file in files) {
-    # TODO: this is a cowpath that I need to reevaluate usage
-    # If overwriting the file, we should remove it to appease the usethis gods
-    if (overwrite && wf_exist && fs::file_exists(fs::path(wf, file))) {
-      fs::file_delete(fs::path(wf, file))
-    }
-    url <- paste0(base, "/", file)
-    usethis::with_project(path, usethis::use_github_action(url = url))
+  version_file <- fs::path(wf, "sandpaper-version.txt")
+  this_version <- utils::package_version(packageDescription("sandpaper")$Version)
+
+  need_dir <- !fs::dir_exists(wf)
+  if (need_dir) {
+    fs::dir_create(wf, recurse = TRUE)
   }
+  if (fs::file_exists(version_file)) {
+    oldvers <- package_version(readLines(version_file))
+  } else {
+    oldvers <- package_version("0.0.0")
+  }
+
+  if (overwrite || oldvers < this_version) {
+    # we update the files
+    our_files <- system.file("workflows", files, package = "sandpaper")
+    if (length(our_files) == 1L && fs::is_dir(our_files)) {
+      our_files <- fs::dir_ls(our_files)
+    }
+    new_files <- character(length(our_files))
+    names(new_files) <- our_files
+    for (file in our_files) {
+      is_present <- fs::file_exists(fs::path(wf, fs::path_file(file)))
+      if (!is_present || overwrite) {
+        new_files[file] <- fs::file_copy(file, wf, overwrite = overwrite)
+      }
+    }
+  }
+  writeLines(as.character(this_version), con = version_file)
+  return(invisible(new_files[new_files != ""]))
 }

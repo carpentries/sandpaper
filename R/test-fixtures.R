@@ -1,4 +1,3 @@
-#nocov-start
 #' Test fixture functions for sandpaper
 #'
 #' These functions are for use during testing of {sandpaper} and are designed to
@@ -37,7 +36,9 @@ create_test_lesson <- function() {
       "{cli::symbol$arrow_right} Bootstrapping example lesson in {tmp}"
     )
   }
-  create_lesson(tmp, open = FALSE)
+  suppressMessages({
+    create_lesson(tmp, open = FALSE)
+  })
   options(sandpaper.test_fixture = tmp)
   generate_restore_fixture(tmp)
 }
@@ -133,4 +134,3 @@ remove_local_remote <- function(repo, name = "sandpaper-local") {
   }
   return(invisible("(no remote present)"))
 }
-#nocov-end

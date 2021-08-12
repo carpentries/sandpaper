@@ -1,0 +1,149 @@
+name: Comment on the pull request
+
+# read-write repo token
+# access to secrets
+on:
+  workflow_run:
+    workflows: ["Receive Pull Request"]
+    types:
+      - completed
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print github context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+  # Pull requests are valid if:
+  #  - they match the sha of the workflow run head commit
+  #  - they are open
+  #  - no .github files were committed
+  test-pr:
+    name: "Test if pull request is valid"
+    runs-on: ubuntu-latest
+    if: >
+      ${{ github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' }}
+    outputs:
+      is_valid: ${{ steps.check-pr.outputs.VALID }}
+      payload: ${{ steps.check-pr.outputs.payload }}
+      number: ${{ steps.get-pr.outputs.NUM }}
+    steps:
+      - name: 'Download PR artifact'
+        uses: zkamvar/actions/download-workflow-artifact@main
+        with:
+          run: ${{ github.event.workflow_run.id }}
+          name: 'pr'
+
+      - name: "Get PR Number"
+        id: get-pr
+        run: |
+          unzip pr.zip
+          echo "::set-output name=NUM::$(<./NR)"
+      
+      - name: "Check PR"
+        id: check-pr
+        uses: zkamvar/actions/check-valid-pr@main
+        with:
+          pr: ${{ steps.get-pr.outputs.NUM }}
+          sha: ${{ github.events.workflow_run.head_commit.sha }}
+
+  show-outputs:
+    name: "Show Outputs"
+    runs-on: ubuntu-latest
+    needs: test-pr
+    steps:
+      - run: |
+          echo ${{ needs.test-pr.outputs.is_valid }}
+          echo ${{ needs.test-pr.outputs.number }}
+          echo ${{ needs.test-pr.outputs.payload }}
+
+  # Create an orphan branch on this repository with two commits
+  #  - the current HEAD of the md-outputs branch
+  #  - the output from running the current HEAD of the pull request through
+  #    the md generator
+  create-branch:
+    name: "Create Git Branch"
+    needs: test-pr
+    runs-on: ubuntu-latest
+    if: ${{ needs.test-pr.outputs.is_valid == 'true' }}
+    env:
+      NR: ${{ needs.test-pr.outputs.number }}
+    steps:
+      - name: 'Checkout md outputs'
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: md-outputs
+          path: built
+          fetch-depth: 1
+
+      - name: 'Download built markdown'
+        uses: zkamvar/actions/download-workflow-artifact@main
+        with:
+          run: ${{ github.event.workflow_run.id }}
+          name: 'built'
+
+      - run: unzip built.zip
+
+      - name: "Create orphan and push"
+        run: |
+          cd built/
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          CURR_HEAD=$(git rev-parse HEAD)
+          git checkout --orphan md-outputs-PR-${NR}
+          git add -A 
+          git commit -m "source commit: ${CURR_HEAD}"
+          ls -A | grep -v '^.git' | xargs rm -r
+          cd ..
+          unzip -d built built.zip
+          cd built
+          git add -A
+          git commit --allow-empty -m "differences for PR #${NR}"
+          git push -u --force --set-upstream origin md-outputs-PR-${NR}
+
+  # Comment on the Pull Request with a link to the branch and the diff
+  comment-pr:
+    name: "Comment on Pull Request"
+    needs: [test-pr, create-branch]
+    runs-on: ubuntu-latest
+    if: ${{ needs.test-pr.outputs.is_valid == 'true' }}
+    env:
+      NR: ${{ needs.test-pr.outputs.number }}
+    steps:
+      - name: 'Download comment artifact'
+        uses: zkamvar/actions/download-workflow-artifact@main
+        with:
+          run: ${{ github.event.workflow_run.id }}
+          name: 'diff'
+          
+      - run: unzip ${{ github.workspace }}/diff.zip
+
+      - name: "Comment on PR"
+        id: comment-diff
+        uses: zkamvar/actions/comment-diff@main
+        with:
+          pr: ${{ env.NR }} 
+          path: ${{ github.workspace }}/diff.md
+
+  # Comment if the PR is open and matches the SHA, but the workflow files have
+  # changed
+  comment-changed-workflow:
+    name: "Comment Changed Workflow"
+    needs: test-pr
+    runs-on: ubuntu-latest
+    if: ${{ needs.test-pr.outputs.is_valid != 'true' }}
+    env:
+      NR: ${{ needs.test-pr.outputs.number }}
+    steps:
+      - name: "Comment on PR"
+        if: ${{ needs.test-pr.outputs.payload }}
+        id: comment-diff
+        uses: zkamvar/actions/comment-diff@main
+        with:
+          pr: ${{ env.NR }} 
+          body: "Pull Request contains modified workflows; no preview will be created."
+   
