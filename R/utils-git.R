@@ -125,6 +125,7 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
     no_branch <- !git_has_remote_branch(remote, branch)
     # create the branch if it doesn't exist
     if (no_branch) {
+      ci_group("Create New Branch")
       old_branch <- gert::git_branch(repo = path)
       git("checkout", "--orphan", branch)
       git("rm", "-rf", "--quiet", ".")
@@ -133,11 +134,18 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
       )
       git("push", remote, paste0("HEAD:", branch))
       git("checkout", old_branch)
+      cli::cat_line("::endgroup::")
     }
+    ci_group(glue::glue("Fetch {remote}/{branch}"))
     # fetch the content of only the branch in question
     refspec <- make_refspec(remote, branch)
-    gert::git_fetch(remote = remote, refspec = refspec, repo = path)
+    cli::cat_line(glue::glue("refspec: {refspec}"))
+    gert::git_fetch(refspec = refspec, repo = path, verbose = TRUE)
+    cli::cat_line("::endgroup::")
+
+    ci_group(glue::glue("Add worktree for {remote}/{branch} in site/{fs::path_file(dest_dir)}"))
     github_worktree_add(dest_dir, remote, branch, throwaway)
+    cli::cat_line("::endgroup::")
   })
   # This allows me to evaluate this expression at the top of the calling
   # function.
@@ -148,8 +156,6 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
 # Add a branch to a folder as a worktree
 # originally authored by Hadley Wickham
 github_worktree_add <- function (dir, remote, branch, throwaway = FALSE) {
-  if (requireNamespace("cli", quietly = TRUE))
-    cli::rule("Adding worktree", line = "+")
   if (throwaway) {
     the_tree <- c("--detach", dir)
   } else {

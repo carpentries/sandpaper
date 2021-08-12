@@ -17,13 +17,17 @@ test_that("ci_deploy() will deploy once", {
   skip_if_not(has_git())
   skip_if_not(rmarkdown::pandoc_available("2.11"))
 
+  suppressMessages({
   out1 <- capture.output({
     ci_deploy(res, md_branch = "MD", site_branch = "SITE", remote = remote_name)
+  })
   })
   expected <- expand.grid(
     c("refs/heads", "refs/remotes/sandpaper-local"),
     c("main", "MD", "SITE")
   )
+  expect_true(any(grepl("::group::Add worktree for sandpaper-local/MD in site/built", out1)))
+  expect_true(any(grepl("::endgroup::", out1)))
   expected <- apply(expected, 1, paste, collapse = "/")
   expect_setequal(gert::git_info(res)$reflist, expected)
   md_log   <- gert::git_log("MD", repo = res)
@@ -63,21 +67,5 @@ test_that("ci_deploy() will fetch sources from upstream", {
   md_log   <- gert::git_log("MD", repo = res)
   expect_equal(nrow(md_log), 2)
 
-})
-
-test_that("bundle_pr_artifacts() can record diffs", {
-
-  skip("still working on this test")
-
-  withr::with_dir(res, {
-    # built worktree
-    del_md <- git_worktree_setup(res, fs::path(res, "site", "built"), 
-      branch = "MD", remote = remote_name
-    )
-    # ------------ site worktree
-    del_site <- git_worktree_setup(res, fs::path(res, "site", "docs"),
-      branch = "SITE", remote = remote_name
-    )
-  })
 })
 

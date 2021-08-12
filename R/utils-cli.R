@@ -3,6 +3,10 @@ remove_cli_decoration <- function(msg) {
   gsub(" [{][^ ]*[ ]?", " `", msg)
 }
 
+ci_group <- function(group = "Group") {
+  cli::cat_line(glue::glue("::group::{group}"))
+}
+
 sandpaper_cli_theme <- function() {
   list(
     ul = list(
