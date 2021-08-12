@@ -4,7 +4,12 @@
 \alias{ci_build_markdown}
 \title{(INTERNAL) Build and deploy the site with continous integration}
 \usage{
-ci_build_markdown(path = ".", branch = "md-outputs", remote = "origin")
+ci_build_markdown(
+  path = ".",
+  branch = "md-outputs",
+  remote = "origin",
+  reset = FALSE
+)
 }
 \arguments{
 \item{path}{path to the lesson}
