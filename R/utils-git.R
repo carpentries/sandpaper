@@ -18,8 +18,24 @@ git_has_remote_branch <- function (remote, branch) {
     )$status == 0
 }
 
-make_refspec <- function(remote, branch) {
-  glue::glue("+refs/heads/{branch}:refs/remotes/{remote}/{branch}")
+fetch_one_branch <- function(remote, branch, repo = ".") {
+  # NOTE: We only want to fetch ONE branch and ONE branch, only. We apparently
+  # cannot do this by specifying a refspec for fetch, but we _can_ temporarily
+  # modify the refspec for for the repo.
+  # fetch the content of only the branch in question
+  # https://stackoverflow.com/a/62264058/2752888
+  cli::cat_line("Temporarily changing config...")
+  refspec <- glue::glue("+refs/heads/{branch}:refs/remotes/{remote}/{branch}")
+  cfg_fetch <- glue::glue("remote.{remote}.fetch")
+  cli::cat_line(glue::glue("Running git config {cfg_fetch} {refspec}"))
+  cfg <- gert::git_config_set(cfg_fetch, refspec, repo = repo)
+  on.exit({
+    # https://stackoverflow.com/a/47726250/2752888
+    cli::cat_line(glue::glue("Running git config {cfg_fetch} {cfg}"))
+    gert::git_config_set(cfg_fetch, cfg, repo = repo)
+  })
+  cli::cat_line("Fetching {branch}")
+  gert::git_fetch(remote = remote, refspec = refspec, repo = repo, verbose = TRUE)
 }
 
 #
@@ -137,19 +153,7 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
       cli::cat_line("::endgroup::")
     }
     ci_group(glue::glue("Fetch {remote}/{branch}"))
-    # fetch the content of only the branch in question
-    refspec <- make_refspec(remote, branch)
-    cli::cat_line(glue::glue("refspec: {refspec}"))
-    # NOTE: We only want to fetch ONE branch and ONE branch, only. We apparently
-    # cannot do this by specifying a refspec for fetch, but we _can_ temporarily
-    # modify the refspec for for the repo.
-    # Past Zhian saw this in {pkgdown}, but removed it for some reason :eyeroll:
-    # https://stackoverflow.com/a/62264058/2752888
-    git("remote", "set-branches", remote, branch)
-    git("fetch", remote, branch)
-    # https://stackoverflow.com/a/47726250/2752888
-    git("remote", "set-branches", remote, "*")
-    # gert::git_fetch(remote = remote, repo = path, verbose = TRUE)
+    fetch_one_branch(remote, branch, repo = path)
     cli::cat_line("::endgroup::")
 
     ci_group(glue::glue("Add worktree for {remote}/{branch} in site/{fs::path_file(dest_dir)}"))
