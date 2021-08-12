@@ -22,20 +22,13 @@ fetch_one_branch <- function(remote, branch, repo = ".") {
   # NOTE: We only want to fetch ONE branch and ONE branch, only. We apparently
   # cannot do this by specifying a refspec for fetch, but we _can_ temporarily
   # modify the refspec for for the repo.
-  # fetch the content of only the branch in question
   # https://stackoverflow.com/a/62264058/2752888
-  cli::cat_line("Temporarily changing config...")
-  refspec <- glue::glue("+refs/heads/{branch}:refs/remotes/{remote}/{branch}")
-  cfg_fetch <- glue::glue("remote.{remote}.fetch")
-  cli::cat_line(glue::glue("Running git config {cfg_fetch} {refspec}"))
-  cfg <- gert::git_config_set(cfg_fetch, refspec, repo = repo)
+  git("remote", "set-branches", remote, branch)
   on.exit({
     # https://stackoverflow.com/a/47726250/2752888
-    cli::cat_line(glue::glue("Running git config {cfg_fetch} {cfg}"))
-    gert::git_config_set(cfg_fetch, cfg, repo = repo)
+    git("remote", "set-branches", remote, "*")
   })
-  cli::cat_line("Fetching {branch}")
-  gert::git_fetch(remote = remote, refspec = refspec, repo = repo, verbose = TRUE)
+  git("fetch", remote, branch)
 }
 
 #
