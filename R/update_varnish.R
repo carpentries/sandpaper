@@ -10,14 +10,16 @@
 #'
 #' @note this requires an internet connection
 update_varnish <- function(version = NULL, ...) {
-  repo <- "https://carpentries.github.io/drat/"
+  repo <- c("https://carpentries.r-universe.dev/", 
+    "https://carpentries.github.io/drat/"
+  )
   if (is.null(version)) {
     utils::install.packages("varnish", repos = repo, ...)
   } else {
     varn <- paste0(
       repo, "src/contrib/varnish_", version, ".tar.gz"
     )
-    utils::install.packages(varn)
+    utils::install.packages(varn, repos = repo)
   }
   invisible(NULL)
 }

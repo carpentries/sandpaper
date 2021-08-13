@@ -1,0 +1,30 @@
+name: "Remove Temporary Branch"
+
+on:
+  workflow_run:
+    workflows: ["Close Pull Request Signal"]
+    types:
+      - completed
+
+jobs:
+  delete:
+    name: "Delete branch from Pull Request"
+    runs-on: ubuntu-latest
+    if: >
+      ${{ github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: 'Download artifact'
+        uses: zkamvar/actions/download-workflow-artifact@main
+        with:
+          run: ${{ github.event.workflow_run.id }}
+          name: pr
+      - name: "Get PR Number"
+        id: get-pr
+        run: |
+          unzip pr.zip
+          echo "::set-output name=NUM::$(<./NUM)"
+      - name: 'Remove branch'
+        uses: zkamvar/actions/remove-branch@main
+        with:
+          pr: ${{ steps.get-pr.outputs.NUM }}

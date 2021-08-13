@@ -6,47 +6,41 @@ withr::defer(fs::dir_delete(tmp))
 
 test_that("github workflows can be fetched", {
 
-  skip_if_offline()
   # default a bare git repo
   expect_setequal(ls_file(tmp), ".git")
   
   suppressMessages({
-    fetch_github_workflows(tmp, "sandpaper-main.yaml")
+    update_github_workflows(tmp, "sandpaper-main.yaml")
   })
 
-  expect_setequal(ls_file(tmp), c(".Rbuildignore", ".git", ".github"))
   expect_setequal(
     ls_file(fs::path(tmp, ".github", "workflows")), 
-    "sandpaper-main.yaml"
+    c("sandpaper-main.yaml", "sandpaper-version.txt")
   )
 
 })
 
 test_that("github workflows can be updated", {
 
-  skip_if_offline()
-
   sm <- fs::path(tmp, ".github", "workflows", "sandpaper-main.yaml")
   l <- readLines(sm)
   writeLines(c("# HELLO!!!!", l), sm)
   expect_equal(readLines(sm, n = 1), "# HELLO!!!!")
   suppressMessages({
-    fetch_github_workflows(tmp, "sandpaper-main.yaml")
+    update_github_workflows(tmp, "sandpaper-main.yaml")
   })
   expect_failure(expect_equal(readLines(sm, n = 1), "# HELLO!!!!"))
-  
 
 })
 
 test_that("github workflows can be added", {
 
-  skip_if_offline()
-
   suppressMessages({
-    fetch_github_workflows(tmp)
+    update_github_workflows(tmp)
   })
 
-  files_we_need <- eval(formals(fetch_github_workflows)$files)
+  files_we_need <- system.file("workflows", package = "sandpaper")
+  files_we_need <- c(fs::path_file(fs::dir_ls(files_we_need)), "sandpaper-version.txt")
 
   expect_setequal(
     ls_file(fs::path(tmp, ".github", "workflows")), 

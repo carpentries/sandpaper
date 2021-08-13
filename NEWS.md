@@ -1,3 +1,15 @@
+# sandpaper 0.0.0.9041
+
+MISC
+----
+
+ - `fetch_github_workflows()` has been renamed to `update_github_workflows()`
+ - github workflows are no longer downloaded from an external source; they
+   now live in inst/workflows. This will reduce the internet connection 
+   requirements for setting up a lesson and testing sandpaper.
+ - `create_lesson()` now reports progress as it goes along
+ - tests were updated to use the fixtures
+
 # sandpaper 0.0.0.9040
 
 CONTINUOUS INTEGRATION

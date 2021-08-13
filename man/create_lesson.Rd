@@ -30,6 +30,6 @@ and initialize a git repository.
 \examples{
 tmp <- tempfile()
 on.exit(unlink(tmp))
-lsn <- create_lesson(tmp, name = "This Lesson")
+lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 lsn
 }
