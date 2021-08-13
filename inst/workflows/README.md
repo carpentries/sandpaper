@@ -1,7 +1,29 @@
 # Carpentries Workflows
 
 This directory contains workflows to be used for Lessons using the {sandpaper}
-template.
+lesson infrastructure. Two of these workflows require R (`sandpaper-main.yaml`
+and `pull-request.yaml`) and the rest are bots to handle pull request management.
+
+These workflows will likely change as {sandpaper} evolves, so it is important to
+keep them up-to-date. To do this in your lesson you can do the following in your
+R console:
+
+```r
+# Install/Update sandpaper
+options(repos = c(carpentries = "https://carpentries.r-universe.dev/", 
+  CRAN = "https://cloud.r-project.org"))
+install.packages("sandpaper")
+
+# update the workflows in your lesson
+library("sandpaper")
+update_github_workflows()
+```
+
+Inside this folder, you will find a file called `sandpaper-version.txt`, which
+will contain a version number for sandpaper. This will be used in the future to
+alert you if a workflow update is needed.
+
+What follows are the descriptions of the workflow files:
 
 ## Deployment
 
