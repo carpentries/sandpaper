@@ -39,7 +39,7 @@ jobs:
 
       - name: Roll a Boogie
         id: make-some-noise
-        run |
+        run: |
           VER=$(cat .github/workflows/sandpaper-version.txt)
           echo "Recorded version - ${VER}"
           if [[ ${{ steps.sv.outputs.ver }} == ${VER} ]]; then
