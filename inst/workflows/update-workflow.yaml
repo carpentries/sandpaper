@@ -42,14 +42,14 @@ jobs:
         run: |
           VER=$(cat .github/workflows/sandpaper-version.txt)
           echo "Recorded version - ${VER}"
-          # if [[ ${{ steps.sv.outputs.ver }} != ${VER} ]]; then
-          curl https://carpentries.r-universe.dev/src/contrib/sandpaper_${VER}.tar.gz | \
-            tar -C .. --wildcards -xzv sandpaper/inst/workflows/*
-          cp ../sandpaper/inst/workflows/* .github/workflows/
-          echo ${VER} > .github/workflows/sandpaper-version.txt
-          echo ":3" >> .github/workflows/README.md
-          echo "::set-output name=version::${VER}"
-          # fi
+          if [[ ${{ steps.sv.outputs.ver }} != ${VER} ]]; then
+            curl https://carpentries.r-universe.dev/src/contrib/sandpaper_${VER}.tar.gz | \
+              tar -C .. --wildcards -xzv sandpaper/inst/workflows/*
+            cp ../sandpaper/inst/workflows/* .github/workflows/
+            echo ${VER} > .github/workflows/sandpaper-version.txt
+            echo ":3" >> .github/workflows/README.md
+            echo "::set-output name=version::${VER}"
+          fi
 
       - name: Create Pull Request
         id: cpr
