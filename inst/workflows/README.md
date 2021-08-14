@@ -32,6 +32,37 @@ What follows are the descriptions of the workflow files:
 This is the main driver that will only act on the main branch of the repository.
 This workflow does not use any custom actions from this repository.
 
+
+## Updates
+
+### Update Workflows (WIP)
+
+The {sandpaper} repository was designed to do as much as possible to separate 
+the tools from the content. For local builds, this is absolutely true, but 
+there is a minor issue when it comes to workflow files: they must live inside 
+the repository. 
+
+This workflow ensures that the workflow files are up-to-date. The way it work is
+to download the update-workflows.sh script from GitHub and run it. The script 
+will do the following:
+
+1. check the recorded version of sandpaper against the current version on github
+2. update the files if there is a difference in versions
+
+After the files are updated a pull request is created via a machine user account
+(at the moment, it's znk-machine). Maintainers are encouraged to review the 
+changes and accept the pull request.
+
+This update is run monthly or on demand.
+
+TODO: 
+  - migrate script into github action
+  - check if files actually are changed
+  - create a fork for updating
+  - perform check if a pull request exists before creating pull request
+  - offer way to specify bot account
+  - create action to destroy fork at the end?
+
 ## Pull Request and Review Management
 
 This series of workflows all go together and are described in the following 
