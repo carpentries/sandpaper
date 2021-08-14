@@ -61,7 +61,8 @@ if [[ ${CURRENT} != ${UPSTREAM} ]]; then
   cp -v ${TMP}/sandpaper/inst/workflows/* .github/workflows/
   echo "Updating version number to ${CURRENT}"
   echo ${CURRENT} > .github/workflows/sandpaper-version.txt
-  echo "::set-output name=version::${CURRENT}"
+  echo "::set-output name=old::${CURRENT}"
+  echo "::set-output name=new::${UPSTREAM}"
   echo "::endgroup::"
   rm -r ${TMP}
 else
