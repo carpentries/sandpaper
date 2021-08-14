@@ -1,6 +1,8 @@
 name: Update Workflow Files
 
 on:
+  schedule:
+    cron: "0 0 16 * *"
   workflow_dispatch:
     inputs:
       name:
@@ -35,7 +37,8 @@ jobs:
         id: update
         run: |
           curl https://raw.githubusercontent.com/carpentries/sandpaper/add-update-workflow/inst/scripts/update-workflows.sh -o site/update-workflows.sh
-          bash update-workflows.sh
+          bash site/update-workflows.sh
+          rm site/update-workflows.sh
 
       - name: Create Pull Request
         id: cpr
