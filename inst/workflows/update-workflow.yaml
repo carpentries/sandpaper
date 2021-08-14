@@ -30,28 +30,11 @@ jobs:
           echo "::set-output name=date::$(date -I)"
           echo "::set-output name=min::$(date +%Y-%m-%d-%H-%M)"
 
-      - name: Get Sandpaper Version
-        id: sv
-        run: |
-          SVER=$(curl https://carpentries.r-universe.dev/packages/sandpaper)
-          SVER=$(echo ${SVER} | grep '[.]' | sed -E -e 's/[^0-9.]//g')
-          echo "::set-output name=ver::${SVER}"
-
       - name: Update Workflows
         id: update
         run: |
-          VER=$(cat .github/workflows/sandpaper-version.txt)
-          echo "Recorded version - ${VER}"
-          if [[ ${{ steps.sv.outputs.ver }} != ${VER} ]]; then
-            curl https://carpentries.r-universe.dev/src/contrib/sandpaper_${VER}.tar.gz | \
-              tar -C .. --wildcards -xzv sandpaper/inst/workflows/*
-            cp ../sandpaper/inst/workflows/* .github/workflows/
-            echo ${VER} > .github/workflows/sandpaper-version.txt
-            echo ":3" >> .github/workflows/README.md
-            echo "::set-output name=version::${VER}"
-          else
-            echo "Nothing to update!"
-          fi
+          curl https://raw.githubusercontent.com/carpentries/sandpaper/add-update-workflow/inst/scripts/update-workflows.sh -o site/update-workflows.sh
+          bash update-workflows.sh
 
       - name: Create Pull Request
         id: cpr
