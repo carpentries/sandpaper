@@ -49,6 +49,8 @@ jobs:
             echo ${VER} > .github/workflows/sandpaper-version.txt
             echo ":3" >> .github/workflows/README.md
             echo "::set-output name=version::${VER}"
+          else
+            echo "Nothing to update!"
           fi
 
       - name: Create Pull Request
