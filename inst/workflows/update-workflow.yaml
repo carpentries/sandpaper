@@ -1,8 +1,6 @@
 name: Update Workflow Files
 
 on:
-  schedule:
-    cron: "0 0 16 * *"
   workflow_dispatch:
     inputs:
       name:
