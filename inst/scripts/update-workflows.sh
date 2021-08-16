@@ -18,7 +18,7 @@ set -eo pipefail
 # bash update-workflows.sh 0.0.0.9041 https://carpentries.github.io/drat/
 
 # Fail if we aren't in a sandpaper repository
-if [[ -r .github/workflows/sandpaper-main.yaml ]]; then
+if [[ -r .github/workflows/sandpaper-main.yaml || -r .github/workflows/sandpaper-version.txt ]]; then
   echo "" > /dev/null
 else
   echo "::error::This is not a {sandpaper} repository"

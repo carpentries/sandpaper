@@ -1,4 +1,4 @@
-name: Update Workflow Files
+name: "02 Maintain: Update Workflow Files"
 
 on:
   workflow_dispatch:

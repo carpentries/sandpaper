@@ -1,4 +1,4 @@
-name: Comment on the pull request
+name: "04 Bot: Comment on the Pull Request"
 
 # read-write repo token
 # access to secrets
