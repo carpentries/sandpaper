@@ -1,4 +1,4 @@
-name: "03 Bot: Receive Pull Request"
+name: "Receive Pull Request"
 
 on:
   pull_request:
