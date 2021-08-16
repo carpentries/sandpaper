@@ -58,8 +58,8 @@ if [[ ${CURRENT} != ${UPSTREAM} ]]; then
   curl ${SOURCE}/src/contrib/sandpaper_${UPSTREAM}.tar.gz | \
     tar -C ${TMP} --wildcards -xzv sandpaper/inst/workflows/*
   cp -v ${TMP}/sandpaper/inst/workflows/* .github/workflows/
-  echo "Updating version number to ${CURRENT}"
-  echo ${CURRENT} > .github/workflows/sandpaper-version.txt
+  echo "Updating version number to ${UPSTREAM}"
+  echo ${UPSTREAM} > .github/workflows/sandpaper-version.txt
   echo "::set-output name=old::${CURRENT}"
   echo "::set-output name=new::${UPSTREAM}"
   echo "::endgroup::"
