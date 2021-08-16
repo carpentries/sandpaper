@@ -39,13 +39,12 @@ fi
 # Create a temporary directory for the sandpaper resource files to land in
 if [[ -d ${TMPDIR} ]]; then
   TMP="${TMPDIR}/sandpaper-${RANDOM}"
-  mkdir -p ${TMP}
 elif [[ -d /tmp/ ]]; then
   TMP="/tmp/sandpaper-${RANDOM}"
 else
   TMP="../sandpaper-${RANDOM}"
-  mkdir -p ${TMP}
 fi
+mkdir -p ${TMP}
 
 # Show the version inforamtion
 echo "::group::Version Information"
