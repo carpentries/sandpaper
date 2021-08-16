@@ -34,7 +34,7 @@ jobs:
       - name: Update Workflows
         id: update
         run: |
-          curl https://raw.githubusercontent.com/carpentries/sandpaper/add-update-workflow/inst/scripts/update-workflows.sh -o site/update-workflows.sh
+          curl https://raw.githubusercontent.com/carpentries/sandpaper/main/inst/scripts/update-workflows.sh -o site/update-workflows.sh
           bash site/update-workflows.sh
           rm site/update-workflows.sh
 
