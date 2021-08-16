@@ -9,14 +9,6 @@ on:
         default: 'Maintainer (via GitHub)'
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print github context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
   update_workflow:
     name: "Update Workflow"
     runs-on: ubuntu-latest
@@ -29,6 +21,7 @@ jobs:
         id: update
         run: |
           curl https://raw.githubusercontent.com/carpentries/sandpaper/main/inst/scripts/update-workflows.sh -o site/update-workflows.sh
+          rm .github/workflows/*.yaml # NOTE: make this optional in the future
           bash site/update-workflows.sh
           rm site/update-workflows.sh
 
@@ -38,9 +31,9 @@ jobs:
         uses: peter-evans/create-pull-request@v3.10.0
         with:
           token: ${{ secrets.SANDPAPER_WORKFLOW }}
-          commit-message: "[actions] update sandpaper workflow to version ${{ steps.update.outputs.new }}"
-          branch: "update-workflows-version-${{ steps.update.outputs.new }}"
           delete-branch: true
+          branch: "update-workflows-version-${{ steps.update.outputs.new }}"
+          commit-message: "[actions] update sandpaper workflow to version ${{ steps.update.outputs.new }}"
           title: "Update Workflows to Version ${{ steps.update.outputs.new }}"
           body: |
             :robot: This is an automated build
@@ -53,9 +46,3 @@ jobs:
           labels: "type:template and tools"
           team-reviewers: core-team-curriculum
           draft: false
-
-      - name: Check outputs
-        run: |
-          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
-          echo "Sandpaper Version - ${{ steps.sv.outputs.ver }}"
