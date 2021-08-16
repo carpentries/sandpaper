@@ -1,4 +1,4 @@
-name: "Remove Temporary Branch"
+name: "06 Bot: Remove Temporary Branch"
 
 on:
   workflow_run:

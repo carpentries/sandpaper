@@ -5,7 +5,7 @@ CONTINUOUS INTEGRATION
 
  - An experimental `update-workflow.yaml` workflow has been created which will
    create a pull request that will update the workflows. It is still _very_
-   experimental and it requires a special token from a machine user, but,
+   experimental and it requires a scoped with repo and scope, but,
    nevertheless, the concept is currently valid.
 
 # sandpaper 0.0.0.9041

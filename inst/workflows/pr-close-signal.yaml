@@ -1,4 +1,4 @@
-name: "Close Pull Request Signal"
+name: "05 Bot: Send Close Pull Request Signal"
 
 on:
   pull_request:

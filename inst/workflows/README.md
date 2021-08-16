@@ -27,7 +27,7 @@ What follows are the descriptions of the workflow files:
 
 ## Deployment
 
-### Build and Deploy (sandpaper-main.yaml)
+### 01 Build and Deploy (sandpaper-main.yaml)
 
 This is the main driver that will only act on the main branch of the repository.
 This workflow does not use any custom actions from this repository.
@@ -35,7 +35,7 @@ This workflow does not use any custom actions from this repository.
 
 ## Updates
 
-### Update Workflows (WIP)
+### 02 Maintain: Update Workflow Files (update-workflow.yaml)
 
 The {sandpaper} repository was designed to do as much as possible to separate 
 the tools from the content. For local builds, this is absolutely true, but 
@@ -49,19 +49,19 @@ will do the following:
 1. check the recorded version of sandpaper against the current version on github
 2. update the files if there is a difference in versions
 
-After the files are updated a pull request is created via a machine user account
-(at the moment, it's znk-machine). Maintainers are encouraged to review the 
-changes and accept the pull request.
+After the files are updated, a pull request is created via a
+repository/organization secret token called `SANDPAPER_WORKFLOW`, which has the
+`workflow` scope. This can be an individual user token, OR it can be a trusted
+bot account. Maintainers are encouraged to review the changes and accept the
+pull request.
 
-This update is run monthly or on demand.
+This update is run ~~monthly or~~ on demand.
 
 TODO: 
   - migrate script into github action
   - check if files actually are changed
-  - create a fork for updating
   - perform check if a pull request exists before creating pull request
   - offer way to specify bot account
-  - create action to destroy fork at the end?
 
 ## Pull Request and Review Management
 
@@ -70,7 +70,7 @@ diagram and the below sections:
 
 ![Graph representation of a pull request](https://raw.githubusercontent.com/zkamvar/stunning-barnacle/main/img/pr-flow.dot.svg)
 
-### Recieve Pull Request (pull-request.yaml)
+### 03 Recieve Pull Request (pr-recieve.yaml)
 
 The first step is to build the generated content from the pull request. This
 builds the content and uploads three artifacts:
@@ -81,9 +81,9 @@ builds the content and uploads three artifacts:
 
 These artifacts are used by the next workflow.
 
-### Comment on Pull Request (comment-pr.yaml)
+### 04 Comment on Pull Request (pr-comment.yaml)
 
-This workflow is triggered if the `pull-request.yaml` workflow is successful.
+This workflow is triggered if the `pr-recieve.yaml` workflow is successful.
 The steps in this workflow are:
 
 1. Test if the workflow is valid
@@ -100,12 +100,12 @@ From here, the maintainer can request changes from the author and eventually
 either merge or reject the PR. When this happens, if the PR was valid, the 
 preview branch needs to be deleted. 
 
-### Close PR Signal (pr-close.yaml)
+### 05 Send Close PR Signal (pr-close-signal.yaml)
 
 Triggered any time a pull request is closed. This emits an artifact that is the
 pull request number for the next action
 
-### Remove Pull Request Branch (remove-branch.yaml)
+### 06 Remove Pull Request Branch (pr-post-remove-branch.yaml)
 
-Tiggered by `pr-close.yaml`. This removes the temporary branch associated with
+Tiggered by `pr-close-signal.yaml`. This removes the temporary branch associated with
 the pull request (if it was created).
