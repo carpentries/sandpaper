@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9043</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9044</span>
       </span>
     </div>
 
@@ -114,6 +114,25 @@
       <small>Source: <a href='https://github.com/carpentries/sandpaper/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="sandpaper-0009044" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9044">
+<a href="#sandpaper-0009044" class="anchor"></a>sandpaper 0.0.0.9044</h1>
+<div id="contiuous-integration" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contiuous-integration" class="anchor"></a>CONTIUOUS INTEGRATION</h2>
+<ul>
+<li>The <code>update-workflow.yaml</code> parameters have been fixed to not use wildcards</li>
+</ul>
+</div>
+<div id="misc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#misc" class="anchor"></a>MISC</h2>
+<ul>
+<li>
+<code><a href="../reference/update_github_workflows.html">update_github_workflows()</a></code> gains a <code>clean</code> argument and now will print status reports at the end.</li>
+</ul>
+</div>
+</div>
     <div id="sandpaper-0009043" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9043">
 <a href="#sandpaper-0009043" class="anchor"></a>sandpaper 0.0.0.9043</h1>
@@ -141,9 +160,9 @@
     <div id="sandpaper-0009041" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9041">
 <a href="#sandpaper-0009041" class="anchor"></a>sandpaper 0.0.0.9041</h1>
-<div id="misc" class="section level2">
+<div id="misc-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc" class="anchor"></a>MISC</h2>
+<a href="#misc-1" class="anchor"></a>MISC</h2>
 <ul>
 <li>
 <code>fetch_github_workflows()</code> has been renamed to <code><a href="../reference/update_github_workflows.html">update_github_workflows()</a></code>
@@ -260,9 +279,9 @@
     <div id="sandpaper-0009032" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9032">
 <a href="#sandpaper-0009032" class="anchor"></a>sandpaper 0.0.0.9032</h1>
-<div id="misc-1" class="section level2">
+<div id="misc-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-1" class="anchor"></a>MISC</h2>
+<a href="#misc-2" class="anchor"></a>MISC</h2>
 <ul>
 <li>The internal <code><a href="../reference/get_resource_list.html">get_resource_list()</a></code> function has been modified to incorporate the features of <code><a href="../reference/get_dropdown.html">get_dropdown()</a></code>. This means that all <code><a href="../reference/get_dropdown.html">get_dropdown()</a></code> functions will only report the files in the dropdown menus that actually exist in the directory (<a href='https://github.com/carpentries/sandpaper/issues/134'>#134</a>).</li>
 <li>A persistant test fixture is now included to speed up testing time (<a href='https://github.com/carpentries/sandpaper/issues/132'>#132</a> via
@@ -273,9 +292,9 @@
     <div id="sandpaper-0009031" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9031">
 <a href="#sandpaper-0009031" class="anchor"></a>sandpaper 0.0.0.9031</h1>
-<div id="misc-2" class="section level2">
+<div id="misc-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-2" class="anchor"></a>MISC</h2>
+<a href="#misc-3" class="anchor"></a>MISC</h2>
 <ul>
 <li>The {cli} package is now an official import of the package</li>
 <li>The warning message issued from the internal <code>warn_schedule()</code> function has been changed exclusively use cli messages and can be suppressed with <code><a href="https://rdrr.io/r/base/message.html">suppressMessages()</a></code>.</li>
@@ -286,9 +305,9 @@
     <div id="sandpaper-0009030" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9030">
 <a href="#sandpaper-0009030" class="anchor"></a>sandpaper 0.0.0.9030</h1>
-<div id="misc-3" class="section level2">
+<div id="misc-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-3" class="anchor"></a>MISC</h2>
+<a href="#misc-4" class="anchor"></a>MISC</h2>
 <ul>
 <li>A test that caused problems with a new version of {pegboard} was fixed</li>
 </ul>
@@ -297,9 +316,9 @@
     <div id="sandpaper-0009029" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9029">
 <a href="#sandpaper-0009029" class="anchor"></a>sandpaper 0.0.0.9029</h1>
-<div id="misc-4" class="section level2">
+<div id="misc-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-4" class="anchor"></a>MISC</h2>
+<a href="#misc-5" class="anchor"></a>MISC</h2>
 <ul>
 <li>The internal database is updated to use relative instead of absolute paths. This fixes <a href='https://github.com/carpentries/sandpaper/issues/129'>#129</a></li>
 </ul>
@@ -317,9 +336,9 @@
     <div id="sandpaper-0009027" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9027">
 <a href="#sandpaper-0009027" class="anchor"></a>sandpaper 0.0.0.9027</h1>
-<div id="misc-5" class="section level2">
+<div id="misc-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-5" class="anchor"></a>MISC</h2>
+<a href="#misc-6" class="anchor"></a>MISC</h2>
 <ul>
 <li>
 <code>create_schedule()</code> (internal function) no longer uses pegboard’s extensions for fixing reference links.</li>
@@ -329,9 +348,9 @@
     <div id="sandpaper-0009026" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9026">
 <a href="#sandpaper-0009026" class="anchor"></a>sandpaper 0.0.0.9026</h1>
-<div id="misc-6" class="section level2">
+<div id="misc-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-6" class="anchor"></a>MISC</h2>
+<a href="#misc-7" class="anchor"></a>MISC</h2>
 <ul>
 <li>callout blocks with headers greater than h3 are now rendered properly and no longer forced to h3</li>
 <li>tests now clean up after themselves and no longer change the working directory by default</li>
