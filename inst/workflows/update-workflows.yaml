@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: 'Who triggered this build?'
+        description: 'Who triggered this build (enter github username to tag yourself)?'
         required: true
         default: 'Maintainer (via GitHub)'
       clean:
-        description: 'Workflow files to clean (enter "" for none)'
+        description: 'Workflow files/file extensions to clean (no wildcards, enter "" for none)'
         required: false
-        default: '*.yaml'
+        default: '.yaml'
 
 jobs:
   update_workflow:

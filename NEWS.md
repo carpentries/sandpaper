@@ -1,3 +1,17 @@
+# sandpaper 0.0.0.9044
+
+CONTIUOUS INTEGRATION
+---------------------
+
+ - The `update-workflow.yaml` parameters have been fixed to not use wildcards
+
+MISC
+----
+
+ - `update_github_workflows()` gains a `clean` argument and now will print
+   status reports at the end. 
+
+
 # sandpaper 0.0.0.9043
 
 CONTINUOUS INTEGRATION

@@ -6,11 +6,14 @@
 #' @param files the files to include in the update. Defaults to an empty string, 
 #'   which will update all files
 #' @param overwrite if `TRUE` (default), the file(s) will be overwritten.
+#' @param clean glob of files to be cleaned before writing. Defaults to NULL.
+#' Can be "*.yaml" to remove all yaml files or "workflow.yaml" to remove one
+#' specific file.
+#' @param quiet if `TRUE`, the process will not output any messages, default is
+#'   `FALSE`, which will report on the progress of each step.
 #' @return the paths to the new files. 
 #' @export
-#'
-#' @note this assumes that you have an active internet connection.
-update_github_workflows <- function(path = ".", files = "", overwrite = TRUE) {
+update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, clean = NULL, quiet = FALSE) {
 
   if (!pingr::is_online()) {
     stop("This function requires an internet connection.")
@@ -31,6 +34,9 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE) {
   }
 
   if (overwrite || oldvers < this_version) {
+    if (files == "" && !is.null(clean)) {
+      fs::file_delete(fs::dir_ls(wf, glob = clean))
+    }
     # we update the files
     our_files <- system.file("workflows", files, package = "sandpaper")
     if (length(our_files) == 1L && fs::is_dir(our_files)) {
@@ -44,8 +50,28 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE) {
         new_files[file] <- fs::file_copy(file, wf, overwrite = overwrite)
       }
     }
+  } else {
+    new_files <- character(0)
   }
   writeLines(as.character(this_version), con = version_file)
+  if (!quiet) {
+    thm <- cli::cli_div(theme = sandpaper_cli_theme())
+    if (length(new_files) && !all(new_files == "")) {
+      changed <- gert::git_status(repo = path)
+      workflows <- fs::path_dir(changed$file) == ".github/workflows"
+      if (any(workflows)) {
+        cli::cli_alert_info("Workflows/files updated:")
+      } else {
+        cli::cli_alert_info("Workflows up-to-date!")
+      }
+      msg <- glue::glue_data(changed[workflows, , drop = FALSE],
+        "{.file ^file$} {.emph (^status$)}", .open = "^", .close = "$")
+      cli::cli_li(msg)
+    } else {
+      cli::cli_alert_info("Workflows up-to-date!")
+    }
+    cli::cli_end(thm)
+  }
   return(invisible(new_files[new_files != ""]))
 }
 
