@@ -2,7 +2,7 @@
 
 This directory contains workflows to be used for Lessons using the {sandpaper}
 lesson infrastructure. Two of these workflows require R (`sandpaper-main.yaml`
-and `pull-request.yaml`) and the rest are bots to handle pull request management.
+and `pr-recieve.yaml`) and the rest are bots to handle pull request management.
 
 These workflows will likely change as {sandpaper} evolves, so it is important to
 keep them up-to-date. To do this in your lesson you can do the following in your
@@ -58,10 +58,7 @@ pull request.
 This update is run ~~monthly or~~ on demand.
 
 TODO: 
-  - migrate script into github action
-  - check if files actually are changed
   - perform check if a pull request exists before creating pull request
-  - offer way to specify bot account
 
 ## Pull Request and Review Management
 
@@ -70,7 +67,7 @@ diagram and the below sections:
 
 ![Graph representation of a pull request](https://raw.githubusercontent.com/zkamvar/stunning-barnacle/main/img/pr-flow.dot.svg)
 
-### 03 Recieve Pull Request (pr-recieve.yaml)
+### Recieve Pull Request (pr-recieve.yaml)
 
 The first step is to build the generated content from the pull request. This
 builds the content and uploads three artifacts:
@@ -81,7 +78,7 @@ builds the content and uploads three artifacts:
 
 These artifacts are used by the next workflow.
 
-### 04 Comment on Pull Request (pr-comment.yaml)
+### Comment on Pull Request (pr-comment.yaml)
 
 This workflow is triggered if the `pr-recieve.yaml` workflow is successful.
 The steps in this workflow are:
@@ -100,12 +97,12 @@ From here, the maintainer can request changes from the author and eventually
 either merge or reject the PR. When this happens, if the PR was valid, the 
 preview branch needs to be deleted. 
 
-### 05 Send Close PR Signal (pr-close-signal.yaml)
+### Send Close PR Signal (pr-close-signal.yaml)
 
 Triggered any time a pull request is closed. This emits an artifact that is the
 pull request number for the next action
 
-### 06 Remove Pull Request Branch (pr-post-remove-branch.yaml)
+### Remove Pull Request Branch (pr-post-remove-branch.yaml)
 
 Tiggered by `pr-close-signal.yaml`. This removes the temporary branch associated with
 the pull request (if it was created).
