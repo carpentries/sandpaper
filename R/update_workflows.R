@@ -18,7 +18,7 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE) {
 
   wf <- fs::path(path, ".github", "workflows")
   version_file <- fs::path(wf, "sandpaper-version.txt")
-  this_version <- package_version(packageDescription("sandpaper")$Version)
+  this_version <- package_version(utils::packageDescription("sandpaper")$Version)
 
   need_dir <- !fs::dir_exists(wf)
   if (need_dir) {
