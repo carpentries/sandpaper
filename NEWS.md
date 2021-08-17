@@ -1,3 +1,15 @@
+# sandpaper 0.0.0.9043
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - The `update-workflow.yaml` workflow has been updated to use the github action
+   hosted on `zkamvar/actions` (soon to be transferred to The Carpentries account
+ - The names of the actions displayed on GitHub have been updated to be more
+   descriptive.
+ - The script in `inst/scripts/update-workflows.sh` has been removed in favor of
+   the github action.
+
 # sandpaper 0.0.0.9042
 
 CONTINUOUS INTEGRATION
