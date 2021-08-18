@@ -1,3 +1,12 @@
+# sandpaper 0.0.0.9045
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - Weekly run has been added for the workflows action
+ - Actions have been updated to reflect the zkamvar -> carpenteries repository
+   transfer (@zkamvar, #156)
+
 # sandpaper 0.0.0.9044
 
 CONTIUOUS INTEGRATION
