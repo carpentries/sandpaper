@@ -33,7 +33,7 @@ jobs:
       number: ${{ steps.get-pr.outputs.NUM }}
     steps:
       - name: 'Download PR artifact'
-        uses: zkamvar/actions/download-workflow-artifact@main
+        uses: carpentries/actions/download-workflow-artifact@main
         with:
           run: ${{ github.event.workflow_run.id }}
           name: 'pr'
@@ -46,7 +46,7 @@ jobs:
       
       - name: "Check PR"
         id: check-pr
-        uses: zkamvar/actions/check-valid-pr@main
+        uses: carpentries/actions/check-valid-pr@main
         with:
           pr: ${{ steps.get-pr.outputs.NUM }}
           sha: ${{ github.events.workflow_run.head_commit.sha }}
@@ -81,7 +81,7 @@ jobs:
           fetch-depth: 1
 
       - name: 'Download built markdown'
-        uses: zkamvar/actions/download-workflow-artifact@main
+        uses: carpentries/actions/download-workflow-artifact@main
         with:
           run: ${{ github.event.workflow_run.id }}
           name: 'built'
@@ -115,7 +115,7 @@ jobs:
       NR: ${{ needs.test-pr.outputs.number }}
     steps:
       - name: 'Download comment artifact'
-        uses: zkamvar/actions/download-workflow-artifact@main
+        uses: carpentries/actions/download-workflow-artifact@main
         with:
           run: ${{ github.event.workflow_run.id }}
           name: 'diff'
@@ -124,7 +124,7 @@ jobs:
 
       - name: "Comment on PR"
         id: comment-diff
-        uses: zkamvar/actions/comment-diff@main
+        uses: carpentries/actions/comment-diff@main
         with:
           pr: ${{ env.NR }} 
           path: ${{ github.workspace }}/diff.md
@@ -142,7 +142,7 @@ jobs:
       - name: "Comment on PR"
         if: ${{ needs.test-pr.outputs.payload }}
         id: comment-diff
-        uses: zkamvar/actions/comment-diff@main
+        uses: carpentries/actions/comment-diff@main
         with:
           pr: ${{ env.NR }} 
           body: "Pull Request contains modified workflows; no preview will be created."
