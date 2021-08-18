@@ -11,6 +11,9 @@ on:
         description: 'Workflow files/file extensions to clean (no wildcards, enter "" for none)'
         required: false
         default: '.yaml'
+  schedule:
+    # Run every Tuesday
+    - cron: '0 0 * * 2'
 
 jobs:
   update_workflow:
@@ -22,7 +25,7 @@ jobs:
 
       - name: Update Workflows
         id: update
-        uses: zkamvar/actions/update-workflows@main
+        uses: carpentries/actions/update-workflows@main
         with:
           clean: ${{ github.event.inputs.clean }}
       
@@ -45,5 +48,4 @@ jobs:
             
             [1]: https://github.com/peter-evans/create-pull-request
           labels: "type:template and tools"
-          team-reviewers: core-team-curriculum
           draft: false

@@ -15,7 +15,7 @@ jobs:
       github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: 'Download artifact'
-        uses: zkamvar/actions/download-workflow-artifact@main
+        uses: carpentries/actions/download-workflow-artifact@main
         with:
           run: ${{ github.event.workflow_run.id }}
           name: pr
@@ -25,6 +25,6 @@ jobs:
           unzip pr.zip
           echo "::set-output name=NUM::$(<./NUM)"
       - name: 'Remove branch'
-        uses: zkamvar/actions/remove-branch@main
+        uses: carpentries/actions/remove-branch@main
         with:
           pr: ${{ steps.get-pr.outputs.NUM }}
