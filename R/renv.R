@@ -7,6 +7,15 @@
 #
 # These are my notes that I have about renv and what it does. 
 #
+# The global cache
+# ----------------
+#
+# The global cache is a really cool concept and it's well executed. It's a cache
+# of packages used across renv projects. 
+# When you do an interactive snapshot in {renv} the first time, it will give
+# you the output from `renv::consent()`, however, if it's non-interactive, then
+# you will not get the prompt and it will create the default 
+#
 # All you need is lock
 # --------------------
 #
@@ -17,8 +26,11 @@
 # a renv.lock for you: yay!
 #
 # The drawback here is that you cannot snapshot a package that does not
-# currently exist on your computer (I tried adding a demonstration of the cowsay
+# currently exist on your computer (I tried addng a demonstration of the cowsay
 # package, but it refused to enter the lockfile).
+#
+# The solution here is to run renv::record() with the discovered dependencies
+# for the lockfile. 
 #
 # Use it
 # ------
@@ -35,6 +47,6 @@
 #
 # The only drawback right now is the fact that if we use a lockfile for the 
 # source, we run into the same problem that we had when we used a lockfile with
-# restore.
+# restorex
 #
 #
