@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9045</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9046</span>
       </span>
     </div>
 
@@ -114,12 +114,23 @@
       <small>Source: <a href='https://github.com/carpentries/sandpaper/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="sandpaper-0009045" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0.9045">
-<a href="#sandpaper-0009045" class="anchor"></a>sandpaper 0.0.0.9045</h1>
+    <div id="sandpaper-0009046" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9046">
+<a href="#sandpaper-0009046" class="anchor"></a>sandpaper 0.0.0.9046</h1>
 <div id="continuous-integration" class="section level2">
 <h2 class="hasAnchor">
 <a href="#continuous-integration" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
+<ul>
+<li>Weekly run pull requests now default to “weekly run” for “who triggered this pull request”</li>
+</ul>
+</div>
+</div>
+    <div id="sandpaper-0009045" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9045">
+<a href="#sandpaper-0009045" class="anchor"></a>sandpaper 0.0.0.9045</h1>
+<div id="continuous-integration-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#continuous-integration-1" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>Weekly run has been added for the workflows action</li>
 <li>Actions have been updated to reflect the zkamvar -&gt; carpenteries repository transfer (<a href='https://github.com/zkamvar'>@zkamvar</a>, <a href='https://github.com/carpentries/sandpaper/issues/156'>#156</a>)</li>
@@ -148,9 +159,9 @@
     <div id="sandpaper-0009043" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9043">
 <a href="#sandpaper-0009043" class="anchor"></a>sandpaper 0.0.0.9043</h1>
-<div id="continuous-integration-1" class="section level2">
+<div id="continuous-integration-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#continuous-integration-1" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
+<a href="#continuous-integration-2" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>The <code>update-workflow.yaml</code> workflow has been updated to use the github action hosted on <code>zkamvar/actions</code> (soon to be transferred to The Carpentries account</li>
 <li>The names of the actions displayed on GitHub have been updated to be more descriptive.</li>
@@ -161,9 +172,9 @@
     <div id="sandpaper-0009042" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9042">
 <a href="#sandpaper-0009042" class="anchor"></a>sandpaper 0.0.0.9042</h1>
-<div id="continuous-integration-2" class="section level2">
+<div id="continuous-integration-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#continuous-integration-2" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
+<a href="#continuous-integration-3" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>An experimental <code>update-workflow.yaml</code> workflow has been created which will create a pull request that will update the workflows. It is still <em>very</em> experimental and it requires a scoped with repo and scope, but, nevertheless, the concept is currently valid.</li>
 </ul>
@@ -189,9 +200,9 @@
     <div id="sandpaper-0009040" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9040">
 <a href="#sandpaper-0009040" class="anchor"></a>sandpaper 0.0.0.9040</h1>
-<div id="continuous-integration-3" class="section level2">
+<div id="continuous-integration-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#continuous-integration-3" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
+<a href="#continuous-integration-4" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>
 <code><a href="../reference/ci_deploy.html">ci_deploy()</a></code> gains the <code>reset</code> argument, which can be used to clear the cache for a clean build of the lesson.</li>
@@ -203,9 +214,9 @@
     <div id="sandpaper-0009039" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9039">
 <a href="#sandpaper-0009039" class="anchor"></a>sandpaper 0.0.0.9039</h1>
-<div id="continuous-integration-4" class="section level2">
+<div id="continuous-integration-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#continuous-integration-4" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
+<a href="#continuous-integration-5" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>
 <code><a href="../reference/ci_session_info.html">ci_session_info()</a></code> will report the session information, which will help clean up the workflow files.</li>
@@ -215,9 +226,9 @@
     <div id="sandpaper-0009038" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9038">
 <a href="#sandpaper-0009038" class="anchor"></a>sandpaper 0.0.0.9038</h1>
-<div id="continuous-integration-5" class="section level2">
+<div id="continuous-integration-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#continuous-integration-5" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
+<a href="#continuous-integration-6" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>Fix broken deploy process on continuous integration caused by attempting to fetch all branches in a shallow clone (<a href='https://github.com/zkamvar'>@zkamvar</a>, <a href='https://github.com/carpentries/sandpaper/issues/142'>#142</a>)</li>
 </ul>
@@ -226,9 +237,9 @@
     <div id="sandpaper-0009037" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9037">
 <a href="#sandpaper-0009037" class="anchor"></a>sandpaper 0.0.0.9037</h1>
-<div id="continuous-integration-6" class="section level2">
+<div id="continuous-integration-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#continuous-integration-6" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
+<a href="#continuous-integration-7" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>Output of <code>ci_bundle_pr_artifacts()</code> no longer escapes HTML-like output in the diff summary.</li>
 <li>remove {xml2} from explicit dependencies</li>
@@ -238,9 +249,9 @@
     <div id="sandpaper-0009036" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9036">
 <a href="#sandpaper-0009036" class="anchor"></a>sandpaper 0.0.0.9036</h1>
-<div id="continuous-integration-7" class="section level2">
+<div id="continuous-integration-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#continuous-integration-7" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
+<a href="#continuous-integration-8" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>Documentation for <code><a href="../reference/git_worktree_setup.html">git_worktree_setup()</a></code> has been added for future versions of the maintainer and future contributors.</li>
 <li>
@@ -252,9 +263,9 @@
     <div id="sandpaper-0009035" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9035">
 <a href="#sandpaper-0009035" class="anchor"></a>sandpaper 0.0.0.9035</h1>
-<div id="continuous-integration-8" class="section level2">
+<div id="continuous-integration-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#continuous-integration-8" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
+<a href="#continuous-integration-9" class="anchor"></a>CONTINUOUS INTEGRATION</h2>
 <ul>
 <li>Tests for git operations were added to be more robust (<a href='https://github.com/zkamvar'>@zkamvar</a>, <a href='https://github.com/carpentries/sandpaper/issues/137'>#137</a>)</li>
 <li>new test fixtures for a local remote repository was added to aid the above git tests.</li>
