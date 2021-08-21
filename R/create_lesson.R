@@ -1,9 +1,5 @@
 #' Create a carpentries lesson
-#'
-#' This will create a boilerplate directory structure for a Carpentries lesson
-#' and initialize a git repository.
-#'
-#' @param path the path to the new lesson folder
+#' #' This will create a boilerplate directory structure for a Carpentries lesson #' and initialize a git repository.  #' #' @param path the path to the new lesson folder
 #' @param name the name of the lesson. If not provided, the folder name will be used.
 #' @param rstudio create an RStudio project (defaults to if RStudio exits)
 #' @param open if interactive, the lesson will open in a new editor window.
@@ -74,17 +70,22 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   cli::cli_status_update("{cli::symbol$arrow_right} Inserting GitHub workflows ...")
   update_github_workflows(path)
 
+  # cli::cli_status_update("{cli::symbol$arrow_right} Creating renv project ...")
+  # renv_setup(path)
+
   cli::cli_status_update("{cli::symbol$arrow_right} Committing ...")
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
   enforce_main_branch(path)
   reset_git_user(path)
+
   cli::cli_alert_success("Lesson successfully created in {.file {path}}")
   if (open) {
     if (usethis::proj_activate(path)) {
       on.exit()
     }
   } 
+
 
   cli::cli_status_clear()
   invisible(return(path))
