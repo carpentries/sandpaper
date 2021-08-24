@@ -64,6 +64,11 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   }
 
   # Render the episode files to the built directory ----------------------------
+  if (fs::dir_exists(fs::path(path, "renv"))) {
+    lib <- renv_highshot(path)
+  } else {
+    lib <- .libPaths()
+  }
   for (i in seq_along(db$build)) {
     build_episode_md(
       path    = db$build[i],

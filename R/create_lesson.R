@@ -13,6 +13,7 @@
 #' lsn
 create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi::isAvailable(), open = rlang::is_interactive()) {
 
+  path <- fs::path_abs(path)
   id <- cli::cli_status("{cli::symbol$arrow_right} Creating Lesson in {.file {path}}...")
   init_source_path(path)
 
@@ -70,8 +71,8 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   cli::cli_status_update("{cli::symbol$arrow_right} Inserting GitHub workflows ...")
   update_github_workflows(path)
 
-  # cli::cli_status_update("{cli::symbol$arrow_right} Creating renv project ...")
-  # renv_setup(path)
+  cli::cli_status_update("{cli::symbol$arrow_right} Creating renv project ...")
+  renv_highshot(path)
 
   cli::cli_status_update("{cli::symbol$arrow_right} Committing ...")
   gert::git_add(".", repo = path)

@@ -92,68 +92,55 @@
 # The only drawback right now is the fact that if we use a lockfile for the 
 # source, we run into the same problem that we had when we used a lockfile with
 # restore
-renv_find_uninstalled <- function(path = ".") {
-  pak <- renv::dependencies(path)$Package
-  setdiff(pak, rownames(installed.packages))
-}
-
-renv_setup <- function(path = ".") {
-  default_libraries <- .libPaths()
-  op <- options()
-  on.exit(options(op), add = TRUE)
-  options(repos = c(
+carpentries_repos <- function() {
+  c(
     carpentries         = "https://carpentries.r-universe.dev/",
     carpentries_archive = "https://carpentries.github.io/drat",
-    CRAN                = "https://cloud.r-project.org"
-  ))
-  on.exit({
-    out <- capture.output(renv::deactivate(project = path), type = "message")
-  }, add = TRUE)
+    CRAN                = "https://cran.rstudio.com"
+  )
+}
 
-  deps <- renv_find_uninstalled(path)
-  wd <- getwd()
-  on.exit(setwd(wd), add = TRUE)
-  setwd(path)
+renv_setup_profile <- function(path = ".", profile = "packages") {
+  callr::r(function(path, profile) {
+    wd <- getwd()
+    on.exit(setwd(wd))
+    setwd(path)
+    renv::init(bare = TRUE, restart = FALSE, profile = profile)
+    renv::deactivate()
+  }, args = list(path = path, profile = profile))
+}
 
-  # Activate the sandpaper project for captured development of current features
-  # cli::cli_h1("SANDPAPER")
-  # cli::cli_h2("activate")
-  # renv::activate(project = path, profile = "sandpaper")
-  # ours <- c("renv", "sandpaper", "pegboard", "varnish")
-  # this_library <- c(renv::paths$library(), default_libraries)
-  # cli::cli_h2("snapshot")
-  # renv::snapshot(packages = ours, prompt = FALSE)
-  # cli::cli_h2("record")
-  # renv::record(ours)
-  # cli::cli_h1("hydrate")
-  # out <- capture.output(renv::deactivate(project = path), type = "message")
-  # renv::hydrate(library = this_library[1])
-  # cli::cli_h1("reactivate")
-  # renv::activate(profile = "sandpaper")
-  # cli::cli_h1("restore")
-  # renv::restore(prompt = FALSE)
-  # cli::cli_h2("snapshot")
-  # renv::snapshot(packages = ours, prompt = FALSE)
+renv_highshot <- function(path = ".", profile = "packages") {
+  args <- list(
+    path = path,
+    profile = profile,
+    repos = carpentries_repos()
+  )
+  if (!fs::dir_exists(fs::path(path, "renv/profiles", profile))) {
+    renv_setup_profile(path, profile)
+  }
+  callr::r(function(path, profile, repos) {
+    wd <- getwd()
+    old_repos <- getOption("repos")
+    prof <- Sys.getenv("RENV_PROFILE")
+    on.exit({
+      Sys.setenv(RENV_PROFILE = prof)
+      setwd(wd)
+      options(repos = old_repos)
+    }, add = TRUE)
 
-  # Activate the packages project for the pacakges we need to develop this
-  # particular project. 
-  cli::cli_h1("PACKAGES")
-  cli::cli_h2("activate")
-  renv::activate(profile = "packages")
-  this_library <- c(renv::paths$library(), default_libraries)
-  cli::cli_h2("snapshot")
-  renv::snapshot(prompt = FALSE, library = this_library)
-  cli::cli_h2("record")
-  renv::record(deps)
-  cli::cli_h1("hydrate")
-  out <- capture.output(renv::deactivate(project = path), type = "message")
-  renv::hydrate(library = this_library[1])
-  cli::cli_h1("reactivate")
-  renv::activate(profile = "packages")
-  cli::cli_h1("restore")
-  renv::restore(prompt = FALSE)
-  cli::cli_h2("snapshot")
-  renv::snapshot(packages = deps, prompt = FALSE, library = this_library)
+    setwd(path)
+    options(repos = repos)
+    Sys.setenv(RENV_PROFILE = profile)
 
-  cli::cli_alert_info(deps)
+    renv::hydrate(library = renv::paths$library(), update = TRUE)
+
+    renv::activate(profile = profile)
+    on.exit(renv::deactivate(path), add = TRUE)
+    renv::snapshot(project = path,
+      lockfile = renv::paths$lockfile(),
+      prompt = FALSE
+    )
+
+  }, args = args, show = TRUE)
 }
