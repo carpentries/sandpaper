@@ -118,9 +118,6 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
     #
     # 1. find the packages we need from the global library or elsewhere, and 
     #    load them into the profile's library
-    cli::cli_alert("Hydrate")
-    print(.libPaths())
-    hydra <- renv::hydrate(library = renv::paths$library(), update = FALSE)
     # 2. If the lockfile exists, we update the library to the versions that are
     #    recorded.
     if (lockfile_exists) {
@@ -128,6 +125,9 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
       res <- renv::restore(library = renv::paths$library(), 
         lockfile = renv::paths$lockfile(),
         prompt = FALSE)
+    } else {
+      cli::cli_alert("Hydrate")
+      hydra <- renv::hydrate(library = renv::paths$library(), update = FALSE)
     }
     if (snapshot) {
       # 2. Load the current profile, unloading it when we exit
