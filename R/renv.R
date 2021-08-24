@@ -32,7 +32,7 @@ renv_setup_profile <- function(path = ".", profile = "packages") {
 
 renv_cache <- function() {
   res <- Sys.getenv("RENV_CONFIG_CACHE_SYMLINKS")
-  res <- if (is.logical(res)) res else !is.null(getOption("sandpaper.test_fixture"))
+  res <- if (is.logical(res)) res else is.null(getOption("sandpaper.test_fixture"))
   res
 }
 
