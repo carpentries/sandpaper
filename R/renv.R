@@ -92,6 +92,8 @@
 # The only drawback right now is the fact that if we use a lockfile for the 
 # source, we run into the same problem that we had when we used a lockfile with
 # restore
+
+#' 
 carpentries_repos <- function() {
   c(
     carpentries         = "https://carpentries.r-universe.dev/",
@@ -110,37 +112,77 @@ renv_setup_profile <- function(path = ".", profile = "packages") {
   }, args = list(path = path, profile = profile))
 }
 
-renv_highshot <- function(path = ".", profile = "packages") {
+renv_burn_it_down <- function(path = ".", profile = "packages") {
+  callr::r(function(path, profile) {
+    wd        <- getwd()
+    prof      <- Sys.getenv("RENV_PROFILE")
+
+    # Reset everything on exit
+    on.exit({
+      Sys.setenv(RENV_PROFILE = prof)
+      setwd(wd)
+    }, add = TRUE)
+    unlink(renv::paths$library(), recursive = TRUE, force = TRUE)
+    unlink(renv::paths$cache(), recursive = TRUE, force = TRUE)
+    unlink(renv::paths$root(), recursive = TRUE, force = TRUE)
+  }, args = list(path = path, profile = profile))
+}
+
+renv_highshot <- function(path = ".", profile = "packages", snapshot = TRUE, update = FALSE) {
+
+  if (!fs::dir_exists(fs::path(path, "renv/profiles", profile))) {
+    renv_setup_profile(path, profile)
+    lockfile_exists <- FALSE
+  } else {
+    lockfile_exists <- TRUE
+  }
+
   args <- list(
     path = path,
     profile = profile,
-    repos = carpentries_repos()
+    repos = carpentries_repos(),
+    snapshot = snapshot,
+    lockfile_exists = lockfile_exists
   )
-  if (!fs::dir_exists(fs::path(path, "renv/profiles", profile))) {
-    renv_setup_profile(path, profile)
-  }
-  callr::r(function(path, profile, repos) {
-    wd <- getwd()
+  callr::r(function(path, profile, repos, snapshot, lockfile_exists) {
+    wd        <- getwd()
     old_repos <- getOption("repos")
-    prof <- Sys.getenv("RENV_PROFILE")
+    prof      <- Sys.getenv("RENV_PROFILE")
+
+    # Reset everything on exit
     on.exit({
       Sys.setenv(RENV_PROFILE = prof)
       setwd(wd)
       options(repos = old_repos)
     }, add = TRUE)
 
+    # Set up our working directory and, importantly, our {renv} profile
     setwd(path)
     options(repos = repos)
     Sys.setenv(RENV_PROFILE = profile)
 
-    renv::hydrate(library = renv::paths$library(), update = TRUE)
-
-    renv::activate(profile = profile)
-    on.exit(renv::deactivate(path), add = TRUE)
-    renv::snapshot(project = path,
-      lockfile = renv::paths$lockfile(),
-      prompt = FALSE
-    )
-
+    # Steps to update a {renv} environment regardless of whether or not the user
+    # has initiated {renv} in the first place
+    #
+    # 1. find the packages we need from the global library or elsewhere, and 
+    #    load them into the profile's library
+    renv::hydrate(library = renv::paths$library(), update = FALSE)
+    # 2. If the lockfile exists, we update the library to the versions that are
+    #    recorded.
+    if (lockfile_exists) {
+      renv::restore(library = renv::paths$library(), 
+        lockfile = renv::paths$lockfile())
+    }
+    if (snapshot) {
+      # 2. Load the current profile, unloading it when we exit
+      renv::load()
+      on.exit(renv::deactivate(), add = TRUE)
+      # 3. Snapshot the current state of the library to the lockfile to 
+      #    synchronize
+      renv::snapshot(project = path,
+        lockfile = renv::paths$lockfile(),
+        prompt = FALSE
+      )
+    }
   }, args = args, show = TRUE)
 }
