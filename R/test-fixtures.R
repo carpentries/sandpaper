@@ -37,7 +37,9 @@ create_test_lesson <- function() {
     )
   }
   suppressMessages({
-    create_lesson(tmp, open = FALSE)
+    withr::with_envvar(list(RENV_CONFIG_CACHE_SYMLINKS = TRUE), {
+      create_lesson(tmp, open = FALSE)
+     })
   })
   options(sandpaper.test_fixture = tmp)
   generate_restore_fixture(tmp)

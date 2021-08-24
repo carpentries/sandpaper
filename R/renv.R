@@ -110,12 +110,23 @@ carpentries_repos <- function() {
 #' @noRd
 renv_setup_profile <- function(path = ".", profile = "packages") {
   callr::r(function(path, profile) {
+    # options(renv.config.cache.symlinks = FALSE)
     wd <- getwd()
     on.exit(setwd(wd))
     setwd(path)
     renv::init(bare = TRUE, restart = FALSE, profile = profile)
     renv::deactivate()
-  }, args = list(path = path, profile = profile))
+  }, 
+  args = list(path = path, profile = profile),
+  show = FALSE,
+  env = c(callr::rcmd_safe_env(), "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
+}
+
+renv_cache <- function() {
+  if (res <- is.null(getOption("sandpaper.test_fixture"))) {
+    res <- Sys.getenv("RENV_CONFIG_CACHE_SYMLINKS")
+  }
+  res
 }
 
 #' Lesson Runtime Dependency Management
@@ -166,7 +177,7 @@ renv_setup_profile <- function(path = ".", profile = "packages") {
 #' @export
 #' @return if `snapshot = TRUE`, a nested list representing the lockfile will be
 #'   returned.
-manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE) {
+manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet = TRUE) {
 
   if (!fs::dir_exists(fs::path(path, "renv/profiles", profile))) {
     renv_setup_profile(path, profile)
@@ -182,7 +193,10 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE) {
     snapshot = snapshot,
     lockfile_exists = lockfile_exists
   )
+
+  sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
   callr::r(function(path, profile, repos, snapshot, lockfile_exists) {
+    # options(renv.config.cache.symlinks = FALSE)
     wd        <- getwd()
     old_repos <- getOption("repos")
     prof      <- Sys.getenv("RENV_PROFILE")
@@ -198,18 +212,18 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE) {
     setwd(path)
     options(repos = repos)
     Sys.setenv(RENV_PROFILE = profile)
-
     # Steps to update a {renv} environment regardless of whether or not the user
     # has initiated {renv} in the first place
     #
     # 1. find the packages we need from the global library or elsewhere, and 
     #    load them into the profile's library
-    renv::hydrate(library = renv::paths$library(), update = FALSE)
+    capture.output(hydra <- renv::hydrate(library = renv::paths$library(), update = FALSE))
     # 2. If the lockfile exists, we update the library to the versions that are
     #    recorded.
     if (lockfile_exists) {
-      renv::restore(library = renv::paths$library(), 
-        lockfile = renv::paths$lockfile())
+      capture.output(res <- renv::restore(library = renv::paths$library(), 
+        lockfile = renv::paths$lockfile(),
+        prompt = FALSE))
     }
     if (snapshot) {
       # 2. Load the current profile, unloading it when we exit
@@ -217,12 +231,15 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE) {
       on.exit(renv::deactivate(), add = TRUE)
       # 3. Snapshot the current state of the library to the lockfile to 
       #    synchronize
-      renv::snapshot(project = path,
+      capture.output(snap <- renv::snapshot(project = path,
         lockfile = renv::paths$lockfile(),
         prompt = FALSE
-      )
+      ))
     }
-  }, args = args, show = TRUE)
+  }, 
+  args = args, 
+  show = sho, 
+  env = c(callr::rcmd_safe_env(), "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
 }
 
 #nocov start

@@ -2,9 +2,10 @@ test_that("build_episode_md() works independently", {
 
   fun_dir <- fs::file_temp()
   fs::dir_create(fun_dir)
+  fs::dir_create(fs::path(fun_dir, "episodes"))
   withr::defer(fs::dir_delete(fun_dir))
 
-  fun_file <- file.path(fun_dir, "fun.Rmd")
+  fun_file <- file.path(fun_dir, "episodes", "fun.Rmd")
   file.create(fun_file)
   txt <- c(
     "---\ntitle: Fun times\n---\n\n",

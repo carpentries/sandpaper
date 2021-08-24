@@ -115,13 +115,15 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
   outpath <- fs::path(outdir, md)
 
   # Set up the arguments 
+  root <- root_path(path)
+  prof <- fs::path(root, "renv", "profiles")
   args <- list(
     path    = path,
     hash    = hash,
     env     = env,
     outpath = outpath,
     workdir = workdir,
-    root    = root_path(path),
+    root    = if (fs::dir_exists(prof)) root else "",
     quiet   = quiet
   )
 
@@ -131,13 +133,15 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
   # Note that this process can NOT use any internal functions
   sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
   callr::r(function(path, hash, env, outpath, workdir, root, quiet) {
-    prof <- Sys.getenv("RENV_PROFILE")
-    Sys.setenv(RENV_PROFILE = "packages")
-    renv::load(root)
-    on.exit({
-      renv::deactivate(root)
-      Sys.setenv(RENV_PROFILE = prof)
-    }, add = TRUE)
+    if (root != "") {
+      prof <- Sys.getenv("RENV_PROFILE")
+      Sys.setenv(RENV_PROFILE = "packages")
+      renv::load(root)
+      on.exit({
+        renv::deactivate(root)
+        Sys.setenv(RENV_PROFILE = prof)
+      }, add = TRUE)
+    }
     # Shortcut if the source is a markdown file
     # Taken directly from tools::file_ext
     file_ext <- function (x) {
