@@ -20,9 +20,10 @@ renv_setup_profile <- function(path = ".", profile = "packages") {
     setwd(path)
     renv::init(bare = TRUE, restart = FALSE, profile = profile)
     renv::deactivate()
-  }, 
+  },
   args = list(path = path, profile = profile),
   show = FALSE,
+  user_profile = FALSE,
   env = c(callr::rcmd_safe_env(), "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
 }
 
@@ -91,7 +92,6 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
 
   args <- list(
     path = path,
-    profile = profile,
     repos = carpentries_repos(),
     snapshot = snapshot,
     lockfile_exists = lockfile_exists
@@ -102,19 +102,16 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
     # options(renv.config.cache.symlinks = FALSE)
     wd        <- getwd()
     old_repos <- getOption("repos")
-    prof      <- Sys.getenv("RENV_PROFILE")
 
     # Reset everything on exit
     on.exit({
-      Sys.setenv(RENV_PROFILE = prof)
       setwd(wd)
       options(repos = old_repos)
     }, add = TRUE)
 
-    # Set up our working directory and, importantly, our {renv} profile
+    # Set up our working directory and the default repositories
     setwd(path)
     options(repos = repos)
-    Sys.setenv(RENV_PROFILE = profile)
     # Steps to update a {renv} environment regardless of whether or not the user
     # has initiated {renv} in the first place
     #
@@ -140,9 +137,12 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
       ))
     }
   }, 
-  args = args, 
-  show = sho, 
-  env = c(callr::rcmd_safe_env(), "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
+  args = args,
+  show = sho,
+  user_profile = FALSE,
+  env = c(callr::rcmd_safe_env(),
+    "RENV_PROFILE" = profile,
+    "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
 }
 
 #nocov start
@@ -150,17 +150,15 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
 # the local library, local cache, and the entire {renv} cache. 
 renv_burn_it_down <- function(path = ".", profile = "packages") {
   callr::r(function(path, profile) {
-    wd        <- getwd()
-    prof      <- Sys.getenv("RENV_PROFILE")
-
+    wd <- getwd()
     # Reset everything on exit
-    on.exit({
-      Sys.setenv(RENV_PROFILE = prof)
-      setwd(wd)
-    }, add = TRUE)
+    on.exit(setwd(wd), add = TRUE)
     unlink(renv::paths$library(), recursive = TRUE, force = TRUE)
     unlink(renv::paths$cache(), recursive = TRUE, force = TRUE)
     unlink(renv::paths$root(), recursive = TRUE, force = TRUE)
-  }, args = list(path = path, profile = profile))
+  },
+  user_profile = FALSE,
+  env = c(callr::rcmd_safe_env(), "RENV_PROFILE" = profile),
+  args = list(path = path))
 }
 #nocov end
