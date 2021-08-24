@@ -126,6 +126,7 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
         lockfile = renv::paths$lockfile(),
         prompt = FALSE)
     }
+    renv::clean(actions = c('package.locks', 'unused.packages'))
     if (snapshot) {
       # 2. Load the current profile, unloading it when we exit
       renv::load()
