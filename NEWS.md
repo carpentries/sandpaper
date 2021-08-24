@@ -1,3 +1,15 @@
+# sandpaper 0.0.0.9047
+
+DEPENDENCY MANAGEMENT
+---------------------
+
+ - `manage_deps()` is a new function that will manage dependencies for a lesson.
+   This is called both in `create_lesson()` and `build_markdown()` to ensure 
+   that the correct dependencies for the lesson are installed.
+ - `create_lesson()` now additionally will create a {renv} profile called
+   "packages" in the lesson repository. This will make the lesson more portable
+
+
 # sandpaper 0.0.0.9046
 
 CONTINUOUS INTEGRATION
