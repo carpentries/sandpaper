@@ -17,6 +17,7 @@
 # Run after all tests
 withr::defer({
   tf <- getOption("sandpaper.test_fixture")
+  options(sandpaper.test_fixture = NULL)
   rem <- remove_local_remote(repo = tf)
   # remove the test fixture and report
   res <- tryCatch(fs::dir_delete(tf), error = function() FALSE)
