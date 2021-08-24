@@ -2,7 +2,8 @@
 % Please edit documentation in R/create_lesson.R
 \name{create_lesson}
 \alias{create_lesson}
-\title{Create a carpentries lesson}
+\title{Create a carpentries lesson
+#' This will create a boilerplate directory structure for a Carpentries lesson #' and initialize a git repository.  #' #' @param path the path to the new lesson folder}
 \usage{
 create_lesson(
   path,
@@ -12,8 +13,6 @@ create_lesson(
 )
 }
 \arguments{
-\item{path}{the path to the new lesson folder}
-
 \item{name}{the name of the lesson. If not provided, the folder name will be used.}
 
 \item{rstudio}{create an RStudio project (defaults to if RStudio exits)}
@@ -24,8 +23,8 @@ create_lesson(
 the path to the new lesson
 }
 \description{
-This will create a boilerplate directory structure for a Carpentries lesson
-and initialize a git repository.
+Create a carpentries lesson
+#' This will create a boilerplate directory structure for a Carpentries lesson #' and initialize a git repository.  #' #' @param path the path to the new lesson folder
 }
 \examples{
 tmp <- tempfile()

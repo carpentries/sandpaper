@@ -102,6 +102,12 @@ carpentries_repos <- function() {
   )
 }
 
+#' Set up a renv profile
+#'
+#' @param path path to an empty project
+#' @param profile the name of the new renv profile
+#' @return this is normally called for it's side-effect
+#' @noRd
 renv_setup_profile <- function(path = ".", profile = "packages") {
   callr::r(function(path, profile) {
     wd <- getwd()
@@ -112,23 +118,55 @@ renv_setup_profile <- function(path = ".", profile = "packages") {
   }, args = list(path = path, profile = profile))
 }
 
-renv_burn_it_down <- function(path = ".", profile = "packages") {
-  callr::r(function(path, profile) {
-    wd        <- getwd()
-    prof      <- Sys.getenv("RENV_PROFILE")
-
-    # Reset everything on exit
-    on.exit({
-      Sys.setenv(RENV_PROFILE = prof)
-      setwd(wd)
-    }, add = TRUE)
-    unlink(renv::paths$library(), recursive = TRUE, force = TRUE)
-    unlink(renv::paths$cache(), recursive = TRUE, force = TRUE)
-    unlink(renv::paths$root(), recursive = TRUE, force = TRUE)
-  }, args = list(path = path, profile = profile))
-}
-
-renv_highshot <- function(path = ".", profile = "packages", snapshot = TRUE, update = FALSE) {
+#' Lesson Runtime Dependency Management
+#'
+#' @description A customized provisioner for Carpentries Lessons based on
+#'   \pkg{renv} that will _respect user environments_. This setup leads to
+#'   several advantages:
+#'
+#'   - **reliable setup**: the version of the lesson built on the carpentries
+#'     website will be the same as what you build on your computer because the
+#'     packages will be identical
+#'   - **environmentally friendly**: The lesson dependencies are NOT stored in
+#'     your default R library and they will not alter your R environment.
+#'   - **transparent**: any additions or deletions to the cache will be recorded
+#'     in the lockfile, which is tracked by git.
+#'
+#' @param path path to the current project
+#' @param profile the name of the new profile (default "packages")
+#' @param snapshot if `TRUE`, packages from the cache are added to the lockfile
+#'   (default). Setting this to `FALSE` will add packages to the cache and not
+#'   snapshot them.
+#'
+#' @details The \pkg{renv} package provides a very useful interface to bring one
+#'   aspect of reproducibility to R projects. Because people working on
+#'   Carpentries lessons are also working academics and will likely have
+#'   projects on their computer where the package versions are necessary for
+#'   their work, it's important that those environments are respected.
+#'  
+#'   Our flavor of {renv} applies a package cache explicitly to the content of
+#'   the lesson, but does not impose itself as the default {renv} environment.
+#'
+#'   This provisioner will do the following steps:
+#'
+#'   1. check if the profile has been created and create it if needed via
+#'      [renv::init()]
+#'   2. populate the cache with packages needed from the user's system and
+#'      download any that are missing via [renv::hydrate()]. This includes all
+#'      new packages that have been added to the lesson.
+#'   3. If there is a lockfile already present, make sure the packages in the
+#'      cache are aligned with the lockfile (downloading sources if needed) via
+#'      [renv::restore()].
+#'   4. Record the state of the cache in a lockfile tracked by git. This will
+#'      include adding new packages and removing old packages. [renv::snapshot()]
+#'
+#'   When the lockfile changes, you will see it in git and have the power to
+#'   either commit or restore those changes.
+#'
+#' @export
+#' @return if `snapshot = TRUE`, a nested list representing the lockfile will be
+#'   returned.
+manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE) {
 
   if (!fs::dir_exists(fs::path(path, "renv/profiles", profile))) {
     renv_setup_profile(path, profile)
@@ -186,3 +224,23 @@ renv_highshot <- function(path = ".", profile = "packages", snapshot = TRUE, upd
     }
   }, args = args, show = TRUE)
 }
+
+#nocov start
+# very internal function for me to burn everything down. This will remove
+# the local library, local cache, and the entire {renv} cache. 
+renv_burn_it_down <- function(path = ".", profile = "packages") {
+  callr::r(function(path, profile) {
+    wd        <- getwd()
+    prof      <- Sys.getenv("RENV_PROFILE")
+
+    # Reset everything on exit
+    on.exit({
+      Sys.setenv(RENV_PROFILE = prof)
+      setwd(wd)
+    }, add = TRUE)
+    unlink(renv::paths$library(), recursive = TRUE, force = TRUE)
+    unlink(renv::paths$cache(), recursive = TRUE, force = TRUE)
+    unlink(renv::paths$root(), recursive = TRUE, force = TRUE)
+  }, args = list(path = path, profile = profile))
+}
+#nocov end

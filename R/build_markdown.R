@@ -64,8 +64,8 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   }
 
   # Render the episode files to the built directory ----------------------------
-  if (fs::dir_exists(fs::path(path, "renv"))) {
-    lib <- renv_highshot(path, snapshot = TRUE)
+  if (fs::dir_exists(fs::path(path, "renv/profiles"))) {
+    lib <- manage_deps(path, snapshot = TRUE)
   } else {
     lib <- .libPaths()
   }
