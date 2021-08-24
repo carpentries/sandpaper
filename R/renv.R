@@ -22,7 +22,8 @@ renv_setup_profile <- function(path = ".", profile = "packages") {
     renv::deactivate()
   },
   args = list(path = path, profile = profile),
-  show = FALSE,
+  show = TRUE,
+  spinner = FALSE,
   user_profile = FALSE,
   env = c(callr::rcmd_safe_env(), "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
 }
@@ -138,7 +139,8 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
     }
   }, 
   args = args,
-  show = sho,
+  show = !quiet,
+  spinner = sho,
   user_profile = FALSE,
   env = c(callr::rcmd_safe_env(),
     "RENV_PROFILE" = profile,
