@@ -14,7 +14,6 @@ carpentries_repos <- function() {
 #' @noRd
 renv_setup_profile <- function(path = ".", profile = "packages") {
   callr::r(function(path, profile) {
-    # options(renv.config.cache.symlinks = FALSE)
     wd <- getwd()
     on.exit(setwd(wd))
     setwd(path)
@@ -31,9 +30,7 @@ renv_setup_profile <- function(path = ".", profile = "packages") {
 }
 
 renv_cache <- function() {
-  res <- Sys.getenv("RENV_CONFIG_CACHE_SYMLINKS")
-  res <- if (is.logical(res)) res else is.null(getOption("sandpaper.test_fixture"))
-  res
+  renv::config$cache.symlinks() && is.null(getOption("sandpaper.test_fixture"))
 }
 
 #' Lesson Runtime Dependency Management
@@ -102,7 +99,6 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
 
   sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
   callr::r(function(path, profile, repos, snapshot, lockfile_exists) {
-    # options(renv.config.cache.symlinks = FALSE)
     wd        <- getwd()
     old_repos <- getOption("repos")
 
