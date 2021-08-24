@@ -6,7 +6,7 @@ on:
       name:
         description: 'Who triggered this build (enter github username to tag yourself)?'
         required: true
-        default: 'Maintainer (via GitHub)'
+        default: 'weekly run'
       clean:
         description: 'Workflow files/file extensions to clean (no wildcards, enter "" for none)'
         required: false

@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9046
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - Weekly run pull requests now default to "weekly run" for "who triggered this
+   pull request"
+
 # sandpaper 0.0.0.9045
 
 CONTINUOUS INTEGRATION
