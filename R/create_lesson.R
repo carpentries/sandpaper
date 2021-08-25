@@ -1,5 +1,9 @@
 #' Create a carpentries lesson
-#' #' This will create a boilerplate directory structure for a Carpentries lesson #' and initialize a git repository.  #' #' @param path the path to the new lesson folder
+#'
+#' This will create a boilerplate directory structure for a Carpentries lesson
+#' and initialize a git repository.
+#'
+#' @param path the path to the new lesson folder
 #' @param name the name of the lesson. If not provided, the folder name will be used.
 #' @param rstudio create an RStudio project (defaults to if RStudio exits)
 #' @param open if interactive, the lesson will open in a new editor window.
