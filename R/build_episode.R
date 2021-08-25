@@ -21,10 +21,12 @@
 #' @keywords internal
 #' @seealso [build_episode_md()], [build_lesson()], [build_markdown()], [render_html()]
 #' @examples
+#' if (!interactive()) {
+#'   old <- renv::config$cache.symlinks()
+#'   options(renv.config.cache.symlinks = FALSE)
+#'   on.exit(options(renv.config.cache.symlinks = old), add = TRUE)
+#' }
 #' tmp <- tempfile()
-#' old <- renv::config$cache.symlinks()
-#' renv::config$cache.symlinks(FALSE)
-#' on.exit(renv::config$cache.symlinks(old), add = TRUE)
 #' create_lesson(tmp, open = FALSE)
 #' suppressMessages(set_episodes(tmp, get_episodes(tmp), write = TRUE))
 #' if (rmarkdown::pandoc_available("2.11")) {
@@ -98,8 +100,13 @@ build_episode_html <- function(path_md, path_src = NULL,
 #'   they are doing. 
 #' @seealso [render_html()], [build_episode_html()]
 #' @examples
+#' if (!interactive()) {
+#'   old <- renv::config$cache.symlinks()
+#'   options(renv.config.cache.symlinks = FALSE)
+#'   on.exit(options(renv.config.cache.symlinks = old), add = TRUE)
+#' }
 #' fun_dir <- tempfile()
-#' dir.create(fs::path(fun_dir, "episodes"))
+#' dir.create(fs::path(fun_dir, "episodes"), recursive = TRUE)
 #' fun_file <- file.path(fun_dir, "episodes", "fun.Rmd")
 #' file.create(fun_file)
 #' txt <- c(
