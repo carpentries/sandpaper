@@ -22,14 +22,17 @@
 #' @seealso [build_episode_md()], [build_lesson()], [build_markdown()], [render_html()]
 #' @examples
 #' tmp <- tempfile()
+#' old <- renv::config$cache.symlinks()
+#' renv::config$cache.symlinks(FALSE)
+#' on.exit(renv::config$cache.symlinks(old), add = TRUE)
 #' create_lesson(tmp, open = FALSE)
-#' suppressWarnings(set_episodes(tmp, get_episodes(tmp), write = TRUE))
+#' suppressMessages(set_episodes(tmp, get_episodes(tmp), write = TRUE))
 #' if (rmarkdown::pandoc_available("2.11")) {
 #'   # we can only build this if we have pandoc
 #'   build_lesson(tmp)
 #' }
-#' 
-#' # create a new file in extras
+#'
+#' # create a new file in files
 #' fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
 #' txt <- c(
 #'  "---\ntitle: Fun times\n---\n\n",
@@ -96,8 +99,8 @@ build_episode_html <- function(path_md, path_src = NULL,
 #' @seealso [render_html()], [build_episode_html()]
 #' @examples
 #' fun_dir <- tempfile()
-#' dir.create(fun_dir)
-#' fun_file <- file.path(fun_dir, "fun.Rmd")
+#' dir.create(fs::path(fun_dir, "episodes"))
+#' fun_file <- file.path(fun_dir, "episodes", "fun.Rmd")
 #' file.create(fun_file)
 #' txt <- c(
 #'  "---\ntitle: Fun times\n---\n\n",
@@ -108,7 +111,7 @@ build_episode_html <- function(path_md, path_src = NULL,
 #' res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
 build_episode_md <- function(path, hash = NULL, outdir = path_built(path), 
                              workdir = path_built(path), 
-                             env = new.env(), quiet = FALSE) {
+                             workenv = new.env(), profile = "packages", quiet = FALSE) {
 
   # define the output
   md <- fs::path_ext_set(fs::path_file(path), "md")
@@ -116,11 +119,11 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
 
   # Set up the arguments 
   root <- root_path(path)
-  prof <- fs::path(root, "renv", "profiles")
+  prof <- fs::path(root, "renv", "profiles", profile)
   args <- list(
     path    = path,
     hash    = hash,
-    env     = env,
+    workenv = workenv,
     outpath = outpath,
     workdir = workdir,
     root    = if (fs::dir_exists(prof)) root else "",
@@ -132,15 +135,10 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
   #
   # Note that this process can NOT use any internal functions
   sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
-  callr::r(function(path, hash, env, outpath, workdir, root, quiet) {
+  callr::r(function(path, hash, workenv, outpath, workdir, root, quiet) {
     if (root != "") {
-      prof <- Sys.getenv("RENV_PROFILE")
-      Sys.setenv(RENV_PROFILE = "packages")
       renv::load(root)
-      on.exit({
-        renv::deactivate(root)
-        Sys.setenv(RENV_PROFILE = prof)
-      }, add = TRUE)
+      on.exit(renv::deactivate(root), add = TRUE)
     }
     # Shortcut if the source is a markdown file
     # Taken directly from tools::file_ext
@@ -188,14 +186,20 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
     res <- knitr::knit(
       input = path,
       output = outpath,
-      envir = env, 
+      envir = workenv, 
       quiet = quiet,
       encoding = "UTF-8"
     )
 
     # write file to disk ------------------------------------
     # writeLines(res, outpath)
-  }, args = args, show = !quiet, spinner = sho)
+  },
+  args = args,
+  show = !quiet, 
+  spinner = sho,
+  env = c(callr::rcmd_safe_env(),
+    "RENV_PROFILE" = profile,
+    "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
 
   invisible(outpath)
 }
