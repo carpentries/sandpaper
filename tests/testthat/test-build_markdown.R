@@ -44,7 +44,9 @@ test_that("markdown sources can be rebuilt without fail", {
   
   # no building needed
   skip_on_os("windows")
-  expect_silent(build_markdown(res, quiet = FALSE))
+  out <- capture.output(build_markdown(res, quiet = FALSE))
+  expect_match(paste(out, collapse = "\n"), "lockfile")
+  expect_no_match(out, "ordinary text without R code")
   
   # everything rebuilt
   suppressMessages({
@@ -147,9 +149,15 @@ test_that("Output is not commented", {
 })
 
 test_that("Markdown rendering does not happen if content is not changed", {
-  expect_silent(build_markdown(res))
+  out <- capture.output(build_markdown(res))
+  expect_match(paste(out, collapse = "\n"), "lockfile")
+  expect_no_match(out, "ordinary text without R code")
+
   fs::file_touch(fs::path(res, "episodes", "01-introduction.Rmd"))
-  expect_silent(build_markdown(res))
+
+  out <- capture.output(build_markdown(res))
+  expect_match(paste(out, collapse = "\n"), "lockfile")
+  expect_no_match(out, "ordinary text without R code")
 })
 
 test_that("Removing source removes built", {
@@ -159,7 +167,7 @@ test_that("Removing source removes built", {
   fs::file_delete(e2)
   reset_episodes(res)
   set_episodes(res, "01-introduction.Rmd", write = TRUE)
-  build_markdown(res)
+  build_markdown(res, quiet = TRUE)
 #  h1 <- expect_hashed(res, "01-introduction.Rmd")
   expect_length(get_figs(res, "01-introduction"), 1)
 
@@ -204,7 +212,7 @@ test_that("Removing partially matching slugs will not have side-effects", {
   built_path <- path_built(res)
   
   fs::file_delete(fs::path(res, "instructors", "pyramid.md"))
-  build_markdown(res)
+  build_markdown(res, quiet = TRUE)
   h1 <- expect_hashed(res, "01-introduction.Rmd")
   expect_length(get_figs(res, "01-introduction"), 1)
 
