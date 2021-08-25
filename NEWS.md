@@ -1,4 +1,4 @@
-# sandpaper 0.0.0.9047
+# sandpaper 0.0.0.9048
 
 DEPENDENCY MANAGEMENT
 ---------------------
@@ -9,6 +9,13 @@ DEPENDENCY MANAGEMENT
  - `create_lesson()` now additionally will create a {renv} profile called
    "packages" in the lesson repository. This will make the lesson more portable
 
+# sandpaper 0.0.0.9047
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - The `update-workflows.yaml` workflow now checks if the `SANDPAPER_WORKFLOW`
+   secret is valid. If not, it provides instructions for creating a new secret.
 
 # sandpaper 0.0.0.9046
 
