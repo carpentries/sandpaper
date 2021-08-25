@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9047
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - The `update-workflows.yaml` workflow now checks if the `SANDPAPER_WORKFLOW`
+   secret is valid. If not, it provides instructions for creating a new secret.
+
 # sandpaper 0.0.0.9046
 
 CONTINUOUS INTEGRATION
