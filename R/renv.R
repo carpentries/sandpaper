@@ -52,6 +52,9 @@ renv_cache <- function() {
 #' @param snapshot if `TRUE`, packages from the cache are added to the lockfile
 #'   (default). Setting this to `FALSE` will add packages to the cache and not
 #'   snapshot them.
+#' @param quiet if `TRUE`, output will be suppressed, defaults to `FALSE`,
+#'   providing output about different steps in the process of updating the local
+#'   dependencies.
 #'
 #' @details The \pkg{renv} package provides a very useful interface to bring one
 #'   aspect of reproducibility to R projects. Because people working on
@@ -81,7 +84,7 @@ renv_cache <- function() {
 #' @export
 #' @return if `snapshot = TRUE`, a nested list representing the lockfile will be
 #'   returned.
-manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet = TRUE) {
+manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet = FALSE) {
 
   if (!fs::dir_exists(fs::path(path, "renv/profiles", profile))) {
     renv_setup_profile(path, profile)
@@ -127,10 +130,10 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
         prompt = FALSE)
     }
     if (snapshot) {
-      # 2. Load the current profile, unloading it when we exit
+      # 3. Load the current profile, unloading it when we exit
       renv::load()
       on.exit(renv::deactivate(), add = TRUE)
-      # 3. Snapshot the current state of the library to the lockfile to 
+      # 4. Snapshot the current state of the library to the lockfile to 
       #    synchronize
       cli::cli_alert("Recording changes in lockfile")
       snap <- renv::snapshot(project = path,

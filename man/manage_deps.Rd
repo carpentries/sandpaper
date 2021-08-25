@@ -4,7 +4,7 @@
 \alias{manage_deps}
 \title{Lesson Runtime Dependency Management}
 \usage{
-manage_deps(path = ".", profile = "packages", snapshot = TRUE)
+manage_deps(path = ".", profile = "packages", snapshot = TRUE, quiet = FALSE)
 }
 \arguments{
 \item{path}{path to the current project}
@@ -14,6 +14,10 @@ manage_deps(path = ".", profile = "packages", snapshot = TRUE)
 \item{snapshot}{if \code{TRUE}, packages from the cache are added to the lockfile
 (default). Setting this to \code{FALSE} will add packages to the cache and not
 snapshot them.}
+
+\item{quiet}{if \code{TRUE}, output will be suppressed, defaults to \code{FALSE},
+providing output about different steps in the process of updating the local
+dependencies.}
 }
 \value{
 if \code{snapshot = TRUE}, a nested list representing the lockfile will be
