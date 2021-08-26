@@ -82,7 +82,7 @@ jobs:
             ${{ runner.os }}-renv-
 
       - name: Restore Windows Renv
-        if: startsWith(runner.os, 'macOS')
+        if: startsWith(runner.os, 'Windows')
         uses: actions/cache@v2
         with:
           path: ~\AppData\Local\renv
