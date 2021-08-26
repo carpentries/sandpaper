@@ -64,7 +64,8 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   }
 
   # Render the episode files to the built directory ----------------------------
-  if (fs::dir_exists(fs::path(path, "renv/profiles"))) {
+  has_consent <- getOption("sandpaper.use_renv")
+  if (has_consent) {
     lib <- manage_deps(path, snapshot = TRUE, quiet = quiet)
   } else {
     lib <- .libPaths()

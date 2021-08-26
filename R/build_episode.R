@@ -127,13 +127,16 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
   # Set up the arguments 
   root <- root_path(path)
   prof <- fs::path(root, "renv", "profiles", profile)
+  # If we have consent to use renv and the profile exists, then we can use renv,
+  # otherwise, we need to use the system library
+  has_consent <- getOption("sandpaper.use_renv") && fs::dir_exists(prof)
   args <- list(
     path    = path,
     hash    = hash,
     workenv = workenv,
     outpath = outpath,
     workdir = workdir,
-    root    = if (fs::dir_exists(prof)) root else "",
+    root    = if (has_consent) root else "",
     quiet   = quiet
   )
 

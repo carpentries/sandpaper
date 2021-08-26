@@ -75,8 +75,11 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   cli::cli_status_update("{cli::symbol$arrow_right} Inserting GitHub workflows ...")
   update_github_workflows(path)
 
-  cli::cli_status_update("{cli::symbol$arrow_right} Managing Dependencies ...")
-  manage_deps(path, snapshot = TRUE)
+  has_consent <- getOption("sandpaper.use_renv")
+  if (has_consent) {
+    cli::cli_status_update("{cli::symbol$arrow_right} Managing Dependencies ...")
+    manage_deps(path, snapshot = TRUE)
+  }
 
   cli::cli_status_update("{cli::symbol$arrow_right} Committing ...")
   gert::git_add(".", repo = path)

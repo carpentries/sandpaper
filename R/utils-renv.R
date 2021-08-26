@@ -18,7 +18,13 @@ renv_burn_it_down <- function(path = ".", profile = "packages") {
 
 # Get a boolean for whether or not the user has consented to using renv.
 renv_has_consent <- function() {
-  tryCatch(callr::r(function() renv::consent()), error = function(e) FALSE)
+  tmp <- tempfile()
+  on.exit(unlink(tmp), add = TRUE)
+  x <- tryCatch({
+    callr::r(function() renv::consent(), stdout = tmp)
+  }, error = function(e) FALSE)
+  options(sandpaper.use_renv = x)
+  invisible(readLines(tmp))
 }
 
 # Default repositories for our packages

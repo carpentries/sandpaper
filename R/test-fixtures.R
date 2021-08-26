@@ -28,6 +28,8 @@ create_test_lesson <- function() {
   if (interactive()) {
     cli::cli_status("{cli::symbol$arrow_right} Bootstrapping example lesson")
   }
+  # We explicitly need the package cache for tests
+  use_package_cache(prompt = FALSE)
   tmpdir <- fs::file_temp()
   fs::dir_create(tmpdir)
   tmp <- fs::path(tmpdir, "lesson-example")

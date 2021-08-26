@@ -117,3 +117,37 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
     "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
 }
 
+
+use_package_cache <- function(prompt = interactive()) {
+  if (getOption("sandpaper.use_renv") || !prompt) {
+    options(sandpaper.use_renv = TRUE)
+    options(renv.consent = TRUE)
+    return(invisible())
+  }
+  msg <- renv_has_consent()
+  our_lines <- grep("^(renv maintains|This path can be customized)", msg)
+  RENV_MESSAGE <- paste(msg[our_lines[1]:our_lines[2]], collapse = "\n")
+  txt <- readLines(system.file("templates", "consent-form.txt", package = "sandpaper"))
+  txt <- paste(txt, collapse = "\n")
+  # txt <- glue::glue(txt, .open = "<<", .close = ">>")
+  cli::cli_div(theme = sandpaper_cli_theme())
+  cli::cli_h1("Caching Build Packages for Generated Content")
+  cli::cli_par()
+  cli::cli_text(txt)
+  cli::cli_end()
+  cli::cli_rule("Enter your selection or press 0 to exit")
+  options <- c(
+    glue::glue("{cli::style_bold('Yes')}, please use the package cache (recommended)"),
+    glue::glue("{cli::style_bold('No')}, I want to use my default library")
+  )
+  x <- utils::menu(options)
+  if (x == 1) {
+    options(sandpaper.use_renv = TRUE)
+    options(renv.consent = TRUE)
+  } else {
+    options(sandpaper.use_renv = FALSE)
+    options(renv.consent = FALSE)
+  }
+  cli::cli_end()
+  return(invisible())
+}
