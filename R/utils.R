@@ -180,10 +180,5 @@ gitignore_items <- function() {
   ours <- readLines(template_gitignore(), encoding = "UTF-8")
   ours[!grepl("^([#].+?|)$", trimws(ours))]
 }
-
-.onLoad <- function(libname, pkgname) {
-  ns <- asNamespace(pkgname)
-  delayedAssign("GITIGNORED", gitignore_items(), eval.env = ns, assign.env = ns)
-}
 #nocov end
 
