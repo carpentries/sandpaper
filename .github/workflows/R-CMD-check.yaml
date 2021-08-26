@@ -63,14 +63,15 @@ jobs:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-${{ env.OS_VERSION }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ env.OS_VERSION }}-${{ hashFiles('.github/R-version') }}-1-
+
       - name: Restore Linux Renv
         if: startsWith(runner.os, 'Linux')
         uses: actions/cache@v2
         with:
           path: ~/.local/share/renv
-          key: ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ hashFiles('.github/depends.Rds') }}
+          key: ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ runner.r }}-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: |
-            ${{ runner.os }}-${{ env.OS_VERSION }}-renv-
+            ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ runner.r }}-
 
       - name: Restore MacOS Renv
         if: startsWith(runner.os, 'macOS')
