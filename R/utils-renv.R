@@ -47,7 +47,7 @@ renv_setup_profile <- function(path = ".", profile = "packages") {
   show = TRUE,
   spinner = FALSE,
   user_profile = FALSE,
-  env = c(callr::rcmd_safe_env(), 
+  env = c(callr::rcmd_safe_env(),
     "R_PROFILE_USER" = "nada",
     "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
 }
