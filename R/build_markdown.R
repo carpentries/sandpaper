@@ -67,8 +67,13 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
   has_consent <- getOption("sandpaper.use_renv")
   if (has_consent) {
     lib <- manage_deps(path, snapshot = TRUE, quiet = quiet)
+    if (!quiet) {
+      cli::cli_alert_info("Using package cache in {renv::paths$root()}")
+    }
   } else {
-    lib <- .libPaths()
+    if (!quiet) {
+      cli::cli_alert_info("No package cache established; using default library.")
+    }
   }
   for (i in seq_along(db$build)) {
     build_episode_md(
