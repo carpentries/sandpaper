@@ -45,7 +45,6 @@ test_that("markdown sources can be rebuilt without fail", {
   # no building needed
   skip_on_os("windows")
   out <- capture.output(build_markdown(res, quiet = FALSE))
-  expect_match(paste(out, collapse = "\n"), "lockfile")
   expect_no_match(out, "ordinary text without R code")
   
   # everything rebuilt
@@ -150,13 +149,16 @@ test_that("Output is not commented", {
 
 test_that("Markdown rendering does not happen if content is not changed", {
   out <- capture.output(build_markdown(res))
-  expect_match(paste(out, collapse = "\n"), "lockfile")
+  # NOTE: we have to skip this test on Windows because we do not use a lockfile
+  if (.Platform$OS.type != "windows")
+    expect_match(paste(out, collapse = "\n"), "lockfile")
   expect_no_match(out, "ordinary text without R code")
 
   fs::file_touch(fs::path(res, "episodes", "01-introduction.Rmd"))
 
   out <- capture.output(build_markdown(res))
-  expect_match(paste(out, collapse = "\n"), "lockfile")
+  if (.Platform$OS.type != "windows")
+    expect_match(paste(out, collapse = "\n"), "lockfile")
   expect_no_match(out, "ordinary text without R code")
 })
 
