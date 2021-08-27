@@ -112,6 +112,15 @@ jobs:
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
+      - name: Prime Cache
+        if: runner.os != 'Windows'
+        run: |
+          renv::init()
+          system('git clean -fd .')
+          system('git restore .')
+        shell: Rscript {0}
+
+
       - name: Session info
         run: |
           options(width = 100)
