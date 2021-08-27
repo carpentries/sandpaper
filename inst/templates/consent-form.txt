@@ -4,12 +4,12 @@ looks like you have not yet used {.pkg renv} before, so {.strong this is a
 one-time message} that gives you information about how the package cache can
 help you with your lesson.
 
-{cli::symbol$info} {RENV_MESSAGE}
+{.renvmessage {RENV_MESSAGE}}
 
-{.emph This may take some time to set up the first time you use it}, but once
+{cli::symbol$arrow_right} This may take some time to set up the first time you use it, but once
 the cache is established, the process will run much more quickly.
 
-If you choose not to use the package cache, be aware that you may find 
+If you choose not to use the package cache, be aware that you may find
 differences between the lesson you render on your computer and what is rendered
 online. 
 

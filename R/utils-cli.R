@@ -24,6 +24,11 @@ sandpaper_cli_theme <- function() {
     ".alert-suggestion" = list(
       "font-style" = "italic"
       ),
+    "span.renvmessage" = list(
+      "background-color" = "#FAE3B4",
+      "color" = "#000000",
+      "font-style" = "bold"
+      ),
     NULL
   )
 }

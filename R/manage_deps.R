@@ -223,7 +223,8 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
 
 package_cache_msg <- function(msg) {
   our_lines <- grep("^(renv maintains|This path can be customized)", msg)
-  RENV_MESSAGE <- paste(msg[our_lines[1]:our_lines[2]], collapse = "\n")
+  RENV_MESSAGE <- msg[our_lines[1]:our_lines[2]]
+  RENV_MESSAGE <- paste(RENV_MESSAGE, collapse = "\n")
   txt <- readLines(system.file("templates", "consent-form.txt", package = "sandpaper"))
   txt <- paste(txt, collapse = "\n")
   cli::cli_div(theme = sandpaper_cli_theme())
