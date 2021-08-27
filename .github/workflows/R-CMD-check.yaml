@@ -67,7 +67,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ env.OS_VERSION }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Restore {renv} cache
-        if: runner.os != "windows"
+        if: runner.os != 'Windows'
         uses: actions/cache@v2
         with:
           path: ${{ env.RENV_PATHS_ROOT }}
