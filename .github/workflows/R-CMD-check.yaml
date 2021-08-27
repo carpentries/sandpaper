@@ -118,6 +118,8 @@ jobs:
           renv::init()
           system('git clean -fd -e .github')
           system('git restore .')
+          system('ls')
+          stop("see what happens here")
         shell: Rscript {0}
 
 
