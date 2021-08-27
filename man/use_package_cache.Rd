@@ -4,7 +4,7 @@
 \alias{use_package_cache}
 \title{Give Consent to Use Package Cache}
 \usage{
-use_package_cache(prompt = interactive(), quiet = prompt)
+use_package_cache(prompt = interactive(), quiet = !prompt)
 }
 \value{
 nothing. this is used for its side-effect
@@ -15,7 +15,9 @@ nothing. this is used for its side-effect
 }
 \details{
 This function explicitly gives \pkg{sandpaper} permission to use \pkg{renv}
-to create a package cache for this and future lessons.
+to create a package cache for this and future lessons. You can also use
+the \code{sandpaper.use_renv} option to toggle between this and not using the
+cache.
 \subsection{Background}{
 
 By default, \pkg{sandpaper} will happily build your lesson using the packages
@@ -41,5 +43,12 @@ external repositories only when necessary.
 
 If you have used \pkg{renv} in the past, then there is no need to give
 consent to use the cache.
+}
+
+\subsection{How do I turn off the feature temporarily?}{
+
+To turn off the feature you can use \code{options(sandpaper.use_renv = FALSE)}.
+\pkg{sandpaper} will respect this option when building your lesson and will
+use your global library instead.
 }
 }

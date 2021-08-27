@@ -72,7 +72,15 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
     }
   } else {
     if (!quiet) {
-      cli::cli_alert_info("No package cache established; using default library.")
+      msg1 <- "Consent to use package cache not given. Using default library."
+      msg2 <- "use {.fn use_package_cache} to enable the package cache"
+      msg3 <- "for reproducible builds."
+      msg4 <- "You can switch between using your cache and the default library"
+      msg5 <- "with {.code options(sandpaper.use_renv = TRUE)}"
+      msg6 <- "({.code FALSE} for the default library)"
+      cli::cli_alert_info(msg1)
+      cli::cli_alert(cli::style_dim(paste(msg2, msg3)), class = "alert-suggestion")
+      cli::cli_alert(cli::style_dim(paste(msg4, msg5, msg6)), class = "alert-suggestion")
     }
   }
   for (i in seq_along(db$build)) {
