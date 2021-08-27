@@ -3,6 +3,8 @@
 DEPENDENCY MANAGEMENT
 ---------------------
 
+ - `use_package_cache()` will give consent to {sandpaper} to create and use a
+   package cache via {renv}.
  - `manage_deps()` is a new function that will manage dependencies for a lesson.
    This is called both in `create_lesson()` and `build_markdown()` to ensure
    that the correct dependencies for the lesson are installed.

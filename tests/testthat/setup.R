@@ -1,6 +1,7 @@
 {
   # Creating the Lesson ----------------------------------------------------------
   # Creating the Repository ------------------------------------------------------
+  use_package_cache(prompt = FALSE)
   restore_fixture <- create_test_lesson()
   res <- tmp <- getOption("sandpaper.test_fixture")
   rmt <- fs::file_temp(pattern = "REMOTE-")

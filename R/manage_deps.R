@@ -51,6 +51,8 @@
 #'   returned.
 manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet = FALSE) {
 
+  use_package_cache(quiet = quiet)
+
   if (!fs::dir_exists(fs::path(path, "renv/profiles", profile))) {
     renv_setup_profile(path, profile)
     lockfile_exists <- FALSE
@@ -113,28 +115,74 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
   user_profile = FALSE,
   env = c(callr::rcmd_safe_env(),
     "RENV_PROFILE" = profile,
-    "R_PROFILE_USER" = "nada",
+    "R_PROFILE_USER" = fs::path(tempfile(), "nada"),
     "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
 }
 
-
-use_package_cache <- function(prompt = interactive()) {
+#' Give Consent to Use Package Cache
+#'
+#' ## Summary
+#'
+#' This function explicitly gives \pkg{sandpaper} permission to use \pkg{renv}
+#' to create a package cache for this and future lessons. You can also use
+#' the `sandpaper.use_renv` option to toggle between this and not using the 
+#' cache.
+#'
+#' ## Background
+#'
+#' By default, \pkg{sandpaper} will happily build your lesson using the packages
+#' available in your default R library, but this can be undesirable for a couple
+#' of reasons:
+#'
+#' 1. You may have a different version of a lesson package that is used on the
+#'    lesson website, which may result in strange errors, warnings, or incorrect
+#'    output.
+#' 2. You might be very cautious about updating any components of your current
+#'    R infrastructure because your work depends on you having the correct 
+#'    package versions installed.
+#'
+#' To alleviate these concerns, \pkg{sandpaper} uses the \pkg{renv} package to
+#' generate a lesson-specific library that has package versions pinned until the
+#' lesson authors choose to update them. This is designed to be
+#' minimally-invasive, using the packages you already have and downloading from
+#' external repositories only when necessary.
+#'
+#' ## What if I've used \pkg{renv} before?
+#'
+#' If you have used \pkg{renv} in the past, then there is no need to give
+#' consent to use the cache.
+#'
+#' ## How do I turn off the feature temporarily?
+#'
+#' To turn off the feature you can use `options(sandpaper.use_renv = FALSE)`.
+#' \pkg{sandpaper} will respect this option when building your lesson and will
+#' use your global library instead.
+#'
+#' @export
+#' @return nothing. this is used for its side-effect
+use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
   if (getOption("sandpaper.use_renv") || !prompt) {
     options(sandpaper.use_renv = TRUE)
     options(renv.consent = TRUE)
+    if (!quiet) {
+      cli::cli_alert_info("Consent to use package cache provided.")
+    }
     return(invisible())
   }
   msg <- renv_has_consent()
+  if (getOption("sandpaper.use_renv")) {
+    if (!quiet) {
+      cli::cli_alert_info("Consent to use package cache provided.")
+    }
+    return(invisible())
+  }
   our_lines <- grep("^(renv maintains|This path can be customized)", msg)
   RENV_MESSAGE <- paste(msg[our_lines[1]:our_lines[2]], collapse = "\n")
   txt <- readLines(system.file("templates", "consent-form.txt", package = "sandpaper"))
   txt <- paste(txt, collapse = "\n")
-  # txt <- glue::glue(txt, .open = "<<", .close = ">>")
   cli::cli_div(theme = sandpaper_cli_theme())
   cli::cli_h1("Caching Build Packages for Generated Content")
-  cli::cli_par()
   cli::cli_text(txt)
-  cli::cli_end()
   cli::cli_rule("Enter your selection or press 0 to exit")
   options <- c(
     glue::glue("{cli::style_bold('Yes')}, please use the package cache (recommended)"),
