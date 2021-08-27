@@ -15,7 +15,9 @@
 #' @keywords internal
 ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origin", reset = FALSE) {
 
-  options(sandpaper.use_renv = TRUE)
+  if (!identical(Sys.getenv("TESTTHAT"), "true") || .Platform$OS.type != "windows")
+    # We do not want to use the cache here if we are in a Windows testing environment
+    options(sandpaper.use_renv = TRUE)
   # step 0: build_lesson defaults to a local build
   path <- set_source_path(path)
   on.exit(reset_build_paths())
