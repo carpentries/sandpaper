@@ -49,6 +49,8 @@ the lesson, but does not impose itself as the default {renv} environment.
 
 This provisioner will do the following steps:
 \enumerate{
+\item check for consent to use the package cache via \code{\link[=use_package_cache]{use_package_cache()}}
+and prompt for it if needed
 \item check if the profile has been created and create it if needed via
 \code{\link[renv:init]{renv::init()}}
 \item populate the cache with packages needed from the user's system and

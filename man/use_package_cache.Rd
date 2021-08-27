@@ -6,14 +6,18 @@
 \usage{
 use_package_cache(prompt = interactive(), quiet = !prompt)
 }
+\arguments{
+\item{prompt}{if \code{TRUE} (default when interactive), a prompt for consent
+giving information about the proposed modifications will appear on the
+screen asking for the user to choose to apply the changes or not.}
+
+\item{quiet}{if \code{TRUE}, messages will not be issued unless \code{prompt = TRUE}.
+This defaults to the opposite of \code{prompt}.}
+}
 \value{
 nothing. this is used for its side-effect
 }
 \description{
-\subsection{Summary}{
-}
-}
-\details{
 This function explicitly gives \pkg{sandpaper} permission to use \pkg{renv}
 to create a package cache for this and future lessons. You can also use
 the \code{sandpaper.use_renv} option to toggle between this and not using the
@@ -50,5 +54,21 @@ consent to use the cache.
 To turn off the feature you can use \code{options(sandpaper.use_renv = FALSE)}.
 \pkg{sandpaper} will respect this option when building your lesson and will
 use your global library instead.
+}
+}
+\examples{
+if (!getOption("sandpaper.use_renv") && interactive()) {
+  # The first time you set up {renv}, you will need permission
+  use_package_cache(prompt = TRUE)
+}
+
+if (getOption("sandpaper.use_renv") && interactive()) {
+  # If you have previously used {renv}, permission is implied
+  use_package_cache(prompt = TRUE)
+
+  # You can temporarily turn this off
+  options("sandpaper.use_renv" = FALSE)
+  getOption("sandpaper.use_renv") # should be FALSE
+  use_package_cache(prompt = TRUE)
 }
 }

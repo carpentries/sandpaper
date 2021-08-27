@@ -32,6 +32,8 @@
 #'
 #'   This provisioner will do the following steps:
 #'
+#'   0. check for consent to use the package cache via [use_package_cache()]
+#'      and prompt for it if needed
 #'   1. check if the profile has been created and create it if needed via
 #'      [renv::init()]
 #'   2. populate the cache with packages needed from the user's system and
@@ -121,7 +123,7 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
 
 #' Give Consent to Use Package Cache
 #'
-#' ## Summary
+#' @description
 #'
 #' This function explicitly gives \pkg{sandpaper} permission to use \pkg{renv}
 #' to create a package cache for this and future lessons. You can also use
@@ -157,9 +159,30 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
 #' To turn off the feature you can use `options(sandpaper.use_renv = FALSE)`.
 #' \pkg{sandpaper} will respect this option when building your lesson and will
 #' use your global library instead.
+#' 
+#' @param prompt if `TRUE` (default when interactive), a prompt for consent 
+#'   giving information about the proposed modifications will appear on the
+#'   screen asking for the user to choose to apply the changes or not.
+#' @param quiet if `TRUE`, messages will not be issued unless `prompt = TRUE`.
+#'   This defaults to the opposite of `prompt`.
 #'
 #' @export
 #' @return nothing. this is used for its side-effect
+#' @examples
+#' if (!getOption("sandpaper.use_renv") && interactive()) {
+#'   # The first time you set up {renv}, you will need permission
+#'   use_package_cache(prompt = TRUE)
+#' }
+#'
+#' if (getOption("sandpaper.use_renv") && interactive()) {
+#'   # If you have previously used {renv}, permission is implied
+#'   use_package_cache(prompt = TRUE)
+#'
+#'   # You can temporarily turn this off
+#'   options("sandpaper.use_renv" = FALSE)
+#'   getOption("sandpaper.use_renv") # should be FALSE
+#'   use_package_cache(prompt = TRUE)
+#' }
 use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
   if (getOption("sandpaper.use_renv") || !prompt) {
     options(sandpaper.use_renv = TRUE)
@@ -172,7 +195,7 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
   msg <- renv_has_consent()
   if (getOption("sandpaper.use_renv")) {
     if (!quiet) {
-      cli::cli_alert_info("Consent to use package cache provided.")
+      cli::cli_alert_info("Consent for {renv} provided---consent for package cache implied.")
     }
     return(invisible())
   }
