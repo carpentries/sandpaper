@@ -1,6 +1,4 @@
 {
-  # Creating the Lesson ----------------------------------------------------------
-  # Creating the Repository ------------------------------------------------------
   if (.Platform$OS.type == "windows") {
     # We can not use the package cache on Windows
     options(sandpaper.use_renv = FALSE)
