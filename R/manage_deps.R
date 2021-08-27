@@ -184,11 +184,17 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
 #'   use_package_cache(prompt = TRUE)
 #' }
 use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
+  consent_ok <- "Consent to use package cache provided"
   if (getOption("sandpaper.use_renv") || !prompt) {
     options(sandpaper.use_renv = TRUE)
-    options(renv.consent = TRUE)
+    msg <- renv_has_consent(force = TRUE)
+    if (grepl("nothing to do", msg))  {
+      info <- consent_ok
+    } else {
+      info <- "{consent_ok}\n{.emph {msg}}"
+    }
     if (!quiet) {
-      cli::cli_alert_info("Consent to use package cache provided---nothing to do.")
+      cli::cli_alert_info(info)
     }
     return(invisible())
   }
@@ -199,6 +205,23 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
     }
     return(invisible())
   }
+  options <- package_cache_msg(msg)
+  x <- utils::menu(options)
+  if (x == 1) {
+    options(sandpaper.use_renv = TRUE)
+    msg <- renv_has_consent(force = TRUE)
+    if (!quiet) {
+      cli::cli_alert_info("{consent_ok}\n{.emph {msg}}")
+    }
+  } else {
+    options(sandpaper.use_renv = FALSE)
+    options(renv.consent = FALSE)
+  }
+  cli::cli_end()
+  return(invisible())
+}
+
+package_cache_msg <- function(msg) {
   our_lines <- grep("^(renv maintains|This path can be customized)", msg)
   RENV_MESSAGE <- paste(msg[our_lines[1]:our_lines[2]], collapse = "\n")
   txt <- readLines(system.file("templates", "consent-form.txt", package = "sandpaper"))
@@ -211,14 +234,4 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
     glue::glue("{cli::style_bold('Yes')}, please use the package cache (recommended)"),
     glue::glue("{cli::style_bold('No')}, I want to use my default library")
   )
-  x <- utils::menu(options)
-  if (x == 1) {
-    options(sandpaper.use_renv = TRUE)
-    options(renv.consent = TRUE)
-  } else {
-    options(sandpaper.use_renv = FALSE)
-    options(renv.consent = FALSE)
-  }
-  cli::cli_end()
-  return(invisible())
 }

@@ -21,14 +21,21 @@ renv_is_allowed <- function() {
 }
 
 # Get a boolean for whether or not the user has consented to using renv.
-renv_has_consent <- function() {
+renv_has_consent <- function(force = FALSE) {
   tmp <- tempfile()
   on.exit(unlink(tmp), add = TRUE)
   x <- tryCatch({
-    callr::r(function() renv::consent(), stdout = tmp)
+    callr::r(function(ok) {
+      options("renv.consent" = ok)
+      renv::consent(provided = ok)
+    }, args = list(ok = force), stdout = tmp)
   }, error = function(e) FALSE)
   options(sandpaper.use_renv = x)
-  invisible(readLines(tmp))
+  lines <- readLines(tmp)
+  if (force) {
+    lines <- lines[length(lines)]
+  } 
+  invisible(lines)
 }
 
 # Default repositories for our packages
