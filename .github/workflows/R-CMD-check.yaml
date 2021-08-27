@@ -66,32 +66,14 @@ jobs:
           key: ${{ runner.os }}-${{ env.OS_VERSION }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ env.OS_VERSION }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: Restore Linux Renv
-        if: startsWith(runner.os, 'Linux')
+      - name: Restore {renv} cache
+        if: runner.os != "windows"
         uses: actions/cache@v2
         with:
-          path: ~/.local/share/renv
-          key: ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ runner.r }}-${{ hashFiles('.github/depends.Rds') }}
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ runner.r }}-${{ hashFiles('.github/workflows/R-CMD-check.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ runner.r }}-
-
-      - name: Restore MacOS Renv
-        if: startsWith(runner.os, 'macOS')
-        uses: actions/cache@v2
-        with:
-          path: ~/Library/Application Support/renv
-          key: ${{ runner.os }}-renv-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
-
-      - name: Restore Windows Renv
-        if: startsWith(runner.os, 'Windows')
-        uses: actions/cache@v2
-        with:
-          path: ~\AppData\Local\renv
-          key: ${{ runner.os }}-renv-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
 
       - name: Install macOS system dependencies
         if: runner.os == 'macOS'
@@ -112,7 +94,7 @@ jobs:
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
-      - name: Prime Cache
+      - name: Prime {renv} Cache
         if: runner.os != 'Windows'
         run: |
           renv::init()
@@ -120,7 +102,6 @@ jobs:
           system('git clean -fd -e .github')
           system('git restore .')
         shell: Rscript {0}
-
 
       - name: Session info
         run: |
