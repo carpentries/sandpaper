@@ -188,14 +188,14 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
     options(sandpaper.use_renv = TRUE)
     options(renv.consent = TRUE)
     if (!quiet) {
-      cli::cli_alert_info("Consent to use package cache provided.")
+      cli::cli_alert_info("Consent to use package cache provided---nothing to do.")
     }
     return(invisible())
   }
   msg <- renv_has_consent()
   if (getOption("sandpaper.use_renv")) {
     if (!quiet) {
-      cli::cli_alert_info("Consent for {renv} provided---consent for package cache implied.")
+      cli::cli_alert_info("Consent for {.pkg renv} provided---consent for package cache implied.")
     }
     return(invisible())
   }
