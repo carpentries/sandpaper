@@ -29,7 +29,10 @@ create_test_lesson <- function() {
     cli::cli_status("{cli::symbol$arrow_right} Bootstrapping example lesson")
   }
   # We explicitly need the package cache for tests
-  use_package_cache(prompt = FALSE)
+  if (.Platform$OS.type != "windows")
+    use_package_cache(prompt = FALSE)
+  else
+    options("sandpaper.use_renv" = FALSE)
   tmpdir <- fs::file_temp()
   fs::dir_create(tmpdir)
   tmp <- fs::path(tmpdir, "lesson-example")
