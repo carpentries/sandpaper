@@ -16,6 +16,10 @@ renv_burn_it_down <- function(path = ".", profile = "packages") {
 }
 #nocov end
 
+renv_is_allowed <- function() {
+  !identical(Sys.getenv("TESTTHAT"), "true") || .Platform$OS.type != "windows"
+}
+
 # Get a boolean for whether or not the user has consented to using renv.
 renv_has_consent <- function() {
   tmp <- tempfile()
