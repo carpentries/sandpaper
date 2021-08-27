@@ -116,7 +116,7 @@ jobs:
         if: runner.os != 'Windows'
         run: |
           renv::init()
-          system('git clean -fd .')
+          system('git clean -fd -e .github')
           system('git restore .')
         shell: Rscript {0}
 
