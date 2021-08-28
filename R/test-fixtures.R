@@ -39,7 +39,7 @@ create_test_lesson <- function() {
     )
   }
   suppressMessages({
-    withr::with_envvar(list(RENV_CONFIG_CACHE_SYMLINKS = TRUE), {
+    withr::with_envvar(list(RENV_CONFIG_CACHE_SYMLINKS = FALSE), {
       create_lesson(tmp, open = FALSE)
      })
   })
