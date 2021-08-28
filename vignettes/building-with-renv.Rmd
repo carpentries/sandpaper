@@ -85,7 +85,7 @@ build_lesson()
 ```{r build-lesson-with-cache, echo = FALSE}
 lsn <- getOption("sandpaper.test_fixture")
 sandpaper:::renv_check_consent(lsn, FALSE)
-build_lesson(lsn, quiet = TRUE, preview = FALSE)
+sandpaper:::build_markdown(lsn, quiet = TRUE)
 cat("\n[ truncated ]\n")
 ```
 
@@ -106,7 +106,7 @@ default to using your local library.
 
 ```{r build-lesson-dummy2, eval = FALSE}
 options(sandpaper.use_renv = FALSE)
-build_lesson(rebuild = TRUE)
+sandpaper:::build_markdown(rebuild = TRUE)
 ```
 
 ```{r build-lesson-no-cache, echo = FALSE}
@@ -114,7 +114,7 @@ options(sandpaper.use_renv = FALSE)
 lsn <- getOption("sandpaper.test_fixture")
 fs::dir_delete(fs::path(lsn, "site", "built"))
 sandpaper:::renv_check_consent(lsn, FALSE)
-build_lesson(lsn, quiet = TRUE, preview = FALSE)
+sandpaper:::build_markdown(lsn, quiet = TRUE)
 cat("\n[ truncated ]\n")
 ```
 
