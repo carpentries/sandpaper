@@ -24,7 +24,7 @@
 #' if (.Platform$OS.type == "windows") {
 #'   options("sandpaper.use_renv" = FALSE)
 #' }
-#' if (!interactive() && options("sandpaper.use_renv")) {
+#' if (!interactive() && getOption("sandpaper.use_renv")) {
 #'   old <- renv::config$cache.symlinks()
 #'   options(renv.config.cache.symlinks = FALSE)
 #'   on.exit(options(renv.config.cache.symlinks = old), add = TRUE)
@@ -106,7 +106,7 @@ build_episode_html <- function(path_md, path_src = NULL,
 #' if (.Platform$OS.type == "windows") {
 #'   options("sandpaper.use_renv" = FALSE)
 #' }
-#' if (!interactive() && options("sandpaper.use_renv")) {
+#' if (!interactive() && getOption("sandpaper.use_renv")) {
 #'   old <- renv::config$cache.symlinks()
 #'   options(renv.config.cache.symlinks = FALSE)
 #'   on.exit(options(renv.config.cache.symlinks = old), add = TRUE)
