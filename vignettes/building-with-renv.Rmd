@@ -7,11 +7,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r, include = FALSE, message = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#|"
 )
+Sys.setenv("TESTTHAT" = "true")
+library(sandpaper)
+lsn <- sandpaper:::create_test_lesson()
 ```
 
 ## Quickstart
@@ -19,7 +22,18 @@ knitr::opts_chunk$set(
 If you are working on a lesson that has content with generated output, then this
 guide is for you. This will get you started using a local package cache separate
 from your default library for your lessons that ensure you can reproduce your
-lesson locally.
+lesson locally. The {sandpaper} engine is mindful of lessons with generated
+content in the following ways:
+
+- *reliable setup*: the version of the lesson built on the carpentries website
+  will be the same as what you build on your computer because the packages will
+  be identical
+
+- *environmentally friendly*: The lesson dependencies are NOT stored in your
+  default R library and they will not alter your R environment.
+
+- *transparent*: any additions or deletions to the cache will be recorded in
+  the lockfile, which is tracked by git.
 
 To get started, you need to *explicitly* give {sandpaper} permission to create
 and use a cache with the function `use_package_cache()`
@@ -38,8 +52,88 @@ choices <- sandpaper:::package_cache_msg(msg)
 cat(paste(c("1:", "2:"), choices), sep = "\n")
 ```
 
-## Introduction
+> NOTE: If you have already used {renv} previously, then you will not get this
+> notification. Instead, you will get a notification that your consent has 
+> already been provided.
 
+When you select `1` for yes, your global package cache will be created by the
+{renv} package and sandpaper will automatically detect and install any packages
+(and updates) needed for your lesson. **Once you have set up your cache, it can
+be used for *all* of your lessons going forward.**
+
+For example, let's say you have a lesson that uses the {cowsay} and {curl} 
+packages to bring a random cat fact at the end of the lesson:
+
+```{r, echo = FALSE}
+lsn <- getOption("sandpaper.test_fixture")
+l <- pegboard::Lesson$new(lsn, jekyll = FALSE)
+ep <- l$episodes[[1]]
+n <- length(xml2::xml_children(ep$body))
+md <- "```{r catfact, message = FALSE, echo = FALSE}\nlibrary(curl)\nlibrary(cowsay)\nsay('catfact', 'cat')\n```"
+l$episodes[[1]]$add_md(md, where = n)
+l$episodes[[1]]$write(fs::path(lsn, "episodes"), format = "Rmd")
+cat(l$episodes[[1]]$tail(14), sep = "\n")
+```
+
+When you build your lesson, you will see this kind of output:
+
+```{r build-lesson-dummy, eval = FALSE}
+build_lesson()
+```
+
+```{r build-lesson-with-cache, echo = FALSE}
+lsn <- getOption("sandpaper.test_fixture")
+sandpaper:::renv_check_consent(lsn, FALSE)
+build_lesson(lsn, quiet = TRUE, preview = FALSE)
+cat("\n[ truncated ]\n")
+```
+
+The output will use the newly downloaded packages:
+
+```{r catfact1, echo = FALSE}
+lsn <- getOption("sandpaper.test_fixture")
+e <- pegboard::Episode$new(fs::path(lsn, "site", "built", "01-introduction.md"))
+cat(e$tail(29), sep = "\n")
+```
+
+
+### Temporarily turning off the cache
+
+There are times when you might want to not use the cache for a lesson. To do 
+this you can set `options(sandpaper.use_renv = FALSE)` and your lesson will 
+default to using your local library. 
+
+```{r build-lesson-dummy2, eval = FALSE}
+options(sandpaper.use_renv = FALSE)
+build_lesson(rebuild = TRUE)
+```
+
+```{r build-lesson-no-cache, echo = FALSE}
+options(sandpaper.use_renv = FALSE)
+lsn <- getOption("sandpaper.test_fixture")
+fs::dir_delete(fs::path(lsn, "site", "built"))
+sandpaper:::renv_check_consent(lsn, FALSE)
+build_lesson(lsn, quiet = TRUE, preview = FALSE)
+cat("\n[ truncated ]\n")
+```
+
+The output will use packages if they are available, but throw errors if they
+do not exist:
+
+```{r catfact2, echo = FALSE}
+lsn <- getOption("sandpaper.test_fixture")
+e <- pegboard::Episode$new(fs::path(lsn, "site", "built", "01-introduction.md"))
+cat(e$tail(16), sep = "\n")
+```
+
+When you want to turn it on again, you can use `use_package_cache()`
+
+```{r}
+use_package_cache()
+```
+
+
+## Motivation
 
 One of the biggest motivations for building the lesson infrastructure around
 {sandpaper} is to be mindful of how we build lessons with generated content. For
@@ -53,19 +147,6 @@ to your computer. While convenient, there were drawbacks to this method in that
 it would alter your personal R library if any of the packages update, which was
 not good if you were using R for you own work and wanted to preserve the package
 versions that you had.
-
-The {sandpaper} engine is mindful of lessons with generated content in the
-following ways:
-
-- *reliable setup*: the version of the lesson built on the carpentries website
-  will be the same as what you build on your computer because the packages will
-  be identical
-
-- *environmentally friendly*: The lesson dependencies are NOT stored in your
-  default R library and they will not alter your R environment.
-
-- *transparent*: any additions or deletions to the cache will be recorded in
-  the lockfile, which is tracked by git.
 
 The ‘renv’ package provides a very useful interface to bring one aspect of
 reproducibility to R projects. Because people working on Carpentries lessons
