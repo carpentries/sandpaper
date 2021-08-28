@@ -42,7 +42,10 @@ this function is for internal use, but exported for those who know what
 they are doing.
 }
 \examples{
-if (!interactive()) {
+if (.Platform$OS.type == "windows") {
+  options("sandpaper.use_renv" = FALSE)
+}
+if (!interactive() && options("sandpaper.use_renv")) {
   old <- renv::config$cache.symlinks()
   options(renv.config.cache.symlinks = FALSE)
   on.exit(options(renv.config.cache.symlinks = old), add = TRUE)
