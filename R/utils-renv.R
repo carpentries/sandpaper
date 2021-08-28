@@ -38,6 +38,28 @@ renv_has_consent <- function(force = FALSE) {
   invisible(lines)
 }
 
+renv_check_consent <- function(path, quiet) {
+  has_consent <- getOption("sandpaper.use_renv")
+  if (has_consent) {
+    lib <- manage_deps(path, snapshot = TRUE, quiet = quiet)
+    if (!quiet) {
+      cli::cli_alert_info("Using package cache in {renv::paths$root()}")
+    }
+  } else {
+    if (!quiet) {
+      msg1 <- "Consent to use package cache not given. Using default library."
+      msg2 <- "use {.fn use_package_cache} to enable the package cache"
+      msg3 <- "for reproducible builds."
+      msg4 <- "You can switch between using your cache and the default library"
+      msg5 <- "with {.code options(sandpaper.use_renv = TRUE)}"
+      msg6 <- "({.code FALSE} for the default library)"
+      cli::cli_alert_info(msg1)
+      cli::cli_alert(cli::style_dim(paste(msg2, msg3)), class = "alert-suggestion")
+      cli::cli_alert(cli::style_dim(paste(msg4, msg5, msg6)), class = "alert-suggestion")
+    }
+  }
+}
+
 # Default repositories for our packages
 renv_carpentries_repos <- function() {
   c(
