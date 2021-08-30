@@ -31,7 +31,9 @@ test_that("markdown sources can be built without fail", {
 
   # It's noisy at first
   suppressMessages({
-  expect_output(build_markdown(res, quiet = FALSE), "ordinary text without R code")
+    build_markdown(res, quiet = FALSE) %>%
+      expect_message("Consent to use package cache provided") %>%
+      expect_output("ordinary text without R code")
   })
 
   # # Accidentaly rendered HTML is removed before building
@@ -44,12 +46,20 @@ test_that("markdown sources can be rebuilt without fail", {
   
   # no building needed
   skip_on_os("windows")
-  out <- capture.output(build_markdown(res, quiet = FALSE))
+  suppressMessages({
+    out <- capture.output({
+      build_markdown(res, quiet = FALSE) %>%
+        expect_message("Consent to use package cache provided")
+    })
+  })
   expect_no_match(out, "ordinary text without R code")
   
+  withr::local_options(list(sandpaper.use_renv = FALSE))
   # everything rebuilt
   suppressMessages({
-  expect_output(build_markdown(res, quiet = FALSE, rebuild = TRUE), "ordinary text without R code")
+    build_markdown(res, quiet = FALSE, rebuild = TRUE) %>%
+      expect_message("Consent to use package cache not given.") %>%
+      expect_output("ordinary text without R code")
   })
 })
 
@@ -69,7 +79,7 @@ test_that("modifying a file suffix will force the file to be rebuilt", {
     # reset source file
     fs::file_move(instruct_rmd, instruct)
     # rebuild database
-    build_markdown(res, quiet = TRUE)
+    suppressMessages(build_markdown(res, quiet = TRUE))
   })
 
   # Test that the birth times are changed.
@@ -150,13 +160,14 @@ test_that("Output is not commented", {
 test_that("Markdown rendering does not happen if content is not changed", {
 
   skip_on_os("windows")
-  out <- capture.output(build_markdown(res))
+  
+  suppressMessages(out <- capture.output(build_markdown(res)))
   expect_match(paste(out, collapse = "\n"), "lockfile")
   expect_no_match(out, "ordinary text without R code")
 
   fs::file_touch(fs::path(res, "episodes", "01-introduction.Rmd"))
 
-  out <- capture.output(build_markdown(res))
+  suppressMessages(out <- capture.output(build_markdown(res)))
   expect_match(paste(out, collapse = "\n"), "lockfile")
   expect_no_match(out, "ordinary text without R code")
 })
