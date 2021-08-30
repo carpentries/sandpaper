@@ -55,7 +55,7 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
 
   use_package_cache(quiet = quiet)
   # Enforce absolute path here
-  path <- root_path(path)
+  path <- fs::path_abs(root_path(path))
 
   if (!fs::dir_exists(fs::path(path, "renv/profiles", profile))) {
     renv_setup_profile(path, profile)
