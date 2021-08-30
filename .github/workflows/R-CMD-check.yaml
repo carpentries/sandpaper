@@ -135,7 +135,7 @@ jobs:
           fs::dir_tree("sandpaper-docs")
           cat("::endgroup::")
           cat("::group::Managing Dependencies")
-          sandpaper::manage_deps("sandpaper-docs")
+          sandpaper::manage_deps(file.path(getwd(), "sandpaper-docs"))
           cat("::endgroup::")
           cat("::group::Post-built lesson tree")
           sandpaper::build_lesson("sandpaper-docs", quiet = FALSE)
