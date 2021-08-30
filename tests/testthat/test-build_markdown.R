@@ -56,11 +56,13 @@ test_that("markdown sources can be rebuilt without fail", {
   
   withr::local_options(list(sandpaper.use_renv = FALSE))
   # everything rebuilt
+  expect_false(getOption("sandpaper.use_renv"))
   suppressMessages({
     build_markdown(res, quiet = FALSE, rebuild = TRUE) %>%
       expect_message("Consent to use package cache not given.") %>%
       expect_output("ordinary text without R code")
   })
+  expect_false(getOption("sandpaper.use_renv"))
 })
 
 test_that("modifying a file suffix will force the file to be rebuilt", {
