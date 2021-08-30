@@ -135,6 +135,7 @@ jobs:
           fs::dir_tree("sandpaper-docs")
           cat("::endgroup::")
           cat("::group::Post-built lesson tree")
+          options(sandpaper.use_renv = TRUE)
           sandpaper::build_lesson("sandpaper-docs", quiet = FALSE)
           stopifnot(
             "::error ::Markdown files not built" = fs::dir_exists("sandpaper-docs/site/built"),
