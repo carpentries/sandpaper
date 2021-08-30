@@ -1,0 +1,53 @@
+lsn <- restore_fixture()
+
+cli::test_that_cli("pacakge cache message appears correct", {
+
+  msg <- readLines(system.file("resources/WELCOME", package = "renv"))
+  msg <- gsub("${RENV_PATHS_ROOT}", dQuote("/path/to/cache"), msg, fixed = TRUE)
+  expect_snapshot(cat(paste(c("1:", "2:"), sandpaper:::package_cache_msg(msg)), sep = "\n"))
+
+})
+
+test_that("use_package_cache() will report consent implied if renv cache is present", {
+
+  skip_on_os("windows")
+  skip_if_not(fs::dir_exists(renv::paths$root()))
+  withr::local_options(list(sandpaper.use_renv = FALSE))
+  expect_false(getOption("sandpaper.use_renv"))
+
+  expect_message(
+    use_package_cache(prompt = TRUE, quiet = FALSE),
+    "Consent for renv provided---consent for package cache implied."
+  )
+  expect_message(
+    use_package_cache(prompt = TRUE, quiet = FALSE),
+    "Consent to use package cache provided"
+  )
+  expect_true(getOption("sandpaper.use_renv"))
+
+})
+
+test_that("manage_deps() will create a renv folder", {
+
+  skip_on_os("windows")
+  rnv <- fs::path(lsn, "renv")
+  fs::file_move(rnv, fs::path(lsn, "vner"))
+  withr::defer({
+    fs::dir_delete(rnv)
+    fs::file_move(fs::path(lsn, "vner"), rnv) 
+  })
+  expect_false(fs::dir_exists(rnv))
+
+  # NOTE: these tests are still not very specific here...
+  manage_deps(lsn, quiet = FALSE, snapshot = TRUE) %>%
+    expect_message("Consent to use package cache provided") %>%
+    expect_output("Lockfile written to") %>%
+    expect_s3_class("renv_lockfile")
+
+  expect_true(fs::dir_exists(rnv))
+
+  manage_deps(lsn, quiet = FALSE, snapshot = FALSE) %>%
+    expect_message("Consent to use package cache provided") %>%
+    expect_output("Copying packages into the library")
+
+})
