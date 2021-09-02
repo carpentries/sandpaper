@@ -2,9 +2,18 @@
 % Please edit documentation in R/manage_deps.R
 \name{manage_deps}
 \alias{manage_deps}
+\alias{fetch_updates}
 \title{Lesson Runtime Dependency Management}
 \usage{
 manage_deps(path = ".", profile = "packages", snapshot = TRUE, quiet = FALSE)
+
+fetch_updates(
+  path = ".",
+  profile = "packages",
+  prompt = interactive(),
+  quiet = !prompt,
+  snapshot = TRUE
+)
 }
 \arguments{
 \item{path}{path to the current project}
@@ -18,6 +27,10 @@ snapshot them.}
 \item{quiet}{if \code{TRUE}, output will be suppressed, defaults to \code{FALSE},
 providing output about different steps in the process of updating the local
 dependencies.}
+
+\item{prompt}{if \code{TRUE}, a message will show you the packages that will be
+updated in your lockfile and ask for your permission. This is the default
+if it's running in an interactive session.}
 }
 \value{
 if \code{snapshot = TRUE}, a nested list representing the lockfile will be

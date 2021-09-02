@@ -91,6 +91,46 @@ renv_setup_profile <- function(path = ".", profile = "packages") {
     "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
 }
 
+#' (Experimental) Work with the package cache
+#'
+#' This function is designed so that you can work on your lesson inside the
+#' package cache without overwriting your personal library.
+#'
+#' @return a function that will reset your R environment to its original state
+#' @export
+#' @keywords internal
+#' @examples
+#' if (interactive() && fs::dir_exists("episodes")) {
+#'   library("sandpaper")
+#'   done <- work_with_cache()
+#'   print(.libPaths())
+#'   # install.packages("cowsay") # install cowsay to your lesson cache
+#'   # cowsay::say() # hello world
+#'   # detach('package:cowsay') # detach the package from your current session
+#'   done() # finish the session 
+#'   # try(cowsay::say()) # this fails because it's not in your global library
+#'   print(.libPaths())
+#' }
+#nocov start
+work_with_cache <- function() {
+  stopifnot("This only works interactively" = interactive())
+  prof <- Sys.getenv("RENV_PROFILE")
+  prompt <- getOption("prompt")
+  done <- function() {
+    renv::deactivate()
+    Sys.setenv("RENV_PROFILE" = prof)
+    options(prompt = prompt)
+  }
+  on.exit({
+    cli::cli_alert_info("call {.fn done} when you are finished with the session")
+  })
+  renv::load()
+  options(prompt = glue::glue("{cli::style_inverse('[lesson]')}{prompt}"))
+  return(done)
+}
+#nocov end
+
+
 renv_cache <- function() {
   renv::config$cache.symlinks() && is.null(getOption("sandpaper.test_fixture"))
 }

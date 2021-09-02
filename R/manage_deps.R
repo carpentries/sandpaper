@@ -49,6 +49,7 @@
 #'   either commit or restore those changes.
 #'
 #' @export
+#' @rdname package_cache
 #' @return if `snapshot = TRUE`, a nested list representing the lockfile will be
 #'   returned.
 manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet = FALSE) {
@@ -121,6 +122,42 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
     "RENV_PROFILE" = profile,
     "R_PROFILE_USER" = fs::path(tempfile(), "nada"),
     "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
+}
+
+#' Fetch updates for Package Cache
+#'
+#' @param prompt if `TRUE`, a message will show you the packages that will be
+#'   updated in your lockfile and ask for your permission. This is the default
+#'   if it's running in an interactive session.
+#' @rdname package_cache
+#' @export
+fetch_updates <- function(path = ".", profile = "packages", prompt = interactive(), quiet = !prompt, snapshot = TRUE) {
+  prof <- Sys.getenv("RENV_PROFILE")
+  on.exit({
+  x <- capture.output(renv::deactivate(project = path), type = "message")
+  Sys.setenv("RENV_PROFILE" = prof)
+  })
+  Sys.setenv("RENV_PROFILE" = "packages")
+  renv::load(project = path)
+  if (prompt) {
+    updates <- renv::update(check = TRUE, prompt = TRUE)
+    if (isTRUE(updates)) {
+      return(invisible())
+    }
+    cli::cli_alert("Do you want to update the following packages?")
+    ud <- utils::capture.output(print(updates))
+    message(paste(ud, collapse = "\n"))
+    res <- utils::menu(c("Yes", "No"))
+    if (res != 1) {
+      cli::cli_alert_info("Not updating at this time")
+      return(invisible())
+    }
+  }
+  updates <- renv::update(project = path, prompt = FALSE)
+  if (snapshot) {
+    renv::snapshot(lockfile = renv::paths$lockfile(), prompt = FALSE)
+  }
+  updates
 }
 
 #' Give Consent to Use Package Cache
