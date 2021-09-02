@@ -54,13 +54,16 @@ your default R library and they will not alter your R environment.
 in the lockfile, which is tracked by git.
 }
 
-The three functions that control this cache are the following:
+The functions that control this cache are the following:
 \enumerate{
 \item \code{use_package_cache()}: Gives explicit permission to set up and use the
 package cache with your lesson.
 \item \code{no_package_cache()}: Temporarily suspends permission to use the package
 cache with your lesson, regardless if it was previously given.
 \item \code{manage_deps()}: Creates and updates the dependencies in your lesson.
+If no lockfile exists in your lesson, this will create one for you.
+\item \code{fetch_updates()}: fetches updates for the dependencies and applies them
+to your cache and lockfile.
 }
 }
 \details{

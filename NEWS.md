@@ -10,10 +10,16 @@ DEPENDENCY MANAGEMENT
  - `use_package_cache()` will give consent to {sandpaper} to create and use a
    package cache via {renv}. Internally, this enforces that
    `options(sandpaper.use_renv = TRUE)`.
+ - `no_package_cache()` does the opposite of `use_package_cache()` and revokes
+   consent to use the package cache in a lesson temporarily. This can be useful
+   in situtations where the cache is mis-behaving or you want to test the lesson
+   using a newer set of packages. Internally, this enforces that
+   `options(sandpaper.use_renv = FALSE)`.
  - `manage_deps()` is a new function that will manage dependencies for a lesson.
    This is called both in `create_lesson()` and `build_markdown()` to ensure
    that the correct dependencies for the lesson are installed. This explicitly
    calls `use_package_cache()` when it runs.
+ - `fetch_updates()` will bring in updates for the lesson cache.
  - `create_lesson()` now additionally will create a {renv} profile called
    "packages" in the lesson repository. This will make the lesson more portable
  - internal function `ci_deploy()` will set `sandpaper.use_renv` option to 
