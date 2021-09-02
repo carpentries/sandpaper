@@ -18,6 +18,13 @@
 #' @seealso [build_episode_md()]
 build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
 
+  # step 1: build the markdown vignettes and site (if it doesn't exist)
+  if (rebuild) {
+    reset_site(path)
+  } else {
+    create_site(path)
+  }
+
   episode_path <- path_episodes(path)
   outdir       <- path_built(path)
 

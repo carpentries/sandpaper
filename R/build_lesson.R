@@ -34,13 +34,6 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   path <- set_source_path(path)
   on.exit(reset_build_paths())
 
-  # step 1: build the markdown vignettes and site (if it doesn't exist)
-  if (rebuild) {
-    reset_site(path)
-  } else {
-    create_site(path)
-  }
-
   built <- build_markdown(path = path, rebuild = rebuild, quiet = quiet)
 
   build_site(path = path, quiet = quiet, preview = preview, override = override, slug = slug)
