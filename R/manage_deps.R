@@ -1,8 +1,9 @@
 #' Lesson Runtime Dependency Management
 #'
 #' @description A customized provisioner for Carpentries Lessons based on
-#'   \pkg{renv} that will _respect user environments_. This setup leads to
-#'   several advantages:
+#'   \pkg{renv} that will install and maintain the requirements for the lesson
+#'   while _respecting user environments_. This setup leads to several
+#'   advantages:
 #'
 #'   - **reliable setup**: the version of the lesson built on the carpentries
 #'     website will be the same as what you build on your computer because the
@@ -11,6 +12,14 @@
 #'     your default R library and they will not alter your R environment.
 #'   - **transparent**: any additions or deletions to the cache will be recorded
 #'     in the lockfile, which is tracked by git.
+#'
+#'   The three functions that control this cache are the following:
+#'
+#'   1. `use_package_cache()`: Gives explicit permission to set up and use the
+#'      package cache with your lesson.
+#'   2. `no_package_cache()`: Temporarily suspends permission to use the package
+#'      cache with your lesson, regardless if it was previously given.
+#'   3. `manage_deps()`: Creates and updates the dependencies in your lesson.
 #'
 #' @param path path to the current project
 #' @param profile the name of the new profile (default "packages")
@@ -258,6 +267,13 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
   }
   cli::cli_end()
   return(invisible())
+}
+
+#' @rdname package_cache
+#' @export
+no_package_cache <- function() {
+  cli::cli_alert_info("Consent for package cache revoked. Use {.fn use_package_cache} to undo.")
+  options("sandpaper.use_renv" = FALSE)
 }
 
 package_cache_msg <- function(msg) {

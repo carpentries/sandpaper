@@ -3,6 +3,7 @@
 \name{manage_deps}
 \alias{manage_deps}
 \alias{fetch_updates}
+\alias{no_package_cache}
 \title{Lesson Runtime Dependency Management}
 \usage{
 manage_deps(path = ".", profile = "packages", snapshot = TRUE, quiet = FALSE)
@@ -14,6 +15,8 @@ fetch_updates(
   quiet = !prompt,
   snapshot = TRUE
 )
+
+no_package_cache()
 }
 \arguments{
 \item{path}{path to the current project}
@@ -38,8 +41,9 @@ returned.
 }
 \description{
 A customized provisioner for Carpentries Lessons based on
-\pkg{renv} that will \emph{respect user environments}. This setup leads to
-several advantages:
+\pkg{renv} that will install and maintain the requirements for the lesson
+while \emph{respecting user environments}. This setup leads to several
+advantages:
 \itemize{
 \item \strong{reliable setup}: the version of the lesson built on the carpentries
 website will be the same as what you build on your computer because the
@@ -48,6 +52,15 @@ packages will be identical
 your default R library and they will not alter your R environment.
 \item \strong{transparent}: any additions or deletions to the cache will be recorded
 in the lockfile, which is tracked by git.
+}
+
+The three functions that control this cache are the following:
+\enumerate{
+\item \code{use_package_cache()}: Gives explicit permission to set up and use the
+package cache with your lesson.
+\item \code{no_package_cache()}: Temporarily suspends permission to use the package
+cache with your lesson, regardless if it was previously given.
+\item \code{manage_deps()}: Creates and updates the dependencies in your lesson.
 }
 }
 \details{
