@@ -7,7 +7,7 @@
   # to.
   op <- getOption("sandpaper.use_renv")
   if (is.null(op)) {
-    renv_has_consent()
+    try_use_renv()
   }
   invisible()
 }

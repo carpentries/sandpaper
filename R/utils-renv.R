@@ -1,7 +1,7 @@
 #nocov start
 # very internal function for me to burn everything down. This will remove
 # the local library, local cache, and the entire {renv} cache. 
-renv_burn_it_down <- function(path = ".", profile = "packages") {
+renv_burn_it_down <- function(path = ".", profile = "lesson-requirements") {
   callr::r(function(path, profile) {
     wd <- getwd()
     # Reset everything on exit
@@ -20,8 +20,25 @@ renv_is_allowed <- function() {
   !identical(Sys.getenv("TESTTHAT"), "true") || .Platform$OS.type != "windows"
 }
 
-# Get a boolean for whether or not the user has consented to using renv.
-renv_has_consent <- function(force = FALSE) {
+#' Try to use {renv}
+#'
+#' We use this when sandpaper starts to see if the user has previously consented
+#' to {renv}. The problem is that [renv::consent()] throws `TRUE` if the user
+#' has consented and an error if it has not :(
+#'
+#' This function wraps `renv::consent()` in a callr function and transforms the
+#' error into `FALSE`. It sets the `sandpaper.use_renv` variable to the value of
+#' that check and then returns the full text of the output if `FALSE` (this is
+#' the WELCOME message that's given when someone uses {renv} for the first time)
+#' and the last line of output if `TRUE` (a message either that a directory has
+#' been created or that consent has already been provided.)
+#'
+#' @param force if `TRUE`, consent is forced to be TRUE, creating the cache
+#'   directory if it did not exist before. Defaults to `FALSE`, which gently 
+#'   inquires for consent.
+#' @return a character vector
+#' @keywords internal
+try_use_renv <- function(force = FALSE) {
   tmp <- tempfile()
   on.exit(unlink(tmp), add = TRUE)
   x <- tryCatch({
@@ -74,7 +91,7 @@ renv_carpentries_repos <- function() {
 #' @param profile the name of the new renv profile
 #' @return this is normally called for it's side-effect
 #' @noRd
-renv_setup_profile <- function(path = ".", profile = "packages") {
+renv_setup_profile <- function(path = ".", profile = "lesson-requirements") {
   callr::r(function(path, profile) {
     wd <- getwd()
     on.exit(setwd(wd))

@@ -4,7 +4,7 @@ cli::test_that_cli("pacakge cache message appears correct", {
 
   msg <- readLines(system.file("resources/WELCOME", package = "renv"))
   msg <- gsub("${RENV_PATHS_ROOT}", dQuote("/path/to/cache"), msg, fixed = TRUE)
-  expect_snapshot(cat(paste(c("1:", "2:"), sandpaper:::package_cache_msg(msg)), sep = "\n"))
+  expect_snapshot(cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n"))
 
 })
 

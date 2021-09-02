@@ -15,17 +15,13 @@
 #'
 #'   The functions that control this cache are the following:
 #'
-#'   1. `use_package_cache()`: Gives explicit permission to set up and use the
-#'      package cache with your lesson.
-#'   2. `no_package_cache()`: Temporarily suspends permission to use the package
-#'      cache with your lesson, regardless if it was previously given.
 #'   3. `manage_deps()`: Creates and updates the dependencies in your lesson.
 #'      If no lockfile exists in your lesson, this will create one for you.
 #'   4. `fetch_updates()`: fetches updates for the dependencies and applies them
 #'      to your cache and lockfile.
 #'
 #' @param path path to the current project
-#' @param profile the name of the new profile (default "packages")
+#' @param profile the name of the new profile (default "lesson-requirements")
 #' @param snapshot if `TRUE`, packages from the cache are added to the lockfile
 #'   (default). Setting this to `FALSE` will add packages to the cache and not
 #'   snapshot them.
@@ -61,10 +57,12 @@
 #'   either commit or restore those changes.
 #'
 #' @export
-#' @rdname package_cache
+#' @rdname dependency_management
+#' @seealso [use_package_cache()] and [no_package_cache()] for turning on and
+#'   off the package cache, respectively.
 #' @return if `snapshot = TRUE`, a nested list representing the lockfile will be
 #'   returned.
-manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet = FALSE) {
+manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = TRUE, quiet = FALSE) {
 
   use_package_cache(quiet = quiet)
   # Enforce absolute path here
@@ -141,15 +139,15 @@ manage_deps <- function(path = ".", profile = "packages", snapshot = TRUE, quiet
 #' @param prompt if `TRUE`, a message will show you the packages that will be
 #'   updated in your lockfile and ask for your permission. This is the default
 #'   if it's running in an interactive session.
-#' @rdname package_cache
+#' @rdname dependency_management
 #' @export
-fetch_updates <- function(path = ".", profile = "packages", prompt = interactive(), quiet = !prompt, snapshot = TRUE) {
+fetch_updates <- function(path = ".", profile = "lesson-requirements", prompt = interactive(), quiet = !prompt, snapshot = TRUE) {
   prof <- Sys.getenv("RENV_PROFILE")
   on.exit({
   x <- capture.output(renv::deactivate(project = path), type = "message")
   Sys.setenv("RENV_PROFILE" = prof)
   })
-  Sys.setenv("RENV_PROFILE" = "packages")
+  Sys.setenv("RENV_PROFILE" = "lesson-requirements")
   renv::load(project = path)
   if (prompt) {
     updates <- renv::update(check = TRUE, prompt = TRUE)
@@ -176,10 +174,14 @@ fetch_updates <- function(path = ".", profile = "packages", prompt = interactive
 #'
 #' @description
 #'
-#' This function explicitly gives \pkg{sandpaper} permission to use \pkg{renv}
-#' to create a package cache for this and future lessons. You can also use
-#' the `sandpaper.use_renv` option to toggle between this and not using the 
-#' cache.
+#' These functions explicitly gives \pkg{sandpaper} permission to use \pkg{renv}
+#' to create a package cache for this and future lessons. There are two states
+#' that you can use:
+#'
+#'   1. `use_package_cache()`: Gives explicit permission to set up and use the
+#'      package cache with your lesson.
+#'   2. `no_package_cache()`: Temporarily suspends permission to use the package
+#'      cache with your lesson, regardless if it was previously given.
 #'
 #' ## Background
 #'
@@ -207,9 +209,13 @@ fetch_updates <- function(path = ".", profile = "packages", prompt = interactive
 #'
 #' ## How do I turn off the feature temporarily?
 #'
-#' To turn off the feature you can use `options(sandpaper.use_renv = FALSE)`.
-#' \pkg{sandpaper} will respect this option when building your lesson and will
-#' use your global library instead.
+#' To turn off the feature you can use `no_package_cache()`. \pkg{sandpaper}
+#' will respect this option when building your lesson and will use your global
+#' library instead.
+#'
+#' ## I've used \pkg{renv} before; how do I turn it off before sandpaper loads?
+#'
+#' 
 #' 
 #' @param prompt if `TRUE` (default when interactive), a prompt for consent 
 #'   giving information about the proposed modifications will appear on the
@@ -218,6 +224,7 @@ fetch_updates <- function(path = ".", profile = "packages", prompt = interactive
 #'   This defaults to the opposite of `prompt`.
 #'
 #' @export
+#' @rdname package_cache
 #' @return nothing. this is used for its side-effect
 #' @examples
 #' if (!getOption("sandpaper.use_renv") && interactive()) {
@@ -230,7 +237,7 @@ fetch_updates <- function(path = ".", profile = "packages", prompt = interactive
 #'   use_package_cache(prompt = TRUE)
 #'
 #'   # You can temporarily turn this off
-#'   options("sandpaper.use_renv" = FALSE)
+#'   no_package_cache()
 #'   getOption("sandpaper.use_renv") # should be FALSE
 #'   use_package_cache(prompt = TRUE)
 #' }
@@ -238,7 +245,7 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
   consent_ok <- "Consent to use package cache provided"
   if (getOption("sandpaper.use_renv") || !prompt) {
     options(sandpaper.use_renv = TRUE)
-    msg <- renv_has_consent(force = TRUE)
+    msg <- try_use_renv(force = TRUE)
     if (grepl("nothing to do", msg))  {
       info <- consent_ok
     } else {
@@ -249,18 +256,18 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
     }
     return(invisible())
   }
-  msg <- renv_has_consent()
+  msg <- try_use_renv()
   if (getOption("sandpaper.use_renv")) {
     if (!quiet) {
       cli::cli_alert_info("Consent for {.pkg renv} provided---consent for package cache implied.")
     }
     return(invisible())
   }
-  options <- package_cache_msg(msg)
+  options <- message_package_cache(msg)
   x <- utils::menu(options)
   if (x == 1) {
     options(sandpaper.use_renv = TRUE)
-    msg <- renv_has_consent(force = TRUE)
+    msg <- try_use_renv(force = TRUE)
     if (!quiet) {
       cli::cli_alert_info("{consent_ok}\n{.emph {msg}}")
     }
@@ -279,18 +286,3 @@ no_package_cache <- function() {
   options("sandpaper.use_renv" = FALSE)
 }
 
-package_cache_msg <- function(msg) {
-  our_lines <- grep("^(renv maintains|This path can be customized)", msg)
-  RENV_MESSAGE <- msg[our_lines[1]:our_lines[2]]
-  RENV_MESSAGE <- paste(RENV_MESSAGE, collapse = "\n")
-  txt <- readLines(system.file("templates", "consent-form.txt", package = "sandpaper"))
-  txt <- paste(txt, collapse = "\n")
-  cli::cli_div(theme = sandpaper_cli_theme())
-  cli::cli_h1("Caching Build Packages for Generated Content")
-  cli::cli_text(txt)
-  cli::cli_rule("Enter your selection or press 0 to exit")
-  options <- c(
-    glue::glue("{cli::style_bold('Yes')}, please use the package cache (recommended)"),
-    glue::glue("{cli::style_bold('No')}, I want to use my default library")
-  )
-}

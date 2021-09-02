@@ -96,6 +96,22 @@ message_draft_files <- function(hopes, real_files, subfolder) {
   }
 }
 
+message_package_cache <- function(msg) {
+  our_lines <- grep("^(renv maintains|This path can be customized)", msg)
+  RENV_MESSAGE <- msg[our_lines[1]:our_lines[2]]
+  RENV_MESSAGE <- paste(RENV_MESSAGE, collapse = "\n")
+  txt <- readLines(system.file("templates", "consent-form.txt", package = "sandpaper"))
+  txt <- paste(txt, collapse = "\n")
+  cli::cli_div(theme = sandpaper_cli_theme())
+  cli::cli_h1("Caching Build Packages for Generated Content")
+  cli::cli_text(txt)
+  cli::cli_rule("Enter your selection or press 0 to exit")
+  options <- c(
+    glue::glue("{cli::style_bold('Yes')}, please use the package cache (recommended)"),
+    glue::glue("{cli::style_bold('No')}, I want to use my default library")
+  )
+}
+
 error_missing_config <- function(hopes, reality, subfolder) {
   thm <- cli::cli_div(theme = sandpaper_cli_theme())
   on.exit(cli::cli_end(thm), add = TRUE)

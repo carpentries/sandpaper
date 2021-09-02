@@ -124,7 +124,7 @@ build_episode_html <- function(path_md, path_src = NULL,
 #' res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
 build_episode_md <- function(path, hash = NULL, outdir = path_built(path), 
                              workdir = path_built(path), 
-                             workenv = new.env(), profile = "packages", quiet = FALSE) {
+                             workenv = new.env(), profile = "lesson-requirements", quiet = FALSE) {
 
   # define the output
   md <- fs::path_ext_set(fs::path_file(path), "md")
@@ -152,10 +152,6 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
   # Note that this process can NOT use any internal functions
   sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
   callr::r(function(path, hash, workenv, outpath, workdir, root, quiet) {
-    if (root != "") {
-      renv::load(root)
-      on.exit(renv::deactivate(root), add = TRUE)
-    }
     # Shortcut if the source is a markdown file
     # Taken directly from tools::file_ext
     file_ext <- function (x) {
@@ -169,6 +165,11 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
     if (file_ext(path) == "md") {
       file.copy(path, outpath, overwrite = TRUE)
       return(NULL)
+    }
+    # Load required packages if it's an RMarkdown file
+    if (root != "") {
+      renv::load(root)
+      on.exit(renv::deactivate(root), add = TRUE)
     }
     # Set knitr options for output ---------------------------
     ochunk <- knitr::opts_chunk$get()

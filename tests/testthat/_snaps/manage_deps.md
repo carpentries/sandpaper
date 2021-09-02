@@ -1,7 +1,7 @@
 # pacakge cache message appears correct [plain]
 
     Code
-      cat(paste(c("1:", "2:"), sandpaper:::package_cache_msg(msg)), sep = "\n")
+      cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")
     Message <cliMessage>
       
       -- Caching Build Packages for Generated Content --------------------------------
@@ -32,7 +32,7 @@
 # pacakge cache message appears correct [ansi]
 
     Code
-      cat(paste(c("1:", "2:"), sandpaper:::package_cache_msg(msg)), sep = "\n")
+      cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")
     Message <cliMessage>
       
       [36m--[39m [1m[1mCaching Build Packages for Generated Content[1m[22m [36m--------------------------------[39m
@@ -63,7 +63,7 @@
 # pacakge cache message appears correct [unicode]
 
     Code
-      cat(paste(c("1:", "2:"), sandpaper:::package_cache_msg(msg)), sep = "\n")
+      cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")
     Message <cliMessage>
       
       ── Caching Build Packages for Generated Content ────────────────────────────────
@@ -94,7 +94,7 @@
 # pacakge cache message appears correct [fancy]
 
     Code
-      cat(paste(c("1:", "2:"), sandpaper:::package_cache_msg(msg)), sep = "\n")
+      cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")
     Message <cliMessage>
       
       [36m──[39m [1m[1mCaching Build Packages for Generated Content[1m[22m [36m────────────────────────────────[39m

@@ -10,7 +10,7 @@ build_episode_md(
   outdir = path_built(path),
   workdir = path_built(path),
   workenv = new.env(),
-  profile = "packages",
+  profile = "lesson-requirements",
   quiet = FALSE
 )
 }
