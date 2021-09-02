@@ -202,7 +202,7 @@ fetch_updates <- function(path = ".", profile = "lesson-requirements", prompt = 
 #' minimally-invasive, using the packages you already have and downloading from
 #' external repositories only when necessary.
 #'
-#' ## What if I've used \pkg{renv} before?
+#' ## What if I have used \pkg{renv} before?
 #'
 #' If you have used \pkg{renv} in the past, then there is no need to give
 #' consent to use the cache.
@@ -213,9 +213,9 @@ fetch_updates <- function(path = ".", profile = "lesson-requirements", prompt = 
 #' will respect this option when building your lesson and will use your global
 #' library instead.
 #'
-#' ## I've used \pkg{renv} before; how do I turn it off before sandpaper loads?
+#' ## I have used \pkg{renv} before; how do I turn it off before sandpaper loads?
 #'
-#' 
+#' You can set `options(sandpaper.use_renv = FALSE)` before loading {sandpaper}.
 #' 
 #' @param prompt if `TRUE` (default when interactive), a prompt for consent 
 #'   giving information about the proposed modifications will appear on the

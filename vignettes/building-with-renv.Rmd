@@ -127,7 +127,7 @@ build_lesson()
 #| - fortunes   [* -> 1.5-4]
 #| - rmsfact    [* -> 0.0.3]
 #| 
-#| * Lockfile written to "/path/to/lesson/renv/profiles/packages/renv.lock".
+#| * Lockfile written to "/path/to/lesson/renv/profiles/lesson-requirements/renv.lock".
 #| ℹ Using package cache in /path/to/cache
 #| 
 #| [ truncated ]
@@ -171,11 +171,11 @@ A cat can’t climb head first down a tree because every claw on a cat’s paw p
 ### Temporarily turning off the cache
 
 There are times when you might want to not use the cache for a lesson. To do 
-this you can set `options(sandpaper.use_renv = FALSE)` and your lesson will 
-default to using your local library. 
+this you can use `no_package_cache()` and your lesson will default to using
+your local library. 
 
 ```{r build-lesson-dummy2, eval = FALSE}
-options(sandpaper.use_renv = FALSE)
+no_package_cache()
 sandpaper:::build_markdown(rebuild = TRUE)
 ```
 

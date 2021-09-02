@@ -51,7 +51,7 @@ minimally-invasive, using the packages you already have and downloading from
 external repositories only when necessary.
 }
 
-\subsection{What if I've used \pkg{renv} before?}{
+\subsection{What if I have used \pkg{renv} before?}{
 
 If you have used \pkg{renv} in the past, then there is no need to give
 consent to use the cache.
@@ -64,7 +64,9 @@ will respect this option when building your lesson and will use your global
 library instead.
 }
 
-\subsection{I've used \pkg{renv} before; how do I turn it off before sandpaper loads?}{
+\subsection{I have used \pkg{renv} before; how do I turn it off before sandpaper loads?}{
+
+You can set \code{options(sandpaper.use_renv = FALSE)} before loading {sandpaper}.
 }
 }
 \examples{
