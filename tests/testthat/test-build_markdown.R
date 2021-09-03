@@ -45,7 +45,7 @@ test_that("markdown sources can be built without fail", {
 test_that("markdown sources can be rebuilt without fail", {
   
   # no building needed
-  #skip_on_os("windows")
+  skip_on_os("windows")
   suppressMessages({
     out <- capture.output({
       build_markdown(res, quiet = FALSE) %>%
@@ -108,7 +108,7 @@ test_that("Artifacts are accounted for", {
     "LICENSE.md", 
     "Setup.md", 
     "config.yaml",
-    "renv.lock",
+    if (.Platform$OS.type != "windows") "renv.lock",
     # Folders
     "data", 
     "fig",
@@ -128,7 +128,7 @@ test_that("Artifacts are accounted for", {
     "LICENSE.md", 
     "Setup.md", 
     "config.yaml",
-    "renv.lock",
+    if (.Platform$OS.type != "windows") "renv.lock",
     # Generated figures
     paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png"),
     "index.md",
