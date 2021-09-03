@@ -26,6 +26,9 @@ DEPENDENCY MANAGEMENT
    `TRUE`
  - some of the callr functions have been made non-anonymous and moved to a
    separate file so they could be tested independently.
+ - `build_markdown()` and thus `build_lesson()` will now cache `config.yaml` and
+   `renv.lock`. It will no longer step through the build process if no markdown
+   files need to be rebuilt.
 
 CONTINOUS INTEGRATION
 ---------------------
