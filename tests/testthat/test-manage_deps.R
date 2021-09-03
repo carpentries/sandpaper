@@ -50,6 +50,7 @@ test_that("manage_deps() will create a renv folder", {
 
 test_that("manage_deps() will run without callr", {
 
+  skip_on_os("windows")
   withr::local_envvar(list(
     "RENV_PROFILE" = "lesson-requirements",
     "R_PROFILE_USER" = fs::path(tempfile(), "nada"),

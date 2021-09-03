@@ -47,6 +47,7 @@ test_that("callr_build_episode_md() works with Rmarkdown", {
 
 test_that("callr_build_episode_md() works with Rmarkdown using renv", {
 
+  skip_on_os("windows")
   fs::file_delete(o2)
   expect_false(fs::file_exists(o2))
   suppressMessages({
