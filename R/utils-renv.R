@@ -20,6 +20,38 @@ renv_is_allowed <- function() {
   !identical(Sys.getenv("TESTTHAT"), "true") || .Platform$OS.type != "windows"
 }
 
+renv_should_rebuild <- function(path, rebuild, db_path, profile = "lesson-requirements") {
+  # If rebuild is already TRUE OR we don't have permission to use {renv}, then
+  # we return early.
+  return_early <- rebuild || !getOption("sandpaper.use_renv")
+  if (return_early) return(rebuild)
+  hash <- renv_lockfile_hash(path, db_path, profile)
+  return(rebuild || !isTRUE(hash$old == hash$new))
+}
+
+#' Get the hash for the previous and current lockfile (as recorded in the lesson)
+#'
+#' @param path path to the lesson
+#' @param db_path path to the database
+#' @param profile name of the profile renv uses for the lesson requirements
+#' @return a named list:
+#'  - old: hash value recoreded in the database
+#'  - new: hash value of the current file
+#' @keywords internal
+renv_lockfile_hash <- function(path, db_path, profile = "lesson-requirements") {
+  wd <- getwd()
+  on.exit(setwd(wd), add = TRUE)
+  setwd(path)
+  rp <- Sys.getenv("RENV_PROFILE")
+  on.exit(Sys.setenv(RENV_PROFILE = rp), add = TRUE)
+  Sys.setenv(RENV_PROFILE = profile)
+  # old_hash can be length zero here if the file or hash doesn't exist
+  old_hash <- get_hash(renv::paths$lockfile(), db = db_path)
+  # md5sum can be NA here if the file doesn't exist
+  new_hash <- tools::md5sum(renv::paths$lockfile())
+  return(list(old = old_hash, new = new_hash))
+}
+
 #' Try to use {renv}
 #'
 #' We use this when sandpaper starts to see if the user has previously consented
@@ -55,7 +87,7 @@ try_use_renv <- function(force = FALSE) {
   invisible(lines)
 }
 
-renv_check_consent <- function(path, quiet) {
+renv_check_consent <- function(path, quiet, src_files = NULL) {
   has_consent <- getOption("sandpaper.use_renv")
   if (has_consent) {
     lib <- manage_deps(path, snapshot = TRUE, quiet = quiet)
@@ -63,16 +95,13 @@ renv_check_consent <- function(path, quiet) {
       cli::cli_alert_info("Using package cache in {renv::paths$root()}")
     }
   } else {
-    if (!quiet) {
+    needs_renv <- is.null(src_files) || any(fs::path_ext(src_files) %in% c("Rmd", "rmd"))
+    if (!quiet && needs_renv) {
       msg1 <- "Consent to use package cache not given. Using default library."
       msg2 <- "use {.fn use_package_cache} to enable the package cache"
       msg3 <- "for reproducible builds."
-      msg4 <- "You can switch between using your cache and the default library"
-      msg5 <- "with {.code options(sandpaper.use_renv = TRUE)}"
-      msg6 <- "({.code FALSE} for the default library)"
       cli::cli_alert_info(msg1)
       cli::cli_alert(cli::style_dim(paste(msg2, msg3)), class = "alert-suggestion")
-      cli::cli_alert(cli::style_dim(paste(msg4, msg5, msg6)), class = "alert-suggestion")
     }
   }
 }

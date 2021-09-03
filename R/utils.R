@@ -15,6 +15,21 @@ parse_title <- function(title) {
   substring(title, 4, nchar(title) - 5)
 }
 
+copy_maybe <- function(path, new_path) {
+  if (fs::file_exists(path)) {
+    fs::file_copy(path, new_path, overwrite = TRUE)
+  }
+}
+
+copy_lockfile <- function(sources, new_path) {
+  lock <- fs::path_file(sources) == "renv.lock"
+  this_lock <- sources[lock]
+  this_lock <- this_lock[length(this_lock)]
+  if (any(lock) && fs::file_exists(this_lock)) {
+    fs::file_copy(this_lock, new_path, overwrite = TRUE)
+  }
+}
+
 UTC_timestamp <- function(x) format(x, "%F %T %z", tz = "UTC")
 
 # Functions for backwards compatibility for R < 3.5

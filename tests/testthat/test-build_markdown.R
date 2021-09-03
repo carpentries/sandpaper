@@ -45,14 +45,14 @@ test_that("markdown sources can be built without fail", {
 test_that("markdown sources can be rebuilt without fail", {
   
   # no building needed
-  skip_on_os("windows")
+  #skip_on_os("windows")
   suppressMessages({
     out <- capture.output({
       build_markdown(res, quiet = FALSE) %>%
-        expect_message("Consent to use package cache provided")
+        expect_message("nothing to rebuild")
     })
   })
-  expect_no_match(out, "ordinary text without R code")
+  expect_length(out, 0)
   
   withr::local_options(list(sandpaper.use_renv = FALSE))
   # everything rebuilt
@@ -107,6 +107,8 @@ test_that("Artifacts are accounted for", {
     "CODE_OF_CONDUCT.md", 
     "LICENSE.md", 
     "Setup.md", 
+    "config.yaml",
+    "renv.lock",
     # Folders
     "data", 
     "fig",
@@ -125,6 +127,8 @@ test_that("Artifacts are accounted for", {
     "CODE_OF_CONDUCT.md", 
     "LICENSE.md", 
     "Setup.md", 
+    "config.yaml",
+    "renv.lock",
     # Generated figures
     paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png"),
     "index.md",
@@ -163,15 +167,17 @@ test_that("Markdown rendering does not happen if content is not changed", {
 
   skip_on_os("windows")
   
-  suppressMessages(out <- capture.output(build_markdown(res)))
-  expect_match(paste(out, collapse = "\n"), "lockfile")
-  expect_no_match(out, "ordinary text without R code")
+  suppressMessages({
+    expect_message(out <- capture.output(build_markdown(res)), "nothing to rebuild")
+  })
+  expect_length(out, 0)
 
   fs::file_touch(fs::path(res, "episodes", "01-introduction.Rmd"))
 
-  suppressMessages(out <- capture.output(build_markdown(res)))
-  expect_match(paste(out, collapse = "\n"), "lockfile")
-  expect_no_match(out, "ordinary text without R code")
+  suppressMessages({
+    expect_message(out <- capture.output(build_markdown(res)), "nothing to rebuild")
+  })
+  expect_length(out, 0)
 })
 
 test_that("Removing source removes built", {
@@ -196,7 +202,7 @@ test_that("Removing source removes built", {
 test_that("old md5sum.txt db will work", {
   # Databases built with sandpaper versions < 0.0.0.9028 will still work:
   db_path <- fs::path(res, "site", "built", "md5sum.txt")
-  olddb <- db <- get_built_db(db_path)
+  olddb <- db <- get_built_db(db_path, "*")
   withr::defer({
     write_build_db(olddb, db_path)
   })

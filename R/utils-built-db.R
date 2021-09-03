@@ -8,7 +8,7 @@
 get_hash <- function(path, db = fs::path(path_built(path), "md5sum.txt")) {
   opt = options(stringsAsFactors = FALSE)
   on.exit(options(opt), add = TRUE)
-  db <- read.table(db, header = TRUE)
+  db <- get_built_db(db, filter = "*")
   db$checksum[fs::path_file(db$built) %in% fs::path_file(path)]
 }
 
@@ -60,7 +60,7 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   # built files are flattened here
   built <- fs::path(built_path, fs::path_file(sources))
   built <- ifelse(
-    fs::path_ext(built) %nin% c("yaml", "yml"),
+    fs::path_ext(built) %in% c("Rmd", "rmd"),
     fs::path_ext_set(built, "md"), built
   )
   md5 = data.frame(

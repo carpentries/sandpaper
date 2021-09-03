@@ -81,9 +81,7 @@ get_resource_list <- function(path, trim = FALSE, subfolder = NULL, warn = FALSE
 
   res <- fs::dir_ls(
     root_path,
-    regexp = "*[.](R?md|ipynb)$", # at the moment, we will only recognize Rmd,
-                                  # and ipynb files (although we do not support
-                                  # the latter at the moment).
+    regexp = "*[.](R?md|lock|yaml)$",
     recurse = recurse, # only move into the source folders
     type = "file",
     fail = FALSE
@@ -93,6 +91,17 @@ get_resource_list <- function(path, trim = FALSE, subfolder = NULL, warn = FALSE
   gh_files <- c("README", "CONTRIBUTING")
   no_gh    <- fs::path_ext_remove(fs::path_file(res)) %nin% gh_files
   res      <- res[no_gh]
+
+  # Add the lockfile if needed
+  if (getOption("sandpaper.use_renv")) {
+    op <- Sys.getenv("RENV_PROFILE")
+    on.exit(Sys.setenv("RENV_PROFILE" = op))
+    Sys.setenv("RENV_PROFILE" = "lesson-requirements")
+    wd <- getwd()
+    on.exit(setwd(wd), add = TRUE)
+    setwd(root)
+    res <- c(res, renv::paths$lockfile())
+  }
 
   # Split the files into a list.
   if (trim) {
