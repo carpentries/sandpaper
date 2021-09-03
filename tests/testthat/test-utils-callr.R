@@ -41,7 +41,7 @@ test_that("callr_build_episode_md() works with Rmarkdown", {
     expect_message("processing file:")
   })
   expect_true(fs::file_exists(o2))
-  expect_match(grep("Hello", readLines(o2), value = TRUE), "Hello from R version")
+  expect_match(grep("Hello", readLines(o2), value = TRUE), "Hello from R (version|Under)")
 
 })
 
