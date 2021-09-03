@@ -16,7 +16,7 @@
 #' 
 #' @keywords internal
 #' @seealso [build_episode_md()]
-build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE) {
+build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NULL) {
 
   # step 1: build the markdown vignettes and site (if it doesn't exist)
   if (rebuild) {
