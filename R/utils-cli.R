@@ -1,8 +1,3 @@
-remove_cli_decoration <- function(msg) {
-  msg <- gsub("[}] ", "` ", msg)
-  gsub(" [{][^ ]*[ ]?", " `", msg)
-}
-
 ci_group <- function(group = "Group") {
   cli::cat_line(glue::glue("::group::{group}"))
 }

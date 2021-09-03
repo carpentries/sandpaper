@@ -46,8 +46,23 @@ test_that("manage_deps() will create a renv folder", {
 
   expect_true(fs::dir_exists(rnv))
 
-  manage_deps(lsn, quiet = FALSE, snapshot = FALSE) %>%
-    expect_message("Consent to use package cache provided") %>%
+})
+
+test_that("manage_deps() will run without callr", {
+
+  withr::local_envvar(list(
+    "RENV_PROFILE" = "lesson-requirements",
+    "R_PROFILE_USER" = fs::path(tempfile(), "nada"),
+    "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()
+  ))
+ 
+  suppressMessages({
+  callr_manage_deps(lsn, 
+    repos = renv_carpentries_repos(), 
+    snapshot = FALSE, 
+    lockfile_exists = TRUE) %>%
+    expect_message("Restoring any dependency versions") %>%
     expect_output("Copying packages into the library")
+  })
 
 })

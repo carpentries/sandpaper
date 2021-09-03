@@ -24,6 +24,8 @@ DEPENDENCY MANAGEMENT
    "packages" in the lesson repository. This will make the lesson more portable
  - internal function `ci_deploy()` will set `sandpaper.use_renv` option to 
    `TRUE`
+ - some of the callr functions have been made non-anonymous and moved to a
+   separate file so they could be tested independently.
 
 CONTINOUS INTEGRATION
 ---------------------
