@@ -58,6 +58,6 @@ test_that("callr_build_episode_md() works with Rmarkdown using renv", {
     expect_output("\\(lesson-requirements\\)")
   })
   expect_true(fs::file_exists(o2))
-  expect_match(grep("Hello", readLines(o2), value = TRUE), "Hello from R version")
+  expect_match(grep("Hello", readLines(o2), value = TRUE), "Hello from R (version|Under)")
 
 })
