@@ -37,6 +37,7 @@ test_that("single files can be built", {
 
 test_that("single files can be re-built", {
 
+  skip_on_os("windows")
   expect_hashed(tmp, "02-second-episode.Rmd")
   rdr <- sandpaper_site(fs::path(tmp, "episodes", "02-second-episode.Rmd"))
   expect_named(rdr, c("name", "output_dir", "render", "clean", "subdirs"))
