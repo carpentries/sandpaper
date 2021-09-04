@@ -46,7 +46,7 @@ use_package_cache()
 ```{r output, echo = FALSE}
 msg <- readLines(system.file("resources/WELCOME", package = "renv"))
 msg <- gsub("${RENV_PATHS_ROOT}", dQuote("/path/to/cache"), msg, fixed = TRUE)
-choices <- sandpaper:::package_cache_msg(msg)
+choices <- sandpaper:::message_package_cache(msg)
 cat(paste(c("1:", "2:"), choices), sep = "\n")
 ```
 
