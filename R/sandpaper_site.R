@@ -25,7 +25,7 @@ sandpaper_site <- function(input = ".", ...) {
   # good place to instruct people to render their own lessons.
   #
   # TODO: reduce the time needed to re-render a single episode.
-  render = function(input_file = NULL, output_format = "all", envir = new.env(), quiet = FALSE, encoding = "UTF-8", ...) {
+  render = function(input_file = input, output_format = "all", envir = new.env(), quiet = FALSE, encoding = "UTF-8", ...) {
     input_file <- if (is.null(input_file)) "." else input_file
     sandpaper::build_lesson(input_file, quiet = quiet, preview = quiet)
   }

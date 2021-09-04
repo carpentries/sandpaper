@@ -26,9 +26,19 @@ DEPENDENCY MANAGEMENT
    `TRUE`
  - some of the callr functions have been made non-anonymous and moved to a
    separate file so they could be tested independently.
+
+NEW FEATURES
+------------
+
  - `build_markdown()` and thus `build_lesson()` will now cache `config.yaml` and
    `renv.lock`. It will no longer step through the build process if no markdown
-   files need to be rebuilt.
+   files need to be rebuilt. This will cause any project built with previous
+   versions of sandpaper to be fully rebuilt. 
+ - `sandpaper_site()` (and thus, `build_lesson()`) now can take in a single file
+   for rendering and render that specific file regardless if it is present in
+   the cache without rendering other files. This further addresses #77. (n.b.
+   this involved changes to `build_markdown()`, `build_site()`, and 
+   `build_status()`).
 
 CONTINOUS INTEGRATION
 ---------------------

@@ -32,14 +32,19 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
   source_list    <- get_resource_list(path, warn = !quiet)
   sources        <- unlist(source_list, use.names = FALSE)
   names(sources) <- get_slug(sources)
-  copy_maybe(sources[["config"]], fs::path(outdir, "config.yaml"))
-  copy_lockfile(sources, fs::path(outdir, "renv.lock"))
+  if (is.null(slug)) {
+    copy_maybe(sources[["config"]], fs::path(outdir, "config.yaml"))
+    copy_lockfile(sources, fs::path(outdir, "renv.lock"))
+  } else {
+    sources <- sources[slug]
+  }
+
   no_renv_needed <- !any(fs::path_ext(sources) %in% c("Rmd", "rmd"))
 
   if (no_renv_needed) {
     op <- getOption("sandpaper.use_renv")
     on.exit(options(sandpaper.use_renv = op), add = TRUE)
-    options(sandaper.use_renv = FALSE)
+    options(sandpaper.use_renv = FALSE)
   }
 
   # If the user accidentally used rmarkdown::render(), then they would end up
@@ -85,7 +90,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
   needs_building <- fs::path_ext(db$build) %in% c("md", "Rmd")
   if (any(needs_building)) {
     # Render the episode files to the built directory --------------------------
-    renv_check_consent(path, quiet)
+    renv_check_consent(path, quiet, sources)
     build_me <- db$build[needs_building]
 
     for (i in seq_along(build_me)) {
