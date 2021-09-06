@@ -47,7 +47,7 @@ test_that("get_episodes() works in the right order", {
 test_that("get_learners() works as expected", {
 
   expected <- basename(as.character(fs::dir_ls(fs::path(tmp, "learners"))))
-  expect_setequal(expected, c("Setup.md", basename(lt)))
+  expect_setequal(expected, c("setup.md", basename(lt)))
 
   expect_silent(l <- get_learners(res))
   expect_equal(l, expected)

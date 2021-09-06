@@ -62,7 +62,7 @@ file.append(".gitignore", fs::path(tmp, ".gitignore"))
 fs::dir_delete(fs::path(tmp, ".git"))
 fs::file_delete(fs::path(tmp, c("README.md", "index.md", ".gitignore")))
 fs::file_delete(fs::path(tmp, "episodes", "01-introduction.Rmd"))
-fs::file_delete(fs::path(tmp, "learners", "Setup.md"))
+fs::file_delete(fs::path(tmp, "learners", "setup.md"))
 fs::file_delete(fs::path(tmp, "instructors", "instructor-notes.md"))
 
 # Copy the components here
