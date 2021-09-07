@@ -37,8 +37,9 @@ jobs:
       - name: Record Linux Version
         if: runner.os == 'Linux'
         run: echo "OS_VERSION=`lsb_release -sr`" >> $GITHUB_ENV
-
-      - uses: actions/checkout@v2
+      
+      - name: Checkout Package
+        uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@master
         with:
@@ -93,6 +94,34 @@ jobs:
         env:
           _R_CHECK_CRAN_INCOMING_: false
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+        shell: Rscript {0}
+
+      - name: Checkout Lesson for Integration Test
+        if: runner.os == 'macOS'
+        uses: actions/checkout@v2
+        with:
+          repository: "carpentries/sandpaper-docs"
+          path: ${{ github.workspace }}/sandpaper-docs 
+          clean: false
+
+      - name: Perform Integration Test
+        if: runner.os == 'macOS'
+        run: |
+          remotes::install_local()
+          stopifnot(
+            "::warning ::Could not clone test lesson" = fs::dir_exists("sandpaper-docs")
+          )
+          cat("::group::Pre-built lesson tree")
+          fs::dir_tree("sandpaper-docs")
+          cat("::endgroup::")
+          cat("::group::Post-built lesson tree")
+          sandpaper::build_lesson("sandpaper-docs", quiet = FALSE)
+          stopifnot(
+            "::error ::Markdown files not built" = fs::dir_exists("sandpaper-docs/site/built"),
+            "::error ::HTML files not built" = fs::dir_exists("sandpaper-docs/site/docs")
+          )
+          fs::dir_tree("sandpaper-docs")
+          cat("::endgroup::")
         shell: Rscript {0}
 
       - name: Show testthat output

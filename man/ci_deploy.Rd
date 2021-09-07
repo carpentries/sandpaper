@@ -8,7 +8,8 @@ ci_deploy(
   path = ".",
   md_branch = "md-outputs",
   site_branch = "gh-pages",
-  remote = "origin"
+  remote = "origin",
+  reset = FALSE
 )
 }
 \arguments{
@@ -19,9 +20,12 @@ ci_deploy(
 \item{site_branch}{the branch name that contains the full HTML site}
 
 \item{remote}{the name of the git remote to which you should deploy.}
+
+\item{reset}{if \code{TRUE}, the site cache is cleared before rebuilding, this
+defaults to \code{FALSE} meaning that the cache in the md_branch will be used}
 }
 \value{
-NOTHING
+Nothing, invisibly. This is used for it's side-effect
 }
 \description{
 (INTERNAL) Build and deploy the site with continous integration

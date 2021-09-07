@@ -23,7 +23,7 @@ Check the lesson structure for errors
 
 # Everything should work out of the box
 tmp <- tempfile()
-create_lesson(tmp)
+create_lesson(tmp, open = FALSE)
 check_lesson(tmp)
 
 # if things do not work, then an error is thrown with information about 

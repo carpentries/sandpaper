@@ -4,7 +4,10 @@ politely_get_yaml <- function(path) {
   header <- readLines(path, n = 10, encoding = "UTF-8")
   barriers <- grep("^---$", header)
   if (length(barriers) == 0) {
-    stop("No yaml header")
+    thm <- cli::cli_div(theme = sandpaper_cli_theme())
+    cli::cli_alert_danger("No yaml header found in the first 10 lines of {path}")
+    cli::cli_end(thm)
+    return(character(0))
   }
   if (length(barriers) == 1) {
     to_skip <- 10L
@@ -43,23 +46,6 @@ write_pkgdown_yaml <- function(yaml, path) {
   yaml_writer(yaml, path_site_yaml(path))
 }
 
-show_changed_yaml <- function(sched, order, yaml, what = "episodes") {
-
-  if (requireNamespace("cli", quietly = TRUE)) {
-    # display for the user to distinguish what was added and what was taken 
-    removed <- sched %nin% order
-    added   <- order %nin% sched
-    order[added] <- cli::style_bold(cli::col_green(order[added]))
-    cli::cat_line(paste0(what, ":"))
-    cli::cat_bullet(order, bullet = "line")
-    if (any(removed)) {
-      cli::cli_rule(paste("Removed", what))
-      cli::cat_bullet(sched[removed], bullet = "cross", bullet_col = "red")
-    }
-  } else {
-    cat(yaml::as.yaml(yaml)[[what]])
-  }
-}
 
 #' Create a valid, opinionated yaml list for insertion into a whisker template
 #' 

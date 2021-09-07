@@ -45,7 +45,9 @@ render_html <- function(path_in, ..., quiet = FALSE) {
   htm <- tempfile(fileext = ".html")
   on.exit(unlink(htm), add = TRUE)
   args <- construct_pandoc_args(path_in, output = htm, to = "html", ...)
-  callr::r(function(...) rmarkdown::pandoc_convert(...), args = args, show = !quiet)
+  sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
+  callr::r(function(...) rmarkdown::pandoc_convert(...), args = args, 
+    show = !quiet, spinner = sho)
   paste(readLines(htm), collapse = "\n")
 }
 

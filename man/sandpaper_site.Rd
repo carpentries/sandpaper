@@ -12,7 +12,7 @@ This is a custom site generator for compatibility with
 the \code{index.md} yaml header will make the knit button work}:
 }
 \details{
-\if{html}{\out{<div class="yaml">}}\preformatted{site: sandpaper::sandpaper_site
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{site: sandpaper::sandpaper_site
 }\if{html}{\out{</div>}}
 
 This will be automatically added to the \code{index.md} for all sandpaper sites

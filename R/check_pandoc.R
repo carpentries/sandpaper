@@ -12,40 +12,50 @@
 check_pandoc <- function(quiet = TRUE, pv = "2.11", rv = "1.4") {
   # Does pandoc exist?
   pan <- rmarkdown::find_pandoc()
+  is_test <- identical(Sys.getenv("TESTTHAT"), "true")
+  pandir <- if (!is_test) pan$dir else "[path masked for testing]"
+  panver <- if (!is_test) pan$version else "[version masked for testing]"
   if (rmarkdown::pandoc_available(pv)) {
     if (!quiet) {
-      message("pandoc found")
-      message("version : ", pan$version)
-      message("path    : ", shQuote(pan$dir))
+      thm <- cli::cli_div(theme = sandpaper_cli_theme())
+      cli::cli_alert_success("pandoc found")
+      cli::cli_text("\u00a0\u00a0version : {.field {panver}}")
+      cli::cli_text("\u00a0\u00a0path\u00a0\u00a0\u00a0   : {.file {pandir}}")
+      cli::cli_end(thm)
     }
   } else {
     # Are we in an RStudio session?
-    msg <- paste("{sandpaper} requires pandoc version", pv, "or higher.")
+    msg <- "{.pkg sandpaper} requires pandoc version {.field {pv}} or higher."
     if (pan$version > 0) {
-      pan_msg <- paste("You have pandoc version", pan$version, "in", shQuote(pan$dir))
+      pan_msg <- "You have pandoc version {.field {panver}} in {.file {pandir}}"
     } else {
       pan_msg <- "You do not have pandoc installed on your PATH"
     }
-    if (rstudioapi::isAvailable()) {
-      rs_ver <- rstudioapi::getVersion()
+    if (Sys.getenv("RSTUDIO", "0") == "1") {
+      # catch error for tests
+      rs_ver <- tryCatch(rstudioapi::getVersion(), error = function(e) "0.99")
       if (rs_ver < rv) {
         install_msg <- paste(
           "Please update your version of RStudio Desktop to version", 
-          rv, 
-          "or higher:",
-          "<https://www.rstudio.com/products/rstudio/download/#download>"
+          "{.field {rv}} or higher:",
+          "{.url https://www.rstudio.com/products/rstudio/download/#download}"
         )
       } else {
         # RStudio version 1.4 comes with pandoc 2.11.4, so this should not be
         # possible.
-        install_msg <- paste("Please visit <https://pandoc.org/installing.html>",
+        install_msg <- paste("Please visit {.url https://pandoc.org/installing.html}",
           "to install the latest version.")
       }
     } else {
-      install_msg <- paste("Please visit <https://pandoc.org/installing.html>",
+      install_msg <- paste("Please visit {.url https://pandoc.org/installing.html}",
         "to install the latest version.")
     }
-    msg <- paste0(msg, "\n", pan_msg, "\n\n", install_msg)
-    stop(msg, call. = FALSE)
+
+    thm <- cli::cli_div(theme = sandpaper_cli_theme())
+    on.exit(cli::cli_end(thm), add = TRUE)
+    cli::cli_alert_warning(msg)
+    cli::cli_alert_danger(pan_msg)
+    cli::cli_alert(install_msg, class = "alert-suggestion")
+    stop("Incorrect pandoc version", call. = FALSE)
   }
 }

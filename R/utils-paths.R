@@ -50,11 +50,3 @@ get_markdown_files <- function(path = NULL) {
   )
 }
 
-get_built_buddy <- function(path) {
-  pat <- fs::path_ext_set(get_slug(path), "md")
-  # Returns nothing if the pattern cannot be found
-  fs::dir_ls(path_built(path), regexp = pat, fixed = TRUE)
-}
-
-
-

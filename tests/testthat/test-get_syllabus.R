@@ -1,14 +1,16 @@
-tmpdir <- fs::file_temp()
-fs::dir_create(tmpdir)
-tmp <- fs::path(tmpdir, "lesson-example")
+{
+# tmpdir <- fs::file_temp()
+# fs::dir_create(tmpdir)
+# tmp <- fs::path(tmpdir, "lesson-example")
+# withr::defer(fs::dir_delete(tmp))
+# res <- create_lesson(tmp, open = FALSE, rstudio = FALSE)
 q <- "How do you write a lesson using RMarkdown and `{sandpaper}`?"
-withr::defer(fs::dir_delete(tmp))
+tmp <- res <- restore_fixture()
+}
 
 test_that("syllabus can be extracted from source files", {
 
-  expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp, open = FALSE, rstudio = FALSE)
-  expect_warning(s <- get_episodes(tmp), "set_episodes")
+  suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
 
   res <- get_syllabus(tmp)

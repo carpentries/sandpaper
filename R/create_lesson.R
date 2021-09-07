@@ -13,11 +13,14 @@
 #' @examples
 #' tmp <- tempfile()
 #' on.exit(unlink(tmp))
-#' lsn <- create_lesson(tmp, name = "This Lesson")
+#' lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #' lsn
 create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi::isAvailable(), open = rlang::is_interactive()) {
 
+  id <- cli::cli_status("{cli::symbol$arrow_right} Creating Lesson in {.file {path}}...")
   init_source_path(path)
+
+  cli::cli_status_update("{cli::symbol$arrow_right} Creating Lesson folder structure...")
 
   fs::dir_create(fs::path(path, "episodes"))
   fs::dir_create(fs::path(path, "episodes", "data"))
@@ -28,6 +31,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   fs::dir_create(fs::path(path, "profiles"))
   fs::file_create(fs::path(path, "README.md"))
 
+  cli::cli_status_update("{cli::symbol$arrow_right} Copying file templates ...")
   copy_template("gitignore", path, ".gitignore")
   copy_template("conduct", path, "CODE_OF_CONDUCT.md")
   copy_template("license", path, "LICENSE.md")
@@ -37,6 +41,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   copy_template("placeholder", fs::path(path, "instructors"), "instructor-notes.md")
   copy_template("placeholder", fs::path(path, "profiles"), "learner-profiles.md")
 
+  cli::cli_status_update("{cli::symbol$arrow_right} Generating {.file config.yaml} ...")
   account <- tryCatch(gh::gh_whoami()$login, error = function(e) "carpentries")
   copy_template("config", path, "config.yaml",
     values = list(
@@ -51,31 +56,37 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
     )
   )
 
+  cli::cli_status_update("{cli::symbol$arrow_right} Generating {.file README.md} ...")
   create_lesson_readme(name, path)
   create_site(path)
 
-  create_episode("introduction", path = path)
+  cli::cli_status_update("{cli::symbol$arrow_right} Creating first episode ...")
+  ep <- create_episode("introduction", path = path)
+  cli::cli_alert_success("First episode created in {.file {ep}}")
 
   if (rstudio) {
+    cli::cli_status_update("{cli::symbol$arrow_right} Creating RStudio project ...")
     usethis::with_project(path, usethis::use_rstudio())
     gi <- readLines(fs::path(path, ".gitignore"))
     writeLines(gi[-length(gi)], fs::path(path, ".gitignore"))
   }
 
-  suppressMessages({
-    fetch_github_workflows(path)
-  })
+  cli::cli_status_update("{cli::symbol$arrow_right} Inserting GitHub workflows ...")
+  update_github_workflows(path)
 
+  cli::cli_status_update("{cli::symbol$arrow_right} Committing ...")
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
   enforce_main_branch(path)
   reset_git_user(path)
-  
+  cli::cli_alert_success("Lesson successfully created in {.file {path}}")
   if (open) {
     if (usethis::proj_activate(path)) {
       on.exit()
     }
-  }
+  } 
+
+  cli::cli_status_clear()
   invisible(return(path))
 
 }

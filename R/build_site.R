@@ -30,7 +30,13 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   db <- get_built_db(fs::path(built_path, "md5sum.txt"))
   db <- db[!grepl("(index|README|CONTRIBUTING)[.]md", db$built), , drop = FALSE]
   # Find all the episodes and get their range
-  er <- range(grep("/episodes/", db$file, fixed = TRUE))
+  er <- range(grep("episodes/", db$file, fixed = TRUE))
+
+  # Absolute paths for pandoc
+  abs_md  <- fs::path(path, db$built)
+  abs_src <- fs::path(path, db$file)
+
+  # comparison function to test if a within a range of 2 b numbers
   `%w%` <- function(a, b) a >= b[[1]] && a <= b[[2]]
 
   if (!quiet && requireNamespace("cli", quietly = TRUE)) {
@@ -39,10 +45,10 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   for (i in seq_along(db$built)) {
     build_episode_html(
-      path_md      = db$built[i],
-      path_src     = db$file[i],
-      page_back    = if (i %w% er && i > er[1]) db$built[i - 1] else "index.md",
-      page_forward = if (i %w% er && i < er[2]) db$built[i + 1] else "index.md",
+      path_md      = abs_md[i],
+      path_src     = abs_src[i],
+      page_back    = if (i %w% er && i > er[1]) abs_md[i - 1] else "index.md",
+      page_forward = if (i %w% er && i < er[2]) abs_md[i + 1] else "index.md",
       pkg          = pkg, 
       quiet        = quiet
     )
@@ -57,6 +63,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   pkgdown::preview_site(pkg, "/", preview = preview)
   if (!quiet) {
     dst <- fs::path_rel(path = pkg$dst_path, start = path)
-    message("\nOutput created: ", fs::path(pkg$dst_path, out))
+    pth <- if (identical(Sys.getenv("TESTTHAT"), "true")) "[masked]" else pkg$dst_path
+    message("\nOutput created: ", fs::path(pth, out))
   }
 }

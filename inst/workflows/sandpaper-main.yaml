@@ -1,0 +1,81 @@
+name: "01 Build and Deploy Site"
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: '0 0 * * 2'
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Who triggered this build?'
+        required: true
+        default: 'Maintainer (via GitHub)'
+      reset:
+        description: 'Should the cached markdown files be reset? (true/false)'
+        required: true
+        default: false
+jobs:
+  full-build:
+    name: "Build Full Site"
+    runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v1
+
+      - uses: r-lib/actions/setup-pandoc@v1
+        with:
+          pandoc-version: "2.11.4"
+
+      - name: "Query Sandpaper Dependencies"
+        run: |
+          install.packages('remotes')
+          options(repos = c(
+            "https://carpentries.r-universe.dev/", 
+            "https://carpentries.github.io/drat/",
+            "https://cloud.r-project.org/"
+          ))
+          saveRDS(remotes::package_deps('sandpaper', dependencies = TRUE), 
+            ".github/depends.Rds", 
+            version = 2
+          )
+          writeLines(
+            sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), 
+            ".github/R-version"
+          )
+        shell: Rscript {0}
+
+      - name: "Restore Package Cache"
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: "Install {sandpaper} and Dependencies"
+        run: |
+          options(repos = c(
+            "https://carpentries.r-universe.dev/", 
+            "https://carpentries.github.io/drat/",
+            "https://cloud.r-project.org/"
+          ))
+          library("remotes")
+          pkgs <- package_deps('sandpaper', dependencies = TRUE)
+          pkgs$diff[pkgs$package == "tinkr"] <- -1 # force tinkr update for now
+          update(pkgs, upgrade = "always")
+        shell: Rscript {0}
+
+      - name: "Show Session Information"
+        run: Rscript -e 'sandpaper:::ci_session_info()'
+
+      - name: "Deploy Site"
+        run: |
+          sandpaper:::check_git_user(path = ".", name = "GitHub Actions", email = "actions@github.com")
+          reset <- "${{ github.event.inputs.reset }}" == "true"
+          sandpaper:::ci_deploy(reset = reset)
+        shell: Rscript {0}

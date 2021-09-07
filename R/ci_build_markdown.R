@@ -11,66 +11,44 @@
 #'   `site/` folder. 
 #' 
 #' @keywords internal
-ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origin") {
+ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origin", reset = FALSE) {
 
   # step 0: build_lesson defaults to a local build
   path <- set_source_path(path)
-  current <- gert::git_branch(path)
   on.exit(reset_build_paths())
+  current <- gert::git_branch(repo = path)
 
   create_site(path)
 
   built <- path_built(path)
-  html  <- fs::path(path_site(path), "docs")
 
-  # Set up the worktrees and make sure to remove them when the function exits
-  # (gracefully or ungracefully so)
-  del_md <- git_worktree_setup(path, built, 
-    branch = branch, remote = remote
-  )
-  on.exit(eval(del_md), add = TRUE)
+  has_withr <- requireNamespace("withr", quietly = TRUE)
 
-  build_markdown(path = path, quiet = TRUE, rebuild = FALSE)
+  if (has_git() && has_withr) { withr::with_dir(path, {
+    # Set up the worktrees and make sure to remove them when the function exits
+    # (gracefully or ungracefully so)
+    del_md <- git_worktree_setup(path, built, 
+      branch = branch, remote = remote
+    )
+    if (reset) {
+      ci_group("Reset Lesson")
+      git_clean_everything(built)
+      cli::cat_line("::endgroup::")
+    }
 
-  github_worktree_commit(built, 
-    message_source("markdown source builds", current, dir = path),
-    remote, branch
-  )
+    ci_group("Build Markdown Sources")
+    build_markdown(path = path, quiet = FALSE, rebuild = FALSE)
+    cli::cat_line("::endgroup::")
+
+    ci_group("Commit Markdown Sources")
+    github_worktree_commit(built, 
+      message_source("markdown source builds", current, dir = path),
+      remote, branch
+    )
+    cli::cat_line("::endgroup::")
+
+  })}
+
+  return(del_md)
 }
 
-ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", remote = "origin") {
-
-  # step 0: build_lesson defaults to a local build
-  path <- set_source_path(path)
-  current <- gert::git_branch(path)
-  on.exit(reset_build_paths())
-
-  create_site(path)
-
-  built <- path_built(path)
-  html  <- fs::path(path_site(path), "docs")
-
-  # Set up the worktrees and make sure to remove them when the function exits
-  # (gracefully or ungracefully so)
-  # ------------ markdown worktree
-  del_md <- git_worktree_setup(path, built, 
-    branch = md, remote = remote
-  )
-  on.exit(eval(del_md), add = TRUE)
-
-  # ------------ site worktree
-  del_site <- git_worktree_setup(path, html,
-    branch = branch, remote = remote
-  )
-
-  on.exit(eval(del_site), add = TRUE)
-
-  # Build the site quickly using the markdown files as-is
-  build_site(path = path, quiet = TRUE)
-
-  # Commit using the markdown branch as a reference
-  github_worktree_commit(html,
-    message_source("site deploy", md, dir = built),
-    remote, branch
-  )
-}

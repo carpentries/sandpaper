@@ -1,14 +1,8 @@
+tmp <- res <- restore_fixture()
+suppressMessages(s <- get_episodes(tmp))
+set_episodes(tmp, s, write = TRUE)
+
 test_that("the site can be cleared", {
-
-  tmpdir <- fs::file_temp()
-  fs::dir_create(tmpdir)
-  tmp    <- fs::path(tmpdir, "lesson-example")
-
-  withr::defer(fs::dir_delete(tmp))
-  expect_false(fs::dir_exists(tmp))
-  res <- create_lesson(tmp, open = FALSE)
-  expect_warning(s <- get_episodes(tmp), "set_episodes")
-  set_episodes(tmp, s, write = TRUE)
 
   # Make sure everything exists
   expect_true(check_lesson(tmp))

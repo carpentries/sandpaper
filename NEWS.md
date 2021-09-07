@@ -1,3 +1,207 @@
+# sandpaper 0.0.0.9047
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - The `update-workflows.yaml` workflow now checks if the `SANDPAPER_WORKFLOW`
+   secret is valid. If not, it provides instructions for creating a new secret.
+
+# sandpaper 0.0.0.9046
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - Weekly run pull requests now default to "weekly run" for "who triggered this
+   pull request"
+
+# sandpaper 0.0.0.9045
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - Weekly run has been added for the workflows action
+ - Actions have been updated to reflect the zkamvar -> carpenteries repository
+   transfer (@zkamvar, #156)
+
+# sandpaper 0.0.0.9044
+
+CONTIUOUS INTEGRATION
+---------------------
+
+ - The `update-workflow.yaml` parameters have been fixed to not use wildcards
+
+MISC
+----
+
+ - `update_github_workflows()` gains a `clean` argument and now will print
+   status reports at the end. 
+
+
+# sandpaper 0.0.0.9043
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - The `update-workflow.yaml` workflow has been updated to use the github action
+   hosted on `zkamvar/actions` (soon to be transferred to The Carpentries account
+ - The names of the actions displayed on GitHub have been updated to be more
+   descriptive.
+ - The script in `inst/scripts/update-workflows.sh` has been removed in favor of
+   the github action.
+
+# sandpaper 0.0.0.9042
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - An experimental `update-workflow.yaml` workflow has been created which will
+   create a pull request that will update the workflows. It is still _very_
+   experimental and it requires a scoped with repo and scope, but,
+   nevertheless, the concept is currently valid.
+
+# sandpaper 0.0.0.9041
+
+MISC
+----
+
+ - `fetch_github_workflows()` has been renamed to `update_github_workflows()`
+ - github workflows are no longer downloaded from an external source; they
+   now live in inst/workflows. This will reduce the internet connection 
+   requirements for setting up a lesson and testing sandpaper.
+ - `create_lesson()` now reports progress as it goes along
+ - tests were updated to use the fixtures
+
+# sandpaper 0.0.0.9040
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - `ci_deploy()` gains the `reset` argument, which can be used to clear the 
+   cache for a clean build of the lesson.
+ - `ci_deploy()` now uses `ci_build_markdown()` and `ci_build_site()`, 
+   internally
+
+# sandpaper 0.0.0.9039
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - `ci_session_info()` will report the session information, which will help 
+   clean up the workflow files.
+
+# sandpaper 0.0.0.9038
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - Fix broken deploy process on continuous integration caused by attempting to
+   fetch all branches in a shallow clone (@zkamvar, #142)
+
+# sandpaper 0.0.0.9037
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - Output of `ci_bundle_pr_artifacts()` no longer escapes HTML-like output in
+   the diff summary. 
+ - remove {xml2} from explicit dependencies
+
+# sandpaper 0.0.0.9036
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - Documentation for `git_worktree_setup()` has been added for future versions
+   of the maintainer and future contributors.
+ - `ci_bundle_pr_artifacts()` is a new internal function that will create
+   artifacts for GitHub to upload upon receipt of a pull request. This will
+   replace clunky shell code that lived inside a YAML configuration file.
+   (@zkamvar, #139)
+ - add {brio} to soft dependencies (for testing, but maybe could speed up???)
+
+# sandpaper 0.0.0.9035
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ - Tests for git operations were added to be more robust (@zkamvar, #137)
+ - new test fixtures for a local remote repository was added to aid the above
+   git tests.
+
+# sandpaper 0.0.0.9034
+
+NEW FEATURES
+------------
+
+ - Authors can now cross-link between files within the lesson as they appear in
+   the lesson instead of trying to guess how the link would appear on the
+   website. For example, if you wanted to reference `learners/setup.md` in 
+   `episodes/introduction.md`, you would write `[setup](../learners/setup.md)`
+   and it will be automatically converted to the correct URL in the website
+   (#43). This is still backwards compatible with the previous iteration of
+   writing the flattened link (as it would appear on the website).
+
+# sandpaper 0.0.0.9033
+
+NEW FEATURES
+------------
+
+ - `get_drafts()` will report any markdown files that are not currently 
+   published in the lesson.
+ - Draft alert notifications are controlled by the `"sandpaper.show_draft"`
+   option. To turn off these messages, use 
+   `options(sandpaper.show_draft = FALSE)`
+ - The `set_dropdown()` family of functions will now throw an error if an 
+   author attempts to add a file that does not exist
+ - An error will occurr if the files listed in `config.yaml` do not exist in the
+   lesson with an informative message highlighting the files that are missing.
+
+# sandpaper 0.0.0.9032
+
+MISC
+----
+
+ - The internal `get_resource_list()` function has been modified to incorporate
+   the features of `get_dropdown()`. This means that all `get_dropdown()`
+   functions will only report the files in the dropdown menus that actually
+   exist in the directory (#134).
+ - A persistant test fixture is now included to speed up testing time (#132 via
+   #134)
+
+# sandpaper 0.0.0.9031
+
+MISC
+---
+
+ - The {cli} package is now an official import of the package
+ - The warning message issued from the internal `warn_schedule()` function has
+   been changed exclusively use cli messages and can be suppressed with 
+   `suppressMessages()`.
+ - The internal `sandpaper_cli_theme()` is used to style CLI messages. 
+
+# sandpaper 0.0.0.9030
+
+MISC
+----
+
+ - A test that caused problems with a new version of {pegboard} was fixed
+
+# sandpaper 0.0.0.9029
+
+MISC
+----
+
+ - The internal database is updated to use relative instead of absolute paths. 
+   This fixes #129
+
+# sandpaper 0.0.0.9028
+
+NEW IMPORTS
+-----------
+
+The {pingr} package is now being imported to check for online access, which will
+marginally decrease data usage (@fmichonneau, #127).
+
 # sandpaper 0.0.0.9027
 
 MISC

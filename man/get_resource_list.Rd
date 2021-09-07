@@ -4,13 +4,20 @@
 \alias{get_resource_list}
 \title{Get the full resource list of markdown files}
 \usage{
-get_resource_list(path, trim = FALSE)
+get_resource_list(path, trim = FALSE, subfolder = NULL, warn = FALSE)
 }
 \arguments{
 \item{path}{path to the lesson}
 
 \item{trim}{if \code{TRUE}, trim the paths to be relative to the lesson directory.
 Defaults to \code{FALSE}, which will return the absolute paths}
+
+\item{subfolder}{the subfolder to check. If this is \code{NULL}, all folders will
+checked and returned (default), otherwise, this should be a string
+specifying the folder name in the lesson (e.g. "episodes").}
+
+\item{warn}{if \code{TRUE} and \code{subfolder = "episodes"}, a message is issued to
+the user if the episodes field of the configuration file is empty.}
 }
 \value{
 a list of files by subfolder in the order they should appear in the
