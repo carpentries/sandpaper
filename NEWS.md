@@ -20,6 +20,8 @@ DEPENDENCY MANAGEMENT
    that the correct dependencies for the lesson are installed. This explicitly
    calls `use_package_cache()` when it runs.
  - `fetch_updates()` will bring in updates for the lesson cache.
+ - `pin_version()` will pin packages to a specific version, allowing authors to
+   upgrade or downgrade packages at will.
  - `create_lesson()` now additionally will create a {renv} profile called
    "packages" in the lesson repository. This will make the lesson more portable
  - internal function `ci_deploy()` will set `sandpaper.use_renv` option to 
