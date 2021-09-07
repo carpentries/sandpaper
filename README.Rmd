@@ -228,7 +228,7 @@ the following structure:
 |   `-- 00-introducition.Rmd # -   Lessons start with a two-digit number
 |-- instructors/             # - Information for Instructors
 |-- learners/                # - Information for Learners
-|   `-- Setup.md             # -   setup instructions (REQUIRED)
+|   `-- setup.md             # -   setup instructions (REQUIRED)
 |-- profiles/                # - Learner and/or Instructor Profiles
 |-- site/                    # - This folder is where the rendered markdown files and static site will live
 |   `-- README.md            # -   placeholder
