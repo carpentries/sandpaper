@@ -93,7 +93,7 @@ test_that("Artifacts are accounted for", {
     fs::path_ext_set(s, "md"), 
     "CODE_OF_CONDUCT.md", 
     "LICENSE.md", 
-    "Setup.md", 
+    "setup.md",
     # Folders
     "data", 
     "fig",
@@ -111,7 +111,7 @@ test_that("Artifacts are accounted for", {
     fs::path_ext_set(s, "md"), 
     "CODE_OF_CONDUCT.md", 
     "LICENSE.md", 
-    "Setup.md", 
+    "setup.md",
     # Generated figures
     paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png"),
     "index.md",
