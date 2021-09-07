@@ -32,7 +32,7 @@ test_that("markdown sources can be built without fail", {
   # It's noisy at first
   suppressMessages({
     build_markdown(res, quiet = FALSE) %>%
-      expect_message("Consent to use package cache provided") %>%
+      expect_message("Consent to use package cache (provided|not given)") %>%
       expect_output("ordinary text without R code")
   })
 
