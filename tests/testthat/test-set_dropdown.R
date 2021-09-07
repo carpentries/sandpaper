@@ -96,7 +96,7 @@ test_that("yaml lists are preserved with other schedule updates", {
   
   # regression test for https://github.com/carpentries/sandpaper/issues/53
   expect_equal(get_episodes(tmp), c("03-second-episode.Rmd", "01-introduction.Rmd"))
-  set_learners(tmp, order = "setup.md", write = TRUE)
+  set_learners(tmp, order = "setup.md", write = TRUE) # ZNK 2021-09-07: force this line to be recognized by Git
   expect_equal(get_episodes(tmp), c("03-second-episode.Rmd", "01-introduction.Rmd"))
 
 })
