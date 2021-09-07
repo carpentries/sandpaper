@@ -167,11 +167,13 @@ work_with_cache <- function() {
     Sys.setenv("RENV_PROFILE" = prof)
     options(prompt = prompt)
   }
+  done_alert <- glue::glue("{cli::symbol$info} call `done()` when you are finished with the session.")
   on.exit({
-    cli::cli_alert_info("call {.fn done} when you are finished with the session")
+    message(done_alert)
   })
+  prmpt <- glue::glue("{cli::style_inverse('[lesson]')}{prompt}")
   renv::load()
-  options(prompt = glue::glue("{cli::style_inverse('[lesson]')}{prompt}"))
+  options(prompt = prmpt)
   return(done)
 }
 #nocov end

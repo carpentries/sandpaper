@@ -220,6 +220,9 @@ use_package_cache()
 #| ℹ Consent for renv provided---consent for package cache implied.
 ```
 
+Read on for information about how to add, update, and remove packages from your
+cache.
+
 ## Motivation
 
 One of the biggest motivations for building the lesson infrastructure around
@@ -265,4 +268,61 @@ This provisioner will do the following steps:
 
 When the lockfile changes, you will see it in git and have the power to either
 commit or restore those changes.
+
+
+## Adding New Pacakges to the Cache
+
+The {sandpaper} cache records ONLY the packages needed for the repository itself.
+This means that if you want to use a package, you _must_ have it declared 
+somewhere within your lesson either as `library(package)` or 
+`package::function()`.
+
+For example, if I wanted to use the `sessioninfo` package to create a record 
+at the end of an episode, I would only need to add the following chunk:
+
+````markdown
+```{r sessioninfo, echo = FALSE}`r ""`
+sessioninfo::session_info()
+```
+````
+
+From there, {sandpaper} will be able to detect the package and add it to the
+cache.
+
+> Note: {renv} can not detect packages that are programmatically loaded, so one
+> workaround is to have a file called `episodes/install.R` that lists the 
+> installation scripts for the packages in your lesson
+
+If you want to pin a package to a specific version, read on.
+
+## Pinning specific package versions
+
+To pin a specific package version, you can use the `pin_version()` function. For
+example, here's how you would pin the {cowsay} package to version 0.7.0:
+
+```{r eval = FALSE}
+pin_version("cowsay@0.7.0")
+```
+
+This will record the package in the lockfile so that the next time 
+`manage_deps()` runs, it will use the correct version.
+
+## Updating the cache
+
+If you want to update the packages in the package cache, you can use the
+function `fetch_updates()`. This requires an internet connection and will scan
+the packages in your lesson for any potential updates and ask if you want to 
+update them. This will update those packages in your package cache and your 
+lockfile.
+
+```{r fetch-updates, eval = FALSE}
+fetch_updates(prompt = TRUE)
+```
+
+```{r fetch-updates-show, echo = FALSE}
+
+```
+
+
+
 

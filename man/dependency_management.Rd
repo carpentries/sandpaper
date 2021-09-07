@@ -3,6 +3,7 @@
 \name{manage_deps}
 \alias{manage_deps}
 \alias{fetch_updates}
+\alias{pin_version}
 \title{Lesson Runtime Dependency Management}
 \usage{
 manage_deps(
@@ -19,11 +20,14 @@ fetch_updates(
   quiet = !prompt,
   snapshot = TRUE
 )
+
+pin_version(records = NULL, profile = "lesson-requirements", path = ".")
 }
 \arguments{
-\item{path}{path to the current project}
+\item{path}{path to your lesson. Defaults to the current working directory.}
 
-\item{profile}{the name of the new profile (default "lesson-requirements")}
+\item{profile}{default to the profile for the lesson. Defaults to
+\code{lesson-requirements}. Only use this if you know what you are doing.}
 
 \item{snapshot}{if \code{TRUE}, packages from the cache are added to the lockfile
 (default). Setting this to \code{FALSE} will add packages to the cache and not
@@ -36,10 +40,18 @@ dependencies.}
 \item{prompt}{if \code{TRUE}, a message will show you the packages that will be
 updated in your lockfile and ask for your permission. This is the default
 if it's running in an interactive session.}
+
+\item{records}{a character vector or list of packages/resources to include
+in the lockfile. The most common way to do this is to use the
+\verb{[package]@[version]} syntax (e.g. \verb{gert@0.1.3}), but there are other
+specifications where you can specify the remote repository. See
+\code{\link[renv:record]{renv::record()}} for details.}
 }
 \value{
 if \code{snapshot = TRUE}, a nested list representing the lockfile will be
 returned.
+
+the contents of the lockfile, invisibly
 }
 \description{
 A customized provisioner for Carpentries Lessons based on
@@ -63,6 +75,10 @@ If no lockfile exists in your lesson, this will create one for you.
 \item \code{fetch_updates()}: fetches updates for the dependencies and applies them
 to your cache and lockfile.
 }
+
+This is a wrapper around \code{\link[renv:record]{renv::record()}}, which helps you record a package
+or set of packages in your lockfile. It can be useful when you want to
+upgrade or downgrade a specific package.
 }
 \details{
 The \pkg{renv} package provides a very useful interface to bring one

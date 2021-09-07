@@ -106,29 +106,64 @@ manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = 
 fetch_updates <- function(path = ".", profile = "lesson-requirements", prompt = interactive(), quiet = !prompt, snapshot = TRUE) {
   prof <- Sys.getenv("RENV_PROFILE")
   on.exit({
-    on.exit(invisible(utils::capture.output(renv::deactivate(path))), add = TRUE)
+    invisible(utils::capture.output(renv::deactivate(path), type = "message"))
     Sys.setenv("RENV_PROFILE" = prof)
-  })
+  }, add = TRUE)
   Sys.setenv("RENV_PROFILE" = profile)
   renv::load(project = path)
+  lib <- renv::paths$library()
+  has_cli <- requireNamespace("cli", quietly = TRUE)
   if (prompt) {
-    updates <- renv::update(check = TRUE, prompt = TRUE)
+    updates <- renv::update(library = lib, check = TRUE, prompt = TRUE)
     if (isTRUE(updates)) {
       return(invisible())
     }
-    cli::cli_alert("Do you want to update the following packages?")
+    wanna_update <- "Do you want to update the following packages?"
+    if (has_cli) cli::cli_alert(wanna_update) else message(wanna_update)
     ud <- utils::capture.output(print(updates))
     message(paste(ud, collapse = "\n"))
     res <- utils::menu(c("Yes", "No"))
     if (res != 1) {
-      cli::cli_alert_info("Not updating at this time")
+      no <- "Not updating at this time"
+      if (has_cli) cli::cli_alert_info(no) else message(no)
       return(invisible())
     }
   }
-  updates <- renv::update(project = path, prompt = FALSE)
+  updates <- renv::update(library = lib, prompt = FALSE)
   if (snapshot) {
     renv::snapshot(lockfile = renv::paths$lockfile(), prompt = FALSE)
   }
   updates
 }
 
+#' Pin a resource to a specific version
+#'
+#' This is a wrapper around [renv::record()], which helps you record a package
+#' or set of packages in your lockfile. It can be useful when you want to 
+#' upgrade or downgrade a specific package. 
+#'
+#' @param records a character vector or list of packages/resources to include
+#' in the lockfile. The most common way to do this is to use the
+#' `[package]@[version]` syntax (e.g. `gert@0.1.3`), but there are other
+#' specifications where you can specify the remote repository. See
+#' [renv::record()] for details.
+#' @param profile default to the profile for the lesson. Defaults to 
+#' `lesson-requirements`. Only use this if you know what you are doing.
+#' @param path path to your lesson. Defaults to the current working directory.
+#'
+#' @return the contents of the lockfile, invisibly
+#' @export
+#' @rdname dependency_management
+pin_version <- function(records = NULL, profile = "lesson-requirements", path = ".") {
+  prof <- Sys.getenv("RENV_PROFILE")
+  wd   <- getwd()
+  on.exit({
+    invisible(utils::capture.output(renv::deactivate(path), type = "message"))
+    Sys.setenv("RENV_PROFILE" = prof)
+    setwd(wd)
+  })
+  setwd(path)
+  Sys.setenv("RENV_PROFILE" = profile)
+  lockfile <- renv::paths$lockfile()
+  renv::record(records, lockfile = lockfile, project = path)
+}

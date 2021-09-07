@@ -17,7 +17,7 @@ callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, 
   # directory.
   if (root != "") {
     renv::load(root)
-    on.exit(invisible(utils::capture.output(renv::deactivate(root))), add = TRUE)
+    on.exit(invisible(utils::capture.output(renv::deactivate(root), type = "message")), add = TRUE)
   }
   # Set knitr options for output ---------------------------
   ochunk <- knitr::opts_chunk$get()
@@ -91,7 +91,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   if (snapshot) {
     # 3. Load the current profile, unloading it when we exit
     renv::load()
-    on.exit(invisible(utils::capture.output(renv::deactivate())), add = TRUE)
+    on.exit(invisible(utils::capture.output(renv::deactivate(), type = "message")), add = TRUE)
     # 4. Snapshot the current state of the library to the lockfile to 
     #    synchronize
     cli::cli_alert("Recording changes in lockfile")
