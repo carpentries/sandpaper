@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9048
+
+BUG FIX
+-------
+
+* pandoc lua filter no longer errors on raw div HTML elements with no class
+  (@zkamvar, #166)
+
 # sandpaper 0.0.0.9047
 
 CONTINUOUS INTEGRATION
