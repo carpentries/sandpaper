@@ -158,7 +158,7 @@ renv_setup_profile <- function(path = ".", profile = "lesson-requirements") {
 #'   print(.libPaths())
 #' }
 #nocov start
-work_with_cache <- function() {
+work_with_cache <- function(profile = "lesson-requirements") {
   stopifnot("This only works interactively" = interactive())
   prof <- Sys.getenv("RENV_PROFILE")
   prompt <- getOption("prompt")
@@ -172,9 +172,28 @@ work_with_cache <- function() {
     message(done_alert)
   })
   prmpt <- glue::glue("{cli::style_inverse('[lesson]')}{prompt}")
+  Sys.setenv("RENV_PROFILE" = profile)
   renv::load()
   options(prompt = prmpt)
   return(done)
+}
+
+#' Print a diagnostics report for the package cache
+#'
+#' @param path the path to the lesson to use for diagnostics
+#' @param profile the profile to work with (defaults to "lesson-requirements"
+#'
+#' @export
+#' @keywords internal
+renv_diagnostics <- function(path = ".", profile = "lesson-requirements") {
+  prof <- Sys.getenv("RENV_PROFILE")
+  on.exit({
+    Sys.setenv("RENV_PROFILE" = prof)
+    invisible(capture.output(renv::deactivate(), type = "message"))
+  }, add = TRUE)
+  Sys.setenv("RENV_PROFILE" = profile)
+  renv::load(project = path)
+  renv::diagnostics(project = path)
 }
 #nocov end
 

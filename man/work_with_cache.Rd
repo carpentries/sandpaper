@@ -4,7 +4,7 @@
 \alias{work_with_cache}
 \title{(Experimental) Work with the package cache}
 \usage{
-work_with_cache()
+work_with_cache(profile = "lesson-requirements")
 }
 \value{
 a function that will reset your R environment to its original state

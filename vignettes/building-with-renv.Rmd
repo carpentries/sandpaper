@@ -319,10 +319,3 @@ lockfile.
 fetch_updates(prompt = TRUE)
 ```
 
-```{r fetch-updates-show, echo = FALSE}
-
-```
-
-
-
-
