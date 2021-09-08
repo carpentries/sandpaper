@@ -173,8 +173,12 @@ end
 function level_head(el, level)
 
   -- bail early if there is no class or it's not one of ours
+  local no_class = el.classes[1] == nil
+  if no_class then
+    return el
+  end
   local class = pandoc.utils.stringify(el.classes[1])
-  if class == nil or blocks[class] == nil then
+  if blocks[class] == nil then
     return el
   end
 
