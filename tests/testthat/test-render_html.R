@@ -71,6 +71,18 @@ test_that("links are auto rendered", {
   expect_match(render_html(tmp), "href=", fixed = TRUE)
 })
 
+
+test_that("empty raw divs are still processed", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  tmp <- fs::file_temp()
+  withr::local_file(tmp)
+  writeLines("<div>classless divs work</div>", tmp)
+  expect_match(render_html(tmp), "classless divs work", fixed = TRUE)
+
+})
+
+
 test_that("footnotes are rendered", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
