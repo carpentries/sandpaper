@@ -1,0 +1,152 @@
+name: "03 Maintain: Update Package Cache"
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Who triggered this build (enter github username to tag yourself)?'
+        required: true
+        default: 'monthly run'
+  schedule:
+    # Run first tuesday of the month
+    - cron: '0 0 2-10 * 2'
+
+jobs:
+  check_token:
+    name: "Check SANDPAPER_WORKFLOW token"
+    runs-on: ubuntu-latest
+    outputs:
+      wf: ${{ steps.validate.outputs.wf }}
+      repo: ${{ steps.validate.outputs.repo }}
+    steps:
+      - name: "validate token"
+        id: validate
+        uses: carpentries/actions/check-valid-credentials@main
+        with:
+          token: ${{ secrets.SANDPAPER_WORKFLOW }}
+
+  bad_token:
+    name: "Invalid/Missing Token"
+    runs-on: ubuntu-latest
+    needs: check_token
+    if: ${{ needs.check_token.outputs.wf != 'true' }}
+    steps:
+      - name: "Instructions to create a new token"
+        run: |
+          printf "::warning::The SANDPAPER_WORKFLOW token workflow scope is not valid\n"\
+          "If you want to have periodic pull request updates, you will need to generate a new token by going to "\
+          "https://github.com/settings/tokens/new?scopes=repo,workflow&description=Sandpaper%%20Token\n"\
+          "Once you have created the token, go to "\
+          "https://github.com/${{ github.repository }}/settings/secrets/actions/SANDPAPER_WORKFLOW "\
+          "to update it."
+
+  update_workflow:
+    name: "Update Workflow"
+    needs: check_token
+    if: ${{ needs.check_token.outputs.wf == 'true' }}
+    runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RENV_PATHS_ROOT: ~/Library/Application Support/renv
+    steps:
+
+      - name: "Checkout Lesson"
+        uses: actions/checkout@v2
+      
+      - name: "Check if renv dir exists"
+        id: check
+        run: |
+          if [[ -d renv ]]; then
+            echo '::set-output name=can-update::true'
+          else
+            echo 'nothing to do!'
+          fi
+
+      - name: "Set up R"
+        if: ${{ steps.check.outputs.can-update }}
+        uses: r-lib/actions/setup-r@v1
+
+      - name: "Restore {renv} Cache"
+        if: ${{ steps.check.outputs.can-update }}
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys:
+            ${{ runner.os }}-renv-
+
+      - name: "Update {renv} deps and determine if a PR is needed"
+        id: update
+        if: ${{ steps.check.outputs.can-update }}
+        run: |
+          options(repos = c(
+            carpentries = "https://carpentries.r-universe.dev",
+            carpentries_archive = "https://carpentries.github.io/drat",
+            CRAN = "https://cran.rstudio.com"))
+          # install renv if we don't have it. 
+          if (!requireNamespace("renv", quietly = TRUE))
+            install.packages("renv")
+          Sys.setenv("RENV_PROFILE" = "lesson-requirements")
+          renv::load()
+          lib  <- renv::paths$library()
+          lock <- renv::paths$lockfile()
+          shh  <- capture.output(renv::restore(library = lib, lockfile = lock))
+          updates <- renv::update(library = lib, check = TRUE)
+          n <- 0
+          report <- character(0)
+          if (!identical(updates, TRUE)) {
+            renv::update(library = lib)
+            renv::snapshot(lockfile = lock)
+            n <- length(updates$diff)
+            report <- utils::capture.output(print(updates))
+            # https://github.community/t/set-output-truncates-multiline-strings/16852/3?u=zkamvar
+            report <- paste(report, collapse = "%0A")
+          }
+          meow  <- function(...) cat(..., "\n", sep = "")
+          meow("::set-output name=report::", report)
+          meow("::set-output name=n::", n)
+          meow("::set-output name=date::", as.character(Sys.Date()))
+        shell: Rscript {0}
+
+      - name: "Show variables"
+        if: ${{ always() }}
+        run: |
+          echo ${{ steps.update.outputs.n }}
+          echo ${{ steps.update.outputs.report }}
+          echo ${{ steps.update.outputs.date }}
+          echo ${{ steps.update.outputs.n > 0 }}
+          echo ${{ steps.check.outputs.can-update && steps.update.outputs.n > 0}}
+
+      - name: Create Pull Request
+        id: cpr
+        if: ${{ steps.check.outputs.can-update && steps.update.outputs.n > 0 }}
+        uses: peter-evans/create-pull-request@v3.10.0
+        with:
+          token: ${{ secrets.SANDPAPER_WORKFLOW }}
+          delete-branch: true
+          branch: "update-${{ steps.update.outputs.n }}-packages-${{ steps.update.outputs.date }}"
+          commit-message: "[actions] update ${{ steps.update.outputs.n }} packages"
+          title: "Update ${{ steps.update.outputs.n }} packages"
+          body: |
+            :robot: This is an automated build
+
+            This will update the following package versions in your lesson:
+
+            ```
+            ${{ steps.update.outputs.report }}
+            ```
+
+            :stopwatch: In a few minutes, a comment will appear that will show you how the output has changed based on these updates.
+
+            If you want to inspect these changes locally, you can use the following code to check out a new branch:
+
+            ```bash
+            git fetch origin update-${{ steps.update.outputs.n }}-packages-${{ steps.update.outputs.date }}
+            git checkout update-${{ steps.update.outputs.n }}-packages-${{ steps.update.outputs.date }}
+            ```
+
+            - Auto-generated by [create-pull-request][1] via ${{ github.event.inputs.name }}
+            
+            [1]: https://github.com/peter-evans/create-pull-request
+          labels: "type:template and tools"
+          draft: false
