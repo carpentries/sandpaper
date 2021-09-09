@@ -92,7 +92,7 @@ manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = 
     env = c(callr::rcmd_safe_env(),
       "RENV_PROFILE" = profile,
       "R_PROFILE_USER" = fs::path(tempfile(), "nada"),
-      "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache())
+      "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available())
   )
 }
 

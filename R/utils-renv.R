@@ -134,7 +134,7 @@ renv_setup_profile <- function(path = ".", profile = "lesson-requirements") {
   user_profile = FALSE,
   env = c(callr::rcmd_safe_env(),
     "R_PROFILE_USER" = "nada",
-    "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()))
+    "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available()))
 }
 
 #' (Experimental) Work with the package cache
@@ -198,7 +198,7 @@ renv_diagnostics <- function(path = ".", profile = "lesson-requirements") {
 #nocov end
 
 
-renv_cache <- function() {
+renv_cache_available <- function() {
   renv::config$cache.symlinks() && is.null(getOption("sandpaper.test_fixture"))
 }
 
