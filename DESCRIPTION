@@ -42,6 +42,7 @@ Suggests:
     markdown,
     brio,
     xml2,
+    xslt,
     covr,
     withr,
     jsonlite,
