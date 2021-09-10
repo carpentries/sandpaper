@@ -17,7 +17,7 @@ renv_burn_it_down <- function(path = ".", profile = "lesson-requirements") {
 #nocov end
 
 renv_is_allowed <- function() {
-  .Platform$OS.type != "windows"
+  tolower(.Platform$OS.type) != "windows"
 }
 
 renv_should_rebuild <- function(path, rebuild, db_path, profile = "lesson-requirements") {

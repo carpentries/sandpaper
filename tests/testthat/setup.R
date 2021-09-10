@@ -1,8 +1,6 @@
 {
-  if (.Platform$OS.type == "windows") {
-    # We can not use the package cache on Windows
-    options(sandpaper.use_renv = FALSE)
-  }
+  # We can not use the package cache on Windows
+  options(sandpaper.use_renv = renv_is_allowed())
   restore_fixture <- create_test_lesson()
   res <- tmp <- getOption("sandpaper.test_fixture")
   rmt <- fs::file_temp(pattern = "REMOTE-")
