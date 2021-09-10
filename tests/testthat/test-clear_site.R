@@ -23,7 +23,10 @@ test_that("the site can be cleared", {
   expect_setequal(built_site, fs::path(tmp, "site", c(expected, "docs")))
 
   rds <- fs::path(tmp, "site", "built", "data", "test.rds")
-  expect_length(fs::dir_ls(fs::path(tmp, "site", "built")), 13L)
+  # must do two tests here for windows to pass since it does not possess a lockfile
+  built_files <- length(fs::dir_ls(fs::path(tmp, "site", "built")))
+  expect_gte(built_files, 12L)
+  expect_lte(built_files, 13L)
   expect_true(fs::file_exists(rds))
   expect_equal(readRDS(rds), expected)
 

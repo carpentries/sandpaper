@@ -43,6 +43,7 @@ test_that("build_episode_html() works independently", {
   file.create(fun_file)
   writeLines(txt, fun_file)
 
+  skip_on_os("windows")
   manage_deps(tmp)
   expect_output({
     res <- build_episode_md(fun_file, workdir = dirname(fun_file))
