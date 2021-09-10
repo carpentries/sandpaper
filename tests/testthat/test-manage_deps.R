@@ -105,7 +105,6 @@ test_that("fetch_updates() will update old package versions", {
     res <- fetch_updates(path = lsn, prompt = FALSE, quiet = FALSE) %>%
       expect_output("sessioninfo")
   })
-  expect_named(res, "sessioninfo")
   expect_true(
     package_version(res$sessioninfo$Version) > package_version("1.1.0")
   )
