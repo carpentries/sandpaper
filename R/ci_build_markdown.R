@@ -15,9 +15,7 @@
 #' @keywords internal
 ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origin", reset = FALSE) {
 
-  if (renv_is_allowed()) {
-    options(sandpaper.use_renv = TRUE)
-  }
+  options(sandpaper.use_renv = renv_is_allowed())
   # step 0: build_lesson defaults to a local build
   path <- set_source_path(path)
   on.exit(reset_build_paths())

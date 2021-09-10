@@ -52,6 +52,7 @@ create_test_lesson <- function() {
 #' @rdname fixtures
 generate_restore_fixture <- function(tf) {
   function() {
+    options("sandpaper.use_renv" = renv_is_allowed())
     if (nrow(gert::git_status(repo = tf)) > 0L) {
       # reset the repositoyr
       x <- gert::git_reset_hard(repo = tf)
