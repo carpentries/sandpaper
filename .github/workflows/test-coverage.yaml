@@ -54,7 +54,7 @@ jobs:
           tryCatch(covr::codecov(),
             error = function(e) {
               pth <- list.files(tempdir(), pattern = "testthat.Rout.fail", full.names = TRUE, recursive = TRUE)
-              if (file.exists(pth))
+              if (length(pth) && file.exists(pth))
                 cat(readLines(pth), sep = "\n")
               e
           })
