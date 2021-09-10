@@ -12,7 +12,6 @@ jobs:
   test-coverage:
     runs-on: ubuntu-latest
     env:
-      CRAN: c("https://carpentries.r-universe.dev", "https://carpentries.github.io/drat", "https://cloud.r-project.org")
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PATHS_ROOT: ~/.local/share/renv
       OS_VERSION: 1
@@ -23,6 +22,11 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
         with:
           use-public-rspm: true
+
+      - name: Add Carpentries Repos
+        run: |
+          writeLines('options(repos = c(carpentries = "https://carpentries.r-universe.dev", carpentries_archive = "https://carpentries.github.io/drat", CRAN = "https://cran.rstudio.com"))', file("~/.Rprofile", "ab"))
+        shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
