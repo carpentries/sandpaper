@@ -54,7 +54,7 @@ test_that("manage_deps() will run without callr", {
   withr::local_envvar(list(
     "RENV_PROFILE" = "lesson-requirements",
     "R_PROFILE_USER" = fs::path(tempfile(), "nada"),
-    "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()
+    "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available()
   ))
  
   suppressMessages({
@@ -80,7 +80,7 @@ test_that("pin_version() will use_specific versions", {
   withr::local_envvar(list(
     "RENV_PROFILE" = "lesson-requirements",
     "R_PROFILE_USER" = fs::path(tempfile(), "nada"),
-    "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache()
+    "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available()
   ))
 
   suppressMessages({

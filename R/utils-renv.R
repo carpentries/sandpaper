@@ -189,7 +189,7 @@ renv_diagnostics <- function(path = ".", profile = "lesson-requirements") {
   prof <- Sys.getenv("RENV_PROFILE")
   on.exit({
     Sys.setenv("RENV_PROFILE" = prof)
-    invisible(capture.output(renv::deactivate(), type = "message"))
+    invisible(utils::capture.output(renv::deactivate(), type = "message"))
   }, add = TRUE)
   Sys.setenv("RENV_PROFILE" = profile)
   renv::load(project = path)
