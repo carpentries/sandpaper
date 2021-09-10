@@ -35,6 +35,27 @@ This workflow does not use any custom actions from this repository.
 
 ## Updates
 
+### Setup Information
+
+These workflows run on a schedule and at the maintainer's request. Because they
+create pull requests that update workflows/require the downstream actions to run,
+they need a special repository/organization secret token called 
+`SANDPAPER_WORKFLOW` and it must have the `repo` and `workflow` scope. 
+
+This can be an individual user token, OR it can be a trusted bot account. If you
+have a repository in one of the official Carpentries accounts, then you do not
+need to worry about this token being present because the Carpentries Core Team
+will take care of supplying this token.
+
+If you want to use your personal account: you can go to 
+<https://github.com/settings/tokens/new?scopes=repo,workflow&description=Sandpaper%20Token>
+to create a token. Once you have created your token, you should copy it to your
+clipboard and then go to your repository's settings > secrets > actions and
+create or edit the `SANDPAPER_WORKFLOW` secret, pasting in the generated token.
+
+If you do not specify your token correctly, the runs will not fail and they will
+give you instructions to provide the token for your repository. 
+
 ### 02 Maintain: Update Workflow Files (update-workflow.yaml)
 
 The {sandpaper} repository was designed to do as much as possible to separate 
@@ -49,16 +70,27 @@ will do the following:
 1. check the recorded version of sandpaper against the current version on github
 2. update the files if there is a difference in versions
 
-After the files are updated, a pull request is created via a
-repository/organization secret token called `SANDPAPER_WORKFLOW`, which has the
-`workflow` scope. This can be an individual user token, OR it can be a trusted
-bot account. Maintainers are encouraged to review the changes and accept the
-pull request.
+After the files are updated, a pull request is created if there are any changes.
+Maintainers are encouraged to review the changes and accept the pull request.
 
-This update is run ~~monthly or~~ on demand.
+This update is run ~~weekly or~~ on demand.
 
 TODO: 
   - perform check if a pull request exists before creating pull request
+
+### 03 Maintain: Update Pacakge Cache (update-cache.yaml)
+
+For lessons that have generated content, we use {renv} to ensure that the output
+is stable. This is controlled by a single lockfile which documents the packages
+needed for the lesson and the version numbers.
+
+Because the lessons need to remain current with the package ecosystem, it's a
+good idea to make sure these packages can be updated periodically. The 
+update cache workflow will do this by checking for updates, applying them and
+creating a pull request with _only the lockfile changed_. 
+
+From here, the markdown documents will be rebuilt and you can inspect what has
+changed based on how the packages have updated. 
 
 ## Pull Request and Review Management
 
