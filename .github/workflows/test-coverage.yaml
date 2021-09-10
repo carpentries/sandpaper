@@ -12,6 +12,7 @@ jobs:
   test-coverage:
     runs-on: ubuntu-latest
     env:
+      CRAN: c(carpentries = "https://carpentries.r-universe.dev", CRAN = "https://cloud.r-project.org")
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PATHS_ROOT: ~/.local/share/renv
       OS_VERSION: 1
@@ -20,8 +21,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@v1
-        env:
-          CRAN: c(carpentries = "https://carpentries.r-universe.dev", CRAN = "https://cloud.r-project.org")
         with:
           use-public-rspm: true
 
