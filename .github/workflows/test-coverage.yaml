@@ -51,7 +51,7 @@ jobs:
       - name: Test coverage
         run: |
           dir.create("check")
-          tryCatch(covr::codecov(),
+          tryCatch(covr::codecov(clean = FALSE),
             error = function(e) {
               pth <- list.files(tempdir(), pattern = "testthat.Rout.fail", full.names = TRUE, recursive = TRUE)
               if (length(pth) && file.exists(pth))
