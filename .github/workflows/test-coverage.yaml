@@ -23,6 +23,11 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: "Set up pandoc"
+        uses: r-lib/actions/setup-pandoc@v1
+        with:
+          pandoc-version: '2.11' 
+
       - name: Add Carpentries Repos
         run: |
           writeLines('options(repos = c(carpentries = "https://carpentries.r-universe.dev", carpentries_archive = "https://carpentries.github.io/drat", CRAN = "https://cran.rstudio.com"))', file("~/.Rprofile", "ab"))
@@ -56,11 +61,7 @@ jobs:
               pth <- list.files(tempdir(), pattern = "testthat.Rout.fail", full.names = TRUE, recursive = TRUE)
               if (length(pth) && file.exists(pth))
                 cat(readLines(pth), sep = "\n")
-              e
+              stop(e)
           })
         shell: Rscript {0}
 
-      - name: Show testthat output
-        if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
