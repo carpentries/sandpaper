@@ -93,29 +93,20 @@ jobs:
           shh  <- capture.output(renv::restore(library = lib, lockfile = lock))
           updates <- renv::update(library = lib, check = TRUE)
           n <- 0
-          report <- character(0)
+          the_report <- character(0)
           if (!identical(updates, TRUE)) {
             renv::update(library = lib)
             renv::snapshot(lockfile = lock)
             n <- length(updates$diff)
-            report <- utils::capture.output(print(updates))
+            the_report <- utils::capture.output(print(updates), type = "message")
             # https://github.community/t/set-output-truncates-multiline-strings/16852/3?u=zkamvar
-            report <- paste(report, collapse = "%0A")
+            the_report <- paste0(the_report, collapse = "%0A")
           }
           meow  <- function(...) cat(..., "\n", sep = "")
-          meow("::set-output name=report::", report)
+          meow("::set-output name=report::", the_report)
           meow("::set-output name=n::", n)
           meow("::set-output name=date::", as.character(Sys.Date()))
         shell: Rscript {0}
-
-      - name: "Show variables"
-        if: ${{ always() }}
-        run: |
-          echo ${{ steps.update.outputs.n }}
-          echo ${{ steps.update.outputs.report }}
-          echo ${{ steps.update.outputs.date }}
-          echo ${{ steps.update.outputs.n > 0 }}
-          echo ${{ steps.check.outputs.can-update && steps.update.outputs.n > 0}}
 
       - name: Create Pull Request
         id: cpr
