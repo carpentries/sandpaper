@@ -41,6 +41,26 @@ test_that("markdown sources can be built without fail", {
   
 })
 
+test_that("changes in config.yaml triggers a rebuild of the site yaml", {
+
+  skip_on_os("windows")
+  yml <- get_path_site_yaml(res)$title
+  expect_identical(yml, "Lesson Title")
+  cfg <- gsub("Lesson Title", "NEW Lesson Title", readLines(fs::path(res, "config.yaml")))
+  writeLines(cfg, fs::path(res, "config.yaml"))
+
+  suppressMessages({
+    out <- capture.output({
+      build_markdown(res, quiet = FALSE) %>%
+        expect_message("nothing to rebuild")
+    })
+  })
+
+  expect_identical(get_path_site_yaml(res)$title, "NEW Lesson Title")
+
+
+})
+
 
 test_that("markdown sources can be rebuilt without fail", {
   

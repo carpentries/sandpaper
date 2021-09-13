@@ -76,6 +76,12 @@ MISC
  - some of the {callr} functions have been made non-anonymous and moved to a
    separate file so they could be tested independently.
 
+BUG FIX
+-------
+
+ - changes to `config.yaml` are now reflected on the lesson site without
+   rebuilding (fixes #75)
+
 # sandpaper 0.0.0.9048
 
 BUG FIX

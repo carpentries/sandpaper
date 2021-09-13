@@ -122,7 +122,13 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
 
   # Update metadata ------------------------------------------------------------
   if (length(db$build) > 0) {
-    update_site_timestamp(path)
+    # The config triggers a rebuild of the pkgdown yaml file, otherwise the
+    # timestamp is updated.
+    if (any(fs::path_file(db$build) == "config.yaml")) {
+      write_pkgdown_yaml(create_pkgdown_yaml(path), path)
+    } else {
+      update_site_timestamp(path)
+    }
   }
 
   # Update the navbar ----------------------------------------------------------
