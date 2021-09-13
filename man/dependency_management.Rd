@@ -2,7 +2,7 @@
 % Please edit documentation in R/manage_deps.R
 \name{manage_deps}
 \alias{manage_deps}
-\alias{fetch_updates}
+\alias{update_cache}
 \alias{pin_version}
 \title{Lesson Runtime Dependency Management}
 \usage{
@@ -13,7 +13,7 @@ manage_deps(
   quiet = FALSE
 )
 
-fetch_updates(
+update_cache(
   path = ".",
   profile = "lesson-requirements",
   prompt = interactive(),
@@ -72,7 +72,7 @@ The functions that control this cache are the following:
 \enumerate{
 \item \code{manage_deps()}: Creates and updates the dependencies in your lesson.
 If no lockfile exists in your lesson, this will create one for you.
-\item \code{fetch_updates()}: fetches updates for the dependencies and applies them
+\item \code{update_cache()}: fetches updates for the dependencies and applies them
 to your cache and lockfile.
 }
 

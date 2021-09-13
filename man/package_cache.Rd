@@ -50,7 +50,7 @@ trigger rebuilds of the lesson. To do this, you can use:
 \item \code{package_cache_trigger(TRUE)}
 }
 
-The above function is best used in conjunction with \code{\link[=fetch_updates]{fetch_updates()}}
+The above function is best used in conjunction with \code{\link[=update_cache]{update_cache()}}
 }
 \details{
 \subsection{Background}{
@@ -98,7 +98,7 @@ if (!getOption("sandpaper.use_renv") && interactive()) {
   use_package_cache(prompt = TRUE)
   # The package cache trigger is FALSE, by default
   default <- package_cache_trigger()
-  # You can set this to `TRUE` when you update packages with `fetch_updates()`
+  # You can set this to `TRUE` when you update packages with `update_cache()`
   package_cache_trigger(TRUE)
   # set the trigger back to its former state
   package_cache_trigger(default)
@@ -115,6 +115,6 @@ if (getOption("sandpaper.use_renv") && interactive()) {
 }
 }
 \seealso{
-\code{\link[=manage_deps]{manage_deps()}} and \code{\link[=fetch_updates]{fetch_updates()}} for managing the requirements
+\code{\link[=manage_deps]{manage_deps()}} and \code{\link[=update_cache]{update_cache()}} for managing the requirements
 inside the package cache.
 }

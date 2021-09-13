@@ -16,7 +16,7 @@
 #' 
 #'   - `package_cache_trigger(TRUE)`
 #'
-#' The above function is best used in conjunction with [fetch_updates()]
+#' The above function is best used in conjunction with [update_cache()]
 #' 
 #'
 #' @details
@@ -64,7 +64,7 @@
 #' @export
 #' @rdname package_cache
 #' @return nothing. this is used for its side-effect
-#' @seealso [manage_deps()] and [fetch_updates()] for managing the requirements
+#' @seealso [manage_deps()] and [update_cache()] for managing the requirements
 #'   inside the package cache.
 #' @examples
 #' if (!getOption("sandpaper.use_renv") && interactive()) {
@@ -72,7 +72,7 @@
 #'   use_package_cache(prompt = TRUE)
 #'   # The package cache trigger is FALSE, by default
 #'   default <- package_cache_trigger()
-#'   # You can set this to `TRUE` when you update packages with `fetch_updates()`
+#'   # You can set this to `TRUE` when you update packages with `update_cache()`
 #'   package_cache_trigger(TRUE)
 #'   # set the trigger back to its former state
 #'   package_cache_trigger(default)

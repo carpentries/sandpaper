@@ -38,7 +38,7 @@ the maintainers flexibility of whether or not they want to use the package cache
    This is called both in `create_lesson()` and `build_markdown()` to ensure
    that the correct dependencies for the lesson are installed. This explicitly
    calls `use_package_cache()` when it runs.
- - `fetch_updates()` will bring in updates for the lesson cache.
+ - `update_cache()` will bring in updates for the lesson cache.
  - `pin_version()` will pin packages to a specific version, allowing authors to
    upgrade or downgrade packages at will.
 

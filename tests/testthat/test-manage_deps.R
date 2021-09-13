@@ -167,13 +167,13 @@ test_that("Package cache changes will trigger a rebuild", {
 })
 
 
-test_that("fetch_updates() will update old package versions", {
+test_that("update_cache() will update old package versions", {
   
   skip_on_os("windows")
   skip_if_offline()
 
   suppressMessages({
-    res <- fetch_updates(path = lsn, prompt = FALSE, quiet = FALSE) %>%
+    res <- update_cache(path = lsn, prompt = FALSE, quiet = FALSE) %>%
       expect_output("sessioninfo")
   })
   expect_true(

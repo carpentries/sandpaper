@@ -17,7 +17,7 @@
 #'
 #'   3. `manage_deps()`: Creates and updates the dependencies in your lesson.
 #'      If no lockfile exists in your lesson, this will create one for you.
-#'   4. `fetch_updates()`: fetches updates for the dependencies and applies them
+#'   4. `update_cache()`: fetches updates for the dependencies and applies them
 #'      to your cache and lockfile.
 #'
 #' @param path path to the current project
@@ -103,7 +103,7 @@ manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = 
 #'   if it's running in an interactive session.
 #' @rdname dependency_management
 #' @export
-fetch_updates <- function(path = ".", profile = "lesson-requirements", prompt = interactive(), quiet = !prompt, snapshot = TRUE) {
+update_cache <- function(path = ".", profile = "lesson-requirements", prompt = interactive(), quiet = !prompt, snapshot = TRUE) {
   prof <- Sys.getenv("RENV_PROFILE")
   on.exit({
     invisible(utils::capture.output(renv::deactivate(path), type = "message"))
