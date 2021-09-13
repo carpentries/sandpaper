@@ -35,16 +35,20 @@ dirdel <- Vectorize({function(d) {
 
 # Read and and transform additional files
 rewrite <- function(x, out) {
+  tryCatch({
   ref <- Episode$new(x)
   ref$unblock()$use_sandpaper()$write(out)
+  }, error = function(e) {
+    cli::cli_alert_warning("Error in transformation: {e$message}")
+  })
 }
 
 set_config <- function(key, value, path = here()) {
-  sandpaper::set_dropdown(path,
-    order = value,
-    write = TRUE,
-    folder = key
-  )
+  cfg <- sandpaper:::path_config(path)
+  l <- readLines(cfg)
+  what <- grep(glue::glue("^{key}:"), l)
+  l[what] <- glue::glue("{key}: {shQuote(value)}")
+  writeLines(l, cfg)
 }
 
 # Create a branch for us to work in
