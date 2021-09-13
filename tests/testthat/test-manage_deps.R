@@ -79,6 +79,7 @@ test_that("manage_deps() will run without callr", {
 
 test_that("renv will not trigger a rebuild when nothing changes", {
   
+  skip_on_os("windows")
   # nothing changes, so we do not rebuild
   db_path <- fs::path(path_built(lsn), "md5sum.txt")
   profile <- "lesson-requirements"
@@ -133,6 +134,7 @@ test_that("pin_version() will use_specific versions", {
 
 test_that("Package cache changes will trigger a rebuild", {
 
+  skip_on_os("windows")
   # nothing changes, so we do not rebuild
   db_path <- fs::path(path_built(lsn), "md5sum.txt")
   profile <- "lesson-requirements"
