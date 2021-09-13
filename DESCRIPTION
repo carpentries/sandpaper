@@ -31,6 +31,7 @@ Imports:
     knitr (>= 1.33),
     rmarkdown (>= 2.4),
     pingr,
+    renv (>= 0.13.2),
     rprojroot,
     usethis (>= 2.0.0),
     whisker,
@@ -46,7 +47,6 @@ Suggests:
     covr,
     withr,
     jsonlite,
-    renv (>= 0.13.2),
     sessioninfo,
     varnish (>= 0.0.0.9005)
 Additional_repositories: https://carpentries.r-universe.dev/
