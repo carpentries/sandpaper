@@ -1,7 +1,21 @@
 # sandpaper 0.0.0.9049
 
+This update for {sandpaper} brings in dependency management for lessons with
+generated content which will make collaboration between these lessons much 
+easier and less invasive by establishing a package cache and lockfile via the 
+{renv} R package.
+
 DEPENDENCY MANAGEMENT
 ---------------------
+
+### Introduction
+
+We use the {renv} package for controlling dependency management in the lesson,
+which is contained in a {renv} profile called "lesson-requirements". We have
+implemented this as a profile instead of the default {renv} environment to give
+the maintainers flexibility of whether or not they want to use the package cache.
+
+### Consent for Using the Package Cache
 
  - `getOption('sandpaper.use_renv')` will be set when {sandpaper} loads to
    detect if the contributor has previously consented to use the {renv} package.
@@ -15,6 +29,11 @@ DEPENDENCY MANAGEMENT
    in situtations where the cache is mis-behaving or you want to test the lesson
    using a newer set of packages. Internally, this enforces that
    `options(sandpaper.use_renv = FALSE)`.
+ - `package_cache_trigger(TRUE)` allows you to trigger a full rebuild when the
+   lockfile changes. 
+
+### Managing the Package Cache
+
  - `manage_deps()` is a new function that will manage dependencies for a lesson.
    This is called both in `create_lesson()` and `build_markdown()` to ensure
    that the correct dependencies for the lesson are installed. This explicitly
@@ -22,16 +41,15 @@ DEPENDENCY MANAGEMENT
  - `fetch_updates()` will bring in updates for the lesson cache.
  - `pin_version()` will pin packages to a specific version, allowing authors to
    upgrade or downgrade packages at will.
- - `create_lesson()` now additionally will create a {renv} profile called
-   "packages" in the lesson repository. This will make the lesson more portable
- - internal function `ci_deploy()` will set `sandpaper.use_renv` option to 
-   `TRUE`
- - some of the callr functions have been made non-anonymous and moved to a
-   separate file so they could be tested independently.
 
 NEW FEATURES
 ------------
 
+ - `create_lesson()` now additionally will create a {renv} profile called
+   "packages" in the lesson repository if `getOption('sandpaper.use_renv')` is 
+   `TRUE`. This will make the lesson more portable.
+ - internal function `ci_deploy()` will set `sandpaper.use_renv` option to 
+   `TRUE`
  - `build_markdown()` and thus `build_lesson()` will now cache `config.yaml` and
    `renv.lock`. It will no longer step through the build process if no markdown
    files need to be rebuilt. This will cause any project built with previous
@@ -45,8 +63,18 @@ NEW FEATURES
 CONTINOUS INTEGRATION
 ---------------------
 
+ - unexported function `ci_deploy()` will now automatically check and set the
+   git user and email.
  - `sandpaper-main.yaml` and `pr-receive.yaml` have been updated to include
    the {renv} cache.
+ - `update-cache.yaml` is a new workflow that will update the package cache
+   lockfile and create a pull request to trigger new builds.
+
+MISC
+----
+
+ - some of the {callr} functions have been made non-anonymous and moved to a
+   separate file so they could be tested independently.
 
 # sandpaper 0.0.0.9048
 
