@@ -30,7 +30,7 @@ the maintainers flexibility of whether or not they want to use the package cache
    using a newer set of packages. Internally, this enforces that
    `options(sandpaper.use_renv = FALSE)`.
  - `package_cache_trigger(TRUE)` allows you to trigger a full rebuild when the
-   lockfile changes. 
+   lockfile changes. This is set to `TRUE` by default on `ci_build_markdown()`
 
 ### Managing the Package Cache
 
