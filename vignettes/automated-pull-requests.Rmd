@@ -1,0 +1,33 @@
+---
+title: "Working with Automated Pull Requests"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Working with Automated Pull Requests}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#|"
+)
+```
+
+## Introduction
+
+One of the innovations of {sandpaper} is the out-of-the-box integration with 
+GitHub Actions by supplying several workflows that deploy, validate, and update
+the lesson. This vignette will focus on the latter set of workflows: those that
+update the lesson in some form. In this vignette, we will outline the components
+of the lesson that need updating, demonstrate pull requests and the requirements
+to set them up on a non-carpentries account, and demonstrate functions to
+manually update these components.
+
+## Components which Need to be Updated
+
+## Pull Request Updates
+
+### Setting up a Pull Request Bot
+
+## Manual Updates
