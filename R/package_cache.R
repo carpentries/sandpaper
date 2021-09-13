@@ -11,6 +11,14 @@
 #'   2. `no_package_cache()`: Temporarily suspends permission to use the package
 #'      cache with your lesson, regardless if it was previously given.
 #'
+#' Once you have a package cache defined, you can use changes in the lockfile to
+#' trigger rebuilds of the lesson. To do this, you can use:
+#' 
+#'   - `package_cache_trigger(TRUE)`
+#'
+#' The above function is best used in conjunction with [fetch_updates()]
+#' 
+#'
 #' @details
 #'
 #' ## Background
@@ -27,8 +35,8 @@
 #'    package versions installed.
 #'
 #' To alleviate these concerns, \pkg{sandpaper} uses the \pkg{renv} package to
-#' generate a lesson-specific library that has package versions pinned until the
-#' lesson authors choose to update them. This is designed to be
+#' generate a lesson-specific library that has package versions pinned until
+#' the lesson authors choose to update them. This is designed to be
 #' minimally-invasive, using the packages you already have and downloading from
 #' external repositories only when necessary.
 #'
@@ -62,6 +70,12 @@
 #' if (!getOption("sandpaper.use_renv") && interactive()) {
 #'   # The first time you set up {renv}, you will need permission
 #'   use_package_cache(prompt = TRUE)
+#'   # The package cache trigger is FALSE, by default
+#'   default <- package_cache_trigger()
+#'   # You can set this to `TRUE` when you update packages with `fetch_updates()`
+#'   package_cache_trigger(TRUE)
+#'   # set the trigger back to its former state
+#'   package_cache_trigger(default)
 #' }
 #'
 #' if (getOption("sandpaper.use_renv") && interactive()) {
@@ -116,5 +130,22 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
 no_package_cache <- function() {
   cli::cli_alert_info("Consent for package cache revoked. Use {.fn use_package_cache} to undo.")
   options("sandpaper.use_renv" = FALSE)
+}
+
+#' @rdname package_cache
+#' @param rebuild The new value of the `sandpaper.package_cache_trigger` global
+#'   option. Setting this to `TRUE` will result in _all materials_ being
+#'   rebuilt when new records enter the package cache lockfile even if no
+#'   source files have changed. Setting this to `FALSE` will return this to the
+#'   default state, which is to rebuld only if the source files have changed.
+#'   The default is `NULL`, which does nothing.
+#' @return the value of `getOption("sandpaper.package_cache_trigger")` or
+#'    `FALSE`, if it is unset.
+#' @export
+package_cache_trigger <- function(rebuild = NULL) {
+  if (isTRUE(rebuild) || isFALSE(rebuild)) {
+    options("sandpaper.package_cache_trigger" = rebuild)
+  }
+  return(getOption("sandpaper.package_cache_trigger", default = FALSE))
 }
 

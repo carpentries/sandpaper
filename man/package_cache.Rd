@@ -3,11 +3,14 @@
 \name{use_package_cache}
 \alias{use_package_cache}
 \alias{no_package_cache}
+\alias{package_cache_trigger}
 \title{Give Consent to Use Package Cache}
 \usage{
 use_package_cache(prompt = interactive(), quiet = !prompt)
 
 no_package_cache()
+
+package_cache_trigger(rebuild = NULL)
 }
 \arguments{
 \item{prompt}{if \code{TRUE} (default when interactive), a prompt for consent
@@ -16,9 +19,19 @@ screen asking for the user to choose to apply the changes or not.}
 
 \item{quiet}{if \code{TRUE}, messages will not be issued unless \code{prompt = TRUE}.
 This defaults to the opposite of \code{prompt}.}
+
+\item{rebuild}{The new value of the \code{sandpaper.package_cache_trigger} global
+option. Setting this to \code{TRUE} will result in \emph{all materials} being
+rebuilt when new records enter the package cache lockfile even if no
+source files have changed. Setting this to \code{FALSE} will return this to the
+default state, which is to rebuld only if the source files have changed.
+The default is \code{NULL}, which does nothing.}
 }
 \value{
 nothing. this is used for its side-effect
+
+the value of \code{getOption("sandpaper.package_cache_trigger")} or
+\code{FALSE}, if it is unset.
 }
 \description{
 These functions explicitly gives \pkg{sandpaper} permission to use \pkg{renv}
@@ -30,6 +43,14 @@ package cache with your lesson.
 \item \code{no_package_cache()}: Temporarily suspends permission to use the package
 cache with your lesson, regardless if it was previously given.
 }
+
+Once you have a package cache defined, you can use changes in the lockfile to
+trigger rebuilds of the lesson. To do this, you can use:
+\itemize{
+\item \code{package_cache_trigger(TRUE)}
+}
+
+The above function is best used in conjunction with \code{\link[=fetch_updates]{fetch_updates()}}
 }
 \details{
 \subsection{Background}{
@@ -47,8 +68,8 @@ package versions installed.
 }
 
 To alleviate these concerns, \pkg{sandpaper} uses the \pkg{renv} package to
-generate a lesson-specific library that has package versions pinned until the
-lesson authors choose to update them. This is designed to be
+generate a lesson-specific library that has package versions pinned until
+the lesson authors choose to update them. This is designed to be
 minimally-invasive, using the packages you already have and downloading from
 external repositories only when necessary.
 }
@@ -75,6 +96,12 @@ You can set \code{options(sandpaper.use_renv = FALSE)} before loading {sandpaper
 if (!getOption("sandpaper.use_renv") && interactive()) {
   # The first time you set up {renv}, you will need permission
   use_package_cache(prompt = TRUE)
+  # The package cache trigger is FALSE, by default
+  default <- package_cache_trigger()
+  # You can set this to `TRUE` when you update packages with `fetch_updates()`
+  package_cache_trigger(TRUE)
+  # set the trigger back to its former state
+  package_cache_trigger(default)
 }
 
 if (getOption("sandpaper.use_renv") && interactive()) {

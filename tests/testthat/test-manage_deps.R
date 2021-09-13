@@ -39,12 +39,19 @@ test_that("manage_deps() will create a renv folder", {
   expect_false(fs::dir_exists(rnv))
 
   # NOTE: these tests are still not very specific here...
-  manage_deps(lsn, quiet = FALSE, snapshot = TRUE) %>%
-    expect_message("Consent to use package cache provided") %>%
-    expect_output("Lockfile written to") %>%
-    expect_s3_class("renv_lockfile")
+  suppressMessages({
+    build_markdown(lsn, quiet = FALSE) %>%
+      expect_message("Consent to use package cache provided") %>%
+      expect_output("Lockfile written to")
+  })
 
   expect_true(fs::dir_exists(rnv))
+  expect_false(
+    renv_should_rebuild(lsn, 
+      rebuild = FALSE, 
+      db_path = fs::path(path_built(lsn), "md5sum.txt")
+    )
+  )
 
 })
 
@@ -56,7 +63,7 @@ test_that("manage_deps() will run without callr", {
     "R_PROFILE_USER" = fs::path(tempfile(), "nada"),
     "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available()
   ))
- 
+
   suppressMessages({
   callr_manage_deps(lsn, 
     repos = renv_carpentries_repos(), 
@@ -66,7 +73,34 @@ test_that("manage_deps() will run without callr", {
     expect_output("Copying packages into the library")
   })
 
+
 })
+
+
+test_that("renv will not trigger a rebuild when nothing changes", {
+  
+  # nothing changes, so we do not rebuild
+  db_path <- fs::path(path_built(lsn), "md5sum.txt")
+  profile <- "lesson-requirements"
+  
+  expect_false(
+    renv_should_rebuild(lsn, 
+      rebuild = FALSE, 
+      db_path = fs::path(path_built(lsn), "md5sum.txt")
+    )
+  )
+  withr::defer(package_cache_trigger(FALSE))
+  package_cache_trigger(TRUE)
+  lh <- renv_lockfile_hash(lsn, db_path, profile)
+  expect_equal(lh$old, lh$new, ignore_attr = TRUE)
+
+  # nothing changes, so we do not rebuild
+  expect_false(
+    renv_should_rebuild(lsn, rebuild = FALSE, db_path, profile)
+  )
+
+})
+
 
 test_that("pin_version() will use_specific versions", {
   
@@ -96,6 +130,41 @@ test_that("pin_version() will use_specific versions", {
 
 })
 
+
+test_that("Package cache changes will trigger a rebuild", {
+
+  # nothing changes, so we do not rebuild
+  db_path <- fs::path(path_built(lsn), "md5sum.txt")
+  profile <- "lesson-requirements"
+  
+  # default: no rebuilding
+  expect_false(renv_should_rebuild(lsn, rebuild = FALSE, db_path = db_path))
+  withr::defer(package_cache_trigger(FALSE))
+  # explicitly allow package cache to rebuild
+  package_cache_trigger(TRUE)
+  lh <- renv_lockfile_hash(lsn, db_path, profile)
+  # lockfile changed
+  expect_false(lh$old == lh$new)
+
+  # The lockfile has changed, so we rebuild
+  expect_true(
+    renv_should_rebuild(lsn, rebuild = FALSE, db_path, profile)
+  )
+
+  # explicitly forbid package cache changes from rebuilding
+  package_cache_trigger(FALSE)
+  lh <- renv_lockfile_hash(lsn, db_path, profile)
+  # lockfile changed
+  expect_false(lh$old == lh$new)
+
+  # We do not rebuild
+  expect_false(
+    renv_should_rebuild(lsn, rebuild = FALSE, db_path, profile)
+  )
+
+})
+
+
 test_that("fetch_updates() will update old package versions", {
   
   skip_on_os("windows")
@@ -110,3 +179,4 @@ test_that("fetch_updates() will update old package versions", {
   )
 
 })
+

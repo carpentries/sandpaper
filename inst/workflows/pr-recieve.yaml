@@ -93,7 +93,9 @@ jobs:
 
       - name: "Build Site"
         id: build-site
-        run: sandpaper:::build_markdown(path = '${{ github.workspace }}', quiet = TRUE)
+        run: |
+          sandpaper::package_cache_trigger(TRUE)
+          sandpaper:::build_markdown(path = '${{ github.workspace }}', quiet = TRUE)
         shell: Rscript {0}
 
       - name: "Generate Artifacts"

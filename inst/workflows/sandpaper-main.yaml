@@ -87,15 +87,16 @@ jobs:
         shell: Rscript {0}
 
       - name: "Fortify Local {renv} Packages"
-        run: sandpaper::manage_deps(path = ".", quiet = FALSE)
+        run: sandpaper::manage_deps(path = '${{ github.workspace }}', quiet = FALSE)
         shell: Rscript {0}
 
       - name: "Show Session Information"
-        run: Rscript -e 'sandpaper:::ci_session_info()'
+        run: sandpaper:::ci_session_info()
+        shell: Rscript {0}
 
       - name: "Deploy Site"
         run: |
-          sandpaper:::check_git_user(path = ".", name = "GitHub Actions", email = "actions@github.com")
           reset <- "${{ github.event.inputs.reset }}" == "true"
+          sandpaper::package_cache_trigger(TRUE)
           sandpaper:::ci_deploy(reset = reset)
         shell: Rscript {0}

@@ -20,11 +20,13 @@ renv_is_allowed <- function() {
   tolower(.Platform$OS.type) != "windows"
 }
 
-renv_should_rebuild <- function(path, rebuild, db_path, profile = "lesson-requirements") {
-  # If rebuild is already TRUE OR we don't have permission to use {renv}, then
-  # we return early.
-  return_early <- rebuild || !getOption("sandpaper.use_renv")
+renv_should_rebuild <- function(path = ".", rebuild, db_path = "site/built/md5sum.txt", profile = "lesson-requirements") {
+  return_early <- rebuild            || # if rebuild is TRUE OR
+    !getOption("sandpaper.use_renv") || # if we are not using {renv} OR
+    !package_cache_trigger()            # if the lockfile does not trigger rebuilds
+
   if (return_early) return(rebuild)
+
   hash <- renv_lockfile_hash(path, db_path, profile)
   return(rebuild || !isTRUE(hash$old == hash$new))
 }

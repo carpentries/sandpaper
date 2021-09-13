@@ -16,6 +16,12 @@
 ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origin", reset = FALSE) {
 
   options(sandpaper.use_renv = renv_is_allowed())
+
+  # Set episodes to rebuild if the lockfile has changed.
+  oc <- package_cache_trigger()
+  on.exit(package_cache_trigger(oc), add = TRUE)
+  package_cache_trigger(TRUE)
+
   # step 0: build_lesson defaults to a local build
   path <- set_source_path(path)
   on.exit(reset_build_paths())
