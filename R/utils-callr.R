@@ -37,8 +37,10 @@ callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, 
     fig.path      = file.path("fig", paste0(slug, "-rendered-"))
   )
 
-  # Ensure HTML options like caption are respected by code chunks
   knitr::opts_knit$set(
+    # set our working directory to not pollute source
+    root.dir = workdir,
+    # Ensure HTML options like caption are respected by code chunks
     rmarkdown.pandoc.to = "markdown"
   )
 

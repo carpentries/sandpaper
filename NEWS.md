@@ -81,6 +81,8 @@ BUG FIX
 
  - changes to `config.yaml` are now reflected on the lesson site without
    rebuilding (fixes #75)
+ - knitr option `root.dir` has been set to the output directory to avoid
+   generated content from entering the source.
 
 # sandpaper 0.0.0.9048
 
