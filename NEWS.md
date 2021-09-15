@@ -65,8 +65,6 @@ CONTINOUS INTEGRATION
 
  - unexported function `ci_deploy()` will now automatically check and set the
    git user and email.
- - unexported function `ci_build_site()` will now send a signal to the github
-   API activating the lesson website after a new branch is successfully created.
  - `sandpaper-main.yaml` and `pr-receive.yaml` have been updated to include
    the {renv} cache.
  - `update-cache.yaml` is a new workflow that will update the package cache

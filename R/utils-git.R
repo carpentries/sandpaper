@@ -48,9 +48,6 @@ git_clean_everything <- function(repo = ".") {
 #' @param throwaway if `TRUE`, the worktree created is in a detached HEAD state
 #'   from from the remote branch and will not create a new branch in your 
 #'   repository. Defaults to `FALSE`, which will create the branch from upstream.
-#' @param pages if `TRUE` and the `SANDPAPER_REPO` environment variable is set
-#'   and a new branch is created, the GitHub API will be triggered to set up the
-#'   site to go live.
 #' @return an [expression()] that calls `git worktree remove` on the worktree
 #'   when evaluated. 
 #' @details
@@ -133,7 +130,7 @@ git_clean_everything <- function(repo = ".") {
 #' # remove the test fixture and report
 #' tryCatch(fs::dir_delete(res), error = function() FALSE)
 #' }
-git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin", throwaway = FALSE, pages = FALSE) {
+git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin", throwaway = FALSE) {
 
   if (!has_git() || !requireNamespace("withr", quietly = TRUE)) {
     stop(cli::format_error("{.fn git_worktree_setup} requires {.pkg git} and {.pkg withr}"), call. = FALSE)
@@ -152,11 +149,6 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
       git("push", remote, paste0("HEAD:", branch))
       git("checkout", old_branch)
       cli::cat_line("::endgroup::")
-      #nocov start
-      if (pages) {
-        github_pages(branch)
-      }
-      #nocov end
     }
     ci_group(glue::glue("Fetch {remote}/{branch}"))
     git_fetch_one_branch(remote, branch, repo = path)
@@ -171,31 +163,6 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
   parse(text = glue::glue("sandpaper:::github_worktree_remove('{dest_dir}', '{path}')"))
 }
 
-#nocov start
-# Use the GitHub API to set up pages after we create them.
-github_pages <- function(branch) {
-  repo <- Sys.getenv("SANDPAPER_REPO", unset = NA)
-  no_jsonlite <- !requireNamespace("jsonlite", quietly = TRUE)
-  if (no_jsonlite || is.na(repo)) {
-    return()
-  }
-  ci_group("Activating GitHub Pages")
-  tryCatch({
-  gh::gh(
-    "POST /repos/{repo}/pages",
-    repo = repo,
-    source = list(
-      branch = jsonlite::unbox(branch),
-      path = jsonlite::unbox("/")
-      ),
-    .send_headers = c(Accept = "application/vnd.github.switcheroo-preview+json")
-  )
-  }, error = function(e) {
-    message("::warning::", e$message) 
-  })
-  cli::cat_line("::endgroup::")
-}
-#nocov end
 
 # Add a branch to a folder as a worktree
 # originally authored by Hadley Wickham

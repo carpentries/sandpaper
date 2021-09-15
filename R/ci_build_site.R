@@ -27,7 +27,7 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
 
     # ------------ site worktree
     del_site <- git_worktree_setup(path, html,
-      branch = branch, remote = remote, pages = TRUE
+      branch = branch, remote = remote
     )
 
     # remove the worktree at the end since this is the last step
