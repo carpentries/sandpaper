@@ -9,7 +9,8 @@ git_worktree_setup(
   dest_dir,
   branch = "gh-pages",
   remote = "origin",
-  throwaway = FALSE
+  throwaway = FALSE,
+  pages = FALSE
 )
 }
 \arguments{
@@ -24,6 +25,10 @@ git_worktree_setup(
 \item{throwaway}{if \code{TRUE}, the worktree created is in a detached HEAD state
 from from the remote branch and will not create a new branch in your
 repository. Defaults to \code{FALSE}, which will create the branch from upstream.}
+
+\item{pages}{if \code{TRUE} and the \code{SANDPAPER_REPO} environment variable is set
+and a new branch is created, the GitHub API will be triggered to set up the
+site to go live.}
 }
 \value{
 an \code{\link[=expression]{expression()}} that calls \verb{git worktree remove} on the worktree

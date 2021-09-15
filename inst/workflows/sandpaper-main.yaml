@@ -23,6 +23,7 @@ jobs:
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      SANDPAPER_REPO: ${{ github.repository }}
       RENV_PATHS_ROOT: ~/Library/Application Support/renv
     steps:
 
@@ -36,6 +37,13 @@ jobs:
         uses: r-lib/actions/setup-pandoc@v1
         with:
           pandoc-version: "2.11.4"
+
+      - name: "Check if We Need {renv}"
+        id: renv
+        run: |
+          if [[ -d renv ]]; then
+            echo "::set-output name=exists::true"
+          fi
 
       - name: "Query Sandpaper Dependencies"
         run: |
@@ -63,6 +71,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: "Restore {renv} Cache"
+        if: ${{ steps.renv.outputs.exists }}
         uses: actions/cache@v2
         with:
           path: ${{ env.RENV_PATHS_ROOT }}
@@ -87,6 +96,7 @@ jobs:
         shell: Rscript {0}
 
       - name: "Fortify Local {renv} Packages"
+        if: ${{ steps.renv.outputs.exists }}
         run: sandpaper::manage_deps(path = '${{ github.workspace }}', quiet = FALSE)
         shell: Rscript {0}
 
