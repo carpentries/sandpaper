@@ -74,7 +74,7 @@ likely change." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9048</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9050</span>
       </span>
     </div>
 
@@ -88,6 +88,21 @@ likely change." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/automated-pull-requests.html">Working with Automated Pull Requests</a>
+    </li>
+    <li>
+      <a href="../articles/building-with-renv.html">Building Lessons With A Package Cache</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -177,15 +192,23 @@ they are doing.</p>
     <div class='dont-index'><p><code><a href='build_episode_md.html'>build_episode_md()</a></code>, <code><a href='build_lesson.html'>build_lesson()</a></code>, <code><a href='build_markdown.html'>build_markdown()</a></code>, <code><a href='render_html.html'>render_html()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='va'>.Platform</span><span class='op'>$</span><span class='va'>OS.type</span> <span class='op'>==</span> <span class='st'>"windows"</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span><span class='st'>"sandpaper.use_renv"</span> <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"sandpaper.use_renv"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>old</span> <span class='op'>&lt;-</span> <span class='fu'>renv</span><span class='fu'>::</span><span class='va'><a href='https://rstudio.github.io/renv/reference/config.html'>config</a></span><span class='op'>$</span><span class='fu'>cache.symlinks</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>renv.config.cache.symlinks <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/on.exit.html'>on.exit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>renv.config.cache.symlinks <span class='op'>=</span> <span class='va'>old</span><span class='op'>)</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='fu'><a href='create_lesson.html'>create_lesson</a></span><span class='op'>(</span><span class='va'>tmp</span>, open <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpizkF</span>…</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> First episode created in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpizkFWt/file1b251e49efe2/episodes/01-introduction.Rmd</span></span></div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpizkF</span>…</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Workflows up-to-date!</span></div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpizkF</span>…</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Lesson successfully created in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpizkFWt/file1b251e49efe2</span></span></div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpizkF</span>…</span></div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpizkFWt/file1b251e49efe2"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings</a></span><span class='op'>(</span><span class='fu'><a href='set_dropdown.html'>set_episodes</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='fu'><a href='get_dropdown.html'>get_episodes</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> No schedule set, using Rmd files in <span style='color: #0000BB;'>episodes/</span> directory.</span></div><div class='output co'>#&gt; <span class='message'><span style='font-style: italic;'>→ </span><span style='font-weight: 100; font-style: italic;'>To remove this message, define your schedule in </span><span style='color: #0000BB; font-weight: 100; font-style: italic;'>config.yaml</span><span style='font-weight: 100; font-style: italic;'> or use </span><span style='color: #262626; background-color: #DADADA; font-weight: 100; font-style: italic;'>`set_episodes()`</span><span style='font-weight: 100; font-style: italic;'> to generate it.</span></span></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'>rmarkdown</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/rmarkdown/reference/pandoc_available.html'>pandoc_available</a></span><span class='op'>(</span><span class='st'>"2.11"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+</div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpMckdD</span>…</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> First episode created in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpMckdDy/file1c731d61869/episodes/01-introduction.Rmd</span></span></div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpMckdD</span>…</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Workflows up-to-date!</span></div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpMckdD</span>…</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Lesson successfully created in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpMckdDy/file1c731d61869</span></span></div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpMckdD</span>…</span></div><div class='output co'>#&gt; <span style='color: #0000BB; background-color: #00BB00;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpMckdDy/file1c731d61869</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressMessages</a></span><span class='op'>(</span><span class='fu'><a href='set_dropdown.html'>set_episodes</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='fu'><a href='get_dropdown.html'>get_episodes</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'>rmarkdown</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/rmarkdown/reference/pandoc_available.html'>pandoc_available</a></span><span class='op'>(</span><span class='st'>"2.11"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='co'># we can only build this if we have pandoc</span>
   <span class='fu'><a href='build_lesson.html'>build_lesson</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
 <span class='op'>}</span>
 
-<span class='co'># create a new file in extras</span>
+<span class='co'># create a new file in files</span>
 <span class='va'>fun_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='st'>"episodes"</span>, <span class='st'>"files"</span>, <span class='st'>"fun.Rmd"</span><span class='op'>)</span>
 <span class='va'>txt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
  <span class='st'>"---\ntitle: Fun times\n---\n\n"</span>,
@@ -199,12 +222,12 @@ they are doing.</p>
 <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='build_episode_md.html'>build_episode_md</a></span><span class='op'>(</span><span class='va'>fun_file</span>, <span class='va'>hash</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #BB0000;'>
 #&gt; 
-#&gt; processing file: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpizkFWt/file1b251e49efe2/episodes/files/fun.Rmd
+#&gt; processing file: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMckdDy/file1c731d61869/episodes/files/fun.Rmd
 #&gt; </span>  |                                                                              |                                                                      |   0%  |                                                                              |......................................................................| 100%
 #&gt;    inline R code fragments
 #&gt; 
 #&gt; 
-#&gt; <span style='color: #BB0000;'>output file: /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpizkFWt/file1b251e49efe2/site/built/fun.md
+#&gt; <span style='color: #BB0000;'>output file: /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpMckdDy/file1c731d61869/site/built/fun.md
 #&gt; 
 #&gt; </span></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'>rmarkdown</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/rmarkdown/reference/pandoc_available.html'>pandoc_available</a></span><span class='op'>(</span><span class='st'>"2.11"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='co'># we can only build this if we have pandoc</span>

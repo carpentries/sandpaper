@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9048</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9050</span>
       </span>
     </div>
 
@@ -85,6 +85,21 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/automated-pull-requests.html">Working with Automated Pull Requests</a>
+    </li>
+    <li>
+      <a href="../articles/building-with-renv.html">Building Lessons With A Package Cache</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -114,12 +129,105 @@
       <small>Source: <a href='https://github.com/carpentries/sandpaper/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="sandpaper-0009048" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0.9048">
-<a href="#sandpaper-0009048" class="anchor"></a>sandpaper 0.0.0.9048</h1>
+    <div id="sandpaper-0009050" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9050">
+<a href="#sandpaper-0009050" class="anchor"></a>sandpaper 0.0.0.9050</h1>
+<p>This update for {sandpaper} brings in dependency management for lessons with generated content which will make collaboration between these lessons much easier and less invasive by establishing a package cache and lockfile via the {renv} R package.</p>
+<div id="dependency-management" class="section level2">
+<h2 class="hasAnchor">
+<a href="#dependency-management" class="anchor"></a>DEPENDENCY MANAGEMENT</h2>
+<div id="introduction" class="section level3">
+<h3 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h3>
+<p>We use the {renv} package for controlling dependency management in the lesson, which is contained in a {renv} profile called “lesson-requirements”. We have implemented this as a profile instead of the default {renv} environment to give the maintainers flexibility of whether or not they want to use the package cache.</p>
+</div>
+<div id="consent-for-using-the-package-cache" class="section level3">
+<h3 class="hasAnchor">
+<a href="#consent-for-using-the-package-cache" class="anchor"></a>Consent for Using the Package Cache</h3>
+<ul>
+<li>
+<code><a href="https://rdrr.io/r/base/options.html">getOption('sandpaper.use_renv')</a></code> will be set when {sandpaper} loads to detect if the contributor has previously consented to use the {renv} package. If this is <code>TRUE</code>, the lesson will use a package cache, otherwise, the lesson will use the default library.</li>
+<li>
+<code><a href="../reference/use_package_cache.html">use_package_cache()</a></code> will give consent to {sandpaper} to create and use a package cache via {renv}. Internally, this enforces that <code><a href="https://rdrr.io/r/base/options.html">options(sandpaper.use_renv = TRUE)</a></code>.</li>
+<li>
+<code><a href="../reference/use_package_cache.html">no_package_cache()</a></code> does the opposite of <code><a href="../reference/use_package_cache.html">use_package_cache()</a></code> and revokes consent to use the package cache in a lesson temporarily. This can be useful in situtations where the cache is mis-behaving or you want to test the lesson using a newer set of packages. Internally, this enforces that <code><a href="https://rdrr.io/r/base/options.html">options(sandpaper.use_renv = FALSE)</a></code>.</li>
+<li>
+<code><a href="../reference/use_package_cache.html">package_cache_trigger(TRUE)</a></code> allows you to trigger a full rebuild when the lockfile changes. This is set to <code>TRUE</code> by default on <code><a href="../reference/ci_build_markdown.html">ci_build_markdown()</a></code>
+</li>
+</ul>
+</div>
+<div id="managing-the-package-cache" class="section level3">
+<h3 class="hasAnchor">
+<a href="#managing-the-package-cache" class="anchor"></a>Managing the Package Cache</h3>
+<ul>
+<li>
+<code><a href="../reference/manage_deps.html">manage_deps()</a></code> is a new function that will manage dependencies for a lesson. This is called both in <code><a href="../reference/create_lesson.html">create_lesson()</a></code> and <code><a href="../reference/build_markdown.html">build_markdown()</a></code> to ensure that the correct dependencies for the lesson are installed. This explicitly calls <code><a href="../reference/use_package_cache.html">use_package_cache()</a></code> when it runs.</li>
+<li>
+<code><a href="../reference/manage_deps.html">update_cache()</a></code> will bring in updates for the lesson cache.</li>
+<li>
+<code><a href="../reference/manage_deps.html">pin_version()</a></code> will pin packages to a specific version, allowing authors to upgrade or downgrade packages at will.</li>
+</ul>
+</div>
+</div>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>NEW FEATURES</h2>
+<ul>
+<li>
+<code><a href="../reference/create_lesson.html">create_lesson()</a></code> now additionally will create a {renv} profile called “packages” in the lesson repository if <code><a href="https://rdrr.io/r/base/options.html">getOption('sandpaper.use_renv')</a></code> is <code>TRUE</code>. This will make the lesson more portable.</li>
+<li>index and README files can now be Rmd files (though it is recommended to use .renvignore for these files if they are to avoid {sandpaper} becoming part of the package cache).</li>
+<li>internal function <code><a href="../reference/ci_deploy.html">ci_deploy()</a></code> will set <code>sandpaper.use_renv</code> option to <code>TRUE</code>
+</li>
+<li>
+<code><a href="../reference/build_markdown.html">build_markdown()</a></code> and thus <code><a href="../reference/build_lesson.html">build_lesson()</a></code> will now cache <code>config.yaml</code> and <code>renv.lock</code>. It will no longer step through the build process if no markdown files need to be rebuilt. This will cause any project built with previous versions of sandpaper to be fully rebuilt.</li>
+<li>
+<code><a href="../reference/sandpaper_site.html">sandpaper_site()</a></code> (and thus, <code><a href="../reference/build_lesson.html">build_lesson()</a></code>) now can take in a single file for rendering and render that specific file regardless if it is present in the cache without rendering other files. This further addresses <a href='https://github.com/carpentries/sandpaper/issues/77'>#77</a>. (n.b. this involved changes to <code><a href="../reference/build_markdown.html">build_markdown()</a></code>, <code><a href="../reference/build_site.html">build_site()</a></code>, and <code><a href="../reference/build_status.html">build_status()</a></code>).</li>
+<li>
+<code>varnish_vars()</code> is a list that contains commonly used variables in the lesson that can not be contained in the config.yaml</li>
+<li>
+<code>build_episode()</code> and <code>build_home()</code> now supply default variables to varnish.</li>
+</ul>
+</div>
+<div id="continous-integration" class="section level2">
+<h2 class="hasAnchor">
+<a href="#continous-integration" class="anchor"></a>CONTINOUS INTEGRATION</h2>
+<ul>
+<li>unexported function <code><a href="../reference/ci_deploy.html">ci_deploy()</a></code> will now automatically check and set the git user and email.</li>
+<li>
+<code>sandpaper-main.yaml</code> and <code>pr-receive.yaml</code> have been updated to include the {renv} cache, but they will skip these steps for markdown lessons.</li>
+<li>
+<code>update-cache.yaml</code> is a new workflow that will update the package cache lockfile and create a pull request to trigger new builds if the lesson uses {renv}.</li>
+<li>
+<code>update-workflows.yaml</code> now produces more informative instructions for creating a repository secret.</li>
+</ul>
+</div>
+<div id="misc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#misc" class="anchor"></a>MISC</h2>
+<ul>
+<li>some of the {callr} functions have been made non-anonymous and moved to a separate file so they could be tested independently.</li>
+</ul>
+</div>
 <div id="bug-fix" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fix" class="anchor"></a>BUG FIX</h2>
+<ul>
+<li>changes to <code>config.yaml</code> are now reflected on the lesson site without rebuilding (fixes <a href='https://github.com/carpentries/sandpaper/issues/75'>#75</a>)</li>
+<li>knitr option <code>root.dir</code> has been set to the output directory to avoid generated content from entering the source.</li>
+</ul>
+</div>
+</div>
+    <div id="sandpaper-0009049" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9049">
+<a href="#sandpaper-0009049" class="anchor"></a>sandpaper 0.0.0.9049</h1>
+<p>This is a placeholder for the testing of 0.0.0.9050.</p>
+</div>
+    <div id="sandpaper-0009048" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9048">
+<a href="#sandpaper-0009048" class="anchor"></a>sandpaper 0.0.0.9048</h1>
+<div id="bug-fix-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fix-1" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>pandoc lua filter no longer errors on raw div HTML elements with no class (<a href='https://github.com/zkamvar'>@zkamvar</a>, <a href='https://github.com/carpentries/sandpaper/issues/166'>#166</a>)</li>
 </ul>
@@ -169,9 +277,9 @@
 <li>The <code>update-workflow.yaml</code> parameters have been fixed to not use wildcards</li>
 </ul>
 </div>
-<div id="misc" class="section level2">
+<div id="misc-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc" class="anchor"></a>MISC</h2>
+<a href="#misc-1" class="anchor"></a>MISC</h2>
 <ul>
 <li>
 <code><a href="../reference/update_github_workflows.html">update_github_workflows()</a></code> gains a <code>clean</code> argument and now will print status reports at the end.</li>
@@ -205,9 +313,9 @@
     <div id="sandpaper-0009041" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9041">
 <a href="#sandpaper-0009041" class="anchor"></a>sandpaper 0.0.0.9041</h1>
-<div id="misc-1" class="section level2">
+<div id="misc-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-1" class="anchor"></a>MISC</h2>
+<a href="#misc-2" class="anchor"></a>MISC</h2>
 <ul>
 <li>
 <code>fetch_github_workflows()</code> has been renamed to <code><a href="../reference/update_github_workflows.html">update_github_workflows()</a></code>
@@ -297,9 +405,9 @@
     <div id="sandpaper-0009034" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9034">
 <a href="#sandpaper-0009034" class="anchor"></a>sandpaper 0.0.0.9034</h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>Authors can now cross-link between files within the lesson as they appear in the lesson instead of trying to guess how the link would appear on the website. For example, if you wanted to reference <code>learners/setup.md</code> in <code>episodes/introduction.md</code>, you would write <code>[setup](../learners/setup.md)</code> and it will be automatically converted to the correct URL in the website (<a href='https://github.com/carpentries/sandpaper/issues/43'>#43</a>). This is still backwards compatible with the previous iteration of writing the flattened link (as it would appear on the website).</li>
 </ul>
@@ -308,9 +416,9 @@
     <div id="sandpaper-0009033" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9033">
 <a href="#sandpaper-0009033" class="anchor"></a>sandpaper 0.0.0.9033</h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>
 <code><a href="../reference/get_drafts.html">get_drafts()</a></code> will report any markdown files that are not currently published in the lesson.</li>
@@ -324,9 +432,9 @@
     <div id="sandpaper-0009032" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9032">
 <a href="#sandpaper-0009032" class="anchor"></a>sandpaper 0.0.0.9032</h1>
-<div id="misc-2" class="section level2">
+<div id="misc-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-2" class="anchor"></a>MISC</h2>
+<a href="#misc-3" class="anchor"></a>MISC</h2>
 <ul>
 <li>The internal <code><a href="../reference/get_resource_list.html">get_resource_list()</a></code> function has been modified to incorporate the features of <code><a href="../reference/get_dropdown.html">get_dropdown()</a></code>. This means that all <code><a href="../reference/get_dropdown.html">get_dropdown()</a></code> functions will only report the files in the dropdown menus that actually exist in the directory (<a href='https://github.com/carpentries/sandpaper/issues/134'>#134</a>).</li>
 <li>A persistant test fixture is now included to speed up testing time (<a href='https://github.com/carpentries/sandpaper/issues/132'>#132</a> via
@@ -337,9 +445,9 @@
     <div id="sandpaper-0009031" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9031">
 <a href="#sandpaper-0009031" class="anchor"></a>sandpaper 0.0.0.9031</h1>
-<div id="misc-3" class="section level2">
+<div id="misc-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-3" class="anchor"></a>MISC</h2>
+<a href="#misc-4" class="anchor"></a>MISC</h2>
 <ul>
 <li>The {cli} package is now an official import of the package</li>
 <li>The warning message issued from the internal <code>warn_schedule()</code> function has been changed exclusively use cli messages and can be suppressed with <code><a href="https://rdrr.io/r/base/message.html">suppressMessages()</a></code>.</li>
@@ -350,9 +458,9 @@
     <div id="sandpaper-0009030" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9030">
 <a href="#sandpaper-0009030" class="anchor"></a>sandpaper 0.0.0.9030</h1>
-<div id="misc-4" class="section level2">
+<div id="misc-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-4" class="anchor"></a>MISC</h2>
+<a href="#misc-5" class="anchor"></a>MISC</h2>
 <ul>
 <li>A test that caused problems with a new version of {pegboard} was fixed</li>
 </ul>
@@ -361,9 +469,9 @@
     <div id="sandpaper-0009029" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9029">
 <a href="#sandpaper-0009029" class="anchor"></a>sandpaper 0.0.0.9029</h1>
-<div id="misc-5" class="section level2">
+<div id="misc-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-5" class="anchor"></a>MISC</h2>
+<a href="#misc-6" class="anchor"></a>MISC</h2>
 <ul>
 <li>The internal database is updated to use relative instead of absolute paths. This fixes <a href='https://github.com/carpentries/sandpaper/issues/129'>#129</a></li>
 </ul>
@@ -381,9 +489,9 @@
     <div id="sandpaper-0009027" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9027">
 <a href="#sandpaper-0009027" class="anchor"></a>sandpaper 0.0.0.9027</h1>
-<div id="misc-6" class="section level2">
+<div id="misc-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-6" class="anchor"></a>MISC</h2>
+<a href="#misc-7" class="anchor"></a>MISC</h2>
 <ul>
 <li>
 <code>create_schedule()</code> (internal function) no longer uses pegboard’s extensions for fixing reference links.</li>
@@ -393,9 +501,9 @@
     <div id="sandpaper-0009026" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9026">
 <a href="#sandpaper-0009026" class="anchor"></a>sandpaper 0.0.0.9026</h1>
-<div id="misc-7" class="section level2">
+<div id="misc-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-7" class="anchor"></a>MISC</h2>
+<a href="#misc-8" class="anchor"></a>MISC</h2>
 <ul>
 <li>callout blocks with headers greater than h3 are now rendered properly and no longer forced to h3</li>
 <li>tests now clean up after themselves and no longer change the working directory by default</li>
@@ -420,9 +528,9 @@
     <div id="sandpaper-0009024" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9024">
 <a href="#sandpaper-0009024" class="anchor"></a>sandpaper 0.0.0.9024</h1>
-<div id="bug-fix-1" class="section level2">
+<div id="bug-fix-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-1" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-2" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>
 <code><a href="../reference/create_lesson.html">create_lesson()</a></code> will now enforce “main” or the default branch (if init.defaultBranch is set) as the default branch for the new lesson. It will also try to make the URL match the project name and user name (but the latter is limited to users who have GitHub PAT set up that {gh} recognises).</li>
@@ -432,17 +540,17 @@
     <div id="sandpaper-0009023" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9023">
 <a href="#sandpaper-0009023" class="anchor"></a>sandpaper 0.0.0.9023</h1>
-<div id="bug-fix-2" class="section level2">
+<div id="bug-fix-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-2" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-3" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>
 <code><a href="../reference/build_episode_md.html">build_episode_md()</a></code> now sets the <code>knitr.pandoc.to</code> knit option to allow for the chunk option <code>fig.cap</code> to be rendered as a caption. This fixes <a href='https://github.com/carpentries/sandpaper/issues/114'>#114</a>.</li>
 </ul>
 </div>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>
 <code><a href="../reference/set_dropdown.html">set_dropdown()</a></code> is now generalized to set any item in the dropdown menu (though this will likely be wrapped into a better-named function for generalized editing).</li>
@@ -455,9 +563,9 @@
     <div id="sandpaper-0009022" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9022">
 <a href="#sandpaper-0009022" class="anchor"></a>sandpaper 0.0.0.9022</h1>
-<div id="bug-fix-3" class="section level2">
+<div id="bug-fix-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-3" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-4" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>
 <code><a href="../reference/build_markdown.html">build_markdown(rebuild = TRUE)</a></code> now actually rebuilds the lesson</li>
@@ -468,9 +576,9 @@
     <div id="sandpaper-0009021" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9021">
 <a href="#sandpaper-0009021" class="anchor"></a>sandpaper 0.0.0.9021</h1>
-<div id="bug-fix-4" class="section level2">
+<div id="bug-fix-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-4" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-5" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>the template will be initialized with ALL folders with placeholders inside of the <code>instructor/</code> and <code>profile/</code> menus. This fixes <a href='https://github.com/carpentries/sandpaper/issues/103'>#103</a>.</li>
 </ul>
@@ -479,9 +587,9 @@
     <div id="sandpaper-0009020" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9020">
 <a href="#sandpaper-0009020" class="anchor"></a>sandpaper 0.0.0.9020</h1>
-<div id="bug-fix-5" class="section level2">
+<div id="bug-fix-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-5" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-6" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>the <code>set_*()</code> functions no longer mess up yaml lists in <code>config.yaml</code>. This fixes <a href='https://github.com/carpentries/sandpaper/issues/53'>#53</a>.</li>
 </ul>
@@ -515,9 +623,9 @@
     <div id="sandpaper-0009016" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9016">
 <a href="#sandpaper-0009016" class="anchor"></a>sandpaper 0.0.0.9016</h1>
-<div id="bug-fix-6" class="section level2">
+<div id="bug-fix-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-6" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-7" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>
 <code><a href="../reference/create_episode.html">create_episode()</a></code> with <code>make_prefix = FALSE</code> will no longer create episodes prefixed with <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> (see <a href='https://github.com/carpentries/sandpaper/issues/93'>#93</a>).</li>
@@ -527,9 +635,9 @@
     <div id="sandpaper-0009015" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9015">
 <a href="#sandpaper-0009015" class="anchor"></a>sandpaper 0.0.0.9015</h1>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>
 <code>fetch_github_workflows()</code> will download and update the GitHub workflows from the Carpentries actions repository.</li>
@@ -541,9 +649,9 @@
     <div id="sandpaper-0009014" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9014">
 <a href="#sandpaper-0009014" class="anchor"></a>sandpaper 0.0.0.9014</h1>
-<div id="bug-fix-7" class="section level2">
+<div id="bug-fix-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-7" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-8" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>Episode order is retained in the HTML navigation (<a href='https://github.com/carpentries/sandpaper/issues/85'>#85</a>)</li>
 <li>index.md is recorded in the site/build/ directory, and thus in the md-pages branch on deployment.</li>
@@ -559,9 +667,9 @@
     <div id="sandpaper-0009013" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9013">
 <a href="#sandpaper-0009013" class="anchor"></a>sandpaper 0.0.0.9013</h1>
-<div id="new-features-4" class="section level2">
+<div id="new-features-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>In RStudio, the <strong>knit button works</strong> <span class="emoji" data-emoji="tada">🎉</span> (fix <a href='https://github.com/carpentries/sandpaper/issues/77'>#77</a>; <a href='https://github.com/zkamvar'>@zkamvar</a>, <a href='https://github.com/carpentries/sandpaper/issues/82'>#82</a>)</li>
 <li>
@@ -578,9 +686,9 @@
     <div id="sandpaper-0009012" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9012">
 <a href="#sandpaper-0009012" class="anchor"></a>sandpaper 0.0.0.9012</h1>
-<div id="new-features-5" class="section level2">
+<div id="new-features-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-6" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>Inline and reference-based footnotes are now supported.</li>
 </ul>
@@ -589,9 +697,9 @@
     <div id="sandpaper-0009011" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9011">
 <a href="#sandpaper-0009011" class="anchor"></a>sandpaper 0.0.0.9011</h1>
-<div id="bug-fix-8" class="section level2">
+<div id="bug-fix-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-8" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-9" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>Bare links and text emoji (e.g. <span class="emoji" data-emoji="wink">😉</span>) are now rendered (fix <a href='https://github.com/carpentries/sandpaper/issues/67'>#67</a>).</li>
 <li>Objectives and Questions headings will now no longer be rendered (fix <a href='https://github.com/carpentries/sandpaper/issues/64'>#64</a>).</li>
@@ -601,9 +709,9 @@
     <div id="sandpaper-0009010" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9010">
 <a href="#sandpaper-0009010" class="anchor"></a>sandpaper 0.0.0.9010</h1>
-<div id="bug-fix-9" class="section level2">
+<div id="bug-fix-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-9" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-10" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>If <code>index.md</code> exists at the top level, it will be used instead of <code>README.md</code> for the lesson index page (fix <a href='https://github.com/carpentries/sandpaper/issues/56'>#56</a>).</li>
 </ul>
@@ -612,9 +720,9 @@
     <div id="sandpaper-0009009" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9009">
 <a href="#sandpaper-0009009" class="anchor"></a>sandpaper 0.0.0.9009</h1>
-<div id="bug-fix-10" class="section level2">
+<div id="bug-fix-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-10" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-11" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>The lua filter responsible for creating the Objectives summary block at the beginning of episodes now uses native pandoc divs instead of HTML block shims. This ensures that the content is not corrupted by pandoc’s section divs extension. This addresses issue <a href='https://github.com/carpentries/sandpaper/issues/64'>#64</a></li>
 <li>All aside elements will be forced to have level 3 headers (this fixes an issue with pandocs –section-divs where it couldn’t understand when an HTML block contained only the start of an aside tag and decided to end the section right after it.</li>
@@ -627,9 +735,9 @@
     <div id="sandpaper-0009008" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9008">
 <a href="#sandpaper-0009008" class="anchor"></a>sandpaper 0.0.0.9008</h1>
-<div id="bug-fix-11" class="section level2">
+<div id="bug-fix-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fix-11" class="anchor"></a>BUG FIX</h2>
+<a href="#bug-fix-12" class="anchor"></a>BUG FIX</h2>
 <ul>
 <li>files that were removed from the source are now also removed in the site/built directory. This fixes issue <a href='https://github.com/carpentries/sandpaper/issues/47'>#47</a></li>
 </ul>

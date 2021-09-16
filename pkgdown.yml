@@ -1,6 +1,8 @@
 pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
-articles: {}
-last_built: 2021-09-08T01:12Z
+articles:
+  automated-pull-requests: automated-pull-requests.html
+  building-with-renv: building-with-renv.html
+last_built: 2021-09-16T19:47Z
 

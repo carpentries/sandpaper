@@ -75,7 +75,7 @@ have changed are rebuilt." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9048</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9050</span>
       </span>
     </div>
 
@@ -89,6 +89,21 @@ have changed are rebuilt." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/automated-pull-requests.html">Working with Automated Pull Requests</a>
+    </li>
+    <li>
+      <a href="../articles/building-with-renv.html">Building Lessons With A Package Cache</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -126,7 +141,7 @@ repository tagged with the hash of your file to ensure that only files that
 have changed are rebuilt.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_markdown</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, rebuild <span class='op'>=</span> <span class='cn'>FALSE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>build_markdown</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, rebuild <span class='op'>=</span> <span class='cn'>FALSE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span>, slug <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

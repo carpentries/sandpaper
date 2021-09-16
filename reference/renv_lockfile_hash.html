@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the full resource list of markdown files — get_resource_list • sandpaper</title>
+<title>Get the hash for the previous and current lockfile (as recorded in the lesson) — renv_lockfile_hash • sandpaper</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get the full resource list of markdown files — get_resource_list" />
-<meta property="og:description" content="Get the full resource list of markdown files" />
+<meta property="og:title" content="Get the hash for the previous and current lockfile (as recorded in the lesson) — renv_lockfile_hash" />
+<meta property="og:description" content="Get the hash for the previous and current lockfile (as recorded in the lesson)" />
 
 
 
@@ -126,16 +126,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the full resource list of markdown files</h1>
-    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/utils-paths-source.R'><code>R/utils-paths-source.R</code></a></small>
-    <div class="hidden name"><code>get_resource_list.Rd</code></div>
+    <h1>Get the hash for the previous and current lockfile (as recorded in the lesson)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/carpentries/sandpaper/blob/master/R/utils-renv.R'><code>R/utils-renv.R</code></a></small>
+    <div class="hidden name"><code>renv_lockfile_hash.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get the full resource list of markdown files</p>
+    <p>Get the hash for the previous and current lockfile (as recorded in the lesson)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_resource_list</span><span class='op'>(</span><span class='va'>path</span>, trim <span class='op'>=</span> <span class='cn'>FALSE</span>, subfolder <span class='op'>=</span> <span class='cn'>NULL</span>, warn <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>renv_lockfile_hash</span><span class='op'>(</span><span class='va'>path</span>, <span class='va'>db_path</span>, profile <span class='op'>=</span> <span class='st'>"lesson-requirements"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,30 +145,22 @@
       <td><p>path to the lesson</p></td>
     </tr>
     <tr>
-      <th>trim</th>
-      <td><p>if <code>TRUE</code>, trim the paths to be relative to the lesson directory.
-Defaults to <code>FALSE</code>, which will return the absolute paths</p></td>
+      <th>db_path</th>
+      <td><p>path to the database</p></td>
     </tr>
     <tr>
-      <th>subfolder</th>
-      <td><p>the subfolder to check. If this is <code>NULL</code>, all folders will
-checked and returned (default), otherwise, this should be a string
-specifying the folder name in the lesson (e.g. "episodes").</p></td>
-    </tr>
-    <tr>
-      <th>warn</th>
-      <td><p>if <code>TRUE</code> and <code>subfolder = "episodes"</code>, a message is issued to
-the user if the episodes field of the configuration file is empty.</p></td>
+      <th>profile</th>
+      <td><p>name of the profile renv uses for the lesson requirements</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list of files by subfolder in the order they should appear in the
-menu.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>a named list:</p><ul>
+<li><p>old: hash value recoreded in the database</p></li>
+<li><p>new: hash value of the current file</p></li>
+</ul>
 
-    <div class='dont-index'><p><code><a href='build_status.html'>build_status()</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
