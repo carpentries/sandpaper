@@ -6,9 +6,12 @@ build_home <- function(pkg, quiet) {
   index <- render_html(if (fs::file_exists(idx)) idx else readme)
   pkgdown::render_page(pkg, 
     "syllabus",
-    data = list(
-      readme = index,
-      syllabus = format_syllabus(syl)
+    data = c(
+      list(
+        readme = index,
+        syllabus = format_syllabus(syl)
+      ),
+      varnish_vars()
     ), 
     path = "index.html",
     quiet = quiet

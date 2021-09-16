@@ -79,6 +79,17 @@ which_carpentry <- function(carpentry) {
     dc = "Data Carpentry",
     swc = "Software Carpentry",
     cp = "The Carpentries",
+    incubator = "Carpentries Incubator",
+    lab = "Carpentries Lab"
+  )
+}
+
+varnish_vars <- function() {
+  ver <- function(pak) glue::glue(" ({packageVersion(pak)})")
+  list(
+    sandpaper_version = ver("sandpaper"),
+    pegboard_version  = ver("pegboard"),
+    varnish_version   = ver("varnish")
   )
 }
 

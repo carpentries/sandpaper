@@ -64,18 +64,21 @@ build_episode_html <- function(path_md, path_src = NULL,
   path_src <- if (is.null(path_src)) yaml[["sandpaper-source"]] else path_src
   pkgdown::render_page(pkg, 
     "title-body",
-    data = list(
-      # NOTE: we can add anything we want from the YAML header in here to
-      # pass on to the template.
-      body         = body,
-      pagetitle    = parse_title(yaml$title),
-      teaching     = yaml$teaching,
-      exercises    = yaml$exercises,
-      file_source  = fs::path_rel(path_src, start = home),
-      page_back    = as_html(page_back),
-      left         = if (page_back == "index.md") "up" else "left",
-      page_forward = as_html(page_forward),
-      right        = if (page_forward == "index.md") "up" else "right"
+    data = c(
+      list(
+        # NOTE: we can add anything we want from the YAML header in here to
+        # pass on to the template.
+        body         = body,
+        pagetitle    = parse_title(yaml$title),
+        teaching     = yaml$teaching,
+        exercises    = yaml$exercises,
+        file_source  = fs::path_rel(path_src, start = home),
+        page_back    = as_html(page_back),
+        left         = if (page_back == "index.md") "up" else "left",
+        page_forward = as_html(page_forward),
+        right        = if (page_forward == "index.md") "up" else "right"
+      ),
+      varnish_vars()
     ), 
     path = as_html(path_md),
     quiet = quiet
