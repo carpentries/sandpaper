@@ -1,4 +1,4 @@
-# sandpaper 0.0.0.9049
+# sandpaper 0.0.0.9050
 
 This update for {sandpaper} brings in dependency management for lessons with
 generated content which will make collaboration between these lessons much 
@@ -62,6 +62,9 @@ NEW FEATURES
    the cache without rendering other files. This further addresses #77. (n.b.
    this involved changes to `build_markdown()`, `build_site()`, and 
    `build_status()`).
+ - `varnish_vars()` is a list that contains commonly used variables in the
+   lesson that can not be contained in the config.yaml
+ - `build_episode()` and `build_home()` now supply default variables to varnish.
 
 CONTINOUS INTEGRATION
 ---------------------
@@ -69,9 +72,12 @@ CONTINOUS INTEGRATION
  - unexported function `ci_deploy()` will now automatically check and set the
    git user and email.
  - `sandpaper-main.yaml` and `pr-receive.yaml` have been updated to include
-   the {renv} cache.
+   the {renv} cache, but they will skip these steps for markdown lessons.
  - `update-cache.yaml` is a new workflow that will update the package cache
-   lockfile and create a pull request to trigger new builds.
+   lockfile and create a pull request to trigger new builds if the lesson uses
+   {renv}.
+ - `update-workflows.yaml` now produces more informative instructions for
+   creating a repository secret.
 
 MISC
 ----
@@ -86,6 +92,10 @@ BUG FIX
    rebuilding (fixes #75)
  - knitr option `root.dir` has been set to the output directory to avoid
    generated content from entering the source.
+
+# sandpaper 0.0.0.9049
+
+This is a placeholder for the testing of 0.0.0.9050.
 
 # sandpaper 0.0.0.9048
 
