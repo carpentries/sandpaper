@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.0.0.9048
+Version: 0.0.0.9050
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -31,6 +31,7 @@ Imports:
     knitr (>= 1.33),
     rmarkdown (>= 2.4),
     pingr,
+    renv (>= 0.13.2),
     rprojroot,
     usethis (>= 2.0.0),
     whisker,
@@ -39,11 +40,13 @@ Imports:
     tools
 Suggests: 
     testthat (>= 3.0.0),
+    markdown,
     brio,
+    xml2,
+    xslt,
     covr,
     withr,
     jsonlite,
-    renv (>= 0.13.2),
     sessioninfo,
     varnish (>= 0.0.0.9005)
 Additional_repositories: https://carpentries.r-universe.dev/
@@ -52,7 +55,7 @@ LazyData: true
 Config/testthat/edition: 3
 Config/testthat/parallel: false
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1.9001
+RoxygenNote: 7.1.2
 URL: https://github.com/carpentries/sandpaper/
 BugReports: https://github.com/carpentries/sandpaper/issues/
 VignetteBuilder: knitr

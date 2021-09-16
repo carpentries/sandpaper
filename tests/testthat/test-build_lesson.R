@@ -4,10 +4,6 @@ sitepath <- fs::path(tmp, "site", "docs")
 
 
 test_that("Lessons built for the first time are noisy", {
-  
-  create_episode("second-episode", path = tmp)
-  suppressMessages(s <- get_episodes(tmp))
-  set_episodes(tmp, s, write = TRUE)
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
 
@@ -18,6 +14,50 @@ test_that("Lessons built for the first time are noisy", {
   })
 
 })
+
+test_that("single files can be built", {
+
+  create_episode("second-episode", path = tmp)
+  suppressMessages(s <- get_episodes(tmp))
+  set_episodes(tmp, s, write = TRUE)
+
+  rdr <- sandpaper_site(fs::path(tmp, "episodes", "02-second-episode.Rmd"))
+  expect_named(rdr, c("name", "output_dir", "render", "clean", "subdirs"))
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+
+  suppressMessages({
+    rdr$render() %>%
+      expect_output("ordinary text without R code") %>%
+      expect_message("Output created: .*02-second-episode.html")
+  })
+
+})
+
+
+test_that("single files can be re-built", {
+
+  skip_on_os("windows")
+  expect_hashed(tmp, "02-second-episode.Rmd")
+  rdr <- sandpaper_site(fs::path(tmp, "episodes", "02-second-episode.Rmd"))
+  expect_named(rdr, c("name", "output_dir", "render", "clean", "subdirs"))
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+
+  suppressMessages({
+    rdr$render() %>%
+      expect_output("ordinary text without R code") %>%
+      expect_message("Output created: .*02-second-episode.html")
+  })
+
+  suppressMessages({
+    rdr$render(fs::path(tmp, "LICENSE.md")) %>%
+      expect_output("Writing") %>%
+      expect_message("Output created: .*LICENSE.html")
+  })
+
+})
+
 
 test_that("source files are hashed", {
 

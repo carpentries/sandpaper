@@ -1,0 +1,347 @@
+---
+title: "Building Lessons With A Package Cache"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Building Lessons With A Package Cache}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#|"
+)
+```
+
+## Quickstart
+
+If you are working on a lesson that has content with generated output, then this
+guide is for you. This will get you started using a local package cache separate
+from your default library for your lessons that ensure you can reproduce your
+lesson locally. The {sandpaper} engine is mindful of lessons with generated
+content in the following ways:
+
+- *reliable setup*: the version of the lesson built on the carpentries website
+  will be the same as what you build on your computer because the packages will
+  be identical
+
+- *environmentally friendly*: The lesson dependencies are NOT stored in your
+  default R library and they will not alter your R environment.
+
+- *transparent*: any additions or deletions to the cache will be recorded in
+  the lockfile, which is tracked by git.
+
+To get started, you need to *explicitly* give {sandpaper} permission to create
+and use a cache with the function `use_package_cache()`
+
+```{r setup}
+library("sandpaper")
+```
+
+```{r use_package_cache, eval = FALSE}
+use_package_cache()
+```
+```{r output, echo = FALSE}
+msg <- readLines(system.file("resources/WELCOME", package = "renv"))
+msg <- gsub("${RENV_PATHS_ROOT}", dQuote("/path/to/cache"), msg, fixed = TRUE)
+choices <- sandpaper:::message_package_cache(msg)
+cat(paste(c("1:", "2:"), choices), sep = "\n")
+```
+
+> NOTE: If you have already used {renv} previously, then you will not get this
+> notification. Instead, you will get a notification that your consent has 
+> already been provided.
+
+When you select `1` for yes, your global package cache will be created by the
+{renv} package and sandpaper will automatically detect and install any packages
+(and updates) needed for your lesson. **Once you have set up your cache, it can
+be used for *all* of your lessons going forward.**
+
+For example, let's say you have a lesson that uses the {cowsay} and {curl} 
+packages to bring a random cat fact at the end of the lesson:
+
+````{.markdown}
+::::::::::::::::::::::::::::::::::::: keypoints
+
+- Use `.Rmd` files for lessons even if you don"t need to generate any code
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+```{r catfact, message=FALSE, echo=FALSE}`r ""`
+library(curl)
+library(cowsay)
+say("catfact", "cat")
+```
+````
+
+
+When you build your lesson, you will see this kind of output:
+
+```{r build-lesson-dummy, eval = FALSE}
+build_lesson()
+```
+
+```{.output}
+#| ℹ Consent to use package cache provided
+#| → Searching for and installing available dependencies
+#| * Discovering package dependencies ... Done!
+#| * Copying packages into the library ... Done!
+#| * Resolving missing dependencies  ... 
+#| Retrieving "https://cran.rstudio.com/src/contrib/cowsay_0.8.0.tar.gz" ...
+#|  OK [downloaded 564.5 Kb in 0.1 secs]
+#| Retrieving "https://cran.rstudio.com/src/contrib/crayon_1.4.1.tar.gz" ...
+#|  OK [downloaded 34.9 Kb in 0.1 secs]
+#| Retrieving "https://cran.rstudio.com/src/contrib/fortunes_1.5-4.tar.gz" ...
+#|  OK [downloaded 188.4 Kb in 0.1 secs]
+#| Retrieving "https://cran.rstudio.com/src/contrib/rmsfact_0.0.3.tar.gz" ...
+#|  OK [downloaded 10.5 Kb in 0.1 secs]
+#| Installing crayon [1.4.1] ...
+#|  OK [built from source]
+#| Copying crayon [1.4.1] into the cache ...
+#|  OK [copied to cache in 5.9 milliseconds]
+#| Installing fortunes [1.5-4] ...
+#|  OK [built from source]
+#| Copying fortunes [1.5-4] into the cache ...
+#|  OK [copied to cache in 5.6 milliseconds]
+#| Installing rmsfact [0.0.3] ...
+#|  OK [built from source]
+#| Copying rmsfact [0.0.3] into the cache ...
+#|  OK [copied to cache in 5.7 milliseconds]
+#| Installing cowsay [0.8.0] ...
+#|  OK [built from source]
+#| Copying cowsay [0.8.0] into the cache ...
+#|  OK [copied to cache in 7.5 milliseconds]
+#| → Restoring any dependency versions
+#| * The library is already synchronized with the lockfile.
+#| → Recording changes in lockfile
+#| The following package(s) will be updated in the lockfile:
+#| 
+#| # CRAN ===============================
+#| - cowsay     [* -> 0.8.0]
+#| - crayon     [* -> 1.4.1]
+#| - curl       [* -> 4.3.2]
+#| - fortunes   [* -> 1.5-4]
+#| - rmsfact    [* -> 0.0.3]
+#| 
+#| * Lockfile written to "/path/to/lesson/renv/profiles/lesson-requirements/renv.lock".
+#| ℹ Using package cache in /path/to/cache
+#| 
+#| [ truncated ]
+```
+
+The output will use the newly downloaded packages:
+
+````{.markdown}
+::::::::::::::::::::::::::::::::::::: keypoints
+
+- Use `.Rmd` files for lessons even if you don"t need to generate any code
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+```{.output}
+
+ -------------- 
+A cat can’t climb head first down a tree because every claw on a cat’s paw points the same way. To get down from a tree, a cat must back down.
+ --------------
+    \
+      \
+        \
+            |\___/|
+          ==) ^Y^ (==
+            \  ^  /
+             )=*=(
+            /     \
+            |     |
+           /| | | |\
+           \| | |_|/\
+      jgs  //_// ___/
+               \_)
+  
+```
+````
+
+
+
+### Temporarily turning off the cache
+
+There are times when you might want to not use the cache for a lesson. To do 
+this you can use `no_package_cache()` and your lesson will default to using
+your local library. 
+
+```{r build-lesson-dummy2, eval = FALSE}
+no_package_cache()
+sandpaper:::build_markdown(rebuild = TRUE)
+```
+
+```{.output}
+
+#| ℹ Consent to use package cache not given. Using default library.
+#| → use `use_package_cache()` to enable the package cache for reproducible builds.
+#| → You can switch between using your cache and the default library with `options(sandpaper.use_renv = TRUE)` (`FALSE` for the default library)
+#| 
+#| [ truncated ]
+```
+
+The output will use packages if they are available, but throw errors if they
+do not exist:
+
+````{.markdown}
+::::::::::::::::::::::::::::::::::::: keypoints
+
+- Use `.Rmd` files for lessons even if you don"t need to generate any code
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+```{.error}
+Error in library(cowsay): there is no package called "cowsay"
+```
+
+```{.error}
+Error in say("catfact", "cat"): could not find function "say"
+```
+````
+
+
+
+When you want to turn it on again, you can use `use_package_cache()`
+
+```{r, eval = FALSE}
+use_package_cache()
+```
+```{.output}
+#| ℹ Consent for renv provided---consent for package cache implied.
+```
+
+Read on for information about how to add, update, and remove packages from your
+cache.
+
+## Motivation
+
+One of the biggest motivations for building the lesson infrastructure around
+{sandpaper} is to be mindful of how we build lessons with generated content. For
+the moment, these are explicitly R Markdown lessons, but in the future, it is
+possible for us to expand to different engines *without changing your lesson's*
+setup.
+
+In the past, we've done this by including a script inside the lesson template
+that would automatically scan the dependencies of your lesson and install them
+to your computer. While convenient, there were drawbacks to this method in that
+it would alter your personal R library if any of the packages update, which was
+not good if you were using R for you own work and wanted to preserve the package
+versions that you had.
+
+The ‘renv’ package provides a very useful interface to bring one aspect of
+reproducibility to R projects. Because people working on Carpentries lessons
+are also working academics and will likely have projects on their computer
+where the package versions are necessary for their work, it's important that
+those environments are respected.
+
+Our flavor of renv applies a package cache explicitly to the content of the
+lesson, but does not impose itself as the default renv environment.
+
+This provisioner will do the following steps:
+
+ 1. check for consent to use the package cache via ‘use_package_cache()’ and
+    prompt for it if needed
+
+ 2. check if the profile has been created and create it if needed via
+    ‘renv::init()’
+
+ 3. populate the cache with packages needed from the user's system and download
+    any that are missing via ‘renv::hydrate()’. This includes all new packages
+    that have been added to the lesson.
+
+ 4. If there is a lockfile already present, make sure the packages in the cache
+    are aligned with the lockfile (downloading sources if needed) via
+    ‘renv::restore()’.
+
+ 5. Record the state of the cache in a lockfile tracked by git.  This will
+    include adding new packages and removing old packages. ‘renv::snapshot()’
+
+When the lockfile changes, you will see it in git and have the power to either
+commit or restore those changes.
+
+## Rebuild with the Package Cache
+
+By default, {sandpaper} will only rebuild files that have changed in content.
+This is designed to minmize the time spent rebuilding your lesson when you are
+actively writing it. If you are using the package cache, this fact will remain
+true _even if the lockfile changes_. Again, this is designed to minimize the
+time spent rebuilding the lesson when you add unrelated, adjacent packages to
+your lesson. 
+
+On continuous integration (cloud deployment), any change in the lockfile will
+cause the lesson to rebuild itself to make sure that the deployed version of the
+lesson matches with the source of truth for the lockfile.
+
+The function that controls this behavior is called `package_cache_trigger()` when
+you call it without any arguments, it will report `TRUE` or `FALSE`, indicating
+if changes to the lockfile will trigger a rebuild or not, respectively:
+
+```{r, eval = FALSE}
+package_cache_trigger()
+#| [1] FALSE
+package_cache_trigger(TRUE) # set the package cache to auto-trigger rebuilds
+#| [1] TRUE
+package_cache_trigger(FALSE) # prevent package cache from triggering rebuilds
+#| [1] FALSE
+```
+
+You might want to set this to `TRUE` when you pull changes from upstream.
+
+## Adding New Pacakges to the Cache
+
+The {sandpaper} cache records ONLY the packages needed for the repository itself.
+This means that if you want to use a package, you _must_ have it declared 
+somewhere within your lesson either as `library(package)` or 
+`package::function()`.
+
+For example, if I wanted to use the `sessioninfo` package to create a record 
+at the end of an episode, I would only need to add the following chunk:
+
+````markdown
+```{r sessioninfo, echo = FALSE}`r ""`
+sessioninfo::session_info()
+```
+````
+
+From there, {sandpaper} will be able to detect the package and add it to the
+cache.
+
+> Note: {renv} can not detect packages that are programmatically loaded, so one
+> workaround is to have a file called `episodes/install.R` that lists the 
+> installation scripts for the packages in your lesson
+
+If you want to pin a package to a specific version, read on.
+
+## Pinning specific package versions
+
+To pin a specific package version (e.g. the newest version has breaking changes
+you want to work on before release), you can use the `pin_version()` function.
+For example, here's how you would pin the {cowsay} package to version 0.7.0:
+
+```{r eval = FALSE}
+pin_version("cowsay@0.7.0")
+```
+
+This will record the package in the lockfile so that the next time 
+`manage_deps()` runs, it will use the correct version.
+
+## Updating the cache
+
+If you want to update the packages in the package cache, you can use the
+function `fetch_updates()`. This requires an internet connection and will scan
+the packages in your lesson for any potential updates and ask if you want to 
+update them. This will update those packages in your package cache and your 
+lockfile.
+
+```{r update-cache, eval = FALSE}
+update_cache(prompt = TRUE)
+```

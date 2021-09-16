@@ -12,6 +12,7 @@ jobs:
     if: ${{ github.event.action != 'closed' }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RENV_PATHS_ROOT: ~/Library/Application Support/renv
       CHIVE: ${{ github.workspace }}/site/chive
       PR: ${{ github.workspace }}/site/pr
       MD: ${{ github.workspace }}/site/built
@@ -25,10 +26,20 @@ jobs:
           ref: md-outputs
           path: ${{ env.MD }}
 
-      - uses: r-lib/actions/setup-r@v1
-      - uses: r-lib/actions/setup-pandoc@v1
+      - name: "Set up R"
+        uses: r-lib/actions/setup-r@v1
+
+      - name: "Set up Pandoc"
+        uses: r-lib/actions/setup-pandoc@v1
         with:
           pandoc-version: "2.11.4"
+
+      - name: "Check if We Need {renv}"
+        id: renv
+        run: |
+          if [[ -d renv ]]; then
+            echo "::set-output name=exists::true"
+          fi
 
       - name: "Query Sandpaper Dependencies"
         run: |
@@ -55,6 +66,15 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
+      - name: "Restore {renv} Cache"
+        if: ${{ steps.renv.outputs.exists }}
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys:
+            ${{ runner.os }}-renv-
+
       - name: "Install {sandpaper} and Dependencies"
         run: |
           options(repos = c(
@@ -68,15 +88,21 @@ jobs:
           update(pkgs, upgrade = "always")
         shell: Rscript {0}
 
+      - name: "Fortify Local {renv} Packages"
+        if: ${{ steps.renv.outputs.exists }}
+        run: sandpaper::manage_deps(path = '${{ github.workspace }}', quiet = FALSE)
+        shell: Rscript {0}
+
       - name: "Show Session Information"
-        run: Rscript -e 'sandpaper:::ci_session_info()'
+        run: sandpaper:::ci_session_info()
+        shell: Rscript {0}
 
       - name: "Build Site"
         id: build-site
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          Rscript -e 'sandpaper::build_lesson()'
+          sandpaper::package_cache_trigger(TRUE)
+          sandpaper:::build_markdown(path = '${{ github.workspace }}', quiet = FALSE)
+        shell: Rscript {0}
 
       - name: "Generate Artifacts"
         id: generate-artifacts
@@ -87,7 +113,7 @@ jobs:
             path_md      = '${{ env.MD }}',
             path_pr      = '${{ env.PR }}',
             path_archive = '${{ env.CHIVE }}',
-            branch       = "md-outputs"
+            branch       = 'md-outputs'
           )
         shell: Rscript {0}
 

@@ -1,12 +1,14 @@
 {
-  # Creating the Lesson ----------------------------------------------------------
-  # Creating the Repository ------------------------------------------------------
+  # We can not use the package cache on Windows
+  options(sandpaper.use_renv = renv_is_allowed())
   restore_fixture <- create_test_lesson()
   res <- tmp <- getOption("sandpaper.test_fixture")
   rmt <- fs::file_temp(pattern = "REMOTE-")
   setup_local_remote(repo = tmp, remote = rmt, verbose = FALSE)
 
   if (interactive()) {
+    cli::cli_alert_info("Current RENV_PATHS_ROOT {Sys.getenv('RENV_PATHS_ROOT')}")
+    cli::cli_alert_info("Current renv::paths$root() {renv::paths$root()}")
     cli::cli_alert_info(
       "{cli::symbol$arrow_down} Example lesson in {tmp}")
     cli::cli_alert_info(
@@ -17,6 +19,7 @@
 # Run after all tests
 withr::defer({
   tf <- getOption("sandpaper.test_fixture")
+  options(sandpaper.test_fixture = NULL)
   rem <- remove_local_remote(repo = tf)
   # remove the test fixture and report
   res <- tryCatch(fs::dir_delete(tf), error = function() FALSE)

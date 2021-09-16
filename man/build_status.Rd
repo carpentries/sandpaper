@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-built-db.R
 \name{build_status}
 \alias{build_status}
-\title{Identify what files need to be rebuilt}
+\title{Identify what files need to be rebuilt and what need to be removed}
 \usage{
 build_status(
   sources,
@@ -12,17 +12,46 @@ build_status(
 )
 }
 \arguments{
-\item{sources}{a character vector of ALL source files.}
+\item{sources}{a character vector of ALL source files OR a single file to be
+rebuilt. These must be \emph{absolute paths}}
 
 \item{db}{the path to the database}
 
 \item{rebuild}{if the files should be rebuilt, set this to TRUE (defaults to
 FALSE)}
 
-\item{write}{if TRUE, the database will be updated, Defaults to FALSE, meaning that the database will remain the same.}
+\item{write}{if TRUE, the database will be updated, Defaults to FALSE,
+meaning that the database will remain the same.}
+}
+\value{
+a list of the following elements
+\itemize{
+\item \emph{build} absolute paths of files to build
+\item \emph{new} a new data frame with three columns:
+\itemize{
+\item file the relative path to the source file
+\item checksum the md5 sum of the source file
+\item built the relative path to the built file
+}
+\item \emph{remove} absolute paths of files to remove. This will be missing if there
+is nothing to remove
+\item \emph{old} old database (for debugging). This will be missing if there is no
+old database or if a single file was rebuilt.
+}
 }
 \description{
-Identify what files need to be rebuilt
+This takes in a vector of files and compares them against a text database of
+files with checksums. It's been heavily adapted from blogdown to provide
+utilities for removal and updating of the old database.
+}
+\details{
+If you supply a single file into this function, we assume that you want that
+one file to be rebuilt, so we will \emph{always} return that file in the \verb{$build}
+element and update the md5 sum in the database (if it has changed at all).
+
+If you supply multiple files, you are indicating that these are the \emph{only}
+files you care about and the database will be updated accordingly, removing
+entries missing from the sources.
 }
 \seealso{
 \code{\link[=get_resource_list]{get_resource_list()}}, \code{\link[=get_built_db]{get_built_db()}}, \code{\link[=get_hash]{get_hash()}}

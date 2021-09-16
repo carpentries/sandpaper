@@ -4,7 +4,7 @@
 \alias{build_markdown}
 \title{Build plain markdown from the RMarkdown episodes}
 \usage{
-build_markdown(path = ".", rebuild = FALSE, quiet = FALSE)
+build_markdown(path = ".", rebuild = FALSE, quiet = FALSE, slug = NULL)
 }
 \arguments{
 \item{path}{the path to your repository (defaults to your current working

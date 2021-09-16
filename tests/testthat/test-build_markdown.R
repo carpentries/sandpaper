@@ -31,7 +31,9 @@ test_that("markdown sources can be built without fail", {
 
   # It's noisy at first
   suppressMessages({
-  expect_output(build_markdown(res, quiet = FALSE), "ordinary text without R code")
+    build_markdown(res, quiet = FALSE) %>%
+      expect_message("Consent to use package cache (provided|not given)") %>%
+      expect_output("ordinary text without R code")
   })
 
   # # Accidentaly rendered HTML is removed before building
@@ -39,17 +41,48 @@ test_that("markdown sources can be built without fail", {
   
 })
 
+test_that("changes in config.yaml triggers a rebuild of the site yaml", {
+
+  skip_on_os("windows")
+  yml <- get_path_site_yaml(res)$title
+  expect_identical(yml, "Lesson Title")
+  cfg <- gsub("Lesson Title", "NEW Lesson Title", readLines(fs::path(res, "config.yaml")))
+  writeLines(cfg, fs::path(res, "config.yaml"))
+
+  suppressMessages({
+    out <- capture.output({
+      build_markdown(res, quiet = FALSE) %>%
+        expect_message("nothing to rebuild")
+    })
+  })
+
+  expect_identical(get_path_site_yaml(res)$title, "NEW Lesson Title")
+
+
+})
+
 
 test_that("markdown sources can be rebuilt without fail", {
   
   # no building needed
   skip_on_os("windows")
-  expect_silent(build_markdown(res, quiet = FALSE))
-  
-  # everything rebuilt
   suppressMessages({
-  expect_output(build_markdown(res, quiet = FALSE, rebuild = TRUE), "ordinary text without R code")
+    out <- capture.output({
+      build_markdown(res, quiet = FALSE) %>%
+        expect_message("nothing to rebuild")
+    })
   })
+  expect_length(out, 0)
+  
+  withr::local_options(list(sandpaper.use_renv = FALSE))
+  # everything rebuilt
+  expect_false(getOption("sandpaper.use_renv"))
+  suppressMessages({
+    build_markdown(res, quiet = FALSE, rebuild = TRUE) %>%
+      expect_message("Consent to use package cache not given.") %>%
+      expect_output("ordinary text without R code")
+  })
+  expect_false(getOption("sandpaper.use_renv"))
 })
 
 test_that("modifying a file suffix will force the file to be rebuilt", {
@@ -68,7 +101,7 @@ test_that("modifying a file suffix will force the file to be rebuilt", {
     # reset source file
     fs::file_move(instruct_rmd, instruct)
     # rebuild database
-    build_markdown(res, quiet = TRUE)
+    suppressMessages(build_markdown(res, quiet = TRUE))
   })
 
   # Test that the birth times are changed.
@@ -93,6 +126,8 @@ test_that("Artifacts are accounted for", {
     fs::path_ext_set(s, "md"), 
     "CODE_OF_CONDUCT.md", 
     "LICENSE.md", 
+    "config.yaml",
+    if (.Platform$OS.type != "windows") "renv.lock",
     "setup.md",
     # Folders
     "data", 
@@ -111,6 +146,8 @@ test_that("Artifacts are accounted for", {
     fs::path_ext_set(s, "md"), 
     "CODE_OF_CONDUCT.md", 
     "LICENSE.md", 
+    "config.yaml",
+    if (.Platform$OS.type != "windows") "renv.lock",
     "setup.md",
     # Generated figures
     paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png"),
@@ -147,9 +184,20 @@ test_that("Output is not commented", {
 })
 
 test_that("Markdown rendering does not happen if content is not changed", {
-  expect_silent(build_markdown(res))
+
+  skip_on_os("windows")
+  
+  suppressMessages({
+    expect_message(out <- capture.output(build_markdown(res)), "nothing to rebuild")
+  })
+  expect_length(out, 0)
+
   fs::file_touch(fs::path(res, "episodes", "01-introduction.Rmd"))
-  expect_silent(build_markdown(res))
+
+  suppressMessages({
+    expect_message(out <- capture.output(build_markdown(res)), "nothing to rebuild")
+  })
+  expect_length(out, 0)
 })
 
 test_that("Removing source removes built", {
@@ -159,7 +207,7 @@ test_that("Removing source removes built", {
   fs::file_delete(e2)
   reset_episodes(res)
   set_episodes(res, "01-introduction.Rmd", write = TRUE)
-  build_markdown(res)
+  build_markdown(res, quiet = TRUE)
 #  h1 <- expect_hashed(res, "01-introduction.Rmd")
   expect_length(get_figs(res, "01-introduction"), 1)
 
@@ -174,7 +222,7 @@ test_that("Removing source removes built", {
 test_that("old md5sum.txt db will work", {
   # Databases built with sandpaper versions < 0.0.0.9028 will still work:
   db_path <- fs::path(res, "site", "built", "md5sum.txt")
-  olddb <- db <- get_built_db(db_path)
+  olddb <- db <- get_built_db(db_path, "*")
   withr::defer({
     write_build_db(olddb, db_path)
   })
@@ -204,7 +252,7 @@ test_that("Removing partially matching slugs will not have side-effects", {
   built_path <- path_built(res)
   
   fs::file_delete(fs::path(res, "instructors", "pyramid.md"))
-  build_markdown(res)
+  build_markdown(res, quiet = TRUE)
   h1 <- expect_hashed(res, "01-introduction.Rmd")
   expect_length(get_figs(res, "01-introduction"), 1)
 

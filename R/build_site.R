@@ -43,7 +43,15 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     cli::cli_rule(cli::style_bold("Scanning episodes"))
   }
 
-  for (i in seq_along(db$built)) {
+  if (is.null(slug)) {
+    out <- "index.html"
+    files_to_render <- seq_along(db$built)
+  } else {
+    out <- paste0(slug, ".html")
+    files_to_render <- which(get_slug(db$built) == slug)
+  }
+  out <- if (is.null(slug)) "index.html" else paste0(slug, ".html")
+  for (i in files_to_render) {
     build_episode_html(
       path_md      = abs_md[i],
       path_src     = abs_src[i],
@@ -59,7 +67,6 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     cli::cli_rule(cli::style_bold("Creating Schedule"))
   }
   build_home(pkg, quiet = quiet)
-  out <- if (is.null(slug)) "index.html" else paste0(slug, ".html")
   pkgdown::preview_site(pkg, "/", preview = preview)
   if (!quiet) {
     dst <- fs::path_rel(path = pkg$dst_path, start = path)

@@ -99,7 +99,3 @@ Cool, right?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-<!-- Please do not delete anything below this line -->
-
-```{r links, child = sandpaper::template_links()}
-```

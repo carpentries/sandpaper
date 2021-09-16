@@ -29,6 +29,8 @@ NOTHING
 \note{
 this function is not for interactive use. It requires git to be
 installed on your machine and will destroy anything you have in the
-\verb{site/} folder.
+\verb{site/} folder. Additionally, this will set the \code{sandpaper.use_renv}
+option to TRUE, which means that it will \emph{always} use the {renv}
+package cache.
 }
 \keyword{internal}

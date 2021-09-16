@@ -4,14 +4,16 @@ The New Carpentries Lesson Template: {sandpaper}
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/sandpaper)](https://CRAN.R-project.org/package=sandpaper)
+[![R
+Universe](https://carpentries.r-universe.dev/badges/sandpaper)](https://carpentries.r-universe.dev/ui#builds)
 [![R build
 status](https://github.com/carpentries/sandpaper/workflows/R-CMD-check/badge.svg)](https://github.com/carpentries/sandpaper/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/carpentries/sandpaper/branch/main/graph/badge.svg)](https://codecov.io/gh/carpentries/sandpaper?branch=main)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/sandpaper)](https://CRAN.R-project.org/package=sandpaper)
 <!-- badges: end -->
 
 The {sandpaper} package was created by [The
@@ -78,7 +80,7 @@ generate a site with the following features:
 
 -   [ ] optional offline use
 -   [x] filename-agnostic episode arrangements
--   [ ] clear definitions of package versions needed to build the lesson
+-   [x] clear definitions of package versions needed to build the lesson
 -   [ ] lesson versioning (e.g. I can navigate to
     <https://swcarpentry.github.io/python-novice-gapminder> for the
     current version and
@@ -88,7 +90,7 @@ generate a site with the following features:
 -   [x] caching of rendered content for rapid deployment
 -   [ ] packaging of
     [{learnr}](https://rstudio.github.io/learnr/index.html) materials
--   [ ] validation of lesson structure
+-   [x] validation of lesson structure
 -   [x] git aware, but does not require contributors to have git
     installed
 
@@ -160,6 +162,7 @@ intensive, this will default to updating only files that were changed.
 The functions in {sandpaper} have the following prefixes:
 
 -   `create_` will create/amend files or folders in your workspace
+-   `update_` will update build resources in the lesson
 -   `build_` will build files from your source
 -   `check_` validates either the elements of the lesson and/or episodes
 -   `fetch_` will download files or resources from the internet
@@ -182,6 +185,7 @@ Here is a working list of user-facing functions:
 Accessors
 
 -   `get_config()` reads the contents of `config.yaml` as a list
+-   `get_drafts()` reports files that are not listed in `config.yaml`
 -   `get_episodes()` returns the episode filenames as a vector
 -   `get_syllabus()` returns the syllabus with timings, titles, and
     questions
@@ -210,6 +214,7 @@ Accessors
     markdown files
 -   `ci_release()` builds and deploys the lesson on CI from the source
     files and adds a release tag
+-   `update_github_workflows()` updates GitHub workflows
 
 Cleanup
 
@@ -367,7 +372,7 @@ most straightforward function is:
 sandpaper::ci_deploy(md_branch = "md-outputs", site_branch = "gh-pages")
 ```
 
-This functionw will create [git
+This function will create [git
 worktrees](https://git-scm.com/docs/git-worktree) for the orphan
 `md-outputs` branch in the `site/built` folder and the orphan `gh-pages`
 branch in the `site/docs` folder. After that, we generate the site as

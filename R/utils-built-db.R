@@ -8,7 +8,7 @@
 get_hash <- function(path, db = fs::path(path_built(path), "md5sum.txt")) {
   opt = options(stringsAsFactors = FALSE)
   on.exit(options(opt), add = TRUE)
-  db <- read.table(db, header = TRUE)
+  db <- get_built_db(db, filter = "*")
   db$checksum[fs::path_file(db$built) %in% fs::path_file(path)]
 }
 
@@ -36,13 +36,39 @@ get_built_db <- function(db = "site/built/md5sum.txt", filter = "*R?md") {
 
 write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 
-#' Identify what files need to be rebuilt
+#' Identify what files need to be rebuilt and what need to be removed
 #'
-#' @param sources a character vector of ALL source files. 
+#' This takes in a vector of files and compares them against a text database of
+#' files with checksums. It's been heavily adapted from blogdown to provide 
+#' utilities for removal and updating of the old database.
+#'
+#' @details
+#'
+#' If you supply a single file into this function, we assume that you want that
+#' one file to be rebuilt, so we will _always_ return that file in the `$build`
+#' element and update the md5 sum in the database (if it has changed at all).
+#'
+#' If you supply multiple files, you are indicating that these are the _only_
+#' files you care about and the database will be updated accordingly, removing
+#' entries missing from the sources.
+#'
+#' @param sources a character vector of ALL source files OR a single file to be
+#'   rebuilt. These must be *absolute paths*
 #' @param db the path to the database
 #' @param rebuild if the files should be rebuilt, set this to TRUE (defaults to
 #'   FALSE)
-#' @param write if TRUE, the database will be updated, Defaults to FALSE, meaning that the database will remain the same. 
+#' @param write if TRUE, the database will be updated, Defaults to FALSE,
+#' meaning that the database will remain the same. 
+#' @return a list of the following elements
+#'   - *build* absolute paths of files to build
+#'   - *new* a new data frame with three columns: 
+#'      - file the relative path to the source file
+#'      - checksum the md5 sum of the source file
+#'      - built the relative path to the built file
+#'   - *remove* absolute paths of files to remove. This will be missing if there
+#'      is nothing to remove
+#'   - *old* old database (for debugging). This will be missing if there is no
+#'     old database or if a single file was rebuilt.
 #' @keywords internal
 #' @seealso [get_resource_list()], [get_built_db()], [get_hash()]
 build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE, write = FALSE) {
@@ -54,13 +80,21 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   # To make this portable, we want to record relative paths. The sources coming
   # in will be absolute paths, so this will check for the common path and then
   # trim it.
-  root_path  <- fs::path_common(sources)
+  build_one <- length(sources) == 1L
+
+  # If we have a single source passed in, this means that we want to update it
+  # in the database and force it to rebuild
+  if (build_one) {
+    root_path <- root_path(sources)
+  } else {
+    root_path <- fs::path_common(sources)
+  }
   sources    <- fs::path_rel(sources, start = root_path)
   built_path <- fs::path_rel(fs::path_dir(db), root_path)
   # built files are flattened here
   built <- fs::path(built_path, fs::path_file(sources))
   built <- ifelse(
-    fs::path_ext(built) %nin% c("yaml", "yml"),
+    fs::path_ext(built) %in% c("Rmd", "rmd"),
     fs::path_ext_set(built, "md"), built
   )
   md5 = data.frame(
@@ -76,14 +110,29 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   }
   # old checksums (2 columns: file path and checksum)
   old = read.table(db, header = TRUE)
+  if (build_one) {
+    new <- old
+    to_build <- old$file == md5$file
+    if (any(to_build)) {
+      new$checksum[to_build] <- md5$checksum
+      new$built[to_build]    <- md5$built
+    } else {
+      new <- rbind(old, md5)
+    }
+    return(list(build = fs::path(root_path, sources), new = new))
+  }
   one = merge(md5, old, 'file', all = TRUE, suffixes = c('', '.old'), sort = FALSE)
   newsum <- names(one)[2]
   oldsum <- paste0(newsum, ".old")
   # Find the files that need to be removed because they don't exist anymore.
+  # TODO: add a switch to _not_ remove these files, because we want to rebuild
+  #       a subset of the files.
   to_remove <- one[['built.old']][is.na(one[[newsum]])]
   # merge destroys the order, so we need to reset it. Consequently, it will
   # also remove the files that no longer exist in the sources list.
   one <- one[match(sources, one$file), , drop = FALSE]
+  # TODO: see if we can have rebuild be a vector matching the sources so that
+  #       we can indicate a vector of files to rebuild. 
   if (rebuild) {
     files = one[['file']]
     to_remove <- old[['built']]

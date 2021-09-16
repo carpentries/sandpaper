@@ -17,6 +17,7 @@
 #' lsn
 create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi::isAvailable(), open = rlang::is_interactive()) {
 
+  path <- fs::path_abs(path)
   id <- cli::cli_status("{cli::symbol$arrow_right} Creating Lesson in {.file {path}}...")
   init_source_path(path)
 
@@ -74,17 +75,25 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   cli::cli_status_update("{cli::symbol$arrow_right} Inserting GitHub workflows ...")
   update_github_workflows(path)
 
+  has_consent <- getOption("sandpaper.use_renv")
+  if (has_consent) {
+    cli::cli_status_update("{cli::symbol$arrow_right} Managing Dependencies ...")
+    manage_deps(path, snapshot = TRUE)
+  }
+
   cli::cli_status_update("{cli::symbol$arrow_right} Committing ...")
   gert::git_add(".", repo = path)
   gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
   enforce_main_branch(path)
   reset_git_user(path)
+
   cli::cli_alert_success("Lesson successfully created in {.file {path}}")
   if (open) {
     if (usethis::proj_activate(path)) {
       on.exit()
     }
   } 
+
 
   cli::cli_status_clear()
   invisible(return(path))

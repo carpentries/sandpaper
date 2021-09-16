@@ -8,10 +8,19 @@
 #'
 #' @note this function is not for interactive use. It requires git to be
 #'   installed on your machine and will destroy anything you have in the
-#'   `site/` folder. 
-#' 
+#'   `site/` folder. Additionally, this will set the `sandpaper.use_renv`
+#'   option to TRUE, which means that it will _always_ use the {renv} 
+#'   package cache.
+#'
 #' @keywords internal
 ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origin", reset = FALSE) {
+
+  options(sandpaper.use_renv = renv_is_allowed())
+
+  # Set episodes to rebuild if the lockfile has changed.
+  oc <- package_cache_trigger()
+  on.exit(package_cache_trigger(oc), add = TRUE)
+  package_cache_trigger(TRUE)
 
   # step 0: build_lesson defaults to a local build
   path <- set_source_path(path)

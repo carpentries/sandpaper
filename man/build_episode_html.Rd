@@ -42,15 +42,23 @@ this function is for internal use, but exported for those who know what
 they are doing.
 }
 \examples{
+if (.Platform$OS.type == "windows") {
+  options("sandpaper.use_renv" = FALSE)
+}
+if (!interactive() && getOption("sandpaper.use_renv")) {
+  old <- renv::config$cache.symlinks()
+  options(renv.config.cache.symlinks = FALSE)
+  on.exit(options(renv.config.cache.symlinks = old), add = TRUE)
+}
 tmp <- tempfile()
 create_lesson(tmp, open = FALSE)
-suppressWarnings(set_episodes(tmp, get_episodes(tmp), write = TRUE))
+suppressMessages(set_episodes(tmp, get_episodes(tmp), write = TRUE))
 if (rmarkdown::pandoc_available("2.11")) {
   # we can only build this if we have pandoc
   build_lesson(tmp)
 }
 
-# create a new file in extras
+# create a new file in files
 fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
 txt <- c(
  "---\ntitle: Fun times\n---\n\n",

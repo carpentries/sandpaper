@@ -134,8 +134,6 @@ test_that("render_html applies the internal lua filter", {
 
   writeLines(ex, tmp)
   res <- render_html(tmp)
-  
-  expect_snapshot(cat(res))
 
   # Metadata blocks are parsed
   expect_match(res, "div class=\"row\"", fixed = TRUE)
@@ -157,6 +155,13 @@ test_that("render_html applies the internal lua filter", {
   # Div class nothing should be left alone
   expect_match(res, "div class=\"nothing\"", fixed = TRUE)
   expect_failure(expect_match(res, "Nothing</h2>", fixed = TRUE))
+
+  if (.Platform$OS.type == "windows" && Sys.getenv("CI", unset = '') == "true") {
+    # let's see what this looks like
+    message(res)
+  }
+  skip_on_os("windows")
+  expect_snapshot(cat(res))
 
 })
 

@@ -19,6 +19,9 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
     stop("This function is for use on continuous integration only", call. = FALSE)
   }
 
+  # Enforce git user exists
+  check_git_user(path, name = "GitHub Actions", email = "actions@github.com")
+
   # Step 1: build markdown source files
   del_md <- ci_build_markdown(path, branch = md_branch, remote = remote, reset = reset)
   on.exit(eval(del_md), add = TRUE)

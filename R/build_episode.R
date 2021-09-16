@@ -21,15 +21,23 @@
 #' @keywords internal
 #' @seealso [build_episode_md()], [build_lesson()], [build_markdown()], [render_html()]
 #' @examples
+#' if (.Platform$OS.type == "windows") {
+#'   options("sandpaper.use_renv" = FALSE)
+#' }
+#' if (!interactive() && getOption("sandpaper.use_renv")) {
+#'   old <- renv::config$cache.symlinks()
+#'   options(renv.config.cache.symlinks = FALSE)
+#'   on.exit(options(renv.config.cache.symlinks = old), add = TRUE)
+#' }
 #' tmp <- tempfile()
 #' create_lesson(tmp, open = FALSE)
-#' suppressWarnings(set_episodes(tmp, get_episodes(tmp), write = TRUE))
+#' suppressMessages(set_episodes(tmp, get_episodes(tmp), write = TRUE))
 #' if (rmarkdown::pandoc_available("2.11")) {
 #'   # we can only build this if we have pandoc
 #'   build_lesson(tmp)
 #' }
-#' 
-#' # create a new file in extras
+#'
+#' # create a new file in files
 #' fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
 #' txt <- c(
 #'  "---\ntitle: Fun times\n---\n\n",
@@ -56,18 +64,21 @@ build_episode_html <- function(path_md, path_src = NULL,
   path_src <- if (is.null(path_src)) yaml[["sandpaper-source"]] else path_src
   pkgdown::render_page(pkg, 
     "title-body",
-    data = list(
-      # NOTE: we can add anything we want from the YAML header in here to
-      # pass on to the template.
-      body         = body,
-      pagetitle    = parse_title(yaml$title),
-      teaching     = yaml$teaching,
-      exercises    = yaml$exercises,
-      file_source  = fs::path_rel(path_src, start = home),
-      page_back    = as_html(page_back),
-      left         = if (page_back == "index.md") "up" else "left",
-      page_forward = as_html(page_forward),
-      right        = if (page_forward == "index.md") "up" else "right"
+    data = c(
+      list(
+        # NOTE: we can add anything we want from the YAML header in here to
+        # pass on to the template.
+        body         = body,
+        pagetitle    = parse_title(yaml$title),
+        teaching     = yaml$teaching,
+        exercises    = yaml$exercises,
+        file_source  = fs::path_rel(path_src, start = home),
+        page_back    = as_html(page_back),
+        left         = if (page_back == "index.md") "up" else "left",
+        page_forward = as_html(page_forward),
+        right        = if (page_forward == "index.md") "up" else "right"
+      ),
+      varnish_vars()
     ), 
     path = as_html(path_md),
     quiet = quiet
@@ -95,9 +106,17 @@ build_episode_html <- function(path_md, path_src = NULL,
 #'   they are doing. 
 #' @seealso [render_html()], [build_episode_html()]
 #' @examples
+#' if (.Platform$OS.type == "windows") {
+#'   options("sandpaper.use_renv" = FALSE)
+#' }
+#' if (!interactive() && getOption("sandpaper.use_renv")) {
+#'   old <- renv::config$cache.symlinks()
+#'   options(renv.config.cache.symlinks = FALSE)
+#'   on.exit(options(renv.config.cache.symlinks = old), add = TRUE)
+#' }
 #' fun_dir <- tempfile()
-#' dir.create(fun_dir)
-#' fun_file <- file.path(fun_dir, "fun.Rmd")
+#' dir.create(fs::path(fun_dir, "episodes"), recursive = TRUE)
+#' fun_file <- file.path(fun_dir, "episodes", "fun.Rmd")
 #' file.create(fun_file)
 #' txt <- c(
 #'  "---\ntitle: Fun times\n---\n\n",
@@ -108,82 +127,42 @@ build_episode_html <- function(path_md, path_src = NULL,
 #' res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
 build_episode_md <- function(path, hash = NULL, outdir = path_built(path), 
                              workdir = path_built(path), 
-                             env = new.env(), quiet = FALSE) {
+                             workenv = new.env(), profile = "lesson-requirements", quiet = FALSE) {
 
   # define the output
   md <- fs::path_ext_set(fs::path_file(path), "md")
   outpath <- fs::path(outdir, md)
 
   # Set up the arguments 
+  root <- root_path(path)
+  prof <- fs::path(root, "renv", "profiles", profile)
+  # If we have consent to use renv and the profile exists, then we can use renv,
+  # otherwise, we need to use the system library
+  has_consent <- getOption("sandpaper.use_renv") && fs::dir_exists(prof)
   args <- list(
     path    = path,
     hash    = hash,
-    env     = env,
+    workenv = workenv,
     outpath = outpath,
     workdir = workdir,
+    root    = if (has_consent) root else "",
     quiet   = quiet
   )
 
-  # Build the article in a separate process via {callr}
+  # Build the article in a separate  process via {callr}
   # ==========================================================
   #
   # Note that this process can NOT use any internal functions
   sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
-  callr::r(function(path, hash, env, outpath, workdir, quiet) {
-    # Shortcut if the source is a markdown file
-    # Taken directly from tools::file_ext
-    file_ext <- function (x) {
-      pos <- regexpr("\\.([[:alnum:]]+)$", x)
-      ifelse(pos > -1L, substring(x, pos + 1L), "")
-    }
-    # Also taken directly from tools::file_path_sans_ext
-    file_path_sans_ext <- function (x) {
-      sub("([^.]+)\\.[[:alnum:]]+$", "\\1", x)
-    }
-    if (file_ext(path) == "md") {
-      file.copy(path, outpath, overwrite = TRUE)
-      return(NULL)
-    }
-    # Set knitr options for output ---------------------------
-    ochunk <- knitr::opts_chunk$get()
-    oknit  <- knitr::opts_knit$get()
-    on.exit(knitr::opts_chunk$restore(ochunk), add = TRUE)
-    on.exit(knitr::opts_knit$restore(oknit), add = TRUE)
-
-    slug <- file_path_sans_ext(basename(outpath))
-
-    knitr::opts_chunk$set(
-      comment       = "",
-      fig.align     = "center",
-      class.output  = "output",
-      class.error   = "error",
-      class.warning = "warning",
-      class.message = "output",
-      fig.path      = file.path("fig", paste0(slug, "-rendered-"))
-    )
-
-    # Ensure HTML options like caption are respected by code chunks
-    knitr::opts_knit$set(
-      rmarkdown.pandoc.to = "markdown"
-    )
-
-    # Set the working directory -----------------------------
-    wd <- getwd()
-    on.exit(setwd(wd), add = TRUE)
-    setwd(workdir)
-
-    # Generate markdown -------------------------------------
-    res <- knitr::knit(
-      input = path,
-      output = outpath,
-      envir = env, 
-      quiet = quiet,
-      encoding = "UTF-8"
-    )
-
-    # write file to disk ------------------------------------
-    # writeLines(res, outpath)
-  }, args = args, show = !quiet, spinner = sho)
+  callr::r(
+    func = callr_build_episode_md,
+    args = args,
+    show = !quiet,
+    spinner = sho,
+    env = c(callr::rcmd_safe_env(),
+      "RENV_PROFILE" = profile,
+      "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available())
+  )
 
   invisible(outpath)
 }

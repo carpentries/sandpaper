@@ -1,3 +1,102 @@
+# sandpaper 0.0.0.9050
+
+This update for {sandpaper} brings in dependency management for lessons with
+generated content which will make collaboration between these lessons much 
+easier and less invasive by establishing a package cache and lockfile via the 
+{renv} R package.
+
+DEPENDENCY MANAGEMENT
+---------------------
+
+### Introduction
+
+We use the {renv} package for controlling dependency management in the lesson,
+which is contained in a {renv} profile called "lesson-requirements". We have
+implemented this as a profile instead of the default {renv} environment to give
+the maintainers flexibility of whether or not they want to use the package cache.
+
+### Consent for Using the Package Cache
+
+ - `getOption('sandpaper.use_renv')` will be set when {sandpaper} loads to
+   detect if the contributor has previously consented to use the {renv} package.
+   If this is `TRUE`, the lesson will use a package cache, otherwise, the lesson
+   will use the default library.
+ - `use_package_cache()` will give consent to {sandpaper} to create and use a
+   package cache via {renv}. Internally, this enforces that
+   `options(sandpaper.use_renv = TRUE)`.
+ - `no_package_cache()` does the opposite of `use_package_cache()` and revokes
+   consent to use the package cache in a lesson temporarily. This can be useful
+   in situtations where the cache is mis-behaving or you want to test the lesson
+   using a newer set of packages. Internally, this enforces that
+   `options(sandpaper.use_renv = FALSE)`.
+ - `package_cache_trigger(TRUE)` allows you to trigger a full rebuild when the
+   lockfile changes. This is set to `TRUE` by default on `ci_build_markdown()`
+
+### Managing the Package Cache
+
+ - `manage_deps()` is a new function that will manage dependencies for a lesson.
+   This is called both in `create_lesson()` and `build_markdown()` to ensure
+   that the correct dependencies for the lesson are installed. This explicitly
+   calls `use_package_cache()` when it runs.
+ - `update_cache()` will bring in updates for the lesson cache.
+ - `pin_version()` will pin packages to a specific version, allowing authors to
+   upgrade or downgrade packages at will.
+
+NEW FEATURES
+------------
+
+ - `create_lesson()` now additionally will create a {renv} profile called
+   "packages" in the lesson repository if `getOption('sandpaper.use_renv')` is 
+   `TRUE`. This will make the lesson more portable.
+ - index and README files can now be Rmd files (though it is recommended to use
+   .renvignore for these files if they are to avoid {sandpaper} becoming part of
+   the package cache).
+ - internal function `ci_deploy()` will set `sandpaper.use_renv` option to 
+   `TRUE`
+ - `build_markdown()` and thus `build_lesson()` will now cache `config.yaml` and
+   `renv.lock`. It will no longer step through the build process if no markdown
+   files need to be rebuilt. This will cause any project built with previous
+   versions of sandpaper to be fully rebuilt. 
+ - `sandpaper_site()` (and thus, `build_lesson()`) now can take in a single file
+   for rendering and render that specific file regardless if it is present in
+   the cache without rendering other files. This further addresses #77. (n.b.
+   this involved changes to `build_markdown()`, `build_site()`, and 
+   `build_status()`).
+ - `varnish_vars()` is a list that contains commonly used variables in the
+   lesson that can not be contained in the config.yaml
+ - `build_episode()` and `build_home()` now supply default variables to varnish.
+
+CONTINOUS INTEGRATION
+---------------------
+
+ - unexported function `ci_deploy()` will now automatically check and set the
+   git user and email.
+ - `sandpaper-main.yaml` and `pr-receive.yaml` have been updated to include
+   the {renv} cache, but they will skip these steps for markdown lessons.
+ - `update-cache.yaml` is a new workflow that will update the package cache
+   lockfile and create a pull request to trigger new builds if the lesson uses
+   {renv}.
+ - `update-workflows.yaml` now produces more informative instructions for
+   creating a repository secret.
+
+MISC
+----
+
+ - some of the {callr} functions have been made non-anonymous and moved to a
+   separate file so they could be tested independently.
+
+BUG FIX
+-------
+
+ - changes to `config.yaml` are now reflected on the lesson site without
+   rebuilding (fixes #75)
+ - knitr option `root.dir` has been set to the output directory to avoid
+   generated content from entering the source.
+
+# sandpaper 0.0.0.9049
+
+This is a placeholder for the testing of 0.0.0.9050.
+
 # sandpaper 0.0.0.9048
 
 BUG FIX

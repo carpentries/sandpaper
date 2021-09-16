@@ -9,7 +9,8 @@ build_episode_md(
   hash = NULL,
   outdir = path_built(path),
   workdir = path_built(path),
-  env = new.env(),
+  workenv = new.env(),
+  profile = "lesson-requirements",
   quiet = FALSE
 )
 }
@@ -23,10 +24,10 @@ is effectively useless.}
 
 \item{workdir}{the directory where the episode should be rendered}
 
-\item{env}{a blank environment}
-
 \item{quiet}{if \code{TRUE}, output is suppressed, default is \code{FALSE} to show
 {knitr} output.}
+
+\item{env}{a blank environment}
 }
 \value{
 the path to the output, invisibly
@@ -41,9 +42,17 @@ this function is for internal use, but exported for those who know what
 they are doing.
 }
 \examples{
+if (.Platform$OS.type == "windows") {
+  options("sandpaper.use_renv" = FALSE)
+}
+if (!interactive() && getOption("sandpaper.use_renv")) {
+  old <- renv::config$cache.symlinks()
+  options(renv.config.cache.symlinks = FALSE)
+  on.exit(options(renv.config.cache.symlinks = old), add = TRUE)
+}
 fun_dir <- tempfile()
-dir.create(fun_dir)
-fun_file <- file.path(fun_dir, "fun.Rmd")
+dir.create(fs::path(fun_dir, "episodes"), recursive = TRUE)
+fun_file <- file.path(fun_dir, "episodes", "fun.Rmd")
 file.create(fun_file)
 txt <- c(
  "---\ntitle: Fun times\n---\n\n",
