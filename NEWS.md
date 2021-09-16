@@ -48,6 +48,9 @@ NEW FEATURES
  - `create_lesson()` now additionally will create a {renv} profile called
    "packages" in the lesson repository if `getOption('sandpaper.use_renv')` is 
    `TRUE`. This will make the lesson more portable.
+ - index and README files can now be Rmd files (though it is recommended to use
+   .renvignore for these files if they are to avoid {sandpaper} becoming part of
+   the package cache).
  - internal function `ci_deploy()` will set `sandpaper.use_renv` option to 
    `TRUE`
  - `build_markdown()` and thus `build_lesson()` will now cache `config.yaml` and
