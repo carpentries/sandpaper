@@ -57,6 +57,7 @@ reference:
    - ci_build_markdown
    - ci_build_site
    - ci_session_info
+   - git_worktree_setup
  - title: "[Internal] Build Components"
    desc: > 
      Individual components to build a lesson locally

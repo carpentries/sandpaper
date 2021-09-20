@@ -1,3 +1,13 @@
+# sandpaper 0.0.0.9051
+
+MISC
+----
+
+The template for the pull request message reverts back to two-dot diff notation
+between branches, which is temporary until #169 can be addressed. Linebreaks
+within paragraphs have been removed to avoid github formatting them as
+linebreaks.
+
 # sandpaper 0.0.0.9050
 
 This update for {sandpaper} brings in dependency management for lessons with
