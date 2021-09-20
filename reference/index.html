@@ -40,6 +40,9 @@
 
 
 <meta property="og:title" content="Function reference" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="@zkamvar" />
+<meta name="twitter:site" content="@thecarpentries" />
 
 
 
@@ -94,10 +97,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/automated-pull-requests.html">Working with Automated Pull Requests</a>
+      <a href="../articles/building-with-renv.html">Building Lessons With A Package Cache</a>
     </li>
     <li>
-      <a href="../articles/building-with-renv.html">Building Lessons With A Package Cache</a>
+      <a href="../articles/automated-pull-requests.html">Working with Automated Pull Requests</a>
     </li>
   </ul>
 </li>
@@ -139,8 +142,33 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-lesson-creation" class="hasAnchor"><a href="#section-lesson-creation" class="anchor"></a>Lesson Creation</h2>
+          <p class="section-desc"><p>Provision new lessons and/or episodes. These functions will likely only be used once.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="create_lesson.html">create_lesson()</a></code> </p>
+        </td>
+        <td><p>Create a carpentries lesson</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_episode.html">create_episode()</a></code> </p>
+        </td>
+        <td><p>Create an Episode from a template</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-working-with-lessons" class="hasAnchor"><a href="#section-working-with-lessons" class="anchor"></a>Working With Lessons</h2>
+          <p class="section-desc"><p>Functions to work build, audit, and preview lesson content. These will be used with regularity in your work.</p></p>
         </th>
       </tr>
       
@@ -157,33 +185,15 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="sandpaper_site.html">sandpaper_site()</a></code> </p>
+        </td>
+        <td><p>Site generator for sandpaper</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="check_lesson.html">check_episode()</a></code> <code><a href="check_lesson.html">check_lesson()</a></code> </p>
         </td>
         <td><p>Check the lesson structure for errors</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_episode.html">create_episode()</a></code> </p>
-        </td>
-        <td><p>Create an Episode from a template</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_lesson.html">create_lesson()</a></code> </p>
-        </td>
-        <td><p>Create a carpentries lesson</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="dependency_management.html">manage_deps()</a></code> <code><a href="dependency_management.html">update_cache()</a></code> <code><a href="dependency_management.html">pin_version()</a></code> </p>
-        </td>
-        <td><p>Lesson Runtime Dependency Management</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_config.html">get_config()</a></code> </p>
-        </td>
-        <td><p>Get the configuration parameters for the lesson</p></td>
       </tr><tr>
         
         <td>
@@ -193,10 +203,35 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="get_config.html">get_config()</a></code> </p>
+        </td>
+        <td><p>Get the configuration parameters for the lesson</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="get_dropdown.html">get_dropdown()</a></code> <code><a href="get_dropdown.html">get_episodes()</a></code> <code><a href="get_dropdown.html">get_learners()</a></code> <code><a href="get_dropdown.html">get_instructors()</a></code> <code><a href="get_dropdown.html">get_profiles()</a></code> </p>
         </td>
         <td><p>Helpers to extract contents of dropdown menus on the site</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="set_dropdown.html">set_dropdown()</a></code> <code><a href="set_dropdown.html">set_episodes()</a></code> <code><a href="set_dropdown.html">set_learners()</a></code> <code><a href="set_dropdown.html">set_instructors()</a></code> <code><a href="set_dropdown.html">set_profiles()</a></code> </p>
+        </td>
+        <td><p>Set the order of items in a dropdown menu</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-the-pacakge-cache" class="hasAnchor"><a href="#section-the-pacakge-cache" class="anchor"></a>The Pacakge Cache</h2>
+          <p class="section-desc"><p>Lessons with generated content (R Markdown lessons) have an extra file called <code>renv/profiles/lesson-requirments/renv.lock</code> that records the package versions used to build the lesson. These functions provide ways for you to manage these packages and turn it on or off while previewing the lesson.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="package_cache.html">use_package_cache()</a></code> <code><a href="package_cache.html">no_package_cache()</a></code> <code><a href="package_cache.html">package_cache_trigger()</a></code> </p>
@@ -205,39 +240,127 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="reset_episodes.html">reset_episodes()</a></code> </p>
+          <p><code><a href="dependency_management.html">manage_deps()</a></code> <code><a href="dependency_management.html">update_cache()</a></code> <code><a href="dependency_management.html">pin_version()</a></code> </p>
         </td>
-        <td><p>Clear the schedule in the lesson</p></td>
+        <td><p>Lesson Runtime Dependency Management</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-updating-lesson-tools" class="hasAnchor"><a href="#section-updating-lesson-tools" class="anchor"></a>Updating Lesson Tools</h2>
+          <p class="section-desc"><p>Lesson updates will happen automatically on a regular schedule on GitHub. If you want to expediate those updates or update the components on your own computer, these functions will help you with that.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="update_varnish.html">update_varnish()</a></code> </p>
+        </td>
+        <td><p>Update the local version of the carpentries style</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="reset_site.html">reset_site()</a></code> </p>
+          <p><code><a href="dependency_management.html">manage_deps()</a></code> <code><a href="dependency_management.html">update_cache()</a></code> <code><a href="dependency_management.html">pin_version()</a></code> </p>
         </td>
-        <td><p>Remove all files associated with the site</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="set_dropdown.html">set_dropdown()</a></code> <code><a href="set_dropdown.html">set_episodes()</a></code> <code><a href="set_dropdown.html">set_learners()</a></code> <code><a href="set_dropdown.html">set_instructors()</a></code> <code><a href="set_dropdown.html">set_profiles()</a></code> </p>
-        </td>
-        <td><p>Set the order of items in a dropdown menu</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="template.html">template_gitignore()</a></code> <code><a href="template.html">template_episode()</a></code> <code><a href="template.html">template_links()</a></code> <code><a href="template.html">template_config()</a></code> <code><a href="template.html">template_conduct()</a></code> <code><a href="template.html">template_index()</a></code> <code><a href="template.html">template_license()</a></code> <code><a href="template.html">template_contributing()</a></code> <code><a href="template.html">template_setup()</a></code> <code><a href="template.html">template_pkgdown()</a></code> <code><a href="template.html">template_placeholder()</a></code> <code><a href="template.html">template_pr_diff()</a></code> </p>
-        </td>
-        <td><p>Template files</p></td>
+        <td><p>Lesson Runtime Dependency Management</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="update_github_workflows.html">update_github_workflows()</a></code> </p>
         </td>
         <td><p>Update github workflows</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section--internal-continous-integration-functions" class="hasAnchor"><a href="#section--internal-continous-integration-functions" class="anchor"></a>[Internal] Continous Integration Functions</h2>
+          <p class="section-desc"><p>Internal functions for deploying on continuous integration. Users are not intended to work with these.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="ci_deploy.html">ci_deploy()</a></code> </p>
+        </td>
+        <td><p>(INTERNAL) Build and deploy the site with continous integration</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="update_varnish.html">update_varnish()</a></code> </p>
+          <p><code><a href="ci_build_markdown.html">ci_build_markdown()</a></code> </p>
         </td>
-        <td><p>Update the local version of the carpentries style</p></td>
+        <td><p>(INTERNAL) Build and deploy the site with continous integration</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ci_session_info.html">ci_session_info()</a></code> </p>
+        </td>
+        <td><p>Report session information to the user</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section--internal-build-components" class="hasAnchor"><a href="#section--internal-build-components" class="anchor"></a>[Internal] Build Components</h2>
+          <p class="section-desc"><p>Individual components to build a lesson locally</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="build_markdown.html">build_markdown()</a></code> </p>
+        </td>
+        <td><p>Build plain markdown from the RMarkdown episodes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="build_site.html">build_site()</a></code> </p>
+        </td>
+        <td><p>Wrapper for site builder</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="build_episode_md.html">build_episode_md()</a></code> </p>
+        </td>
+        <td><p>Build an episode to markdown</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="build_episode_html.html">build_episode_html()</a></code> </p>
+        </td>
+        <td><p>Build a single episode html file</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section--developer-lesson-test-fixture" class="hasAnchor"><a href="#section--developer-lesson-test-fixture" class="anchor"></a>[Developer] Lesson Test Fixture</h2>
+          <p class="section-desc"><p>Internal documentation for the temporary lesson and remote used as a test fixture created and destroyed before and after tests.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="fixtures.html">create_test_lesson()</a></code> <code><a href="fixtures.html">generate_restore_fixture()</a></code> <code><a href="fixtures.html">setup_local_remote()</a></code> <code><a href="fixtures.html">remove_local_remote()</a></code> </p>
+        </td>
+        <td><p>Test fixture functions for sandpaper</p></td>
       </tr>
     </tbody>
     </table>
