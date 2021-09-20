@@ -1,0 +1,81 @@
+home:
+  title: The Carpentries Lesson Infrastructure Engine
+  description: Create, Preview, and Maintain Carpentries-Style Lessons
+
+template:
+  opengraph:
+    twitter:
+      creator: "@zkamvar"
+      site: "@thecarpentries"
+      card: summary
+
+reference:
+ - title: "Lesson Creation"
+   desc: >
+     Provision new lessons and/or episodes. These functions will likely only 
+     be used once.
+ - contents:
+   - create_lesson
+   - create_episode
+ - title: "Working With Lessons"
+   desc: >
+     Functions to work build, audit, and preview lesson content. These will be
+     used with regularity in your work.
+ - contents:
+   - build_lesson
+   - sandpaper_site
+   - check_lesson
+   - get_drafts
+   - get_config
+   - get_episodes
+   - set_episodes
+ - title: "The Pacakge Cache"
+   desc: >
+     Lessons with generated content (R Markdown lessons) have an extra file 
+     called `renv/profiles/lesson-requirments/renv.lock` that records the
+     package versions used to build the lesson. These functions provide ways for
+     you to manage these packages and turn it on or off while previewing the
+     lesson.
+ - contents:
+   - use_package_cache
+   - manage_deps
+ - title: "Updating Lesson Tools"
+   desc: >
+     Lesson updates will happen automatically on a regular schedule on GitHub.
+     If you want to expediate those updates or update the components on your own
+     computer, these functions will help you with that.
+ - contents:
+   - update_varnish
+   - update_cache
+   - update_github_workflows
+ - title: "[Internal] Continous Integration Functions"
+   desc: >
+     Internal functions for deploying on continuous integration. Users are not
+     intended to work with these.
+ - contents:
+   - ci_deploy
+   - ci_build_markdown
+   - ci_build_site
+   - ci_session_info
+ - title: "[Internal] Build Components"
+   desc: > 
+     Individual components to build a lesson locally
+ - contents:
+   - build_markdown
+   - build_site
+   - build_episode_md
+   - build_episode_html
+ - title: "[Developer] Lesson Test Fixture"
+   desc: >
+     Internal documentation for the temporary lesson and remote used as a test
+     fixture created and destroyed before and after tests.
+ - contents:
+   - create_test_lesson
+
+articles:
+ - title: "How to..."
+   navbar: ~
+   contents:
+    - building-with-renv
+    - automated-pull-requests
+
