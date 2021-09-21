@@ -8,7 +8,7 @@ on:
 jobs:
   test-pr:
     name: "Test if pull request is valid"
-    if ${{ github.event.action != 'closed' }}
+    if: ${{ github.event.action != 'closed' }}
     runs-on: ubuntu-latest
     outputs:
       is_valid: ${{ steps.check-pr.outputs.VALID }}
@@ -20,7 +20,7 @@ jobs:
           pr: ${{ github.event.number }}
 
   build-md-source:
-    name: "Build Markdown Source Files"
+    name: "Build markdown source files"
     needs: test-pr
     runs-on: macOS-latest
     if: ${{ needs.test-pr.outputs.is_valid == 'true' }}
@@ -156,7 +156,7 @@ jobs:
         shell: Rscript {0}
 
   comment-changed-workflow:
-    name: "Comment Changed Workflow"
+    name: "Comment if workflow files have changed"
     needs: test-pr
     runs-on: ubuntu-latest
     if: ${{ needs.test-pr.outputs.is_valid != 'true' }}
@@ -165,5 +165,8 @@ jobs:
         id: comment-diff
         uses: carpentries/actions/comment-diff@main
         with:
-          pr: ${{ github.workflow.number }} 
-          body: "Pull Request contains modified workflows; no preview will be created."
+          pr: ${{ github.event.number }} 
+          body: |
+            This pull request contains modified workflows and no preview will be created.
+
+            Unless these changes come from a trusted source, please inspect the changes for any malicious content.

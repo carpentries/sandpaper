@@ -143,5 +143,8 @@ jobs:
         uses: carpentries/actions/comment-diff@main
         with:
           pr: ${{ env.NR }} 
-          body: "Pull Request contains modified workflows; no preview will be created."
+          body: |
+            This pull request contains modified workflows and no preview will be created.
+
+            **Please inspect the changes for any malicious content.**
    
