@@ -6,10 +6,24 @@ on:
       [opened, synchronize, reopened]
 
 jobs:
-  build-md-source:
-    name: "Build Markdown Source Files"
-    runs-on: macOS-latest
+  test-pr:
+    name: "Test if pull request is valid"
     if: ${{ github.event.action != 'closed' }}
+    runs-on: ubuntu-latest
+    outputs:
+      is_valid: ${{ steps.check-pr.outputs.VALID }}
+    steps:
+      - name: "Check PR"
+        id: check-pr
+        uses: carpentries/actions/check-valid-pr@main
+        with:
+          pr: ${{ github.event.number }}
+
+  build-md-source:
+    name: "Build markdown source files"
+    needs: test-pr
+    runs-on: macOS-latest
+    if: ${{ needs.test-pr.outputs.is_valid == 'true' }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PATHS_ROOT: ~/Library/Application Support/renv
@@ -140,3 +154,19 @@ jobs:
       - name: "Teardown"
         run: sandpaper::reset_site()
         shell: Rscript {0}
+
+  comment-changed-workflow:
+    name: "Comment if workflow files have changed"
+    needs: test-pr
+    runs-on: ubuntu-latest
+    if: ${{ needs.test-pr.outputs.is_valid != 'true' }}
+    steps:
+      - name: "Comment on PR"
+        id: comment-diff
+        uses: carpentries/actions/comment-diff@main
+        with:
+          pr: ${{ github.event.number }} 
+          body: |
+            This pull request contains modified workflows and no preview will be created.
+
+            Unless these changes come from a trusted source, please inspect the changes for any malicious content.

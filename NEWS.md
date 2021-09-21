@@ -1,3 +1,20 @@
+# sandpaper 0.0.0.9052
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* `pr-receive.yaml` has fixed spelling.
+* `pr-receive.yaml` has changed to short-cut the invalid PR messages and no
+  longer build the lesson if the PR is invalid. Instead, it will emit the same
+  warning message without building artifacts.
+* `pr-comment.yaml` will no longer fail when no artifacts exist (which would 
+  cause extraneous emails for users).
+
+DOCUMENTATION
+-------------
+
+* Documentation for test fixtures has been improved to include branch functions.
+
 # sandpaper 0.0.0.9051
 
 MISC
