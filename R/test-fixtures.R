@@ -1,25 +1,20 @@
 #' Test fixture functions for sandpaper
 #'
-#' These functions are for use during testing of {sandpaper} and are designed to
-#' create a temporary lesson and associated remote repository (locally).
+#' @description
 #'
-#' ## create_test_lesson() 
+#' This suite of functions are for use during testing of {sandpaper} and are
+#' designed to create/work with a temporary lesson and associated remote
+#' repository (locally) that persists throughout the test suite. These functions
+#' are used in `tests/testthat/setup.R`. For more information, see the [package
+#' scope section of testthat article on Test
+#' Fixtures](https://testthat.r-lib.org/articles/test-fixtures.html#package).
 #'
-#' This creates the test lesson and returns a function that will restore the
-#' test fixture when called with no arguments
+#' @details
 #'
-#' ## generate_restore_fixture()
+#' ## `create_test_lesson()`
 #'
-#' This creates the restore function for the test lesson
-#'
-#' ## setup_local_remote()
-#'
-#' Creates a local remote repository in a separate temporary folder, linked to
-#' the fixture lesson
-#'
-#' ## remove_local_remote() 
-#'
-#' Destorys the local remote repository and removes it from the fixture lesson
+#' This creates the test lesson and calls `generate_restore_fixture()` with the
+#' path of the new test lesson.
 #'
 #' @note These are implemented in tests/testthat/setup.md
 #' @keywords internal
@@ -30,35 +25,40 @@ create_test_lesson <- function() {
   }
   # We explicitly need the package cache for tests
   options("sandpaper.use_renv" = renv_is_allowed())
-  tmpdir <- fs::file_temp()
-  fs::dir_create(tmpdir)
-  tmp <- fs::path(tmpdir, "lesson-example")
+  repodir <- fs::file_temp()
+  fs::dir_create(repodir)
+  repo <- fs::path(repodir, "lesson-example")
   if (interactive()) {
     cli::cli_status_update(
-      "{cli::symbol$arrow_right} Bootstrapping example lesson in {tmp}"
+      "{cli::symbol$arrow_right} Bootstrapping example lesson in {repo}"
     )
   }
   suppressMessages({
     withr::with_envvar(list(RENV_CONFIG_CACHE_SYMLINKS = FALSE), {
-      create_lesson(tmp, open = FALSE)
-     })
+      create_lesson(repo, open = FALSE)
+    })
   })
-  options(sandpaper.test_fixture = tmp)
-  generate_restore_fixture(tmp)
+  options(sandpaper.test_fixture = repo)
+  generate_restore_fixture(repo)
 }
 
-#' @param tf (`generate_restore_fixture()`) the path to the test fixture lesson
+#' @details
+#'
+#' ## `generate_restore_fixture()`
+#'
+#' This creates a function that will restore a lesson to its previous commit.
+#'
 #' @return (`generate_restore_fixture`) a function that will restore the test fixture
 #' @rdname fixtures
-generate_restore_fixture <- function(tf) {
+generate_restore_fixture <- function(repo) {
   function() {
     options("sandpaper.use_renv" = renv_is_allowed())
-    if (nrow(gert::git_status(repo = tf)) > 0L) {
-      # reset the repositoyr
-      x <- gert::git_reset_hard(repo = tf)
+    if (nrow(gert::git_status(repo = repo)) > 0L) {
+      # reset the repository
+      x <- gert::git_reset_hard(repo = repo)
       # clean up any files that were not tracked and restore untracked dirs
       if (nrow(x) > 0L) {
-        files <- fs::path(tf, x$file)
+        files <- fs::path(repo, x$file)
         dirs  <- fs::is_dir(files)
         tryCatch({
           fs::file_delete(files[!dirs])
@@ -72,9 +72,9 @@ generate_restore_fixture <- function(tf) {
       }
     }
     # clear the site and recreate it
-    fs::dir_delete(fs::path(tf, "site"))
-    create_site(tf)
-    tf
+    fs::dir_delete(fs::path(repo, "site"))
+    create_site(repo)
+    repo
   }
 }
 
@@ -84,6 +84,13 @@ generate_restore_fixture <- function(tf) {
 #' @param name of the remote, defaults to "sandpaper-local"
 #' @param verbose if `TRUE`, messages and output from git will be printed to
 #'   screen. Defaults to `FALSE`.
+#' @details
+#'
+#' ## `setup_local_remote()`
+#'
+#' Creates a local remote repository in a separate temporary folder, linked to
+#' the fixture lesson.
+#'
 #' @return (`setup_local_remote()`) the repo, invisibly
 #' @rdname fixtures
 #' @keywords internal
@@ -100,30 +107,50 @@ setup_local_remote <- function(repo, remote = tempfile(), name = "sandpaper-loca
   return(invisible(repo))
 }
 
-# create and clean branches in the local and remote repositories
-make_branch <- function(repo, branch, remote_name = "sandpaper-local", verbose = FALSE) {
+#' @param branch the name of the new branch to be deleted
+#' @details
+#'
+#' ## `make_branch()`
+#'
+#' create a branch in the local repository and push it to the remote repository.
+#'
+#' @rdname fixtures
+make_branch <- function(repo, branch = NULL, name = "sandpaper-local", verbose = FALSE) {
   this_branch <- gert::git_branch(repo = repo)
   on.exit(gert::git_branch_checkout(this_branch, repo = repo))
   gert::git_branch_create(branch, repo = repo, checkout = TRUE)
-  gert::git_push(remote = remote_name, repo = repo, verbose = verbose)
+  gert::git_push(remote = name, repo = repo, verbose = verbose)
 }
 
-clean_branch <- function(repo, nu_branch = NULL, remote_name = "sandpaper-local", verbose = FALSE) {
+#' @details
+#'
+#' ## `clean_branch()`
+#'
+#' delete a branch in the local and remote repository.
+#'
+#' @rdname fixtures
+clean_branch <- function(repo, branch = NULL, name = "sandpaper-local", verbose = FALSE) {
   this_branch <- gert::git_branch(repo)
-  if (is.null(nu_branch) || this_branch == nu_branch) {
+  if (is.null(branch) || this_branch == branch) {
     gert::git_branch_checkout("main", repo = repo)
   }
-  gert::git_branch_delete(nu_branch, repo = repo)
+  gert::git_branch_delete(branch, repo = repo)
   rmt_url <- gert::git_remote_list(repo)
-  rmt_url <- rmt_url$url[rmt_url$name == remote_name]
+  rmt_url <- rmt_url$url[rmt_url$name == name]
   if (length(rmt_url) > 0) { 
-    gert::git_branch_delete(nu_branch, repo = rmt_url)
+    gert::git_branch_delete(branch, repo = rmt_url)
   }
 }
 
-#' @rdname fixtures
+#' @details
+#'
+#' ## `remove_local_remote()`
+#'
+#' Destorys the local remote repository and removes it from the fixture lesson
+#' 
 #' @return (`remove_local_remote()`) FALSE indicating an error or a string 
 #'   indicating the path to the remote
+#' @rdname fixtures
 remove_local_remote <- function(repo, name = "sandpaper-local") {
   if (name == "origin") {
     return(repo)

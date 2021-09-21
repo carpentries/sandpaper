@@ -6,10 +6,24 @@ on:
       [opened, synchronize, reopened]
 
 jobs:
+  test-pr:
+    name: "Test if pull request is valid"
+    if ${{ github.event.action != 'closed' }}
+    runs-on: ubuntu-latest
+    outputs:
+      is_valid: ${{ steps.check-pr.outputs.VALID }}
+    steps:
+      - name: "Check PR"
+        id: check-pr
+        uses: carpentries/actions/check-valid-pr@main
+        with:
+          pr: ${{ github.event.number }}
+
   build-md-source:
     name: "Build Markdown Source Files"
+    needs: test-pr
     runs-on: macOS-latest
-    if: ${{ github.event.action != 'closed' }}
+    if: ${{ needs.test-pr.outputs.is_valid == 'true' }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PATHS_ROOT: ~/Library/Application Support/renv
@@ -140,3 +154,16 @@ jobs:
       - name: "Teardown"
         run: sandpaper::reset_site()
         shell: Rscript {0}
+
+  comment-changed-workflow:
+    name: "Comment Changed Workflow"
+    needs: test-pr
+    runs-on: ubuntu-latest
+    if: ${{ needs.test-pr.outputs.is_valid != 'true' }}
+    steps:
+      - name: "Comment on PR"
+        id: comment-diff
+        uses: carpentries/actions/comment-diff@main
+        with:
+          pr: ${{ github.workflow.number }} 
+          body: "Pull Request contains modified workflows; no preview will be created."
