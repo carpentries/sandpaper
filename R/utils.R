@@ -31,15 +31,25 @@ copy_lockfile <- function(sources, new_path) {
 }
 
 .lesson_store <- function() {
+  .this_diff <- NULL
   .this_lesson <- NULL
 
   list(
-    get = function() .this_lesson,
+    get = function() {
+      invisible(.this_lesson)
+    },
+    valid = function(path) {
+      identical(.this_diff, gert::git_diff(repo = path)$patch)
+    },
     set = function(path) {
+      .this_diff   <<- gert::git_diff(repo = path)$patch
       .this_lesson <<- pegboard::Lesson$new(path, jekyll = FALSE)
       invisible(.this_lesson)
     },
-    clear = function() .this_lesson <<- NULL
+    clear = function() {
+      .this_diff   <<- NULL
+      .this_lesson <<- NULL
+    }
   )
 }
 .store <- .lesson_store()
@@ -60,8 +70,7 @@ clear_this_lesson <- function() .store$clear()
 
 #' @rdname lesson_storage
 this_lesson <- function(path) {
-  lsn <- .store$get()
-  if (length(lsn) && lsn$path == path) lsn else set_this_lesson(path)
+  if (.store$valid(path)) .store$get() else .store$set(path)
 }
 
 UTC_timestamp <- function(x) format(x, "%F %T %z", tz = "UTC")
