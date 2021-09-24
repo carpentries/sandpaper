@@ -72,6 +72,7 @@ reference:
    desc: >
      Tools for discovering resources and managing their hashes in a text file
      database.
+ - contents:
    - build_status
    - get_built_db
    - get_hash
