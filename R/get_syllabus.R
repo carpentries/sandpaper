@@ -24,7 +24,12 @@ get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
   # with each episode.
   
   sched    <- get_resource_list(path, trim = TRUE, subfolder = "episodes")
-  lesson   <- pegboard::Lesson$new(path, jekyll = FALSE, fix_links = FALSE)
+  lesson   <- this_lesson(path)
+  # We have to invalidate the cache if the schedule is mis-matched
+  cache_invalid <- !setequal(sched, names(lesson$episodes))
+  if (cache_invalid) {
+    lesson <- set_this_lesson(path)
+  }
   episodes <- lesson$episodes[sched]
   
   quest <- if (questions) vapply(episodes, get_questions, character(1)) else NULL
