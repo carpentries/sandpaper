@@ -63,6 +63,7 @@ reference:
    desc: > 
      Individual components to provision files and build a lesson locally
  - contents:
+   - this_lesson
    - build_markdown
    - build_site
    - build_episode_md

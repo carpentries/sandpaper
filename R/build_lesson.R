@@ -32,6 +32,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   check_pandoc()
   slug <- if (fs::is_file(path)) get_slug(path) else NULL
   path <- set_source_path(path)
+  this_lesson(path)
   on.exit(reset_build_paths())
 
   built <- build_markdown(path = path, rebuild = rebuild, quiet = quiet, slug = slug)

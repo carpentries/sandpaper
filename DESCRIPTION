@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.0.0.9052
+Version: 0.0.0.9053
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -16,7 +16,7 @@ Description: Boilerplate directory structure, build tools, and hosting tools for
 License: MIT + file LICENSE
 Imports: 
     pkgdown (>= 1.6.0),
-    pegboard (>= 0.0.0.9014),
+    pegboard (>= 0.0.0.9024),
     cli (>= 2.0.2),
     commonmark,
     fs,

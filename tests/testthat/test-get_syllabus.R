@@ -1,9 +1,4 @@
 {
-# tmpdir <- fs::file_temp()
-# fs::dir_create(tmpdir)
-# tmp <- fs::path(tmpdir, "lesson-example")
-# withr::defer(fs::dir_delete(tmp))
-# res <- create_lesson(tmp, open = FALSE, rstudio = FALSE)
 q <- "How do you write a lesson using RMarkdown and `{sandpaper}`?"
 tmp <- res <- restore_fixture()
 }

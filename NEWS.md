@@ -1,3 +1,18 @@
+# sandpaper 0.0.0.9053
+
+NEW FEATURES
+------------
+
+* setting `option(sandpaper.handout = TRUE)` will create a code handout for R
+  lessons that will live in `/files/code-handout.R` on your site.
+
+MISC
+----
+
+* An internal caching mechanism has been added for `pegboard::Lesson` objects
+  that we use for extracting components for the syllabus and the handout. See
+  `?lesson_storage` for details.
+
 # sandpaper 0.0.0.9052
 
 CONTINUOUS INTEGRATION
