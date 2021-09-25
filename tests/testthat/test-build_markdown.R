@@ -40,6 +40,7 @@ test_that("markdown sources can be built without fail", {
   # # Accidentaly rendered HTML is removed before building
   expect_false(fs::file_exists(fs::path_ext_set(instruct, "html")))
   expect_true(fs::file_exists(fs::path(res, "site", "built", "files", "code-handout.R")))
+  fs::file_delete(fs::path(res, "site", "built", "files", "code-handout.R"))
   
 })
 
