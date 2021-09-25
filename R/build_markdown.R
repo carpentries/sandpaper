@@ -101,6 +101,9 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
         quiet   = quiet
       )
     }
+    if (getOption("sandpaper.handout", default = FALSE)) {
+      build_handout(path)
+    }
   } else {
     if (!quiet) {
       cli::cli_alert_success("All files up-to-date; nothing to rebuild!")
@@ -110,13 +113,13 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
 
   # Update hash of {renv} file if it exists ------------------------------------
   if (getOption("sandpaper.use_renv")) {
-     hash <- renv_lockfile_hash(path, db_path)
-     lf_hash <- fs::path_file(db$new$file) == "renv.lock"
-     lf_exists <- !is.na(hash$new)
-     lf_updated <- !isTRUE(hash$new == db$new$checksum[lf_hash])
-     if (lf_exists && lf_updated) {
-       db$new$checksum[lf_hash] <- hash$new
-     }
+    hash <- renv_lockfile_hash(path, db_path)
+    lf_hash <- fs::path_file(db$new$file) == "renv.lock"
+    lf_exists <- !is.na(hash$new)
+    lf_updated <- !isTRUE(hash$new == db$new$checksum[lf_hash])
+    if (lf_exists && lf_updated) {
+      db$new$checksum[lf_hash] <- hash$new
+    }
   }
 
 

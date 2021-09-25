@@ -38,7 +38,7 @@ sandpaper_site <- function(input = ".", ...) {
     name       = name,
     output_dir = out_dir,
     render     = render,
-    clean      = path_site(input),
+    clean      = function() fs::dir_delete(path_site(input)),
     subdirs    = TRUE
   )
 }

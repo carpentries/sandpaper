@@ -30,49 +30,6 @@ copy_lockfile <- function(sources, new_path) {
   }
 }
 
-.lesson_store <- function() {
-  .this_diff <- NULL
-  .this_lesson <- NULL
-
-  list(
-    get = function() {
-      invisible(.this_lesson)
-    },
-    valid = function(path) {
-      identical(.this_diff, gert::git_diff(repo = path)$patch)
-    },
-    set = function(path) {
-      .this_diff   <<- gert::git_diff(repo = path)$patch
-      .this_lesson <<- pegboard::Lesson$new(path, jekyll = FALSE)
-      invisible(.this_lesson)
-    },
-    clear = function() {
-      .this_diff   <<- NULL
-      .this_lesson <<- NULL
-    }
-  )
-}
-.store <- .lesson_store()
-
-#' Internal cache for storing lesson objects between operations inside a running
-#' {sandpaper} session.
-#'
-#' @details `this_lesson()` will return a [pegboard::Lesson] object if it has
-#'   previously been stored and the path is equal to that of the one stored.
-#'   Otherwise, it returns NULL.
-#' @param path a path to the current lesson 
-#' @rdname lesson_storage
-#' @keywords internal
-set_this_lesson <- function(path) .store$set(path)
-
-#' @rdname lesson_storage
-clear_this_lesson <- function() .store$clear()
-
-#' @rdname lesson_storage
-this_lesson <- function(path) {
-  if (.store$valid(path)) .store$get() else .store$set(path)
-}
-
 UTC_timestamp <- function(x) format(x, "%F %T %z", tz = "UTC")
 
 # Functions for backwards compatibility for R < 3.5

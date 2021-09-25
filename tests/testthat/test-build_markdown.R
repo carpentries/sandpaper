@@ -29,6 +29,7 @@ test_that("markdown sources can be built without fail", {
   rmarkdown::render(instruct, quiet = TRUE)
   expect_true(fs::file_exists(fs::path_ext_set(instruct, "html"))) 
 
+  withr::local_options(list(sandpaper.handout = TRUE))
   # It's noisy at first
   suppressMessages({
     build_markdown(res, quiet = FALSE) %>%
@@ -38,6 +39,7 @@ test_that("markdown sources can be built without fail", {
 
   # # Accidentaly rendered HTML is removed before building
   expect_false(fs::file_exists(fs::path_ext_set(instruct, "html")))
+  expect_true(fs::file_exists(fs::path(res, "site", "built", "files", "code-handout.R")))
   
 })
 
