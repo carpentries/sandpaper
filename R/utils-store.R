@@ -29,7 +29,7 @@
 #' l <- sandpaper:::this_lesson(tmp)
 #' l
 #' # clear the cache
-#' sandpaper:::clear_this_lesson(tmp)
+#' sandpaper:::clear_this_lesson()
 #' system.time(sandpaper:::this_lesson(tmp)) # have to re-read the lesson
 #' system.time(sandpaper:::this_lesson(tmp)) 
 #' unlink(tmp)
