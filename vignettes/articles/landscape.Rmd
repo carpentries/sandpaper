@@ -2,6 +2,24 @@
 title: Landscape View of New Lesson Template
 ---
 
+```{css, setup, echo = FALSE, include = FALSE}
+.info {
+  display: block;
+  width: 100%;
+  font-weight: bold;
+  background: #e6ffff;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 25px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: #1695A3;
+  border-radius: 20px;
+  /*box-shadow: 10px 10px 20px -5px gray;*/
+}
+```
+
+
 ## Introduction
 
 I've been investing the vast majority of my time to working on development of the lesson template and am finding now that I have several things that I could work on at the moment, but I needed to take a step back and survey the landscape of our plan for moving forward with the lesson template.
@@ -43,19 +61,15 @@ With a few exceptions, our lessons have shown to be largely accessible thanks to
 
 The lesson template will be organized such that it clearly separates the lesson content from the lesson style:
 
-::::::::::::::::::::: info
+<div class='info'>
 
 NOTE: I currently have it set up so the extras live in the episodes directory, but this will change.
 
-:::::::::::::::::::::::::::
+</div>
 
 ```
 |-- .gitignore               # - Ignore everything in the site/ folder
 |-- .github/                 # - Scripts used for continuous integration
-|   `-- workflows/           #
-|       |-- deploy-site.yaml # -   Build the source files on github pages
-|       |-- build-md.yaml    # -   Build the markdown files on github pages
-|       `-- cron.yaml        # -   reset package cache and test
 |-- episodes/                # - PUT YOUR MARKDOWN FILES IN THIS FOLDER
 |   |-- data/                # -   Data for your lesson goes here
 |   |-- figures/             # -   All static figures and diagrams are here
@@ -65,6 +79,7 @@ NOTE: I currently have it set up so the extras live in the episodes directory, b
 |-- learners/                # - Information for Learners
 |   `-- Setup.md             # -   setup instructions (REQUIRED)
 |-- profiles/                # - Learner and/or Instructor Profiles
+|-- renv/                    # - Local package cache
 |-- site/                    # - This folder is where the rendered markdown files and static site will live
 |   `-- README.md            # -   placeholder
 |-- config.yaml              # - Use this to configure commonly used variables
@@ -73,12 +88,6 @@ NOTE: I currently have it set up so the extras live in the episodes directory, b
 |-- LICENSE.md               # - Carpentries Licenses (REQUIRED)
 `-- README.md                # - Introduces folks how to use this lesson and where they can find more information.
 ```
-
-:::::::::::::::::::::: info
-
-NOTE: I still need to include renv content in here... 
-
-:::::::::::::::::::::::::::
 
 ### Episodes
 
@@ -89,11 +98,11 @@ All of the episodes and any content required for the episodes go in the `episode
 
 The file `config.yaml` will be a minimal yaml file that contains metadata about lesson-wide aspects (Author, Carpentry, Licence, Title, etc.) along with specifications for episodes and extras to be included in the dropdown menus. 
 
-:::::::::::::::::::::::::::::: info
+<div class='info'>
 
 NOTE: this may change because of the need to associated TeSS metadata in the lesson that may become overwhelming if included in a single config file.
 
-::::::::::::::::::::::::::::::::::::
+</div>
 
 ### Generated Files
 
@@ -170,12 +179,11 @@ Error:
 
 Carpentries lessons have traditionally kept instructor notes as a separate page from the lessons, but this lead to the notes not being used and some confusion about HOW to use them. It has been proposed that we keep the instructor notes inside of the lessons themselves at the risk of creating a longer and even more complicated structure for maintainers to keep track of. To acommodate this, we propose a new class of tag called `instructor`, which will be hidden by default and have a toggle that can display the notes alongside the lesson. 
 
-:::::::::: info
+<div class='info'>
 
 NOTE: The question of HOW we will incorporate instructor notes into the template is still up in the air, but for now, we can at least imagine a mechanism of including them into the episodes.
 
-::::::::::::::::
-
+</div>
 
 The `instructor` tag will be the same as the other tags, starting with at least three colons and ending with at least three colons:
 
@@ -251,7 +259,7 @@ The ultimate goal is to make sure that lesson contributors and authors do not ha
  - Link to figure for episode: use `![Alt text](fig/figure-name.png)`
  - Link to references in extras folder: `[link text](../extras/references.html)`
 
-::::::::::::::::::::::::: info
+<div class='info'>
 
 The Jekyll version of the lesson template required Jekyll to be a part of the process for linking so that contributors would have to write `[link text]({{ page.root }}{% link _episode/01-introduction.md %})`. in order to link to the episode 01-introduction.
 
@@ -259,7 +267,7 @@ However, most people realized that they could use `{{ page.root }}/01-introducti
 
 That being said, this solution made it impossible to transfer these sites outside of the context of a Carpentries lesson without manually changing the links. 
 
-:::::::::::::::::::::::::::::::
+</div>
 
 
 ### Code Blocks
@@ -320,11 +328,11 @@ Both the Python and the R package ecosystem are constantly evolving, which can o
 
 When you first start R to preview the lessons, if {renv} is not installed, it will ask you if you want to install it (which you should say yes) and it will install to your local library. When you build the lesson, {renv} will check that the specific package versions are installed and if they aren't, it will install them for you.
 
-::::::::::::::::::::::::::::::::: info
+<div class='info'>
 
 NOTE: If you have set up any custom prompts for R, working in a {renv} will temporarily suspend those modifications. 
 
-::::::::::::::::::::::::::::::::::::::
+</div>
 
 ### For Markdown-Only Lessons
 
@@ -373,11 +381,11 @@ The [{varnish}](https://github.com/zkamvar/varnish#readme) package contains the 
 
 #### Framework
 
-:::::::::::::: info
+<div class='info'>
 
 NOTE: This section needs more work and information.
 
-::::::::::::::::::::
+</div>
 
 The framework inside {varnish} needs to be extensible and, most importantly, separate for the logic needed to create the source documents. At the moment, we are using a [bootstrap version 3](https://getboostrap.org), but [this version has officially been deprecated for the last two years.](https://github.com/twbs/release). At the moment, there are two frameworks widely used within the R community, bootstrap, and [distill](https://rstudio.github.io/distill/). The benefits of distill is that it's really nice for including citation metadata, but one of the downsides is that it absolutely requires JavaScript to be enabled (which can be a security risk).
 
@@ -412,11 +420,11 @@ To preview the lessons, we build the static files locally, without any servers. 
 1. Generate static markdown from the source files with a hash of the original file in the YAML header
 2. Using external style template, generate website HTML from the built markdown files
 
-:::::::::::::::::::::::::: info
+<div class='info'>
 
 NOTE: we need to make sure that we have a renv environment defined for the lessons, but I think this will need to happen after things are released on CRAN to avoid maxing out the github api requests.
 
-::::::::::::::::::::::::::::::::
+</div>
 
 ![diagram of building a local lesson website](img/local-flow.dot.svg)
 
