@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9054
+
+MISC
+----
+
+* `manage_deps()` runs slightly faster now that it no longer runs
+  `renv::hydrate()` if no new packages have been added in the lesson.
+
 # sandpaper 0.0.0.9053
 
 NEW FEATURES

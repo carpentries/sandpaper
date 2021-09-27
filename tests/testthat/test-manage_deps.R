@@ -70,7 +70,7 @@ test_that("manage_deps() will run without callr", {
     snapshot = TRUE, 
     lockfile_exists = TRUE) %>%
     expect_message("Restoring any dependency versions") %>%
-    expect_output("Copying packages into the library")
+    expect_output("package dependencies")
   })
 
 
@@ -107,10 +107,6 @@ test_that("pin_version() will use_specific versions", {
   
   skip_on_os("windows")
   skip_if_offline()
-  writeLines("library(sessioninfo)", con = fs::path(lsn, "episodes", "si.R"))
-  expect_output({
-    pin_version("sessioninfo@1.1.0", path = lsn) # old version of sessioninfo
-  }, "Updated 1 record in")
 
   withr::local_envvar(list(
     "RENV_PROFILE" = "lesson-requirements",
@@ -118,11 +114,18 @@ test_that("pin_version() will use_specific versions", {
     "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available()
   ))
 
+  writeLines("library(sessioninfo)", con = fs::path(lsn, "episodes", "si.R"))
+  expect_output({
+    pin_version("sessioninfo@1.1.0", path = lsn) # old version of sessioninfo
+  }, "Updated 1 record in")
+
+
   suppressMessages({
   res <- callr_manage_deps(lsn, 
     repos = renv_carpentries_repos(), 
-    snapshot = TRUE, 
-    lockfile_exists = TRUE) %>%
+    snapshot = TRUE,
+    lockfile_exists = TRUE,
+    in_covr = covr::in_covr()) %>%
     expect_message("Restoring any dependency versions") %>%
     expect_output("sessioninfo")
   })
