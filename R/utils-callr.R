@@ -59,7 +59,7 @@ callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, 
   )
 }
 
-callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
+callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, in_covr = FALSE) {
   wd        <- getwd()
   old_repos <- getOption("repos")
   user_prof <- getOption("renv.config.user.profile")
@@ -83,17 +83,21 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   # 1. find the packages we need from the global library or elsewhere, and 
   #    load them into the profile's library
   cli::cli_alert("Searching for and installing available dependencies")
-  if (lockfile_exists) {
+  #nocov start
+  if (lockfile_exists && !in_covr) {
     # if there _is_ a lockfile, we only want to hydrate new packages that do not
-    # previously exist in the library, because 
+    # previously exist in the library, because otherwise, we end up trying to
+    # install packages that we should be able to install with renv::restore().
     installed <- utils::installed.packages(lib.loc = renv_lib)[, "Package"]
-    deps <- unique(renv::dependencies(root = path)$Packages)
+    deps <- unique(renv::dependencies(root = path, dev = TRUE)$Packages)
     pkgs <- setdiff(deps, installed)
     needs_hydration <- length(pkgs) > 0
   } else {
+    # If there is not a lockfile, we need to run a fully hydration
     pkgs <- NULL
     needs_hydration <- TRUE
   }
+  #nocov end
   if (needs_hydration) {
     hydra <- renv::hydrate(packages = pkgs, library = renv_lib, update = FALSE)
   }
