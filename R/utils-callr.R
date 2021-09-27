@@ -81,14 +81,31 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   # 1. find the packages we need from the global library or elsewhere, and 
   #    load them into the profile's library
   cli::cli_alert("Searching for and installing available dependencies")
-  hydra <- renv::hydrate(library = renv::paths$library(), update = FALSE)
+  if (lockfile_exists) {
+    # if there _is_ a lockfile, we only want to hydrate new packages that do not
+    # previously exist in the library, because 
+    installed <- installed.packages(lib.loc = renv::paths$library())[, "Package"]
+    deps <- renv::dependencies(root = path)$Packages
+    pkgs <- setdiff(deps, installed)
+    needs_hydration <- length(pkgs) > 0
+  } else {
+    pkgs <- NULL
+    needs_hydration <- TRUE
+  }
+  if (needs_hydration) {
+    hydra <- renv::hydrate(packages = pkgs,
+      library = renv::paths$library(), 
+      update = FALSE
+    )
+  }
   # 2. If the lockfile exists, we update the library to the versions that are
   #    recorded.
   if (lockfile_exists) {
     cli::cli_alert("Restoring any dependency versions")
     res <- renv::restore(library = renv::paths$library(), 
       lockfile = renv::paths$lockfile(),
-      prompt = FALSE)
+      prompt = FALSE
+    )
   }
   if (snapshot) {
     # 3. Load the current profile, unloading it when we exit
@@ -101,5 +118,6 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
       lockfile = renv::paths$lockfile(),
       prompt = FALSE
     )
+    invisible(snap)
   }
 }

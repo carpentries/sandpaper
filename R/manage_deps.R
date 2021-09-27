@@ -83,7 +83,7 @@ manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = 
   )
 
   sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
-  callr::r(
+  res <- callr::r(
     func = callr_manage_deps,
     args = args,
     show = !quiet,
@@ -94,6 +94,7 @@ manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = 
       "R_PROFILE_USER" = fs::path(tempfile(), "nada"),
       "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available())
   )
+  invisible(res)
 }
 
 #' Fetch updates for Package Cache

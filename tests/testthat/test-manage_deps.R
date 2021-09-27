@@ -70,7 +70,7 @@ test_that("manage_deps() will run without callr", {
     snapshot = TRUE, 
     lockfile_exists = TRUE) %>%
     expect_message("Restoring any dependency versions") %>%
-    expect_output("Copying packages into the library")
+    expect_output("Finding R package dependencies")
   })
 
 
