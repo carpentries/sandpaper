@@ -93,4 +93,7 @@ articles:
    contents:
     - building-with-renv
     - automated-pull-requests
+ - title: "Developer Guides"
+   contents:
+    - article-landscape
 
