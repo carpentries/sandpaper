@@ -75,6 +75,8 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   setwd(path)
   options(repos = repos)
   options(renv.config.user.profile = FALSE)
+  renv_lib  <- renv::paths$library()
+  renv_lock <- renv::paths$lockfile()
   # Steps to update a {renv} environment regardless of whether or not the user
   # has initiated {renv} in the first place
   #
@@ -84,7 +86,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   if (lockfile_exists) {
     # if there _is_ a lockfile, we only want to hydrate new packages that do not
     # previously exist in the library, because 
-    installed <- installed.packages(lib.loc = renv::paths$library())[, "Package"]
+    installed <- utils::installed.packages(lib.loc = renv_lib)[, "Package"]
     deps <- unique(renv::dependencies(root = path)$Packages)
     pkgs <- setdiff(deps, installed)
     needs_hydration <- length(pkgs) > 0
@@ -93,31 +95,23 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
     needs_hydration <- TRUE
   }
   if (needs_hydration) {
-    hydra <- renv::hydrate(packages = pkgs,
-      library = renv::paths$library(),
-      update = FALSE
-    )
+    hydra <- renv::hydrate(packages = pkgs, library = renv_lib, update = FALSE)
   }
   # 2. If the lockfile exists, we update the library to the versions that are
   #    recorded.
   if (lockfile_exists) {
     cli::cli_alert("Restoring any dependency versions")
-    res <- renv::restore(library = renv::paths$library(),
-      lockfile = renv::paths$lockfile(),
-      prompt = FALSE
-    )
+    res <- renv::restore(library = renv_lib, lockfile = renv_lock, prompt = FALSE)
   }
   if (snapshot) {
     # 3. Load the current profile, unloading it when we exit
     renv::load()
-    on.exit(invisible(utils::capture.output(renv::deactivate(), type = "message")), add = TRUE)
+    on.exit({
+      invisible(utils::capture.output(renv::deactivate(), type = "message"))
+    }, add = TRUE)
     # 4. Snapshot the current state of the library to the lockfile to 
     #    synchronize
     cli::cli_alert("Recording changes in lockfile")
-    snap <- renv::snapshot(project = path,
-      lockfile = renv::paths$lockfile(),
-      prompt = FALSE
-    )
-    invisible(snap)
+    snap <- renv::snapshot(project = path, lockfile = renv_lock, prompt = FALSE)
   }
 }
