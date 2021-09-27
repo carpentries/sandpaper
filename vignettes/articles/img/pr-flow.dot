@@ -1,0 +1,29 @@
+digraph "Pull Request Workflow" {
+    node [style="filled", color="grey20", fillcolor="lavender", shape="rectangle"]
+    pr [label="Pull Request", shape="ellipse"]
+    receive [label="Receive Pull Request"]
+    node [fillcolor="wheat"]
+    validate [label="Check Valid PR"]
+    branch [label="Create md-outputs-{PR}"]
+    comment [label="Comment on Pull Request"]
+    deploy [label="Deploy"]
+    destroy [label="Destroy md-outputs-{PR}"]
+    review [label="Maintainer Review", shape="ellipse"]
+    reject [label="Rejected", shape="diamond", fillcolor="firebrick"]
+    accept [label="Accepted", shape="diamond", fillcolor="powderblue"]
+    
+    {rank=same; branch, comment}
+    {rank=same; accept, reject}
+    
+    pr -> receive
+    receive -> validate
+    validate -> branch [color="blue", label="valid"]
+    validate -> comment [color="red", label="invalid"]
+    branch -> comment
+    comment -> review
+    review -> reject [label="close", color="red"]
+    review -> accept [label="merge", color="blue"]
+    accept -> deploy [color="blue"]
+    accept -> destroy [color="blue"]
+    reject -> destroy [color="red"]
+}

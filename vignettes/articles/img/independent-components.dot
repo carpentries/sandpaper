@@ -1,0 +1,49 @@
+digraph "Infrastructure Dependencies" {
+
+    // Content
+    node [style="filled", color="grey20", fillcolor="wheat", shape="rect"];
+    source [label="Source Files\n(main)"      , shape="folder" ];
+    stage  [label="Staging Area\n(md-source)" , shape="note"   ];
+    site   [label="Lesson Website\n(gh-pages)", shape="tab"    ];
+
+    // Tools
+    node [style="filled", color="grey20", fillcolor="grey20", shape="rect"];
+    actions   [label="GitHub Actions", fontcolor="grey90"]; 
+
+    node [fillcolor="lavender"];
+    sandpaper [label="{sandpaper}\nLesson Engine"];
+    varnish   [label="{varnish}\nLesson Style"   ];
+    cache     [label="{renv}\nPackage Cache"     ];
+    node [fillcolor="plum"];
+    engine    [label="Static Site Generator"     ];
+    pandoc    [label="Pandoc"                    ];
+
+    /* {rank="same"; actions, cache}; */
+    
+    edge [color="black", penwidth=1.5, label="contains"];
+    source -> cache;
+    source -> actions;
+
+    edge [color="firebrick", penwidth=2, label="modifies"];
+    actions     -> stage;
+    actions     -> site;
+    actions     -> cache;
+    actions     -> actions;
+    
+    edge [color="blue", penwidth=1, label="depends"];
+    site  -> varnish;
+    site  -> engine;
+    site  -> pandoc;
+    site  -> stage;
+    site  -> sandpaper;
+    stage -> sandpaper;
+    stage -> source;
+
+    edge [color="grey20", label="uses", style="dashed"];
+    sandpaper   -> varnish;
+    sandpaper   -> pandoc;
+    sandpaper   -> engine;
+    sandpaper   -> cache;
+    actions     -> cache;
+    
+}

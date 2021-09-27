@@ -1,0 +1,28 @@
+name: Render Dotfiles
+
+on:
+  push:
+    paths: 
+      - vignettes/articles/img/*dot
+      - .github/workflows/update-docs.yaml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v1
+
+      - name: Convert and commit dotfiles to svg
+        run: |
+          cd vignettes/articles/img
+          for i in *.dot; do dot -Tsvg $i > $i.svg; done
+          cd ${{ github.workspace }}
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add vignettes/articles/img/*.svg
+          git commit -m "[actions] update images" || echo "nothing to commit"
+          git push

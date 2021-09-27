@@ -1,0 +1,42 @@
+digraph "Lesson Infrastructure Workflow" {
+ 
+    node   [style="filled" color="grey20"];
+    node   [fillcolor="wheat", shape="rect"];
+    source [label="Source Files"             , shape="folder"];
+    stage  [label="Staging Area"             , shape="note"];
+    site   [label="Lesson Website"           , shape="tab"];
+
+    node      [style="filled", fillcolor="lavender", shape="rect"];
+    sandpaper [label="{sandpaper}\nLesson Engine"];
+    varnish   [label="{varnish}\nLesson Style"];
+    pegboard  [label="{pegboard}\nValidator"];
+
+    node   [fillcolor="plum", shape="rect"];
+    engine [label="Static Site Generator"];
+    pandoc [label="Pandoc"];
+ 
+    node        [fillcolor="powderblue"];
+    maintainer  [label="Lesson Maintainers" , shape="oval"];
+    contributor [label="Lesson Contributors", shape="oval"];
+    instructor  [label="Instructor"         , shape="oval"];
+    learner     [label="Learner"            , shape="oval"];
+     
+    {rank="same"; maintainer,  instructor};
+    {rank="same"; contributor, learner};
+    {rank="same"; source,      site};
+    {rank="same"; sandpaper,   varnish};
+    {rank="same"; stage,       pandoc,      engine};
+    
+    maintainer  -> source;
+    contributor -> source;
+    instructor  -> site;
+    learner     -> site;
+
+    source      -> sandpaper;
+    sandpaper   -> pegboard;
+    pegboard    -> stage;
+    varnish     -> site;
+    stage       -> pandoc;
+    pandoc      -> engine;
+    engine      -> varnish;   
+}
