@@ -95,5 +95,5 @@ articles:
     - automated-pull-requests
  - title: "Developer Guides"
    contents:
-    - article-landscape
+    - articles/landscape
 
