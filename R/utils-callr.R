@@ -85,7 +85,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
     # if there _is_ a lockfile, we only want to hydrate new packages that do not
     # previously exist in the library, because 
     installed <- installed.packages(lib.loc = renv::paths$library())[, "Package"]
-    deps <- renv::dependencies(root = path)$Packages
+    deps <- unique(renv::dependencies(root = path)$Packages)
     pkgs <- setdiff(deps, installed)
     needs_hydration <- length(pkgs) > 0
   } else {
@@ -94,7 +94,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   }
   if (needs_hydration) {
     hydra <- renv::hydrate(packages = pkgs,
-      library = renv::paths$library(), 
+      library = renv::paths$library(),
       update = FALSE
     )
   }
@@ -102,7 +102,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   #    recorded.
   if (lockfile_exists) {
     cli::cli_alert("Restoring any dependency versions")
-    res <- renv::restore(library = renv::paths$library(), 
+    res <- renv::restore(library = renv::paths$library(),
       lockfile = renv::paths$lockfile(),
       prompt = FALSE
     )
