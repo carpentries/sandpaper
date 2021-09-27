@@ -8,5 +8,4 @@
 ^_pkgdown\.yml$
 ^pkgdown$
 ^$
-^vignettes/article-*$
-^vignettes/img/*$
+^vignettes/articles/*$
