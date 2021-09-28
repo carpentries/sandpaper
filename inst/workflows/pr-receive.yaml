@@ -49,12 +49,12 @@ jobs:
           pandoc-version: "2.11.4"
 
       - name: "Setup Lesson Engine"
-        uses: carpentries/actions/setup-sandpaper@sandpaper-setup
+        uses: carpentries/actions/setup-sandpaper@main
         with:
           cache-version: ${{ secrets.CACHE_VERSION }}
 
       - name: "Setup Package Cache"
-        uses: carpentries/actions/setup-deps@sandpaper-setup
+        uses: carpentries/actions/setup-lesson-deps@main
         with:
           cache-version: ${{ secrets.CACHE_VERSION }}
 
