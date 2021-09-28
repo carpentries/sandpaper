@@ -125,7 +125,7 @@ test_that("pin_version() will use_specific versions", {
     repos = renv_carpentries_repos(), 
     snapshot = TRUE,
     lockfile_exists = TRUE,
-    in_covr = covr::in_covr()) %>%
+    in_covr = FALSE) %>%
     expect_message("Restoring any dependency versions") %>%
     expect_output("sessioninfo")
   })
