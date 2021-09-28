@@ -35,6 +35,13 @@ jobs:
         run: |
           unzip pr.zip
           echo "::set-output name=NUM::$(<./NR)"
+
+      - name: "Fail if PR number was not present"
+        id: bad-pr
+        if: ${{ steps.dl.outputs.success != 'true' }}
+        run: |
+          echo '::error::A pull request number was not recorded. The pull request that triggered this workflow is likely malicious.'
+          exit 1
       
       - name: "Check PR"
         id: check-pr
@@ -70,11 +77,11 @@ jobs:
           run: ${{ github.event.workflow_run.id }}
           name: 'built'
 
-      - if: ${{ steps.dl.output.success == 'true' }}
+      - if: ${{ steps.dl.outputs.success == 'true' }}
         run: unzip built.zip
 
       - name: "Create orphan and push"
-        if: ${{ steps.dl.output.success == 'true' }}
+        if: ${{ steps.dl.outputs.success == 'true' }}
         run: |
           cd built/
           git config --local user.email "actions@github.com"
@@ -107,12 +114,12 @@ jobs:
           run: ${{ github.event.workflow_run.id }}
           name: 'diff'
           
-      - if: ${{ steps.dl.output.success == 'true' }}
+      - if: ${{ steps.dl.outputs.success == 'true' }}
         run: unzip ${{ github.workspace }}/diff.zip
 
       - name: "Comment on PR"
         id: comment-diff
-        if: ${{ steps.dl.output.success == 'true' }}
+        if: ${{ steps.dl.outputs.success == 'true' }}
         uses: carpentries/actions/comment-diff@main
         with:
           pr: ${{ env.NR }} 
@@ -138,4 +145,4 @@ jobs:
             This pull request contains modified workflows and no preview will be created.
 
             **Please inspect the changes for any malicious content.**
-   
+
