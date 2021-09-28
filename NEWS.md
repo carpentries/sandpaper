@@ -1,3 +1,14 @@
+# sandpaper 0.0.0.9055
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* `sandpaper-main.yaml` and `pr-receive.yaml` have been simplified by using 
+  composite actions hosted in `carpentries/actions/setup-sandpaper` and
+  `carpentries/actions/setup-deps`.
+* The caching mechanism for R packages and the package cache can now be
+  reset by modifying a per-repository secret called `CACHE_VERSION`.
+
 # sandpaper 0.0.0.9054
 
 MISC
