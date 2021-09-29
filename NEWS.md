@@ -9,6 +9,12 @@ CONTINUOUS INTEGRATION
 * The caching mechanism for R packages and the package cache can now be
   reset by modifying a per-repository secret called `CACHE_VERSION`.
 
+BUG FIX
+-------
+
+ * A bug introduced in 0.0.0.9054 where dependencies were not discovered was
+   fixed.
+
 # sandpaper 0.0.0.9054
 
 MISC
