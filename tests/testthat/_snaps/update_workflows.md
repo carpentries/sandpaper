@@ -1,7 +1,7 @@
 # github workflows can be fetched [plain]
 
     Code
-      update_github_workflows(tmp, clean = "*.yaml")
+      update_github_workflows(tmp)
     Message <cliMessage>
       i Workflows/files updated:
       - '.github/workflows/deleteme.yaml' (deleted)
@@ -10,7 +10,7 @@
 # github workflows can be fetched [ansi]
 
     Code
-      update_github_workflows(tmp, clean = "*.yaml")
+      update_github_workflows(tmp)
     Message <cliMessage>
       [36mi[39m Workflows/files updated:
       - [34m[34m.github/workflows/deleteme.yaml[34m[39m [3m[3m(deleted)[3m[23m
@@ -19,7 +19,7 @@
 # github workflows can be fetched [unicode]
 
     Code
-      update_github_workflows(tmp, clean = "*.yaml")
+      update_github_workflows(tmp)
     Message <cliMessage>
       ℹ Workflows/files updated:
       - '.github/workflows/deleteme.yaml' (deleted)
@@ -28,7 +28,7 @@
 # github workflows can be fetched [fancy]
 
     Code
-      update_github_workflows(tmp, clean = "*.yaml")
+      update_github_workflows(tmp)
     Message <cliMessage>
       [36mℹ[39m Workflows/files updated:
       - [34m[34m.github/workflows/deleteme.yaml[34m[39m [3m[3m(deleted)[3m[23m

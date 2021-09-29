@@ -6,14 +6,16 @@
 #' @param files the files to include in the update. Defaults to an empty string, 
 #'   which will update all files
 #' @param overwrite if `TRUE` (default), the file(s) will be overwritten.
-#' @param clean glob of files to be cleaned before writing. Defaults to NULL.
-#' Can be "*.yaml" to remove all yaml files or "workflow.yaml" to remove one
-#' specific file.
+#' @param clean glob of files to be cleaned before writing. Defaults to
+#'   `"*.yaml"`.  to remove all files with the four-letter "yaml" extension
+#'   (but it will not remove the ".yml" extension). You can also specify a
+#'   whole file name like "workflow.yaml" to remove one specific file. If you
+#'   do not want to clean, set this to `NULL`.
 #' @param quiet if `TRUE`, the process will not output any messages, default is
 #'   `FALSE`, which will report on the progress of each step.
 #' @return the paths to the new files. 
 #' @export
-update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, clean = NULL, quiet = FALSE) {
+update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, clean = "*.yaml", quiet = FALSE) {
 
   if (!pingr::is_online()) {
     stop("This function requires an internet connection.")
