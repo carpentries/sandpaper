@@ -8,7 +8,7 @@ update_github_workflows(
   path = ".",
   files = "",
   overwrite = TRUE,
-  clean = NULL,
+  clean = "*.yaml",
   quiet = FALSE
 )
 }
@@ -20,9 +20,11 @@ which will update all files}
 
 \item{overwrite}{if \code{TRUE} (default), the file(s) will be overwritten.}
 
-\item{clean}{glob of files to be cleaned before writing. Defaults to NULL.
-Can be "*.yaml" to remove all yaml files or "workflow.yaml" to remove one
-specific file.}
+\item{clean}{glob of files to be cleaned before writing. Defaults to
+\code{"*.yaml"}.  to remove all files with the four-letter "yaml" extension
+(but it will not remove the ".yml" extension). You can also specify a
+whole file name like "workflow.yaml" to remove one specific file. If you
+do not want to clean, set this to \code{NULL}.}
 
 \item{quiet}{if \code{TRUE}, the process will not output any messages, default is
 \code{FALSE}, which will report on the progress of each step.}
