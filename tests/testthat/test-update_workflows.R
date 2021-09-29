@@ -16,7 +16,7 @@ cli::test_that_cli("github workflows can be fetched", {
   expect_true(fs::file_exists(fs::path(tmp, ".github", "workflows", "deleteme.yaml")))
 
   suppressMessages({
-    expect_snapshot(update_github_workflows(tmp, clean = "*.yaml"))
+    expect_snapshot(update_github_workflows(tmp))
   })
 
   expect_true(fs::file_exists(fs::path(tmp, ".github", "workflows", "sandpaper-main.yaml")))
@@ -24,6 +24,26 @@ cli::test_that_cli("github workflows can be fetched", {
   expect_true(fs::file_exists(fs::path(tmp, ".github", "workflows", "no-remove.yml")))
 
   expect_false(fs::file_exists(fs::path(tmp, ".github", "workflows", "deleteme.yaml")))
+})
+
+test_that("setting clean = NULL will preserve old workflows", {
+
+  fs::file_create(fs::path(tmp, ".github", "workflows", "deleteme.yaml"))
+  expect_true(fs::file_exists(fs::path(tmp, ".github", "workflows", "deleteme.yaml")))
+  suppressMessages({
+    update_github_workflows(tmp, clean = NULL)
+  })
+
+  expect_true(fs::file_exists(fs::path(tmp, ".github", "workflows", "deleteme.yaml")))
+  expect_true(fs::file_exists(fs::path(tmp, ".github", "workflows", "no-remove.yml")))
+
+  suppressMessages({
+    update_github_workflows(tmp)
+  })
+
+  expect_true(fs::file_exists(fs::path(tmp, ".github", "workflows", "no-remove.yml")))
+  expect_false(fs::file_exists(fs::path(tmp, ".github", "workflows", "deleteme.yaml")))
+
 })
 
 cli::test_that_cli("github workflows can be updated", {
