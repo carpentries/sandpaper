@@ -37,68 +37,15 @@ jobs:
         with:
           pandoc-version: "2.11.4"
 
-      - name: "Check if We Need {renv}"
-        id: renv
-        run: |
-          if [[ -d renv ]]; then
-            echo "::set-output name=exists::true"
-          fi
-
-      - name: "Query Sandpaper Dependencies"
-        run: |
-          install.packages('remotes')
-          options(repos = c(
-            "https://carpentries.r-universe.dev/", 
-            "https://carpentries.github.io/drat/",
-            "https://cloud.r-project.org/"
-          ))
-          saveRDS(remotes::package_deps('sandpaper', dependencies = TRUE), 
-            ".github/depends.Rds", 
-            version = 2
-          )
-          writeLines(
-            sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), 
-            ".github/R-version"
-          )
-        shell: Rscript {0}
-
-      - name: "Restore Package Cache"
-        uses: actions/cache@v2
+      - name: "Setup Lesson Engine"
+        uses: carpentries/actions/setup-sandpaper@main
         with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+          cache-version: ${{ secrets.CACHE_VERSION }}
 
-      - name: "Restore {renv} Cache"
-        if: ${{ steps.renv.outputs.exists }}
-        uses: actions/cache@v2
+      - name: "Setup Package Cache"
+        uses: carpentries/actions/setup-lesson-deps@main
         with:
-          path: ${{ env.RENV_PATHS_ROOT }}
-          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
-          restore-keys:
-            ${{ runner.os }}-renv-
-
-      - name: "Install {sandpaper} and Dependencies"
-        run: |
-          options(repos = c(
-            "https://carpentries.r-universe.dev/", 
-            "https://carpentries.github.io/drat/",
-            "https://cloud.r-project.org/"
-          ))
-          library("remotes")
-          pkgs <- package_deps('sandpaper', dependencies = TRUE)
-          pkgs$diff[pkgs$package == "tinkr"] <- -1 # force tinkr update for now
-          update(pkgs, upgrade = "always")
-        shell: Rscript {0}
-
-      - name: "Fortify Local {renv} Packages"
-        if: ${{ steps.renv.outputs.exists }}
-        run: sandpaper::manage_deps(path = '${{ github.workspace }}', quiet = FALSE)
-        shell: Rscript {0}
-
-      - name: "Show Session Information"
-        run: sandpaper:::ci_session_info()
-        shell: Rscript {0}
+          cache-version: ${{ secrets.CACHE_VERSION }}
 
       - name: "Deploy Site"
         run: |

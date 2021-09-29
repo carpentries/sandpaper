@@ -30,8 +30,24 @@ What follows are the descriptions of the workflow files:
 ### 01 Build and Deploy (sandpaper-main.yaml)
 
 This is the main driver that will only act on the main branch of the repository.
-This workflow does not use any custom actions from this repository.
+This workflow does the following:
 
+ 1. checks out the lesson
+ 2. provisions the following resources
+   - R
+   - pandoc
+   - lesson infrastructure (stored in a cache)
+   - lesson dependencies if needed (stored in a cache)
+ 3. builds the lesson via `sandpaper:::ci_deploy()`
+
+#### Caching
+
+This workflow has two caches; one cache is for the lesson infrastructure and 
+the other is for the the lesson dependencies if the lesson contains rendered
+content. These caches are invalidated by new versions of the infrastructure and
+the `renv.lock` file, respectively. If there is a problem with the cache, 
+manual invaliation is necessary and can be done by setting the `CACHE_VERSION`
+secret to the current date.
 
 ## Updates
 
@@ -94,6 +110,10 @@ changed based on how the packages have updated.
 
 ## Pull Request and Review Management
 
+Because our lessons execute code, pull requests are a secruity risk for any
+lesson and thus have security measures associted with them. **Do not merge any
+pull requests that do not pass checks and do not have bots commented on them.**
+
 This series of workflows all go together and are described in the following 
 diagram and the below sections:
 
@@ -101,14 +121,27 @@ diagram and the below sections:
 
 ### Recieve Pull Request (pr-recieve.yaml)
 
-The first step is to build the generated content from the pull request. This
-builds the content and uploads three artifacts:
+**Note of caution:** This workflow runs arbitrary code by anyone who creates a
+pull request. GitHub has safeguarded the token used in this workflow to have no
+priviledges in the repository, but we have taken precautions to protect against
+spoofing.
+
+The first step of this workflow is to check if it is valid (e.g. that no
+workflow files have been modified). If there are workflow files that have been
+modified, a comment is made that indicates that the workflow is not run. If 
+both a workflow file and lesson content is modified, an error will occurr.
+
+The second step (if valid) is to build the generated content from the pull
+request. This builds the content and uploads three artifacts:
 
 1. The pull request number (pr)
 2. A summary of changes after the rendering process (diff)
 3. The rendered files (build)
 
-These artifacts are used by the next workflow.
+Because this workflow builds generated content, it follows the same general 
+process as the sandpaper-main workflow with the same caching mechanisms.
+
+The artifacts produced are used by the next workflow.
 
 ### Comment on Pull Request (pr-comment.yaml)
 
