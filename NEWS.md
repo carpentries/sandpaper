@@ -1,3 +1,12 @@
+# sandpaper 0.0.0.9056
+
+BUG FIX
+-------
+
+* `update_github_workflows()` now sets `clean = "*.yaml"` by default to align
+  with the behavior of the GitHub workflow and to prevent stale workflows from
+  being present in the repository. (#181, @zkamvar)
+
 # sandpaper 0.0.0.9055
 
 CONTINUOUS INTEGRATION
