@@ -204,7 +204,7 @@ renv_cache_available <- function() {
   renv::config$cache.symlinks() && is.null(getOption("sandpaper.test_fixture"))
 }
 
-callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, in_covr = FALSE) {
+callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   wd        <- getwd()
   old_repos <- getOption("repos")
   user_prof <- getOption("renv.config.user.profile")
@@ -229,7 +229,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, in_covr = 
   #    load them into the profile's library
   cli::cli_alert("Searching for and installing available dependencies")
   #nocov start
-  if (lockfile_exists && !in_covr) {
+  if (lockfile_exists) {
     # if there _is_ a lockfile, we only want to hydrate new packages that do not
     # previously exist in the library, because otherwise, we end up trying to
     # install packages that we should be able to install with renv::restore().
