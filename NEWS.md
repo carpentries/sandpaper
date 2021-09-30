@@ -1,3 +1,12 @@
+# sandpaper 0.0.0.9057
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* `update-cache.yaml` has been fixed from a regression introduced with
+  4b8b14d088d03a8a9c6c90e974bb53c35691fb49 where the workflow would not run 
+  because it did not check out the repository beforehand.
+
 # sandpaper 0.0.0.9056
 
 BUG FIX

@@ -18,6 +18,8 @@ jobs:
     outputs:
       needed: ${{ steps.renv.outputs.exists }}
     steps:
+      - name: "Checkout Lesson"
+        uses: actions/checkout@v2
       - id: renv
         run: |
           if [[ -d renv ]]; then
