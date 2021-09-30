@@ -1,4 +1,4 @@
-name: "03 Maintain: Update Package Cache"
+fame: "03 Maintain: Update Package Cache"
 
 on:
   workflow_dispatch:
@@ -18,6 +18,8 @@ jobs:
     outputs:
       needed: ${{ steps.renv.outputs.exists }}
     steps:
+      - name: "Checkout Lesson"
+        uses: actions/checkout@v2
       - id: renv
         run: |
           if [[ -d renv ]]; then
