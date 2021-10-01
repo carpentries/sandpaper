@@ -8,13 +8,32 @@ on:
         required: true
         default: 'monthly run'
   schedule:
-    # Run first tuesday of the month
-    - cron: '0 0 1-7 * 2'
+    # Run the first through seventh day, control the day through the secrets
+    - cron: '0 0 1-7 * *'
 
 jobs:
+  check_date:
+    name: "Check the day"
+    runs-on: ubuntu-lates
+    outputs:
+      ok: ${{ steps.check.outputs.ok }}
+    steps:
+      - id: check
+        run: |
+          runday=${{ secrets.CACHE_DAY }}
+          runday=$( [[ -e ${runday} ]] && echo ${runday} || echo 2 )
+          if [[ `date +%w` -eq ${runday} ]]; then
+            echo "::set-output name=ok::true"
+          else
+            echo "::set-output name=ok::false"
+            echo "not today"
+          fi
+
   check_renv:
     name: "Check if We Need {renv}"
     runs-on: ubuntu-latest
+    needs: check_date
+    if: ${{ needs.check_date.outputs.ok }}
     outputs:
       needed: ${{ steps.renv.outputs.exists }}
     steps:
