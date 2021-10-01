@@ -58,8 +58,8 @@ jobs:
           "https://github.com/${{ github.repository }}/settings/secrets/actions/new "\
           "and enter SANDPAPER_WORKFLOW for the 'Name' and paste your key for the 'Value'."
 
-  update_workflow:
-    name: "Update Workflow"
+  update_cache:
+    name: "Update Package Cache"
     needs: check_token
     if: ${{ needs.check_token.outputs.repo== 'true' }}
     runs-on: macOS-latest
@@ -70,65 +70,19 @@ jobs:
 
       - name: "Checkout Lesson"
         uses: actions/checkout@v2
-      
-      - name: "Check if renv dir exists"
-        id: check
-        run: |
-          if [[ -d renv ]]; then
-            echo '::set-output name=can-update::true'
-          else
-            echo 'nothing to do!'
-          fi
 
       - name: "Set up R"
-        if: ${{ steps.check.outputs.can-update }}
         uses: r-lib/actions/setup-r@v1
-
-      - name: "Restore {renv} Cache"
-        if: ${{ steps.check.outputs.can-update }}
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.RENV_PATHS_ROOT }}
-          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
-          restore-keys:
-            ${{ runner.os }}-renv-
 
       - name: "Update {renv} deps and determine if a PR is needed"
         id: update
-        if: ${{ steps.check.outputs.can-update }}
-        run: |
-          options(repos = c(
-            carpentries = "https://carpentries.r-universe.dev",
-            carpentries_archive = "https://carpentries.github.io/drat",
-            CRAN = "https://cran.rstudio.com"))
-          # install renv if we don't have it. 
-          if (!requireNamespace("renv", quietly = TRUE))
-            install.packages("renv")
-          Sys.setenv("RENV_PROFILE" = "lesson-requirements")
-          renv::load()
-          lib  <- renv::paths$library()
-          lock <- renv::paths$lockfile()
-          shh  <- capture.output(renv::restore(library = lib, lockfile = lock))
-          updates <- renv::update(library = lib, check = TRUE)
-          n <- 0
-          the_report <- character(0)
-          if (!identical(updates, TRUE)) {
-            renv::update(library = lib)
-            renv::snapshot(lockfile = lock)
-            n <- length(updates$diff)
-            the_report <- utils::capture.output(print(updates), type = "message")
-            # https://github.community/t/set-output-truncates-multiline-strings/16852/3?u=zkamvar
-            the_report <- paste0(the_report, collapse = "%0A")
-          }
-          meow  <- function(...) cat(..., "\n", sep = "")
-          meow("::set-output name=report::", the_report)
-          meow("::set-output name=n::", n)
-          meow("::set-output name=date::", as.character(Sys.Date()))
-        shell: Rscript {0}
+        uses: carpentries/actions/update-lockfile@main
+        with:
+          cache-version: ${{ secrets.CACHE_VERSION }}
 
       - name: Create Pull Request
         id: cpr
-        if: ${{ steps.check.outputs.can-update && steps.update.outputs.n > 0 }}
+        if: ${{ steps.update.outputs.n > 0 }}
         uses: peter-evans/create-pull-request@v3.10.0
         with:
           token: ${{ secrets.SANDPAPER_WORKFLOW }}
