@@ -1,3 +1,12 @@
+# sandpaper 0.0.0.9059
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* The scheduler for `update-cache.yaml` has been fixed to run strictly on the
+  first Tuesday of the month instead of the first seven days of the month AND on
+  Tuesdays.
+
 # sandpaper 0.0.0.9058
 
 CONTINUOUS INTEGRATION

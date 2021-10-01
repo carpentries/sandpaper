@@ -22,7 +22,7 @@ jobs:
   build-md-source:
     name: "Build markdown source files"
     needs: test-pr
-    runs-on: macOS-latest
+    runs-on: macOS-11
     if: ${{ needs.test-pr.outputs.is_valid == 'true' }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

@@ -20,7 +20,7 @@ on:
 jobs:
   full-build:
     name: "Build Full Site"
-    runs-on: macOS-latest
+    runs-on: macOS-11
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PATHS_ROOT: ~/Library/Application Support/renv
