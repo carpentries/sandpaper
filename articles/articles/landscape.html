@@ -105,12 +105,26 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>I’ve been investing the vast majority of my time to working on development of the lesson template and am finding now that I have several things that I could work on at the moment, but I needed to take a step back and survey the landscape of our plan for moving forward with the lesson template.</p>
-<p>Our lesson maintainers and contributors are all volunteers, which means that they only have a very limited amount of time to work on lessons. The lesson template should be a simple framework for contributors and maintainers to write lessons in a way that maximizes their attention on the lesson content.</p>
-<p>The current Jekyll-based lesson template has been showing its age recently and it’s been clear for a while that a refresh is sorely needed. Chief among the issues with the Jekyll template is that it currently requires 4 languages (on top of Git) at a minimum to be installed in order to preview locally: <a href="https://github.com/carpentries/styles/issues/480">Ruby, Python, Bash, and Make</a>. This setup represents a large barrier for people who are coming in to lesson maintenance for the first time and is clearly an issue when <a href="https://www.youtube.com/watch?v=0XoEdznJARc">we have to include videos for people to use a github-based workaround to preview their lessons</a>.</p>
-<p>Beyond the initial setup for contributors, another pain point is the reliance of the styles inside of the lesson itself and the convoluted manner in which a lesson must be created: it must be imported from the carpentries/styles repository so that the history is preserved and then the maintainer can initialize the lesson. When the time comes to update the lesson, we expect that the maintainer has not touched any of the styling elements or machinery so that the merge happens with no conflicts, but this is rarely the case and we have to initiate the merge and fix conflicts.</p>
+<p>The new lesson infrastructure has a lot of moving parts, but it is built on a solid foundation that clearly separates the content from the tooling needed. Importantly, in order to use the infrastructure, you do not need to know very much about how it works under the hood.</p>
+<p>Importantly: <strong>this is not a beginner’s guide.</strong> If you are looking that resource, then head over to <a href="https://carpentries.github.io/sandpaper-docs">The sandpaper documentation site</a>. This document serves as a kind of “nerd’s guide” to the lesson infrastructure. It steps back and takes a landscape-level view of how the infrastructure works and how it differs from the previous infrastructure.</p>
+<div id="motivation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#motivation" class="anchor"></a>Motivation</h3>
+<p>Our lesson maintainers and contributors are all volunteers, which means that they only have a very limited amount of time to work on lessons. The lesson infrastructure should be a simple framework for contributors and maintainers to write lessons in a way that maximizes their attention on the lesson content.</p>
+</div>
+<div id="difficulties-with-the-previous-infrastructure" class="section level3">
+<h3 class="hasAnchor">
+<a href="#difficulties-with-the-previous-infrastructure" class="anchor"></a>Difficulties with the previous infrastructure</h3>
+<p>The <a href="https://github.com/carpentries/styles/">Jekyll-based lesson template</a> has been showing its age recently and it’s been clear for a while that a refresh is sorely needed. Chief among the issues with the Jekyll template is that it currently requires 4 languages (on top of Git) at a minimum to be installed in order to preview locally: <a href="https://github.com/carpentries/styles/issues/480">Ruby, Python, Bash, and Make</a>. This setup represents a large barrier for people who are coming in to lesson maintenance for the first time and is clearly an issue when <a href="https://www.youtube.com/watch?v=0XoEdznJARc">we have to include videos for people to use a github-based workaround to preview their lessons</a>.</p>
+<p>Beyond the initial setup for contributors, another pain point is the reliance of the styles inside of the lesson itself and the convoluted manner in which a lesson must be created: it must be imported from the <a href="https://github.com/carpentries/styles">carpentries/styles</a> repository so that the history is preserved and then the maintainer can initialize the lesson. When the time comes to update the lesson, we expect that the maintainer has not touched any of the styling elements or machinery so that the merge happens with no conflicts, but this is rarely the case and we have to initiate the merge and fix conflicts.</p>
 <p>When we inspect the process of adding or updating content in a lesson, we find that there are still more places of frustration. The configuration file contains several pieces of information that are necessary for the site, but must never be touched. Moreover, the header yaml of the lesson contains three lists, objectives, keypoints, and questions, all formatted as strings and included in the body of the rendered lesson. The issue with these is that it’s easy for these to become invalid due to misplaced punctuation. Linking to images that lived at the top of the repository was difficult and authoring special block quotes was challenging because writing content always preceded by <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code> proved to be error prone.</p>
-<p>With the new lesson template, we strive to clear the template clutter and allow contributors to focus on what is important: lesson content written in clear and easy-to-read markdown. This document will outline the aspects of the new lesson template to describe how it is organized in all aspects including folder structure of a lesson, content specifications for an episode, content specifications for extra-episode files (e.g. references), toolchain landscape, local build requirements, deployment specifications, and internationalization (i18n) specifications.</p>
+</div>
+<div id="what-the-new-infrastructure-will-bring" class="section level3">
+<h3 class="hasAnchor">
+<a href="#what-the-new-infrastructure-will-bring" class="anchor"></a>What the new infrastructure will bring</h3>
+<p>With the new lesson infrastructure, we strive to clear the template clutter and allow contributors to focus on what is important: lesson content written in clear and easy-to-read markdown. Importantly, the lessons will still be portable and customisable because the engine, validator, and styling will all live in separate independent software packages. Lessons in the official Carpentries GitHub accounts will also benefit from automation that will provide timely updates to the elements needed to build the lessons (in the case for lessons with generated output).</p>
+<p>This document will outline the aspects of the new lesson template to describe how it is organized in all aspects including folder structure of a lesson, content specifications for an episode, content specifications for extra-episode files (e.g. references), toolchain landscape, local build requirements, deployment specifications, and internationalization (i18n) specifications.</p>
+</div>
 </div>
 <div id="notation" class="section level2">
 <h2 class="hasAnchor">
@@ -153,17 +167,22 @@
 |   |-- files/               # -   Additional files (e.g. handouts) 
 |   `-- 00-introducition.Rmd # -   Lessons start with a two-digit number
 |-- instructors/             # - Information for Instructors
+|   `-- instructor-notes.md  # -   placeholder
 |-- learners/                # - Information for Learners
-|   `-- Setup.md             # -   setup instructions (REQUIRED)
+|   `-- setup.md             # -   setup instructions (REQUIRED)
 |-- profiles/                # - Learner and/or Instructor Profiles
+|   `-- learner-profiles.md  # -   placeholder
 |-- renv/                    # - Local package cache
-|-- site/                    # - This folder is where the rendered markdown files and static site will live
+|-- site/                    # - This folder is where the rendered markdown
+files and static site will live
 |   `-- README.md            # -   placeholder
 |-- config.yaml              # - Use this to configure commonly used variables
+|-- index.md                 # - Front page for the site
 |-- CONTRIBUTING.md          # - Carpentries Rules for Contributions (REQUIRED)
 |-- CODE_OF_CONDUCT.md       # - Carpentries Code of Conduct (REQUIRED)
 |-- LICENSE.md               # - Carpentries Licenses (REQUIRED)
-`-- README.md                # - Introduces folks how to use this lesson and where they can find more information.</code></pre>
+`-- README.md                # - Introduces folks how to use this lesson and
+where they can find more information.</code></pre>
 <div id="episodes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#episodes" class="anchor"></a>Episodes</h3>
@@ -242,8 +261,10 @@
     File: '/path/to/episode.Rmd'
     
     The Questions block should be at the top of the document (lines AA--BB).
-    Instead, they are located at lines XX--YY. Please edit '/path/to/episode.Rmd'
-    and move the block at lines XX--YY to the top of the document (lines AA--BB).</code></pre>
+    Instead, they are located at lines XX--YY. Please edit
+    '/path/to/episode.Rmd'
+    and move the block at lines XX--YY to the top of the document (lines
+    AA--BB).</code></pre>
 </div>
 <div id="instructor-notes" class="section level3">
 <h3 class="hasAnchor">
@@ -335,7 +356,7 @@
 <a href="#evaluation" class="anchor"></a>Evaluation</h4>
 <p>Because we are encouraging the use of RMarkdown, you can have code blocks that actually evaluate code using the RMarkdown chunk syntax of three backtics followed by a pair of curly braces with the name of the language engine you want to use for executing the code blocks.</p>
 <p>At the moment, we explicitly support evaluation for R and BASH, but we will be gathering input from maintainers about processes to expand.</p>
-<p>There is <a href="https://bookdown.org/yihui/rmarkdown/language-engines.html">a large list of language engines that RMarkdown supports</a>. Most engines require that you have the language available on your PATH and do not share variables and values between chunks, so lesson authors will need to be explicit about the installation requirements for these lessons. Some languages like Python, Julia, and SQL can share data and variables between chunks with the help of specific packages (e.g. <a href="https://rstudio.github.io/reticulate">{reticulate}</a> for Python, <a href="https://non-contradiction.github.io/JuliaCall/index.html">{JuliaCall}</a> for Julia, and <a href="https://dbi.r-dbi.org/">{DBI}</a> for SQL databases).</p>
+<p>There is <a href="https://bookdown.org/yihui/rmarkdown/language-engines.html">a large list of language engines that RMarkdown supports</a>. Most engines require that you have the language available on your PATH and do not share variables and values between chunks, so lesson authors will need to be explicit about the installation requirements for these lessons. Some languages like Python, Julia, and SQL can share data and variables between chunks with the help of specific packages (e.g. <a href="https://rstudio.github.io/reticulate">{reticulate}</a> for Python, <a href="https://non-contradiction.github.io/JuliaCall/index.html">{JuliaCall}</a> for Julia, and <a href="https://dbi.r-dbi.org/">{DBI}</a> for SQL databases).</p>
 </div>
 </div>
 </div>
