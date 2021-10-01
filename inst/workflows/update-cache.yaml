@@ -13,18 +13,22 @@ on:
 
 jobs:
   check_date:
-    name: "Check the day"
+    name: "Preflight Check"
     runs-on: ubuntu-latest
     outputs:
       ok: ${{ steps.check.outputs.ok }}
     steps:
       - id: check
         run: |
-          if [[ `date +%w` -eq 2 ]]; then
+          if [[ ${{ github.event_name }} == 'workflow_dispatch' ]]; then
             echo "::set-output name=ok::true"
+            echo "Running on request"
+          elif [[ `date +%w` -eq 2 ]]; then
+            echo "::set-output name=ok::true"
+            echo "Running on schedule"
           else
             echo "::set-output name=ok::false"
-            echo "not today"
+            echo "Not Running Today"
           fi
 
   check_renv:
