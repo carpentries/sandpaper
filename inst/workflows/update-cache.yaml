@@ -14,7 +14,7 @@ on:
 jobs:
   check_date:
     name: "Check the day"
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     outputs:
       ok: ${{ steps.check.outputs.ok }}
     steps:
@@ -33,7 +33,7 @@ jobs:
     name: "Check if We Need {renv}"
     runs-on: ubuntu-latest
     needs: check_date
-    if: ${{ needs.check_date.outputs.ok }}
+    if: ${{ needs.check_date.outputs.ok == 'true'}}
     outputs:
       needed: ${{ steps.renv.outputs.exists }}
     steps:
