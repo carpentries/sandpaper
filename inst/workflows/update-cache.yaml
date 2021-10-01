@@ -8,8 +8,8 @@ on:
         required: true
         default: 'monthly run'
   schedule:
-    # Run the first through seventh day, control the day through the secrets
-    - cron: '0 0 1-7 * *'
+    # Run every tuesday
+    - cron: '0 0 * * 2'
 
 jobs:
   check_date:
@@ -23,7 +23,8 @@ jobs:
           if [[ ${{ github.event_name }} == 'workflow_dispatch' ]]; then
             echo "::set-output name=ok::true"
             echo "Running on request"
-          elif [[ `date +%w` -eq 2 ]]; then
+          elif [[ `date +%d` -le 7 ]]; then
+            # If the Tuesday lands in the first week of the month, run it
             echo "::set-output name=ok::true"
             echo "Running on schedule"
           else
