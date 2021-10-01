@@ -20,9 +20,7 @@ jobs:
     steps:
       - id: check
         run: |
-          runday=${{ secrets.CACHE_DAY }}
-          runday=$( [[ -e ${runday} ]] && echo ${runday} || echo 2 )
-          if [[ `date +%w` -eq ${runday} ]]; then
+          if [[ `date +%w` -eq 2 ]]; then
             echo "::set-output name=ok::true"
           else
             echo "::set-output name=ok::false"
