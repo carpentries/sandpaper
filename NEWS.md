@@ -1,3 +1,12 @@
+# sandpaper 0.0.0.9058
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* `update-cache.yaml` has been simplified to pull from the carpentries/actions
+  repository and now updates packages that were not previously included in the
+  lockfile (#185).
+
 # sandpaper 0.0.0.9057
 
 CONTINUOUS INTEGRATION
