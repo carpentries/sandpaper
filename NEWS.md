@@ -1,3 +1,16 @@
+# sandpaper 0.0.0.9060
+
+BUG FIX
+-------
+
+* The title of the lesson will now appear in the index page.
+
+MISC
+----
+
+* The translation script no longer lives in the lesson repo and has been moved
+  (and modified) to https://data-lessons/lesson-transition/
+
 # sandpaper 0.0.0.9059
 
 CONTINUOUS INTEGRATION
