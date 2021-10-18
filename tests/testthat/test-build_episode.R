@@ -1,4 +1,6 @@
 test_that("build_episode_md() works independently", {
+  
+  withr::local_options(list(sandpaper.use_renv = FALSE))
 
   fun_dir <- fs::file_temp()
   fs::dir_create(fun_dir)
@@ -27,6 +29,7 @@ test_that("build_episode_md() works independently", {
 test_that("build_episode_html() works independently", {
 
 
+  withr::local_options(list(sandpaper.use_renv = FALSE))
   tmp <- restore_fixture()
   pkg <- pkgdown::as_pkgdown(file.path(tmp, "site"))
   expect_output(pkgdown::init_site(pkg))
@@ -70,3 +73,5 @@ test_that("build_episode_html() works independently", {
   expect_length(the_line_bart, 1L)
 
 })
+
+
