@@ -121,10 +121,10 @@ test_that("pin_version() will use_specific versions", {
 
 
   suppressMessages({
-  res <- callr_manage_deps(lsn, 
+  (res <- callr_manage_deps(lsn, 
     repos = renv_carpentries_repos(), 
     snapshot = TRUE,
-    lockfile_exists = TRUE) %>%
+    lockfile_exists = TRUE)) %>%
     expect_message("Restoring any dependency versions") %>%
     expect_output("sessioninfo")
   })

@@ -257,10 +257,12 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
     renv::load()
     on.exit({
       invisible(utils::capture.output(renv::deactivate(), type = "message"))
+      return(snap)
     }, add = TRUE)
     # 4. Snapshot the current state of the library to the lockfile to 
     #    synchronize
     cli::cli_alert("Recording changes in lockfile")
     snap <- renv::snapshot(project = path, lockfile = renv_lock, prompt = FALSE)
   }
+  return(NULL)
 }
