@@ -46,7 +46,7 @@ test_that("markdown sources can be built without fail", {
 
 test_that("changes in config.yaml triggers a rebuild of the site yaml", {
 
-  skip_on_os("windows")
+  skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   yml <- get_path_site_yaml(res)$title
   expect_identical(yml, "Lesson Title")
   cfg <- gsub("Lesson Title", "NEW Lesson Title", readLines(fs::path(res, "config.yaml")))
@@ -66,6 +66,8 @@ test_that("changes in config.yaml triggers a rebuild of the site yaml", {
 
 
 test_that("build_home() will refelct the title in the heading", {
+
+  skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   pkg <- pkgdown::as_pkgdown(fs::path(res, "site"))
   fs::dir_create(pkg$dst_path)
   expect_silent(build_home(pkg, quiet = TRUE))
