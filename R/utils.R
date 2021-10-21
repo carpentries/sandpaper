@@ -57,7 +57,7 @@ create_site_readme <- function(path) {
 }
 
 create_description <- function(path) {
-  yaml <- yaml::read_yaml(path_config(path))
+  yaml <- yaml::read_yaml(path_config(path), eval.expr = FALSE)
   the_author <- paste(gert::git_signature_default(path), "[aut, cre]")
   the_author <- utils::as.person(the_author)
   desc <- desc::description$new("!new")
@@ -96,7 +96,7 @@ varnish_vars <- function() {
 create_pkgdown_yaml <- function(path) {
   # The user does not interact with this and {{mustache}} is logic-less, so we
   # can be super-verbose here and create any logic we need on the R-side.
-  usr <- yaml::read_yaml(path_config(path))
+  usr <- yaml::read_yaml(path_config(path), eval.expr = FALSE)
   yaml <- get_yaml_text(template_pkgdown())
   yaml <- whisker::whisker.render(yaml, 
     data = list(
