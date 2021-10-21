@@ -148,6 +148,16 @@ site_menu <- function(yaml, files = NULL, position = 3L) {
   yaml
 }
 
+quote_config_items <- function(yaml) {
+  yaml$title      <- shQuote(yaml$title)
+  yaml$carpentry  <- shQuote(yaml$carpentry)
+  yaml$life_cycle <- shQuote(yaml$life_cycle)
+  yaml$license    <- shQuote(yaml$license)
+  yaml$source     <- shQuote(yaml$source)
+  yaml$branch     <- shQuote(yaml$branch)
+  yaml$contact    <- shQuote(yaml$contact)
+  yaml
+}
 
 # Take a list of episodes and update the yaml configuration. 
 # TODO: This implementation needs to change!!!
