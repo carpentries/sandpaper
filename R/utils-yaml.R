@@ -32,6 +32,20 @@ politely_get_yaml <- function(path) {
   return(header[barriers[1]:barriers[2]])
 }
 
+siQuote <- function(string) {
+  string <- as.character(string)
+  ok <- startsWith(string, "'") && endsWith(string, "'")
+  if (ok) {
+    string
+  } else if (!length(string)) {
+    ""
+  } else if (!any(grepl("'", string))) {
+    paste0("'", string, "'")
+  } else {
+    paste0('"', gsub("(?<![\\\\])[\"])", "\\\"", string), '"')
+  }
+}
+
 yaml_writer <- function(yaml, path) {
   # if this is null, no harm done
   header <- attr(yaml, "header")
@@ -141,22 +155,22 @@ create_pkgdown_yaml <- function(path) {
   yaml <- whisker::whisker.render(yaml, 
     data = list(
       # Basic information
-      version = shQuote(utils::packageVersion("sandpaper")),
-      config  = shQuote(path_config(path)),
-      title   = shQuote(usr$title),
+      version = siQuote(utils::packageVersion("sandpaper")),
+      config  = siQuote(path_config(path)),
+      title   = siQuote(usr$title),
       time    = UTC_timestamp(Sys.time()),
-      source  = shQuote(usr$source),
-      branch  = shQuote(usr$branch),
-      contact = shQuote(usr$contact),
+      source  = siQuote(usr$source),
+      branch  = siQuote(usr$branch),
+      contact = siQuote(usr$contact),
       # What carpentry are we dealing with?
-      carpentry_name = shQuote(which_carpentry(usr$carpentry)),
-      carpentry      = shQuote(usr$carpentry),
+      carpentry_name = siQuote(which_carpentry(usr$carpentry)),
+      carpentry      = siQuote(usr$carpentry),
       cp             = usr$carpentry == 'cp',
       lc             = usr$carpentry == 'lc',
       dc             = usr$carpentry == 'dc',
       swc            = usr$carpentry == 'swc',
       # Should we display a lifecycle banner?
-      life_cycle = if (usr$life_cycle == "stable")    "~"  else shQuote(usr$life_cycle),
+      life_cycle = if (usr$life_cycle == "stable")    "~"  else siQuote(usr$life_cycle),
       pre_alpha  = if (usr$life_cycle == "pre-alpha") TRUE else "~",
       alpha      = if (usr$life_cycle == "alpha")     TRUE else "~",
       beta       = if (usr$life_cycle == "beta")      TRUE else "~",
@@ -189,13 +203,13 @@ site_menu <- function(yaml, files = NULL, position = 3L) {
 }
 
 quote_config_items <- function(yaml) {
-  yaml$title      <- shQuote(yaml$title)
-  yaml$carpentry  <- shQuote(yaml$carpentry)
-  yaml$life_cycle <- shQuote(yaml$life_cycle)
-  yaml$license    <- shQuote(yaml$license)
-  yaml$source     <- shQuote(yaml$source)
-  yaml$branch     <- shQuote(yaml$branch)
-  yaml$contact    <- shQuote(yaml$contact)
+  yaml$title      <- siQuote(yaml$title)
+  yaml$carpentry  <- siQuote(yaml$carpentry)
+  yaml$life_cycle <- siQuote(yaml$life_cycle)
+  yaml$license    <- siQuote(yaml$license)
+  yaml$source     <- siQuote(yaml$source)
+  yaml$branch     <- siQuote(yaml$branch)
+  yaml$contact    <- siQuote(yaml$contact)
   yaml
 }
 
