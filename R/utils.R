@@ -135,8 +135,8 @@ update_site_timestamp <- function(path) {
 get_navbar_info <- function(i) {
   txt <- yaml::yaml.load(politely_get_yaml(i))$title
   list(
-    pagetitle = txt,
-    text  = txt,
+    pagetitle = shQuote(txt),
+    text  = shQuote(txt),
     href  = as_html(i)
   )
 }
