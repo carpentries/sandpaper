@@ -91,6 +91,13 @@ write_pkgdown_yaml <- function(yaml, path) {
 #' @note there IS a better solution than this hack, but for now, we will
 #' keep what we are doing because it's okay for our purposes: 
 #'   https://github.com/rstudio/blogdown/issues/560
+#' @examples
+#' x <- c("a", "b", "c")
+#' hx <- list(hello = x)
+#' cat(yaml::as.yaml(hx)) # representation in yaml
+#' cat(whisker::whisker.render("hello: {{hello}}", hx)) # messed up whisker
+#' hx[["hello"]] <- sandpaper:::yaml_list(hx[["hello"]])
+#' cat(whisker::whisker.render("hello: {{hello}}", hx)) # good whisker
 yaml_list <- function(thing) {
   # If the yaml item is empty, then return a blank line.
   if (length(thing) == 0) return("")
@@ -98,7 +105,8 @@ yaml_list <- function(thing) {
   thing <- if (length(thing) == 1L && !is.list(thing)) list(thing) else thing
   # If it's named, there's no need to create padding.
   pad <- if (is.list(thing) && length(names(thing)) == 1L) "" else "\n"
-  paste0(pad, yaml::as.yaml(thing))
+  out <- paste0(pad, trimws(yaml::as.yaml(thing)))
+  return(out)
 }
 
 get_information_header <- function(yaml) {
