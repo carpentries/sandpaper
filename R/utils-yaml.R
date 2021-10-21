@@ -32,6 +32,24 @@ politely_get_yaml <- function(path) {
   return(header[barriers[1]:barriers[2]])
 }
 
+siQuote <- function(string) {
+  string <- as.character(string)
+  empty <- length(string) == 0 || identical(string, "")
+  ok <- !empty && (
+    startsWith(string, "'") && endsWith(string, "'") ||
+    startsWith(string, '"') && endsWith(string, '"')
+  )
+  if (ok) {
+    string
+  } else if (empty) {
+    ""
+  } else if (!any(grepl("'", string))) {
+    paste0("'", string, "'")
+  } else {
+    paste0('"', gsub("(?<![\\\\])[\"]", "\\\\\"", string, perl = TRUE), '"')
+  }
+}
+
 yaml_writer <- function(yaml, path) {
   # if this is null, no harm done
   header <- attr(yaml, "header")
@@ -91,6 +109,13 @@ write_pkgdown_yaml <- function(yaml, path) {
 #' @note there IS a better solution than this hack, but for now, we will
 #' keep what we are doing because it's okay for our purposes: 
 #'   https://github.com/rstudio/blogdown/issues/560
+#' @examples
+#' x <- c("a", "b", "c")
+#' hx <- list(hello = x)
+#' cat(yaml::as.yaml(hx)) # representation in yaml
+#' cat(whisker::whisker.render("hello: {{hello}}", hx)) # messed up whisker
+#' hx[["hello"]] <- sandpaper:::yaml_list(hx[["hello"]])
+#' cat(whisker::whisker.render("hello: {{hello}}", hx)) # good whisker
 yaml_list <- function(thing) {
   # If the yaml item is empty, then return a blank line.
   if (length(thing) == 0) return("")
@@ -98,7 +123,7 @@ yaml_list <- function(thing) {
   thing <- if (length(thing) == 1L && !is.list(thing)) list(thing) else thing
   # If it's named, there's no need to create padding.
   pad <- if (is.list(thing) && length(names(thing)) == 1L) "" else "\n"
-  paste0(pad, yaml::as.yaml(thing))
+  paste0(pad, trimws(yaml::as.yaml(thing)))
 }
 
 get_information_header <- function(yaml) {
@@ -122,5 +147,85 @@ get_yaml_text <- function(path, collapse = TRUE) {
 
 get_path_site_yaml <- function(path) {
   yaml <- get_yaml_text(path_site_yaml(path))
-  structure(yaml::yaml.load(yaml), header = get_information_header(yaml))
+  structure(yaml::yaml.load(yaml, eval.expr = FALSE),
+    header = get_information_header(yaml))
+}
+
+create_pkgdown_yaml <- function(path) {
+  # The user does not interact with this and {{mustache}} is logic-less, so we
+  # can be super-verbose here and create any logic we need on the R-side.
+  usr <- yaml::read_yaml(path_config(path), eval.expr = FALSE)
+  yaml <- get_yaml_text(template_pkgdown())
+  yaml <- whisker::whisker.render(yaml, 
+    data = list(
+      # Basic information
+      version = siQuote(utils::packageVersion("sandpaper")),
+      config  = siQuote(path_config(path)),
+      title   = siQuote(usr$title),
+      time    = UTC_timestamp(Sys.time()),
+      source  = siQuote(usr$source),
+      branch  = siQuote(usr$branch),
+      contact = siQuote(usr$contact),
+      # What carpentry are we dealing with?
+      carpentry_name = siQuote(which_carpentry(usr$carpentry)),
+      carpentry      = siQuote(usr$carpentry),
+      cp             = usr$carpentry == 'cp',
+      lc             = usr$carpentry == 'lc',
+      dc             = usr$carpentry == 'dc',
+      swc            = usr$carpentry == 'swc',
+      # Should we display a lifecycle banner?
+      life_cycle = if (usr$life_cycle == "stable")    "~"  else siQuote(usr$life_cycle),
+      pre_alpha  = if (usr$life_cycle == "pre-alpha") TRUE else "~",
+      alpha      = if (usr$life_cycle == "alpha")     TRUE else "~",
+      beta       = if (usr$life_cycle == "beta")      TRUE else "~",
+      NULL     
+    )
+  )
+  structure(yaml::yaml.load(yaml, eval.expr = FALSE), header = get_information_header(yaml))
+}
+
+update_site_timestamp <- function(path) {
+  yaml <- get_path_site_yaml(path) 
+  yaml$template$params$time <- Sys.time()
+  write_pkgdown_yaml(yaml, path)
+}
+
+get_navbar_info <- function(i) {
+  txt <- yaml::yaml.load(politely_get_yaml(i), eval.expr = FALSE)$title
+  list(
+    pagetitle = txt,
+    text  = txt,
+    href  = as_html(i)
+  )
+}
+
+site_menu <- function(yaml, files = NULL, position = 3L) {
+  if (is.null(files) || length(files) == 0L) return(yaml)
+  res <- lapply(files, get_navbar_info)
+  yaml$navbar$left[[position]]$menu <- unname(res)
+  yaml
+}
+
+quote_config_items <- function(yaml) {
+  yaml$title      <- siQuote(yaml$title)
+  yaml$carpentry  <- siQuote(yaml$carpentry)
+  yaml$life_cycle <- siQuote(yaml$life_cycle)
+  yaml$license    <- siQuote(yaml$license)
+  yaml$source     <- siQuote(yaml$source)
+  yaml$branch     <- siQuote(yaml$branch)
+  yaml$contact    <- siQuote(yaml$contact)
+  yaml
+}
+
+# Take a list of episodes and update the yaml configuration. 
+# TODO: This implementation needs to change!!!
+update_site_menu <- function(path, 
+  episodes = NULL, learners = NULL, instructors = NULL, profiles = NULL) {
+  yaml <- get_path_site_yaml(path) 
+  # NOTE: change tests/testthat/test-set_dropdown.R
+  yaml <- site_menu(yaml, episodes,    2L)
+  yaml <- site_menu(yaml, learners,    3L)
+  yaml <- site_menu(yaml, instructors, 4L)
+  yaml <- site_menu(yaml, profiles,    5L)
+  write_pkgdown_yaml(yaml, path)
 }

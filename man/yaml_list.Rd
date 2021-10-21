@@ -52,4 +52,12 @@ there IS a better solution than this hack, but for now, we will
 keep what we are doing because it's okay for our purposes:
 https://github.com/rstudio/blogdown/issues/560
 }
+\examples{
+x <- c("a", "b", "c")
+hx <- list(hello = x)
+cat(yaml::as.yaml(hx)) # representation in yaml
+cat(whisker::whisker.render("hello: {{hello}}", hx)) # messed up whisker
+hx[["hello"]] <- sandpaper:::yaml_list(hx[["hello"]])
+cat(whisker::whisker.render("hello: {{hello}}", hx)) # good whisker
+}
 \keyword{internal}

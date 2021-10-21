@@ -49,7 +49,8 @@ test_that("changes in config.yaml triggers a rebuild of the site yaml", {
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   yml <- get_path_site_yaml(res)$title
   expect_identical(yml, "Lesson Title")
-  cfg <- gsub("Lesson Title", "NEW Lesson Title", readLines(fs::path(res, "config.yaml")))
+  cfg <- gsub("Lesson Title", "NEW: Lesson Title", 
+    readLines(fs::path(res, "config.yaml")))
   writeLines(cfg, fs::path(res, "config.yaml"))
 
   suppressMessages({
@@ -59,7 +60,7 @@ test_that("changes in config.yaml triggers a rebuild of the site yaml", {
     })
   })
 
-  expect_identical(get_path_site_yaml(res)$title, "NEW Lesson Title")
+  expect_identical(get_path_site_yaml(res)$title, "NEW: Lesson Title")
 
 
 })
@@ -74,7 +75,7 @@ test_that("build_home() will refelct the title in the heading", {
   idx <- fs::path(pkg$dst_path, "index.html")
   htm <- xml2::read_html(idx)
   h1 <- xml2::xml_text(xml2::xml_find_first(htm, ".//h1"))
-  expect_identical(h1, "NEW Lesson Title")
+  expect_identical(h1, "NEW: Lesson Title")
 })
 
 

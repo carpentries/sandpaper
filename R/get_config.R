@@ -12,5 +12,5 @@ get_config <- function(path) {
   if (!fs::file_exists(cfg)) {
     stop("config file does not exist")
   }
-  yaml::read_yaml(cfg)
+  yaml::read_yaml(cfg, eval.expr = FALSE)
 }

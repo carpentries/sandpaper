@@ -15,18 +15,8 @@
 reset_episodes <- function(path = ".") {
   # FIXME: This needs to change to reset_dropdown and friends.
   check_lesson(path)
-  yaml <- get_config(path)
-  copy_template("config", path, "config.yaml",
-    values = list(
-      title      = yaml$title,
-      carpentry  = yaml$carpentry,
-      life_cycle = yaml$life_cycle,
-      license    = yaml$license,
-      source     = yaml$source,
-      branch     = yaml$branch,
-      contact    = yaml$contact,
-      NULL
-    )
-  )
+  yaml <- quote_config_items(get_config(path))
+  copy_template("config", path, "config.yaml", 
+    values = yaml[names(yaml) != "episodes"])
   invisible(NULL)
 }

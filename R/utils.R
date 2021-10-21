@@ -57,7 +57,7 @@ create_site_readme <- function(path) {
 }
 
 create_description <- function(path) {
-  yaml <- yaml::read_yaml(path_config(path))
+  yaml <- yaml::read_yaml(path_config(path), eval.expr = FALSE)
   the_author <- paste(gert::git_signature_default(path), "[aut, cre]")
   the_author <- utils::as.person(the_author)
   desc <- desc::description$new("!new")
@@ -93,74 +93,6 @@ varnish_vars <- function() {
   )
 }
 
-create_pkgdown_yaml <- function(path) {
-  # The user does not interact with this and {{mustache}} is logic-less, so we
-  # can be super-verbose here and create any logic we need on the R-side.
-  usr <- yaml::read_yaml(path_config(path))
-  yaml <- get_yaml_text(template_pkgdown())
-  yaml <- whisker::whisker.render(yaml, 
-    data = list(
-      # Basic information
-      version = utils::packageVersion("sandpaper"),
-      config  = path_config(path),
-      title   = usr$title,
-      time    = UTC_timestamp(Sys.time()),
-      source  = usr$source,
-      branch  = usr$branch,
-      contact = usr$contact,
-      # What carpentry are we dealing with?
-      carpentry_name = which_carpentry(usr$carpentry),
-      carpentry      = usr$carpentry,
-      cp             = usr$carpentry == 'cp',
-      lc             = usr$carpentry == 'lc',
-      dc             = usr$carpentry == 'dc',
-      swc            = usr$carpentry == 'swc',
-      # Should we display a lifecycle banner?
-      life_cycle = if (usr$life_cycle == "stable")    "~"  else usr$life_cycle,
-      pre_alpha  = if (usr$life_cycle == "pre-alpha") TRUE else "~",
-      alpha      = if (usr$life_cycle == "alpha")     TRUE else "~",
-      beta       = if (usr$life_cycle == "beta")      TRUE else "~",
-      NULL     
-    )
-  )
-  structure(yaml::yaml.load(yaml), header = get_information_header(yaml))
-}
-
-update_site_timestamp <- function(path) {
-  yaml <- get_path_site_yaml(path) 
-  yaml$template$params$time <- Sys.time()
-  write_pkgdown_yaml(yaml, path)
-}
-
-get_navbar_info <- function(i) {
-  txt <- yaml::yaml.load(politely_get_yaml(i))$title
-  list(
-    pagetitle = txt,
-    text  = txt,
-    href  = as_html(i)
-  )
-}
-
-site_menu <- function(yaml, files = NULL, position = 3L) {
-  if (is.null(files) || length(files) == 0L) return(yaml)
-  res <- lapply(files, get_navbar_info)
-  yaml$navbar$left[[position]]$menu <- unname(res)
-  yaml
-}
-
-
-# Take a list of episodes and update the yaml configuration. 
-# TODO: This implementation needs to change!!!
-update_site_menu <- function(path, 
-  episodes = NULL, learners = NULL, instructors = NULL, profiles = NULL) {
-  yaml <- get_path_site_yaml(path) 
-  # NOTE: change tests/testthat/test-set_dropdown.R
-  yaml <- site_menu(yaml, episodes,    2L)
-  yaml <- site_menu(yaml, learners,    3L)
-  yaml <- site_menu(yaml, instructors, 4L)
-  yaml <- site_menu(yaml, profiles,    5L)
-  write_pkgdown_yaml(yaml, path)
-}
 
 copy_assets <- function(src, dst) {
   # Do not take markdown files.

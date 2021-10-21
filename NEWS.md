@@ -1,3 +1,12 @@
+# sandpaper 0.0.0.9061
+
+BUG FIX
+-------
+
+* lessons with colons in the title are now correctly processed (@zkamvar, #192)
+* code injection in yaml is now protected against by setting `eval.expr = FALSE`
+  in all yaml parsing calls.
+
 # sandpaper 0.0.0.9060
 
 BUG FIX
