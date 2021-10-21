@@ -34,15 +34,19 @@ politely_get_yaml <- function(path) {
 
 siQuote <- function(string) {
   string <- as.character(string)
-  ok <- startsWith(string, "'") && endsWith(string, "'")
+  empty <- length(string) == 0 || identical(string, "")
+  ok <- !empty && (
+    startsWith(string, "'") && endsWith(string, "'") ||
+    startsWith(string, '"') && endsWith(string, '"')
+  )
   if (ok) {
     string
-  } else if (!length(string)) {
+  } else if (empty) {
     ""
   } else if (!any(grepl("'", string))) {
     paste0("'", string, "'")
   } else {
-    paste0('"', gsub("(?<![\\\\])[\"])", "\\\"", string), '"')
+    paste0('"', gsub("(?<![\\\\])[\"]", "\\\\\"", string, perl = TRUE), '"')
   }
 }
 
