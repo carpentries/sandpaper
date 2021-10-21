@@ -10,6 +10,14 @@ test_that("template_pkgdown() protects string values", {
   yaml <- get_yaml_text(template_pkgdown())
   # This would normally throw an error
   yaml <- whisker::whisker.render(yaml, data = list(title = "a: b"))
-  expect_match(yaml, "'a: b'")
+  expect_match(yaml, "title: 'a: b'")
+
+})
+
+test_that("template_config() protects string values", {
+  
+  yaml <- get_yaml_text(template_config())
+  yaml <- whisker::whisker.render(yaml, data = list(title = "a: b"))
+  expect_match(yaml, "title: 'a: b'")
 
 })
