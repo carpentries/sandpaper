@@ -105,8 +105,7 @@ yaml_list <- function(thing) {
   thing <- if (length(thing) == 1L && !is.list(thing)) list(thing) else thing
   # If it's named, there's no need to create padding.
   pad <- if (is.list(thing) && length(names(thing)) == 1L) "" else "\n"
-  out <- paste0(pad, trimws(yaml::as.yaml(thing)))
-  return(out)
+  paste0(pad, trimws(yaml::as.yaml(thing)))
 }
 
 get_information_header <- function(yaml) {
