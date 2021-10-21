@@ -133,10 +133,10 @@ update_site_timestamp <- function(path) {
 }
 
 get_navbar_info <- function(i) {
-  txt <- yaml::yaml.load(politely_get_yaml(i))$title
+  txt <- yaml::yaml.load(politely_get_yaml(i), eval.expr = FALSE)$title
   list(
-    pagetitle = shQuote(txt),
-    text  = shQuote(txt),
+    pagetitle = txt,
+    text  = txt,
     href  = as_html(i)
   )
 }
