@@ -60,7 +60,7 @@ build_episode_html <- function(path_md, path_src = NULL,
                                pkg, quiet = FALSE) {
   home <- root_path(path_md)
   body <- render_html(path_md, quiet = quiet)
-  yaml <- yaml::yaml.load(politely_get_yaml(path_md))
+  yaml <- yaml::yaml.load(politely_get_yaml(path_md), eval.expr = FALSE)
   path_src <- if (is.null(path_src)) yaml[["sandpaper-source"]] else path_src
   pkgdown::render_page(pkg, 
     "title-body",
