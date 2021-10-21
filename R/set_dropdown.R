@@ -34,8 +34,8 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
   if (any(!order %in% real_files)) {
     error_missing_config(order, real_files, folder)
   }
-  yaml  <- get_config(path)
-  sched <- yaml[[folder]] 
+  yaml  <- quote_config_items(get_config(path))
+  sched <- yaml[[folder]]
   sched <- if (is.null(sched) && folder == "episodes") yaml[["schedule"]] else sched
   sched_folders <- c("episodes", "learners", "instructors", "profiles")
   if (folder %in% sched_folders) {
