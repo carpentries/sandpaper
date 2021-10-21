@@ -1,8 +1,9 @@
 #' Create a code handout of challenges without solutions
 #'
 #' @param path the path to the lesson. Defaults to current working directory
-#' @return 
+#' @return NULL
 build_handout <- function(path = ".") {
+  path <- root_path(path)
   lesson <- this_lesson(path)
   tmp <- fs::file_temp(ext = "R")
   tryCatch({
