@@ -11,7 +11,7 @@ test_that("lessons can be created in empty directories", {
 
   expect_false(fs::dir_exists(tmp))
   suppressMessages({expect_message({
-    res <- create_lesson(tmp, rstudio = TRUE, open = TRUE)
+    res <- create_lesson(tmp, name = "BRAND NEW LESSON", rstudio = TRUE, open = TRUE)
   }, "Setting active project to")})
   tmp <- normalizePath(tmp)
   expect_false(wd == fs::path(normalizePath(getwd())))
@@ -47,7 +47,7 @@ test_that("All template files exist", {
   expect_true(fs::dir_exists(fs::path(tmp, "learners")))
   expect_true(fs::dir_exists(fs::path(tmp, "profiles")))
   expect_true(fs::file_exists(fs::path(tmp, "README.md")))
-  expect_match(readLines(fs::path(tmp, "README.md"))[1], "lesson-init-example", fixed = TRUE) 
+  expect_match(readLines(fs::path(tmp, "README.md"))[1], "BRAND NEW LESSON", fixed = TRUE) 
   expect_true(fs::file_exists(fs::path(tmp, "site", "README.md")))
   expect_true(fs::file_exists(fs::path(tmp, "site", "DESCRIPTION")))
   expect_true(fs::file_exists(fs::path(tmp, "site", "_pkgdown.yaml")))
@@ -67,6 +67,10 @@ test_that("Templated files are correct", {
     readLines(template_episode())
   )
   
+})
+
+test_that("Lesson title is correctly configured", {
+  expect_equal(get_config(tmp)$title, "BRAND NEW LESSON")
 })
 
 test_that("The site/ directory is ignored by git", {

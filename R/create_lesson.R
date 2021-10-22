@@ -46,7 +46,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   account <- tryCatch(gh::gh_whoami()$login, error = function(e) "carpentries")
   copy_template("config", path, "config.yaml",
     values = list(
-      title      = "Lesson Title",
+      title      = if (is.null(match.call()$name)) "Lesson Title" else siQuote(name),
       carpentry  = "cp",
       life_cycle = "pre-alpha",
       license    = "CC-BY 4.0",

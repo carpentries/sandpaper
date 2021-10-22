@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9062
+
+BUG FIX
+-------
+
+* New lessons that specify custom titles will have them reflected in the config
+  file (@zkamvar, #195).
+
 # sandpaper 0.0.0.9061
 
 BUG FIX
