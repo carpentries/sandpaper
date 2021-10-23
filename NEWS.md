@@ -1,3 +1,12 @@
+# sandpaper 0.0.0.9063
+
+BUG FIX
+-------
+
+* The package cache can now be built from external {renv} environments
+  (@zkamvar, #197).
+
+
 # sandpaper 0.0.0.9062
 
 BUG FIX

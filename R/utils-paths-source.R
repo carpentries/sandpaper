@@ -100,7 +100,7 @@ get_resource_list <- function(path, trim = FALSE, subfolder = NULL, warn = FALSE
     wd <- getwd()
     on.exit(setwd(wd), add = TRUE)
     setwd(root)
-    res <- c(res, renv::paths$lockfile())
+    res <- c(res, renv::paths$lockfile(project = root))
   }
 
   # Split the files into a list.

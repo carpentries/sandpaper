@@ -6,7 +6,7 @@ renv_burn_it_down <- function(path = ".", profile = "lesson-requirements") {
     wd <- getwd()
     # Reset everything on exit
     on.exit(setwd(wd), add = TRUE)
-    unlink(renv::paths$library(), recursive = TRUE, force = TRUE)
+    unlink(renv::paths$library(project = path), recursive = TRUE, force = TRUE)
     unlink(renv::paths$cache(), recursive = TRUE, force = TRUE)
     unlink(renv::paths$root(), recursive = TRUE, force = TRUE)
   },
@@ -48,9 +48,9 @@ renv_lockfile_hash <- function(path, db_path, profile = "lesson-requirements") {
   on.exit(Sys.setenv(RENV_PROFILE = rp), add = TRUE)
   Sys.setenv(RENV_PROFILE = profile)
   # old_hash can be length zero here if the file or hash doesn't exist
-  old_hash <- get_hash(renv::paths$lockfile(), db = db_path)
+  old_hash <- get_hash(renv::paths$lockfile(project = path), db = db_path)
   # md5sum can be NA here if the file doesn't exist
-  new_hash <- tools::md5sum(renv::paths$lockfile())
+  new_hash <- tools::md5sum(renv::paths$lockfile(project = path))
   return(list(old = old_hash, new = new_hash))
 }
 
@@ -220,8 +220,8 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   setwd(path)
   options(repos = repos)
   options(renv.config.user.profile = FALSE)
-  renv_lib  <- renv::paths$library()
-  renv_lock <- renv::paths$lockfile()
+  renv_lib  <- renv::paths$library(project = path)
+  renv_lock <- renv::paths$lockfile(project = path)
   # Steps to update a {renv} environment regardless of whether or not the user
   # has initiated {renv} in the first place
   #
