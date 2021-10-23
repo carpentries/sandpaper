@@ -112,7 +112,7 @@ update_cache <- function(path = ".", profile = "lesson-requirements", prompt = i
   }, add = TRUE)
   Sys.setenv("RENV_PROFILE" = profile)
   renv::load(project = path)
-  lib <- renv::paths$library()
+  lib <- renv::paths$library(project = path)
   has_cli <- requireNamespace("cli", quietly = TRUE)
   if (prompt) {
     updates <- renv::update(library = lib, check = TRUE, prompt = TRUE)
@@ -132,7 +132,7 @@ update_cache <- function(path = ".", profile = "lesson-requirements", prompt = i
   }
   updates <- renv::update(library = lib, prompt = FALSE)
   if (snapshot) {
-    renv::snapshot(lockfile = renv::paths$lockfile(), prompt = FALSE)
+    renv::snapshot(lockfile = renv::paths$lockfile(project = path), prompt = FALSE)
   }
   updates
 }
@@ -165,6 +165,6 @@ pin_version <- function(records = NULL, profile = "lesson-requirements", path = 
   })
   setwd(path)
   Sys.setenv("RENV_PROFILE" = profile)
-  lockfile <- renv::paths$lockfile()
+  lockfile <- renv::paths$lockfile(project = path)
   renv::record(records, lockfile = lockfile, project = path)
 }
