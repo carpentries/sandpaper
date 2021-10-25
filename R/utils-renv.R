@@ -127,8 +127,8 @@ renv_setup_profile <- function(path = ".", profile = "lesson-requirements") {
     wd <- getwd()
     on.exit(setwd(wd))
     setwd(path)
-    renv::init(bare = TRUE, restart = FALSE, profile = profile)
-    renv::deactivate()
+    renv::init(project = path, bare = TRUE, restart = FALSE, profile = profile)
+    renv::deactivate(project = path)
   },
   args = list(path = path, profile = profile),
   show = TRUE,
@@ -234,7 +234,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
     # previously exist in the library, because otherwise, we end up trying to
     # install packages that we should be able to install with renv::restore().
     installed <- utils::installed.packages(lib.loc = renv_lib)[, "Package"]
-    deps <- unique(renv::dependencies(root = path, dev = TRUE)$Package)
+    deps <- unique(renv::dependencies(path = path, root = path, dev = TRUE)$Package)
     pkgs <- setdiff(deps, installed)
     needs_hydration <- length(pkgs) > 0
   } else {
@@ -244,19 +244,21 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   }
   #nocov end
   if (needs_hydration) {
-    hydra <- renv::hydrate(packages = pkgs, library = renv_lib, update = FALSE)
+    hydra <- renv::hydrate(packages = pkgs, library = renv_lib, update = FALSE, 
+      project = path)
   }
   # 2. If the lockfile exists, we update the library to the versions that are
   #    recorded.
   if (lockfile_exists) {
     cli::cli_alert("Restoring any dependency versions")
-    res <- renv::restore(library = renv_lib, lockfile = renv_lock, prompt = FALSE)
+    res <- renv::restore(project = path, library = renv_lib, 
+      lockfile = renv_lock, prompt = FALSE)
   }
   if (snapshot) {
     # 3. Load the current profile, unloading it when we exit
-    renv::load()
+    renv::load(project = path)
     on.exit({
-      invisible(utils::capture.output(renv::deactivate(), type = "message"))
+      invisible(utils::capture.output(renv::deactivate(project = path), type = "message"))
       return(snap)
     }, add = TRUE)
     # 4. Snapshot the current state of the library to the lockfile to 

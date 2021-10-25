@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9064
+
+BUG FIX
+-------
+
+* Package discovery now respects the lesson environment, which was unfixed from
+  0.0.0.9063
+
 # sandpaper 0.0.0.9063
 
 BUG FIX
