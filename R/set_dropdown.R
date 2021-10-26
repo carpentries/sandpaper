@@ -75,7 +75,7 @@ set_config <- function(key = NULL, value = NULL, path = ".", write = FALSE) {
   cfg <- path_config(path)
   l <- readLines(cfg)
   what <- vapply(glue::glue("^{key}:"), grep, integer(1), l)
-  line <- glue::glue("{key}: {shQuote(value)}")
+  line <- glue::glue("{key}: {siQuote(value)}")
   if (write) {
     cli::cli_alert_info("Writing to {.file {cfg}}")
     for (i in seq(line)) {
