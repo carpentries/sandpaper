@@ -11,7 +11,7 @@
 \usage{
 set_dropdown(path = ".", order = NULL, write = FALSE, folder)
 
-set_config(key = NULL, value = NULL, path = ".", write = FALSE)
+set_config(pairs = NULL, path = ".", write = FALSE)
 
 set_episodes(path = ".", order = NULL, write = FALSE)
 
@@ -32,9 +32,8 @@ current file.}
 \item{folder}{one of four folders that sandpaper recognises where the files
 listed in \code{order} are located: episodes, learners, instructors, profiles.}
 
-\item{key}{the key for a vector of parameters}
-
-\item{value}{the value matching each key}
+\item{pairs}{a named character vector with keys as the names and the new
+values as the contents}
 }
 \description{
 Set the order of items in a dropdown menu
@@ -44,8 +43,7 @@ Set the order of items in a dropdown menu
 tmp <- tempfile()
 create_lesson(tmp, "test lesson")
 # Change the title and License
-set_config(key = c("title", "license"), 
-  value = c("Absolutely Free Lesson", "CC0"),
+set_config(c(title = "Absolutely Free Lesson", license = "CC0"),
   path = tmp,
   write = TRUE
 )

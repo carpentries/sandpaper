@@ -7,21 +7,25 @@ test_that("set_config() needs equal numbers of inputs", {
 
   # We do not have the named stopifnot in version 3, so we just skip these tests
   skip_if_not(!is.null(R.version$major) && R.version$major > 3)
-  expect_error(set_config(), "key must not be null")
-  expect_error(set_config(key = "a"), "value must not be null")
-  expect_error(set_config(key = "a", value = letters), "number of keys and values must be equal")
+  expect_error(set_config(), "please supply key/value pairs to use")
+  expect_error(set_config("a"), "values must have named keys")
+  val <- "a"
+  names(val) <- NA
+  expect_error(set_config(val), "ALL values must have named keys")
+  names(val) <- " "
+  expect_error(set_config(val), "ALL values must have named keys")
 })
 
 cli::test_that_cli("set_config() will set individual items", {
   expect_snapshot(
-    set_config(c("title", "license"), c("test: title", "CC0"), path = tmp)
+    set_config(list("title" = "test: title", "license" = "CC0"), path = tmp)
   )
 }, config = c("plain"))
 
 cli::test_that_cli("set_config() will write items", {
   fs::file_copy(tcfg, this_cfg, overwrite = TRUE)
   expect_snapshot(
-    set_config(c("title", "license"), c("test: title", "CC0"), path = tmp, write = TRUE),
+    set_config(c("title" = "test: title", "license" = "CC0"), path = tmp, write = TRUE),
     transform = function(s) mask_tmpdir(s, dirname(tmp)))
 })
 
