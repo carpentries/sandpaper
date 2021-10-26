@@ -9,9 +9,6 @@ build_handout(path = ".")
 \arguments{
 \item{path}{the path to the lesson. Defaults to current working directory}
 }
-\value{
-
-}
 \description{
 Create a code handout of challenges without solutions
 }

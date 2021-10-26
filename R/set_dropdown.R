@@ -12,7 +12,13 @@
 #' @examples
 #'
 #' tmp <- tempfile()
-#' create_lesson(tmp)
+#' create_lesson(tmp, "test lesson")
+#' # Change the title and License
+#' set_config(key = c("title", "license"), 
+#'   value = c("Absolutely Free Lesson", "CC0"),
+#'   path = tmp,
+#'   write = TRUE
+#' )
 #' create_episode("using-R", path = tmp)
 #' print(sched <- get_episodes(tmp))
 #' 
@@ -54,6 +60,40 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
     show_changed_yaml(sched, order, yaml, folder)
   }
   invisible()
+}
+
+#' @param key the key for a vector of parameters
+#' @param value the value matching each key
+#' @export
+#' @rdname set_dropdown
+set_config <- function(key = NULL, value = NULL, path = ".", write = FALSE) {
+  stopifnot(
+    "key must not be null" = length(key) > 0,
+    "value must not be null" = length(value) > 0,
+    "number of keys and values must be equal" = length(key) == length(value)
+  )
+  cfg <- path_config(path)
+  l <- readLines(cfg)
+  what <- purrr::map_int(glue::glue("^{key}:"), grep, l)
+  line <- glue::glue("{key}: {shQuote(value)}")
+  if (write) {
+    cli::cli_alert_info("Writing to {.file {cfg}}")
+    purrr::walk2(l[what], line, ~cli::cli_alert("{.code {.x} -> {.y}}"))
+    l[what] <- line
+    writeLines(l, cfg)
+  } else {
+    the_call <- match.call()
+    thm <- cli::cli_div(theme = sandpaper_cli_theme())
+    on.exit(cli::cli_end(thm))
+    purrr::walk2(l[what], line, ~{
+      cli::cli_text(c(cli::col_cyan("- "), cli::style_blurred(.x)))
+      cli::cli_text(c(cli::col_yellow("+ "), .y))
+    })
+    the_call[["write"]] <- TRUE
+    cll <- paste(capture.output(cll), collapse = "\n")
+    cli::cli_alert_info("To save this configuration, use\n{.code {cll}}")
+    return(the_call)
+  }
 }
 
 
