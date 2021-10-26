@@ -79,7 +79,7 @@ set_config <- function(key = NULL, value = NULL, path = ".", write = FALSE) {
   if (write) {
     cli::cli_alert_info("Writing to {.file {cfg}}")
     for (i in seq(line)) {
-      cli::cli_alert("{.code {l[what][i]} -> {line[i]}}")
+      cli::cli_alert("{.code {l[what][i]}} -> {.code {line[i]}}")
     }
     l[what] <- line
     writeLines(l, cfg)
@@ -92,7 +92,7 @@ set_config <- function(key = NULL, value = NULL, path = ".", write = FALSE) {
       cli::cli_text(c(cli::col_yellow("+ "), line[i]))
     }
     the_call[["write"]] <- TRUE
-    cll <- paste(utils::capture.output(cll), collapse = "\n")
+    cll <- paste(utils::capture.output(the_call), collapse = "\n")
     cli::cli_alert_info("To save this configuration, use\n{.code {cll}}")
     return(the_call)
   }
