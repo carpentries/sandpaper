@@ -1,4 +1,29 @@
 tmp <- res <- restore_fixture()
+this_cfg <- fs::path(tmp, "config.yaml")
+tcfg <- tempfile()
+fs::file_copy(this_cfg, tcfg)
+
+test_that("set_config() needs equal numbers of inputs", {
+
+  # We do not have the named stopifnot in version 3, so we just skip these tests
+  skip_if_not(!is.null(R.version$major) && R.version$major > 3)
+  expect_error(set_config(), "key must not be null")
+  expect_error(set_config(key = "a"), "value must not be null")
+  expect_error(set_config(key = "a", value = letters), "number of keys and values must be equal")
+})
+
+cli::test_that_cli("set_config() will set individual items", {
+  expect_snapshot(
+    set_config(c("title", "license"), c("test: title", "CC0"), path = tmp)
+  )
+}, config = c("plain"))
+
+cli::test_that_cli("set_config() will write items", {
+  fs::file_copy(tcfg, this_cfg, overwrite = TRUE)
+  expect_snapshot(
+    set_config(c("title", "license"), c("test: title", "CC0"), path = tmp, write = TRUE),
+    transform = function(s) mask_tmpdir(s, dirname(tmp)))
+})
 
 test_that("schedule is empty by default", {
 
@@ -14,6 +39,7 @@ test_that("schedule is empty by default", {
   expect_equal(cfg[no_episodes], get_config(tmp)[no_episodes])
 
 })
+
 
 test_that("new episodes will not add to the schedule by default", {
 

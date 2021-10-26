@@ -2,6 +2,7 @@
 % Please edit documentation in R/set_dropdown.R
 \name{set_dropdown}
 \alias{set_dropdown}
+\alias{set_config}
 \alias{set_episodes}
 \alias{set_learners}
 \alias{set_instructors}
@@ -9,6 +10,8 @@
 \title{Set the order of items in a dropdown menu}
 \usage{
 set_dropdown(path = ".", order = NULL, write = FALSE, folder)
+
+set_config(key = NULL, value = NULL, path = ".", write = FALSE)
 
 set_episodes(path = ".", order = NULL, write = FALSE)
 
@@ -28,6 +31,10 @@ current file.}
 
 \item{folder}{one of four folders that sandpaper recognises where the files
 listed in \code{order} are located: episodes, learners, instructors, profiles.}
+
+\item{key}{the key for a vector of parameters}
+
+\item{value}{the value matching each key}
 }
 \description{
 Set the order of items in a dropdown menu
@@ -35,7 +42,13 @@ Set the order of items in a dropdown menu
 \examples{
 
 tmp <- tempfile()
-create_lesson(tmp)
+create_lesson(tmp, "test lesson")
+# Change the title and License
+set_config(key = c("title", "license"), 
+  value = c("Absolutely Free Lesson", "CC0"),
+  path = tmp,
+  write = TRUE
+)
 create_episode("using-R", path = tmp)
 print(sched <- get_episodes(tmp))
 

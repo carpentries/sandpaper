@@ -1,3 +1,10 @@
+# sandpaper 0.0.0.9065
+
+NEW FEATURES
+------------
+
+* `set_config()` will set singular items in the configuration file (@zkamvar, #193)
+
 # sandpaper 0.0.0.9064
 
 BUG FIX
