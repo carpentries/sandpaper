@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9064</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9065</span>
       </span>
     </div>
 
@@ -136,6 +136,18 @@
       <small>Source: <a href='https://github.com/carpentries/sandpaper/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="sandpaper-0009065" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9065">
+<a href="#sandpaper-0009065" class="anchor"></a>sandpaper 0.0.0.9065</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>NEW FEATURES</h2>
+<ul>
+<li>
+<code><a href="../reference/set_dropdown.html">set_config()</a></code> will set singular items in the configuration file (<a href='https://github.com/zkamvar'>@zkamvar</a>, <a href='https://github.com/carpentries/sandpaper/issues/193'>#193</a>)</li>
+</ul>
+</div>
+</div>
     <div id="sandpaper-0009064" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9064">
 <a href="#sandpaper-0009064" class="anchor"></a>sandpaper 0.0.0.9064</h1>
@@ -282,9 +294,9 @@
     <div id="sandpaper-0009053" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9053">
 <a href="#sandpaper-0009053" class="anchor"></a>sandpaper 0.0.0.9053</h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>setting <code><a href="https://rdrr.io/r/base/options.html">option(sandpaper.handout = TRUE)</a></code> will create a code handout for R lessons that will live in <code>/files/code-handout.R</code> on your site.</li>
 </ul>
@@ -369,9 +381,9 @@
 </ul>
 </div>
 </div>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>
 <code><a href="../reference/create_lesson.html">create_lesson()</a></code> now additionally will create a {renv} profile called “packages” in the lesson repository if <code><a href="https://rdrr.io/r/base/options.html">getOption('sandpaper.use_renv')</a></code> is <code>TRUE</code>. This will make the lesson more portable.</li>
@@ -605,9 +617,9 @@
     <div id="sandpaper-0009034" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9034">
 <a href="#sandpaper-0009034" class="anchor"></a>sandpaper 0.0.0.9034</h1>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>Authors can now cross-link between files within the lesson as they appear in the lesson instead of trying to guess how the link would appear on the website. For example, if you wanted to reference <code>learners/setup.md</code> in <code>episodes/introduction.md</code>, you would write <code>[setup](../learners/setup.md)</code> and it will be automatically converted to the correct URL in the website (<a href='https://github.com/carpentries/sandpaper/issues/43'>#43</a>). This is still backwards compatible with the previous iteration of writing the flattened link (as it would appear on the website).</li>
 </ul>
@@ -616,9 +628,9 @@
     <div id="sandpaper-0009033" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9033">
 <a href="#sandpaper-0009033" class="anchor"></a>sandpaper 0.0.0.9033</h1>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>
 <code><a href="../reference/get_drafts.html">get_drafts()</a></code> will report any markdown files that are not currently published in the lesson.</li>
@@ -748,9 +760,9 @@
 <code><a href="../reference/build_episode_md.html">build_episode_md()</a></code> now sets the <code>knitr.pandoc.to</code> knit option to allow for the chunk option <code>fig.cap</code> to be rendered as a caption. This fixes <a href='https://github.com/carpentries/sandpaper/issues/114'>#114</a>.</li>
 </ul>
 </div>
-<div id="new-features-4" class="section level2">
+<div id="new-features-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>
 <code><a href="../reference/set_dropdown.html">set_dropdown()</a></code> is now generalized to set any item in the dropdown menu (though this will likely be wrapped into a better-named function for generalized editing).</li>
@@ -835,9 +847,9 @@
     <div id="sandpaper-0009015" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9015">
 <a href="#sandpaper-0009015" class="anchor"></a>sandpaper 0.0.0.9015</h1>
-<div id="new-features-5" class="section level2">
+<div id="new-features-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-6" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>
 <code>fetch_github_workflows()</code> will download and update the GitHub workflows from the Carpentries actions repository.</li>
@@ -867,9 +879,9 @@
     <div id="sandpaper-0009013" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9013">
 <a href="#sandpaper-0009013" class="anchor"></a>sandpaper 0.0.0.9013</h1>
-<div id="new-features-6" class="section level2">
+<div id="new-features-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-6" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-7" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>In RStudio, the <strong>knit button works</strong> <span class="emoji" data-emoji="tada">🎉</span> (fix <a href='https://github.com/carpentries/sandpaper/issues/77'>#77</a>; <a href='https://github.com/zkamvar'>@zkamvar</a>, <a href='https://github.com/carpentries/sandpaper/issues/82'>#82</a>)</li>
 <li>
@@ -886,9 +898,9 @@
     <div id="sandpaper-0009012" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9012">
 <a href="#sandpaper-0009012" class="anchor"></a>sandpaper 0.0.0.9012</h1>
-<div id="new-features-7" class="section level2">
+<div id="new-features-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-7" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-8" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>Inline and reference-based footnotes are now supported.</li>
 </ul>
