@@ -74,23 +74,25 @@ set_config <- function(key = NULL, value = NULL, path = ".", write = FALSE) {
   )
   cfg <- path_config(path)
   l <- readLines(cfg)
-  what <- purrr::map_int(glue::glue("^{key}:"), grep, l)
+  what <- vapply(glue::glue("^{key}:"), grep, integer(1), l)
   line <- glue::glue("{key}: {shQuote(value)}")
   if (write) {
     cli::cli_alert_info("Writing to {.file {cfg}}")
-    purrr::walk2(l[what], line, ~cli::cli_alert("{.code {.x} -> {.y}}"))
+    for (i in seq(line)) {
+      cli::cli_alert("{.code {l[what][i]} -> {line[i]}}")
+    }
     l[what] <- line
     writeLines(l, cfg)
   } else {
     the_call <- match.call()
     thm <- cli::cli_div(theme = sandpaper_cli_theme())
     on.exit(cli::cli_end(thm))
-    purrr::walk2(l[what], line, ~{
-      cli::cli_text(c(cli::col_cyan("- "), cli::style_blurred(.x)))
-      cli::cli_text(c(cli::col_yellow("+ "), .y))
-    })
+    for (i in seq(line)) {
+      cli::cli_text(c(cli::col_cyan("- "), cli::style_blurred(l[what][i])))
+      cli::cli_text(c(cli::col_yellow("+ "), line[i]))
+    }
     the_call[["write"]] <- TRUE
-    cll <- paste(capture.output(cll), collapse = "\n")
+    cll <- paste(utils::capture.output(cll), collapse = "\n")
     cli::cli_alert_info("To save this configuration, use\n{.code {cll}}")
     return(the_call)
   }
