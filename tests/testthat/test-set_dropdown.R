@@ -20,8 +20,7 @@ cli::test_that_cli("set_config() will write items", {
   fs::file_copy(tcfg, this_cfg, overwrite = TRUE)
   expect_snapshot(
     set_config(c("title", "license"), c("test: title", "CC0"), path = tmp, write = TRUE),
-    transform = function(x) gsub(dirname(tmp), "[redacted]", x, fixed = TRUE)
-  )
+    transform = function(s) mask_tmpdir(s, dirname(tmp)))
 })
 
 test_that("schedule is empty by default", {
