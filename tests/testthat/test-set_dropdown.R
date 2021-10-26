@@ -5,6 +5,8 @@ fs::file_copy(this_cfg, tcfg)
 
 test_that("set_config() needs equal numbers of inputs", {
 
+  # We do not have the named stopifnot in version 3, so we just skip these tests
+  skip_if_not(!is.null(R.version$major) && R.version$major > 3)
   expect_error(set_config(), "key must not be null")
   expect_error(set_config(key = "a"), "value must not be null")
   expect_error(set_config(key = "a", value = letters), "number of keys and values must be equal")
