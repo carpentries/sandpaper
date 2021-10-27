@@ -1,3 +1,10 @@
+# sandpaper 0.0.0.9066
+
+API CHANGE
+----------
+
+* `set_config()` now takes a named vector/list instead of a pair of vectors.
+
 # sandpaper 0.0.0.9065
 
 NEW FEATURES

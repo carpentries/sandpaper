@@ -14,8 +14,7 @@
 #' tmp <- tempfile()
 #' create_lesson(tmp, "test lesson")
 #' # Change the title and License
-#' set_config(key = c("title", "license"), 
-#'   value = c("Absolutely Free Lesson", "CC0"),
+#' set_config(c(title = "Absolutely Free Lesson", license = "CC0"),
 #'   path = tmp,
 #'   write = TRUE
 #' )
@@ -62,22 +61,24 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
   invisible()
 }
 
-#' @param key the key for a vector of parameters
-#' @param value the value matching each key
+#' @param pairs a named character vector with keys as the names and the new 
+#'  values as the contents
 #' @export
 #' @rdname set_dropdown
-set_config <- function(key = NULL, value = NULL, path = ".", write = FALSE) {
+set_config <- function(pairs = NULL, path = ".", write = FALSE) {
+  keys <- names(pairs)
+  values <- pairs
   stopifnot(
-    "key must not be null" = length(key) > 0,
-    "value must not be null" = length(value) > 0,
-    "number of keys and values must be equal" = length(key) == length(value)
+    "please supply key/value pairs to use" = length(values) > 0,
+    "values must have named keys" = length(keys) > 0,
+    "ALL values must have named keys" = !anyNA(keys) && !any(trimws(keys) == "")
   )
   cfg <- path_config(path)
   l <- readLines(cfg)
-  what <- vapply(glue::glue("^{key}:"), grep, integer(1), l)
-  line <- character(length(key))
-  for (i in seq(key)) {
-    line[i] <- glue::glue("{key[i]}: {siQuote(value[i])}")
+  what <- vapply(glue::glue("^{keys}:"), grep, integer(1), l)
+  line <- character(length(keys))
+  for (i in seq(keys)) {
+    line[i] <- glue::glue("{keys[[i]]}: {siQuote(values[[i]])}")
   }
   if (write) {
     cli::cli_alert_info("Writing to {.file {cfg}}")
