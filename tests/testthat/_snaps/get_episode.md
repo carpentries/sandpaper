@@ -13,8 +13,8 @@
       expect_error(set_episodes(res, bad, write = TRUE))
     Message <cliMessage>
       episodes:
-      - [34m[34m01-introduction.Rmd[34m[39m
-      - x [1m[1mI-do-not-exist.md[1m[22m
+      - [34m01-introduction.Rmd[39m
+      - x [1mI-do-not-exist.md[22m
 
 # set_episode() will throw an error if an episode does not exist [unicode]
 
@@ -31,8 +31,8 @@
       expect_error(set_episodes(res, bad, write = TRUE))
     Message <cliMessage>
       episodes:
-      - [34m[34m01-introduction.Rmd[34m[39m
-      - ✖ [1m[1mI-do-not-exist.md[1m[22m
+      - [34m01-introduction.Rmd[39m
+      - ✖ [1mI-do-not-exist.md[22m
 
 # get_episode() will throw a message about episode in draft [plain]
 
@@ -77,8 +77,8 @@
       expect_error(get_episodes(res))
     Message <cliMessage>
       episodes:
-      - [34m[34m01-introduction.Rmd[34m[39m
-      - x [1m[1mI-am-an-impostor.md[1m[22m
+      - [34m01-introduction.Rmd[39m
+      - x [1mI-am-an-impostor.md[22m
 
 # get_episode() will throw a warning if an episode in config does not exist [unicode]
 
@@ -95,6 +95,6 @@
       expect_error(get_episodes(res))
     Message <cliMessage>
       episodes:
-      - [34m[34m01-introduction.Rmd[34m[39m
-      - ✖ [1m[1mI-am-an-impostor.md[1m[22m
+      - [34m01-introduction.Rmd[39m
+      - ✖ [1mI-am-an-impostor.md[22m
 
