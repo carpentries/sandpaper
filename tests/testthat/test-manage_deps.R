@@ -119,14 +119,10 @@ test_that("pin_version() will use_specific versions", {
     pin_version("sessioninfo@1.1.0", path = lsn) # old version of sessioninfo
   }, "Updated 1 record in")
 
-
   suppressMessages({
-  (res <- callr_manage_deps(lsn, 
-    repos = renv_carpentries_repos(), 
-    snapshot = TRUE,
-    lockfile_exists = TRUE)) %>%
-    expect_message("Restoring any dependency versions") %>%
-    expect_output("sessioninfo")
+    # sessioninfo 1.2.0 dropped withr and cli as dependencies, so we should
+    # expect them to appear here
+    expect_output(res <- manage_deps(lsn), "withr")
   })
 
   expect_equal(res$Packages$sessioninfo$Version, "1.1.0")
