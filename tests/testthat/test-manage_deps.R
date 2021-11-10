@@ -173,6 +173,7 @@ test_that("update_cache() will update old package versions", {
   
   skip_on_os("windows")
   skip_if_offline()
+  skip_if(covr::in_covr())
 
   suppressMessages({
     res <- update_cache(path = lsn, prompt = FALSE, quiet = FALSE) %>%
