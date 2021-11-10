@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9066</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9067</span>
       </span>
     </div>
 
@@ -195,19 +195,22 @@ keep what we are doing because it's okay for our purposes:
 https://github.com/rstudio/blogdown/issues/560</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span>
-<span class='va'>hx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>hello <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>yaml</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/yaml/man/as.yaml.html'>as.yaml</a></span><span class='op'>(</span><span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># representation in yaml</span>
-</div><div class='output co'>#&gt; hello:
-#&gt; - a
-#&gt; - b
-#&gt; - c</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>whisker</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/whisker/man/whisker.render.html'>whisker.render</a></span><span class='op'>(</span><span class='st'>"hello: {{hello}}"</span>, <span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># messed up whisker</span>
-</div><div class='output co'>#&gt; hello: a,b,c</div><div class='input'><span class='va'>hx</span><span class='op'>[[</span><span class='st'>"hello"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'>sandpaper</span><span class='fu'>:::</span><span class='fu'>yaml_list</span><span class='op'>(</span><span class='va'>hx</span><span class='op'>[[</span><span class='st'>"hello"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>whisker</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/whisker/man/whisker.render.html'>whisker.render</a></span><span class='op'>(</span><span class='st'>"hello: {{hello}}"</span>, <span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># good whisker</span>
-</div><div class='output co'>#&gt; hello: 
-#&gt; - a
-#&gt; - b
-#&gt; - c</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>hx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>hello <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>yaml</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/yaml/man/as.yaml.html'>as.yaml</a></span><span class='op'>(</span><span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># representation in yaml</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> hello:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> - a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> - b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> - c</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>whisker</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/whisker/man/whisker.render.html'>whisker.render</a></span><span class='op'>(</span><span class='st'>"hello: {{hello}}"</span>, <span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># messed up whisker</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> hello: a,b,c</span>
+<span class='r-in'><span class='va'>hx</span><span class='op'>[[</span><span class='st'>"hello"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'>sandpaper</span><span class='fu'>:::</span><span class='fu'>yaml_list</span><span class='op'>(</span><span class='va'>hx</span><span class='op'>[[</span><span class='st'>"hello"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>whisker</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/whisker/man/whisker.render.html'>whisker.render</a></span><span class='op'>(</span><span class='st'>"hello: {{hello}}"</span>, <span class='va'>hx</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># good whisker</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> hello: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> - a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> - b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> - c</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

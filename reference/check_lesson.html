@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9066</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9067</span>
       </span>
     </div>
 
@@ -161,42 +161,54 @@
 error with a list of things to fix.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># Everything should work out of the box</span>
-<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='create_lesson.html'>create_lesson</a></span><span class='op'>(</span><span class='va'>tmp</span>, open <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmpy6BRT</span>…</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> First episode created in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmpy6BRTN/file138e7253292a/episodes/01-introduction.Rmd</span></span></div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmpy6BRT</span>…</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Workflows up-to-date!</span></div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmpy6BRT</span>…</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Lesson successfully created in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmpy6BRTN/file138e7253292a</span></span></div><div class='output co'>#&gt; <span class='message'>→ Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmpy6BRT</span>…</span></div><div class='output co'>#&gt; <span style='color: #0000BB; background-color: #00BB00;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmpy6BRTN/file138e7253292a</span></div><div class='input'><span class='fu'>check_lesson</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
-
-<span class='co'># if things do not work, then an error is thrown with information about </span>
-<span class='co'># what has failed you</span>
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='st'>".gitignore"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='st'>"site"</span><span class='op'>)</span>, recursive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'>check_lesson</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #BB0000;'>!</span> Path '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmpy6BRTN/file138e7253292a/site' does not exist</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #BB0000;'>!</span> The .gitignore file is missing the following elements:</span>
-#&gt; <span class='message'>episodes/*html</span>
-#&gt; <span class='message'>site/*</span>
-#&gt; <span class='message'>!site/README.md</span>
-#&gt; <span class='message'>.Rhistory</span>
-#&gt; <span class='message'>.Rapp.history</span>
-#&gt; <span class='message'>.RData</span>
-#&gt; <span class='message'>.Ruserdata</span>
-#&gt; <span class='message'>*-Ex.R</span>
-#&gt; <span class='message'>/*.tar.gz</span>
-#&gt; <span class='message'>/*.Rcheck/</span>
-#&gt; <span class='message'>.Rproj.user/</span>
-#&gt; <span class='message'>vignettes/*.html</span>
-#&gt; <span class='message'>vignettes/*.pdf</span>
-#&gt; <span class='message'>.httr-oauth</span>
-#&gt; <span class='message'>*_cache/</span>
-#&gt; <span class='message'>/cache/</span>
-#&gt; <span class='message'>*.utf8.md</span>
-#&gt; <span class='message'>*.knit.md</span>
-#&gt; <span class='message'>.Renviron</span>
-#&gt; <span class='message'>docs/</span>
-#&gt; <span class='message'>po/*~</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #BB0000;'>!</span> The file 'site/README.md' does not exist</span></div><div class='output co'>#&gt; Error in report_validation(checklist, "There were errors with the lesson structure.") : 
-#&gt;   There were errors with the lesson structure.</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># Everything should work out of the box</span></span>
+<span class='r-in'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='create_lesson.html'>create_lesson</a></span><span class='op'>(</span><span class='va'>tmp</span>, open <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> → Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpwwWHu</span>…</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> First episode created in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpwwWHuY/file40e23415964/episodes/01-introduction.Rmd</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> → Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpwwWHu</span>…</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Workflows up-to-date!</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> → Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpwwWHu</span>…</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> Lesson successfully created in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpwwWHuY/file40e23415964</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> → Creating Lesson in <span style='color: #0000BB;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpwwWHu</span>…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB; background-color: #00BB00;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpwwWHuY/file40e23415964</span></span>
+<span class='r-in'><span class='fu'>check_lesson</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># if things do not work, then an error is thrown with information about </span></span>
+<span class='r-in'><span class='co'># what has failed you</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='st'>".gitignore"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>tmp</span>, <span class='st'>"site"</span><span class='op'>)</span>, recursive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'>check_lesson</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>!</span> Path '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpwwWHuY/file40e23415964/site' does not exist</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>!</span> The .gitignore file is missing the following elements:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> episodes/*html</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> site/*</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> !site/README.md</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> .Rhistory</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> .Rapp.history</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> .RData</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> .Ruserdata</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> *-Ex.R</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> /*.tar.gz</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> /*.Rcheck/</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> .Rproj.user/</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> vignettes/*.html</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> vignettes/*.pdf</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> .httr-oauth</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> *_cache/</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> /cache/</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> *.utf8.md</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> *.knit.md</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> .Renviron</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> docs/</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> po/*~</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>!</span> The file 'site/README.md' does not exist</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Error in report_validation(checklist, "There were errors with the lesson structure.") : </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   There were errors with the lesson structure.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

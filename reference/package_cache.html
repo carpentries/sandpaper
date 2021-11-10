@@ -89,7 +89,7 @@ The above function is best used in conjunction with update_cache()" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9066</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9067</span>
       </span>
     </div>
 
@@ -204,7 +204,7 @@ The default is <code>NULL</code>, which does nothing.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>nothing. this is used for its side-effect</p>
-<p>the value of <code><a href='https://rdrr.io/r/base/options.html'>getOption("sandpaper.package_cache_trigger")</a></code> or
+<p>the value of <code>getOption("sandpaper.package_cache_trigger")</code> or
 <code>FALSE</code>, if it is unset.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -245,7 +245,7 @@ library instead.</p>
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>I have used <span class="pkg">renv</span> before; how do I turn it off before sandpaper loads?</h3>
 
 
-<p>You can set <code><a href='https://rdrr.io/r/base/options.html'>options(sandpaper.use_renv = FALSE)</a></code> before loading sandpaper.</p>
+<p>You can set <code>options(sandpaper.use_renv = FALSE)</code> before loading sandpaper.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -253,27 +253,27 @@ library instead.</p>
 inside the package cache.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"sandpaper.use_renv"</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='co'># The first time you set up {renv}, you will need permission</span>
-  <span class='fu'>use_package_cache</span><span class='op'>(</span>prompt <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-  <span class='co'># The package cache trigger is FALSE, by default</span>
-  <span class='va'>default</span> <span class='op'>&lt;-</span> <span class='fu'>package_cache_trigger</span><span class='op'>(</span><span class='op'>)</span>
-  <span class='co'># You can set this to `TRUE` when you update packages with `update_cache()`</span>
-  <span class='fu'>package_cache_trigger</span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span>
-  <span class='co'># set the trigger back to its former state</span>
-  <span class='fu'>package_cache_trigger</span><span class='op'>(</span><span class='va'>default</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"sandpaper.use_renv"</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='co'># If you have previously used {renv}, permission is implied</span>
-  <span class='fu'>use_package_cache</span><span class='op'>(</span>prompt <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
-  <span class='co'># You can temporarily turn this off</span>
-  <span class='fu'>no_package_cache</span><span class='op'>(</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"sandpaper.use_renv"</span><span class='op'>)</span> <span class='co'># should be FALSE</span>
-  <span class='fu'>use_package_cache</span><span class='op'>(</span>prompt <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"sandpaper.use_renv"</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='co'># The first time you set up {renv}, you will need permission</span></span>
+<span class='r-in'>  <span class='fu'>use_package_cache</span><span class='op'>(</span>prompt <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='co'># The package cache trigger is FALSE, by default</span></span>
+<span class='r-in'>  <span class='va'>default</span> <span class='op'>&lt;-</span> <span class='fu'>package_cache_trigger</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='co'># You can set this to `TRUE` when you update packages with `update_cache()`</span></span>
+<span class='r-in'>  <span class='fu'>package_cache_trigger</span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='co'># set the trigger back to its former state</span></span>
+<span class='r-in'>  <span class='fu'>package_cache_trigger</span><span class='op'>(</span><span class='va'>default</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"sandpaper.use_renv"</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='co'># If you have previously used {renv}, permission is implied</span></span>
+<span class='r-in'>  <span class='fu'>use_package_cache</span><span class='op'>(</span>prompt <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='co'># You can temporarily turn this off</span></span>
+<span class='r-in'>  <span class='fu'>no_package_cache</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"sandpaper.use_renv"</span><span class='op'>)</span> <span class='co'># should be FALSE</span></span>
+<span class='r-in'>  <span class='fu'>use_package_cache</span><span class='op'>(</span>prompt <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
