@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9067
+
+BUG FIX
+-------
+
+* A situation where git would fail if it could not remove everything was fixed
+  (#206, @zkamvar)
+
 # sandpaper 0.0.0.9066
 
 API CHANGE
