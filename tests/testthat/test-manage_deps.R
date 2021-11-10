@@ -119,6 +119,10 @@ test_that("pin_version() will use_specific versions", {
     pin_version("sessioninfo@1.1.0", path = lsn) # old version of sessioninfo
   }, "Updated 1 record in")
 
+  # Need to consider this because there is something happening inside of covr
+  # that might make provisioning packages a tricky business.
+  skip_if(covr::in_covr())
+
   suppressMessages({
     # sessioninfo 1.2.0 dropped withr and cli as dependencies, so we should
     # expect them to appear here
