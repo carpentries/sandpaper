@@ -1,3 +1,13 @@
+# sandpaper 0.0.0.9067
+
+BUG FIX
+-------
+
+* A situation where git would fail if it could not remove everything was fixed
+  (#206, @zkamvar)
+* Addressed CLI failures due to glue version 1.5.0
+  (https://github.com/r-lib/cli/issues/370#issuecomment-965496848)
+
 # sandpaper 0.0.0.9066
 
 API CHANGE

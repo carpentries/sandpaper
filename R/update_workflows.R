@@ -17,10 +17,6 @@
 #' @export
 update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, clean = "*.yaml", quiet = FALSE) {
 
-  if (!pingr::is_online()) {
-    stop("This function requires an internet connection.")
-  }
-
   wf <- fs::path(path, ".github", "workflows")
   version_file <- fs::path(wf, "sandpaper-version.txt")
   this_version <- package_version(utils::packageDescription("sandpaper")$Version)

@@ -119,14 +119,14 @@ test_that("pin_version() will use_specific versions", {
     pin_version("sessioninfo@1.1.0", path = lsn) # old version of sessioninfo
   }, "Updated 1 record in")
 
+  # Need to consider this because there is something happening inside of covr
+  # that might make provisioning packages a tricky business.
+  skip_if(covr::in_covr())
 
   suppressMessages({
-  (res <- callr_manage_deps(lsn, 
-    repos = renv_carpentries_repos(), 
-    snapshot = TRUE,
-    lockfile_exists = TRUE)) %>%
-    expect_message("Restoring any dependency versions") %>%
-    expect_output("sessioninfo")
+    # sessioninfo 1.2.0 dropped withr and cli as dependencies, so we should
+    # expect them to appear here
+    expect_output(res <- manage_deps(lsn), "withr")
   })
 
   expect_equal(res$Packages$sessioninfo$Version, "1.1.0")
@@ -173,6 +173,7 @@ test_that("update_cache() will update old package versions", {
   
   skip_on_os("windows")
   skip_if_offline()
+  skip_if(covr::in_covr())
 
   suppressMessages({
     res <- update_cache(path = lsn, prompt = FALSE, quiet = FALSE) %>%

@@ -15,6 +15,8 @@ check_pandoc <- function(quiet = TRUE, pv = "2.11", rv = "1.4") {
   is_test <- identical(Sys.getenv("TESTTHAT"), "true")
   pandir <- if (!is_test) pan$dir else "[path masked for testing]"
   panver <- if (!is_test) pan$version else "[version masked for testing]"
+  rs_url <- "https://www.rstudio.com/products/rstudio/download/#download"
+  pd_url <- "https://pandoc.org/installing.html"
   if (rmarkdown::pandoc_available(pv)) {
     if (!quiet) {
       thm <- cli::cli_div(theme = sandpaper_cli_theme())
@@ -37,18 +39,15 @@ check_pandoc <- function(quiet = TRUE, pv = "2.11", rv = "1.4") {
       if (rs_ver < rv) {
         install_msg <- paste(
           "Please update your version of RStudio Desktop to version", 
-          "{.field {rv}} or higher:",
-          "{.url https://www.rstudio.com/products/rstudio/download/#download}"
+          "{.field {rv}} or higher: {.url {rs_url}}"
         )
       } else {
         # RStudio version 1.4 comes with pandoc 2.11.4, so this should not be
         # possible.
-        install_msg <- paste("Please visit {.url https://pandoc.org/installing.html}",
-          "to install the latest version.")
+        install_msg <- "Please visit {.url {pd_url}} to install the latest version."
       }
     } else {
-      install_msg <- paste("Please visit {.url https://pandoc.org/installing.html}",
-        "to install the latest version.")
+      install_msg <- "Please visit {.url {pd_url}} to install the latest version."
     }
 
     thm <- cli::cli_div(theme = sandpaper_cli_theme())

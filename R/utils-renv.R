@@ -257,6 +257,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   if (snapshot) {
     # 3. Load the current profile, unloading it when we exit
     renv::load(project = path)
+    snap <- NULL
     on.exit({
       invisible(utils::capture.output(renv::deactivate(project = path), type = "message"))
       return(snap)
