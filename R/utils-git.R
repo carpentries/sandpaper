@@ -33,11 +33,7 @@ git_fetch_one_branch <- function(remote, branch, repo = ".") {
 
 git_clean_everything <- function(repo = ".") {
   withr::with_dir(repo, {
-    tryCatch(git("rm", "-rf", "--quiet", "."),
-      error = function(e) {
-        if (!grepl("did not match any files", e$message)) stop(e)
-        NULL
-      })
+    tryCatch(git("rm", "-rf", "--quiet", "."), eror = function(e) NULL)
   })
 }
 
