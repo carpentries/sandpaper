@@ -1,3 +1,16 @@
+# sandpaper 0.0.0.9068
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* Workflows have been updated to use `ubuntu-latest` instead of `macOS-11`.
+  The macOS runners were often ~ 1 minute faster than the ubuntu runners, but
+  the tradeoff was potential failures when packages were not available as
+  binary versions and would need compilation with external C libraries (along
+  with runs failing due to brew timeouts). This update coincides with an update
+  for the github actions, which will now check and install the ubuntu
+  dependencies before updating/installing packages. (@zkamvar, #184)
+
 # sandpaper 0.0.0.9067
 
 BUG FIX
