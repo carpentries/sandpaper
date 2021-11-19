@@ -20,10 +20,10 @@ on:
 jobs:
   full-build:
     name: "Build Full Site"
-    runs-on: macOS-11
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RENV_PATHS_ROOT: ~/Library/Application Support/renv
+      RENV_PATHS_ROOT: ~/.local/share/renv/
     steps:
 
       - name: "Checkout Lesson"
@@ -31,6 +31,8 @@ jobs:
 
       - name: "Set up R"
         uses: r-lib/actions/setup-r@v1
+        with:
+          use-public-rspm: true
 
       - name: "Set up Pandoc"
         uses: r-lib/actions/setup-pandoc@v1

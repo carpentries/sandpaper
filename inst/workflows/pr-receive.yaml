@@ -22,11 +22,11 @@ jobs:
   build-md-source:
     name: "Build markdown source files"
     needs: test-pr
-    runs-on: macOS-11
+    runs-on: ubuntu-latest
     if: ${{ needs.test-pr.outputs.is_valid == 'true' }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RENV_PATHS_ROOT: ~/Library/Application Support/renv
+      RENV_PATHS_ROOT: ~/.local/share/renv/
       CHIVE: ${{ github.workspace }}/site/chive
       PR: ${{ github.workspace }}/site/pr
       MD: ${{ github.workspace }}/site/built

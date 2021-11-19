@@ -84,10 +84,10 @@ jobs:
     name: "Update Package Cache"
     needs: check_token
     if: ${{ needs.check_token.outputs.repo== 'true' }}
-    runs-on: macOS-11
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RENV_PATHS_ROOT: ~/Library/Application Support/renv
+      RENV_PATHS_ROOT: ~/.local/share/renv/
     steps:
 
       - name: "Checkout Lesson"
