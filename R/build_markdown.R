@@ -101,8 +101,10 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
         quiet   = quiet
       )
     }
-    if (getOption("sandpaper.handout", default = FALSE)) {
-      build_handout(path)
+    handout <- getOption("sandpaper.handout", default = FALSE)
+    should_build_handout <- !isFALSE(handout)
+    if (should_build_handout) {
+      build_handout(path, out = handout)
     }
   } else {
     if (!quiet) {

@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9069
+
+MISC
+----
+
+* `build_handout()` is now an officially exported function.
+* The pkgdown documentation has been updated
+
 # sandpaper 0.0.0.9068
 
 CONTINUOUS INTEGRATION

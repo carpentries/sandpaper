@@ -1,3 +1,18 @@
+#' (INTERNAL) Build and deploy the site with continous integration
+#'
+#' @param path path to the lesson
+#' @param branch the branch name that contains the full HTML site
+#' @param md the branch name that contains the markdown outputs
+#' @param remote the name of the git remote to which you should deploy.
+#' @return NOTHING
+#'
+#' @note this function is not for interactive use. It requires git to be
+#'   installed on your machine and will destroy anything you have in the
+#'   `site/` folder. Additionally, this will set the `sandpaper.use_renv`
+#'   option to TRUE, which means that it will _always_ use the {renv} 
+#'   package cache.
+#'
+#' @keywords internal
 ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", remote = "origin") {
 
   # step 0: build_lesson defaults to a local build
