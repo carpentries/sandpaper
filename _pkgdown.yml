@@ -30,6 +30,8 @@ reference:
    - get_episodes
    - set_episodes
    - get_syllabus
+   - reset_episodes
+   - reset_site
  - title: "The Pacakge Cache"
    desc: >
      Lessons with generated content (R Markdown lessons) have an extra file 
@@ -64,6 +66,7 @@ reference:
      Individual components to provision files and build a lesson locally
  - contents:
    - this_lesson
+   - build_handout
    - build_markdown
    - build_site
    - build_episode_md
@@ -78,7 +81,7 @@ reference:
    - get_built_db
    - get_hash
    - get_resource_list
-   - template
+   - template_episode
    - yaml_list
  - title: "[Developer] Lesson Test Fixture"
    desc: >

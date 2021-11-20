@@ -4,11 +4,18 @@
 \alias{build_handout}
 \title{Create a code handout of challenges without solutions}
 \usage{
-build_handout(path = ".")
+build_handout(path = ".", out = getOption("sandpaper.handout", NULL))
 }
 \arguments{
 \item{path}{the path to the lesson. Defaults to current working directory}
+
+\item{out}{the path to the handout document. When this is \code{NULL} (default)
+or \code{TRUE}, the output will be \code{site/built/files/code-handout.R}.}
 }
 \description{
-Create a code handout of challenges without solutions
+This function will build a handout and save it to \code{files/code-handout.R}
+in your lesson website. This will build with your website if you enable it
+with \code{options(sandpaper.handout = TRUE)} or if you want to specify a path,
+you can use \code{options(sandpaper.handout = "/path/to/handout.R")} to save the
+handout to a specific path.
 }
