@@ -103,7 +103,11 @@ copy_assets <- function(src, dst) {
 
   # Copy either directories or files.
   if (fs::is_dir(src) && fs::path_file(src) != ".git") {
-    fs::dir_copy(src, dst, overwrite = TRUE)
+    tryCatch(fs::dir_copy(src, dst, overwrite = TRUE), error = function (e) {
+      rel <- fs::path_common(c(src, dst))
+      pth <- fs::path_rel(src, rel)
+      cli::cli_alert_warning("There was an issue copying {.file {pth}}:\n{e$message}")
+    })
   } else if (fs::is_file(src) && fs::path_file(src) != ".git") {
     fs::file_copy(src, dst, overwrite = TRUE)
   } else if (fs::path_file(src) == ".git") {

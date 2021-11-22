@@ -4,3 +4,15 @@ test_that("null pipe works", {
   expect_equal(NA_character_ %||% LETTERS, NA_character_)
 })
 
+
+test_that("copy assets will fail gracefully", {
+
+
+  skip("I have no clue why this is only working some of the time :weary:")
+  tmpdir <- fs::file_temp()
+  withr::defer(fs::dir_delete(c(tmpdir)))
+  fs::dir_create(tmpdir)
+  expect_message(copy_assets(getOption("sandpaper.test_fixture"), tmpdir), 
+    "There was an issue copying")
+
+})
