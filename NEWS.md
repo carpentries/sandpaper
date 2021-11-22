@@ -4,7 +4,7 @@ BUG FIX
 -------
 
  * Lessons that have readonly zlib compressed files (read: git objects) can now
-   have their websites built.
+   have their websites built. (@zkamvar, #214)
 
 # sandpaper 0.0.0.9069
 
