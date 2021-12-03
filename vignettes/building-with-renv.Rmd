@@ -25,10 +25,8 @@ content in the following ways:
 - *reliable setup*: the version of the lesson built on the carpentries website
   will be the same as what you build on your computer because the packages will
   be identical
-
 - *environmentally friendly*: The lesson dependencies are NOT stored in your
   default R library and they will not alter your R environment.
-
 - *transparent*: any additions or deletions to the cache will be recorded in
   the lockfile, which is tracked by git.
 
@@ -167,7 +165,7 @@ A cat can’t climb head first down a tree because every claw on a cat’s paw p
 
 
 
-### Temporarily turning off the cache
+### Temporarily Turning Off the Cache
 
 There are times when you might want to not use the cache for a lesson. To do 
 this you can use `no_package_cache()` and your lesson will default to using
@@ -321,7 +319,7 @@ cache.
 
 If you want to pin a package to a specific version, read on.
 
-## Pinning specific package versions
+## Pinning Specific Package Versions
 
 To pin a specific package version (e.g. the newest version has breaking changes
 you want to work on before release), you can use the `pin_version()` function.
@@ -334,7 +332,7 @@ pin_version("cowsay@0.7.0")
 This will record the package in the lockfile so that the next time 
 `manage_deps()` runs, it will use the correct version.
 
-## Updating the cache
+## Updating the Cache
 
 If you want to update the packages in the package cache, you can use the
 function `fetch_updates()`. This requires an internet connection and will scan

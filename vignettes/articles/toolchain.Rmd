@@ -52,7 +52,6 @@ installed. All dependencies for the R packages should automatically install.
 
  - Required
    + [R](https://cran.r-project.org/) (>= 3.0.1) and associated packages:
-       + [{renv}](https://rstudio.github.io/renv/)
        + [{sandpaper}](https://zkamvar.github.io/sandpaper/)
        + [{varnish}](https://github.com/zkamvar/varnish#readme)
    + [RStudio](https://rstudio.com/products/rstudio/download/#download) (>=
@@ -60,8 +59,7 @@ installed. All dependencies for the R packages should automatically install.
    + A Modern Web Browser
  - Recommended
    + Git (>= 2.0)
-   + [Anconda](https://www.anaconda.com/download/#linux) (for Python-based
-     lessons)
+   + [{renv}]
 
 ## The Source of Truth: Dependency Management
 
@@ -69,26 +67,27 @@ Both the Python and the R package ecosystem are constantly evolving, which can
 often create different outputs from one maintainer's computer to the other.
 Moreover, if you maintain a lesson, you may not want to update a package that
 you are using for your thesis work. To alleviate these problems, we will use
-the [{renv}](https://rstudio.github.io/renv/) R package for managing
-dependencies in the lessons.
+the [{renv}] R package for managing dependencies in the lessons. 
 
-When you first start R to preview the lessons, if {renv} is not installed, it
-will ask you if you want to install it (which you should say yes) and it will
-install to your local library. When you build the lesson, {renv} will check
-that the specific package versions are installed and if they aren't, it will
-install them for you.
+When managing dependencies, [{renv}] serves two roles:
 
-<div class='info'>
+Package discovery
+~ [{renv}] will scan the packages declared in your lesson and install them to
+  your computer
+Package management
+~ Lessons that use [{renv}] maintains a custom lockfile that contains only the
+  packages required to build the lesson itself at specific versions, ensuring
+  that the lesson can be reliably reproduced across computers.
 
-NOTE: If you have set up any custom prompts for R, working in a {renv} will
-temporarily suspend those modifications. 
-
-</div>
+At this point, we should not that [{renv}] is _not required_ for building a 
+lesson even if it has generated content. You can find out more about how we use
+[{renv}] in the build process by reading the [Building Lessons with a Package 
+Cache](building-with-renv.html) vignette.
 
 ### For Markdown-Only Lessons
 
 If you have a markdown-only lesson with no evaluated code (that is, you copy
-and past e the output the learners should see), then you do not need to worry
+and paste the output the learners should see), then you do not need to worry
 about dependency management beyond the basic infrastructure (which will be
 taken care of automatically).
 
@@ -186,3 +185,6 @@ The [{pegboard}](https://carpentries.github.io/pegboard) package uses the
 [{tinkr}](https://docs.ropensci.org/tinkr) package to read in markdown as XML
 and validate the structure against our schema to validate the internal
 structure of the lessons.
+
+
+[{renv}]: https://rstudio.github.io/renv/
