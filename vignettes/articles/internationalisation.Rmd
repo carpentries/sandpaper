@@ -1,5 +1,5 @@
 ---
-title: 'Internationalisation (i18n) and Localisation (l10n)
+title: 'Internationalisation (i18n) and Localisation (l10n)'
 ---
 
 > NOTE: This is currently a WIP
