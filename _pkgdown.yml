@@ -1,4 +1,5 @@
-url: https://carpentries.github.io/sandpaper/
+url: 'https://carpentries.github.io/sandpaper/'
+
 home:
   title: The Carpentries Lesson Infrastructure Engine
   description: Create, Preview, and Maintain Carpentries-Style Lessons
@@ -12,7 +13,7 @@ template:
       card: summary
 
 code:
-  width: 80
+  width: 72
 
 reference:
  - title: "Lesson Creation"

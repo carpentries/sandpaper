@@ -82,7 +82,7 @@ Package management
 At this point, we should not that [{renv}] is _not required_ for building a 
 lesson even if it has generated content. You can find out more about how we use
 [{renv}] in the build process by reading the [Building Lessons with a Package 
-Cache](articles/building-with-renv.html) vignette.
+Cache](building-with-renv.html) vignette.
 
 ### For Markdown-Only Lessons
 
