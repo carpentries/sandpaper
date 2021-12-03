@@ -1,13 +1,18 @@
+url: https://carpentries.github.io/sandpaper/
 home:
   title: The Carpentries Lesson Infrastructure Engine
   description: Create, Preview, and Maintain Carpentries-Style Lessons
 
 template:
+  bootstrap: 5
   opengraph:
     twitter:
       creator: "@zkamvar"
       site: "@thecarpentries"
       card: summary
+
+code:
+  width: 80
 
 reference:
  - title: "Lesson Creation"
@@ -99,4 +104,6 @@ articles:
  - title: "Developer Guides"
    contents:
     - articles/landscape
+    - articles/deployment
+    - articles/toolchain
 
