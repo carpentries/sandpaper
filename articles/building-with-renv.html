@@ -4,14 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="sandpaper">
 <title>Building Lessons With A Package Cache • sandpaper</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Building Lessons With A Package Cache">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Building Lessons With A Package Cache">
 <meta property="og:description" content="sandpaper">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@zkamvar">
@@ -21,125 +21,110 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">sandpaper</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9067</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9070</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-2">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/building-with-renv.html">Building Lessons With A Package Cache</a>
-    </li>
-    <li>
-      <a href="../articles/automated-pull-requests.html">Working with Automated Pull Requests</a>
-    </li>
-    <li class="divider">
-    <li>
-      <a href="../articles/index.html">More...</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/carpentries/sandpaper/">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/building-with-renv.html">Building Lessons With A Package Cache</a>
+    <a class="dropdown-item" href="../articles/automated-pull-requests.html">Working with Automated Pull Requests</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/carpentries/sandpaper/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
-
-      </header><script src="building-with-renv_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Building Lessons With A Package Cache</h1>
+    
+  </div>
+</nav><div class="container template-article">
+<script src="building-with-renv_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+  <main id="main"><div class="page-header">
+      <img src="" class="logo" alt=""><h1>Building Lessons With A Package Cache</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/master/vignettes/building-with-renv.Rmd"><code>vignettes/building-with-renv.Rmd</code></a></small>
-      <div class="hidden name"><code>building-with-renv.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/vignettes/building-with-renv.Rmd" class="external-link"><code>vignettes/building-with-renv.Rmd</code></a></small>
+      <div class="d-none name"><code>building-with-renv.Rmd</code></div>
     </div>
 
     
     
-<div id="quickstart" class="section level2">
-<h2 class="hasAnchor">
-<a href="#quickstart" class="anchor"></a>Quickstart</h2>
+<div class="section level2">
+<h2 id="quickstart">Quickstart<a class="anchor" aria-label="anchor" href="#quickstart"></a>
+</h2>
 <p>If you are working on a lesson that has content with generated output, then this guide is for you. This will get you started using a local package cache separate from your default library for your lessons that ensure you can reproduce your lesson locally. The {sandpaper} engine is mindful of lessons with generated content in the following ways:</p>
 <ul>
-<li><p><em>reliable setup</em>: the version of the lesson built on the carpentries website will be the same as what you build on your computer because the packages will be identical</p></li>
-<li><p><em>environmentally friendly</em>: The lesson dependencies are NOT stored in your default R library and they will not alter your R environment.</p></li>
-<li><p><em>transparent</em>: any additions or deletions to the cache will be recorded in the lockfile, which is tracked by git.</p></li>
+<li>
+<em>reliable setup</em>: the version of the lesson built on the carpentries website will be the same as what you build on your computer because the packages will be identical</li>
+<li>
+<em>environmentally friendly</em>: The lesson dependencies are NOT stored in your default R library and they will not alter your R environment.</li>
+<li>
+<em>transparent</em>: any additions or deletions to the cache will be recorded in the lockfile, which is tracked by git.</li>
 </ul>
-<p>To get started, you need to <em>explicitly</em> give {sandpaper} permission to create and use a cache with the function <code><a href="../reference/use_package_cache.html">use_package_cache()</a></code></p>
+<p>To get started, you need to <em>explicitly</em> give {sandpaper} permission to create and use a cache with the function <code><a href="../reference/package_cache.html">use_package_cache()</a></code></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/carpentries/sandpaper/">"sandpaper"</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/carpentries/sandpaper/" class="external-link">"sandpaper"</a></span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/use_package_cache.html">use_package_cache</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>#| 
-#| ── Caching Build Packages for Generated Content ────────────────────────────────
-#| The Carpentries lesson infrastructure uses the renv (R environment) package to
-#| maintain reproducibility for lessons with generated content. It looks like you
-#| have not yet used renv before, so this is a one-time message that gives you
-#| information about how the package cache can help you with your lesson.
-#| 
-#| renv maintains a local cache of data on the filesystem, located at:
-#| 
-#| - "/path/to/cache"
-#| 
-#| This path can be customized: please see the documentation in `?renv::paths`.
-#| 
-#| → This may take some time to set up the first time you use it, but once the
-#| cache is established, the process will run much more quickly.
-#| 
-#| If you choose not to use the package cache, be aware that you may find
-#| differences between the lesson you render on your computer and what is rendered
-#| online.
-#| 
-#| Do you want to using a package cache for Carpentries lessons?
-#| ── Enter your selection or press 0 to exit ─────────────────────────────────────
-#| 1: Yes, please use the package cache (recommended)
-#| 2: No, I want to use my default library</code></pre>
+<code class="sourceCode R"><span class="fu"><a href="../reference/package_cache.html">use_package_cache</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">#| </span>
+<span class="co">#| <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Caching Build Packages for Generated Content</span> <span style="color: #00BBBB;">────────────────────────</span></span>
+<span class="co">#| The Carpentries lesson infrastructure uses the <span style="color: #0000BB;">renv</span> (R environment)</span>
+<span class="co">#| package to maintain reproducibility for lessons with generated content.</span>
+<span class="co">#| It looks like you have not yet used <span style="color: #0000BB;">renv</span> before, so <span style="font-weight: bold;">this is a one-time</span></span>
+<span class="co">#| <span style="font-weight: bold;">message</span> that gives you information about how the package cache can help</span>
+<span class="co">#| you with your lesson.</span>
+<span class="co">#| </span>
+<span class="co">#| <span style="color: #080808; background-color: #FFFFD7;">renv maintains a local cache of data on the filesystem, located at:</span></span>
+<span class="co">#| </span>
+<span class="co">#| - "/path/to/cache"</span>
+<span class="co">#| </span>
+<span class="co">#| This path can be customized: please see the documentation in</span>
+<span class="co">#| `?renv::paths`.</span>
+<span class="co">#| </span>
+<span class="co">#| → This may take some time to set up the first time you use it, but once</span>
+<span class="co">#| the cache is established, the process will run much more quickly.</span>
+<span class="co">#| </span>
+<span class="co">#| If you choose not to use the package cache, be aware that you may find</span>
+<span class="co">#| differences between the lesson you render on your computer and what is</span>
+<span class="co">#| rendered online.</span>
+<span class="co">#| </span>
+<span class="co">#| <span style="font-weight: bold;">Do you want to using a package cache for Carpentries lessons?</span></span>
+<span class="co">#| ── Enter your selection or press 0 to exit ─────────────────────────────</span>
+<span class="co">#| 1: <span style="font-weight: bold;">Yes</span>, please use the package cache (recommended)</span>
+<span class="co">#| 2: <span style="font-weight: bold;">No</span>, I want to use my default library</span></code></pre>
 <blockquote>
 <p>NOTE: If you have already used {renv} previously, then you will not get this notification. Instead, you will get a notification that your consent has already been provided.</p>
 </blockquote>
@@ -161,51 +146,51 @@
 <p>When you build your lesson, you will see this kind of output:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="output"><code>#| ℹ Consent to use package cache provided
-#| → Searching for and installing available dependencies
-#| * Discovering package dependencies ... Done!
-#| * Copying packages into the library ... Done!
-#| * Resolving missing dependencies  ... 
-#| Retrieving "https://cran.rstudio.com/src/contrib/cowsay_0.8.0.tar.gz" ...
-#|  OK [downloaded 564.5 Kb in 0.1 secs]
-#| Retrieving "https://cran.rstudio.com/src/contrib/crayon_1.4.1.tar.gz" ...
-#|  OK [downloaded 34.9 Kb in 0.1 secs]
-#| Retrieving "https://cran.rstudio.com/src/contrib/fortunes_1.5-4.tar.gz" ...
-#|  OK [downloaded 188.4 Kb in 0.1 secs]
-#| Retrieving "https://cran.rstudio.com/src/contrib/rmsfact_0.0.3.tar.gz" ...
-#|  OK [downloaded 10.5 Kb in 0.1 secs]
-#| Installing crayon [1.4.1] ...
-#|  OK [built from source]
-#| Copying crayon [1.4.1] into the cache ...
-#|  OK [copied to cache in 5.9 milliseconds]
-#| Installing fortunes [1.5-4] ...
-#|  OK [built from source]
-#| Copying fortunes [1.5-4] into the cache ...
-#|  OK [copied to cache in 5.6 milliseconds]
-#| Installing rmsfact [0.0.3] ...
-#|  OK [built from source]
-#| Copying rmsfact [0.0.3] into the cache ...
-#|  OK [copied to cache in 5.7 milliseconds]
-#| Installing cowsay [0.8.0] ...
-#|  OK [built from source]
-#| Copying cowsay [0.8.0] into the cache ...
-#|  OK [copied to cache in 7.5 milliseconds]
-#| → Restoring any dependency versions
-#| * The library is already synchronized with the lockfile.
-#| → Recording changes in lockfile
-#| The following package(s) will be updated in the lockfile:
-#| 
-#| # CRAN ===============================
-#| - cowsay     [* -&gt; 0.8.0]
-#| - crayon     [* -&gt; 1.4.1]
-#| - curl       [* -&gt; 4.3.2]
-#| - fortunes   [* -&gt; 1.5-4]
-#| - rmsfact    [* -&gt; 0.0.3]
-#| 
-#| * Lockfile written to "/path/to/lesson/renv/profiles/lesson-requirements/renv.lock".
-#| ℹ Using package cache in /path/to/cache
-#| 
-#| [ truncated ]</code></pre>
+<pre class="output"><code><span class="co">#| ℹ Consent to use package cache provided</span>
+<span class="co">#| → Searching for and installing available dependencies</span>
+<span class="co">#| * Discovering package dependencies ... Done!</span>
+<span class="co">#| * Copying packages into the library ... Done!</span>
+<span class="co">#| * Resolving missing dependencies  ... </span>
+<span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/cowsay_0.8.0.tar.gz" ...</span>
+<span class="co">#|  OK [downloaded 564.5 Kb in 0.1 secs]</span>
+<span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/crayon_1.4.1.tar.gz" ...</span>
+<span class="co">#|  OK [downloaded 34.9 Kb in 0.1 secs]</span>
+<span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/fortunes_1.5-4.tar.gz" ...</span>
+<span class="co">#|  OK [downloaded 188.4 Kb in 0.1 secs]</span>
+<span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/rmsfact_0.0.3.tar.gz" ...</span>
+<span class="co">#|  OK [downloaded 10.5 Kb in 0.1 secs]</span>
+<span class="co">#| Installing crayon [1.4.1] ...</span>
+<span class="co">#|  OK [built from source]</span>
+<span class="co">#| Copying crayon [1.4.1] into the cache ...</span>
+<span class="co">#|  OK [copied to cache in 5.9 milliseconds]</span>
+<span class="co">#| Installing fortunes [1.5-4] ...</span>
+<span class="co">#|  OK [built from source]</span>
+<span class="co">#| Copying fortunes [1.5-4] into the cache ...</span>
+<span class="co">#|  OK [copied to cache in 5.6 milliseconds]</span>
+<span class="co">#| Installing rmsfact [0.0.3] ...</span>
+<span class="co">#|  OK [built from source]</span>
+<span class="co">#| Copying rmsfact [0.0.3] into the cache ...</span>
+<span class="co">#|  OK [copied to cache in 5.7 milliseconds]</span>
+<span class="co">#| Installing cowsay [0.8.0] ...</span>
+<span class="co">#|  OK [built from source]</span>
+<span class="co">#| Copying cowsay [0.8.0] into the cache ...</span>
+<span class="co">#|  OK [copied to cache in 7.5 milliseconds]</span>
+<span class="co">#| → Restoring any dependency versions</span>
+<span class="co">#| * The library is already synchronized with the lockfile.</span>
+<span class="co">#| → Recording changes in lockfile</span>
+<span class="co">#| The following package(s) will be updated in the lockfile:</span>
+<span class="co">#| </span>
+<span class="co">#| # CRAN ===============================</span>
+<span class="co">#| - cowsay     [* -&gt; 0.8.0]</span>
+<span class="co">#| - crayon     [* -&gt; 1.4.1]</span>
+<span class="co">#| - curl       [* -&gt; 4.3.2]</span>
+<span class="co">#| - fortunes   [* -&gt; 1.5-4]</span>
+<span class="co">#| - rmsfact    [* -&gt; 0.0.3]</span>
+<span class="co">#| </span>
+<span class="co">#| * Lockfile written to "/path/to/lesson/renv/profiles/lesson-requirements/renv.lock".</span>
+<span class="co">#| ℹ Using package cache in /path/to/cache</span>
+<span class="co">#| </span>
+<span class="co">#| [ truncated ]</span></code></pre>
 <p>The output will use the newly downloaded packages:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
@@ -235,19 +220,18 @@
 <span id="cb7-26"><a href="#cb7-26"></a><span class="bn">               \_)</span></span>
 <span id="cb7-27"><a href="#cb7-27"></a><span class="bn">  </span></span>
 <span id="cb7-28"><a href="#cb7-28"></a><span class="bn">```</span></span></code></pre></div>
-<div id="temporarily-turning-off-the-cache" class="section level3">
-<h3 class="hasAnchor">
-<a href="#temporarily-turning-off-the-cache" class="anchor"></a>Temporarily turning off the cache</h3>
-<p>There are times when you might want to not use the cache for a lesson. To do this you can use <code><a href="../reference/use_package_cache.html">no_package_cache()</a></code> and your lesson will default to using your local library.</p>
+<div class="section level3">
+<h3 id="temporarily-turning-off-the-cache">Temporarily Turning Off the Cache<a class="anchor" aria-label="anchor" href="#temporarily-turning-off-the-cache"></a>
+</h3>
+<p>There are times when you might want to not use the cache for a lesson. To do this you can use <code><a href="../reference/package_cache.html">no_package_cache()</a></code> and your lesson will default to using your local library.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/use_package_cache.html">no_package_cache</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/package_cache.html">no_package_cache</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu"><a href="../reference/build_markdown.html">build_markdown</a></span><span class="op">(</span>rebuild <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre class="output"><code>
-#| ℹ Consent to use package cache not given. Using default library.
-#| → use `use_package_cache()` to enable the package cache for reproducible builds.
-#| → You can switch between using your cache and the default library with `options(sandpaper.use_renv = TRUE)` (`FALSE` for the default library)
-#| 
-#| [ truncated ]</code></pre>
+<pre class="output"><code><span class="co">#| ℹ Consent to use package cache not given. Using default library.</span>
+<span class="co">#| → use `use_package_cache()` to enable the package cache for reproducible builds.</span>
+<span class="co">#| → You can switch between using your cache and the default library with `options(sandpaper.use_renv = TRUE)` (`FALSE` for the default library)</span>
+<span class="co">#| </span>
+<span class="co">#| [ truncated ]</span></code></pre>
 <p>The output will use packages if they are available, but throw errors if they do not exist:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
 <span id="cb10-2"><a href="#cb10-2"></a></span>
@@ -264,16 +248,16 @@
 <span id="cb10-13"><a href="#cb10-13"></a><span class="bn">```{.error}</span></span>
 <span id="cb10-14"><a href="#cb10-14"></a><span class="bn">Error in say("catfact", "cat"): could not find function "say"</span></span>
 <span id="cb10-15"><a href="#cb10-15"></a><span class="bn">```</span></span></code></pre></div>
-<p>When you want to turn it on again, you can use <code><a href="../reference/use_package_cache.html">use_package_cache()</a></code></p>
+<p>When you want to turn it on again, you can use <code><a href="../reference/package_cache.html">use_package_cache()</a></code></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/use_package_cache.html">use_package_cache</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="output"><code>#| ℹ Consent for renv provided---consent for package cache implied.</code></pre>
+<code class="sourceCode R"><span class="fu"><a href="../reference/package_cache.html">use_package_cache</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre class="output"><code><span class="co">#| ℹ Consent for renv provided---consent for package cache implied.</span></code></pre>
 <p>Read on for information about how to add, update, and remove packages from your cache.</p>
 </div>
 </div>
-<div id="motivation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#motivation" class="anchor"></a>Motivation</h2>
+<div class="section level2">
+<h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
+</h2>
 <p>One of the biggest motivations for building the lesson infrastructure around {sandpaper} is to be mindful of how we build lessons with generated content. For the moment, these are explicitly R Markdown lessons, but in the future, it is possible for us to expand to different engines <em>without changing your lesson’s</em> setup.</p>
 <p>In the past, we’ve done this by including a script inside the lesson template that would automatically scan the dependencies of your lesson and install them to your computer. While convenient, there were drawbacks to this method in that it would alter your personal R library if any of the packages update, which was not good if you were using R for you own work and wanted to preserve the package versions that you had.</p>
 <p>The ‘renv’ package provides a very useful interface to bring one aspect of reproducibility to R projects. Because people working on Carpentries lessons are also working academics and will likely have projects on their computer where the package versions are necessary for their work, it’s important that those environments are respected.</p>
@@ -288,25 +272,25 @@
 </ol>
 <p>When the lockfile changes, you will see it in git and have the power to either commit or restore those changes.</p>
 </div>
-<div id="rebuild-with-the-package-cache" class="section level2">
-<h2 class="hasAnchor">
-<a href="#rebuild-with-the-package-cache" class="anchor"></a>Rebuild with the Package Cache</h2>
+<div class="section level2">
+<h2 id="rebuild-with-the-package-cache">Rebuild with the Package Cache<a class="anchor" aria-label="anchor" href="#rebuild-with-the-package-cache"></a>
+</h2>
 <p>By default, {sandpaper} will only rebuild files that have changed in content. This is designed to minmize the time spent rebuilding your lesson when you are actively writing it. If you are using the package cache, this fact will remain true <em>even if the lockfile changes</em>. Again, this is designed to minimize the time spent rebuilding the lesson when you add unrelated, adjacent packages to your lesson.</p>
 <p>On continuous integration (cloud deployment), any change in the lockfile will cause the lesson to rebuild itself to make sure that the deployed version of the lesson matches with the source of truth for the lockfile.</p>
-<p>The function that controls this behavior is called <code><a href="../reference/use_package_cache.html">package_cache_trigger()</a></code> when you call it without any arguments, it will report <code>TRUE</code> or <code>FALSE</code>, indicating if changes to the lockfile will trigger a rebuild or not, respectively:</p>
+<p>The function that controls this behavior is called <code><a href="../reference/package_cache.html">package_cache_trigger()</a></code> when you call it without any arguments, it will report <code>TRUE</code> or <code>FALSE</code>, indicating if changes to the lockfile will trigger a rebuild or not, respectively:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/use_package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#| [1] FALSE</span>
-<span class="fu"><a href="../reference/use_package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># set the package cache to auto-trigger rebuilds</span>
+<span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># set the package cache to auto-trigger rebuilds</span>
 <span class="co">#| [1] TRUE</span>
-<span class="fu"><a href="../reference/use_package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co"># prevent package cache from triggering rebuilds</span>
+<span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co"># prevent package cache from triggering rebuilds</span>
 <span class="co">#| [1] FALSE</span></code></pre></div>
 <p>You might want to set this to <code>TRUE</code> when you pull changes from upstream.</p>
 </div>
-<div id="adding-new-pacakges-to-the-cache" class="section level2">
-<h2 class="hasAnchor">
-<a href="#adding-new-pacakges-to-the-cache" class="anchor"></a>Adding New Pacakges to the Cache</h2>
-<p>The {sandpaper} cache records ONLY the packages needed for the repository itself. This means that if you want to use a package, you <em>must</em> have it declared somewhere within your lesson either as <code><a href="https://rdrr.io/r/base/library.html">library(package)</a></code> or <code>package::function()</code>.</p>
+<div class="section level2">
+<h2 id="adding-new-pacakges-to-the-cache">Adding New Pacakges to the Cache<a class="anchor" aria-label="anchor" href="#adding-new-pacakges-to-the-cache"></a>
+</h2>
+<p>The {sandpaper} cache records ONLY the packages needed for the repository itself. This means that if you want to use a package, you <em>must</em> have it declared somewhere within your lesson either as <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> or <code>package::function()</code>.</p>
 <p>For example, if I wanted to use the <code>sessioninfo</code> package to create a record at the end of an episode, I would only need to add the following chunk:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1"></a><span class="bn">```{r sessioninfo, echo = FALSE}</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="bn">sessioninfo::session_info()</span></span>
@@ -317,46 +301,43 @@
 </blockquote>
 <p>If you want to pin a package to a specific version, read on.</p>
 </div>
-<div id="pinning-specific-package-versions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#pinning-specific-package-versions" class="anchor"></a>Pinning specific package versions</h2>
-<p>To pin a specific package version (e.g. the newest version has breaking changes you want to work on before release), you can use the <code><a href="../reference/manage_deps.html">pin_version()</a></code> function. For example, here’s how you would pin the {cowsay} package to version 0.7.0:</p>
+<div class="section level2">
+<h2 id="pinning-specific-package-versions">Pinning Specific Package Versions<a class="anchor" aria-label="anchor" href="#pinning-specific-package-versions"></a>
+</h2>
+<p>To pin a specific package version (e.g. the newest version has breaking changes you want to work on before release), you can use the <code><a href="../reference/dependency_management.html">pin_version()</a></code> function. For example, here’s how you would pin the {cowsay} package to version 0.7.0:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/manage_deps.html">pin_version</a></span><span class="op">(</span><span class="st">"cowsay@0.7.0"</span><span class="op">)</span></code></pre></div>
-<p>This will record the package in the lockfile so that the next time <code><a href="../reference/manage_deps.html">manage_deps()</a></code> runs, it will use the correct version.</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/dependency_management.html">pin_version</a></span><span class="op">(</span><span class="st">"cowsay@0.7.0"</span><span class="op">)</span></code></pre></div>
+<p>This will record the package in the lockfile so that the next time <code><a href="../reference/dependency_management.html">manage_deps()</a></code> runs, it will use the correct version.</p>
 </div>
-<div id="updating-the-cache" class="section level2">
-<h2 class="hasAnchor">
-<a href="#updating-the-cache" class="anchor"></a>Updating the cache</h2>
+<div class="section level2">
+<h2 id="updating-the-cache">Updating the Cache<a class="anchor" aria-label="anchor" href="#updating-the-cache"></a>
+</h2>
 <p>If you want to update the packages in the package cache, you can use the function <code>fetch_updates()</code>. This requires an internet connection and will scan the packages in your lesson for any potential updates and ask if you want to update them. This will update those packages in your package cache and your lockfile.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/manage_deps.html">update_cache</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/dependency_management.html">update_cache</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by Zhian N. Kamvar.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by Zhian N. Kamvar.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>
