@@ -66,7 +66,6 @@
     Message <cliMessage>
       episodes:
       - 01-introduction.Rmd
-      
       -- Removed episodes ------------------------------------------------------------
       - 02-new.Rmd
 
