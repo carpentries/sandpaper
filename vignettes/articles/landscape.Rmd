@@ -2,24 +2,6 @@
 title: Landscape View of New Lesson Template
 ---
 
-```{css, setup, echo = FALSE, include = FALSE}
-.info {
-  display: block;
-  width: 100%;
-  font-weight: bold;
-  background: #e6ffff;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px 25px;
-  border-width: 3px;
-  border-style: solid;
-  border-color: #1695A3;
-  border-radius: 20px;
-  /*box-shadow: 10px 10px 20px -5px gray;*/
-}
-```
-
-
 ## Introduction
 
 The new lesson infrastructure has a lot of moving parts, but it is built on a
@@ -136,38 +118,31 @@ ensure that our lessons are Perceivable, Operable, Understandable, and Robust.
 The lesson template will be organized such that it clearly separates the lesson
 content from the lesson style:
 
-<div class='info'>
-
-NOTE: I currently have it set up so the extras live in the episodes directory,
-but this will change.
-
-</div>
-
 ```
 |-- .gitignore               # - Ignore everything in the site/ folder
 |-- .github/                 # - Scripts used for continuous integration
 |-- episodes/                # - PUT YOUR MARKDOWN FILES IN THIS FOLDER
-|   |-- data/                # -   Data for your lesson goes here
-|   |-- figures/             # -   All static figures and diagrams are here
-|   |-- files/               # -   Additional files (e.g. handouts) 
-|   `-- 00-introducition.Rmd # -   Lessons start with a two-digit number
+|   |-- data/                # -- Data for your lesson goes here
+|   |-- figures/             # -- All static figures and diagrams are here
+|   |-- files/               # -- Additional files (e.g. handouts) 
+|   `-- 00-introducition.Rmd # -- Lessons start with a two-digit number
 |-- instructors/             # - Information for Instructors
-|   `-- instructor-notes.md  # -   placeholder
+|   `-- instructor-notes.md  # -- placeholder
 |-- learners/                # - Information for Learners
-|   `-- setup.md             # -   setup instructions (REQUIRED)
+|   `-- setup.md             # -- setup instructions (REQUIRED)
 |-- profiles/                # - Learner and/or Instructor Profiles
-|   `-- learner-profiles.md  # -   placeholder
+|   `-- learner-profiles.md  # -- placeholder
 |-- renv/                    # - Local package cache
 |-- site/                    # - This folder is where the rendered markdown
-files and static site will live
-|   `-- README.md            # -   placeholder
+|   |                            files and static site will live
+|   `-- README.md            # --  placeholder
 |-- config.yaml              # - Use this to configure commonly used variables
 |-- index.md                 # - Front page for the site
 |-- CONTRIBUTING.md          # - Carpentries Rules for Contributions (REQUIRED)
 |-- CODE_OF_CONDUCT.md       # - Carpentries Code of Conduct (REQUIRED)
 |-- LICENSE.md               # - Carpentries Licenses (REQUIRED)
 `-- README.md                # - Introduces folks how to use this lesson and
-where they can find more information.
+                             #   where they can find more information.
 ```
 
 ### Episodes
@@ -183,13 +158,6 @@ the RMarkdown documents in their own project using any method they see fit.
 The file `config.yaml` will be a minimal yaml file that contains metadata about
 lesson-wide aspects (Author, Carpentry, Licence, Title, etc.) along with
 specifications for episodes and extras to be included in the dropdown menus. 
-
-<div class='info'>
-
-NOTE: this may change because of the need to associated TeSS metadata in the
-lesson that may become overwhelming if included in a single config file.
-
-</div>
 
 ### Generated Files
 
@@ -210,7 +178,7 @@ HTML site gives us a couple of advantages:
    not require sifting through HTML diffs.
  
 This two step process is explained in [The Two-Step: Building
-Locally](#the-two-step-building-locally). 
+Locally](deployment.html#the-two-step-building-locally). 
 
 #### [i] Static Markdown Cache
 
@@ -250,17 +218,24 @@ certain elements that should be included to ensure a valid episode in the form
 of yaml content, required information blocks, instructor notes, and properly
 closed fenced div tags.
 
-> As a refresher, a fenced div tag is a line that starts with *at least* three
-> colons followed by the name of the tag. The tag is closed by adding another
-> line that starts with *at least* three colons with no tag at the end:
->
-> ```markdown
-> ::::::::::::::::::::::::::: challenge
-> 
-> This is a *challenge block*
-> 
-> ::::::::::::::::::::::::::::::::::::::
-> ```
+<aside>
+
+As a refresher, a fenced div tag is a line that starts with *at least* three
+colons followed by the name of the tag. The tag is closed by adding another
+line that starts with *at least* three colons with no tag at the end:
+
+```markdown
+::::::::::::::::::::::::::: challenge
+
+This is a *challenge block*
+
+::::::::::::::::::::::::::::::::::::::
+```
+
+By convention, we use much more than 3 `:` characters to clearly indicate that
+a block is being created. 
+
+</aside>
 
 
 ### YAML metadata
@@ -286,10 +261,6 @@ exercises: 10
     before they start the lesson
  3. Keypoints (bottom) - point-by-point reinforcement of what was covered in
     the lesson
-
-> [François, 2020-11-03] When you write (top, bottom) here do you envision to
-> enforce the placement of these blocks in the document, or only in the final
-> output?
 
 To reduce the amount of friction between what contributors write and what is
 displayed on the lesson, placement will be enforced during the validation
@@ -319,14 +290,6 @@ complicated structure for maintainers to keep track of. To acommodate this, we
 propose a new class of tag called `instructor`, which will be hidden by default
 and have a toggle that can display the notes alongside the lesson. 
 
-<div class='info'>
-
-NOTE: The question of HOW we will incorporate instructor notes into the
-template is still up in the air, but for now, we can at least imagine a
-mechanism of including them into the episodes.
-
-</div>
-
 The `instructor` tag will be the same as the other tags, starting with at least
 three colons and ending with at least three colons:
 
@@ -339,6 +302,11 @@ three colons and ending with at least three colons:
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```
+
+Practically, when there are instructor notes in a lesson, they will be rendered
+as separate pages and placed in a file called `instructor/` that can be accessed
+via `/path/to/lesson/instructor/page.html`
+
 
 ### Fenced Div Tags
 
@@ -369,22 +337,28 @@ This is an example lesson.
  - Write good 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::
+
 :::::::::::::::::::::::::::::::::::: questions
 
  - Is it okay if the number of colons don't match up?
  - Are the sections visible?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+Writing tags looks like a bunch of `:` elements.
+
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-## Example
+### Example
 
 This is an example of how you write an instructor tag
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-Let's try a challenge
+Let's try a challenge.
 
 :::::::::::::::::::::::::::::::::::::: challenge
 
@@ -394,7 +368,7 @@ Write a solution
 
 NaCl + H2O
 
-:::::::::::::::::::::::
+::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 ```
 
@@ -417,23 +391,6 @@ the end:
  - Link to references in extras folder: `[link
    text](../extras/references.html)`
 
-<div class='info'>
-
-The Jekyll version of the lesson template required Jekyll to be a part of the
-process for linking so that contributors would have to write `[link text]({{
-page.root }}{% link _episode/01-introduction.md %})`. in order to link to the
-episode 01-introduction.
-
-However, most people realized that they could use `{{ page.root
-}}/01-introduction/` instead.
-
-That being said, this solution made it impossible to transfer these sites
-outside of the context of a Carpentries lesson without manually changing the
-links. 
-
-</div>
-
-
 ### Code Blocks
 
 Code Blocks in a lesson are formatted the same way as code blocks formatted in
@@ -446,10 +403,12 @@ want to use for syntax highlighting in that block.
 Because we are encouraging the use of RMarkdown, you can have code blocks that
 actually evaluate code using the RMarkdown chunk syntax of three backtics
 followed by a pair of curly braces with the name of the language engine you
-want to use for executing the code blocks. 
+want to use for executing the code blocks.
 
 At the moment, we explicitly support evaluation for R and BASH, but we will be
-gathering input from maintainers about processes to expand. 
+gathering input from maintainers about processes to expand. One promising 
+project is [Quarto](https://quarto.org/), which extends the functionality of
+R Markdown to other languages in a cross-platform, stand-alone binary program.
 
 There is [a large list of language engines that RMarkdown
 supports](https://bookdown.org/yihui/rmarkdown/language-engines.html). Most
