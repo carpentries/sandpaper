@@ -136,33 +136,30 @@
 <h2 id="lesson-folder-organization">Lesson Folder Organization<a class="anchor" aria-label="anchor" href="#lesson-folder-organization"></a>
 </h2>
 <p>The lesson template will be organized such that it clearly separates the lesson content from the lesson style:</p>
-<div class="info">
-<p>NOTE: I currently have it set up so the extras live in the episodes directory, but this will change.</p>
-</div>
 <pre><code>|-- .gitignore               # - Ignore everything in the site/ folder
 |-- .github/                 # - Scripts used for continuous integration
 |-- episodes/                # - PUT YOUR MARKDOWN FILES IN THIS FOLDER
-|   |-- data/                # -   Data for your lesson goes here
-|   |-- figures/             # -   All static figures and diagrams are here
-|   |-- files/               # -   Additional files (e.g. handouts) 
-|   `-- 00-introducition.Rmd # -   Lessons start with a two-digit number
+|   |-- data/                # -- Data for your lesson goes here
+|   |-- figures/             # -- All static figures and diagrams are here
+|   |-- files/               # -- Additional files (e.g. handouts) 
+|   `-- 00-introducition.Rmd # -- Lessons start with a two-digit number
 |-- instructors/             # - Information for Instructors
-|   `-- instructor-notes.md  # -   placeholder
+|   `-- instructor-notes.md  # -- placeholder
 |-- learners/                # - Information for Learners
-|   `-- setup.md             # -   setup instructions (REQUIRED)
+|   `-- setup.md             # -- setup instructions (REQUIRED)
 |-- profiles/                # - Learner and/or Instructor Profiles
-|   `-- learner-profiles.md  # -   placeholder
+|   `-- learner-profiles.md  # -- placeholder
 |-- renv/                    # - Local package cache
 |-- site/                    # - This folder is where the rendered markdown
-files and static site will live
-|   `-- README.md            # -   placeholder
+|   |                            files and static site will live
+|   `-- README.md            # --  placeholder
 |-- config.yaml              # - Use this to configure commonly used variables
 |-- index.md                 # - Front page for the site
 |-- CONTRIBUTING.md          # - Carpentries Rules for Contributions (REQUIRED)
 |-- CODE_OF_CONDUCT.md       # - Carpentries Code of Conduct (REQUIRED)
 |-- LICENSE.md               # - Carpentries Licenses (REQUIRED)
 `-- README.md                # - Introduces folks how to use this lesson and
-where they can find more information.</code></pre>
+                             #   where they can find more information.</code></pre>
 <div class="section level3">
 <h3 id="episodes">Episodes<a class="anchor" aria-label="anchor" href="#episodes"></a>
 </h3>
@@ -172,9 +169,6 @@ where they can find more information.</code></pre>
 <h3 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h3>
 <p>The file <code>config.yaml</code> will be a minimal yaml file that contains metadata about lesson-wide aspects (Author, Carpentry, Licence, Title, etc.) along with specifications for episodes and extras to be included in the dropdown menus.</p>
-<div class="info">
-<p>NOTE: this may change because of the need to associated TeSS metadata in the lesson that may become overwhelming if included in a single config file.</p>
-</div>
 </div>
 <div class="section level3">
 <h3 id="generated-files">Generated Files<a class="anchor" aria-label="anchor" href="#generated-files"></a>
@@ -186,7 +180,7 @@ where they can find more information.</code></pre>
 <li>The tools needed to generate the static markdown documents do not need to be the same as the tools needed to apply the HTML template (e.g. it is potentially feasible to have a workflow that renders Jupyter Notebook -&gt; Markdown instead of RMarkdown -&gt; Markdown).</li>
 <li>If an error occurs, assess which process was the source of the error does not require sifting through HTML diffs.</li>
 </ol>
-<p>This two step process is explained in <a href="#the-two-step-building-locally">The Two-Step: Building Locally</a>.</p>
+<p>This two step process is explained in <a href="deployment.html#the-two-step-building-locally">The Two-Step: Building Locally</a>.</p>
 <div class="section level4">
 <h4 id="i-static-markdown-cache">[i] Static Markdown Cache<a class="anchor" aria-label="anchor" href="#i-static-markdown-cache"></a>
 </h4>
@@ -209,15 +203,14 @@ where they can find more information.</code></pre>
 <h2 id="episode-structure">Episode Structure<a class="anchor" aria-label="anchor" href="#episode-structure"></a>
 </h2>
 <p>All episodes for the Carpentries should be stand-alone markdown documents that can render to valid HTML via <a href="https://pandoc.org/" class="external-link">pandoc</a> without external dependencies. The structure of an episode is largely free-form, but there are certain elements that should be included to ensure a valid episode in the form of yaml content, required information blocks, instructor notes, and properly closed fenced div tags.</p>
-<blockquote>
-<p>As a refresher, a fenced div tag is a line that starts with <em>at least</em> three colons followed by the name of the tag. The tag is closed by adding another line that starts with <em>at least</em> three colons with no tag at the end:</p>
+<aside><p>As a refresher, a fenced div tag is a line that starts with <em>at least</em> three colons followed by the name of the tag. The tag is closed by adding another line that starts with <em>at least</em> three colons with no tag at the end:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a>::::::::::::::::::::::::::: challenge</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a>This is a *challenge block*</span>
 <span id="cb2-4"><a href="#cb2-4"></a></span>
 <span id="cb2-5"><a href="#cb2-5"></a>::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
-</blockquote>
-<div class="section level3">
+<p>By convention, we use much more than 3 <code>:</code> characters to clearly indicate that a block is being created.</p>
+</aside><div class="section level3">
 <h3 id="yaml-metadata">YAML metadata<a class="anchor" aria-label="anchor" href="#yaml-metadata"></a>
 </h3>
 <p>The YAML metadata should contain three elements, title, teaching, and exercises. The <code>title</code> is a character string for the title. Markdown can be used in the title. Both <code>teaching</code> and <code>exercises</code> are the number of cumulative minutes required to teach the lesson and complete the exercises, respectively. This is used to populate the syllabus at the beginning of the lesson</p>
@@ -233,9 +226,6 @@ where they can find more information.</code></pre>
 <li>Questions (top) - One to three questions for the learners to ask themselves before they start the lesson</li>
 <li>Keypoints (bottom) - point-by-point reinforcement of what was covered in the lesson</li>
 </ol>
-<blockquote>
-<p>[François, 2020-11-03] When you write (top, bottom) here do you envision to enforce the placement of these blocks in the document, or only in the final output?</p>
-</blockquote>
 <p>To reduce the amount of friction between what contributors write and what is displayed on the lesson, placement will be enforced during the validation procedure and will be validated by checking the proximity of these blocks to other elements of the document in the XML representation. If the blocks do not comply, a human-readable alert will be generated indicating where the block is and where it should be moved (example error):</p>
 <pre><code>Error:
     File: '/path/to/episode.Rmd'
@@ -250,15 +240,13 @@ where they can find more information.</code></pre>
 <h3 id="instructor-notes">Instructor Notes<a class="anchor" aria-label="anchor" href="#instructor-notes"></a>
 </h3>
 <p>Carpentries lessons have traditionally kept instructor notes as a separate page from the lessons, but this lead to the notes not being used and some confusion about HOW to use them. It has been proposed that we keep the instructor notes inside of the lessons themselves at the risk of creating a longer and even more complicated structure for maintainers to keep track of. To acommodate this, we propose a new class of tag called <code>instructor</code>, which will be hidden by default and have a toggle that can display the notes alongside the lesson.</p>
-<div class="info">
-<p>NOTE: The question of HOW we will incorporate instructor notes into the template is still up in the air, but for now, we can at least imagine a mechanism of including them into the episodes.</p>
-</div>
 <p>The <code>instructor</code> tag will be the same as the other tags, starting with at least three colons and ending with at least three colons:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1"></a>:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor</span>
 <span id="cb5-2"><a href="#cb5-2"></a></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="fu">## SLOW DOWN</span></span>
 <span id="cb5-4"><a href="#cb5-4"></a></span>
 <span id="cb5-5"><a href="#cb5-5"></a>:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
+<p>Practically, when there are instructor notes in a lesson, they will be rendered as separate pages and placed in a file called <code>instructor/</code> that can be accessed via <code>/path/to/lesson/instructor/page.html</code></p>
 </div>
 <div class="section level3">
 <h3 id="fenced-div-tags">Fenced Div Tags<a class="anchor" aria-label="anchor" href="#fenced-div-tags"></a>
@@ -280,33 +268,39 @@ where they can find more information.</code></pre>
 <span id="cb6-8"><a href="#cb6-8"></a> - Write good </span>
 <span id="cb6-9"><a href="#cb6-9"></a></span>
 <span id="cb6-10"><a href="#cb6-10"></a>:::::::::::::::::::::::::::::::::::::::::::::::::</span>
-<span id="cb6-11"><a href="#cb6-11"></a>:::::::::::::::::::::::::::::::::::: questions</span>
-<span id="cb6-12"><a href="#cb6-12"></a></span>
-<span id="cb6-13"><a href="#cb6-13"></a> - Is it okay if the number of colons don't match up?</span>
-<span id="cb6-14"><a href="#cb6-14"></a> - Are the sections visible?</span>
-<span id="cb6-15"><a href="#cb6-15"></a></span>
-<span id="cb6-16"><a href="#cb6-16"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span>
-<span id="cb6-17"><a href="#cb6-17"></a>:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor</span>
+<span id="cb6-11"><a href="#cb6-11"></a></span>
+<span id="cb6-12"><a href="#cb6-12"></a>:::::::::::::::::::::::::::::::::::: questions</span>
+<span id="cb6-13"><a href="#cb6-13"></a></span>
+<span id="cb6-14"><a href="#cb6-14"></a> - Is it okay if the number of colons don't match up?</span>
+<span id="cb6-15"><a href="#cb6-15"></a> - Are the sections visible?</span>
+<span id="cb6-16"><a href="#cb6-16"></a></span>
+<span id="cb6-17"><a href="#cb6-17"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span>
 <span id="cb6-18"><a href="#cb6-18"></a></span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="fu">## Example</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="fu">## Introduction</span></span>
 <span id="cb6-20"><a href="#cb6-20"></a></span>
-<span id="cb6-21"><a href="#cb6-21"></a>This is an example of how you write an instructor tag</span>
+<span id="cb6-21"><a href="#cb6-21"></a>Writing tags looks like a bunch of <span class="bn">`:`</span> elements.</span>
 <span id="cb6-22"><a href="#cb6-22"></a></span>
-<span id="cb6-23"><a href="#cb6-23"></a>:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</span>
+<span id="cb6-23"><a href="#cb6-23"></a>:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor</span>
 <span id="cb6-24"><a href="#cb6-24"></a></span>
-<span id="cb6-25"><a href="#cb6-25"></a></span>
-<span id="cb6-26"><a href="#cb6-26"></a>Let's try a challenge</span>
-<span id="cb6-27"><a href="#cb6-27"></a></span>
-<span id="cb6-28"><a href="#cb6-28"></a>:::::::::::::::::::::::::::::::::::::: challenge</span>
-<span id="cb6-29"><a href="#cb6-29"></a></span>
-<span id="cb6-30"><a href="#cb6-30"></a>Write a solution</span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="fu">### Example</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a></span>
+<span id="cb6-27"><a href="#cb6-27"></a>This is an example of how you write an instructor tag</span>
+<span id="cb6-28"><a href="#cb6-28"></a></span>
+<span id="cb6-29"><a href="#cb6-29"></a>:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</span>
+<span id="cb6-30"><a href="#cb6-30"></a></span>
 <span id="cb6-31"><a href="#cb6-31"></a></span>
-<span id="cb6-32"><a href="#cb6-32"></a>::::::::::::::: solution</span>
+<span id="cb6-32"><a href="#cb6-32"></a>Let's try a challenge.</span>
 <span id="cb6-33"><a href="#cb6-33"></a></span>
-<span id="cb6-34"><a href="#cb6-34"></a>NaCl + H2O</span>
+<span id="cb6-34"><a href="#cb6-34"></a>:::::::::::::::::::::::::::::::::::::: challenge</span>
 <span id="cb6-35"><a href="#cb6-35"></a></span>
-<span id="cb6-36"><a href="#cb6-36"></a>:::::::::::::::::::::::</span>
-<span id="cb6-37"><a href="#cb6-37"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
+<span id="cb6-36"><a href="#cb6-36"></a>Write a solution</span>
+<span id="cb6-37"><a href="#cb6-37"></a></span>
+<span id="cb6-38"><a href="#cb6-38"></a>::::::::::::::: solution</span>
+<span id="cb6-39"><a href="#cb6-39"></a></span>
+<span id="cb6-40"><a href="#cb6-40"></a>NaCl + H2O</span>
+<span id="cb6-41"><a href="#cb6-41"></a></span>
+<span id="cb6-42"><a href="#cb6-42"></a>::::::::::::::::::::::::</span>
+<span id="cb6-43"><a href="#cb6-43"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="links">Links<a class="anchor" aria-label="anchor" href="#links"></a>
@@ -321,11 +315,6 @@ where they can find more information.</code></pre>
 <li>Link to references in extras folder: <code>[link text](../extras/references.html)</code>
 </li>
 </ul>
-<div class="info">
-<p>The Jekyll version of the lesson template required Jekyll to be a part of the process for linking so that contributors would have to write <code>[link text]({{ page.root }}{% link _episode/01-introduction.md %})</code>. in order to link to the episode 01-introduction.</p>
-<p>However, most people realized that they could use <code>{{ page.root }}/01-introduction/</code> instead.</p>
-<p>That being said, this solution made it impossible to transfer these sites outside of the context of a Carpentries lesson without manually changing the links.</p>
-</div>
 </div>
 <div class="section level3">
 <h3 id="code-blocks">Code Blocks<a class="anchor" aria-label="anchor" href="#code-blocks"></a>
@@ -335,7 +324,7 @@ where they can find more information.</code></pre>
 <h4 id="evaluation">Evaluation<a class="anchor" aria-label="anchor" href="#evaluation"></a>
 </h4>
 <p>Because we are encouraging the use of RMarkdown, you can have code blocks that actually evaluate code using the RMarkdown chunk syntax of three backtics followed by a pair of curly braces with the name of the language engine you want to use for executing the code blocks.</p>
-<p>At the moment, we explicitly support evaluation for R and BASH, but we will be gathering input from maintainers about processes to expand.</p>
+<p>At the moment, we explicitly support evaluation for R and BASH, but we will be gathering input from maintainers about processes to expand. One promising project is <a href="https://quarto.org/" class="external-link">Quarto</a>, which extends the functionality of R Markdown to other languages in a cross-platform, stand-alone binary program.</p>
 <p>There is <a href="https://bookdown.org/yihui/rmarkdown/language-engines.html" class="external-link">a large list of language engines that RMarkdown supports</a>. Most engines require that you have the language available on your PATH and do not share variables and values between chunks, so lesson authors will need to be explicit about the installation requirements for these lessons. Some languages like Python, Julia, and SQL can share data and variables between chunks with the help of specific packages (e.g. <a href="https://rstudio.github.io/reticulate" class="external-link">{reticulate}</a> for Python, <a href="https://non-contradiction.github.io/JuliaCall/index.html" class="external-link">{JuliaCall}</a> for Julia, and <a href="https://dbi.r-dbi.org/" class="external-link">{DBI}</a> for SQL databases).</p>
 </div>
 </div>
@@ -353,7 +342,7 @@ where they can find more information.</code></pre>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
     </footer>
