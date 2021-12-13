@@ -3,7 +3,9 @@
 NEW FEATURE
 -----------
 
- * lesson blocks are now treated the same as other blocks
+ * Lesson blocks are now treated the same as other blocks. This is a placeholder
+   for us to better test the separation of the lesson veiw from the default 
+   learner view.
 
 # sandpaper 0.0.0.9070
 
