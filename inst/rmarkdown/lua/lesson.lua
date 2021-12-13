@@ -18,6 +18,7 @@ local blocks = Set{
   "discussion",
   "testimonial",
   "keypoints",
+  "instructor"
 }
 
 -- get the timing elements from the metadata and store them in a global var
