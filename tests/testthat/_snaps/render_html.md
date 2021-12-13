@@ -34,7 +34,8 @@
         ,Para [Str "just",Space,Str "write",Space,Str "it,",Space,Str "silly."]]]
       ,RawBlock (Format "html") "<aside class=\"instructor\">"
       ,Div ("",[],[])
-       [Para [Str "This",Space,Str "should",Space,Str "be",Space,Str "aside"]]
+       [Header 3 ("",[],[]) [Str "Instructor"]
+       ,Para [Str "This",Space,Str "should",Space,Str "be",Space,Str "aside"]]
       ,RawBlock (Format "html") "</aside>"
       ,Div ("",["nothing"],[])
        [Para [Str "This",Space,Str "should",Space,Str "be"]]]
@@ -116,7 +117,8 @@
       </div>
       </div>
       <aside class="instructor">
-      <div>
+      <div class="section level3">
+      <h3>Instructor</h3>
       <p>This should be aside</p>
       </div>
       </aside>

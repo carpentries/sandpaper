@@ -1,3 +1,10 @@
+# sandpaper 0.0.0.9071
+
+NEW FEATURE
+-----------
+
+ * lesson blocks are now treated the same as other blocks
+
 # sandpaper 0.0.0.9070
 
 BUG FIX
