@@ -28,6 +28,7 @@ reference:
      Functions to work build, audit, and preview lesson content. These will be
      used with regularity in your work.
  - contents:
+   - serve
    - build_lesson
    - sandpaper_site
    - check_lesson
