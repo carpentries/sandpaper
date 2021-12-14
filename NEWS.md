@@ -1,3 +1,16 @@
+# sandpaper 0.0.0.9072
+
+NEW FUNCTION
+------------
+
+* `serve()` now allows you to work on your lesson and have it automatically 
+  rebuild whenever you save your files to disk.
+
+NEW DEPENDENCIES
+----------------
+
+* {servr} is now used in the `serve()` function.
+
 # sandpaper 0.0.0.9071
 
 NEW FEATURE
