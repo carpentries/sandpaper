@@ -1,5 +1,13 @@
 # sandpaper 0.0.0.9072
 
+DEPENDENCY UPDATE
+-----------------
+
+* {renv} is pinned to version 0.14.0 as version 0.13.2 would throw an error when
+  checking for consent. 
+
+# sandpaper 0.0.0.9072
+
 NEW FUNCTION
 ------------
 
