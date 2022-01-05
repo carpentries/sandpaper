@@ -14,6 +14,8 @@
     fs::dir_delete(src)
     fs::dir_delete(out)
   })
+  withr::local_envvar(list("RENV_PROFILE" = "lesson-requirements",
+    "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available()))
 }
 
 test_that("callr_build_episode_md() works with normal markdown", {
