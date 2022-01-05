@@ -201,7 +201,15 @@ renv_diagnostics <- function(path = ".", profile = "lesson-requirements") {
 
 
 renv_cache_available <- function() {
-  renv::config$cache.symlinks() && is.null(getOption("sandpaper.test_fixture"))
+  rccs <- renv::config$cache.symlinks() 
+  stf  <- getOption("sandpaper.test_fixture")
+  if (is.null(rccs) && is.null(stf)) {
+    return("")
+  } else if (!is.null(stf)) {
+    return(FALSE)
+  } else {
+    return(rccs)
+  }
 }
 
 callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {

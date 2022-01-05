@@ -1,4 +1,14 @@
-# sandpaper 0.0.0.9072
+# sandpaper 0.0.0.9074
+
+BUG FIX
+-------
+
+* Internal function `renv_cache_available()` continues to work with {renv}
+  0.15.0.  This new version of {renv} changed the default value of a
+  configuration setting for the system cache from a logical to NULL, which
+  casued a logical operation to fail. (@zkamvar, #223)
+
+# sandpaper 0.0.0.9073
 
 DEPENDENCY UPDATE
 -----------------
