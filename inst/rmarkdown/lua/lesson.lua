@@ -47,8 +47,18 @@ end
 --]]
 function first_block()
   local res = pandoc.List:new{}
-  local teach = pandoc.utils.stringify(timings["teaching"])
-  local exercise = pandoc.utils.stringify(timings["exercises"])
+  local teach = '??'
+  local exercise = '??'
+  local minute = '??'
+  if timings["teaching"] then
+    teach = pandoc.utils.stringify(timings["teaching"])
+  end
+  if timings["exercises"] then
+    exercise = pandoc.utils.stringify(timings["exercises"])
+  end
+  if timings["minutes"] then
+    minute = pandoc.utils.stringify(timings["minutes"])
+  end
 
   -- The objectives block has six divs nested inside of it 
   -- (

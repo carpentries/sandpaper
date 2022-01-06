@@ -1,5 +1,18 @@
 example_markdown <- fs::path_abs(test_path("examples", "ex.md"))
 
+
+test_that("missing metadata is adapted", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  tmp <- withr::local_tempfile()
+  l <- readLines(example_markdown)
+  l[2] <- "whargle: 1"
+  l[3] <- "bargle: 2"
+  writeLines(l, tmp)
+  htm <- render_html(tmp)
+  expect_match(htm, "Teaching: ")
+  expect_match(htm, "Exercises: ")
+})
+
 test_that("emoji are rendered", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
