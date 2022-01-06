@@ -1,3 +1,11 @@
+# sandpaper 0.0.0.9075
+
+BUG FIX
+-------
+
+* Episodes with missing timing metadata will no longer fail if they also contain
+  questions and objectives blocks. (@zkamvar, #222).
+
 # sandpaper 0.0.0.9074
 
 BUG FIX
