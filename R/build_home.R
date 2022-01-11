@@ -21,18 +21,26 @@ build_home <- function(pkg, quiet) {
 }
 
 
-format_syllabus <- function(syl) {
+format_syllabus <- function(syl, use_col = TRUE) {
   syl$questions <- gsub("\n", "<br/>", syl$questions)
   syl$number <- sprintf("%2d\\. ", seq(nrow(syl)))
-  col_template <- "<td class='{cls}'>{thing}</td>"
   links <- glue::glue_data(
     syl[-nrow(syl), ], 
     "{gsub('^[ ]', '&nbsp;', number)}<a href='{fs::path_file(path)}'>{episode}</a>"
   )
-  md2 <- glue::glue(col_template, cls = "col-md-2", thing = syl$timings)
-  md3 <- glue::glue(col_template, cls = "col-md-3", thing = c(links, "Finish"))
-  md7 <- glue::glue(col_template, cls = "col-md-7", thing = syl$questions)
-  out <- glue::glue_collapse(glue::glue("<tr>{md2}{md3}{md7}</tr>"), sep = "\n")
+  if (use_col) {
+    td_template <- "<td class='{cls}'>{thing}</td>"
+  } else {
+    td_template <- "<td>{thing}</td>"
+    syl$timings <- glue::glue_data(
+      syl,
+      "<span class='visually-hidden'>Duration: </span>{timings}"
+    )
+  }
+  td1 <- glue::glue(td_template, cls = "col-md-2", thing = syl$timings)
+  td2 <- glue::glue(td_template, cls = "col-md-3", thing = c(links, "Finish"))
+  td3 <- glue::glue(td_template, cls = "col-md-7", thing = syl$questions)
+  out <- glue::glue_collapse(glue::glue("<tr>{td1}{td2}{td3}</tr>"), sep = "\n")
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp), add = TRUE)
   writeLines(out, tmp)
