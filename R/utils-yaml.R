@@ -169,6 +169,7 @@ create_pkgdown_yaml <- function(path) {
       # What carpentry are we dealing with?
       carpentry_name = siQuote(which_carpentry(usr$carpentry)),
       carpentry      = siQuote(usr$carpentry),
+      carpentry_icon = siQuote(which_icon_carpentry(usr$carpentry)),
       cp             = usr$carpentry == 'cp',
       lc             = usr$carpentry == 'lc',
       dc             = usr$carpentry == 'dc',

@@ -35,6 +35,7 @@ template:
     swc: {{ swc }}
     carpentry: {{ carpentry }}
     carpentry_name: {{ carpentry_name }}
+    carpentry_icon: {{ carpentry_icon }}
     life_cycle: {{ life_cycle }}
     pre_alpha: {{ pre_alpha }}
     alpha: {{ alpha }}

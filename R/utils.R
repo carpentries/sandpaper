@@ -84,6 +84,17 @@ which_carpentry <- function(carpentry) {
   )
 }
 
+which_icon_carpentry <- function(carpentry) {
+  switch(carpentry,
+    lc = "library",
+    dc = "data",
+    swc = "software",
+    cp = "carpentries",
+    incubator = "incubator",
+    lab = "lab"
+  )
+}
+
 varnish_vars <- function() {
   ver <- function(pak) glue::glue(" ({packageVersion(pak)})")
   list(
