@@ -62,8 +62,13 @@ build_episode_html <- function(path_md, path_src = NULL,
   body <- render_html(path_md, quiet = quiet)
   yaml <- yaml::yaml.load(politely_get_yaml(path_md), eval.expr = FALSE)
   path_src <- if (is.null(path_src)) yaml[["sandpaper-source"]] else path_src
+  if (is.null(getOption("sandpaper.a11y-theme"))) {
+    type <- "title-body"
+  } else {
+    type <- "chapter"
+  }
   pkgdown::render_page(pkg, 
-    "title-body",
+    type,
     data = c(
       list(
         # NOTE: we can add anything we want from the YAML header in here to

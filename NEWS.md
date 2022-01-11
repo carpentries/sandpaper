@@ -1,5 +1,13 @@
 # sandpaper 0.0.0.9075
 
+NEW FEATURES
+------------
+
+* Add support for the updated frontend in {varnish}. To turn this feature on,
+  use `options("sandpaper.a11y-theme" = TRUE)`
+
+# sandpaper 0.0.0.9075
+
 BUG FIX
 -------
 
