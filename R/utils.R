@@ -36,19 +36,21 @@ page_location <- function(i, abs_md, er) {
 #' dropdown menu of the sections within the episode if it is labeled as the 
 #' current episode.
 #'
-#' @param html html generated from [render_html()]
+#' @param nodes html generated from [render_html()] or parsed from xml2
 #' @param name the name of the chapter to render
 #' @param position either a number or "current", if "current", then the html is
 #'   parsed for second level headings to list in the sidebar navigation.
 #' @return a character vector with a div item to insert into the sidebar navigation
 #' @keywords internal
-create_sidebar_item <- function(html, name, position) {
+create_sidebar_item <- function(nodes, name, position) {
   current <- position == "current"
   headings <- NULL
   if (current) {
-    nodes <- xml2::read_html(html)
+    if (inherits(html, "character")) {
+      nodes <- xml2::read_html(html)
+    }
     # find all the div items that are purely section level 2
-    h2 <- xml2::xml_find_all(nodes, ".//div[not(parent::div)][@class='section level2']/h2")
+    h2 <- xml2::xml_find_all(nodes, ".//section/h2[@class='section-heading']")
     have_children <- xml2::xml_length(h2) > 0
     txt <- xml2::xml_text(h2)
     ids <- xml2::xml_attr(xml2::xml_parent(h2), "id")
@@ -65,6 +67,52 @@ create_sidebar_item <- function(html, name, position) {
     data = list(name = name, pos = position, headings = headings, current = current))
 }
 
+fix_nodes <- function(nodes) {
+  # find all the div items that are purely section level 2
+  fix_headings(nodes)
+  fix_codeblocks(nodes)
+
+}
+
+fix_headings <- function(nodes) {
+  # find all the div items that are purely section level 2
+  h2 <- xml2::xml_find_all(nodes, ".//div[not(parent::div)][@class='section level2']/h2")
+  xml2::xml_set_attr(h2, "class", "section-heading")
+  xml2::xml_add_sibling(h2, "hr", class = "half-width", .where = "after")
+  sections <- xml2::xml_parent(h2)
+  xml2::xml_set_name(sections, "section")
+  xml2::xml_set_attr(sections, "class", NULL)
+  invisible(nodes)
+}
+
+fix_codeblocks <- function(nodes) {
+  code <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'sourceCode')]")
+  xml2::xml_set_attr(code, "class", "codewrapper sourceCode")
+  pre <- xml2::xml_children(code)
+  xml2::xml_set_attr(pre, "tabindex", "0")
+  type <- rev(trimws(sub("sourceCode", "", xml2::xml_attr(pre, "class"))))
+  add_code_heading(pre, toupper(type))
+  outputs <- xml2::xml_find_all(nodes, ".//pre[@class='output']")
+  if (length(outputs)) {
+    xml2::xml_add_parent(outputs, "div", class = "codewrapper")
+    add_code_heading(outputs, "OUTPUT")
+  }
+  return(nodes)
+}
+
+add_code_heading <- function(codes, labels = "OUTPUT") {
+  heads <- xml2::xml_add_sibling(codes, "h3", labels, class = "code-label", 
+    .where = "before")
+  for (head in heads) {
+    xml2::xml_add_child(head, "i", 
+      "aria-hidden" = "true", "data-feather" = "chevron-left")
+    xml2::xml_add_child(head, "i", 
+      "aria-hidden" = "true", "data-feather" = "chevron-right")
+  }
+  invisible(codes)
+}
+
+
 #' Create the sidebar for varnish
 #'
 #' Varnish uses a sidebar for navigation across and within an episode. Each 
@@ -77,6 +125,7 @@ create_sidebar_item <- function(html, name, position) {
 #' @param name the name of the current chapter
 #' @param html the html of the current chapter. defaults to a link that will
 #'   produce a sidebar with no links to headings.
+#' @keywords internal
 create_sidebar <- function(chapters, name = "", html = "<a href='https://carpentries.org'/>") {
   res <- character(length(chapters))
   for (i in seq(chapters)) {
