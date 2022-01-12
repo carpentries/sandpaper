@@ -40,98 +40,77 @@ end
 -- relying on a logic-based templating language (liquid can diaf), we can create
 -- this here. 
 --
--- This relies on a couple of things
---
--- Meta: teaching and exercises
--- Body: questions and objectives. 
 --]]
-function first_block()
+--   <div class="overview card">
+--     <h2 class="card-header">
+--       Overview
+--     </h2>
+--     <div class="row g-0">
+--       <div class="col-md-4">
+--         <div class="card-body">
+--           <div class="inner ">
+--             <h3 class="card-title">Questions</h3>
+--             <ul>
+--               <li>How can I manipulate a data frame?</li>
+--             </ul>
+--           </div>
+--         </div>
+--       </div>
+--       <div class="col-md-8">
+--         <div class="card-body">
+--           <div class="inner bordered">
+--             <h3 class="card-title">Objectives</h3>
+--             <ul>
+--               <li>Use the dplyr package to manipulate data frames.</li>
+--               <li> Remove rows with NA values</li>
+--               <li>Append two data frames. </li>
+--               <li>Understand what a factor is.</li>
+--             </ul>
+--           </div>
+--         </div>
+--       </div>
+--     </div>
+--   </div>
+function overview_card()
   local res = pandoc.List:new{}
-  local teach = '??'
-  local exercise = '??'
-  local minute = '??'
-  if timings["teaching"] then
-    teach = pandoc.utils.stringify(timings["teaching"])
-  end
-  if timings["exercises"] then
-    exercise = pandoc.utils.stringify(timings["exercises"])
-  end
-  if timings["minutes"] then
-    minute = pandoc.utils.stringify(timings["minutes"])
-  end
+  local questions_div = pandoc.Div({}, {class='inner'})
+  local objectives_div = pandoc.Div({}, {class='inner bordered'});
+  local qbody = pandoc.Div({}, {class="card-body"})
+  local obody = pandoc.Div({}, {class="card-body"})
+  local qcol = pandoc.Div({}, {class="col-md-4"})
+  local ocol = pandoc.Div({}, {class="col-md-8"})
+  local row = pandoc.Div({}, {class="row g-0"})
+  local overview = pandoc.Div({}, {class="overview card"})
+  -- create headers. Note because of --section-divs, we have to insert raw
+  -- headers so that the divs do not inherit the header classes afterwards
+  table.insert(questions_div.content, 
+    pandoc.RawBlock("html", "<h3 class='card-title'>Questions</h3>"))
+  table.insert(objectives_div.content, 
+    pandoc.RawBlock("html", "<h3 class='card-title'>Objectives</h3>"))
 
-  -- The objectives block has six divs nested inside of it 
-  -- (
-  --  ( ()() )
-  --  ( ()() )
-  -- )
-  -- We are creating the div blocks, inserting the content, and then nesting
-  -- them inside each other before adding them to the block. 
-  local objectives_div = pandoc.Div({}, {class='objectives'});
-  local row1 = pandoc.Div({}, {class='row'});
-  local row2 = pandoc.Div({}, {class='row'});
-  local row1_left_col = pandoc.Div({}, {class='col-md-3'});
-  local row1_right_col = pandoc.Div({}, {class='col-md-9'});
-  local row2_left_col = pandoc.Div({}, {class='col-md-3'});
-  local row2_right_col = pandoc.Div({}, {class='col-md-9'});
-
-  -- ## Objectives
-  table.insert(objectives_div.content, pandoc.Header(2, "Overview"))
-
-  -- Teaching: NN
-  -- Objectives: NN
-  texercises = pandoc.List:new{
-    pandoc.Strong {pandoc.Str "Teaching: "},
-    pandoc.Space(),
-    pandoc.Str(teach),
-    pandoc.LineBreak(),
-    pandoc.Strong {pandoc.Str "Exercises: "},
-    pandoc.Space(),
-    pandoc.Str(exercise),
-  }
-  table.insert(row1_left_col.content, pandoc.Para(texercises))
-
-  -- **Questions**
-  --
-  -- - What?
-  -- - Who?
-  -- - Why?
-  table.insert(row1_right_col.content, pandoc.Para(pandoc.List:new {
-    pandoc.Strong {pandoc.Str "Questions"}
-  }))
-  for _, block in ipairs(questions.content) do
-    if block.t ~= "Header" then
-      table.insert(row1_right_col.content, block)
-    end
-  end
-
-  -- **Objectives**
-  --
-  -- - S3
-  -- - S4
-  -- - R6
-  table.insert(row2_right_col.content, pandoc.Para(pandoc.List:new {
-    pandoc.Strong {pandoc.Str "Objectives"}
-  }));
+  -- Insert the content from the objectives and the questions
   for _, block in ipairs(objectives.content) do
     if block.t ~= "Header" then
-      table.insert(row2_right_col.content, block);
+      table.insert(objectives_div.content, block)
+    end
+  end
+  for _, block in ipairs(questions.content) do
+    if block.t ~= "Header" then
+      table.insert(questions_div.content, block)
     end
   end
 
-  -- Adding columns to rows
-  table.insert(row1.content, row1_left_col);
-  table.insert(row1.content, row1_right_col);
-  table.insert(row2.content, row2_left_col);
-  table.insert(row2.content, row2_right_col);
-  
-  -- Adding rows to div
-  table.insert(objectives_div.content, row1);
-  table.insert(objectives_div.content, row2);
-
-  -- Adding div to main table
-  table.insert(res, objectives_div)
-
+  -- Build the whole thing
+  table.insert(qbody.content, questions_div)
+  table.insert(obody.content, objectives_div)
+  table.insert(qcol.content, qbody)
+  table.insert(ocol.content, obody)
+  table.insert(row.content, qcol) 
+  table.insert(row.content, ocol) 
+  table.insert(overview.content, 
+    pandoc.RawBlock("html", "<h2 class='card-header'>Overview</h2>"))
+  table.insert(overview.content, row)
+  table.insert(res, overview)
   return(res)
 end
 
@@ -226,7 +205,7 @@ handle_our_divs = function(el)
   if i ~= nil then
     questions = el
     if objectives ~= nil then
-      return first_block()
+      return overview_card()
     else 
       return pandoc.Null()
     end
@@ -236,51 +215,12 @@ handle_our_divs = function(el)
   if i ~= nil then
     objectives = el
     if questions ~= nil then
-      return first_block()
+      return overview_card()
     else 
       return pandoc.Null()
     end
   end
 
-  -- Instructor notes should be aside tags
-  v,i = el.classes:find("instructor")
-  if i ~= nil then
-    level_head(el, 3) -- force level to be at most 3
-    return step_aside(el, i) -- create aside padding
-  end
-
-  -- Callouts should be asides
-  -- 2021-01-29: There is still a persistent issue with --section-divs if there
-  -- is a header in the aside tag. Because --section-divs will take a header and
-  -- figure collapse everything until the next header of equal or greater value
-  -- into a section and it does not interpret asides as a valid section, it
-  -- will close the previous section after the aside tag because it assumes that
-  -- the aside belongs to the previous section (which it kind of does). Example:
-  --
-  -- <section id="this-should-be-in-the-main-content" class="level2">
-  -- <h2>This should be in the main content</h2>
-  -- <p>There usually is text before a callout.</p>
-  -- <aside class="callout">
-  --> </section> <-- section closes here, trapping the initial aside tag
-  -- <section id="main-aside" class="level1">
-  -- <h1>Main Aside</h1>
-  -- <p>This should be <code>&lt;aside&gt;</code>, but appear in the main body.</p>
-  -- </section>
-  -- </aside>
-  --
-  v,i = el.classes:find("callout")
-  if i ~= nil then
-    level_head(el, 3) -- force level to be at most 3
-    return step_aside(el, i) -- create aside padding
-  end
-
-  -- When I finally know how to manipulate jquery, I can implement this, but
-  -- for now, they will remain at level 2 :(
-  -- v,i = el.classes:find("solution")
-  -- if i ~= nil then
-  --   level_head(el, 3) -- force level to be at most 3
-  --   return el
-  -- end
 
   -- All other Div tags should have at most level 2 headers
   level_head(el, 2)
