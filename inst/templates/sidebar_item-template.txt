@@ -3,7 +3,7 @@
     <div class="accordion-header " id="flush-heading{{pos}}">
         {{#current}}
         {{#headings}}
-      <button class="accordion-button  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{pos}}" aria-expanded="false" aria-controls="flush-collapse{{pos}}">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{pos}}" aria-expanded="true" aria-controls="flush-collapse{{pos}}">
         {{/headings}}
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
@@ -15,7 +15,7 @@
         {{/current}}
     </div><!--/div.accordion-header-->
         {{#current}}{{#headings}}
-    <div id="flush-collapse{{pos}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{pos}}" data-bs-parent="#accordionFlush{{pos}}">
+    <div id="flush-collapse{{pos}}" class="accordion-collapse collapse show" aria-labelledby="flush-heading{{pos}}" data-bs-parent="#accordionFlush{{pos}}">
       <div class="accordion-body">
         <ul>
           {{{headings}}}
