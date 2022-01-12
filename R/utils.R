@@ -89,7 +89,6 @@ fix_codeblocks <- function(nodes) {
   code <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'sourceCode')]")
   xml2::xml_set_attr(code, "class", "codewrapper sourceCode")
   pre <- xml2::xml_children(code)
-  xml2::xml_set_attr(pre, "tabindex", "0")
   type <- rev(trimws(sub("sourceCode", "", xml2::xml_attr(pre, "class"))))
   add_code_heading(pre, toupper(type))
   outputs <- xml2::xml_find_all(nodes, ".//pre[@class='output']")
@@ -101,6 +100,7 @@ fix_codeblocks <- function(nodes) {
 }
 
 add_code_heading <- function(codes, labels = "OUTPUT") {
+  xml2::xml_set_attr(codes, "tabindex", "0")
   heads <- xml2::xml_add_sibling(codes, "h3", labels, class = "code-label", 
     .where = "before")
   for (head in heads) {
