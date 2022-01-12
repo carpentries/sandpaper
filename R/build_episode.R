@@ -57,15 +57,17 @@
 #' }
 build_episode_html <- function(path_md, path_src = NULL, 
                                page_back = "index.md", page_forward = "index.md", 
-                               pkg, quiet = FALSE, page_progress = NULL) {
+                               pkg, quiet = FALSE, page_progress = NULL, sidebar = NULL) {
   home <- root_path(path_md)
   body <- render_html(path_md, quiet = quiet)
   yaml <- yaml::yaml.load(politely_get_yaml(path_md), eval.expr = FALSE)
   path_src <- if (is.null(path_src)) yaml[["sandpaper-source"]] else path_src
-  if (is.null(getOption("sandpaper.a11y-theme"))) {
-    type <- "title-body"
-  } else {
-    type <- "chapter"
+  type <- "chapter"
+  title <- parse_title(yaml$title)
+  if (!is.null(sidebar)) {
+    this_page <- fs::path_file(fs::path_ext_set(path_md, "html"))
+    to_change <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), sidebar)
+    sidebar[to_change] <- create_sidebar_item(body, title, "current")
   }
   pkgdown::render_page(pkg, 
     type,
@@ -74,7 +76,7 @@ build_episode_html <- function(path_md, path_src = NULL,
         # NOTE: we can add anything we want from the YAML header in here to
         # pass on to the template.
         body         = body,
-        pagetitle    = parse_title(yaml$title),
+        pagetitle    = title,
         teaching     = yaml$teaching,
         exercises    = yaml$exercises,
         file_source  = fs::path_rel(path_src, start = home),
@@ -82,7 +84,8 @@ build_episode_html <- function(path_md, path_src = NULL,
         left         = if (page_back == "index.md") "up" else "left",
         page_forward = as_html(page_forward),
         right        = if (page_forward == "index.md") "up" else "right",
-        progress     = page_progress
+        progress     = page_progress,
+        sidebar      = paste(sidebar, collapse = "\n")
       ),
       varnish_vars()
     ), 

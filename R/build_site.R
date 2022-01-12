@@ -36,18 +36,6 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   abs_md  <- fs::path(path, db$built)
   abs_src <- fs::path(path, db$file)
 
-  # comparison function to test if a within a range of 2 b numbers
-  `%w%` <- function(a, b) a >= b[[1]] && a <= b[[2]]
-  page_location <- function(i, abs_md, er) {
-    if (!i %w% er) {
-      return(c(back = "index.md", forward = "index.md", progress = ""))
-    }
-    back <- if (i > er[1]) abs_md[i - 1] else "index.md"
-    fwd  <- if (i < er[2]) abs_md[i + 1] else "index.md"
-    pct  <- sprintf("%1.0f", (i - er[1])/(er[2] - er[1]) * 100)
-    c(back = back, forward = fwd, progress = pct)
-  }
-
   if (!quiet && requireNamespace("cli", quietly = TRUE)) {
     cli::cli_rule(cli::style_bold("Scanning episodes"))
   }
@@ -59,8 +47,11 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     out <- paste0(slug, ".html")
     files_to_render <- which(get_slug(db$built) == slug)
   }
+
   out <- if (is.null(slug)) "index.html" else paste0(slug, ".html")
+  sidebar <- create_sidebar(abs_md[seq(er[1], er[2])])
   for (i in files_to_render) {
+    thisbar <- sidebar
     location <- page_location(i, abs_md, er)
     build_episode_html(
       path_md      = abs_md[i],
@@ -68,6 +59,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
       page_back    = location["back"],
       page_forward = location["forward"],
       page_progress = location["progress"],
+      sidebar      = thisbar,
       pkg          = pkg,
       quiet        = quiet
     )

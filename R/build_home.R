@@ -5,13 +5,12 @@ build_home <- function(pkg, quiet) {
   idx      <- fs::path(pkg$src_path, "built", "index.md")
   readme   <- fs::path(pkg$src_path, "built", "README.md")
   index <- render_html(if (fs::file_exists(idx)) idx else readme)
-  use_col_widths <- is.null(getOption("sandpaper.a11y-theme"))
   pkgdown::render_page(pkg, 
     "syllabus",
     data = c(
       list(
         readme = index,
-        syllabus = format_syllabus(syl, use_col_widths),
+        syllabus = format_syllabus(syl, use_col = FALSE),
         pagetitle = parse_title(cfg$title),
         schedule = TRUE
       ),

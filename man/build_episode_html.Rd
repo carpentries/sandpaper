@@ -10,7 +10,8 @@ build_episode_html(
   page_back = "index.md",
   page_forward = "index.md",
   pkg,
-  quiet = FALSE
+  quiet = FALSE,
+  page_progress = NULL
 )
 }
 \arguments{

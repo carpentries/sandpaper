@@ -80,4 +80,4 @@ template_pr_diff <- generate_template_function("pr_diff")
 
 #' @rdname template
 #' @export
-template_nav_item <- generate_template_function("nav_item")
+template_sidebar_item <- generate_template_function("sidebar_item")
