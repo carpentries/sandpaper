@@ -38,6 +38,15 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   # comparison function to test if a within a range of 2 b numbers
   `%w%` <- function(a, b) a >= b[[1]] && a <= b[[2]]
+  page_location <- function(i, abs_md, er) {
+    if (!i %w% er) {
+      return(c(back = "index.md", forward = "index.md", progress = ""))
+    }
+    back <- if (i > er[1]) abs_md[i - 1] else "index.md"
+    fwd  <- if (i < er[2]) abs_md[i + 1] else "index.md"
+    pct  <- sprintf("%1.0f", (i - er[1])/(er[2] - er[1]) * 100)
+    c(back = back, forward = fwd, progress = pct)
+  }
 
   if (!quiet && requireNamespace("cli", quietly = TRUE)) {
     cli::cli_rule(cli::style_bold("Scanning episodes"))
@@ -52,12 +61,14 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   }
   out <- if (is.null(slug)) "index.html" else paste0(slug, ".html")
   for (i in files_to_render) {
+    location <- page_location(i, abs_md, er)
     build_episode_html(
       path_md      = abs_md[i],
       path_src     = abs_src[i],
-      page_back    = if (i %w% er && i > er[1]) abs_md[i - 1] else "index.md",
-      page_forward = if (i %w% er && i < er[2]) abs_md[i + 1] else "index.md",
-      pkg          = pkg, 
+      page_back    = location["back"],
+      page_forward = location["forward"],
+      page_progress = location["progress"],
+      pkg          = pkg,
       quiet        = quiet
     )
   }

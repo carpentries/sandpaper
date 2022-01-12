@@ -1,0 +1,31 @@
+<div class="accordion accordion-flush" id="accordionFlush{{pos}}">
+  <div class="accordion-item">
+    <div class="accordion-header " id="flush-heading{{pos}}">
+      <button class="accordion-button  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{pos}}" aria-expanded="false" aria-controls="flush-collapse{{pos}}">
+        {{#current}}
+        <span class="visually-hidden">Current Chapter</span>
+        <span class="current-chapter">
+        {{/current}}
+        {{{name}}}
+        {{#current}}
+        </span>
+        {{/current}}
+      </button>
+    </div><!--/div.accordion-header-->
+
+    <div id="flush-collapse{{pos}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{pos}}" data-bs-parent="#accordionFlush{{pos}}">
+      <div class="accordion-body">
+        <ul>
+          {{{headings}}}
+<!--
+          <li><a class="section-link" href="#addingcolumns">Adding columns and rows to data frames</a></li>
+          <li><a class="section-link" href="#factors">Factors</a></li>
+          <li><a class="section-link" href="#removingcolumns">Removing Columns</a></li>
+-->
+        </ul>
+      </div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+

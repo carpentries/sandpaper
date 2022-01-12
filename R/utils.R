@@ -14,6 +14,22 @@ parse_title <- function(title) {
   title <- commonmark::markdown_html(title)
   substring(title, 4, nchar(title) - 5)
 }
+create_navbar_item <- function(html, name, position) {
+  nodes <- xml2::read_html(html)
+  # find all the div items that are purely section level 2
+  h2 <- xml2::xml_find_all(nodes, ".//div[@class='section level2']/h2")
+  have_children <- xml2::xml_length(h2) > 0
+  txt <- xml2::xml_text(h2)
+  ids <- xml2::xml_attr(xml2::xml_parent(h2), "id")
+  if (any(have_children)) {
+    txt[have_children] <- as.character(xml2::xml_children(h2[have_children]))
+  }
+  headings <- paste0("<li><a href='#", ids, "'>", txt, "</a></li>",
+    collapse = "\n"
+  )
+  whisker::whisker.render(readLines(template_nav_item()), 
+    data = list(name = name, pos = position, headings = headings))
+}
 
 copy_maybe <- function(path, new_path) {
   if (fs::file_exists(path)) {

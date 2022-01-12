@@ -57,7 +57,7 @@
 #' }
 build_episode_html <- function(path_md, path_src = NULL, 
                                page_back = "index.md", page_forward = "index.md", 
-                               pkg, quiet = FALSE) {
+                               pkg, quiet = FALSE, page_progress = NULL) {
   home <- root_path(path_md)
   body <- render_html(path_md, quiet = quiet)
   yaml <- yaml::yaml.load(politely_get_yaml(path_md), eval.expr = FALSE)
@@ -81,7 +81,8 @@ build_episode_html <- function(path_md, path_src = NULL,
         page_back    = as_html(page_back),
         left         = if (page_back == "index.md") "up" else "left",
         page_forward = as_html(page_forward),
-        right        = if (page_forward == "index.md") "up" else "right"
+        right        = if (page_forward == "index.md") "up" else "right",
+        progress     = page_progress
       ),
       varnish_vars()
     ), 
