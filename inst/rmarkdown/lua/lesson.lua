@@ -8,6 +8,7 @@ function Set (list)
   return set
 end
 
+
 local blocks = {
   ["callout"] = "bell",
   ["objectives"] = "none",
@@ -19,6 +20,19 @@ local blocks = {
   ["testimonial"] = "heart",
   ["keypoints"] = "key",
   ["instructor"] = "edit-2"
+}
+
+local block_counts = {
+  ["callout"] = 0,
+  ["objectives"] = 0,
+  ["challenge"] = 0,
+  ["prereq"] = 0,
+  ["checklist"] = 0,
+  ["solution"] = 0,
+  ["discussion"] = 0,
+  ["testimonial"] = 0,
+  ["keypoints"] = 0,
+  ["instructor"] = 0
 }
 
 -- get the timing elements from the metadata and store them in a global var
@@ -153,32 +167,36 @@ function level_head(el, level)
 end
 
 instructor_note = function(el)
--- <div class="accordion instructor-note accordion-flush" id="accordionFlushExample">
---   <div class="accordion-item">
---     <button class="accordion-button collapsed instructor-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseInstructor" aria-expanded="false" aria-controls="flush-collapseInstructor">
---       <h3 class="accordion-header" id="flush-headingInstructor">
---         <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note
---       </h3>
---     </button>
---     <div id="flush-collapseInstructor" class="accordion-collapse collapse" aria-labelledby="flush-headingInstructor" data-bs-parent="#accordionFlushExample">
---       <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
---     </div>
---   </div>
--- </div>
-  local header = get_header(el, 3)
+  -- NOTE: the instructor button here will expand and collapse all instructor
+  --       notes, which may actually be useful
+  local button_raw = [[
+  <button class="accordion-button collapsed instructor-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseInstructor" aria-expanded="false" aria-controls="flush-collapseInstructor">
+    <h3 class="accordion-header" id="flush-headingInstructor">
+      <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+      Instructor Note
+    </h3>
+  </button>
+  ]]
+  -- increment the instructor id so each note gets its own identity
+  block_counts["instructor"] = block_counts["instructor"] + 1
+  instructor_id = block_counts["instructor"]
+
+  -- construct the divs... three of them that wrap the instructor div
   el.classes = {'accordion-body'}
-  local accordion_collapse = pandoc.Div({el}, {class = "accordion-collapse collapse"})
-  local button = pandoc.RawBlock("html", [[
-    <button class="accordion-button collapsed instructor-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseInstructor" aria-expanded="false" aria-controls="flush-collapseInstructor">
-      <h3 class="accordion-header" id="flush-headingInstructor">
-        <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
-        Instructor Note
-      </h3>
-    </button>
-  ]])
+  -- div for collapsing content
+  local accordion_collapse = pandoc.Div({el})
+  -- button that is the friend of the collapse
+  local button = pandoc.RawBlock("html", button_raw)
+  accordion_collapse.attr = {["id"] = "flush-collapseInstructor", 
+    ['class'] = "accordion-collapse collapse",
+    ['aria-labelledby'] = "flush-headingInstructor", 
+    ['data-bs-parent'] = "#accordionFlush"..instructor_id}
+  -- the actual block to collapse things
   local accordion_item = pandoc.Div({button, accordion_collapse}, {class = "accordion-item"})
-  -- TODO: add attributes to the accordion collapse
-  local instructor_note = pandoc.Div({accordion_item}, {class = "accordion instructor-note accordion-flush"})
+  -- the whole package
+  local instructor_note = pandoc.Div({accordion_item})
+  instructor_note.attr = {["class"] = "accordion instructor-note accordion-flush", 
+  ["id"] = "accordionFlush"..instructor_id}
   return(instructor_note)
 end
 
@@ -219,6 +237,8 @@ handle_our_divs = function(el)
   if this_icon == nil then
     return el
   end
+  block_counts[classes[1]] = block_counts[classes[1]] + 1
+  callout_id = classes[1]..block_counts[classes[1]]
   classes:insert(1, "callout")
   local header = get_header(el, 3)
 
@@ -232,6 +252,7 @@ handle_our_divs = function(el)
   el.classes = {"callout-content"}
   table.insert(callout_inner.content, el)
   local callout_block = pandoc.Div({callout_square, callout_inner})
+  callout_block.attr = {["id"] = callout_id}
   callout_block.classes = classes
   return(callout_block)
 end
