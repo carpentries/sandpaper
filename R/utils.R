@@ -71,6 +71,8 @@ fix_nodes <- function(nodes) {
   # find all the div items that are purely section level 2
   fix_headings(nodes)
   fix_codeblocks(nodes)
+  fix_figures(nodes)
+  fix_callouts(nodes)
 
 }
 
@@ -96,7 +98,7 @@ fix_codeblocks <- function(nodes) {
     xml2::xml_add_parent(outputs, "div", class = "codewrapper")
     add_code_heading(outputs, "OUTPUT")
   }
-  return(nodes)
+  invisible(nodes)
 }
 
 add_code_heading <- function(codes, labels = "OUTPUT") {
@@ -110,6 +112,26 @@ add_code_heading <- function(codes, labels = "OUTPUT") {
       "aria-hidden" = "true", "data-feather" = "chevron-right")
   }
   invisible(codes)
+}
+
+fix_figures <- function(nodes) {
+  figs <- xml2::xml_find_all(nodes, ".//img")
+  caps <- xml2::xml_find_all(nodes, ".//p[@class='caption']")
+  fig_element <- xml2::xml_parent(figs)
+
+  xml2::xml_set_attr(figs, "class", "figure mx-auto d-block")
+  xml2::xml_set_name(caps, "figcaption")
+  xml2::xml_set_attr(caps, "class", NULL)
+  xml2::xml_set_name(fig_element, "figure")
+  xml2::xml_set_attr(fig_element, "class", NULL)
+  invisible(nodes)
+}
+
+fix_callouts <- function(nodes) {
+  h3 <- xml2::xml_find_all(nodes, ".//h3[@class='callout-title']")
+  inner_div <- xml2::xml_parent(h3)
+  xml2::xml_set_attr(inner_div, "class", "callout-inner")
+  invisible(nodes)
 }
 
 

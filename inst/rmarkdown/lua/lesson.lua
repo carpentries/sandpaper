@@ -8,17 +8,17 @@ function Set (list)
   return set
 end
 
-local blocks = Set{
-  "callout",
-  "objectives",
-  "challenge",
-  "prereq",
-  "checklist",
-  "solution",
-  "discussion",
-  "testimonial",
-  "keypoints",
-  "instructor"
+local blocks = {
+  ["callout"] = "bell",
+  ["objectives"] = "none",
+  ["challenge"] = "zap",
+  ["prereq"] = "check",
+  ["checklist"] = "check-square",
+  ["solution"] = "none",
+  ["discussion"] = "message-circle",
+  ["testimonial"] = "heart",
+  ["keypoints"] = "key",
+  ["instructor"] = "edit-2"
 }
 
 -- get the timing elements from the metadata and store them in a global var
@@ -154,6 +154,32 @@ function step_aside(el, i)
   return res
 end
 
+
+function get_header(el, level)
+  -- bail early if there is no class or it's not one of ours
+  local no_class = el.classes[1] == nil
+  if no_class then
+    return nil
+  end
+  local class = pandoc.utils.stringify(el.classes[1])
+  if blocks[class] == nil then
+    return nil
+  end
+  -- check if the header exists
+  local header = el.content[1]
+  if header.level == nil then
+    -- capitalize the first letter and insert it at the top of the block
+    local C = text.upper(text.sub(class, 1, 1))
+    local lass = text.sub(class, 2, -1)
+    header = pandoc.Header(3, C..lass)
+  else
+    header.level = 3
+    el.content:remove(1)
+  end
+  header.classes = {"callout-title"}
+  return(header)
+end
+
 -- Add a header to a Div element if it doesn't exist
 -- 
 -- @param el a pandoc.Div element
@@ -221,11 +247,28 @@ handle_our_divs = function(el)
     end
   end
 
-
   -- All other Div tags should have at most level 2 headers
-  level_head(el, 2)
+  level_head(el, 3)
+  local classes = el.classes:map(pandoc.utils.stringify)
+  local this_icon = blocks[classes[1]]
+  if this_icon == nil then
+    return el
+  end
+  classes:insert(1, "callout")
+  local header = get_header(el, 3)
 
-  return el
+  local icon = pandoc.RawBlock("html", 
+    "<i class='callout-icon' data-feather='"..this_icon.."'></i>")
+  local callout_square = pandoc.Div(icon, {class = "callout-square"})
+
+
+  local callout_inner = pandoc.Div({header}, {class = "callout-inner"})
+
+  el.classes = {"callout-content"}
+  table.insert(callout_inner.content, el)
+  local callout_block = pandoc.Div({callout_square, callout_inner})
+  callout_block.classes = classes
+  return(callout_block)
 end
 
 -- Flatten relative links for HTML output
@@ -271,6 +314,12 @@ flatten_links = function(el)
     el.target = tgt;
   end
   return el
+end
+
+provision_caption = function(el)
+  el = flatten_links(el)
+  el.classes = {"figure", "mx-auto", "d-block"}
+  return(el)
 end
 
 return {
