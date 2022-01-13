@@ -41,36 +41,6 @@ end
 -- this here. 
 --
 --]]
---   <div class="overview card">
---     <h2 class="card-header">
---       Overview
---     </h2>
---     <div class="row g-0">
---       <div class="col-md-4">
---         <div class="card-body">
---           <div class="inner ">
---             <h3 class="card-title">Questions</h3>
---             <ul>
---               <li>How can I manipulate a data frame?</li>
---             </ul>
---           </div>
---         </div>
---       </div>
---       <div class="col-md-8">
---         <div class="card-body">
---           <div class="inner bordered">
---             <h3 class="card-title">Objectives</h3>
---             <ul>
---               <li>Use the dplyr package to manipulate data frames.</li>
---               <li> Remove rows with NA values</li>
---               <li>Append two data frames. </li>
---               <li>Understand what a factor is.</li>
---             </ul>
---           </div>
---         </div>
---       </div>
---     </div>
---   </div>
 function overview_card()
   local res = pandoc.List:new{}
   local questions_div = pandoc.Div({}, {class='inner'})
@@ -112,46 +82,6 @@ function overview_card()
   table.insert(overview.content, row)
   table.insert(res, overview)
   return(res)
-end
-
--- Convert Div elements to semantic HTML <aside> tags
---
--- NOTE: This destructively converts div tags, so do not apply this to a div
--- tag that has more than one associated class.
---
--- @param el a pandoc Div element
--- @param i the index of the class element
--- 
--- @return a pandoc List element, with the contents of the Div block surrounded 
--- by opening and closing <aside> html elements
-function step_aside(el, i)
-  -- create a new pandoc element, add raw HTML, 
-  -- and fill it with the content of the div block
-  local class = el.classes[i]
-  local html
-  -- need an inner div to make sure that headers are not accidentally runed
-  local inner_div = pandoc.Div({});
-  local res = pandoc.List:new{}
-
-  -- remove this class from the div tag
-  el.classes[i] = nil
-
-  -- Step 1: insert the HTML opening tag
-  html = '<aside class="'..class..'">'
-
-  table.insert(res, pandoc.RawBlock('html', html))
-
-  -- Step 2: insert the content of the Div block into the output List
-  for _, block in ipairs(el.content) do
-    table.insert(inner_div.content, block)
-  end
-
-  -- Step 3: insert div block
-  table.insert(res, inner_div);
-  -- Step 4: insert the HTML closing tag
-  table.insert(res, pandoc.RawBlock('html', '</aside>'))
-
-  return res
 end
 
 
@@ -222,6 +152,36 @@ function level_head(el, level)
   return el
 end
 
+instructor_note = function(el)
+-- <div class="accordion instructor-note accordion-flush" id="accordionFlushExample">
+--   <div class="accordion-item">
+--     <button class="accordion-button collapsed instructor-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseInstructor" aria-expanded="false" aria-controls="flush-collapseInstructor">
+--       <h3 class="accordion-header" id="flush-headingInstructor">
+--         <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note
+--       </h3>
+--     </button>
+--     <div id="flush-collapseInstructor" class="accordion-collapse collapse" aria-labelledby="flush-headingInstructor" data-bs-parent="#accordionFlushExample">
+--       <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+--     </div>
+--   </div>
+-- </div>
+  local header = get_header(el, 3)
+  el.classes = {'accordion-body'}
+  local accordion_collapse = pandoc.Div({el}, {class = "accordion-collapse collapse"})
+  local button = pandoc.RawBlock("html", [[
+    <button class="accordion-button collapsed instructor-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseInstructor" aria-expanded="false" aria-controls="flush-collapseInstructor">
+      <h3 class="accordion-header" id="flush-headingInstructor">
+        <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+        Instructor Note
+      </h3>
+    </button>
+  ]])
+  local accordion_item = pandoc.Div({button, accordion_collapse}, {class = "accordion-item"})
+  -- TODO: add attributes to the accordion collapse
+  local instructor_note = pandoc.Div({accordion_item}, {class = "accordion instructor-note accordion-flush"})
+  return(instructor_note)
+end
+
 
 -- Deal with fenced divs
 handle_our_divs = function(el)
@@ -246,6 +206,11 @@ handle_our_divs = function(el)
       return pandoc.Null()
     end
   end
+  v,i = el.classes:find("instructor")
+  if i ~= nil then
+    return(instructor_note(el))
+  end
+
 
   -- All other Div tags should have at most level 2 headers
   level_head(el, 3)
