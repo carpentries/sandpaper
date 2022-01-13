@@ -1,10 +1,15 @@
-# sandpaper 0.0.0.9075
+# sandpaper 0.1.0
 
-NEW FEATURES
-------------
+BREAKING CHANGES
+----------------
 
-* Add support for the updated frontend in {varnish}. To turn this feature on,
-  use `options("sandpaper.a11y-theme" = TRUE)`
+* Add support for the updated frontend in {varnish}. This means that you will
+  need varnish 0.1.0 installed in order to use this update. This change includes
+  modifications to the lua filters along with the general handling of the HTML
+  elements which means that older versions of varnish will cease to work.
+* code blocks will no longer contain package links. While the links may have
+  been handy for sighted users to explore documentation, these may represent
+  objstructions for users who rely on screen-readers.
 
 # sandpaper 0.0.0.9075
 

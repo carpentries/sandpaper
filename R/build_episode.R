@@ -71,6 +71,16 @@ build_episode_html <- function(path_md, path_src = NULL,
     to_change <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), sidebar)
     sidebar[to_change] <- create_sidebar_item(nodes, title, "current")
   }
+  # shim for downlit
+  shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
+  expected <- "5484c37e9b9c324361d775a10dea4946"
+  actual   <- tools::md5sum(shimstem_file)
+  if (expected == actual) {
+    # evaluate the shim in our namespace
+    when_done <- source(shimstem_file, local = TRUE)$value
+    on.exit(eval(when_done), add = TRUE)
+  }
+  # end downlit shim
   pkgdown::render_page(pkg, 
     type,
     data = c(

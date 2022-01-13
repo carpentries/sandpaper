@@ -46,8 +46,8 @@ create_sidebar_item <- function(nodes, name, position) {
   current <- position == "current"
   headings <- NULL
   if (current) {
-    if (inherits(html, "character")) {
-      nodes <- xml2::read_html(html)
+    if (inherits(nodes, "character")) {
+      nodes <- xml2::read_html(nodes)
     }
     # find all the div items that are purely section level 2
     h2 <- xml2::xml_find_all(nodes, ".//section/h2[@class='section-heading']")

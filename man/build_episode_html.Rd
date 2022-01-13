@@ -11,7 +11,8 @@ build_episode_html(
   page_forward = "index.md",
   pkg,
   quiet = FALSE,
-  page_progress = NULL
+  page_progress = NULL,
+  sidebar = NULL
 )
 }
 \arguments{

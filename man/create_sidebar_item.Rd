@@ -4,8 +4,23 @@
 \alias{create_sidebar_item}
 \title{Create a single item that appears in the sidebar}
 \usage{
-create_sidebar_item(html, name, position)
+create_sidebar_item(nodes, name, position)
+}
+\arguments{
+\item{nodes}{html generated from \code{\link[=render_html]{render_html()}} or parsed from xml2}
+
+\item{name}{the name of the chapter to render}
+
+\item{position}{either a number or "current", if "current", then the html is
+parsed for second level headings to list in the sidebar navigation.}
+}
+\value{
+a character vector with a div item to insert into the sidebar navigation
 }
 \description{
-Create a single item that appears in the sidebar
+Varnish uses a sidebar for navigation across and within an episode. This
+funciton will create a sidebar item for a single episode, providing a
+dropdown menu of the sections within the episode if it is labeled as the
+current episode.
 }
+\keyword{internal}
