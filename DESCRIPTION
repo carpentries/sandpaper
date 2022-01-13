@@ -54,7 +54,7 @@ Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   ropensci/tinkr,
   carpentries/pegboard,
-  carpentries/varnish
+  carpentries/varnish@bytes-theme
 Encoding: UTF-8
 LazyData: true
 Config/testthat/edition: 3
