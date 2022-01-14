@@ -290,7 +290,7 @@ challenge_block = function(el)
   local this_head = get_header(el, 3)
   local next_head = this_head:clone()
   next_head.content:insert(pandoc.Emph(" (continued)"))
-  next_head.attr["class"] = "callout-title"
+  next_head.classes = {"callout-title"}
   -- This challenge is a placeholder to stuff the original challenge contents in
   local this_challenge = pandoc.Div({this_head}, {class = "challenge"})
   -- Indicator if the challenge block should be inserted before the accordion.
