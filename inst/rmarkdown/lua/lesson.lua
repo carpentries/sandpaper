@@ -166,38 +166,111 @@ function level_head(el, level)
   return el
 end
 
-instructor_note = function(el)
-  -- NOTE: the instructor button here will expand and collapse all instructor
-  --       notes, which may actually be useful
-  local button_raw = [[
-  <button class="accordion-button collapsed instructor-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseInstructor" aria-expanded="false" aria-controls="flush-collapseInstructor">
-    <h3 class="accordion-header" id="flush-headingInstructor">
-      <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
-      Instructor Note
-    </h3>
-  </button>
-  ]]
-  -- increment the instructor id so each note gets its own identity
-  block_counts["instructor"] = block_counts["instructor"] + 1
-  instructor_id = block_counts["instructor"]
 
-  -- construct the divs... three of them that wrap the instructor div
+local button_headings = {
+  ["instructor"] = [[
+  <h3 class="accordion-header" id="heading{{id}}">
+    <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+    {{title}}
+  </h3>]],
+  ["challenge"] = [[
+  <h4 class="accordion-header" id="heading{{id}}">
+    {{title}}
+  </h3>]],
+  ["hint"] = [[
+  <h4 class="accordion-header" id="heading{{id}}">
+    {{title}}
+  </h3>]],
+  ["solution"] = [[
+  <h4 class="accordion-header" id="heading{{id}}">
+    {{title}}
+  </h3>]],
+}
+
+local accordion_titles = {
+  ["instructor"] = "Instructor Note",
+  ["hint"] = "Give me a hint",
+  ["solution"] = "Show me the solution"
+}
+
+local accordion_button = [[
+<button class="accordion-button {{class}}-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{id}}" aria-expanded="false" aria-controls="collapse{{id}}">
+  {{heading}}
+</button>]]
+
+upper_case = function(txt)
+  local C = text.upper(text.sub(txt, 1, 1))
+  local apitalise = text.sub(txt, 2, -1)
+  return C..apitalise
+end
+
+accordion = function(el, class)
+
+  block_counts[class] = block_counts[class] + 1
+  
+  local id = block_counts[class]
+  local CLASS = upper_case(class)
+  local label = CLASS..id
+
+  -- button construction time again
+  local this_button = accordion_button
+  this_button = this_button:gsub("{{heading}}", button_headings[class]) 
+  this_button = this_button:gsub("{{title}}", accordion_titles[class])
+  this_button = this_button:gsub("{{class}}", class)
+  this_button = this_button:gsub("{{id}}", label)
+  collapse_id = "collapse"..CLASS..id
+  heading_id  = "heading"..CLASS..id
+  div_id      = "accordion"..CLASS..id
+
+  -- construct the divs... three of them that wrap the class div
   el.classes = {'accordion-body'}
+  -- button that is the friend of the collapse
+  local button = pandoc.RawBlock("html", this_button)
   -- div for collapsing content
   local accordion_collapse = pandoc.Div({el})
-  -- button that is the friend of the collapse
-  local button = pandoc.RawBlock("html", button_raw)
-  accordion_collapse.attr = {["id"] = "flush-collapseInstructor", 
+  accordion_collapse.attr = {
+    ["id"] = collapse_id, 
     ['class'] = "accordion-collapse collapse",
-    ['aria-labelledby'] = "flush-headingInstructor", 
-    ['data-bs-parent'] = "#accordionFlush"..instructor_id}
+    ['aria-labelledby'] = heading_id,
+    ['data-bs-parent'] = "#"..div_id
+  }
   -- the actual block to collapse things
   local accordion_item = pandoc.Div({button, accordion_collapse}, {class = "accordion-item"})
   -- the whole package
-  local instructor_note = pandoc.Div({accordion_item})
-  instructor_note.attr = {["class"] = "accordion instructor-note accordion-flush", 
-  ["id"] = "accordionFlush"..instructor_id}
-  return(instructor_note)
+  local main_div = pandoc.Div({accordion_item})
+  local main_class = "accordion instructor-note accordion-flush"
+  if class ~= "instructor" then
+    main_class = "accordion challenge-accordion accordion-flush"
+  end
+  main_div.attr = {["class"] = main_class, ["id"] = div_id}
+  return(main_div)
+end
+
+callout_block = function(el)
+  local classes = el.classes:map(pandoc.utils.stringify)
+  local this_icon = blocks[classes[1]]
+  if this_icon == nil then
+    return el
+  end
+  block_counts[classes[1]] = block_counts[classes[1]] + 1
+  callout_id = classes[1]..block_counts[classes[1]]
+  classes:insert(1, "callout")
+  local header = get_header(el, 3)
+
+  local icon = pandoc.RawBlock("html", 
+    "<i class='callout-icon' data-feather='"..this_icon.."'></i>")
+  local callout_square = pandoc.Div(icon, {class = "callout-square"})
+
+
+  local callout_inner = pandoc.Div({header}, {class = "callout-inner"})
+
+  el.classes = {"callout-content"}
+  table.insert(callout_inner.content, el)
+
+  local block = pandoc.Div({callout_square, callout_inner})
+  block.attr = {["id"] = callout_id}
+  block.classes = classes
+  return block
 end
 
 
@@ -224,37 +297,15 @@ handle_our_divs = function(el)
       return pandoc.Null()
     end
   end
+
   v,i = el.classes:find("instructor")
   if i ~= nil then
-    return(instructor_note(el))
+    return(accordion(el, "instructor"))
   end
 
-
-  -- All other Div tags should have at most level 2 headers
+  -- All other Div tags should have at most level 3 headers
   level_head(el, 3)
-  local classes = el.classes:map(pandoc.utils.stringify)
-  local this_icon = blocks[classes[1]]
-  if this_icon == nil then
-    return el
-  end
-  block_counts[classes[1]] = block_counts[classes[1]] + 1
-  callout_id = classes[1]..block_counts[classes[1]]
-  classes:insert(1, "callout")
-  local header = get_header(el, 3)
-
-  local icon = pandoc.RawBlock("html", 
-    "<i class='callout-icon' data-feather='"..this_icon.."'></i>")
-  local callout_square = pandoc.Div(icon, {class = "callout-square"})
-
-
-  local callout_inner = pandoc.Div({header}, {class = "callout-inner"})
-
-  el.classes = {"callout-content"}
-  table.insert(callout_inner.content, el)
-  local callout_block = pandoc.Div({callout_square, callout_inner})
-  callout_block.attr = {["id"] = callout_id}
-  callout_block.classes = classes
-  return(callout_block)
+  return(callout_block(el))
 end
 
 -- Flatten relative links for HTML output
