@@ -77,12 +77,12 @@ test_that("HTML files are present and have the correct elements", {
   ep <- readLines(fs::path(sitepath, "01-introduction.html"))
 
   # Div tags show up as expected
-  expect_true(any(grepl(".div class..challenge", ep)))
+  expect_true(any(grepl(".div.+? class..callout challenge", ep)))
   # figure captions show up from knitr 
   # (https://github.com/carpentries/sandpaper/issues/114) 
   expect_true(any(grepl("Sun arise each and every morning", ep)))
   expect_true(any(grepl(
-        ".div class..challenge", 
+        ".div.+? class..callout challenge", 
         readLines(fs::path(sitepath, "02-second-episode.html"))
   )))
   expect_true(any(grepl(
@@ -94,7 +94,6 @@ test_that("HTML files are present and have the correct elements", {
 test_that("files will not be rebuilt unless they change in content", {
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
-  # expect_silent(suppressMessages(build_lesson(tmp, preview = FALSE)))
   suppressMessages({
     expect_failure({
       expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
@@ -104,7 +103,6 @@ test_that("files will not be rebuilt unless they change in content", {
 
   fs::file_touch(fs::path(tmp, "episodes", "01-introduction.Rmd"))
 
-  # expect_silent(suppressMessages(build_lesson(tmp, preview = FALSE)))
   suppressMessages({
     expect_failure({
       expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
