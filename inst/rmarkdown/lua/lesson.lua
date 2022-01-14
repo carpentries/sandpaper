@@ -283,6 +283,7 @@ challenge_block = function(el)
   -- this challenge is a placeholder for the challenge block that we will take
   -- before we hit a hint or solution. 
   local this_challenge = pandoc.Div({}, {class = "challenge"})
+  -- TODO: consider what can be done with the pattern of (challenge (solution) content)
   local needs_challenge = true
   for idx, block in ipairs(el.content) do
     if block.classes ~= nil and block.classes[1] == "accordion" then
