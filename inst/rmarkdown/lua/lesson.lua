@@ -120,7 +120,7 @@ function get_header(el, level)
     header.level = 3
     el.content:remove(1)
   end
-  header.classes = {"callout-title"}
+  header.attr["class"] = "callout-title"
   return(header)
 end
 
@@ -176,15 +176,15 @@ local button_headings = {
   ["challenge"] = [[
   <h4 class="accordion-header" id="heading{{id}}">
   {{title}}
-  </h3>]],
+  </h4>]],
   ["hint"] = [[
   <h4 class="accordion-header" id="heading{{id}}">
   {{title}}
-  </h3>]],
+  </h4>]],
   ["solution"] = [[
   <h4 class="accordion-header" id="heading{{id}}">
   {{title}}
-  </h3>]],
+  </h4>]],
 }
 
 local accordion_titles = {
@@ -208,14 +208,20 @@ accordion = function(el, class)
 
   block_counts[class] = block_counts[class] + 1
 
-  local id = block_counts[class]
+  local id    = block_counts[class]
   local CLASS = upper_case(class)
   local label = CLASS..id
+  local title = pandoc.utils.stringify(get_header(el, 4).content)
+  if title == CLASS or title == nil or title == "" then
+    title = accordion_titles[class]
+  else
+    title = title
+  end
 
-  -- button construction time again
+  -- constructing the button that contains a heading
   local this_button = accordion_button
   this_button = this_button:gsub("{{heading}}", button_headings[class]) 
-  this_button = this_button:gsub("{{title}}", accordion_titles[class])
+  this_button = this_button:gsub("{{title}}", title)
   this_button = this_button:gsub("{{class}}", class)
   this_button = this_button:gsub("{{id}}", label)
   collapse_id = "collapse"..CLASS..id
@@ -261,7 +267,6 @@ callout_block = function(el)
   "<i class='callout-icon' data-feather='"..this_icon.."'></i>")
   local callout_square = pandoc.Div(icon, {class = "callout-square"})
 
-
   local callout_inner = pandoc.Div({header}, {class = "callout-inner"})
 
   el.classes = {"callout-content"}
@@ -280,27 +285,40 @@ challenge_block = function(el)
 
   -- The challenge train is a list to contain all the divs
   local challenge_train = pandoc.List:new()
-  -- this challenge is a placeholder for the challenge block that we will take
-  -- before we hit a hint or solution. 
-  local this_challenge = pandoc.Div({}, {class = "challenge"})
-  -- TODO: consider what can be done with the pattern of (challenge (solution) content)
+  -- If the challenge contains multipl solutions or hints, we need to indicate
+  -- that the following challenges/solutions are continuations.
+  local this_head = get_header(el, 3)
+  local next_head = this_head:clone()
+  next_head.content:insert(pandoc.Emph(" (continued)"))
+  next_head.attr["class"] = "callout-title"
+  -- This challenge is a placeholder to stuff the original challenge contents in
+  local this_challenge = pandoc.Div({this_head}, {class = "challenge"})
+  -- Indicator if the challenge block should be inserted before the accordion.
+  -- Once we hit an accordion block, we no longer need the challenge inserted 
+  -- and any new challenge items go in a new block
   local needs_challenge = true
   for idx, block in ipairs(el.content) do
     if block.classes ~= nil and block.classes[1] == "accordion" then
       if needs_challenge then
         challenge_train:insert(callout_block(this_challenge))
+        this_challenge = pandoc.Div({next_head}, {class = "challenge"})
+        needs_challenge = false
       end
       challenge_train:insert(block)
-      if block.attr["identifier"]:match("Solution") == nil then
-        needs_challenge = false
-      else
-        needs_challenge = true
-      end
     else
-      this_challenge = pandoc.Div({}, {class = "challenge"})
+      if block.t == "Header" and #this_challenge.content == 1 then
+        -- if we started a new challenge block and it already has a header, 
+        -- then we need to remove our continuation header
+        this_challenge.content:remove(1)
+      end
       this_challenge.content:insert(block)
-      previously_solution = nil
+      needs_challenge = true
     end
+  end
+  -- Fencepost
+  if #this_challenge.content > 1 then
+    bookend = pandoc.Div(this_challenge.content, {class = "discussion"})
+    challenge_train:insert(callout_block(bookend))
   end
   return(challenge_train)
 end
@@ -308,7 +326,6 @@ end
 
 -- Deal with fenced divs
 handle_our_divs = function(el)
-
   -- Questions and Objectives should be grouped
   v,i = el.classes:find("questions")
   if i ~= nil then
