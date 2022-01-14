@@ -16,6 +16,7 @@ local blocks = {
   ["prereq"] = "check",
   ["checklist"] = "check-square",
   ["solution"] = "none",
+  ["hint"] = "none",
   ["discussion"] = "message-circle",
   ["testimonial"] = "heart",
   ["keypoints"] = "key",
@@ -29,6 +30,7 @@ local block_counts = {
   ["prereq"] = 0,
   ["checklist"] = 0,
   ["solution"] = 0,
+  ["hint"] = 0,
   ["discussion"] = 0,
   ["testimonial"] = 0,
   ["keypoints"] = 0,
@@ -68,9 +70,9 @@ function overview_card()
   -- create headers. Note because of --section-divs, we have to insert raw
   -- headers so that the divs do not inherit the header classes afterwards
   table.insert(questions_div.content, 
-    pandoc.RawBlock("html", "<h3 class='card-title'>Questions</h3>"))
+  pandoc.RawBlock("html", "<h3 class='card-title'>Questions</h3>"))
   table.insert(objectives_div.content, 
-    pandoc.RawBlock("html", "<h3 class='card-title'>Objectives</h3>"))
+  pandoc.RawBlock("html", "<h3 class='card-title'>Objectives</h3>"))
 
   -- Insert the content from the objectives and the questions
   for _, block in ipairs(objectives.content) do
@@ -92,7 +94,7 @@ function overview_card()
   table.insert(row.content, qcol) 
   table.insert(row.content, ocol) 
   table.insert(overview.content, 
-    pandoc.RawBlock("html", "<h2 class='card-header'>Overview</h2>"))
+  pandoc.RawBlock("html", "<h2 class='card-header'>Overview</h2>"))
   table.insert(overview.content, row)
   table.insert(res, overview)
   return(res)
@@ -111,11 +113,9 @@ function get_header(el, level)
   end
   -- check if the header exists
   local header = el.content[1]
-  if header.level == nil then
+  if header == nil or header.level == nil then
     -- capitalize the first letter and insert it at the top of the block
-    local C = text.upper(text.sub(class, 1, 1))
-    local lass = text.sub(class, 2, -1)
-    header = pandoc.Header(3, C..lass)
+    header = pandoc.Header(3, upper_case(class))
   else
     header.level = 3
     el.content:remove(1)
@@ -170,20 +170,20 @@ end
 local button_headings = {
   ["instructor"] = [[
   <h3 class="accordion-header" id="heading{{id}}">
-    <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
-    {{title}}
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+  {{title}}
   </h3>]],
   ["challenge"] = [[
   <h4 class="accordion-header" id="heading{{id}}">
-    {{title}}
+  {{title}}
   </h3>]],
   ["hint"] = [[
   <h4 class="accordion-header" id="heading{{id}}">
-    {{title}}
+  {{title}}
   </h3>]],
   ["solution"] = [[
   <h4 class="accordion-header" id="heading{{id}}">
-    {{title}}
+  {{title}}
   </h3>]],
 }
 
@@ -195,7 +195,7 @@ local accordion_titles = {
 
 local accordion_button = [[
 <button class="accordion-button {{class}}-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{id}}" aria-expanded="false" aria-controls="collapse{{id}}">
-  {{heading}}
+{{heading}}
 </button>]]
 
 upper_case = function(txt)
@@ -207,7 +207,7 @@ end
 accordion = function(el, class)
 
   block_counts[class] = block_counts[class] + 1
-  
+
   local id = block_counts[class]
   local CLASS = upper_case(class)
   local label = CLASS..id
@@ -258,7 +258,7 @@ callout_block = function(el)
   local header = get_header(el, 3)
 
   local icon = pandoc.RawBlock("html", 
-    "<i class='callout-icon' data-feather='"..this_icon.."'></i>")
+  "<i class='callout-icon' data-feather='"..this_icon.."'></i>")
   local callout_square = pandoc.Div(icon, {class = "callout-square"})
 
 
@@ -271,6 +271,37 @@ callout_block = function(el)
   block.attr = {["id"] = callout_id}
   block.classes = classes
   return block
+end
+
+challenge_block = function(el)
+  -- The challenge blocks no longer contain solutions nested inside. Instead,
+  -- the soltuions (and hints) are piled at the end of the block, so series of
+  -- challenge/solutions need to be separated.
+
+  -- The challenge train is a list to contain all the divs
+  local challenge_train = pandoc.List:new()
+  -- this challenge is a placeholder for the challenge block that we will take
+  -- before we hit a hint or solution. 
+  local this_challenge = pandoc.Div({}, {class = "challenge"})
+  local needs_challenge = true
+  for idx, block in ipairs(el.content) do
+    if block.classes ~= nil and block.classes[1] == "accordion" then
+      if needs_challenge then
+        challenge_train:insert(callout_block(this_challenge))
+      end
+      challenge_train:insert(block)
+      if block.attr["identifier"]:match("Solution") == nil then
+        needs_challenge = false
+      else
+        needs_challenge = true
+      end
+    else
+      this_challenge = pandoc.Div({}, {class = "challenge"})
+      this_challenge.content:insert(block)
+      previously_solution = nil
+    end
+  end
+  return(challenge_train)
 end
 
 
@@ -298,9 +329,35 @@ handle_our_divs = function(el)
     end
   end
 
+  -- Accordion blocks:
+  --
+  -- Instructor Notes, Solutions, and Hints are all blocks that are contained in
+  -- accordion blocks. For historical reasons, solutions are normally embedded
+  -- in challenge blocks, but because of the way pandoc traverses the AST, we
+  -- need to process these FIRST and then handle their positioning in the
+  -- challenge block phase.
   v,i = el.classes:find("instructor")
   if i ~= nil then
     return(accordion(el, "instructor"))
+  end
+
+  v,i = el.classes:find("solution")
+  if i ~= nil then
+    return(accordion(el, "solution"))
+  end
+
+  v,i = el.classes:find("hint")
+  if i ~= nil then
+    return(accordion(el, "hint"))
+  end
+
+  -- Challenge blocks:
+  --
+  -- Challenge blocks no longer contain solutions, so the solutions (and hints)
+  -- now must be extracted into a list of divs.
+  v,i = el.classes:find("challenge")
+  if i ~= nil then
+    return(challenge_block(el))
   end
 
   -- All other Div tags should have at most level 3 headers
