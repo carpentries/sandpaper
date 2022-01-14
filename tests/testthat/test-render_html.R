@@ -98,7 +98,7 @@ test_that("render_html applies the internal lua filter", {
   expect_match(res, "Objectives", fixed = TRUE)
   # Challenge header automatically added
   expect_match(res, "div id=\"challenge1\"", fixed = TRUE)
-  expect_match(res, "<h3>Challenge</h3>", fixed = TRUE)
+  expect_match(res, "<h3 class=\"callout-title\">Challenge</h3>", fixed = TRUE)
   # Solution header modified
   expect_match(res, "<h4 class=\"accordion-header\" id=\"headingSolution1\"")
   expect_match(res, "Write now", fixed = TRUE)

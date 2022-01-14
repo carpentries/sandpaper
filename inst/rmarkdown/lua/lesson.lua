@@ -120,7 +120,7 @@ function get_header(el, level)
     header.level = 3
     el.content:remove(1)
   end
-  header.attr["class"] = "callout-title"
+  header.classes = {"callout-title"}
   return(header)
 end
 

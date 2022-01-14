@@ -24,7 +24,7 @@
        [Div ("",["callout-square"],[])
         [RawBlock (Format "html") "<i class='callout-icon' data-feather='zap'></i>"]
        ,Div ("",["callout-inner"],[])
-        [Header 3 ("",[],[]) [Str "Challenge"]
+        [Header 3 ("",["callout-title"],[]) [Str "Challenge"]
         ,Div ("",["callout-content"],[])
          [Para [Str "How",Space,Str "do",Space,Str "you",Space,Str "write",Space,Str "markdown",Space,Str "divs?"]
          ,Para [Str "This",Space,Link ("",[],[]) [Str "link",Space,Str "should",Space,Str "be",Space,Str "transformed"] ("Setup.html","")]
@@ -107,8 +107,8 @@
       <div class="callout-square">
       <i class='callout-icon' data-feather='zap'></i>
       </div>
-      <div class="section level3 callout-inner">
-      <h3>Challenge</h3>
+      <div class="section level3 callout-title callout-inner">
+      <h3 class="callout-title">Challenge</h3>
       <div class="callout-content">
       <p>How do you write markdown divs?</p>
       <p>This <a href="Setup.html">link should be transformed</a></p>
