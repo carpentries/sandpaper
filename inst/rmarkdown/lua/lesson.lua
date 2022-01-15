@@ -211,11 +211,12 @@ accordion = function(el, class)
   local id    = block_counts[class]
   local CLASS = upper_case(class)
   local label = CLASS..id
-  local title = pandoc.utils.stringify(get_header(el, 4).content)
+  local title = ""
+  for _, ing in ipairs(get_header(el, 4).content) do
+    title = title..pandoc.utils.stringify(ing)
+  end
   if title == CLASS or title == nil or title == "" then
     title = accordion_titles[class]
-  else
-    title = title
   end
 
   -- constructing the button that contains a heading
@@ -232,6 +233,7 @@ accordion = function(el, class)
   el.classes = {'accordion-body'}
   -- button that is the friend of the collapse
   local button = pandoc.RawBlock("html", this_button)
+
   -- div for collapsing content
   local accordion_collapse = pandoc.Div({el})
   accordion_collapse.attr = {
