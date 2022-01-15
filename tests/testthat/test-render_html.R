@@ -84,10 +84,8 @@ test_that("paragraphs after objectives block are parsed correctly", {
 })
 
 test_that("render_html applies the internal lua filter", {
-
   skip_if_not(rmarkdown::pandoc_available("2.11"))
-
-  res <- render_html(example_markdown)
+  res <- as.character(render_html(example_markdown))
 
   # Metadata blocks are parsed
   expect_match(res, "div class=\"overview card\"", fixed = TRUE)
@@ -121,8 +119,22 @@ test_that("render_html applies the internal lua filter", {
     
   }
   expect_snapshot(cat(res), transform = formation)
-
 })
+
+
+example_instructor <- fs::path_abs(test_path("examples", "instructor-note.md"))
+test_that("accordion lua filter parses instructor notes correctly", {
+  res <- render_html(example_instructor)
+  expect_match(res, "<div id=\"accordionInstructor1\"", fixed = TRUE)
+})
+
+example_challenge <- fs::path_abs(test_path("examples", "challenge-hint.md"))
+test_that("accordion lua filter parses challenge accordions correctly", {
+  res <- render_html(example_challenge)
+  expect_match(res, "<div id=\"accordionHint1\"", fixed = TRUE)
+  expect_match(res, "<div id=\"accordionSolution1\"", fixed = TRUE)
+})
+
 
 test_that("render_html applies external lua filters", {
 
