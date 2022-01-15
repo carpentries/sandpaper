@@ -148,7 +148,7 @@ test_that("accordion lua filter parses challenge accordions correctly", {
   callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
   if (.Platform$OS.type == "windows" && Sys.getenv("CI", unset = '') == "true") {
     # let's see what this looks like
-    message("INSTRUCTOR")
+    message("CHALLENGE")
     message(cat(readLines(out), sep = "\n"))
   }
   res <- render_html(example_challenge)

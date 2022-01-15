@@ -238,19 +238,20 @@ accordion = function(el, class)
   local accordion_collapse = pandoc.Div({el})
   accordion_collapse.attr = {
     ["id"] = collapse_id, 
-    ['class'] = "accordion-collapse collapse",
     ['aria-labelledby'] = heading_id,
     ['data-bs-parent'] = "#"..div_id
   }
+  accordion_collapse.classes = {"accordion-collapse", "collapse"}
   -- the actual block to collapse things
   local accordion_item = pandoc.Div({button, accordion_collapse}, {class = "accordion-item"})
   -- the whole package
   local main_div = pandoc.Div({accordion_item})
-  local main_class = "accordion instructor-note accordion-flush"
+  local main_class = {"accordion", "instructor-note", "accordion-flush"}
   if class ~= "instructor" then
-    main_class = "accordion challenge-accordion accordion-flush"
+    main_class[2] = "challenge-accordion"
   end
-  main_div.attr = {["class"] = main_class, ["id"] = div_id}
+  main_div.attr = {["id"] = div_id}
+  main_div.classes = main_class
   return(main_div)
 end
 
