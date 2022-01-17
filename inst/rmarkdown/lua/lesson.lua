@@ -243,7 +243,8 @@ accordion = function(el, class)
   }
   accordion_collapse.classes = {"accordion-collapse", "collapse"}
   -- the actual block to collapse things
-  local accordion_item = pandoc.Div({button, accordion_collapse}, {class = "accordion-item"})
+  local accordion_item = pandoc.Div({button, accordion_collapse})
+  accordion_item.classes = {"accordion-item"}
   -- the whole package
   local main_div = pandoc.Div({accordion_item})
   local main_class = {"accordion", "instructor-note", "accordion-flush"}
