@@ -236,23 +236,29 @@ accordion = function(el, class)
 
   -- div for collapsing content
   local accordion_collapse = pandoc.Div({el})
+  -- n.b. in pandoc 2.17, the attributes must be set after the classes
+  -- accordion_collapse.classes = {"accordion-collapse", "collapse"}
   accordion_collapse.attr = {
     ["id"] = collapse_id, 
     ['aria-labelledby'] = heading_id,
-    ['data-bs-parent'] = "#"..div_id
+    ['data-bs-parent'] = "#"..div_id,
+    ['class'] = "accordion-collapse collapse"
   }
-  accordion_collapse.classes = {"accordion-collapse", "collapse"}
   -- the actual block to collapse things
   local accordion_item = pandoc.Div({button, accordion_collapse})
   accordion_item.classes = {"accordion-item"}
+  -- accordion_item.attr = {['class'] = "accordion-item"}
   -- the whole package
   local main_div = pandoc.Div({accordion_item})
-  local main_class = {"accordion", "instructor-note", "accordion-flush"}
+  local main_class = "accordion {{type}} accordion-flush"
+  local type = "instructor-note"
   if class ~= "instructor" then
-    main_class[2] = "challenge-accordion"
+    type = "challenge-accordion"
   end
-  main_div.attr = {["id"] = div_id}
-  main_div.classes = main_class
+  main_div.attr = {
+    ["id"] = div_id, 
+    ["class"] = main_class:gsub("{{type}}", type)
+  }
   return(main_div)
 end
 
