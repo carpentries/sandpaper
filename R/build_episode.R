@@ -57,7 +57,8 @@
 #' }
 build_episode_html <- function(path_md, path_src = NULL, 
                                page_back = "index.md", page_forward = "index.md", 
-                               pkg, quiet = FALSE, page_progress = NULL, sidebar = NULL) {
+                               pkg, quiet = FALSE, page_progress = NULL, 
+                               sidebar = NULL, date = NULL) {
   home <- root_path(path_md)
   body <- render_html(path_md, quiet = quiet)
   nodes <- xml2::read_html(body)
@@ -81,33 +82,61 @@ build_episode_html <- function(path_md, path_src = NULL,
     on.exit(eval(when_done), add = TRUE)
   }
   # end downlit shim
-  this_page <- as_html(path_md)
-  pkgdown::render_page(pkg, 
-    type,
-    data = c(
-      list(
-        # NOTE: we can add anything we want from the YAML header in here to
-        # pass on to the template.
-        body         = as.character(nodes),
-        pagetitle    = title,
-        teaching     = yaml$teaching,
-        exercises    = yaml$exercises,
-        file_source  = fs::path_rel(path_src, start = home),
-        this_page    = this_page,
-        page_back    = as_html(page_back),
-        left         = if (page_back == "index.md") "up" else "left",
-        page_forward = as_html(page_forward),
-        right        = if (page_forward == "index.md") "up" else "right",
-        progress     = page_progress,
-        sidebar      = paste(sidebar, collapse = "\n"),
-        instructor   = NULL
+  this_page    <- as_html(path_md, instructor = TRUE)
+  page_back    <- as_html(page_back, instructor = TRUE)
+  page_forward <- as_html(page_forward, instructor = TRUE)
+
+  dat_instructor <- c(
+    list(
+      # NOTE: we can add anything we want from the YAML header in here to
+      # pass on to the template.
+      body         = use_instructor(nodes),
+      pagetitle    = title,
+      minutes      = as.integer(yaml$teaching) + as.integer(yaml$exercises),
+      file_source  = fs::path_rel(path_src, start = home),
+      this_page    = fs::path_file(this_page),
+      page_back    = page_back,
+      page_forward = page_forward,
+      progress     = page_progress,
+      sidebar      = paste(sidebar, collapse = "\n"),
+      updated      = date,
+      instructor   = TRUE
       ),
-      varnish_vars()
-    ), 
+    varnish_vars()
+  )
+
+  ipath <- fs::path(pkg$dst_path, "instructor")
+  if (!fs::dir_exists(ipath)) fs::dir_create(ipath)
+
+  modified <- pkgdown::render_page(pkg, 
+    type,
+    data = dat_instructor,
+    depth = 1L,
     path = this_page,
     quiet = quiet
   )
-} 
+  if (modified) {
+    # we only need to compute the learner page if the instructor page has
+    # modified since the instructor material contains more information and thus
+    # more things to modify.
+    dat_learner <- modifyList(dat_instructor, 
+      list(
+        body = use_learner(nodes),
+        instructor = FALSE,
+        page_back = fs::path_file(page_back), 
+        page_forward = fs::path_file(page_forward), 
+        sidebar      = paste(gsub("instructor/", "", sidebar), collapse = "\n")
+      )
+    )
+    pkgdown::render_page(pkg, 
+      type,
+      data = dat_learner,
+      depth = 0L,
+      path = fs::path_file(this_page),
+      quiet = quiet
+    )
+  }
+}
 
 #' Build an episode to markdown
 #'
