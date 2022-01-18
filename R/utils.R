@@ -3,7 +3,10 @@
 
 `%nin%` <- Negate("%in%")
 
-as_html <- function(i) fs::path_ext_set(fs::path_file(i), "html")
+as_html <- function(i, instructor = FALSE) {
+  res <- fs::path_ext_set(fs::path_file(i), "html")
+  if (instructor) fs::path("instructor", res) else res
+}
 
 # Parse a markdown title to html
 #
