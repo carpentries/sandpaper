@@ -61,6 +61,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
       page_forward = location["forward"],
       page_progress = location["progress"],
       sidebar      = sidebar,
+      date         = db$date[i],
       pkg          = pkg,
       quiet        = quiet
     )

@@ -97,19 +97,26 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     fs::path_ext(built) %in% c("Rmd", "rmd"),
     fs::path_ext_set(built, "md"), built
   )
+  date <- format(Sys.Date(), "%F")
   md5 = data.frame(
     file     = sources,
     checksum = tools::md5sum(fs::path(root_path, sources)),
-    built    = built
+    built    = built,
+    date     = date,
+    stringsAsFactors = FALSE
   )
   if (!file.exists(db)) {
     fs::dir_create(dirname(db))
+    md5$date <- date
     if (write)
       write_build_db(md5, db)
     return(list(build = fs::path(root_path, sources), new = md5))
   }
   # old checksums (2 columns: file path and checksum)
   old = read.table(db, header = TRUE)
+  # insert current date if it does not exist
+  old <- if (is.null(old$date)) data.frame(old, list(date = date), stringsAsFactors = FALSE) else old
+  # BUILD ONLY ONE FILE --------------------------------------------------------
   if (build_one) {
     new <- old
     to_build <- old$file == md5$file
@@ -121,6 +128,9 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     }
     return(list(build = fs::path(root_path, sources), new = new))
   }
+  # FILTERING ------------------------------------------------------------------
+  #
+  # Here we determine the files to keep and the files to remove
   one = merge(md5, old, 'file', all = TRUE, suffixes = c('', '.old'), sort = FALSE)
   newsum <- names(one)[2]
   oldsum <- paste0(newsum, ".old")
@@ -142,7 +152,7 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     files = setdiff(sources, one[['file']][unchanged])
   }
   if (write)
-    write_build_db(one[, 1:3], db)
+    write_build_db(one[, 1:4], db)
 
   # files and to_remove need absolute paths so that subprocesses can run them
   files     <- fs::path_abs(files, start = root_path)
@@ -151,7 +161,7 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   list(
     build = files,
     remove = to_remove,
-    new = one[, 1:3],
+    new = one[, 1:4],
     old = old
   )
 }
