@@ -49,9 +49,10 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   }
 
   out <- if (is.null(slug)) "index.html" else paste0(slug, ".html")
-  sidebar <- create_sidebar(abs_md[seq(er[1], er[2])])
+  chapters <- abs_md[seq(er[1], er[2])]
+  setup <- abs_md[grep("learners[/]setup.R?md", db$file)]
+  sidebar <- create_sidebar(c(setup, chapters))
   for (i in files_to_render) {
-    thisbar <- sidebar
     location <- page_location(i, abs_md, er)
     build_episode_html(
       path_md      = abs_md[i],
@@ -59,7 +60,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
       page_back    = location["back"],
       page_forward = location["forward"],
       page_progress = location["progress"],
-      sidebar      = thisbar,
+      sidebar      = sidebar,
       pkg          = pkg,
       quiet        = quiet
     )

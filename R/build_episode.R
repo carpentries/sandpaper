@@ -81,6 +81,7 @@ build_episode_html <- function(path_md, path_src = NULL,
     on.exit(eval(when_done), add = TRUE)
   }
   # end downlit shim
+  this_page <- as_html(path_md)
   pkgdown::render_page(pkg, 
     type,
     data = c(
@@ -92,16 +93,18 @@ build_episode_html <- function(path_md, path_src = NULL,
         teaching     = yaml$teaching,
         exercises    = yaml$exercises,
         file_source  = fs::path_rel(path_src, start = home),
+        this_page    = this_page,
         page_back    = as_html(page_back),
         left         = if (page_back == "index.md") "up" else "left",
         page_forward = as_html(page_forward),
         right        = if (page_forward == "index.md") "up" else "right",
         progress     = page_progress,
-        sidebar      = paste(sidebar, collapse = "\n")
+        sidebar      = paste(sidebar, collapse = "\n"),
+        instructor   = NULL
       ),
       varnish_vars()
     ), 
-    path = as_html(path_md),
+    path = this_page,
     quiet = quiet
   )
 } 
