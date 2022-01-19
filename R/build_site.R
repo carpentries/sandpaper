@@ -8,8 +8,9 @@
 #'   an episode whose slug is 01-introduction, then setting `slug =
 #'   "01-introduction"` will allow RStudio to open the preview window to the
 #'   right page. 
+#' @param built a character vector of newly built files or NULL. 
 #' @keywords internal
-build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, override = list(), slug = NULL) {
+build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, override = list(), slug = NULL, built = NULL) {
   # step 1: check pandoc
   check_pandoc(quiet)
   # step 2: build the package site
@@ -28,7 +29,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   pkgdown::init_site(pkg)
 
   db <- get_built_db(fs::path(built_path, "md5sum.txt"))
-  db <- db[!grepl("(index|README|CONTRIBUTING)[.]md", db$built), , drop = FALSE]
+  new_setup <- any(grepl("[/]setup[.]md", built))
+  db <- db[!grepl("(index|README|CONTRIBUTING|setup)[.]md", db$built), , drop = FALSE]
   # Find all the episodes and get their range
   er <- range(grep("episodes/", db$file, fixed = TRUE))
 
@@ -50,8 +52,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   out <- if (is.null(slug)) "index.html" else paste0(slug, ".html")
   chapters <- abs_md[seq(er[1], er[2])]
-  setup <- abs_md[grep("learners[/]setup.R?md", db$file)]
-  sidebar <- create_sidebar(c(setup, chapters))
+  sidebar <- create_sidebar(c(fs::path(built_path, "index.md"), chapters))
   for (i in files_to_render) {
     location <- page_location(i, abs_md, er)
     build_episode_html(
@@ -71,7 +72,9 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   if (!quiet && requireNamespace("cli", quietly = TRUE)) {
     cli::cli_rule(cli::style_bold("Creating Schedule"))
   }
-  build_home(pkg, quiet = quiet)
+  build_home(pkg, quiet = quiet, sidebar = sidebar, new_setup = new_setup, 
+    next_page = abs_md[er[1]]
+  )
   pkgdown::preview_site(pkg, "/", preview = preview)
   if (!quiet) {
     dst <- fs::path_rel(path = pkg$dst_path, start = path)

@@ -71,7 +71,13 @@ test_that("build_home() will refelct the title in the heading", {
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   pkg <- pkgdown::as_pkgdown(fs::path(res, "site"))
   fs::dir_create(pkg$dst_path)
-  expect_silent(build_home(pkg, quiet = TRUE))
+  expect_silent(
+    build_home(pkg, quiet = TRUE, 
+      sidebar = "<a href='index.html'>Home</a>",
+      new_setup = FALSE, 
+      next_page = fs::path(res, "site/built/01-introduction.md")
+    )
+  )
   idx <- fs::path(pkg$dst_path, "index.html")
   htm <- xml2::read_html(idx)
   h1 <- xml2::xml_text(xml2::xml_find_first(htm, ".//h1"))

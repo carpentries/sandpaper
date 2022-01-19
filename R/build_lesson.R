@@ -37,7 +37,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
 
   built <- build_markdown(path = path, rebuild = rebuild, quiet = quiet, slug = slug)
 
-  build_site(path = path, quiet = quiet, preview = preview, override = override, slug = slug)
+  build_site(path = path, quiet = quiet, preview = preview, override = override, slug = slug, built = built)
   
 } 
 

@@ -65,7 +65,6 @@ build_episode_html <- function(path_md, path_src = NULL,
   fix_nodes(nodes)
   yaml <- yaml::yaml.load(politely_get_yaml(path_md), eval.expr = FALSE)
   path_src <- if (is.null(path_src)) yaml[["sandpaper-source"]] else path_src
-  type <- "chapter"
   title <- parse_title(yaml$title)
   if (!is.null(sidebar)) {
     this_page <- fs::path_file(fs::path_ext_set(path_md, "html"))
@@ -82,9 +81,15 @@ build_episode_html <- function(path_md, path_src = NULL,
     on.exit(eval(when_done), add = TRUE)
   }
   # end downlit shim
-  this_page    <- as_html(path_md, instructor = TRUE)
-  page_back    <- as_html(page_back, instructor = TRUE)
+  this_page <- as_html(path_md, instructor = TRUE)
+  pb_title <- if (page_back == "index.md") "Home" else get_trimmed_title(page_back)
+  pf_title <- if (page_forward == "index.md") NULL else get_trimmed_title(page_forward)
+  page_back <- as_html(page_back, instructor = TRUE)
   page_forward <- as_html(page_forward, instructor = TRUE)
+  if (!is.null(sidebar)) {
+    idx <- "<a href='index.html'>Summary and Schedule</a>"
+    sidebar[[1]] <- create_sidebar_item(html, idx, 1)
+  }
 
   dat_instructor <- c(
     list(
@@ -96,7 +101,9 @@ build_episode_html <- function(path_md, path_src = NULL,
       file_source  = fs::path_rel(path_src, start = home),
       this_page    = fs::path_file(this_page),
       page_back    = page_back,
+      back_title   = pb_title,
       page_forward = page_forward,
+      forward_title = pf_title,
       progress     = page_progress,
       sidebar      = paste(sidebar, collapse = "\n"),
       updated      = date,
@@ -109,13 +116,17 @@ build_episode_html <- function(path_md, path_src = NULL,
   if (!fs::dir_exists(ipath)) fs::dir_create(ipath)
 
   modified <- pkgdown::render_page(pkg, 
-    type,
+    "chapter",
     data = dat_instructor,
     depth = 1L,
     path = this_page,
     quiet = quiet
   )
   if (modified) {
+    if (!is.null(sidebar)) {
+      idx <- "<a href='index.html'>Summary and Setup</a>"
+      sidebar[[1]] <- create_sidebar_item(html, idx, 1)
+    }
     # we only need to compute the learner page if the instructor page has
     # modified since the instructor material contains more information and thus
     # more things to modify.
@@ -129,7 +140,7 @@ build_episode_html <- function(path_md, path_src = NULL,
       )
     )
     pkgdown::render_page(pkg, 
-      type,
+      "chapter",
       data = dat_learner,
       depth = 0L,
       path = fs::path_file(this_page),
