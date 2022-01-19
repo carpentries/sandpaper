@@ -203,13 +203,6 @@ get_navbar_info <- function(i) {
   )
 }
 
-site_menu <- function(yaml, files = NULL, position = 3L) {
-  if (is.null(files) || length(files) == 0L) return(yaml)
-  res <- lapply(files, get_navbar_info)
-  yaml$navbar$left[[position]]$menu <- unname(res)
-  yaml
-}
-
 quote_config_items <- function(yaml) {
   yaml$title      <- siQuote(yaml$title)
   yaml$carpentry  <- siQuote(yaml$carpentry)
@@ -221,15 +214,3 @@ quote_config_items <- function(yaml) {
   yaml
 }
 
-# Take a list of episodes and update the yaml configuration. 
-# TODO: This implementation needs to change!!!
-update_site_menu <- function(path, 
-  episodes = NULL, learners = NULL, instructors = NULL, profiles = NULL) {
-  yaml <- get_path_site_yaml(path) 
-  # NOTE: change tests/testthat/test-set_dropdown.R
-  yaml <- site_menu(yaml, episodes,    2L)
-  yaml <- site_menu(yaml, learners,    3L)
-  yaml <- site_menu(yaml, instructors, 4L)
-  yaml <- site_menu(yaml, profiles,    5L)
-  write_pkgdown_yaml(yaml, path)
-}

@@ -69,6 +69,7 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
     )
     modified <- pkgdown::render_page(pkg, 
       "syllabus",
+      depth = 0L,
       data = dat_learner, 
       path = "index.html",
       quiet = quiet

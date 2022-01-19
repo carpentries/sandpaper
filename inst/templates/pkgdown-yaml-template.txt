@@ -7,21 +7,6 @@ home:
   title: Home
   strip_header: true
   description: ~
-navbar:
-  type: default
-  left:
-    - text: Code of Conduct
-      href: CODE_OF_CONDUCT.html
-    - text: Episodes
-      menu: ~ # episodes will be populated here
-    - text: For Learners
-      menu: ~ # learners will be populated here
-    - text: For Instructors
-      menu: ~ # instructors will be populated here
-    - text: Learner Profiles
-      menu: ~ # profiles will be populated here
-    - text: License
-      href: LICENSE.html
 template:
   package: varnish
   params:
