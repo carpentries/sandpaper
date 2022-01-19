@@ -4,9 +4,12 @@ politely_get_yaml <- function(path) {
   header <- readLines(path, n = 10, encoding = "UTF-8")
   barriers <- grep("^---$", header)
   if (length(barriers) == 0) {
-    thm <- cli::cli_div(theme = sandpaper_cli_theme())
-    cli::cli_alert_danger("No yaml header found in the first 10 lines of {path}")
-    cli::cli_end(thm)
+    # we don't need to warn if they are scanning an index.md with no yaml
+    if (fs::path_file(path) != "index.md") {
+      thm <- cli::cli_div(theme = sandpaper_cli_theme())
+      cli::cli_alert_danger("No yaml header found in the first 10 lines of {path}")
+      cli::cli_end(thm)
+    }
     return(character(0))
   }
   if (length(barriers) == 1) {

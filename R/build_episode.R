@@ -93,7 +93,7 @@ build_episode_html <- function(path_md, path_src = NULL,
   page_forward <- as_html(page_forward, instructor = TRUE)
   if (!is.null(sidebar)) {
     idx <- "<a href='index.html'>Summary and Schedule</a>"
-    sidebar[[1]] <- create_sidebar_item(html, idx, 1)
+    sidebar[[1]] <- create_sidebar_item(nodes, idx, 1)
   }
 
   dat_instructor <- c(
@@ -130,7 +130,7 @@ build_episode_html <- function(path_md, path_src = NULL,
   if (modified) {
     if (!is.null(sidebar)) {
       idx <- "<a href='index.html'>Summary and Setup</a>"
-      sidebar[[1]] <- create_sidebar_item(html, idx, 1)
+      sidebar[[1]] <- create_sidebar_item(nodes, idx, 1)
     }
     # we only need to compute the learner page if the instructor page has
     # modified since the instructor material contains more information and thus
