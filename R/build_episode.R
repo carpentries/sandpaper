@@ -13,7 +13,12 @@
 #' @param page_forward the URL for the next page
 #' @param pkg a `pkgdown` object containing metadata for the site
 #' @param quiet if `TRUE`, messages are not produced. Defaults to `TRUE`.
-#' 
+#' @param page_progress an integer between 0 and 100 indicating the rounded 
+#'   percent of the page progress. Defaults to NULL.
+#' @param sidebar a character vector of links to other episodes to use for the
+#'   sidebar. The current episode will be replaced with an index of all the
+#'   chapters in the episode.
+#' @param date the date the episode was last built.
 #' @return `TRUE` if the page was successful, `FALSE` otherwise.
 #' @export
 #' @note this function is for internal use, but exported for those who know what

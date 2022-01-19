@@ -11,6 +11,23 @@ BREAKING CHANGES
   been handy for sighted users to explore documentation, these may represent
   objstructions for users who rely on screen-readers.
 
+INSTRUCTOR VIEW
+---------------
+
+There are now two views of the lesson: instructor view and learner view. The
+biggest difference is that instructor view gains the `instructor-note` sections
+(if they exist).
+
+* Static pages for each view. This means that you can toggle between the pages
+  without needing javascript. 
+* Removed timings on the learner view (to avoid discouraging our learners)
+* Setup page replaces the schedule on the index page
+* There are additional buttons included on the instructor view that do not yet
+  work, but will work at some point!
+
+The only downside at the moment is that building the lesson takes _a bit_ longer
+due to the fact that we now have to render two pages for each change.
+
 # sandpaper 0.0.0.9075
 
 BUG FIX
