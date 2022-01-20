@@ -1,7 +1,7 @@
 build_profiles <- function(pkg, quiet, sidebar = NULL) {
   path <- root_path(pkg$src_path)
   profs <- get_profiles(path, trim = FALSE)
-  html <- paste(purrr::map_chr(profs, render_html), collapse = "<hr>")
+  html <- paste(vapply(profs, render_html, character(1)), collapse = "<hr>")
   if (html != '') {
     html  <- xml2::read_html(html)
     fix_nodes(html)

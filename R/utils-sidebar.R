@@ -23,12 +23,12 @@ extras_menu <- function(path, type = "learners") {
   }
   out <- NULL
   if (length(files) || type == "instructors") {
-    res <- purrr::map_chr(files, function(f) {
+    res <- vapply(files, function(f) {
       if (length(f) == 0) return(f)
       info <- get_navbar_info(f)
       paste0("<li><a class='dropdown-item' href='", info$href, "'>", 
         parse_title(info$text), "</a></li>")
-    })
+    }, character(1))
     res <- c(res, 
       "<li><a class= 'dropdown-item' href='profiles.html'>Learner Profiles</a></li>")
     out <- paste(res, collapse = "")
