@@ -28,6 +28,18 @@ biggest difference is that instructor view gains the `instructor-note` sections
 The only downside at the moment is that building the lesson takes _a bit_ longer
 due to the fact that we now have to render two pages for each change.
 
+NAVIGATION
+----------
+
+A persistant sidebar with links for the main content of the lesson will be
+present on all pages of the lesson. The navigation bar will prioritise items
+used most frequently by the respective audiences:
+
+* Learners: Key Points, Glossary, Learner Profiles, "Additional Information"
+  (dropdown)
+* Instructors: Key Points, Instructor Notes, Extract All Images, "More"
+  (dropdown)
+
 # sandpaper 0.0.0.9075
 
 BUG FIX

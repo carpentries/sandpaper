@@ -101,6 +101,7 @@ build_episode_html <- function(path_md, path_src = NULL,
       # NOTE: we can add anything we want from the YAML header in here to
       # pass on to the template.
       body         = use_instructor(nodes),
+      more         = extras_menu(pkg$src_path, "instructors"),
       pagetitle    = title,
       minutes      = as.integer(yaml$teaching) + as.integer(yaml$exercises),
       file_source  = fs::path_rel(path_src, start = home),
@@ -138,6 +139,7 @@ build_episode_html <- function(path_md, path_src = NULL,
     dat_learner <- modifyList(dat_instructor, 
       list(
         body = use_learner(nodes),
+        more = extras_menu(pkg$src_path, "learners"),
         instructor = FALSE,
         page_back = fs::path_file(page_back), 
         page_forward = fs::path_file(page_forward), 

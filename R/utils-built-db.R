@@ -34,6 +34,19 @@ get_built_db <- function(db = "site/built/md5sum.txt", filter = "*R?md") {
   return(files[are_markdown, , drop = FALSE])
 }
 
+#' Filter reserved files from the built db
+#'
+#' @param db the database from [get_built_db()]
+#' @return a data frame, but a bit shorter
+#' @keywords internal
+#' @seealso [get_built_db()]
+reserved_db <- function(db) {
+  reserved <- c("index", "README", "CONTRIBUTING", "learners/setup", "profiles[/].*")
+  reserved <- paste(reserved, collapse = "|")
+  reserved <- paste0("^(", reserved, ")[.]R?md")
+  db[!grepl(reserved, db$file, perl = TRUE), , drop = FALSE]
+}
+
 write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 
 #' Identify what files need to be rebuilt and what need to be removed

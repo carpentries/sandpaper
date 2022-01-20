@@ -13,7 +13,28 @@ page_location <- function(i, abs_md, er) {
   c(back = back, forward = fwd, progress = pct, index = i - er[1])
 }
 
-
+extras_menu <- function(path, type = "learners") {
+  files <- as.character(get_resource_list(path, trim = FALSE, type, warn = FALSE))
+  if (type == "learners") {
+    files <- files[!grepl("setup[.]R?md", fs::path_file(files))]
+  }
+  if (type == "instructors") {
+    files <- files[!grepl("instructor-notes.md", fs::path_file(files))]
+  }
+  out <- NULL
+  if (length(files) || type == "instructors") {
+    res <- purrr::map_chr(files, function(f) {
+      if (length(f) == 0) return(f)
+      info <- get_navbar_info(f)
+      paste0("<li><a class='dropdown-item' href='", info$href, "'>", 
+        parse_title(info$text), "</a></li>")
+    })
+    res <- c(res, 
+      "<li><a class= 'dropdown-item' href='profiles.html'>Learner Profiles</a></li>")
+    out <- paste(res, collapse = "")
+  }
+  return(out)
+}
 #' Create a single item that appears in the sidebar
 #' 
 #' Varnish uses a sidebar for navigation across and within an episode. This

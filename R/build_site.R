@@ -28,9 +28,10 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   }
   pkgdown::init_site(pkg)
 
-  db <- get_built_db(fs::path(built_path, "md5sum.txt"))
   new_setup <- any(grepl("[/]setup[.]md", built))
-  db <- db[!grepl("(index|README|CONTRIBUTING|setup)[.]md", db$built), , drop = FALSE]
+  db <- get_built_db(fs::path(built_path, "md5sum.txt"))
+  # filter out files that we will combine to generate
+  db <- reserved_db(db)
   # Find all the episodes and get their range
   er <- range(grep("episodes/", db$file, fixed = TRUE))
 
@@ -38,9 +39,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   abs_md  <- fs::path(path, db$built)
   abs_src <- fs::path(path, db$file)
 
-  if (!quiet && requireNamespace("cli", quietly = TRUE)) {
-    cli::cli_rule(cli::style_bold("Scanning episodes"))
-  }
+  if (!quiet) cli::cli_rule(cli::style_bold("Scanning episodes to rebuild"))
 
   if (is.null(slug)) {
     out <- "index.html"
@@ -67,15 +66,18 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
       quiet        = quiet
     )
   }
-
   fs::dir_walk(built_path, function(d) copy_assets(d, pkg$dst_path), all = TRUE)
-  if (!quiet && requireNamespace("cli", quietly = TRUE)) {
-    cli::cli_rule(cli::style_bold("Creating Schedule"))
-  }
+
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating learner profiles"))
+  build_profiles(pkg, quiet = quiet, sidebar = sidebar)
+
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating homepage"))
   build_home(pkg, quiet = quiet, sidebar = sidebar, new_setup = new_setup, 
     next_page = abs_md[er[1]]
   )
+
   pkgdown::preview_site(pkg, "/", preview = preview)
+
   if (!quiet) {
     dst <- fs::path_rel(path = pkg$dst_path, start = path)
     pth <- if (identical(Sys.getenv("TESTTHAT"), "true")) "[masked]" else pkg$dst_path
