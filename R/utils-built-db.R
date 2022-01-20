@@ -143,7 +143,17 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   }
   # FILTERING ------------------------------------------------------------------
   #
-  # Here we determine the files to keep and the files to remove
+  # Here we determine the files to keep and the files to remove. This creates
+  # a 7-column data frame that contains the following fields:
+  #
+  # 1. file - the data merged on the file name
+  # 2. checksum, the NEW checksum values for these files (NA if the file no
+  #    no longer exists)
+  # 3. built the relative path to the built file (NA if the file no longer exists)
+  # 4. date today's date
+  # 5. checksum.old the old checksum values
+  # 6. built.old the old built path
+  # 7. date.old the date the files were previously built
   one = merge(md5, old, 'file', all = TRUE, suffixes = c('', '.old'), sort = FALSE)
   newsum <- names(one)[2]
   oldsum <- paste0(newsum, ".old")
@@ -160,13 +170,15 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     files = one[['file']]
     to_remove <- old[['built']]
   } else {
-    # exclude files if checksums are not changed
+    # exclude files from the build order if checksums are not changed
     unchanged <- one[[newsum]] == one[[oldsum]]
+    # do not overwrite the dates
+    one[["date"]][isTRUE(unchanged)] <- one[["date.old"]][isTRUE(unchanged)]
     files = setdiff(sources, one[['file']][unchanged])
   }
-  if (write)
+  if (write) {
     write_build_db(one[, 1:4], db)
-
+  }
   # files and to_remove need absolute paths so that subprocesses can run them
   files     <- fs::path_abs(files, start = root_path)
   to_remove <- fs::path_abs(to_remove, start = root_path)
