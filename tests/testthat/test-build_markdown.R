@@ -271,6 +271,21 @@ test_that("old md5sum.txt db will work", {
 
 })
 
+test_that("dates are preserved in md5sum.txt", {
+  db_path <- fs::path(res, "site", "built", "md5sum.txt")
+  olddb <- db <- get_built_db(db_path, "*")
+  withr::defer({
+    write_build_db(olddb, db_path)
+  })
+  db$date <- format(as.Date(db$date, "%F") + sample(-10:10, nrow(db)), "%F")
+  write_build_db(db, db_path)
+  sources <- unlist(get_resource_list(res), use.names = FALSE)
+  newdb <- build_status(sources, db_path, rebuild = FALSE, write = FALSE)
+
+  expect_equal(newdb$new$date, db$date)
+
+})
+
 test_that("Removing partially matching slugs will not have side-effects", {
   built_path <- path_built(res)
   
