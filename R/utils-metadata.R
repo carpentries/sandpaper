@@ -1,5 +1,5 @@
 .metadata_store <-  function() {
-  .metadata <- NULL
+  .metadata <- list()
   list(
     get = function() return(.metadata),
     update = function(value) {
@@ -16,10 +16,10 @@
           l[[key[seq(i)]]] <- list()
         }
         l[[key]] <- value
-        if (is.null(.metadata)) {
-          .metadata <<- l
-        } else {
+        if (length(.metadata)) {
           .metadata <<- modifyList(.metadata, l)
+        } else {
+          .metadata <<- l
         }
       }
       invisible(.metadata)
@@ -52,7 +52,7 @@ create_metadata_jsonld <- function(path = ".", ...) {
 }
 
 initialise_metadata <- function(path = ".") {
-  if (is.null(this_metadata$get())) {
+  if (length(this_metadata$get()) == 0) {
     cfg <- get_config(path)
     this_metadata$set("pagetitle", cfg$title)
     this_metadata$set("url", cfg$url %||% make_github_url(cfg$source))
