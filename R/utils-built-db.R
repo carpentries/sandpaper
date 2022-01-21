@@ -173,7 +173,7 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     # exclude files from the build order if checksums are not changed
     unchanged <- one[[newsum]] == one[[oldsum]]
     # do not overwrite the dates
-    one[["date"]][isTRUE(unchanged)] <- one[["date.old"]][isTRUE(unchanged)]
+    one[["date"]][which(unchanged)] <- one[["date.old"]][which(unchanged)]
     files = setdiff(sources, one[['file']][unchanged])
   }
   if (write) {
