@@ -16,7 +16,11 @@
           l[[key[seq(i)]]] <- list()
         }
         l[[key]] <- value
-        .metadata <<- modifyList(.metadata, l)
+        if (is.null(.metadata)) {
+          .metadata <<- l
+        } else {
+          .metadata <<- modifyList(.metadata, l)
+        }
       }
       invisible(.metadata)
     },
