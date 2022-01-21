@@ -96,6 +96,12 @@ build_episode_html <- function(path_md, path_src = NULL,
     sidebar[[1]] <- create_sidebar_item(nodes, idx, 1)
   }
 
+  json <- create_metadata_jsonld(home, 
+    date = list(modified = date),
+    pagetitle = title,
+    url = paste0(this_metadata$get()$url, "/", this_page)
+  )
+
   dat_instructor <- c(
     list(
       # NOTE: we can add anything we want from the YAML header in here to
@@ -113,6 +119,7 @@ build_episode_html <- function(path_md, path_src = NULL,
       progress     = page_progress,
       sidebar      = paste(sidebar, collapse = "\n"),
       updated      = date,
+      json         = json,
       instructor   = TRUE
       ),
     varnish_vars()
@@ -133,6 +140,13 @@ build_episode_html <- function(path_md, path_src = NULL,
       idx <- "<a href='index.html'>Summary and Setup</a>"
       sidebar[[1]] <- create_sidebar_item(nodes, idx, 1)
     }
+
+    json <- create_metadata_jsonld(home, 
+      date = list(modified = date),
+      pagetitle = title,
+      url = paste0(this_metadata$get()$url, "/", as_html(this_page))
+    )
+
     # we only need to compute the learner page if the instructor page has
     # modified since the instructor material contains more information and thus
     # more things to modify.
@@ -143,6 +157,7 @@ build_episode_html <- function(path_md, path_src = NULL,
         instructor = FALSE,
         page_back = fs::path_file(page_back), 
         page_forward = fs::path_file(page_forward), 
+        json         = json,
         sidebar      = paste(gsub("instructor/", "", sidebar), collapse = "\n")
       )
     )
@@ -150,7 +165,7 @@ build_episode_html <- function(path_md, path_src = NULL,
       "chapter",
       data = dat_learner,
       depth = 0L,
-      path = fs::path_file(this_page),
+      path = as_html(this_page),
       quiet = quiet
     )
   }

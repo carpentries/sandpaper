@@ -25,6 +25,11 @@ build_keypoints <- function(pkg, quiet, sidebar = NULL) {
     sidebar[[1]] <- create_sidebar_item(NULL, name, 1)
   }
 
+  json <- create_metadata_jsonld(path, 
+    pagetitle = "Keypoints",
+    url = paste0(this_metadata$get()$url, "/instructor/key-points.html")
+  )
+
   dat_instructor <- c(
     list(
       instructor = TRUE,
@@ -32,6 +37,7 @@ build_keypoints <- function(pkg, quiet, sidebar = NULL) {
       this_page = "key-points.html",
       body = use_instructor(html),
       pagetitle = "Keypoints",
+      json = json,
       sidebar = paste(sidebar, collapse = "")
     ),
     varnish_vars()
@@ -61,6 +67,10 @@ build_keypoints <- function(pkg, quiet, sidebar = NULL) {
   if (modified || !fs::file_exists(fs::path(pkg$dst_path, "key-points.html"))) {
     name <- "<a href='index.html'>Summary and Setup</a>"
     sidebar[[1]] <- create_sidebar_item(NULL, name, 1)
+    json <- create_metadata_jsonld(path, 
+      pagetitle = "Keypoints",
+      url = paste0(this_metadata$get()$url, "/key-points.html")
+    )
     dat_learner <- modifyList(dat_instructor,
       list(
         instructor = FALSE,

@@ -18,6 +18,11 @@ parse_title <- function(title) {
   substring(title, 4, nchar(title) - 5)
 }
 
+make_github_url <- function(path) {
+  res <- strsplit(path, "/")[[1]][-(1:3)]
+  paste0("https://", res[1], ".github.io/", res[2])
+}
+
 get_trimmed_title <- function(next_page) {
   next_page <- get_navbar_info(next_page)
   if (is.null(next_page$pagetitle)) {

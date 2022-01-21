@@ -20,6 +20,11 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
     sidebar[[1]] <- create_sidebar_item(html, "Summary and Schedule", "current")
   }
   
+  json <- create_metadata_jsonld(path, 
+    url = paste0(this_metadata$get()$url, "/instructor")
+  )
+
+  
   dat_instructor <- c(
     list(
       instructor = TRUE,
@@ -31,6 +36,7 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
       more     = extras_menu(pkg$src_path, "instructors"),
       pagetitle = parse_title(cfg$title),
       setup = NULL,
+      json = json,
       sidebar = paste(sidebar, collapse = "")
     ),
     varnish_vars()
@@ -59,6 +65,7 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   if (modified || new_setup) {
     # render the learner page
     sidebar[[1]] <- create_sidebar_item(setup, "Summary and Setup", "current")
+    json <- create_metadata_jsonld()
     dat_learner <- modifyList(dat_instructor,
       list(
         instructor = FALSE,
@@ -66,6 +73,7 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
         setup  = use_learner(setup),
         more   = extras_menu(pkg$src_path, "learners"),
         syllabus = NULL,
+        json = json,
         sidebar = paste(sidebar, collapse = "")
       )
     )

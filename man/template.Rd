@@ -14,6 +14,7 @@
 \alias{template_placeholder}
 \alias{template_pr_diff}
 \alias{template_sidebar_item}
+\alias{template_metadata}
 \title{Template files}
 \usage{
 template_gitignore()
@@ -41,6 +42,8 @@ template_placeholder()
 template_pr_diff()
 
 template_sidebar_item()
+
+template_metadata()
 }
 \value{
 a character string with the path to the template within the

@@ -15,6 +15,30 @@ test_that("Lessons built for the first time are noisy", {
 
 })
 
+
+test_that("Lesson websites contains metadata", {
+
+  json <- trimws(create_metadata_jsonld(tmp))
+  idx <- xml2::read_html(fs::path(path_site(tmp), "docs", "index.html"))
+
+  actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
+  actual <- trimws(xml2::xml_text(actual))
+
+  expect_identical(json, actual)
+
+})
+
+test_that("Lesson websites contains metadata", {
+
+  idx <- xml2::read_html(fs::path(path_site(tmp), "docs", "instructor", "index.html"))
+
+  actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
+  actual <- trimws(xml2::xml_text(actual))
+
+  expect_match(actual, "[/]instructor")
+
+})
+
 test_that("single files can be built", {
 
   create_episode("second-episode", path = tmp)
@@ -34,6 +58,15 @@ test_that("single files can be built", {
 
 })
 
+
+test_that("Individual files contain matching metadata", {
+  idx <- xml2::read_html(fs::path(path_site(tmp), "docs", "02-second-episode.html"))
+
+  actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
+  actual <- trimws(xml2::xml_text(actual))
+  expect_match(actual, "Using RMarkdown")
+  expect_match(actual, "02-second-episode.html")
+})
 
 test_that("single files can be re-built", {
 
