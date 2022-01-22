@@ -6,7 +6,11 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   readme   <- fs::path(pkg$src_path, "built", "README.md")
   setup    <- fs::path(pkg$src_path, "built", "setup.md")
   index <- render_html(if (fs::file_exists(idx)) idx else readme)
-  setup <- render_html(setup)
+  if (fs::file_exists(setup)) {
+    setup <- render_html(setup)
+  } else {
+    setup <- "<p></p>"
+  }
   if (index != '') {
     html  <- xml2::read_html(index)
     fix_nodes(html)
