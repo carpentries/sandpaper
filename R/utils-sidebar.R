@@ -50,27 +50,39 @@ extras_menu <- function(path, type = "learners") {
 #' @keywords internal
 create_sidebar_item <- function(nodes, name, position) {
   current <- position == "current"
-  headings <- NULL
-  if (current) {
-    if (inherits(nodes, "character")) {
-      nodes <- xml2::read_html(nodes)
-    }
-    # find all the div items that are purely section level 2
-    h2 <- xml2::xml_find_all(nodes, ".//section/h2[@class='section-heading']")
-    have_children <- xml2::xml_length(h2) > 0
-    txt <- xml2::xml_text(h2)
-    ids <- xml2::xml_attr(xml2::xml_parent(h2), "id")
-    if (any(have_children)) {
-      txt[have_children] <- as.character(xml2::xml_children(h2[have_children]))
-    }
-    if (length(ids) && length(txt)) {
-      headings <- paste0("<li><a href='#", ids, "'>", txt, "</a></li>",
-        collapse = "\n"
-      )
+  sidebar_data <- list(
+    name = name,
+    pos = position,
+    headings = if (current) create_sidebar_headings(nodes) else NULL,
+    current = current
+  )
+  whisker::whisker.render(readLines(template_sidebar_item()), 
+    data = sidebar_data)
+}
+
+create_sidebar_headings <- function(nodes) {
+  if (inherits(nodes, "character")) {
+    nodes <- xml2::read_html(nodes)
+  }
+  # find all the div items that are purely section level 2
+  h2 <- xml2::xml_find_all(nodes, ".//section/h2[@class='section-heading']")
+  have_children <- xml2::xml_length(h2) > 0
+  txt <- xml2::xml_text(h2)
+  ids <- xml2::xml_attr(xml2::xml_parent(h2), "id")
+  if (any(have_children)) {
+    for (child in which(have_children)) {
+      # Headings that have embedded HTML will need this
+      child_html <- as.character(xml2::xml_contents(h2[[child]]))
+      txt[child] <- paste(child_html, collapse = "")
     }
   }
-  whisker::whisker.render(readLines(template_sidebar_item()), 
-    data = list(name = name, pos = position, headings = headings, current = current))
+  if (length(ids) && length(txt)) {
+    paste0("<li><a href='#", ids, "'>", txt, "</a></li>",
+      collapse = "\n"
+    )
+  } else {
+    NULL
+  }
 }
 
 #' Create the sidebar for varnish
