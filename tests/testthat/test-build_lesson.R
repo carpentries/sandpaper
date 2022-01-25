@@ -18,18 +18,21 @@ test_that("Lessons built for the first time are noisy", {
 
 test_that("Lesson websites contains metadata", {
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+
   json <- trimws(create_metadata_jsonld(tmp))
   idx <- xml2::read_html(fs::path(path_site(tmp), "docs", "index.html"))
 
   actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
   actual <- trimws(xml2::xml_text(actual))
 
-  skip_on_os("windows")
   expect_identical(actual, json)
 
 })
 
-test_that("Lesson websites contains metadata", {
+test_that("Lesson websites contains instructor metadata", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
 
   idx <- xml2::read_html(fs::path(path_site(tmp), "docs", "instructor", "index.html"))
 
@@ -61,6 +64,8 @@ test_that("single files can be built", {
 
 
 test_that("Individual files contain matching metadata", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   idx <- xml2::read_html(fs::path(path_site(tmp), "docs", "02-second-episode.html"))
 
   actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
@@ -100,6 +105,7 @@ test_that("source files are hashed", {
   h1 <- expect_hashed(tmp, "01-introduction.Rmd")
   h2 <- expect_hashed(tmp, "02-second-episode.Rmd")
   expect_equal(h1, h2, ignore_attr = TRUE)
+
 })
 
 test_that("HTML files are present and have the correct elements", {
