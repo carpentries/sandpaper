@@ -78,3 +78,10 @@ template_placeholder <- generate_template_function("placeholder")
 #' @export
 template_pr_diff <- generate_template_function("pr_diff")
 
+#' @rdname template
+#' @export
+template_sidebar_item <- generate_template_function("sidebar_item")
+
+#' @rdname template
+#' @export
+template_metadata <- generate_template_function("metadata")

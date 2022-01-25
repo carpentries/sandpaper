@@ -15,6 +15,31 @@ test_that("Lessons built for the first time are noisy", {
 
 })
 
+
+test_that("Lesson websites contains metadata", {
+
+  json <- trimws(create_metadata_jsonld(tmp))
+  idx <- xml2::read_html(fs::path(path_site(tmp), "docs", "index.html"))
+
+  actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
+  actual <- trimws(xml2::xml_text(actual))
+
+  skip_on_os("windows")
+  expect_identical(actual, json)
+
+})
+
+test_that("Lesson websites contains metadata", {
+
+  idx <- xml2::read_html(fs::path(path_site(tmp), "docs", "instructor", "index.html"))
+
+  actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
+  actual <- trimws(xml2::xml_text(actual))
+
+  expect_match(actual, "[/]instructor")
+
+})
+
 test_that("single files can be built", {
 
   create_episode("second-episode", path = tmp)
@@ -34,6 +59,15 @@ test_that("single files can be built", {
 
 })
 
+
+test_that("Individual files contain matching metadata", {
+  idx <- xml2::read_html(fs::path(path_site(tmp), "docs", "02-second-episode.html"))
+
+  actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
+  actual <- trimws(xml2::xml_text(actual))
+  expect_match(actual, "Using RMarkdown")
+  expect_match(actual, "02-second-episode.html")
+})
 
 test_that("single files can be re-built", {
 
@@ -77,12 +111,12 @@ test_that("HTML files are present and have the correct elements", {
   ep <- readLines(fs::path(sitepath, "01-introduction.html"))
 
   # Div tags show up as expected
-  expect_true(any(grepl(".div class..challenge", ep)))
+  expect_true(any(grepl(".div.+? class..callout challenge", ep)))
   # figure captions show up from knitr 
   # (https://github.com/carpentries/sandpaper/issues/114) 
   expect_true(any(grepl("Sun arise each and every morning", ep)))
   expect_true(any(grepl(
-        ".div class..challenge", 
+        ".div.+? class..callout challenge", 
         readLines(fs::path(sitepath, "02-second-episode.html"))
   )))
   expect_true(any(grepl(
@@ -94,7 +128,6 @@ test_that("HTML files are present and have the correct elements", {
 test_that("files will not be rebuilt unless they change in content", {
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
-  # expect_silent(suppressMessages(build_lesson(tmp, preview = FALSE)))
   suppressMessages({
     expect_failure({
       expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
@@ -104,7 +137,6 @@ test_that("files will not be rebuilt unless they change in content", {
 
   fs::file_touch(fs::path(tmp, "episodes", "01-introduction.Rmd"))
 
-  # expect_silent(suppressMessages(build_lesson(tmp, preview = FALSE)))
   suppressMessages({
     expect_failure({
       expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 

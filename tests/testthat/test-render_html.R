@@ -1,18 +1,6 @@
 example_markdown <- fs::path_abs(test_path("examples", "ex.md"))
 
 
-test_that("missing metadata is adapted", {
-  skip_if_not(rmarkdown::pandoc_available("2.11"))
-  tmp <- withr::local_tempfile()
-  l <- readLines(example_markdown)
-  l[2] <- "whargle: 1"
-  l[3] <- "bargle: 2"
-  writeLines(l, tmp)
-  htm <- render_html(tmp)
-  expect_match(htm, "Teaching: ")
-  expect_match(htm, "Exercises: ")
-})
-
 test_that("emoji are rendered", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
@@ -67,7 +55,11 @@ test_that("pandoc structure is rendered correctly", {
     message(cat(readLines(out), sep = "\n"))
   }
   skip_on_os("windows")
-  expect_snapshot(cat(readLines(out), sep = "\n"))
+  formation = function(x) {
+    x <- sub("[,]Div [(]\"collapseInstructor1\".+", "[instructor collapse]", x)
+    sub("[,]Div [(]\"collapseSolution1\".+", "[solution collapse]", x)
+  }
+  expect_snapshot(cat(readLines(out), sep = "\n"), transform = formation)
 })
 
 test_that("paragraphs after objectives block are parsed correctly", {
@@ -92,26 +84,24 @@ test_that("paragraphs after objectives block are parsed correctly", {
 })
 
 test_that("render_html applies the internal lua filter", {
-
   skip_if_not(rmarkdown::pandoc_available("2.11"))
-
-  res <- render_html(example_markdown)
+  res <- as.character(render_html(example_markdown))
 
   # Metadata blocks are parsed
-  expect_match(res, "div class=\"row\"", fixed = TRUE)
-  expect_match(res, "div class=\"col-md-3\"", fixed = TRUE)
-  expect_match(res, "div class=\"col-md-9\"", fixed = TRUE)
-  expect_match(res, "div class=\"section level2 objectives\"", fixed = TRUE)
-  expect_match(res, "Teaching: ", fixed = TRUE)
-  expect_match(res, "Exercises: ", fixed = TRUE)
+  expect_match(res, "div class=\"overview card\"", fixed = TRUE)
+  expect_match(res, "div class=\"col-md-4\"", fixed = TRUE)
+  expect_match(res, "div class=\"col-md-8\"", fixed = TRUE)
+  expect_match(res, "div class=\"card-body\"", fixed = TRUE)
   expect_match(res, "Questions", fixed = TRUE)
   expect_match(res, "Objectives", fixed = TRUE)
   # Challenge header automatically added
-  expect_match(res, "Challenge</h2>", fixed = TRUE)
+  expect_match(res, "div id=\"challenge1\"", fixed = TRUE)
+  expect_match(res, "<h3 class=\"callout-title\">Challenge</h3>", fixed = TRUE)
   # Solution header modified
-  expect_match(res, "Write now</h2>", fixed = TRUE)
+  expect_match(res, "<h4 class=\"accordion-header\" id=\"headingSolution1\"")
+  expect_match(res, "Write now", fixed = TRUE)
   # Aside tag applied
-  expect_match(res, "<aside class=\"instructor\">", fixed = TRUE)
+  expect_match(res, "<div id=\"accordionInstructor1\"", fixed = TRUE)
   # Instructor header doesn't need to exist
   expect_failure(expect_match(res, "Instructor</h2>", fixed = TRUE))
   # Div class nothing should be left alone
@@ -123,9 +113,57 @@ test_that("render_html applies the internal lua filter", {
     message(res)
   }
   skip_on_os("windows")
-  expect_snapshot(cat(res))
-
+  formation = function(x) {
+    x <- sub("[<]div id[=]\"collapseSolution1\".+", "[solution collapse]", x)
+    sub("[<]div id[=]\"collapseInstructor1\".+", "[instructor collapse]", x)
+    
+  }
+  expect_snapshot(cat(res), transform = formation)
 })
+
+
+example_instructor <- fs::path_abs(test_path("examples", "instructor-note.md"))
+test_that("accordion lua filter parses instructor notes correctly", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  out <- fs::file_temp()
+  withr::local_file(out)
+
+  args <- construct_pandoc_args(example_instructor, out, to = "native")
+  callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
+  if (.Platform$OS.type == "windows" && Sys.getenv("CI", unset = '') == "true") {
+    # let's see what this looks like
+    message("INSTRUCTOR")
+    message(cat(readLines(out), sep = "\n"))
+  }
+  res <- render_html(example_instructor)
+  expect_match(res, "<div id=\"accordionInstructor1\"", fixed = TRUE)
+})
+
+example_challenge <- fs::path_abs(test_path("examples", "challenge-hint.md"))
+test_that("accordion lua filter parses challenge accordions correctly", {
+  out <- fs::file_temp()
+  withr::local_file(out)
+
+  args <- construct_pandoc_args(example_challenge, out, to = "native")
+  callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
+  if (.Platform$OS.type == "windows" && Sys.getenv("CI", unset = '') == "true") {
+    # let's see what this looks like
+    message("CHALLENGE")
+    message(cat(readLines(out), sep = "\n"))
+  }
+  res <- render_html(example_challenge)
+  expect_match(res, "<div id=\"accordionHint1\"", fixed = TRUE)
+  expect_match(res, "<div id=\"accordionSolution1\"", fixed = TRUE)
+})
+
+example_challenge2 <- fs::path_abs(test_path("examples", "challenge-multi.md"))
+test_that("accordion lua filter parses post-solution text accordingly", {
+  res <- render_html(example_challenge2)
+  expect_match(res, "<div id=\"accordionHint1\"", fixed = TRUE)
+  expect_match(res, "<div id=\"accordionSolution1\"", fixed = TRUE)
+  expect_match(res, "<div id=\"discussion1\"", fixed = TRUE)
+})
+
 
 test_that("render_html applies external lua filters", {
 

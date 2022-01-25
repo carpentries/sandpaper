@@ -136,15 +136,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
     }
   }
 
-  # Update the navbar ----------------------------------------------------------
-  update_site_menu(path,
-    episodes    = source_list$episodes,
-    learners    = source_list$learners,
-    instructors = source_list$instructors,
-    profiles    = source_list$profiles
-  )
   # We've made it this far, so the database can be updated
-
   update <- TRUE
   invisible(db$build)
 }

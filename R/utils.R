@@ -3,7 +3,10 @@
 
 `%nin%` <- Negate("%in%")
 
-as_html <- function(i) fs::path_ext_set(fs::path_file(i), "html")
+as_html <- function(i, instructor = FALSE) {
+  res <- fs::path_ext_set(fs::path_file(i), "html")
+  if (instructor) fs::path("instructor", res) else res
+}
 
 # Parse a markdown title to html
 #
@@ -13,6 +16,26 @@ as_html <- function(i) fs::path_ext_set(fs::path_file(i), "html")
 parse_title <- function(title) {
   title <- commonmark::markdown_html(title)
   substring(title, 4, nchar(title) - 5)
+}
+
+make_github_url <- function(path) {
+  res <- strsplit(path, "/")[[1]][-(1:3)]
+  paste0("https://", res[1], ".github.io/", res[2])
+}
+
+get_trimmed_title <- function(next_page) {
+  next_page <- get_navbar_info(next_page)
+  if (is.null(next_page$pagetitle)) {
+    return(NULL)
+  }
+  next_title <- strsplit(next_page$pagetitle, "\\s")[[1]]
+  # only allow titles up to 20 characters long
+  ok <- (cumsum(nchar(next_title)) + (seq(next_title) - 1)) <= 20
+  if (sum(ok) > 0) {
+    parse_title(paste(next_title[ok], collapse = " "))
+  } else {
+    parse_title(substr(next_page$pagetitle, 1, 20))
+  }
 }
 
 copy_maybe <- function(path, new_path) {
@@ -81,6 +104,17 @@ which_carpentry <- function(carpentry) {
     cp = "The Carpentries",
     incubator = "Carpentries Incubator",
     lab = "Carpentries Lab"
+  )
+}
+
+which_icon_carpentry <- function(carpentry) {
+  switch(carpentry,
+    lc = "library",
+    dc = "data",
+    swc = "software",
+    cp = "carpentries",
+    incubator = "incubator",
+    lab = "lab"
   )
 }
 

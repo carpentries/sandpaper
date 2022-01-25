@@ -97,14 +97,10 @@ test_that("adding episodes will concatenate the schedule", {
   expect_equal(res, tmp, ignore_attr = TRUE)
   expect_equal(get_episodes(tmp), c("01-introduction.Rmd", "03-second-episode.Rmd"), ignore_attr = TRUE)
 
-  skip_if_not(rmarkdown::pandoc_available("2.11"))
-
-  expect_silent(build_lesson(tmp, quiet = TRUE, preview = FALSE))
-  yaml <- yaml::read_yaml(path_site_yaml(tmp))$navbar$left[[2L]]$menu
-  expect_length(yaml, 2)
-  expect_equal(yaml[[c(1, 3)]], "01-introduction.html")
-  expect_equal(yaml[[c(2, 3)]], "03-second-episode.html")
-
+  sb <- create_sidebar(get_episodes(tmp, trim = FALSE))
+  expect_length(sb, 2)
+  expect_match(sb[1], "01-introduction.html")
+  expect_match(sb[2], "03-second-episode.html")
 
 })
 
@@ -113,13 +109,10 @@ test_that("the schedule can be rearranged", {
   set_episodes(tmp, c("03-second-episode.Rmd", "01-introduction.Rmd"), write = TRUE)
   expect_equal(get_episodes(tmp), c("03-second-episode.Rmd", "01-introduction.Rmd"), ignore_attr = TRUE)
 
-  skip_if_not(rmarkdown::pandoc_available("2.11"))
-
-  expect_silent(build_lesson(tmp, quiet = TRUE, preview = FALSE))
-  yaml <- yaml::read_yaml(path_site_yaml(tmp))$navbar$left[[2L]]$menu
-  expect_length(yaml, 2)
-  expect_equal(yaml[[c(1, 3)]], "03-second-episode.html")
-  expect_equal(yaml[[c(2, 3)]], "01-introduction.html")
+  sb <- create_sidebar(get_episodes(tmp, trim = FALSE))
+  expect_length(sb, 2)
+  expect_match(sb[1], "03-second-episode.html")
+  expect_match(sb[2], "01-introduction.html")
 
 })
 
@@ -138,11 +131,19 @@ test_that("the schedule can be truncated", {
   set_episodes(tmp, "01-introduction.Rmd", write = TRUE)
   expect_equal(get_episodes(tmp), "01-introduction.Rmd", ignore_attr = TRUE)
 
+  sb <- create_sidebar(get_episodes(tmp, trim = FALSE))
+  expect_length(sb, 1)
+  expect_match(sb[1], "01-introduction.html")
+
   skip_if_not(rmarkdown::pandoc_available("2.11"))
 
+  # build the lesson here just to be absolutely sure
   expect_silent(build_lesson(tmp, quiet = TRUE, preview = FALSE))
-  yaml <- yaml::read_yaml(path_site_yaml(tmp))$navbar$left[[2L]]$menu
-  expect_length(yaml, 1)
-  expect_equal(yaml[[c(1, 3)]], "01-introduction.html")
+  html <- xml2::read_html(fs::path(tmp, "site/docs/index.html"))
+  episodes <- xml2::xml_find_all(html, 
+    ".//div[contains(@class, 'accordion-header')]/a")
+  links <- xml2::xml_attr(episodes, "href")
+  expect_length(links, 1)
+  expect_equal(links[1], "01-introduction.html")
 
 })

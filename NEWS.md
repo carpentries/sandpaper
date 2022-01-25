@@ -1,3 +1,52 @@
+# sandpaper 0.1.0
+
+BREAKING CHANGES
+----------------
+
+* Add support for the updated frontend in {varnish}. This means that you will
+  need varnish 0.1.0 installed in order to use this update. This change includes
+  modifications to the lua filters along with the general handling of the HTML
+  elements which means that older versions of varnish will cease to work.
+* code blocks will no longer contain package links. While the links may have
+  been handy for sighted users to explore documentation, these may represent
+  objstructions for users who rely on screen-readers.
+
+INSTRUCTOR VIEW
+---------------
+
+There are now two views of the lesson: instructor view and learner view. The
+biggest difference is that instructor view gains the `instructor-note` sections
+(if they exist).
+
+* Static pages for each view. This means that you can toggle between the pages
+  without needing javascript. 
+* Removed timings on the learner view (to avoid discouraging our learners)
+* Setup page replaces the schedule on the index page
+* There are additional buttons included on the instructor view that do not yet
+  work, but will work at some point!
+
+The only downside at the moment is that building the lesson takes _a bit_ longer
+due to the fact that we now have to render two pages for each change.
+
+NAVIGATION
+----------
+
+A persistant sidebar with links for the main content of the lesson will be
+present on all pages of the lesson. The navigation bar will prioritise items
+used most frequently by the respective audiences:
+
+* Learners: Key Points, Glossary, Learner Profiles, "Additional Information"
+  (dropdown)
+* Instructors: Key Points, Instructor Notes, Extract All Images, "More"
+  (dropdown)
+
+MISC
+----
+
+* The build database now gains a "date" column which will indicate the date
+  the file was last rendered to markdown. This allows the "last updated on" to
+  better reflect the state of the contents from the rendered files.
+
 # sandpaper 0.0.0.9075
 
 BUG FIX

@@ -9,7 +9,8 @@ build_site(
   quiet = !interactive(),
   preview = TRUE,
   override = list(),
-  slug = NULL
+  slug = NULL,
+  built = NULL
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ This is used internally and will likely be changed.}
 If this is \code{NULL}, the preview will default to the home page. If you have
 an episode whose slug is 01-introduction, then setting \code{slug = "01-introduction"} will allow RStudio to open the preview window to the
 right page.}
+
+\item{built}{a character vector of newly built files or NULL.}
 }
 \description{
 Wrapper for site builder

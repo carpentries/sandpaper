@@ -34,6 +34,19 @@ get_built_db <- function(db = "site/built/md5sum.txt", filter = "*R?md") {
   return(files[are_markdown, , drop = FALSE])
 }
 
+#' Filter reserved files from the built db
+#'
+#' @param db the database from [get_built_db()]
+#' @return a data frame, but a bit shorter
+#' @keywords internal
+#' @seealso [get_built_db()]
+reserved_db <- function(db) {
+  reserved <- c("index", "README", "CONTRIBUTING", "learners/setup", "profiles[/].*")
+  reserved <- paste(reserved, collapse = "|")
+  reserved <- paste0("^(", reserved, ")[.]R?md")
+  db[!grepl(reserved, db$file, perl = TRUE), , drop = FALSE]
+}
+
 write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 
 #' Identify what files need to be rebuilt and what need to be removed
@@ -97,19 +110,26 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     fs::path_ext(built) %in% c("Rmd", "rmd"),
     fs::path_ext_set(built, "md"), built
   )
+  date <- format(Sys.Date(), "%F")
   md5 = data.frame(
     file     = sources,
     checksum = tools::md5sum(fs::path(root_path, sources)),
-    built    = built
+    built    = built,
+    date     = date,
+    stringsAsFactors = FALSE
   )
   if (!file.exists(db)) {
     fs::dir_create(dirname(db))
+    md5$date <- date
     if (write)
       write_build_db(md5, db)
     return(list(build = fs::path(root_path, sources), new = md5))
   }
   # old checksums (2 columns: file path and checksum)
   old = read.table(db, header = TRUE)
+  # insert current date if it does not exist
+  old <- if (is.null(old$date)) data.frame(old, list(date = date), stringsAsFactors = FALSE) else old
+  # BUILD ONLY ONE FILE --------------------------------------------------------
   if (build_one) {
     new <- old
     to_build <- old$file == md5$file
@@ -121,6 +141,19 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     }
     return(list(build = fs::path(root_path, sources), new = new))
   }
+  # FILTERING ------------------------------------------------------------------
+  #
+  # Here we determine the files to keep and the files to remove. This creates
+  # a 7-column data frame that contains the following fields:
+  #
+  # 1. file - the data merged on the file name
+  # 2. checksum, the NEW checksum values for these files (NA if the file no
+  #    no longer exists)
+  # 3. built the relative path to the built file (NA if the file no longer exists)
+  # 4. date today's date
+  # 5. checksum.old the old checksum values
+  # 6. built.old the old built path
+  # 7. date.old the date the files were previously built
   one = merge(md5, old, 'file', all = TRUE, suffixes = c('', '.old'), sort = FALSE)
   newsum <- names(one)[2]
   oldsum <- paste0(newsum, ".old")
@@ -137,13 +170,15 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     files = one[['file']]
     to_remove <- old[['built']]
   } else {
-    # exclude files if checksums are not changed
+    # exclude files from the build order if checksums are not changed
     unchanged <- one[[newsum]] == one[[oldsum]]
+    # do not overwrite the dates
+    one[["date"]][which(unchanged)] <- one[["date.old"]][which(unchanged)]
     files = setdiff(sources, one[['file']][unchanged])
   }
-  if (write)
-    write_build_db(one[, 1:3], db)
-
+  if (write) {
+    write_build_db(one[, 1:4], db)
+  }
   # files and to_remove need absolute paths so that subprocesses can run them
   files     <- fs::path_abs(files, start = root_path)
   to_remove <- fs::path_abs(to_remove, start = root_path)
@@ -151,7 +186,7 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   list(
     build = files,
     remove = to_remove,
-    new = one[, 1:3],
+    new = one[, 1:4],
     old = old
   )
 }

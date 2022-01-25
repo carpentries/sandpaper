@@ -71,7 +71,13 @@ test_that("build_home() will refelct the title in the heading", {
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   pkg <- pkgdown::as_pkgdown(fs::path(res, "site"))
   fs::dir_create(pkg$dst_path)
-  expect_silent(build_home(pkg, quiet = TRUE))
+  expect_silent(
+    build_home(pkg, quiet = TRUE, 
+      sidebar = "<a href='index.html'>Home</a>",
+      new_setup = FALSE, 
+      next_page = fs::path(res, "site/built/01-introduction.md")
+    )
+  )
   idx <- fs::path(pkg$dst_path, "index.html")
   htm <- xml2::read_html(idx)
   h1 <- xml2::xml_text(xml2::xml_find_first(htm, ".//h1"))
@@ -262,6 +268,21 @@ test_that("old md5sum.txt db will work", {
 
   # The new database format is restored
   expect_identical(olddb$file, as.character(newdb$new$file))
+
+})
+
+test_that("dates are preserved in md5sum.txt", {
+  db_path <- fs::path(res, "site", "built", "md5sum.txt")
+  olddb <- db <- get_built_db(db_path, "*")
+  withr::defer({
+    write_build_db(olddb, db_path)
+  })
+  db$date <- format(as.Date(db$date, "%F") + sample(-10:10, nrow(db)), "%F")
+  write_build_db(db, db_path)
+  sources <- unlist(get_resource_list(res), use.names = FALSE)
+  newdb <- build_status(sources, db_path, rebuild = FALSE, write = FALSE)
+
+  expect_equal(newdb$new$date, db$date)
 
 })
 

@@ -10,7 +10,10 @@ build_episode_html(
   page_back = "index.md",
   page_forward = "index.md",
   pkg,
-  quiet = FALSE
+  quiet = FALSE,
+  page_progress = NULL,
+  sidebar = NULL,
+  date = NULL
 )
 }
 \arguments{
@@ -28,6 +31,15 @@ is not present, then this option allows you to specify that file.}
 \item{pkg}{a \code{pkgdown} object containing metadata for the site}
 
 \item{quiet}{if \code{TRUE}, messages are not produced. Defaults to \code{TRUE}.}
+
+\item{page_progress}{an integer between 0 and 100 indicating the rounded
+percent of the page progress. Defaults to NULL.}
+
+\item{sidebar}{a character vector of links to other episodes to use for the
+sidebar. The current episode will be replaced with an index of all the
+chapters in the episode.}
+
+\item{date}{the date the episode was last built.}
 }
 \value{
 \code{TRUE} if the page was successful, \code{FALSE} otherwise.

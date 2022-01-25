@@ -8,8 +8,9 @@
 #'   an episode whose slug is 01-introduction, then setting `slug =
 #'   "01-introduction"` will allow RStudio to open the preview window to the
 #'   right page. 
+#' @param built a character vector of newly built files or NULL. 
 #' @keywords internal
-build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, override = list(), slug = NULL) {
+build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, override = list(), slug = NULL, built = NULL) {
   # step 1: check pandoc
   check_pandoc(quiet)
   # step 2: build the package site
@@ -27,8 +28,10 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   }
   pkgdown::init_site(pkg)
 
+  new_setup <- any(grepl("[/]setup[.]md", built))
   db <- get_built_db(fs::path(built_path, "md5sum.txt"))
-  db <- db[!grepl("(index|README|CONTRIBUTING)[.]md", db$built), , drop = FALSE]
+  # filter out files that we will combine to generate
+  db <- reserved_db(db)
   # Find all the episodes and get their range
   er <- range(grep("episodes/", db$file, fixed = TRUE))
 
@@ -36,12 +39,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   abs_md  <- fs::path(path, db$built)
   abs_src <- fs::path(path, db$file)
 
-  # comparison function to test if a within a range of 2 b numbers
-  `%w%` <- function(a, b) a >= b[[1]] && a <= b[[2]]
-
-  if (!quiet && requireNamespace("cli", quietly = TRUE)) {
-    cli::cli_rule(cli::style_bold("Scanning episodes"))
-  }
+  if (!quiet) cli::cli_rule(cli::style_bold("Scanning episodes to rebuild"))
 
   if (is.null(slug)) {
     out <- "index.html"
@@ -50,24 +48,38 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     out <- paste0(slug, ".html")
     files_to_render <- which(get_slug(db$built) == slug)
   }
+
   out <- if (is.null(slug)) "index.html" else paste0(slug, ".html")
+  chapters <- abs_md[seq(er[1], er[2])]
+  sidebar <- create_sidebar(c(fs::path(built_path, "index.md"), chapters))
   for (i in files_to_render) {
+    location <- page_location(i, abs_md, er)
     build_episode_html(
       path_md      = abs_md[i],
       path_src     = abs_src[i],
-      page_back    = if (i %w% er && i > er[1]) abs_md[i - 1] else "index.md",
-      page_forward = if (i %w% er && i < er[2]) abs_md[i + 1] else "index.md",
-      pkg          = pkg, 
+      page_back    = location["back"],
+      page_forward = location["forward"],
+      page_progress = location["progress"],
+      sidebar      = sidebar,
+      date         = db$date[i],
+      pkg          = pkg,
       quiet        = quiet
     )
   }
-
   fs::dir_walk(built_path, function(d) copy_assets(d, pkg$dst_path), all = TRUE)
-  if (!quiet && requireNamespace("cli", quietly = TRUE)) {
-    cli::cli_rule(cli::style_bold("Creating Schedule"))
-  }
-  build_home(pkg, quiet = quiet)
+
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating learner profiles"))
+  build_profiles(pkg, quiet = quiet, sidebar = sidebar)
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
+  build_keypoints(pkg, quiet = quiet, sidebar = sidebar)
+
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating homepage"))
+  build_home(pkg, quiet = quiet, sidebar = sidebar, new_setup = new_setup, 
+    next_page = abs_md[er[1]]
+  )
+
   pkgdown::preview_site(pkg, "/", preview = preview)
+
   if (!quiet) {
     dst <- fs::path_rel(path = pkg$dst_path, start = path)
     pth <- if (identical(Sys.getenv("TESTTHAT"), "true")) "[masked]" else pkg$dst_path

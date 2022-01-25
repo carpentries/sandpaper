@@ -4,9 +4,12 @@ politely_get_yaml <- function(path) {
   header <- readLines(path, n = 10, encoding = "UTF-8")
   barriers <- grep("^---$", header)
   if (length(barriers) == 0) {
-    thm <- cli::cli_div(theme = sandpaper_cli_theme())
-    cli::cli_alert_danger("No yaml header found in the first 10 lines of {path}")
-    cli::cli_end(thm)
+    # we don't need to warn if they are scanning an index.md with no yaml
+    if (fs::path_file(path) != "index.md") {
+      thm <- cli::cli_div(theme = sandpaper_cli_theme())
+      cli::cli_alert_danger("No yaml header found in the first 10 lines of {path}")
+      cli::cli_end(thm)
+    }
     return(character(0))
   }
   if (length(barriers) == 1) {
@@ -169,6 +172,9 @@ create_pkgdown_yaml <- function(path) {
       # What carpentry are we dealing with?
       carpentry_name = siQuote(which_carpentry(usr$carpentry)),
       carpentry      = siQuote(usr$carpentry),
+      carpentry_icon = siQuote(which_icon_carpentry(usr$carpentry)),
+      license        = siQuote(usr$license),
+      handout        = if (getOption("sandpaper.handout", default = FALSE)) "'files/code-handout.R'" else "~",
       cp             = usr$carpentry == 'cp',
       lc             = usr$carpentry == 'lc',
       dc             = usr$carpentry == 'dc',
@@ -199,13 +205,6 @@ get_navbar_info <- function(i) {
   )
 }
 
-site_menu <- function(yaml, files = NULL, position = 3L) {
-  if (is.null(files) || length(files) == 0L) return(yaml)
-  res <- lapply(files, get_navbar_info)
-  yaml$navbar$left[[position]]$menu <- unname(res)
-  yaml
-}
-
 quote_config_items <- function(yaml) {
   yaml$title      <- siQuote(yaml$title)
   yaml$carpentry  <- siQuote(yaml$carpentry)
@@ -217,15 +216,3 @@ quote_config_items <- function(yaml) {
   yaml
 }
 
-# Take a list of episodes and update the yaml configuration. 
-# TODO: This implementation needs to change!!!
-update_site_menu <- function(path, 
-  episodes = NULL, learners = NULL, instructors = NULL, profiles = NULL) {
-  yaml <- get_path_site_yaml(path) 
-  # NOTE: change tests/testthat/test-set_dropdown.R
-  yaml <- site_menu(yaml, episodes,    2L)
-  yaml <- site_menu(yaml, learners,    3L)
-  yaml <- site_menu(yaml, instructors, 4L)
-  yaml <- site_menu(yaml, profiles,    5L)
-  write_pkgdown_yaml(yaml, path)
-}
