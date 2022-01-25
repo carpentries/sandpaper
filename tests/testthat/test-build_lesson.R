@@ -24,7 +24,8 @@ test_that("Lesson websites contains metadata", {
   actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
   actual <- trimws(xml2::xml_text(actual))
 
-  expect_identical(json, actual)
+  skip_on_os("windows")
+  expect_identical(actual, json)
 
 })
 

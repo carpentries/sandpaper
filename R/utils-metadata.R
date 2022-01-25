@@ -42,7 +42,7 @@ this_metadata <- .metadata_store()
 
 create_metadata_jsonld <- function(path = ".", ...) {
   initialise_metadata(path)
-  json <- paste(readLines(template_metadata()), collapse = "\n")
+  json <- readLines(template_metadata())
   l <- list(...)
   meta <- this_metadata$copy()
   meta$update(l)
