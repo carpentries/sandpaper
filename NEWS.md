@@ -1,5 +1,11 @@
 # sandpaper 0.1.0
 
+BUG FIXES
+---------
+
+* `render_html()` now passes the `--preserve-tabs` parameter to prevent pandoc
+  from removing educationally relevant information from the lessons.
+
 BREAKING CHANGES
 ----------------
 

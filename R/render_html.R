@@ -75,6 +75,7 @@ construct_pandoc_args <- function(path_in, output, to = "html", ...) {
     from    = from,
     to      = to,
     options = c(
+      "--preserve-tabs",
       "--indented-code-classes=sh", 
       "--section-divs", 
       "--mathjax",
