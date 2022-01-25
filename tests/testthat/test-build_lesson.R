@@ -19,6 +19,7 @@ test_that("Lessons built for the first time are noisy", {
 test_that("Lesson websites contains metadata", {
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
+  skip_on_os("windows")
 
   json <- trimws(create_metadata_jsonld(tmp))
   idx <- xml2::read_html(fs::path(path_site(tmp), "docs", "index.html"))
