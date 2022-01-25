@@ -10,14 +10,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9075</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
@@ -53,6 +53,33 @@
       <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.1.0" id="sandpaper-010">sandpaper 0.1.0<a class="anchor" aria-label="anchor" href="#sandpaper-010"></a></h2>
+<div class="section level3">
+<h3 id="breaking-changes-0-1-0">BREAKING CHANGES<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-0"></a></h3>
+<ul><li>Add support for the updated frontend in {varnish}. This means that you will need varnish 0.1.0 installed in order to use this update. This change includes modifications to the lua filters along with the general handling of the HTML elements which means that older versions of varnish will cease to work.</li>
+<li>code blocks will no longer contain package links. While the links may have been handy for sighted users to explore documentation, these may represent objstructions for users who rely on screen-readers.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="instructor-view-0-1-0">INSTRUCTOR VIEW<a class="anchor" aria-label="anchor" href="#instructor-view-0-1-0"></a></h3>
+<p>There are now two views of the lesson: instructor view and learner view. The biggest difference is that instructor view gains the <code>instructor-note</code> sections (if they exist).</p>
+<ul><li>Static pages for each view. This means that you can toggle between the pages without needing javascript.</li>
+<li>Removed timings on the learner view (to avoid discouraging our learners)</li>
+<li>Setup page replaces the schedule on the index page</li>
+<li>There are additional buttons included on the instructor view that do not yet work, but will work at some point!</li>
+</ul><p>The only downside at the moment is that building the lesson takes <em>a bit</em> longer due to the fact that we now have to render two pages for each change.</p>
+</div>
+<div class="section level3">
+<h3 id="navigation-0-1-0">NAVIGATION<a class="anchor" aria-label="anchor" href="#navigation-0-1-0"></a></h3>
+<p>A persistant sidebar with links for the main content of the lesson will be present on all pages of the lesson. The navigation bar will prioritise items used most frequently by the respective audiences:</p>
+<ul><li>Learners: Key Points, Glossary, Learner Profiles, “Additional Information” (dropdown)</li>
+<li>Instructors: Key Points, Instructor Notes, Extract All Images, “More” (dropdown)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="misc-0-1-0">MISC<a class="anchor" aria-label="anchor" href="#misc-0-1-0"></a></h3>
+<ul><li>The build database now gains a “date” column which will indicate the date the file was last rendered to markdown. This allows the “last updated on” to better reflect the state of the contents from the rendered files.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9075" id="sandpaper-0009075">sandpaper 0.0.0.9075<a class="anchor" aria-label="anchor" href="#sandpaper-0009075"></a></h2>
 <div class="section level3">
@@ -770,7 +797,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer></div>

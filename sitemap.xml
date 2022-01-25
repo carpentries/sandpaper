@@ -91,6 +91,12 @@
     <loc>https://carpentries.github.io/sandpaper/reference/create_lesson.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/create_sidebar.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/create_sidebar_item.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper/reference/dependency_management.html</loc>
   </url>
   <url>
@@ -137,6 +143,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/renv_lockfile_hash.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/reserved_db.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/reset_episodes.html</loc>
