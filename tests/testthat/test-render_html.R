@@ -1,6 +1,15 @@
 example_markdown <- fs::path_abs(test_path("examples", "ex.md"))
 
 
+test_that("tabs are preserved", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  tmp <- fs::file_temp()
+  withr::local_file(tmp)
+  writeLines("```python\nfor i in range(3):\n\tprint(i)\n\n```\n", tmp)
+  expect_match(render_html(tmp), "\t")
+})
+
+
 test_that("emoji are rendered", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
