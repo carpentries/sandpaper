@@ -237,12 +237,11 @@ accordion = function(el, class)
   -- div for collapsing content
   local accordion_collapse = pandoc.Div({el})
   -- n.b. in pandoc 2.17, the attributes must be set after the classes
-  -- accordion_collapse.classes = {"accordion-collapse", "collapse"}
-  accordion_collapse.attr = {
-    ["id"] = collapse_id, 
+  accordion_collapse.classes = {"accordion-collapse", "collapse"}
+  accordion_collapse.identifier = collapse_id
+  accordion_collapse.attributes = {
     ['aria-labelledby'] = heading_id,
     ['data-bs-parent'] = "#"..div_id,
-    ['class'] = "accordion-collapse collapse"
   }
   -- the actual block to collapse things
   local accordion_item = pandoc.Div({button, accordion_collapse})
@@ -250,15 +249,12 @@ accordion = function(el, class)
   -- accordion_item.attr = {['class'] = "accordion-item"}
   -- the whole package
   local main_div = pandoc.Div({accordion_item})
-  local main_class = "accordion {{type}} accordion-flush"
-  local type = "instructor-note"
+  local main_class = {"accordion", "instructor-note", "accordion-flush"}
   if class ~= "instructor" then
-    type = "challenge-accordion"
+    main_class[2] = "challenge-accordion"
   end
-  main_div.attr = {
-    ["id"] = div_id, 
-    ["class"] = main_class:gsub("{{type}}", type)
-  }
+  main_div.identifier = div_id
+  main_div.classes = main_class
   return(main_div)
 end
 
@@ -283,7 +279,7 @@ callout_block = function(el)
   table.insert(callout_inner.content, el)
 
   local block = pandoc.Div({callout_square, callout_inner})
-  block.attr = {["id"] = callout_id}
+  block.identifier = callout_id
   block.classes = classes
   return block
 end
