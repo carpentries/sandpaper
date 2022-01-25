@@ -13,7 +13,7 @@ page_location <- function(i, abs_md, er) {
   c(back = back, forward = fwd, progress = pct, index = i - er[1])
 }
 
-extras_menu <- function(path, type = "learners") {
+extras_menu <- function(path, type = "learners", header = TRUE) {
   files <- as.character(get_resource_list(path, trim = FALSE, type, warn = FALSE))
   if (type == "learners") {
     files <- files[!grepl("setup[.]R?md", fs::path_file(files))]
@@ -22,15 +22,16 @@ extras_menu <- function(path, type = "learners") {
     files <- files[!grepl("instructor-notes.md", fs::path_file(files))]
   }
   out <- NULL
+  fragment <- if (header) " class='dropdown-item'" else ""
+  LI <- paste0("<li><a", fragment, " href='")
+  NK <- "'>"
   if (length(files) || type == "instructors") {
     res <- vapply(files, function(f) {
       if (length(f) == 0) return(f)
       info <- get_navbar_info(f)
-      paste0("<li><a class='dropdown-item' href='", info$href, "'>", 
-        parse_title(info$text), "</a></li>")
+      paste0(LI, info$href, NK, parse_title(info$text), "</a></li>")
     }, character(1))
-    res <- c(res, 
-      "<li><a class= 'dropdown-item' href='profiles.html'>Learner Profiles</a></li>")
+    res <- c(res, paste0(LI, "profiles.html", NK, "Learner Profiles</a></li>"))
     out <- paste(res, collapse = "")
   }
   return(out)

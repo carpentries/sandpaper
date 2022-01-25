@@ -18,6 +18,7 @@ build_profiles <- function(pkg, quiet, sidebar = NULL) {
     list(
       instructor = TRUE,
       more = extras_menu(pkg$src_path, "instructors"),
+      resources = extras_menu(pkg$src_path, "instructors", header = FALSE),
       this_page = "profiles.html",
       body = use_instructor(html),
       pagetitle = "Learner Profiles",
@@ -54,6 +55,7 @@ build_profiles <- function(pkg, quiet, sidebar = NULL) {
       list(
         instructor = FALSE,
         more = extras_menu(pkg$src_path, "learners"),
+        resources = extras_menu(pkg$src_path, "learners", header = FALSE),
         body = use_learner(html),
         syllabus = NULL,
         sidebar = paste(sidebar, collapse = "")

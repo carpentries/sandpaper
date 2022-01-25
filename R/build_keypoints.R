@@ -33,7 +33,8 @@ build_keypoints <- function(pkg, quiet, sidebar = NULL) {
   dat_instructor <- c(
     list(
       instructor = TRUE,
-      more = extras_menu(pkg$src_path, "instructors"),
+      more     = extras_menu(pkg$src_path, "instructors"),
+      resources = extras_menu(pkg$src_path, "instructors", header = FALSE),
       this_page = "key-points.html",
       body = use_instructor(html),
       pagetitle = "Keypoints",
@@ -75,6 +76,7 @@ build_keypoints <- function(pkg, quiet, sidebar = NULL) {
       list(
         instructor = FALSE,
         more = extras_menu(pkg$src_path, "learners"),
+        resources = extras_menu(pkg$src_path, "learners", header = FALSE),
         body = use_learner(html),
         syllabus = NULL,
         sidebar = paste(sidebar, collapse = "")

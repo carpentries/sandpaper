@@ -38,6 +38,7 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
       readme = use_instructor(html),
       syllabus = format_syllabus(syl, use_col = FALSE),
       more     = extras_menu(pkg$src_path, "instructors"),
+      resources = extras_menu(pkg$src_path, "instructors", header = FALSE),
       pagetitle = parse_title(cfg$title),
       setup = NULL,
       json = json,
@@ -75,7 +76,8 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
         instructor = FALSE,
         readme = use_learner(html),
         setup  = use_learner(setup),
-        more   = extras_menu(pkg$src_path, "learners"),
+        more = extras_menu(pkg$src_path, "learners"),
+        resources = extras_menu(pkg$src_path, "learners", header = FALSE),
         syllabus = NULL,
         json = json,
         sidebar = paste(sidebar, collapse = "")
