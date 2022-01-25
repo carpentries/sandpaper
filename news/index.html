@@ -56,6 +56,11 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="sandpaper-010">sandpaper 0.1.0<a class="anchor" aria-label="anchor" href="#sandpaper-010"></a></h2>
 <div class="section level3">
+<h3 id="bug-fixes-0-1-0">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-0"></a></h3>
+<ul><li>
+<code><a href="../reference/render_html.html">render_html()</a></code> now passes the <code>--preserve-tabs</code> parameter to prevent pandoc from removing educationally relevant information from the lessons.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="breaking-changes-0-1-0">BREAKING CHANGES<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-0"></a></h3>
 <ul><li>Add support for the updated frontend in {varnish}. This means that you will need varnish 0.1.0 installed in order to use this update. This change includes modifications to the lua filters along with the general handling of the HTML elements which means that older versions of varnish will cease to work.</li>
 <li>code blocks will no longer contain package links. While the links may have been handy for sighted users to explore documentation, these may represent objstructions for users who rely on screen-readers.</li>
