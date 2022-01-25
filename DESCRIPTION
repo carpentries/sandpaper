@@ -12,7 +12,10 @@ Authors@R: c(
            role = c("ctb"),
            email = "fmichonneau@carpentries.org"),
     person())
-Description: Boilerplate directory structure, build tools, and hosting tools for your lesson. 
+Description: We provide tools to build a Carpentries-themed lesson repository
+  into an accessible standalone static website. These include local tools and
+  those designed to be used in a continuous integration context so that all the
+  lesson author needs to focus on is writing the content of the actual lesson.
 License: MIT + file LICENSE
 Imports: 
     pkgdown (>= 1.6.0),
@@ -30,7 +33,6 @@ Imports:
     desc,
     knitr (>= 1.33),
     rmarkdown (>= 2.4),
-    pingr,
     renv (>= 0.14.0),
     rprojroot,
     usethis (>= 2.0.0),
@@ -55,6 +57,7 @@ Remotes:
   ropensci/tinkr,
   carpentries/pegboard,
   carpentries/varnish
+SystemRequirements: pandoc (>= 1.11.4) - http://pandoc.org
 Encoding: UTF-8
 LazyData: true
 Config/testthat/edition: 3

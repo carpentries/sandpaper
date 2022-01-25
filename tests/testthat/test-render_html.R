@@ -123,6 +123,7 @@ test_that("render_html applies the internal lua filter", {
 
 
 example_instructor <- fs::path_abs(test_path("examples", "instructor-note.md"))
+
 test_that("accordion lua filter parses instructor notes correctly", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   out <- fs::file_temp()
@@ -130,34 +131,28 @@ test_that("accordion lua filter parses instructor notes correctly", {
 
   args <- construct_pandoc_args(example_instructor, out, to = "native")
   callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
-  if (.Platform$OS.type == "windows" && Sys.getenv("CI", unset = '') == "true") {
-    # let's see what this looks like
-    message("INSTRUCTOR")
-    message(cat(readLines(out), sep = "\n"))
-  }
   res <- render_html(example_instructor)
   expect_match(res, "<div id=\"accordionInstructor1\"", fixed = TRUE)
 })
 
 example_challenge <- fs::path_abs(test_path("examples", "challenge-hint.md"))
+
 test_that("accordion lua filter parses challenge accordions correctly", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   out <- fs::file_temp()
   withr::local_file(out)
 
   args <- construct_pandoc_args(example_challenge, out, to = "native")
   callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
-  if (.Platform$OS.type == "windows" && Sys.getenv("CI", unset = '') == "true") {
-    # let's see what this looks like
-    message("CHALLENGE")
-    message(cat(readLines(out), sep = "\n"))
-  }
   res <- render_html(example_challenge)
   expect_match(res, "<div id=\"accordionHint1\"", fixed = TRUE)
   expect_match(res, "<div id=\"accordionSolution1\"", fixed = TRUE)
 })
 
 example_challenge2 <- fs::path_abs(test_path("examples", "challenge-multi.md"))
+
 test_that("accordion lua filter parses post-solution text accordingly", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   res <- render_html(example_challenge2)
   expect_match(res, "<div id=\"accordionHint1\"", fixed = TRUE)
   expect_match(res, "<div id=\"accordionSolution1\"", fixed = TRUE)

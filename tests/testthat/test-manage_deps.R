@@ -10,6 +10,7 @@ cli::test_that_cli("pacakge cache message appears correct", {
 
 test_that("use_package_cache() will report consent implied if renv cache is present", {
 
+  skip_on_cran()
   skip_on_os("windows")
   skip_if_not(fs::dir_exists(renv::paths$root()))
   withr::local_options(list(sandpaper.use_renv = FALSE))
@@ -29,6 +30,7 @@ test_that("use_package_cache() will report consent implied if renv cache is pres
 
 test_that("manage_deps() will create a renv folder", {
 
+  skip_on_cran()
   skip_on_os("windows")
   rnv <- fs::path(lsn, "renv")
   fs::file_move(rnv, fs::path(lsn, "vner"))
@@ -57,6 +59,7 @@ test_that("manage_deps() will create a renv folder", {
 
 test_that("manage_deps() will run without callr", {
 
+  skip_on_cran()
   skip_on_os("windows")
   withr::local_envvar(list(
     "RENV_PROFILE" = "lesson-requirements",
@@ -79,6 +82,7 @@ test_that("manage_deps() will run without callr", {
 
 test_that("renv will not trigger a rebuild when nothing changes", {
   
+  skip_on_cran()
   skip_on_os("windows")
   # nothing changes, so we do not rebuild
   db_path <- fs::path(path_built(lsn), "md5sum.txt")
@@ -105,6 +109,7 @@ test_that("renv will not trigger a rebuild when nothing changes", {
 
 test_that("pin_version() will use_specific versions", {
   
+  skip_on_cran()
   skip_on_os("windows")
   skip_if_offline()
 
@@ -136,6 +141,7 @@ test_that("pin_version() will use_specific versions", {
 
 test_that("Package cache changes will trigger a rebuild", {
 
+  skip_on_cran()
   skip_on_os("windows")
   # nothing changes, so we do not rebuild
   db_path <- fs::path(path_built(lsn), "md5sum.txt")
@@ -171,6 +177,7 @@ test_that("Package cache changes will trigger a rebuild", {
 
 test_that("update_cache() will update old package versions", {
   
+  skip_on_cran()
   skip_on_os("windows")
   skip_if_offline()
   skip_if(covr::in_covr())
