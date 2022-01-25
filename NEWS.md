@@ -45,7 +45,7 @@ MISC
 
 * The build database now gains a "date" column which will indicate the date
   the file was last rendered to markdown. This allows the "last updated on" to
-  better reflect the state of the contents from the rendered files. 
+  better reflect the state of the contents from the rendered files.
 
 # sandpaper 0.0.0.9075
 
