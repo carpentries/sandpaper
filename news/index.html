@@ -57,8 +57,7 @@
 <h2 class="pkg-version" data-toc-text="0.1.0" id="sandpaper-010">sandpaper 0.1.0<a class="anchor" aria-label="anchor" href="#sandpaper-010"></a></h2>
 <div class="section level3">
 <h3 id="bug-fixes-0-1-0">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-0"></a></h3>
-<ul><li>
-<code><a href="../reference/render_html.html">render_html()</a></code> now passes the <code>--preserve-tabs</code> parameter to prevent pandoc from removing educationally relevant information from the lessons.</li>
+<ul><li>the internal function <code><a href="../reference/render_html.html">render_html()</a></code> now passes the <code>--preserve-tabs</code> parameter to prevent pandoc from removing educationally relevant information from the lessons.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="breaking-changes-0-1-0">BREAKING CHANGES<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-0"></a></h3>
@@ -83,6 +82,8 @@
 <div class="section level3">
 <h3 id="misc-0-1-0">MISC<a class="anchor" aria-label="anchor" href="#misc-0-1-0"></a></h3>
 <ul><li>The build database now gains a “date” column which will indicate the date the file was last rendered to markdown. This allows the “last updated on” to better reflect the state of the contents from the rendered files.</li>
+<li>The default configuration file now includes a <code>keywords:</code> item where you can place a comma-separated list of keywords to include in the site’s metadata</li>
+<li>The configuration file now also includes an example of what provisioned navigation looks like</li>
 </ul></div>
 </div>
     <div class="section level2">
