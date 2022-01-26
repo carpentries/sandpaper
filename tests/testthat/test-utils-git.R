@@ -97,7 +97,7 @@ test_that("We can create worktrees from existing remote branches", {
         branch = nu_branch,
         remote = remote_name
       )
-    }, "Branch 'landpaper-socal' set up to track remote branch")
+    }, "ranch 'landpaper-socal' set up to track")
   })
   withr::with_dir(this_tree, {
     expect_true(fs::file_exists("deleteme"))
@@ -127,7 +127,7 @@ test_that("We can create worktrees from random branches", {
         branch = "tree-one", 
         remote = remote_name
       )
-    }, "Branch 'tree-one' set up to track remote branch 'tree-one' from 'sandpaper-local'")
+    }, "ranch 'tree-one' set up to track")
   })
   # The worktree exists until we remove it
   expect_true(fs::dir_exists(tree_one))

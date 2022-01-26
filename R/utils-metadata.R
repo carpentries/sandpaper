@@ -56,8 +56,12 @@ initialise_metadata <- function(path = ".") {
     cfg <- get_config(path)
     this_metadata$set("pagetitle", cfg$title)
     this_metadata$set("url", cfg$url %||% make_github_url(cfg$source))
+    this_metadata$set("keywords", cfg$keywords)
     created <- cfg$created %||% tail(gert::git_log(max = 1e6, repo = path)$time, 1)
     this_metadata$set(c("date", "created"), format(as.Date(created), "%F"))
+    # TODO: implement custom DESCRIPTION
+    # For the Description, it would be good to take this from an ABOUT page
+    # where the description paragraph can be found under the Description header
   }
   this_metadata$set(c("date", "modified"), format(Sys.Date(), "%F"))
   this_metadata$set(c("date", "published"), format(Sys.Date(), "%F"))

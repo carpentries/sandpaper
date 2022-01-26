@@ -3,8 +3,9 @@
 BUG FIXES
 ---------
 
-* `render_html()` now passes the `--preserve-tabs` parameter to prevent pandoc
-  from removing educationally relevant information from the lessons.
+* the internal function `render_html()` now passes the `--preserve-tabs`
+  parameter to prevent pandoc from removing educationally relevant information
+  from the lessons.
 
 BREAKING CHANGES
 ----------------
@@ -52,6 +53,10 @@ MISC
 * The build database now gains a "date" column which will indicate the date
   the file was last rendered to markdown. This allows the "last updated on" to
   better reflect the state of the contents from the rendered files.
+* The default configuration file now includes a `keywords:` item where you can
+  place a comma-separated list of keywords to include in the site's metadata
+* The configuration file now also includes an example of what provisioned 
+  navigation looks like
 
 # sandpaper 0.0.0.9075
 

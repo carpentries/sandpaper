@@ -69,8 +69,10 @@ test_that("Templated files are correct", {
   
 })
 
-test_that("Lesson title is correctly configured", {
-  expect_equal(get_config(tmp)$title, "BRAND NEW LESSON")
+test_that("Lesson configuration is correctly provisioned", {
+  cfg <- get_config(tmp)
+  expect_equal(cfg$title, "BRAND NEW LESSON")
+  expect_equal(cfg$keywords, "software, data, lesson, The Carpentries")
 })
 
 test_that("The site/ directory is ignored by git", {
