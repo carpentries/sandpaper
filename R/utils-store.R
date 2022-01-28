@@ -42,7 +42,6 @@ clear_this_lesson <- function() .store$clear()
 this_lesson <- function(path) {
   if (.store$valid(path)) .store$get() else .store$set(path)
 }
-
 .lesson_store <- function() {
   .this_diff <- NULL
   .this_status <- NULL
@@ -68,5 +67,6 @@ this_lesson <- function(path) {
     }
   )
 }
+#nocov start
 .store <- .lesson_store()
-
+#nocov end

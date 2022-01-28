@@ -4,6 +4,8 @@
 #' @param branch the branch name that contains the full HTML site
 #' @param md the branch name that contains the markdown outputs
 #' @param remote the name of the git remote to which you should deploy.
+#' @param reset if `TRUE`, the contents of the branch/folder will be cleared
+#'   before inserting new items
 #' @return NOTHING
 #'
 #' @note this function is not for interactive use. It requires git to be
@@ -13,7 +15,7 @@
 #'   package cache.
 #'
 #' @keywords internal
-ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", remote = "origin") {
+ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", remote = "origin", reset = FALSE) {
 
   # step 0: build_lesson defaults to a local build
   path <- set_source_path(path)
@@ -47,6 +49,12 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
 
     # remove the worktree at the end since this is the last step
     on.exit(eval(del_site), add = TRUE)
+
+    if (reset) {
+      ci_group("Reset Site")
+      git_clean_everything(html)
+      cli::cat_line("::endgroup::")
+    }
 
     # Build the site quickly using the markdown files as-is
     ci_group("Build Lesson Website")

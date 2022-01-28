@@ -27,7 +27,7 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   on.exit(eval(del_md), add = TRUE)
 
   # Step 2: build the site from the source files
-  ci_build_site(path, branch = site_branch, md = md_branch, remote = remote)
+  ci_build_site(path, branch = site_branch, md = md_branch, remote = remote, reset = reset)
 
   invisible()
 }
