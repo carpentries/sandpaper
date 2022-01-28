@@ -14,6 +14,7 @@ mask_output <- function(output, repo, remote) {
 
 test_that("ci_deploy() will deploy once", {
 
+  skip_on_cran()
   skip_if_not(has_git())
   skip_if_not(rmarkdown::pandoc_available("2.11"))
 
@@ -43,6 +44,7 @@ test_that("ci_deploy() will deploy once", {
 
 test_that("ci_deploy() will fetch sources from upstream", {
 
+  skip_on_cran()
   skip_if_not(has_git())
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   expect_true(gert::git_branch_exists("MD", local = TRUE, repo = res))
@@ -92,7 +94,7 @@ test_that("ci_deploy() will fetch sources from upstream", {
 
 test_that("ci_deploy() will do a full rebuild", {
 
-  skip("still working on this")
+  skip_on_cran()
   skip_if_not(has_git())
   skip_if_not(rmarkdown::pandoc_available("2.11"))
 
@@ -110,7 +112,7 @@ test_that("ci_deploy() will do a full rebuild", {
 
   suppressMessages({
   out2 <- capture.output({
-    ci_deploy(res, md_branch = "MD", site_branch = "SITE", remote = remote_name, rebuild = TRUE)
+    ci_deploy(res, md_branch = "MD", site_branch = "SITE", remote = remote_name, reset = TRUE)
   })
   })
   # the built directory is cleaned up afterwards

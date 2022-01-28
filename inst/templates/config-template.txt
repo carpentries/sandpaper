@@ -23,10 +23,10 @@ life_cycle: {{ life_cycle }}
 license: {{ license }}
 
 # Link to the source repository for this lesson
-source: {{ source }}
+source: {{ source }}{{ ^source }}https://example.com/template-source{{ /source }}
 
 # Default branch of your lesson
-branch: {{ branch }}
+branch: {{ branch }}{{ ^branch }}main{{ /branch }}
 
 # Who to contact if there are any issues
 contact: {{ contact }}
