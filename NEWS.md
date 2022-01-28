@@ -6,6 +6,8 @@ BUG FIXES
 * the internal function `render_html()` now passes the `--preserve-tabs`
   parameter to prevent pandoc from removing educationally relevant information
   from the lessons.
+* when rebuilding a lesson with `ci_deploy(..., rebuild = TRUE)`, detritus in
+  the lesson site will be cleaned (@zkamvar, #91).
 
 BREAKING CHANGES
 ----------------

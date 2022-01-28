@@ -47,10 +47,27 @@ test_that("ci_deploy() will fetch sources from upstream", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   expect_true(gert::git_branch_exists("MD", local = TRUE, repo = res))
   expect_true(gert::git_branch_exists("SITE", local = TRUE, repo = res))
+
+  # Add an extra file that should be removed to the site -----------------------
+  # 
+  # check out the branch
+  gert::git_branch_checkout("SITE", repo = res)
+  withr::defer(gert::git_branch_checkout("main", repo = res))
+
+  # create the file
+  writeLines("hello", fs::path(res, "deleteme"))
+  gert::git_add("deleteme", repo = res)
+  # commit, push and checkout main
+  gert::git_commit("add test file", repo = res)
+  gert::git_push(remote = "sandpaper-local", repo = res, verbose = FALSE)
+  gert::git_branch_checkout("main", repo = res)
+
+  # remove the branches and ensure they are deleted
   gert::git_branch_delete("MD", repo = res)
   gert::git_branch_delete("SITE", repo = res)
   expect_false(gert::git_branch_exists("MD", local = TRUE, repo = res))
   expect_false(gert::git_branch_exists("SITE", local = TRUE, repo = res))
+
   # The built directory does _not_ exist right now
   expect_false(fs::dir_exists(path_built(res)))
 
@@ -66,6 +83,48 @@ test_that("ci_deploy() will fetch sources from upstream", {
   expect_true(gert::git_branch_exists("SITE", local = TRUE, repo = res))
   md_log   <- gert::git_log("MD", repo = res)
   expect_equal(nrow(md_log), 2)
+
+  withr::defer(gert::git_branch_checkout("main", repo = res))
+  gert::git_branch_checkout("SITE", repo = res)
+  expect_true(file.exists(file.path(res, "deleteme")))
+
+})
+
+test_that("ci_deploy() will do a full rebuild", {
+
+  skip("still working on this")
+  skip_if_not(has_git())
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+
+  expect_true(gert::git_branch_exists("MD", local = TRUE, repo = res))
+  expect_true(gert::git_branch_exists("SITE", local = TRUE, repo = res))
+
+
+  gert::git_branch_delete("MD", repo = res)
+  gert::git_branch_delete("SITE", repo = res)
+  expect_false(gert::git_branch_exists("MD", local = TRUE, repo = res))
+  expect_false(gert::git_branch_exists("SITE", local = TRUE, repo = res))
+  
+  # The built directory does _not_ exist right now
+  expect_false(fs::dir_exists(path_built(res)))
+
+  suppressMessages({
+  out2 <- capture.output({
+    ci_deploy(res, md_branch = "MD", site_branch = "SITE", remote = remote_name, rebuild = TRUE)
+  })
+  })
+  # the built directory is cleaned up afterwards
+  expect_false(fs::dir_exists(path_built(res)))
+
+  # The branches exist and nothing new has been committed to the MD branch.
+  expect_true(gert::git_branch_exists("MD", local = TRUE, repo = res))
+  expect_true(gert::git_branch_exists("SITE", local = TRUE, repo = res))
+
+  # We can confirm that the deleteme file does not exist because it was removed
+  # by rebuild = TRUE
+  withr::defer(gert::git_branch_checkout("main", repo = res))
+  gert::git_branch_checkout("SITE", repo = res)
+  expect_false(file.exists(file.path(res, "deleteme")))
 
 })
 
