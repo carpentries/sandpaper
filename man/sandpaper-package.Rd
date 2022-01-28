@@ -6,7 +6,7 @@
 \alias{sandpaper-package}
 \title{sandpaper: Create and Curate Carpentries Lessons}
 \description{
-Boilerplate directory structure, build tools, and hosting tools for your lesson.
+We provide tools to build a Carpentries-themed lesson repository into an accessible standalone static website. These include local tools and those designed to be used in a continuous integration context so that all the lesson author needs to focus on is writing the content of the actual lesson.
 }
 \seealso{
 Useful links:

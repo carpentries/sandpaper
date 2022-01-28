@@ -8,7 +8,8 @@ ci_build_site(
   path = ".",
   branch = "gh-pages",
   md = "md-outputs",
-  remote = "origin"
+  remote = "origin",
+  reset = FALSE
 )
 }
 \arguments{
@@ -19,6 +20,9 @@ ci_build_site(
 \item{md}{the branch name that contains the markdown outputs}
 
 \item{remote}{the name of the git remote to which you should deploy.}
+
+\item{reset}{if \code{TRUE}, the contents of the branch/folder will be cleared
+before inserting new items}
 }
 \value{
 NOTHING
