@@ -58,6 +58,7 @@
 <div class="section level3">
 <h3 id="bug-fixes-0-1-0">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-0"></a></h3>
 <ul><li>the internal function <code><a href="../reference/render_html.html">render_html()</a></code> now passes the <code>--preserve-tabs</code> parameter to prevent pandoc from removing educationally relevant information from the lessons.</li>
+<li>when rebuilding a lesson with <code>ci_deploy(..., rebuild = TRUE)</code>, detritus in the lesson site will be cleaned (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/91" class="external-link">#91</a>).</li>
 </ul></div>
 <div class="section level3">
 <h3 id="breaking-changes-0-1-0">BREAKING CHANGES<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-0"></a></h3>

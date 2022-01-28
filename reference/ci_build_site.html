@@ -64,7 +64,8 @@
   path <span class="op">=</span> <span class="st">"."</span>,
   branch <span class="op">=</span> <span class="st">"gh-pages"</span>,
   md <span class="op">=</span> <span class="st">"md-outputs"</span>,
-  remote <span class="op">=</span> <span class="st">"origin"</span>
+  remote <span class="op">=</span> <span class="st">"origin"</span>,
+  reset <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -78,6 +79,9 @@
 <dd><p>the branch name that contains the markdown outputs</p></dd>
 <dt>remote</dt>
 <dd><p>the name of the git remote to which you should deploy.</p></dd>
+<dt>reset</dt>
+<dd><p>if <code>TRUE</code>, the contents of the branch/folder will be cleared
+before inserting new items</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
