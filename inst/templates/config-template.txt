@@ -12,6 +12,9 @@ carpentry: {{ carpentry }}
 # Overall title for pages.
 title: {{ title }}
 
+# Date the lesson was created (this is empty by default)
+created: ~
+
 # Comma-separated list of keywords for the lesson
 keywords: {{keywords}}{{^keywords}}software, data, lesson, The Carpentries{{/keywords}}
 
