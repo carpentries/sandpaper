@@ -59,6 +59,10 @@ MISC
   place a comma-separated list of keywords to include in the site's metadata
 * The configuration file now also includes an example of what provisioned 
   navigation looks like
+* The setup page now contains a structured example setup page that shows how to
+  provide dropdown menus for different operating systems (@zkamvar, #28).
+* If the user does not have a github PAT and we can not detect the name of the
+  repository from the git setup, then the source goes to an example.com link.
 
 # sandpaper 0.0.0.9075
 
