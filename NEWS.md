@@ -59,6 +59,8 @@ MISC
   place a comma-separated list of keywords to include in the site's metadata
 * The configuration file now also includes an example of what provisioned 
   navigation looks like
+* The default episode template now refers to the correct documentation links and
+  provides examples of how to represent code blocks that are not evaluated.
 * The setup page now contains a structured example setup page that shows how to
   provide dropdown menus for different operating systems (@zkamvar, #28).
 * If the user does not have a github PAT and we can not detect the name of the

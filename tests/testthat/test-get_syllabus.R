@@ -1,5 +1,5 @@
 {
-q <- "How do you write a lesson using RMarkdown and `{sandpaper}`?"
+q <- "How do you write a lesson using R Markdown and `{sandpaper}`?"
 tmp <- res <- restore_fixture()
 }
 
