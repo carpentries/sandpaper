@@ -202,7 +202,7 @@ test_that("Output is not commented", {
   output <- ep[outid[1]]
   fence  <- ep[outid[1] - 1]
   expect_match(output, "^\\[1\\]")
-  expect_match(fence, "^[`]{3}[{]\\.output[}]")
+  expect_match(fence, "^[`]{3}[{]?\\.?output[}]?")
 
 })
 
