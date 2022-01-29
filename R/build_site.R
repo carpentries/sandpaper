@@ -27,6 +27,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     sink(f)
   }
   pkgdown::init_site(pkg)
+  fs::file_create(fs::path(pkg$dst_path, ".nojekyll"))
 
   new_setup <- any(grepl("[/]setup[.]md", built))
   db <- get_built_db(fs::path(built_path, "md5sum.txt"))
