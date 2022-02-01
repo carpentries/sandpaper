@@ -16,3 +16,8 @@ test_that("copy assets will fail gracefully", {
     "There was an issue copying")
 
 })
+
+test_that("a sitemap can be generated for urls", {
+  urls <- c("https://example.com/one", "https://example.com/two")
+  expect_snapshot(urls_to_sitemap(urls))
+})

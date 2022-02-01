@@ -10,7 +10,8 @@ METADATA
 --------
 
  * The metadata included in the lesson footer now correctly states the `@type`
-   as `TrainingMaterial`.
+   as `TrainingMaterial` (@zkamvar, #236)
+ * A basic sitemap is now constructed for the lesson (@zkamvar, #243)
 
 # sandpaper 0.1.0
 
