@@ -1,5 +1,6 @@
 
 tmp <- res <- restore_fixture()
+metadata_json <- trimws(create_metadata_jsonld(tmp))
 sitepath <- fs::path(tmp, "site", "docs")
 
 
@@ -16,18 +17,21 @@ test_that("Lessons built for the first time are noisy", {
 })
 
 
+test_that("Metadata is recorded as the correct type", {
+  expect_match(metadata_json, "\"@type\": \"TrainingMaterial\"", fixed = TRUE)
+})
+
 test_that("Lesson websites contains metadata", {
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   skip_on_os("windows")
 
-  json <- trimws(create_metadata_jsonld(tmp))
   idx <- xml2::read_html(fs::path(path_site(tmp), "docs", "index.html"))
 
   actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
   actual <- trimws(xml2::xml_text(actual))
 
-  expect_identical(actual, json)
+  expect_identical(actual, metadata_json)
 
 })
 
