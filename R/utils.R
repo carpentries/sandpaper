@@ -35,7 +35,7 @@ build_sitemap <- function(out, quiet = TRUE) {
 }
 
 urls_to_sitemap <- function(urls) {
-  doc <- xml2::read_xml("<urlset xml2ns='http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
+  doc <- xml2::read_xml("<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
   for (url in urls) {
     child <- xml2::read_xml(paste0("<url><loc>", url, "</loc></url>"))
     xml2::xml_add_child(doc, child)

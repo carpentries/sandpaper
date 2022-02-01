@@ -51,11 +51,16 @@ create_metadata_jsonld <- function(path = ".", ...) {
   json
 }
 
+metadata_url <- function(cfg) {
+  url <- cfg$url %||% make_github_url(cfg$source)
+  if (endsWith(url, "/")) url else paste0(url, "/")
+}
+
 initialise_metadata <- function(path = ".") {
   if (length(this_metadata$get()) == 0) {
     cfg <- get_config(path)
     this_metadata$set("pagetitle", cfg$title)
-    this_metadata$set("url", cfg$url %||% make_github_url(cfg$source))
+    this_metadata$set("url", metadata_url(cfg))
     this_metadata$set("keywords", cfg$keywords)
     created <- cfg$created %||% tail(gert::git_log(max = 1e6, repo = path)$time, 1)
     this_metadata$set(c("date", "created"), format(as.Date(created), "%F"))
