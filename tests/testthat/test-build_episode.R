@@ -26,6 +26,15 @@ test_that("build_episode_md() works independently", {
 
 })
 
+
+test_that("build_episode_html() returns nothing for an empty page", {
+  tmp <- fs::path(res, "DELETEME")
+  withr::local_file(tmp)
+  writeLines("---\nlayout: what\n---\n\n", tmp)
+  expect_null(build_episode_html(tmp, quiet = TRUE))
+})
+
+
 test_that("build_episode_html() works independently", {
 
 

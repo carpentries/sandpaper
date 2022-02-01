@@ -66,6 +66,10 @@ build_episode_html <- function(path_md, path_src = NULL,
                                sidebar = NULL, date = NULL) {
   home <- root_path(path_md)
   body <- render_html(path_md, quiet = quiet)
+  if (body == "") {
+    # if there is nothing in the page then we build nothing.
+    return(NULL)
+  }
   nodes <- xml2::read_html(body)
   fix_nodes(nodes)
   yaml <- yaml::yaml.load(politely_get_yaml(path_md), eval.expr = FALSE)

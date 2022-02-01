@@ -79,6 +79,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     next_page = abs_md[er[1]]
   )
 
+  build_sitemap(pkg$dst_path, quiet = quiet)
+
   pkgdown::preview_site(pkg, "/", preview = preview)
 
   if (!quiet) {

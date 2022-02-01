@@ -1,3 +1,24 @@
+# sandpaper 0.1.1
+
+DEPENDENCIES
+------------
+
+* The {pegboard} package is now required to be 0.1.0 or greater due to a fix for
+  generating the keypoints page (https://github.com/carpentries/pegboard/pull/76)
+
+METADATA
+--------
+
+ * The metadata included in the lesson footer now correctly states the `@type`
+   as `TrainingMaterial` (@zkamvar, #236)
+ * A basic sitemap is now constructed for the lesson (@zkamvar, #243)
+
+BUG FIX
+-------
+
+ * Empty pages will no longer throw errors in rendering and they will not be
+   included in the output (@zkamvar, #237)
+
 # sandpaper 0.1.0
 
 BUG FIXES
