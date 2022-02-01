@@ -13,6 +13,12 @@ METADATA
    as `TrainingMaterial` (@zkamvar, #236)
  * A basic sitemap is now constructed for the lesson (@zkamvar, #243)
 
+BUG FIX
+-------
+
+ * Empty pages will no longer throw errors in rendering and they will not be
+   included in the output (@zkamvar, #237)
+
 # sandpaper 0.1.0
 
 BUG FIXES
