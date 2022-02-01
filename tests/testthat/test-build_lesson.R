@@ -17,6 +17,7 @@ test_that("Lessons built for the first time are noisy", {
 })
 
 test_that("sitemap exists", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   sitemap <- fs::path(sitepath, "sitemap.xml")
   expect_true(fs::file_exists(sitemap))
   expect_equal(xml2::xml_name(xml2::read_xml(sitemap)), "urlset")

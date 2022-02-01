@@ -1,5 +1,15 @@
 # sandpaper 0.1.1
 
+BUG FIX
+-------
+
+ * invalid sitemaps have been fixed to have the correct namespace and include a
+   slash in the site name.
+ * a test requring pandoc 2.11 has been suppressed on systems without that
+   version of pandoc.
+
+# sandpaper 0.1.1
+
 DEPENDENCIES
 ------------
 
