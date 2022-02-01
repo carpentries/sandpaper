@@ -25,4 +25,4 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add vignettes/articles/img/*.svg
           git commit -m "[actions] update images" || echo "nothing to commit"
-          git push
+          git push || echo "nothing to push"
