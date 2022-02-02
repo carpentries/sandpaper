@@ -28,6 +28,7 @@ test_that("build_episode_md() works independently", {
 
 
 test_that("build_episode_html() returns nothing for an empty page", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::path(res, "DELETEME")
   withr::local_file(tmp)
   writeLines("---\nlayout: what\n---\n\n", tmp)
