@@ -7,5 +7,6 @@
 #' @importFrom utils read.table
 #' @importFrom utils write.table
 #' @importFrom utils modifyList
+#' @importFrom utils tail
 ## usethis namespace: end
 NULL

@@ -1,4 +1,11 @@
-# sandpaper 0.1.1
+# sandpaper 0.1.3
+
+MISC
+----
+
+ * Clarify license information to specify the copyright is held by The Carpentries
+
+# sandpaper 0.1.2
 
 BUG FIX
 -------
