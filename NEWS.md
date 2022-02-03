@@ -4,7 +4,7 @@ BUG FIX
 -------
 
 * `sandpaper::build_lesson()` no longer creates an infinite loop when called
-  after `sandpaper::serve()` (@zkamvar, #246)
+  after `sandpaper::serve()` (@zkamvar, #247)
 
 # sandpaper 0.1.3
 
