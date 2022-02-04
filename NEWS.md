@@ -1,3 +1,12 @@
+# sandpaper 0.1.5
+
+INTERNAL
+--------
+
+* metadata is now processed more consistently across page types, which will
+  first and foremost reduces some of the code complexity, and second, allows
+  for more rapid development of future page types.
+
 # sandpaper 0.1.4
 
 BUG FIX
