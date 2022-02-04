@@ -41,7 +41,7 @@ serve <- function(path = ".") {
   # @param base the base path
   make_filter <- function(base = path) {
     no_site <- file.path(base, "site")
-    no_git  <- file.paths(base, ".git")
+    no_git  <- file.path(base, ".git")
     # return a filter function for the files
     function(x) x[!startsWith(x, no_site) | !startsWith(x, no_git)]
   }
