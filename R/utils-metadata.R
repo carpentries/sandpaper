@@ -1,4 +1,4 @@
-.metadata_store <-  function() {
+.list_store <-  function() {
   .metadata <- list()
   list(
     get = function() return(.metadata),
@@ -32,22 +32,23 @@
       }
     },
     copy = function() {
-      new <- .metadata_store()
+      new <- .list_store()
       new$set(key = NULL, .metadata)
       return(new)
     }
   )
 }
-this_metadata <- .metadata_store()
+this_metadata <- .list_store()
 
 create_metadata_jsonld <- function(path = ".", ...) {
   initialise_metadata(path)
-  json <- readLines(template_metadata())
   l <- list(...)
   meta <- this_metadata$copy()
+  on.exit(rm(meta))
   meta$update(l)
-  json <- whisker::whisker.render(json, meta$get())
-  rm(meta)
+  local_meta <- meta$get()
+  json <- local_meta[["metadata_template"]]
+  json <- whisker::whisker.render(json, local_meta)
   json
 }
 
@@ -59,6 +60,7 @@ metadata_url <- function(cfg) {
 initialise_metadata <- function(path = ".") {
   if (length(this_metadata$get()) == 0) {
     cfg <- get_config(path)
+    this_metadata$set("metadata_template", readLines(template_metadata()))
     this_metadata$set("pagetitle", cfg$title)
     this_metadata$set("url", metadata_url(cfg))
     this_metadata$set("keywords", cfg$keywords)
