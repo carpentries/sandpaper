@@ -1,3 +1,10 @@
+# sandpaper 0.1.4
+
+MISC
+----
+
+* small speedup to build times by reducing io cycles for metadata.
+
 # sandpaper 0.1.3
 
 MISC
