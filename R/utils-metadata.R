@@ -1,45 +1,3 @@
-.list_store <-  function() {
-  .metadata <- list()
-  list(
-    get = function() return(.metadata),
-    update = function(value) {
-      .metadata <<- modifyList(.metadata, value)
-    },
-    set = function(key = NULL, value) {
-      if (is.null(key)) {
-        .metadata <<- value
-      } else if (length(key) == 1) {
-        .metadata[[key]] <<- value
-      } else {
-        l <- list()
-        for (i in seq(key)) {
-          l[[key[seq(i)]]] <- list()
-        }
-        l[[key]] <- value
-        if (length(.metadata)) {
-          .metadata <<- modifyList(.metadata, l)
-        } else {
-          .metadata <<- l
-        }
-      }
-      invisible(.metadata)
-    },
-    clear = function(key = NULL) {
-      if (is.null(key)) {
-        .metadata <<- NULL
-      } else {
-        .metadata[[key]] <<- NULL
-      }
-    },
-    copy = function() {
-      new <- .list_store()
-      new$set(key = NULL, .metadata)
-      return(new)
-    }
-  )
-}
-this_metadata <- .list_store()
-
 create_metadata_jsonld <- function(path = ".", ...) {
   initialise_metadata(path)
   l <- list(...)
@@ -73,3 +31,5 @@ initialise_metadata <- function(path = ".") {
   this_metadata$set(c("date", "modified"), format(Sys.Date(), "%F"))
   this_metadata$set(c("date", "published"), format(Sys.Date(), "%F"))
 }
+
+

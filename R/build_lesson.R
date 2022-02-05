@@ -33,9 +33,17 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   slug <- if (fs::is_file(path)) get_slug(path) else NULL
   path <- set_source_path(path)
   this_lesson(path)
+  # define the files we are looking to build and the order they exist
+  set_resource_list(path)
+  # define the globals variables needed for varnish to build the site
+  set_globals(path)
   initialise_metadata(path)
 
-  on.exit(reset_build_paths())
+  on.exit({
+    reset_build_paths()
+    clear_resource_list()
+    clear_globals()
+  })
 
   built <- build_markdown(path = path, rebuild = rebuild, quiet = quiet, slug = slug)
 
