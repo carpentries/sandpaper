@@ -16,6 +16,9 @@
 #'   changes to [gert::git_status()]. If there are no differences or the values
 #'   are not previously cached, the lesson is loaded into memory.
 #'
+#'   The storage cache is in a global package object called `.store`, which is
+#'   initialised when {sandpaper} is loaded via `.lesson_store()`
+#'
 #'   If there have been no changes git is aware of, the lesson remains the same.
 #' @param path a path to the current lesson 
 #' @rdname lesson_storage
@@ -42,6 +45,18 @@ clear_this_lesson <- function() .store$clear()
 this_lesson <- function(path) {
   if (.store$valid(path)) .store$get() else .store$set(path)
 }
+
+#' @rdname lesson_storage
+set_resource_list <- function(path) {
+  .resources$set(key = NULL, get_resource_list(path))
+}
+
+#' @rdname lesson_storage
+clear_resource_list <- function(path) {
+  .resources$clear()
+}
+
+# generator for the 
 .lesson_store <- function() {
   .this_diff <- NULL
   .this_status <- NULL
@@ -67,6 +82,65 @@ this_lesson <- function(path) {
     }
   )
 }
+
+# create a global list of things
+.list_store <-  function() {
+  .this_list <- list()
+  list(
+    get = function() return(.this_list),
+    update = function(value) {
+      .this_list <<- modifyList(.this_list, value)
+    },
+    set = function(key = NULL, value) {
+      if (is.null(key)) {
+        .this_list <<- value
+      } else if (length(key) == 1) {
+        .this_list[[key]] <<- value
+      } else {
+        l <- list()
+        for (i in seq(key)) {
+          l[[key[seq(i)]]] <- list()
+        }
+        l[[key]] <- value
+        if (length(.this_list)) {
+          .this_list <<- modifyList(.this_list, l)
+        } else {
+          .this_list <<- l
+        }
+      }
+      invisible(.this_list)
+    },
+    clear = function(key = NULL) {
+      if (is.null(key)) {
+        .this_list <<- NULL
+      } else {
+        .this_list[[key]] <<- NULL
+      }
+    },
+    copy = function() {
+      new <- .list_store()
+      new$set(key = NULL, .this_list)
+      return(new)
+    }
+  )
+}
+
 #nocov start
+# all of these resources are intended to be relevant between when build_lesson
+# starts and when it exits. These are not intended to be valid between those
+# times.
+
+# storage for the pegboard::Lesson object
 .store <- .lesson_store()
+
+# storage for get_resource_list()
+.resources <- .list_store()
+
+# storage for global variables for the lesson site (those that get passed on to
+# {varnish})
+instructor_globals <- .list_store()
+learner_globals <- .list_store()
+
+# storage for the metadata
+this_metadata <- .list_store()
 #nocov end

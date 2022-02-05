@@ -80,21 +80,14 @@ build_episode_html <- function(path_md, path_src = NULL,
     to_change <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), sidebar)
     sidebar[to_change] <- create_sidebar_item(nodes, title, "current")
   }
-  # shim for downlit
-  shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-  expected <- "5484c37e9b9c324361d775a10dea4946"
-  actual   <- tools::md5sum(shimstem_file)
-  if (expected == actual) {
-    # evaluate the shim in our namespace
-    when_done <- source(shimstem_file, local = TRUE)$value
-    on.exit(eval(when_done), add = TRUE)
-  }
-  # end downlit shim
+  dat_instructor <- instructor_globals$copy()
+
   this_page <- as_html(path_md, instructor = TRUE)
   pb_title <- if (page_back == "index.md") "Home" else get_trimmed_title(page_back)
   pf_title <- if (page_forward == "index.md") NULL else get_trimmed_title(page_forward)
   page_back <- as_html(page_back, instructor = TRUE)
   page_forward <- as_html(page_forward, instructor = TRUE)
+  sidebar <- dat_instructor$get()[["sidebar"]]
   if (!is.null(sidebar)) {
     idx <- "<a href='index.html'>Summary and Schedule</a>"
     sidebar[[1]] <- create_sidebar_item(nodes, idx, 1)
@@ -106,36 +99,44 @@ build_episode_html <- function(path_md, path_src = NULL,
     url = paste0(this_metadata$get()$url, "/", this_page)
   )
 
-  dat_instructor <- c(
-    list(
-      # NOTE: we can add anything we want from the YAML header in here to
-      # pass on to the template.
-      body         = use_instructor(nodes),
-      more         = extras_menu(pkg$src_path, "instructors"),
-      resources    = extras_menu(pkg$src_path, "instructors", header = FALSE),
-      pagetitle    = title,
-      minutes      = as.integer(yaml$teaching) + as.integer(yaml$exercises),
-      file_source  = fs::path_rel(path_src, start = home),
-      this_page    = fs::path_file(this_page),
-      page_back    = page_back,
-      back_title   = pb_title,
-      page_forward = page_forward,
-      forward_title = pf_title,
-      progress     = page_progress,
-      sidebar      = paste(sidebar, collapse = "\n"),
-      updated      = date,
-      json         = json,
-      instructor   = TRUE
-      ),
-    varnish_vars()
+  instructor_list <- list(
+    # NOTE: we can add anything we want from the YAML header in here to
+    # pass on to the template.
+    body          = use_instructor(nodes),
+    pagetitle     = title,
+    sidebar       = paste(sidebar, collapse = "\n"),
+    minutes       = as.integer(yaml$teaching) + as.integer(yaml$exercises),
+    file_source   = fs::path_rel(path_src, start = home),
+    this_page     = fs::path_file(this_page),
+    page_back     = page_back,
+    back_title    = pb_title,
+    page_forward  = page_forward,
+    forward_title = pf_title,
+    progress      = page_progress,
+    updated       = date,
+    json          = json,
+    instructor    = TRUE
   )
 
+  dat_instructor$update(instructor_list)
+
+  # ------------------------------------------- Run pkgdown::render_page()
+  # shim for downlit
+  shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
+  expected <- "5484c37e9b9c324361d775a10dea4946"
+  actual   <- tools::md5sum(shimstem_file)
+  if (expected == actual) {
+    # evaluate the shim in our namespace
+    when_done <- source(shimstem_file, local = TRUE)$value
+    on.exit(eval(when_done), add = TRUE)
+  }
+  # end downlit shim
   ipath <- fs::path(pkg$dst_path, "instructor")
   if (!fs::dir_exists(ipath)) fs::dir_create(ipath)
 
   modified <- pkgdown::render_page(pkg, 
     "chapter",
-    data = dat_instructor,
+    data = dat_instructor$get(),
     depth = 1L,
     path = this_page,
     quiet = quiet
@@ -146,7 +147,7 @@ build_episode_html <- function(path_md, path_src = NULL,
       sidebar[[1]] <- create_sidebar_item(nodes, idx, 1)
     }
 
-    json <- create_metadata_jsonld(home, 
+    json <- create_metadata_jsonld(home,
       date = list(modified = date),
       pagetitle = title,
       url = paste0(this_metadata$get()$url, "/", as_html(this_page))
@@ -155,11 +156,10 @@ build_episode_html <- function(path_md, path_src = NULL,
     # we only need to compute the learner page if the instructor page has
     # modified since the instructor material contains more information and thus
     # more things to modify.
-    dat_learner <- modifyList(dat_instructor, 
+
+    learner_list <- modifyList(instructor_list,
       list(
         body = use_learner(nodes),
-        more = extras_menu(pkg$src_path, "learners"),
-        resources = extras_menu(pkg$src_path, "learners", header = FALSE),
         instructor = FALSE,
         page_back = fs::path_file(page_back), 
         page_forward = fs::path_file(page_forward), 
@@ -167,9 +167,12 @@ build_episode_html <- function(path_md, path_src = NULL,
         sidebar      = paste(gsub("instructor/", "", sidebar), collapse = "\n")
       )
     )
+
+    dat_learner <- learner_globals$copy()
+    dat_learner$update(learner_list)
     pkgdown::render_page(pkg, 
       "chapter",
-      data = dat_learner,
+      data = dat_learner$get(),
       depth = 0L,
       path = as_html(this_page),
       quiet = quiet

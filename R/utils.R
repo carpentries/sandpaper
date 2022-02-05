@@ -1,5 +1,5 @@
 # Null operator
-`%||%` <- function(a, b) if (is.null(a)) b else a
+`%||%` <- function(a, b) if (length(a) < 1L) b else a
 
 `%nin%` <- Negate("%in%")
 
@@ -137,16 +137,6 @@ which_icon_carpentry <- function(carpentry) {
     lab = "lab"
   )
 }
-
-varnish_vars <- function() {
-  ver <- function(pak) glue::glue(" ({packageVersion(pak)})")
-  list(
-    sandpaper_version = ver("sandpaper"),
-    pegboard_version  = ver("pegboard"),
-    varnish_version   = ver("varnish")
-  )
-}
-
 
 copy_assets <- function(src, dst) {
   # Do not take markdown files.

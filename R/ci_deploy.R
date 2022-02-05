@@ -22,6 +22,19 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   # Enforce git user exists
   check_git_user(path, name = "GitHub Actions", email = "actions@github.com")
 
+  this_lesson(path)
+  # define the files we are looking to build and the order they exist
+  set_resource_list(path)
+  # define the globals variables needed for varnish to build the site
+  set_globals(path)
+  initialise_metadata(path)
+  on.exit({
+    reset_build_paths()
+    clear_resource_list()
+    clear_globals()
+  }, add = TRUE)
+
+
   # Step 1: build markdown source files
   del_md <- ci_build_markdown(path, branch = md_branch, remote = remote, reset = reset)
   on.exit(eval(del_md), add = TRUE)
