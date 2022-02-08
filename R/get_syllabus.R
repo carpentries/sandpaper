@@ -23,7 +23,10 @@ get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
   # The syllabus is a table containing timings, links, and questions associated
   # with each episode.
   
-  sched    <- get_resource_list(path, trim = TRUE, subfolder = "episodes")
+  sched <- .resources$get()[["episodes"]] %||%
+    get_resource_list(path, trim = TRUE, subfolder = "episodes")
+
+  sched <- fs::path_file(sched)
   lesson   <- this_lesson(path)
   # We have to invalidate the cache if the schedule is mis-matched
   cache_invalid <- !setequal(sched, names(lesson$episodes))

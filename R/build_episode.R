@@ -76,6 +76,7 @@ build_episode_html <- function(path_md, path_src = NULL,
   nodes <- xml2::read_html(body)
   fix_nodes(nodes)
 
+  # setup varnish data
   dat_instructor <- instructor_globals$copy()
   sidebar <- dat_instructor$get()[["sidebar"]]
   this_page <- as_html(path_md, instructor = TRUE)
@@ -84,18 +85,19 @@ build_episode_html <- function(path_md, path_src = NULL,
   sidebar <- update_sidebar(sidebar, nodes, path_md, nav_list$pagetitle, 
     instructor = TRUE)
 
-  json <- create_metadata_jsonld(home, 
+  # update metadata
+  this_metadata$update(list(
     date = list(modified = date),
     pagetitle = nav_list$pagetitle,
-    url = paste0(this_metadata$get()$url, "/", this_page)
-  )
+    url = paste0(this_metadata$get()$url, this_page)
+  ))
 
   instructor_list <- list(
     body          = use_instructor(nodes),
     sidebar       = paste(sidebar, collapse = "\n"),
     progress      = page_progress,
     updated       = date,
-    json          = json,
+    json          = create_metadata_jsonld(home),
     instructor    = TRUE
   )
 
@@ -125,10 +127,9 @@ build_episode_html <- function(path_md, path_src = NULL,
   if (modified) {
     sidebar <- update_sidebar(sidebar, nodes, path_md, nav_list$pagetitle, 
       instructor = FALSE)
-    json <- create_metadata_jsonld(home,
-      date = list(modified = date),
-      pagetitle = nav_list$pagetitle,
-      url = paste0(this_metadata$get()$url, "/", as_html(this_page))
+
+    this_metadata$set("url", 
+      paste0(this_metadata$get()$url, "/", as_html(this_page))
     )
 
     learner_list <- modifyList(instructor_list,
@@ -138,7 +139,7 @@ build_episode_html <- function(path_md, path_src = NULL,
         instructor = FALSE,
         page_back = fs::path_file(page_back), 
         page_forward = fs::path_file(page_forward), 
-        json         = json,
+        json         = create_metadata_jsonld(home),
         sidebar      = paste(gsub("instructor/", "", sidebar), collapse = "\n")
       )
     )
