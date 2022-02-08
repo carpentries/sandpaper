@@ -7,6 +7,25 @@ varnish_vars <- function() {
   )
 }
 
+#' Set the necessary common global variables for use in the {varnish} template. 
+#' 
+#' This will enforce three global lists:
+#'
+#'  1. `.resources`, which is equivalent to the output of `get_source_list()`
+#'  2. `learner_globals` the navigation items for the learners
+#'  3. `instructor_globals` the namvigation items for the instructors
+#'
+#'  The things that are added:
+#'
+#'  - `sidebar` This is generated from [create_sidebar()] and is the same in the
+#'    learner and instructor globals
+#'  - `more` This is the "More" dorpdown menu, which is created via [create_resources_dropdown()].
+#'  - `resources` The same as "More", but positioned on the mobile sidebar. 
+#'  - `{sandpaper,varnish,pegboard}_version` package versions of each package.
+#'
+#' @param path the path to the lesson
+#'
+#' @keywords internal
 set_globals <- function(path) {
   # get the resources if they exist (but do not destroy the global environment)
   old <- .resources$get()
