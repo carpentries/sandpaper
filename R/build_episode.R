@@ -75,53 +75,31 @@ build_episode_html <- function(path_md, path_src = NULL,
   }
   nodes <- xml2::read_html(body)
   fix_nodes(nodes)
-  yaml <- yaml::yaml.load(politely_get_yaml(path_md), eval.expr = FALSE)
-  path_src <- if (is.null(path_src)) yaml[["sandpaper-source"]] else path_src
-  title <- parse_title(yaml$title)
-  if (!is.null(sidebar)) {
-    this_page <- fs::path_file(fs::path_ext_set(path_md, "html"))
-    to_change <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), sidebar)
-    sidebar[to_change] <- create_sidebar_item(nodes, title, "current")
-  }
-  dat_instructor <- instructor_globals$copy()
 
-  this_page <- as_html(path_md, instructor = TRUE)
-  pb_title <- if (page_back == "index.md") "Home" else get_trimmed_title(page_back)
-  pf_title <- if (page_forward == "index.md") NULL else get_trimmed_title(page_forward)
-  page_back <- as_html(page_back, instructor = TRUE)
-  page_forward <- as_html(page_forward, instructor = TRUE)
+  dat_instructor <- instructor_globals$copy()
   sidebar <- dat_instructor$get()[["sidebar"]]
-  if (!is.null(sidebar)) {
-    idx <- "<a href='index.html'>Summary and Schedule</a>"
-    sidebar[[1]] <- create_sidebar_item(nodes, idx, 1)
-  }
+  this_page <- as_html(path_md, instructor = TRUE)
+  nav_list <- get_nav_data(path_md, path_src, home, 
+    this_page, page_back, page_forward)
+  sidebar <- update_sidebar(sidebar, nodes, path_md, nav_list$pagetitle, 
+    instructor = TRUE)
 
   json <- create_metadata_jsonld(home, 
     date = list(modified = date),
-    pagetitle = title,
+    pagetitle = nav_list$pagetitle,
     url = paste0(this_metadata$get()$url, "/", this_page)
   )
 
   instructor_list <- list(
-    # NOTE: we can add anything we want from the YAML header in here to
-    # pass on to the template.
     body          = use_instructor(nodes),
-    pagetitle     = title,
     sidebar       = paste(sidebar, collapse = "\n"),
-    minutes       = as.integer(yaml$teaching) + as.integer(yaml$exercises),
-    file_source   = fs::path_rel(path_src, start = home),
-    this_page     = fs::path_file(this_page),
-    page_back     = page_back,
-    back_title    = pb_title,
-    page_forward  = page_forward,
-    forward_title = pf_title,
     progress      = page_progress,
     updated       = date,
     json          = json,
     instructor    = TRUE
   )
 
-  dat_instructor$update(instructor_list)
+  dat_instructor$update(c(nav_list, instructor_list))
 
   # ------------------------------------------- Run pkgdown::render_page()
   # shim for downlit
@@ -145,24 +123,18 @@ build_episode_html <- function(path_md, path_src = NULL,
     quiet = quiet
   )
   if (modified) {
-    if (!is.null(sidebar)) {
-      idx <- "<a href='index.html'>Summary and Setup</a>"
-      sidebar[[1]] <- create_sidebar_item(nodes, idx, 1)
-    }
-
+    sidebar <- update_sidebar(sidebar, nodes, path_md, nav_list$pagetitle, 
+      instructor = FALSE)
     json <- create_metadata_jsonld(home,
       date = list(modified = date),
-      pagetitle = title,
+      pagetitle = nav_list$pagetitle,
       url = paste0(this_metadata$get()$url, "/", as_html(this_page))
     )
-
-    # we only need to compute the learner page if the instructor page has
-    # modified since the instructor material contains more information and thus
-    # more things to modify.
 
     learner_list <- modifyList(instructor_list,
       list(
         body = use_learner(nodes),
+        sidebar = paste(sidebar, collapse = "\n"),
         instructor = FALSE,
         page_back = fs::path_file(page_back), 
         page_forward = fs::path_file(page_forward), 
@@ -181,6 +153,50 @@ build_episode_html <- function(path_md, path_src = NULL,
       quiet = quiet
     )
   }
+}
+
+update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE) {
+  if (is.null(sidebar)) return(sidebar)
+  this_page <- as_html(path_md)
+  to_change <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), sidebar)
+  if (length(to_change)) {
+    sidebar[to_change] <- create_sidebar_item(nodes, title, "current")
+  }
+  if (instructor) {
+    idx <- "<a href='index.html'>Summary and Schedule</a>"
+  } else {
+    idx <- "<a href='index.html'>Summary and Setup</a>"
+  }
+  sidebar[[1]] <- create_sidebar_item(nodes, idx, 1)
+  sidebar
+}
+
+#' Generate the navigation data for a page
+#'
+#' @inheritParams build_episode_html
+#' @param home the path to the lesson home
+#' @param this_page the current page relative html address
+#' @keywords internal
+get_nav_data <- function(path_md, path_src = NULL, home = NULL, 
+  this_page = NULL, page_back = NULL, page_forward = NULL) {
+  yaml <- yaml::yaml.load(politely_get_yaml(path_md), eval.expr = FALSE)
+  path_src <- if (is.null(path_src)) yaml[["sandpaper-source"]] else path_src
+  title <- parse_title(yaml$title)
+
+  pb_title <- if (page_back == "index.md") "Home" else get_trimmed_title(page_back)
+  pf_title <- if (page_forward == "index.md") NULL else get_trimmed_title(page_forward)
+  page_back <- as_html(page_back, instructor = TRUE)
+  page_forward <- as_html(page_forward, instructor = TRUE)
+  list(
+    pagetitle     = title,
+    minutes       = as.integer(yaml$teaching) + as.integer(yaml$exercises),
+    file_source   = fs::path_rel(path_src, start = home),
+    this_page     = fs::path_file(this_page),
+    page_back     = page_back,
+    back_title    = pb_title,
+    page_forward  = page_forward,
+    forward_title = pf_title
+  )
 }
 
 #' Build an episode to markdown
