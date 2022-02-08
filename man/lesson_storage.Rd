@@ -4,6 +4,8 @@
 \alias{set_this_lesson}
 \alias{clear_this_lesson}
 \alias{this_lesson}
+\alias{set_resource_list}
+\alias{clear_resource_list}
 \title{Internal cache for storing lesson objects}
 \usage{
 set_this_lesson(path)
@@ -11,6 +13,10 @@ set_this_lesson(path)
 clear_this_lesson()
 
 this_lesson(path)
+
+set_resource_list(path)
+
+clear_resource_list(path)
 }
 \arguments{
 \item{path}{a path to the current lesson}
@@ -32,6 +38,9 @@ The function \code{this_lesson()} first checks if \code{.this_diff} is different
 the output of \code{\link[gert:git_diff]{gert::git_diff_patch()}} and then check if there are any
 changes to \code{\link[gert:git_commit]{gert::git_status()}}. If there are no differences or the values
 are not previously cached, the lesson is loaded into memory.
+
+The storage cache is in a global package object called \code{.store}, which is
+initialised when {sandpaper} is loaded via \code{.lesson_store()}
 
 If there have been no changes git is aware of, the lesson remains the same.
 }
