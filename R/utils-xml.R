@@ -1,11 +1,13 @@
-fix_nodes <- function(nodes) {
+fix_nodes <- function(nodes = NULL) {
+  if (length(nodes) == 0) return(nodes)
   fix_headings(nodes)
   fix_callouts(nodes)
   fix_codeblocks(nodes)
   fix_figures(nodes)
 }
 
-fix_headings <- function(nodes) {
+fix_headings <- function(nodes = NULL) {
+  if (length(nodes) == 0) return(nodes)
   # find all the div items that are purely section level 2
   h2 <- xml2::xml_find_all(nodes, ".//div[not(parent::div)][@class='section level2']/h2")
   xml2::xml_set_attr(h2, "class", "section-heading")
@@ -16,7 +18,8 @@ fix_headings <- function(nodes) {
   invisible(nodes)
 }
 
-fix_codeblocks <- function(nodes) {
+fix_codeblocks <- function(nodes = NULL) {
+  if (length(nodes) == 0) return(nodes)
   code <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'sourceCode')]")
   xml2::xml_set_attr(code, "class", "codewrapper sourceCode")
   pre <- xml2::xml_children(code)
@@ -31,7 +34,8 @@ fix_codeblocks <- function(nodes) {
   invisible(nodes)
 }
 
-add_code_heading <- function(codes, labels = "OUTPUT") {
+add_code_heading <- function(codes = NULL, labels = "OUTPUT") {
+  if (length(codes) == 0) return(codes)
   xml2::xml_set_attr(codes, "tabindex", "0")
   heads <- xml2::xml_add_sibling(codes, "h3", labels, class = "code-label", 
     .where = "before")
@@ -44,7 +48,8 @@ add_code_heading <- function(codes, labels = "OUTPUT") {
   invisible(codes)
 }
 
-fix_figures <- function(nodes) {
+fix_figures <- function(nodes = NULL) {
+  if (length(nodes) == 0) return(nodes)
   figs <- xml2::xml_find_all(nodes, ".//img")
   caps <- xml2::xml_find_all(nodes, ".//p[@class='caption']")
   fig_element <- xml2::xml_parent(figs)
@@ -56,7 +61,8 @@ fix_figures <- function(nodes) {
   invisible(nodes)
 }
 
-fix_callouts <- function(nodes) {
+fix_callouts <- function(nodes = NULL) {
+  if (length(nodes) == 0) return(nodes)
   callouts <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'callout')]")
   h3 <- xml2::xml_find_all(callouts, "./div/h3")
   xml2::xml_set_attr(h3, "class", "callout-title")
@@ -65,14 +71,16 @@ fix_callouts <- function(nodes) {
   invisible(nodes)
 }
 
-use_learner <- function(nodes) {
+use_learner <- function(nodes = NULL) {
+  if (length(nodes) == 0) return(nodes)
   copy <- xml2::read_html(as.character(nodes))
   inst <- xml2::xml_find_all(copy, ".//div[contains(@class, 'instructor')]")
   xml2::xml_remove(inst)
   as.character(copy)
 }
 
-use_instructor <- function(nodes) {
+use_instructor <- function(nodes = NULL) {
+  if (length(nodes) == 0) return(nodes)
   copy <- xml2::read_html(as.character(nodes))
   lnk <- xml2::xml_find_all(copy, ".//a[not(starts-with(@href, 'http'))]")
   img <- xml2::xml_find_all(copy, ".//img[not(starts-with(@src, 'http'))]")
