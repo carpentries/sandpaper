@@ -42,6 +42,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   on.exit({
     reset_build_paths()
     clear_resource_list()
+    this_metadata$clear()
     clear_globals()
   })
 
