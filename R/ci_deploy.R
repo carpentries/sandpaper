@@ -32,6 +32,7 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
     reset_build_paths()
     clear_resource_list()
     clear_globals()
+    this_metadata$clear()
   }, add = TRUE)
 
 
