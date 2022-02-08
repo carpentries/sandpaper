@@ -10,6 +10,7 @@ build_html <- function(nodes, dat_instructor, dat_learner) {
     on.exit(eval(when_done), add = TRUE)
   }
   # end downlit shim
+
   ipath <- fs::path(pkg$dst_path, "instructor")
   if (!fs::dir_exists(ipath)) fs::dir_create(ipath)
 
