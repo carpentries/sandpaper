@@ -160,9 +160,11 @@ build_episode_html <- function(path_md, path_src = NULL,
 update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE) {
   if (is.null(sidebar)) return(sidebar)
   if (inherits(sidebar, "list-store")) {
-    return(update_sidebar(sidebar$get()[["sidebar"]], nodes, path_md, 
-      title = if (is.null(title)) sidebar$get()[["pagetitle"]] else title, 
-      instructor))
+    # if it's a list store, then we need to get the sidebar and update itself
+    title <- if (is.null(title)) sidebar$get()[["pagetitle"]] else title
+    sb <- update_sidebar(sidebar$get()[["sidebar"]], nodes, path_md, title,
+      instructor)
+    sidebar$set("sidebar", paste(sb, collapse = "\n"))
   }
   this_page <- as_html(path_md)
   to_change <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), sidebar)
@@ -195,11 +197,11 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
 
   if (!is.null(page_back)) {
     pb_title <- if (page_back == "index.md") "Home" else get_trimmed_title(page_back)
-    page_back <- as_html(page_back, instructor = TRUE)
+    page_back <- as_html(page_back)
   }
   if (!is.null(page_forward)) {
     pf_title <- if (page_forward == "index.md") NULL else get_trimmed_title(page_forward)
-    page_forward <- as_html(page_forward, instructor = TRUE)
+    page_forward <- as_html(page_forward)
   }
   list(
     pagetitle     = title,
