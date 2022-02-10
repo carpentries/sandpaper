@@ -38,7 +38,7 @@ build_html <- function(template = "chapter", nodes, global_data, path_md, quiet 
       template,
       data = global_data$learner$get(),
       depth = 0L,
-      path = as_html(this_page),
+      path = this_page,
       quiet = quiet
     )
   }
