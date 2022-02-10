@@ -14,9 +14,18 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
 
   this_page <- as_html(path_md, instructor = TRUE)
   meta <- global_data$metadata
+  
+  # Handle the differences between instructor and learner views for the index page
+  if (inherits(nodes, "xml_document")) {
+    instructor_nodes <- nodes
+    learner_nodes <- nodes
+  } else {
+    instructor_nodes <- nodes[[1]]
+    learner_nodes <- nodes[[2]]
+  }
 
   # Process instructor page ----------------------------------------------------
-  update_sidebar(global_data$instructor, nodes, path_md, "Summary and Schedule")
+  update_sidebar(global_data$instructor, instructor_nodes, path_md)
   meta$set("url", paste0(meta$get()$url, this_page))
   global_data$instructor$set("json", fill_metadata_template(meta))
   modified <- pkgdown::render_page(pkg, 
@@ -30,7 +39,7 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
   # Process learner page if needed ---------------------------------------------
   if (modified) {
     this_page <- as_html(this_page)
-    update_sidebar(global_data$learner, nodes, path_md, "Summary and Setup")
+    update_sidebar(global_data$learner, learner_nodes, path_md)
     meta$set("url", paste0(meta$get()$url, this_page))
     global_data$learner$set("json", fill_metadata_template(meta))
     pkgdown::render_page(pkg, 
