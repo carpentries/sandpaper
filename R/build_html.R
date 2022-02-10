@@ -1,4 +1,4 @@
-build_html <- function(template = "chapter", nodes, global_data, path_md, quiet = TRUE) {
+build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, quiet = TRUE) {
   # shim for downlit ----------------------------------------------------------
   shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
   expected <- "5484c37e9b9c324361d775a10dea4946"

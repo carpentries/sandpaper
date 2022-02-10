@@ -32,7 +32,7 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   page_globals$learner$set("readme", index)
   page_globals$learner$set("setup", setup)
   page_globals$metadata$update(nav)
-  build_html(template = "syllabus", setup, page_globals, idx_file, quiet = quiet)
+  build_html(template = "syllabus", pkg, setup, page_globals, idx_file, quiet = quiet)
 
   # # render the page for instructor
   # if (!is.null(sidebar)) {
