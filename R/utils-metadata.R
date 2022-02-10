@@ -4,6 +4,11 @@ create_metadata_jsonld <- function(path = ".", ...) {
   meta <- this_metadata$copy()
   on.exit(rm(meta))
   meta$update(l)
+  fill_metadata_template(meta)
+}
+
+
+fill_metadata_template <- function(meta) {
   local_meta <- meta$get()
   json <- local_meta[["metadata_template"]]
   json <- whisker::whisker.render(json, local_meta)

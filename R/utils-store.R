@@ -86,7 +86,7 @@ clear_resource_list <- function(path) {
 # create a global list of things
 .list_store <-  function() {
   .this_list <- list()
-  list(
+  structure(list(
     get = function() return(.this_list),
     update = function(value) {
       .this_list <<- modifyList(.this_list, value)
@@ -122,7 +122,7 @@ clear_resource_list <- function(path) {
       new$set(key = NULL, .this_list)
       return(new)
     }
-  )
+  ), class = "list-store")
 }
 
 #nocov start

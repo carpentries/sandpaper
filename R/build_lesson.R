@@ -37,12 +37,10 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   set_resource_list(path)
   # define the globals variables needed for varnish to build the site
   set_globals(path)
-  initialise_metadata(path)
 
   on.exit({
     reset_build_paths()
     clear_resource_list()
-    this_metadata$clear()
     clear_globals()
   })
 
