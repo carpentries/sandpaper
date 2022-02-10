@@ -77,8 +77,9 @@ build_episode_html <- function(path_md, path_src = NULL,
   fix_nodes(nodes)
 
   # setup varnish data
-  dat_instructor <- instructor_globals$copy()
-  sidebar <- dat_instructor$get()[["sidebar"]]
+  page_globals <- setup_page_globals()
+  page_globals$instructor <- instructor_globals$copy()
+  sidebar <- page_globals$instructor$get()[["sidebar"]]
   this_page <- as_html(path_md, instructor = TRUE)
   nav_list <- get_nav_data(path_md, path_src, home, 
     this_page, page_back, page_forward)
@@ -101,7 +102,7 @@ build_episode_html <- function(path_md, path_src = NULL,
     instructor    = TRUE
   )
 
-  dat_instructor$update(c(nav_list, instructor_list))
+  page_globals$instructor$update(c(nav_list, instructor_list))
 
   # ------------------------------------------- Run pkgdown::render_page()
   # shim for downlit
@@ -119,7 +120,7 @@ build_episode_html <- function(path_md, path_src = NULL,
 
   modified <- pkgdown::render_page(pkg, 
     "chapter",
-    data = dat_instructor$get(),
+    data = page_globals$instructor$get(),
     depth = 1L,
     path = this_page,
     quiet = quiet
@@ -158,17 +159,16 @@ build_episode_html <- function(path_md, path_src = NULL,
 
 update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE) {
   if (is.null(sidebar)) return(sidebar)
+  if (inherits(sidebar, "list-store")) {
+    return(update_sidebar(sidebar$get()[["sidebar"]], nodes, path_md, 
+      title = if (is.null(title)) sidebar$get()[["pagetitle"]] else title, 
+      instructor))
+  }
   this_page <- as_html(path_md)
   to_change <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), sidebar)
   if (length(to_change)) {
     sidebar[to_change] <- create_sidebar_item(nodes, title, "current")
   }
-  if (instructor) {
-    idx <- "<a href='index.html'>Summary and Schedule</a>"
-  } else {
-    idx <- "<a href='index.html'>Summary and Setup</a>"
-  }
-  sidebar[[1]] <- create_sidebar_item(nodes, idx, 1)
   sidebar
 }
 
@@ -180,14 +180,27 @@ update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title =
 #' @keywords internal
 get_nav_data <- function(path_md, path_src = NULL, home = NULL, 
   this_page = NULL, page_back = NULL, page_forward = NULL) {
+  if (is.null(home)) {
+    home <- root_path(path_md)
+  }
+  if (is.null(this_page)) {
+    this_page <- as_html(path_md)
+  }
   yaml <- yaml::yaml.load(politely_get_yaml(path_md), eval.expr = FALSE)
-  path_src <- if (is.null(path_src)) yaml[["sandpaper-source"]] else path_src
-  title <- parse_title(yaml$title)
+  path_src <- if (is.null(path_src)) path_md else path_src
 
-  pb_title <- if (page_back == "index.md") "Home" else get_trimmed_title(page_back)
-  pf_title <- if (page_forward == "index.md") NULL else get_trimmed_title(page_forward)
-  page_back <- as_html(page_back, instructor = TRUE)
-  page_forward <- as_html(page_forward, instructor = TRUE)
+  title <- parse_title(yaml$title)
+  pb_title <- NULL
+  pf_title <- NULL
+
+  if (!is.null(page_back)) {
+    pb_title <- if (page_back == "index.md") "Home" else get_trimmed_title(page_back)
+    page_back <- as_html(page_back, instructor = TRUE)
+  }
+  if (!is.null(page_forward)) {
+    pf_title <- if (page_forward == "index.md") NULL else get_trimmed_title(page_forward)
+    page_forward <- as_html(page_forward, instructor = TRUE)
+  }
   list(
     pagetitle     = title,
     minutes       = as.integer(yaml$teaching) + as.integer(yaml$exercises),

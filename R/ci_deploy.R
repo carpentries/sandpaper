@@ -27,12 +27,10 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   set_resource_list(path)
   # define the globals variables needed for varnish to build the site
   set_globals(path)
-  initialise_metadata(path)
   on.exit({
     reset_build_paths()
     clear_resource_list()
     clear_globals()
-    this_metadata$clear()
   }, add = TRUE)
 
 

@@ -16,7 +16,7 @@ test_that("metadata can be created with custom items", {
   initialise_metadata(res)
   on.exit(this_metadata$clear())
   met <- create_metadata_jsonld(res, 
-    date = list(modified = "2022-02-08"),
+    date = list(created = "2022-02-01", modified = "2022-02-08", published = "2022-02-09"),
     pagetitle = "The Importance of Being Ernest Scared Stupid",
     url = "https://zkamvar.github.io/lesson-example/vern.html"
   )
