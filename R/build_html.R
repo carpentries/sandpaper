@@ -16,7 +16,6 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
   meta <- global_data$metadata
 
   # Process instructor page ----------------------------------------------------
-  #
   update_sidebar(global_data$instructor, nodes, path_md, "Summary and Schedule")
   meta$set("url", paste0(meta$get()$url, this_page))
   global_data$instructor$set("json", fill_metadata_template(meta))
