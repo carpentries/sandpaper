@@ -10,7 +10,6 @@ test_that("build_home() works independently", {
     next_page = fs::path(res, "episodes", "01-introduction.Rmd")
   )
   expect_true(fs::file_exists(fs::path(pkg$dst_path, "index.html")))
-  print(fs::dir_ls(pkg$dst_path))
-
+  expect_true(fs::file_exists(fs::path(pkg$dst_path, "instructor", "index.html")))
 })
 
