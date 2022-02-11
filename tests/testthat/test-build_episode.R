@@ -63,6 +63,8 @@ test_that("build_episode functions works independently", {
 
 test_that("the chapter-links should be cromulent depending on the view", {
 
+  skip_if_not(file.exists(file.path(tmp, "site", "docs", "fun.html")))
+  skip_if_not(file.exists(file.path(tmp, "site", "docs", "instructor", "fun.html")))
   instruct <- fs::path(tmp, "site", "docs", "instructor", "fun.html")
   learn    <- fs::path(tmp, "site", "docs", "fun.html")
   instruct <- xml2::read_html(instruct)
