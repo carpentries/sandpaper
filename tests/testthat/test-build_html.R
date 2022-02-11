@@ -39,7 +39,7 @@ test_that("[build_home()] learner index file is index and setup", {
   # The metadata contains this page information
   meta <- xml2::xml_find_first(html, ".//script[@type='application/ld+json']")
   meta <- trimws(xml2::xml_text(meta))
-  expect_match(meta, "lesson-example/index.html")
+  expect_match(meta, "lesson-example/index[.]html['\"]")
 
 })
 
@@ -61,7 +61,7 @@ test_that("[build_home()] instructor index file is index and schedule", {
   # the metadata contains this page information
   meta <- xml2::xml_find_first(html, ".//script[@type='application/ld+json']")
   meta <- trimws(xml2::xml_text(meta))
-  expect_match(meta, "lesson-example/instructor/index.html")
+  expect_match(meta, "lesson-example/instructor/index[.]html['\"]")
 })
 
 

@@ -1,3 +1,5 @@
+res <- tmp <- restore_fixture()
+
 test_that("build_episode_md() works independently", {
   
   withr::local_options(list(sandpaper.use_renv = FALSE))
@@ -40,7 +42,6 @@ test_that("build_episode_html() works independently", {
 
 
   withr::local_options(list(sandpaper.use_renv = FALSE))
-  tmp <- restore_fixture()
   pkg <- pkgdown::as_pkgdown(file.path(tmp, "site"))
   expect_output(pkgdown::init_site(pkg))
   

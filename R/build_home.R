@@ -37,10 +37,11 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   page_globals$learner$set("readme", use_learner(index))
   page_globals$learner$set("setup", use_learner(setup))
 
+  nav$pagetitle <- NULL
   page_globals$metadata$update(nav)
 
   build_html(template = "syllabus", pkg = pkg, nodes = list(index, setup), 
-    global_data = page_globals, path_md = idx_file, quiet = quiet)
+    global_data = page_globals, path_md = "index.html", quiet = quiet)
 
 }
 

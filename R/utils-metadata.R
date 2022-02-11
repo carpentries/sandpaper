@@ -10,6 +10,9 @@ create_metadata_jsonld <- function(path = ".", ...) {
 
 fill_metadata_template <- function(meta) {
   local_meta <- meta$get()
+  if (endsWith(local_meta$url, "/")) {
+    local_meta$url <- paste0(local_meta$url, "index.html")
+  }
   json <- local_meta[["metadata_template"]]
   json <- whisker::whisker.render(json, local_meta)
   json
