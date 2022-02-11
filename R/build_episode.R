@@ -97,57 +97,6 @@ build_episode_html <- function(path_md, path_src = NULL,
   build_html(template = "chapter", pkg = pkg, nodes = nodes,
     global_data = page_globals, path_md = path_md, quiet = quiet)
 
-  # # ------------------------------------------- Run pkgdown::render_page()
-  # # shim for downlit
-  # shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-  # expected <- "5484c37e9b9c324361d775a10dea4946"
-  # actual   <- tools::md5sum(shimstem_file)
-  # if (expected == actual) {
-  #   # evaluate the shim in our namespace
-  #   when_done <- source(shimstem_file, local = TRUE)$value
-  #   on.exit(eval(when_done), add = TRUE)
-  # }
-  # # end downlit shim
-  # ipath <- fs::path(pkg$dst_path, "instructor")
-  # if (!fs::dir_exists(ipath)) fs::dir_create(ipath)
-
-  # modified <- pkgdown::render_page(pkg, 
-  #   "chapter",
-  #   data = page_globals$instructor$get(),
-  #   depth = 1L,
-  #   path = this_page,
-  #   quiet = quiet
-  # )
-  # if (modified) {
-  #   sidebar <- update_sidebar(sidebar, nodes, path_md, nav_list$pagetitle, 
-  #     instructor = FALSE)
-
-  #   this_metadata$set("url", 
-  #     paste0(this_metadata$get()$url, "/", as_html(this_page))
-  #   )
-
-  #   learner_list <- modifyList(instructor_list,
-  #     list(
-  #       body = use_learner(nodes),
-  #       sidebar = paste(sidebar, collapse = "\n"),
-  #       instructor = FALSE,
-  #       page_back = fs::path_file(page_back), 
-  #       page_forward = fs::path_file(page_forward), 
-  #       json         = create_metadata_jsonld(home),
-  #       sidebar      = paste(gsub("instructor/", "", sidebar), collapse = "\n")
-  #     )
-  #   )
-
-  #   dat_learner <- learner_globals$copy()
-  #   dat_learner$update(learner_list)
-  #   pkgdown::render_page(pkg, 
-  #     "chapter",
-  #     data = dat_learner$get(),
-  #     depth = 0L,
-  #     path = as_html(this_page),
-  #     quiet = quiet
-  #   )
-  # }
 }
 
 update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE) {

@@ -1,14 +1,4 @@
 build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, quiet = TRUE) {
-  # shim for downlit ----------------------------------------------------------
-  shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-  expected <- "5484c37e9b9c324361d775a10dea4946"
-  actual   <- tools::md5sum(shimstem_file)
-  if (expected == actual) {
-    # evaluate the shim in our namespace
-    when_done <- source(shimstem_file, local = TRUE)$value
-    on.exit(eval(when_done), add = TRUE)
-  }
-  # end downlit shim ----------------------------------------------------------
   ipath <- fs::path(pkg$dst_path, "instructor")
   if (!fs::dir_exists(ipath)) fs::dir_create(ipath)
 

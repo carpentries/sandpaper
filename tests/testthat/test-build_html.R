@@ -2,6 +2,16 @@ res <- restore_fixture()
 withr::defer(clear_globals())
 set_globals(res)
 pkg <- pkgdown::as_pkgdown(path_site(res))
+# shim for downlit ----------------------------------------------------------
+shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
+expected <- "5484c37e9b9c324361d775a10dea4946"
+actual   <- tools::md5sum(shimstem_file)
+if (expected == actual) {
+  # evaluate the shim in our namespace
+  when_done <- source(shimstem_file, local = TRUE)$value
+  withr::defer(eval(when_done))
+}
+# end downlit shim ----------------------------------------------------------
 
 
 test_that("[build_home()] works independently", {

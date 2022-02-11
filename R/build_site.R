@@ -53,6 +53,16 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   out <- if (is.null(slug)) "index.html" else paste0(slug, ".html")
   chapters <- abs_md[seq(er[1], er[2])]
   sidebar <- create_sidebar(c(fs::path(built_path, "index.md"), chapters))
+  # shim for downlit ----------------------------------------------------------
+  shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
+  expected <- "5484c37e9b9c324361d775a10dea4946"
+  actual   <- tools::md5sum(shimstem_file)
+  if (expected == actual) {
+    # evaluate the shim in our namespace
+    when_done <- source(shimstem_file, local = TRUE)$value
+    on.exit(eval(when_done), add = TRUE)
+  }
+  # end downlit shim ----------------------------------------------------------
   for (i in files_to_render) {
     location <- page_location(i, abs_md, er)
     build_episode_html(
