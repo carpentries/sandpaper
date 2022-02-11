@@ -83,13 +83,15 @@ build_episode_html <- function(path_md, path_src = NULL,
     this_page, page_back, page_forward)
 
   page_globals$metadata$update(c(nav_list, list(date = list(modified = date))))
-  page_globals$instructor$update(c(nav_list, list(
-    body      = use_instructor(nodes),
+  page_globals$learner$update(c(nav_list, list(
+    body      = use_learner(nodes),
     progress  = page_progress,
     updated   = date
   )))
-  page_globals$learner$update(c(nav_list, list(
-    body      = use_learner(nodes),
+  nav_list$page_back <- as_html(nav_list$page_back, instructor = TRUE)
+  nav_list$page_forward <- as_html(nav_list$page_forward, instructor = TRUE)
+  page_globals$instructor$update(c(nav_list, list(
+    body      = use_instructor(nodes),
     progress  = page_progress,
     updated   = date
   )))
