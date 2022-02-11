@@ -11,6 +11,8 @@ writeLines(c(
  ),
   con = instruct
 )
+set_globals(res)
+withr::defer(clear_globals())
 }
 
 
@@ -68,6 +70,7 @@ test_that("changes in config.yaml triggers a rebuild of the site yaml", {
 
 test_that("build_home() will refelct the title in the heading", {
 
+  skip("this was built for the old sandpaper")
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   pkg <- pkgdown::as_pkgdown(fs::path(res, "site"))
   fs::dir_create(pkg$dst_path)

@@ -67,6 +67,7 @@ build_episode_html <- function(path_md, path_src = NULL,
                                page_back = "index.md", page_forward = "index.md", 
                                pkg, quiet = FALSE, page_progress = NULL, 
                                sidebar = NULL, date = NULL) {
+  page_globals <- setup_page_globals()
   home <- root_path(path_md)
   body <- render_html(path_md, quiet = quiet)
   if (body == "") {
@@ -77,84 +78,76 @@ build_episode_html <- function(path_md, path_src = NULL,
   fix_nodes(nodes)
 
   # setup varnish data
-  page_globals <- setup_page_globals()
-  page_globals$instructor <- instructor_globals$copy()
-  sidebar <- page_globals$instructor$get()[["sidebar"]]
-  this_page <- as_html(path_md, instructor = TRUE)
+  this_page <- as_html(path_md)
   nav_list <- get_nav_data(path_md, path_src, home, 
     this_page, page_back, page_forward)
-  sidebar <- update_sidebar(sidebar, nodes, path_md, nav_list$pagetitle, 
-    instructor = TRUE)
 
-  # update metadata
-  this_metadata$update(list(
-    date = list(modified = date),
-    pagetitle = nav_list$pagetitle,
-    url = paste0(this_metadata$get()$url, this_page)
-  ))
+  page_globals$metadata$update(c(nav_list, list(date = list(modified = date))))
+  page_globals$instructor$update(c(nav_list, list(
+    body      = use_instructor(nodes),
+    progress  = page_progress,
+    updated   = date
+  )))
+  page_globals$learner$update(c(nav_list, list(
+    body      = use_learner(nodes),
+    progress  = page_progress,
+    updated   = date
+  )))
 
-  instructor_list <- list(
-    body          = use_instructor(nodes),
-    sidebar       = paste(sidebar, collapse = "\n"),
-    progress      = page_progress,
-    updated       = date,
-    json          = create_metadata_jsonld(home),
-    instructor    = TRUE
-  )
+  build_html(template = "chapter", pkg = pkg, nodes = nodes,
+    global_data = page_globals, path_md = path_md, quiet = quiet)
 
-  page_globals$instructor$update(c(nav_list, instructor_list))
+  # # ------------------------------------------- Run pkgdown::render_page()
+  # # shim for downlit
+  # shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
+  # expected <- "5484c37e9b9c324361d775a10dea4946"
+  # actual   <- tools::md5sum(shimstem_file)
+  # if (expected == actual) {
+  #   # evaluate the shim in our namespace
+  #   when_done <- source(shimstem_file, local = TRUE)$value
+  #   on.exit(eval(when_done), add = TRUE)
+  # }
+  # # end downlit shim
+  # ipath <- fs::path(pkg$dst_path, "instructor")
+  # if (!fs::dir_exists(ipath)) fs::dir_create(ipath)
 
-  # ------------------------------------------- Run pkgdown::render_page()
-  # shim for downlit
-  shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-  expected <- "5484c37e9b9c324361d775a10dea4946"
-  actual   <- tools::md5sum(shimstem_file)
-  if (expected == actual) {
-    # evaluate the shim in our namespace
-    when_done <- source(shimstem_file, local = TRUE)$value
-    on.exit(eval(when_done), add = TRUE)
-  }
-  # end downlit shim
-  ipath <- fs::path(pkg$dst_path, "instructor")
-  if (!fs::dir_exists(ipath)) fs::dir_create(ipath)
+  # modified <- pkgdown::render_page(pkg, 
+  #   "chapter",
+  #   data = page_globals$instructor$get(),
+  #   depth = 1L,
+  #   path = this_page,
+  #   quiet = quiet
+  # )
+  # if (modified) {
+  #   sidebar <- update_sidebar(sidebar, nodes, path_md, nav_list$pagetitle, 
+  #     instructor = FALSE)
 
-  modified <- pkgdown::render_page(pkg, 
-    "chapter",
-    data = page_globals$instructor$get(),
-    depth = 1L,
-    path = this_page,
-    quiet = quiet
-  )
-  if (modified) {
-    sidebar <- update_sidebar(sidebar, nodes, path_md, nav_list$pagetitle, 
-      instructor = FALSE)
+  #   this_metadata$set("url", 
+  #     paste0(this_metadata$get()$url, "/", as_html(this_page))
+  #   )
 
-    this_metadata$set("url", 
-      paste0(this_metadata$get()$url, "/", as_html(this_page))
-    )
+  #   learner_list <- modifyList(instructor_list,
+  #     list(
+  #       body = use_learner(nodes),
+  #       sidebar = paste(sidebar, collapse = "\n"),
+  #       instructor = FALSE,
+  #       page_back = fs::path_file(page_back), 
+  #       page_forward = fs::path_file(page_forward), 
+  #       json         = create_metadata_jsonld(home),
+  #       sidebar      = paste(gsub("instructor/", "", sidebar), collapse = "\n")
+  #     )
+  #   )
 
-    learner_list <- modifyList(instructor_list,
-      list(
-        body = use_learner(nodes),
-        sidebar = paste(sidebar, collapse = "\n"),
-        instructor = FALSE,
-        page_back = fs::path_file(page_back), 
-        page_forward = fs::path_file(page_forward), 
-        json         = create_metadata_jsonld(home),
-        sidebar      = paste(gsub("instructor/", "", sidebar), collapse = "\n")
-      )
-    )
-
-    dat_learner <- learner_globals$copy()
-    dat_learner$update(learner_list)
-    pkgdown::render_page(pkg, 
-      "chapter",
-      data = dat_learner$get(),
-      depth = 0L,
-      path = as_html(this_page),
-      quiet = quiet
-    )
-  }
+  #   dat_learner <- learner_globals$copy()
+  #   dat_learner$update(learner_list)
+  #   pkgdown::render_page(pkg, 
+  #     "chapter",
+  #     data = dat_learner$get(),
+  #     depth = 0L,
+  #     path = as_html(this_page),
+  #     quiet = quiet
+  #   )
+  # }
 }
 
 update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE) {
