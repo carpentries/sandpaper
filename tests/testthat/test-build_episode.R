@@ -1,32 +1,5 @@
 res <- tmp <- restore_fixture()
 
-test_that("build_episode_md() works independently", {
-  
-  withr::local_options(list(sandpaper.use_renv = FALSE))
-
-  fun_dir <- fs::file_temp()
-  fs::dir_create(fun_dir)
-  fs::dir_create(fs::path(fun_dir, "episodes"))
-  withr::defer(fs::dir_delete(fun_dir))
-
-  fun_file <- file.path(fun_dir, "episodes", "fun.Rmd")
-  file.create(fun_file)
-  txt <- c(
-    "---\ntitle: Fun times\n---\n\n",
-    "# new page\n", 
-    "This is coming from `r R.version.string`"
-  )
-  writeLines(txt, fun_file)
-  expect_output({
-    res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
-  }, "inline R code fragments")
-
-  expect_equal(basename(res), "fun.md")
-  lines <- readLines(res)
-  expect_match(lines[[2]], "title: Fun times")
-  expect_match(lines[length(lines)], "This is coming from R (version|Under)")
-
-})
 
 
 test_that("build_episode_html() returns nothing for an empty page", {
@@ -38,7 +11,7 @@ test_that("build_episode_html() returns nothing for an empty page", {
 })
 
 
-test_that("build_episode_html() works independently", {
+test_that("build_episode functions works independently", {
 
 
   withr::local_options(list(sandpaper.use_renv = FALSE))
