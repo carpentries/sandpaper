@@ -23,8 +23,7 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   fix_nodes(setup)
   use_learner(setup)
 
-  nav <- get_nav_data(idx_file, fs::path_file(idx_file), 
-    page_forward = next_page)
+  nav <- get_nav_data(idx_file, fs::path_file(idx_file), page_forward = next_page)
 
   nav$pagetitle <- "Summary and Schedule"
   nav$page_forward <- as_html(nav$page_forward, instructor = TRUE)
@@ -37,8 +36,11 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   page_globals$learner$update(nav)
   page_globals$learner$set("readme", use_learner(index))
   page_globals$learner$set("setup", use_learner(setup))
+
   page_globals$metadata$update(nav)
-  build_html(template = "syllabus", pkg, list(index, setup), page_globals, idx_file, quiet = quiet)
+
+  build_html(template = "syllabus", pkg = pkg, nodes = list(index, setup), 
+    global_data = page_globals, path_md = idx_file, quiet = quiet)
 
 }
 

@@ -55,6 +55,7 @@ set_globals <- function(path) {
 
   learner_globals$set(key = NULL, 
     c(list(
+      instructor = FALSE,
       sidebar = learner_sidebar,
       more = learner$extras,
       resources = learner$resources
@@ -62,7 +63,8 @@ set_globals <- function(path) {
   )
   instructor_globals$set(key = NULL, 
     c(list(
-      sidebar = learner_sidebar,
+      instructor = TRUE,
+      sidebar = instructor_sidebar,
       more = instructor$extras,
       resources = instructor$resources
     ), pkg_versions)
