@@ -82,9 +82,9 @@ use_learner <- function(nodes = NULL) {
 use_instructor <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   copy <- xml2::read_html(as.character(nodes))
-  lnk <- xml2::xml_find_all(copy, ".//a[not(starts-with(@href, 'http'))]")
+  # lnk <- xml2::xml_find_all(copy, ".//a[not(starts-with(@href, 'http'))]")
   img <- xml2::xml_find_all(copy, ".//img[not(starts-with(@src, 'http'))]")
-  xml2::xml_set_attr(lnk, "href", fs::path("instructor/", xml2::xml_attr(lnk, "href")))
+  # xml2::xml_set_attr(lnk, "href", fs::path("instructor/", xml2::xml_attr(lnk, "href")))
   xml2::xml_set_attr(img, "src", fs::path("../", xml2::xml_attr(img, "src")))
   as.character(copy)
 }

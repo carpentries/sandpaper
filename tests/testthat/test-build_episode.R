@@ -25,7 +25,7 @@ test_that("build_episode functions works independently", {
   txt <- c(
     "---\ntitle: Fun times\n---\n\n",
     "# new page\n", 
-    "This is coming from `r R.version.string`\n",
+    "This is coming from `r R.version.string` with an [internal link](fun.Rmd)\n",
     "::: instructor",
     "this is an instructor note",
     ":::"
@@ -70,6 +70,10 @@ test_that("the chapter-links should be cromulent depending on the view", {
   instruct <- xml2::read_html(instruct)
   learn    <- xml2::read_html(learn)
 
+  internal_learn_links <- xml2::xml_find_all(learn, ".//a[contains(text(), 'internal')]")
+  expect_length(internal_learn_links, 1L)
+  expect_equal(xml2::xml_attr(internal_learn_links, "href"), "fun.html")
+
   learn_links <- xml2::xml_find_all(learn, ".//a[@class='chapter-link']")
   expect_length(learn_links, 4L)
   expect_equal(xml2::xml_attr(learn_links, "href"), rep("fun.html", 4L))
@@ -82,6 +86,10 @@ test_that("the chapter-links should be cromulent depending on the view", {
   expect_length(instruct_links, 4L)
   expect_equal(xml2::xml_attr(instruct_links, "href"), 
     rep("../instructor/fun.html", 4L))
+
+  internal_instruct_links <- xml2::xml_find_all(instruct, ".//a[contains(text(), 'internal')]")
+  expect_length(internal_instruct_links, 1L)
+  expect_equal(xml2::xml_attr(internal_instruct_links, "href"), "fun.html")
 
   instruct_note <- xml2::xml_find_all(instruct, 
     ".//div[starts-with(@id, 'accordionInstructor')]")
