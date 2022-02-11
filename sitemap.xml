@@ -91,6 +91,9 @@
     <loc>https://carpentries.github.io/sandpaper/reference/create_lesson.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/create_resources_dropdown.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper/reference/create_sidebar.html</loc>
   </url>
   <url>
@@ -116,6 +119,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/get_hash.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/get_nav_data.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/get_resource_list.html</loc>
@@ -164,6 +170,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/set_dropdown.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/set_globals.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/template.html</loc>
