@@ -1,12 +1,14 @@
 # Null operator
-`%||%` <- function(a, b) if (is.null(a)) b else a
+`%||%` <- function(a, b) if (length(a) < 1L) b else a
 
 `%nin%` <- Negate("%in%")
 
 as_html <- function(i, instructor = FALSE) {
+  if (length(i) == 0) return(i)
   res <- fs::path_ext_set(fs::path_file(i), "html")
   if (instructor) fs::path("instructor", res) else res
 }
+
 
 # Parse a markdown title to html
 #
@@ -137,16 +139,6 @@ which_icon_carpentry <- function(carpentry) {
     lab = "lab"
   )
 }
-
-varnish_vars <- function() {
-  ver <- function(pak) glue::glue(" ({packageVersion(pak)})")
-  list(
-    sandpaper_version = ver("sandpaper"),
-    pegboard_version  = ver("pegboard"),
-    varnish_version   = ver("varnish")
-  )
-}
-
 
 copy_assets <- function(src, dst) {
   # Do not take markdown files.

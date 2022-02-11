@@ -17,11 +17,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Zhian N. Kamvar \email{zkamvar@gmail.com} (\href{https://orcid.org/0000-0003-1458-7108}{ORCID})
+\strong{Maintainer}: Zhian N. Kamvar \email{zkamvar@carpentries.org} (\href{https://orcid.org/0000-0003-1458-7108}{ORCID})
 
 Other contributors:
 \itemize{
-  \item François Michonneau \email{fmichonneau@carpentries.org} [contributor]
+  \item François Michonneau \email{francois@carpentries.org} [contributor]
 }
 
 }

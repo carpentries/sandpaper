@@ -1,30 +1,5 @@
-test_that("build_episode_md() works independently", {
-  
-  withr::local_options(list(sandpaper.use_renv = FALSE))
+res <- tmp <- restore_fixture()
 
-  fun_dir <- fs::file_temp()
-  fs::dir_create(fun_dir)
-  fs::dir_create(fs::path(fun_dir, "episodes"))
-  withr::defer(fs::dir_delete(fun_dir))
-
-  fun_file <- file.path(fun_dir, "episodes", "fun.Rmd")
-  file.create(fun_file)
-  txt <- c(
-    "---\ntitle: Fun times\n---\n\n",
-    "# new page\n", 
-    "This is coming from `r R.version.string`"
-  )
-  writeLines(txt, fun_file)
-  expect_output({
-    res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
-  }, "inline R code fragments")
-
-  expect_equal(basename(res), "fun.md")
-  lines <- readLines(res)
-  expect_match(lines[[2]], "title: Fun times")
-  expect_match(lines[length(lines)], "This is coming from R (version|Under)")
-
-})
 
 
 test_that("build_episode_html() returns nothing for an empty page", {
@@ -36,11 +11,10 @@ test_that("build_episode_html() returns nothing for an empty page", {
 })
 
 
-test_that("build_episode_html() works independently", {
+test_that("build_episode functions works independently", {
 
 
   withr::local_options(list(sandpaper.use_renv = FALSE))
-  tmp <- restore_fixture()
   pkg <- pkgdown::as_pkgdown(file.path(tmp, "site"))
   expect_output(pkgdown::init_site(pkg))
   
@@ -77,26 +51,43 @@ test_that("build_episode_html() works independently", {
   expect_output({
     build_episode_html(res, 
       fun_file,
-      page_back = "index.md",
-      page_forward = "index.md",
+      page_back = fun_file,
+      page_forward = fun_file,
       pkg = pkg
     )
   }, "Writing 'fun.html'")
   expect_true(file.exists(file.path(tmp, "site", "docs", "fun.html")))
   expect_true(file.exists(file.path(tmp, "site", "docs", "instructor", "fun.html")))
-
-  # The learner view should not have an instructor note
-  lines <- readLines(file.path(tmp, "site", "docs", "fun.html"))
-  the_line_bart <- lines[grep("This is coming from R (version|Under)", lines)]
-  expect_length(the_line_bart, 1L)
-  the_line_bort <- lines[grep("this is an instructor note", lines)]
-  expect_length(the_line_bort, 0L)
-
-  # the instructor view shoudl have the instructor note
-  lines <- readLines(file.path(tmp, "site", "docs", "instructor", "fun.html"))
-  the_line_bart <- lines[grep("this is an instructor note", lines)]
-  expect_length(the_line_bart, 1L)
-
 })
 
+
+test_that("the chapter-links should be cromulent depending on the view", {
+
+  skip_if_not(file.exists(file.path(tmp, "site", "docs", "fun.html")))
+  skip_if_not(file.exists(file.path(tmp, "site", "docs", "instructor", "fun.html")))
+  instruct <- fs::path(tmp, "site", "docs", "instructor", "fun.html")
+  learn    <- fs::path(tmp, "site", "docs", "fun.html")
+  instruct <- xml2::read_html(instruct)
+  learn    <- xml2::read_html(learn)
+
+  learn_links <- xml2::xml_find_all(learn, ".//a[@class='chapter-link']")
+  expect_length(learn_links, 4L)
+  expect_equal(xml2::xml_attr(learn_links, "href"), rep("fun.html", 4L))
+
+  learn_note<- xml2::xml_find_all(learn, 
+    ".//div[starts-with(@id, 'accordionInstructor')]")
+  expect_length(learn_note, 0L)
+
+  instruct_links <- xml2::xml_find_all(instruct, ".//a[@class='chapter-link']")
+  expect_length(instruct_links, 4L)
+  expect_equal(xml2::xml_attr(instruct_links, "href"), 
+    rep("../instructor/fun.html", 4L))
+
+  instruct_note <- xml2::xml_find_all(instruct, 
+    ".//div[starts-with(@id, 'accordionInstructor')]")
+  expect_length(instruct_note, 1L)
+  IN_lines <- trimws(xml2::xml_text(instruct_note))
+  expect_match(IN_lines, "Instructor Note\\s+this is an instructor note")
+
+})
 

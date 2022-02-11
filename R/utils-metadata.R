@@ -1,53 +1,20 @@
-.metadata_store <-  function() {
-  .metadata <- list()
-  list(
-    get = function() return(.metadata),
-    update = function(value) {
-      .metadata <<- modifyList(.metadata, value)
-    },
-    set = function(key = NULL, value) {
-      if (is.null(key)) {
-        .metadata <<- value
-      } else if (length(key) == 1) {
-        .metadata[[key]] <<- value
-      } else {
-        l <- list()
-        for (i in seq(key)) {
-          l[[key[seq(i)]]] <- list()
-        }
-        l[[key]] <- value
-        if (length(.metadata)) {
-          .metadata <<- modifyList(.metadata, l)
-        } else {
-          .metadata <<- l
-        }
-      }
-      invisible(.metadata)
-    },
-    clear = function(key = NULL) {
-      if (is.null(key)) {
-        .metadata <<- NULL
-      } else {
-        .metadata[[key]] <<- NULL
-      }
-    },
-    copy = function() {
-      new <- .metadata_store()
-      new$set(key = NULL, .metadata)
-      return(new)
-    }
-  )
-}
-this_metadata <- .metadata_store()
-
 create_metadata_jsonld <- function(path = ".", ...) {
   initialise_metadata(path)
-  json <- readLines(template_metadata())
   l <- list(...)
   meta <- this_metadata$copy()
+  on.exit(rm(meta))
   meta$update(l)
-  json <- whisker::whisker.render(json, meta$get())
-  rm(meta)
+  fill_metadata_template(meta)
+}
+
+
+fill_metadata_template <- function(meta) {
+  local_meta <- meta$get()
+  if (endsWith(local_meta$url, "/")) {
+    local_meta$url <- paste0(local_meta$url, "index.html")
+  }
+  json <- local_meta[["metadata_template"]]
+  json <- whisker::whisker.render(json, local_meta)
   json
 }
 
@@ -59,6 +26,7 @@ metadata_url <- function(cfg) {
 initialise_metadata <- function(path = ".") {
   if (length(this_metadata$get()) == 0) {
     cfg <- get_config(path)
+    this_metadata$set("metadata_template", readLines(template_metadata()))
     this_metadata$set("pagetitle", cfg$title)
     this_metadata$set("url", metadata_url(cfg))
     this_metadata$set("keywords", cfg$keywords)
@@ -71,3 +39,5 @@ initialise_metadata <- function(path = ".") {
   this_metadata$set(c("date", "modified"), format(Sys.Date(), "%F"))
   this_metadata$set(c("date", "published"), format(Sys.Date(), "%F"))
 }
+
+

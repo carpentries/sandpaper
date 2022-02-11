@@ -83,6 +83,9 @@ writeLines(txt, fun_file)
 hash <- tools::md5sum(fun_file)
 res <- build_episode_md(fun_file, hash)
 if (rmarkdown::pandoc_available("2.11")) {
+  # we need to set the global values
+  sandpaper:::set_globals(res)
+  on.exit(clear_globals(), add = TRUE)
   # we can only build this if we have pandoc
   build_episode_html(res, path_src = fun_file, 
     pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
