@@ -21,7 +21,6 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   }
   setup <- xml2::read_html(setup)
   fix_nodes(setup)
-  use_learner(setup)
 
   nav <- get_nav_data(idx_file, fs::path_file(idx_file), page_forward = next_page)
 
@@ -29,18 +28,18 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   nav$page_forward <- as_html(nav$page_forward, instructor = TRUE)
   page_globals$instructor$update(nav)
   page_globals$instructor$set("syllabus", paste(syl, collapse = ""))
-  page_globals$instructor$set("readme", use_instructor(index))
+  page_globals$instructor$set("readme", use_instructor(html))
 
   nav$pagetitle <- "Summary and Setup"
   nav$page_forward <- as_html(nav$page_forward)
   page_globals$learner$update(nav)
-  page_globals$learner$set("readme", use_learner(index))
+  page_globals$learner$set("readme", use_learner(html))
   page_globals$learner$set("setup", use_learner(setup))
 
   nav$pagetitle <- NULL
   page_globals$metadata$update(nav)
 
-  build_html(template = "syllabus", pkg = pkg, nodes = list(index, setup), 
+  build_html(template = "syllabus", pkg = pkg, nodes = list(html, setup), 
     global_data = page_globals, path_md = "index.html", quiet = quiet)
 
 }
