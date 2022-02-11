@@ -14,6 +14,15 @@ page_location <- function(i, abs_md, er) {
 }
 
 
+#' Create dropdown menus for extra content
+#'
+#' @param files a vector of markdown file names
+#' @param type one of "learners" (default) or "instructors". If it is learners,
+#'   the setup page will be excluded since it is included in the index. For 
+#'   "instructors", the instructor notes are included and the learner profiles
+#'   are included.
+#' @return a list with character vectors of HTML list elements. 
+#' @keywords internal
 create_resources_dropdown <- function(files, type = "learners") {
   if (type == "learners") {
     files <- files[!grepl("setup[.]R?md", fs::path_file(files))]
