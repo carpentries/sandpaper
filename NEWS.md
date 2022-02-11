@@ -5,7 +5,9 @@ INTERNAL
 
 * metadata is now processed more consistently across page types, which will
   first and foremost reduces some of the code complexity, and second, allows
-  for more rapid development of future page types.
+  for more rapid development of future page types. In some instances, this will
+  result in a marginal improvement of build times, but it will not likely be
+  noticable.
 
 # sandpaper 0.1.4
 
