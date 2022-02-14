@@ -6,6 +6,8 @@
 \alias{sandpaper-package}
 \title{sandpaper: Create and Curate Carpentries Lessons}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 We provide tools to build a Carpentries-themed lesson repository into an accessible standalone static website. These include local tools and those designed to be used in a continuous integration context so that all the lesson author needs to focus on is writing the content of the actual lesson.
 }
 \seealso{

@@ -1,5 +1,5 @@
-The New Carpentries Lesson Template: {sandpaper}
-================
+
+# {sandpaper}: User Interface to The Carpentries Workbench <img src='man/figures/logo.png' align='right' alt=''/>
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
