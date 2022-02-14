@@ -96,9 +96,9 @@ set_config <- function(pairs = NULL, path = ".", write = FALSE) {
       cli::cli_text(c(cli::col_yellow("+ "), line[i]))
     }
     the_call[["write"]] <- TRUE
-    cll <- paste(utils::capture.output(the_call), collapse = "\n")
+    cll <- gsub("\\s+", " ", paste(utils::capture.output(the_call), collapse = ""))
     cli::cli_alert_info("To save this configuration, use\n\n{.code {cll}}")
-    return(the_call)
+    return(invisible(the_call))
   }
 }
 

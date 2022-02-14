@@ -9,11 +9,7 @@
       + license: 'CC0'
       i To save this configuration, use
       
-      `set_config(pairs = list(title = "test: title", license = "CC0"), 
-          path = tmp, write = TRUE)`
-    Output
-      set_config(pairs = list(title = "test: title", license = "CC0"), 
-          path = tmp, write = TRUE)
+      `set_config(pairs = list(title = "test: title", license = "CC0"), path = tmp, write = TRUE)`
 
 # set_config() will write items [plain]
 
