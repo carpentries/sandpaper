@@ -1,3 +1,10 @@
+# sandpaper 0.1.6
+
+BUG FIX
+-------
+
+* `set_dropdown()` no longer fails with {cli} version 3.2.0
+
 # sandpaper 0.1.5
 
 INTERNAL
