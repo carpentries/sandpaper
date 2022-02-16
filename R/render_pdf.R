@@ -1,9 +1,9 @@
-#' Render html from a markdown file
+#' Render pdf from a markdown file
 #'
-#' This uses [rmarkdown::pandoc_convert()] to render HTML from a markdown file.
+#' This uses [rmarkdown::pandoc_convert()] to render PDF from a markdown file.
 #' We've specified pandoc extensions that align with the features desired in the
-#' Carpentries such as `markdown_in_html_blocks`, `tex_math_dollars`, and
-#' `native_divs`.
+#' Carpentries
+#.
 #'
 #' @param path_in path to a markdown file
 #' @param quiet if `TRUE`, no output is produced. Default is `FALSE`, which
