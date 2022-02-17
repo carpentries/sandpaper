@@ -2,9 +2,11 @@ on:
   push:
     branches:
       - main
+      - l2d
   pull_request:
     branches:
       - main
+      - l2d
 
 name: R-CMD-check
 
