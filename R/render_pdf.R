@@ -42,7 +42,7 @@
 #' cat(sandpaper:::render_html(tmp, lf))
 #' }
 render_pdf <- function(path_in, ..., quiet = FALSE) {
-  htm <- paste(path_in, '.pdf')
+  htm <- paste0(path_in, '.pdf')
   args <- construct_pandoc_args2(path_in, output = htm, to = "pdf", ...)
   callr::r(function(...) rmarkdown::pandoc_convert(...), args = args,
            show = !quiet)
