@@ -1,3 +1,13 @@
+# sandpaper 0.3.0
+
+NEW FEATURES
+------------
+
+* Common links for markdown lessons can be included via a file at the top of the
+  lesson called `links.md`. If this file exists, it will be concatenated on each
+  markdown file before it is rendered to HTML. Thanks to @sstevens2 for bringing
+  this feature up (@zkamvar, #257)
+
 # sandpaper 0.2.0
 
 NEW FEATURES
