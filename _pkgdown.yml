@@ -31,7 +31,7 @@ reference:
    - serve
    - build_lesson
    - sandpaper_site
-   - check_lesson
+   - validate_lesson
    - get_drafts
    - get_config
    - get_episodes

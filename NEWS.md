@@ -1,3 +1,23 @@
+# sandpaper 0.2.0
+
+NEW FEATURES
+------------
+
+* `validate_lesson()` will perform checks on links and fenced divs in your
+  lesson. This is now included in calls to `build_lesson()`, `ci_deploy()` and
+  `serve()` (@zkamvar, #255)
+
+DEPENDENCIES
+------------
+
+* the minimum pegboard version is now 0.2.0
+
+BUG FIXES
+---------
+
+* internal function `this_lesson()` will now properly invalidate and reset if
+  there is a change in commit (e.g. the lesson to build has switched).
+
 # sandpaper 0.1.6
 
 BUG FIX
