@@ -1,3 +1,4 @@
+PANDOC_VERSION:must_be_at_least '2.11.4'
 local text = require('text')
 
 -- Lua Set for checking existence of item
