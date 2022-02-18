@@ -31,6 +31,7 @@
 #' @return a list with the results for each test as described in 
 #'    [pegboard::Lesson]
 #' @keywords internal
+#' @export
 #' @examples
 #' tmp <- tempfile()
 #' lsn <- create_lesson(tmp, open = FALSE)
