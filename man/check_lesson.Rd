@@ -3,7 +3,7 @@
 \name{check_episode}
 \alias{check_episode}
 \alias{check_lesson}
-\title{Check the lesson structure for errors}
+\title{\link{deprecated} Check the lesson structure for errors}
 \usage{
 check_episode(path)
 
@@ -17,7 +17,7 @@ check_lesson(path = ".")
 error with a list of things to fix.
 }
 \description{
-Check the lesson structure for errors
+This function is now deprecated in favour of \code{\link[=validate_lesson]{validate_lesson()}}.
 }
 \examples{
 
@@ -34,3 +34,4 @@ try(check_lesson(tmp))
 
 unlink(tmp)
 }
+\keyword{internal}

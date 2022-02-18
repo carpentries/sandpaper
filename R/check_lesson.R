@@ -1,4 +1,6 @@
-#' Check the lesson structure for errors
+#' [deprecated] Check the lesson structure for errors
+#'
+#' This function is now deprecated in favour of [validate_lesson()].
 #'
 #' @param path the path to your lesson
 #'
@@ -21,6 +23,7 @@
 #' 
 #' unlink(tmp)
 #' @importFrom assertthat validate_that
+#' @keywords internal
 check_lesson <- function(path = ".") {
 
   x      <- fs::dir_info(path, all = TRUE)
