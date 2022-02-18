@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,22 @@
       <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.0" id="sandpaper-020">sandpaper 0.2.0<a class="anchor" aria-label="anchor" href="#sandpaper-020"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-2-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h3>
+<ul><li>
+<code><a href="../reference/validate_lesson.html">validate_lesson()</a></code> will perform checks on links and fenced divs in your lesson. This is now included in calls to <code><a href="../reference/build_lesson.html">build_lesson()</a></code>, <code><a href="../reference/ci_deploy.html">ci_deploy()</a></code> and <code><a href="../reference/serve.html">serve()</a></code> (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/255" class="external-link">#255</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="dependencies-0-2-0">DEPENDENCIES<a class="anchor" aria-label="anchor" href="#dependencies-0-2-0"></a></h3>
+<ul><li>the minimum pegboard version is now 0.2.0</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-0">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0"></a></h3>
+<ul><li>internal function <code><a href="../reference/lesson_storage.html">this_lesson()</a></code> will now properly invalidate and reset if there is a change in commit (e.g. the lesson to build has switched).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.6" id="sandpaper-016">sandpaper 0.1.6<a class="anchor" aria-label="anchor" href="#sandpaper-016"></a></h2>
 <div class="section level3">
