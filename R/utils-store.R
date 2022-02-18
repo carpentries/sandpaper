@@ -61,6 +61,7 @@ clear_resource_list <- function(path) {
   .this_diff <- NULL
   .this_status <- NULL
   .this_lesson <- NULL
+  .this_commit <- NULL
 
   list(
     get = function() {
@@ -68,17 +69,20 @@ clear_resource_list <- function(path) {
     },
     valid = function(path) {
       identical(.this_diff, gert::git_diff(repo = path)$patch) &&
-        identical(.this_status, gert::git_status(repo = path))
+        identical(.this_status, gert::git_status(repo = path)) &&
+        identical(.this_commit, gert::git_log(repo = path, max = 1L)$commit)
     },
     set = function(path) {
       .this_diff   <<- gert::git_diff(repo = path)$patch
       .this_status <<- gert::git_status(repo = path)
+      .this_commit <<- gert::git_log(repo = path, max = 1L)$commit
       .this_lesson <<- pegboard::Lesson$new(path, jekyll = FALSE)
       invisible(.this_lesson)
     },
     clear = function() {
       .this_diff   <<- NULL
       .this_lesson <<- NULL
+      .this_commit <<- NULL
     }
   )
 }

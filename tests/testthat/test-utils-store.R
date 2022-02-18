@@ -18,6 +18,14 @@ test_that("lesson store can be set and returns a lesson", {
   expect_true(nossel_store$valid(res))
 })
 
+test_that("lesson stores can be invalidated", {
+  
+  expect_true(nossel_store$valid(res))
+  cat("HELLO\n", file = fs::path(res, "README.md"), append = TRUE)
+  expect_false(nossel_store$valid(res))
+
+})
+
 test_that("lesson store can be cleared", {
   nossel_store$clear()
   expect_null(nossel_store$get())
