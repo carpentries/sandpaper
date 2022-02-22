@@ -1,6 +1,17 @@
 example_markdown <- fs::path_abs(test_path("examples", "ex.md"))
 
 
+test_that("sandpaper.links can be included", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  tmp <- withr::local_tempfile()
+  tnk <- withr::local_tempfile()
+  writeLines("This has a [link at the end] in a separate file", tmp)
+  writeLines("[link at the end]: https://example.com/link", tnk)
+  withr::local_options(list("sandpaper.links" = tnk))
+  expect_match(render_html(tmp), "example.com/link")
+})
+
+
 test_that("tabs are preserved", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
