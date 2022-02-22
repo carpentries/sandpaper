@@ -7,6 +7,9 @@ NEW FEATURES
   lesson called `links.md`. If this file exists, it will be concatenated on each
   markdown file before it is rendered to HTML. Thanks to @sstevens2 for bringing
   this feature up (@zkamvar, #257)
+* `create_lesson()` now includes `links.md` in main directory.
+* A new help page called `?sandpaper.options` provides documentation on the
+  global options used in a sandpaper lesson (subject to change).
 
 # sandpaper 0.2.0
 
