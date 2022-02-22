@@ -2,18 +2,18 @@
 #'
 #' this is some documentation about options
 #' 
-#' @usage 
+#' 
+#'
+#'@details 
+#' 
+#' ```
 #' option("sandpaper.handout" = TRUE)
 #' option("sandpaper.show_draft" = TRUE)
 #' option("sandpaper.links" = NULL)
 #' option("sandpaper.use_renv" = FALSE)
 #' option("sandpaper.package_cache_trigger" = FALSE)
-#' 
-#' # internal only
 #' option("sandpaper.test_fixture" = NULL)
-#' 
-#'
-#'@details 
+#' ```
 #'
 #' As of 2022-02-22, there are several options that are used in sandpaper that
 #' may be manipulated by the user. This set may change in the future, but here
