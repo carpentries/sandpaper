@@ -28,6 +28,17 @@ test_that("use_package_cache() will report consent implied if renv cache is pres
 
 })
 
+
+test_that("no_package_cache() will report revocation of consent", {
+  withr::local_options(list("sandpaper.use_renv" = TRUE))
+  expect_true(getOption("sandpaper.use_renv"))
+  expect_message(no_package_cache(), "Consent for package cache revoked")
+  expect_false(getOption("sandpaper.use_renv"))
+  use_package_cache(prompt = FALSE, quiet = TRUE)
+  expect_true(getOption("sandpaper.use_renv"))
+})
+
+
 test_that("manage_deps() will create a renv folder", {
 
   skip_on_cran()

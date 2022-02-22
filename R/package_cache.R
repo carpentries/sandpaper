@@ -109,6 +109,7 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
     }
     return(invisible())
   }
+  #nocov start
   options <- message_package_cache(msg)
   x <- utils::menu(options)
   if (x == 1) {
@@ -123,6 +124,7 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
   }
   cli::cli_end()
   return(invisible())
+  #nocov end
 }
 
 #' @rdname package_cache
