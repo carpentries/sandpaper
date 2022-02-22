@@ -79,6 +79,7 @@ reference:
    - build_episode_md
    - build_episode_html
    - render_html
+   - sandpaper.options
  - title: "[Internal] Resource Discovery/Management"
    desc: >
      Tools for discovering resources and managing their hashes in a text file
