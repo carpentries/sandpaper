@@ -161,6 +161,7 @@ test_that("Artifacts are accounted for", {
     "files",
     "index.md",
     "instructor-notes.md",
+    "links.md",
     "learner-profiles.md",
     "md5sum.txt",
     "pyramid.md"
@@ -179,6 +180,7 @@ test_that("Artifacts are accounted for", {
     paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png"),
     "index.md",
     "instructor-notes.md",
+    "links.md",
     "learner-profiles.md",
     "md5sum.txt",
     "pyramid.md"
