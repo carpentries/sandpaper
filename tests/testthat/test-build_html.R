@@ -15,6 +15,8 @@ if (expected == actual) {
 
 
 test_that("[build_home()] works independently", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   expect_output(pkgdown::init_site(pkg))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "index.html")))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "instructor", "index.html")))
@@ -34,6 +36,7 @@ test_that("[build_home()] works independently", {
 
 test_that("[build_home()] learner index file is index and setup", {
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   learn_index <- fs::path(pkg$dst_path, "index.html")
   html <- xml2::read_html(learn_index)
   # Dropdown contains ifnromation for the sections in the setup page
@@ -55,6 +58,7 @@ test_that("[build_home()] learner index file is index and setup", {
 
 test_that("[build_home()] instructor index file is index and schedule", {
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   instruct_index <- fs::path(pkg$dst_path, "instructor", "index.html")
   html <- xml2::read_html(instruct_index)
 
@@ -78,6 +82,7 @@ test_that("[build_home()] instructor index file is index and schedule", {
 
 test_that("[build_profiles()] works independently", {
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "profiles.html")))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "instructor", "profiles.html")))
   build_profiles(pkg, quiet = TRUE)
@@ -88,6 +93,8 @@ test_that("[build_profiles()] works independently", {
 
 
 test_that("[build_profiles()] learner and instructor views are identical", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   instruct <- fs::path(pkg$dst_path, "instructor", "profiles.html")
   instruct <- xml2::read_html(instruct)
 
@@ -127,6 +134,7 @@ test_that("[build_profiles()] learner and instructor views are identical", {
 
 test_that("[build_keypoints()] works independently", {
 
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "keypoints.html")))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "instructor", "keypoints.html")))
   build_keypoints(pkg, quiet = TRUE)
@@ -137,6 +145,8 @@ test_that("[build_keypoints()] works independently", {
 
 
 test_that("[build_keypoints()] learner and instructor views are identical", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   instruct <- fs::path(pkg$dst_path, "instructor", "keypoints.html")
   instruct <- xml2::read_html(instruct)
 
