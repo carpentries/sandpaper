@@ -5,10 +5,10 @@ test_that("sandpaper.links can be included", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- withr::local_tempfile()
   tnk <- withr::local_tempfile()
-  writeLines("This has a [link at the end] in a separate file", tmp)
+  writeLines("This has a [link at the end] in a separate file[^1]\n\n[^1]: :)", tmp)
   writeLines("[link at the end]: https://example.com/link", tnk)
   withr::local_options(list("sandpaper.links" = tnk))
-  expect_match(render_html(tmp), "example.com/link")
+  expect_no_match(render_html(tmp), "\\[link at the end\\]")
 })
 
 
