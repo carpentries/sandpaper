@@ -1,3 +1,11 @@
+# sandpaper 0.3.1
+
+BUG FIXES
+---------
+
+* Documents with footnotes without trailing newlines will now parse the external
+  links correctly by adding a newline between the document and the links.
+
 # sandpaper 0.3.0
 
 NEW FEATURES
