@@ -12,7 +12,7 @@ functions while sandpaper is working."><meta property="og:image" content="https:
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,21 +98,21 @@ initialised when sandpaper is loaded via <code>.lesson_store()</code></p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="va">tmp</span>, open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfQCojp/file372256263120</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/RtmpfQCojp/file372256263120/episodes/01-introduction.Rmd</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfQCojp/file372256263120</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmptay6Fc/file36ea2f643adf</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/Rtmptay6Fc/file36ea2f643adf/episodes/01-introduction.Rmd</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmptay6Fc/file36ea2f643adf</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Workflows up-to-date!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfQCojp/file372256263120</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/RtmpfQCojp/file372256263120</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfQCojp/file372256263120</span>...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpfQCojp/file372256263120</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmptay6Fc/file36ea2f643adf</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/Rtmptay6Fc/file36ea2f643adf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmptay6Fc/file36ea2f643adf</span>...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/Rtmptay6Fc/file36ea2f643adf</span></span>
 <span class="r-in"><span class="co"># Read the lesson into cache</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">this_lesson</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">)</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.139   0.004   0.142 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.118   0.001   0.118 </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">this_lesson</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">)</span> <span class="co"># less time to read in once cached</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.004   0.000   0.005 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.002   0.000   0.002 </span>
 <span class="r-in"><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">this_lesson</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">l</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;Lesson&gt;</span>
@@ -127,7 +127,7 @@ initialised when sandpaper is loaded via <code>.lesson_store()</code></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (path = ".", rmd = FALSE, jekyll = TRUE, ...) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     isolate_blocks: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_problems: active binding</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     path: /tmp/RtmpfQCojp/file372256263120</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     path: /tmp/Rtmptay6Fc/file36ea2f643adf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     reset: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     rmd: FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     show_problems: active binding</span>
@@ -142,7 +142,7 @@ initialised when sandpaper is loaded via <code>.lesson_store()</code></p>
 <span class="r-in"><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">clear_this_lesson</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">this_lesson</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">)</span> <span class="co"># have to re-read the lesson</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.100   0.004   0.104 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.083   0.004   0.087 </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">this_lesson</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">)</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   0.003   0.000   0.003 </span>
