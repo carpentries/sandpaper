@@ -1,3 +1,12 @@
+# sandpaper 0.3.2
+
+DEPENDENCIES
+------------
+
+ * The minimum version for {pegboard} should be at least 0.2.3 to accomodate
+   div validation (@sstevens2, #259)
+ * The minimuim version for {varnish} should be at least 1.5.0.
+
 # sandpaper 0.3.1
 
 BUG FIXES
