@@ -1,3 +1,10 @@
+# sandpaper 0.3.3
+
+BUG FIXES
+---------
+
+ * Links from the index page to the setup or any episodes now correctly render.
+
 # sandpaper 0.3.2
 
 DEPENDENCIES
