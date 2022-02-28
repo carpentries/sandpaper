@@ -30,8 +30,13 @@ test_that("[build_home()] works independently", {
   )
   learn_index <- fs::path(pkg$dst_path, "index.html")
   expect_true(fs::file_exists(learn_index))
+  idx <- xml2::read_html(learn_index)
+  expect_true(xml2::xml_find_lgl(idx, "boolean(.//main/section[@id='setup'])"))
   instruct_index <- fs::path(pkg$dst_path, "instructor", "index.html")
   expect_true(fs::file_exists(instruct_index))
+  idx <- xml2::read_html(instruct_index)
+  expect_true(xml2::xml_find_lgl(idx, "boolean(.//main/section[@id='setup'])"))
+  expect_true(xml2::xml_find_lgl(idx, "boolean(.//main/section[@id='schedule'])"))
 })
 
 test_that("[build_home()] learner index file is index and setup", {

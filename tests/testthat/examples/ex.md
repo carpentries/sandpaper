@@ -17,7 +17,7 @@ exercises: 9
 
 # Markdown
 
-::: challenge
+::: {.challenge time=10}
 
 How do you write markdown divs?
 
@@ -27,7 +27,7 @@ This [rmd link also](../episodes/01-Introduction.Rmd)
 
 This [rmd is safe](https://example.com/01-Introduction.Rmd)
 
-This [too](../learners/Setup.md#windows-setup 'windows setup')
+This [too](learners/Setup.md#windows-setup 'windows setup')
 
 ![link should be transformed](../episodes/fig/Setup.png){alt='alt text'}
 

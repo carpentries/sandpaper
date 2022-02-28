@@ -1,3 +1,26 @@
+# sandpaper 0.3.3
+
+BUG FIXES
+---------
+
+ * Links from the index page to the setup or any episodes now correctly render
+ * Links to the setup page now redirect to `index.html#setup` (@zkamvar, #262)
+ * The setup page is now included in the instructor view after the schedule
+ * The setup in the index page is now a separate section with the id "setup"
+ * The schedule in the instructor index page is now in a separate section with 
+   the id "schedule"
+
+DEPENDENCIES
+------------
+
+ * The minimum version of {varnish} required is now 0.1.5
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ * A small bug in the update cache workflow that caused a silent error with no
+   detremental effect was fixed (@zkamvar, #250)
+
 # sandpaper 0.3.2
 
 DEPENDENCIES

@@ -406,7 +406,6 @@ end
 --   return s
 -- end
 flatten_links = function(el)
-  local pat = "^%.%./"
   local tgt;
   if el.target == nil then
     tgt = el.src
@@ -414,11 +413,12 @@ flatten_links = function(el)
     tgt = el.target
   end
   -- Flatten local redirects, e.ge. ../episodes/link.md goes to link.md
-  tgt,_ = tgt:gsub(pat.."episodes/", "")
-  tgt,_ = tgt:gsub(pat.."learners/", "")
-  tgt,_ = tgt:gsub(pat.."instructors/", "")
-  tgt,_ = tgt:gsub(pat.."profiles/", "")
+  local pat = "^%.%./"
   tgt,_ = tgt:gsub(pat, "")
+  tgt,_ = tgt:gsub("^episodes/", "")
+  tgt,_ = tgt:gsub("^learners/", "")
+  tgt,_ = tgt:gsub("^instructors/", "")
+  tgt,_ = tgt:gsub("^profiles/", "")
   -- rename local markdown/Rmarkdown
   -- link.md goes to link.html
   -- link.md#section1 goes to link.html#section1
