@@ -29,6 +29,7 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   page_globals$instructor$update(nav)
   page_globals$instructor$set("syllabus", paste(syl, collapse = ""))
   page_globals$instructor$set("readme", use_instructor(html))
+  page_globals$instructor$set("setup", use_instructor(setup))
 
   nav$pagetitle <- "Summary and Setup"
   nav$page_forward <- as_html(nav$page_forward)

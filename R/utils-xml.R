@@ -4,6 +4,7 @@ fix_nodes <- function(nodes = NULL) {
   fix_callouts(nodes)
   fix_codeblocks(nodes)
   fix_figures(nodes)
+  fix_setup_link(nodes)
 }
 
 fix_headings <- function(nodes = NULL) {
@@ -68,6 +69,17 @@ fix_callouts <- function(nodes = NULL) {
   xml2::xml_set_attr(h3, "class", "callout-title")
   inner_div <- xml2::xml_parent(h3)
   xml2::xml_set_attr(inner_div, "class", "callout-inner")
+  invisible(nodes)
+}
+
+fix_setup_link <- function(nodes = NULL) {
+  if (length(nodes) == 0) return(nodes)
+  links <- xml2::xml_find_all(nodes, ".//a")
+  hrefs <- xml2::url_parse(xml2::xml_attr(links, "href"))
+  setup_links <- hrefs$scheme == "" & 
+    hrefs$server == "" &
+    hrefs$path == "setup.html"
+  xml2::xml_set_attr(links[setup_links], "href", "index.html#setup")
   invisible(nodes)
 }
 
