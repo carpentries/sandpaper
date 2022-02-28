@@ -23,7 +23,9 @@ jobs:
           if [[ ${{ github.event_name }} == 'workflow_dispatch' ]]; then
             echo "::set-output name=ok::true"
             echo "Running on request"
-          elif [[ `date +%d` -le 7 ]]; then
+          # using single brackets here to avoid 08 being interpreted as octal
+          # https://github.com/carpentries/sandpaper/issues/250
+          elif [ `date +%d` -le 7 ]; then
             # If the Tuesday lands in the first week of the month, run it
             echo "::set-output name=ok::true"
             echo "Running on schedule"
