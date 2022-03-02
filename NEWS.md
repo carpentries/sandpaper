@@ -1,3 +1,11 @@
+# sandpaper 0.3.4
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ * pr-receive.yaml has been updated to not report errors for workflow updates.
+   See https://github.com/carpentries/sandpaper/issues/263 for details
+
 # sandpaper 0.3.3
 
 BUG FIXES
