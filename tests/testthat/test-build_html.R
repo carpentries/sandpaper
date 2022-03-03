@@ -140,11 +140,11 @@ test_that("[build_profiles()] learner and instructor views are identical", {
 test_that("[build_keypoints()] works independently", {
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
-  expect_false(fs::file_exists(fs::path(pkg$dst_path, "keypoints.html")))
-  expect_false(fs::file_exists(fs::path(pkg$dst_path, "instructor", "keypoints.html")))
+  expect_false(fs::file_exists(fs::path(pkg$dst_path, "key-points.html")))
+  expect_false(fs::file_exists(fs::path(pkg$dst_path, "instructor", "key-points.html")))
   build_keypoints(pkg, quiet = TRUE)
-  expect_true(fs::file_exists(fs::path(pkg$dst_path, "keypoints.html")))
-  expect_true(fs::file_exists(fs::path(pkg$dst_path, "instructor", "keypoints.html")))
+  expect_true(fs::file_exists(fs::path(pkg$dst_path, "key-points.html")))
+  expect_true(fs::file_exists(fs::path(pkg$dst_path, "instructor", "key-points.html")))
 
 })
 
