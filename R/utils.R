@@ -36,6 +36,18 @@ build_sitemap <- function(out, quiet = TRUE) {
   invisible()
 }
 
+set_common_links <- function(path = ".") {
+  links <- getOption("sandpaper.links")
+  # Include common links if they exist ----------------------------------------
+  home <- tryCatch(root_path(path), error = function(e) character(0))
+  if (length(home) && length(links) == 0L) {
+    links <- fs::path(home, "links.md")
+  }
+  options("sandpaper.links" = links)
+  links
+}
+
+
 urls_to_sitemap <- function(urls) {
   doc <- xml2::read_xml("<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
   for (url in urls) {

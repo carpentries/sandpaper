@@ -111,18 +111,18 @@ jobs:
       - name: "Record PR number"
         id: record
         run: |
-          echo ${{ github.event.number }} > ${{ github.workspace }}/pr
+          echo ${{ github.event.number }} > ${{ github.workspace }}/NR # 2022-03-02: artifact name fixed to be NR
       - name: "Upload PR number"
         id: upload
         uses: actions/upload-artifact@v2
         with:
           name: pr
-          path: ${{ github.workspace }}/pr
+          path: ${{ github.workspace }}/NR
       - name: "Comment on PR"
         id: comment-diff
         uses: carpentries/actions/comment-diff@main
         with:
-          pr: ${{ github.event.number }} 
+          pr: ${{ github.event.number }}
           body: |
             This pull request contains modified workflows and no preview will be created.
 

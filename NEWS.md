@@ -1,3 +1,84 @@
+# sandpaper 0.3.4
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ * pr-receive.yaml has been updated to not report errors for workflow updates.
+   See https://github.com/carpentries/sandpaper/issues/263 for details
+
+# sandpaper 0.3.3
+
+BUG FIXES
+---------
+
+ * Links from the index page to the setup or any episodes now correctly render
+ * Links to the setup page now redirect to `index.html#setup` (@zkamvar, #262)
+ * The setup page is now included in the instructor view after the schedule
+ * The setup in the index page is now a separate section with the id "setup"
+ * The schedule in the instructor index page is now in a separate section with 
+   the id "schedule"
+
+DEPENDENCIES
+------------
+
+ * The minimum version of {varnish} required is now 0.1.5
+
+CONTINUOUS INTEGRATION
+----------------------
+
+ * A small bug in the update cache workflow that caused a silent error with no
+   detremental effect was fixed (@zkamvar, #250)
+
+# sandpaper 0.3.2
+
+DEPENDENCIES
+------------
+
+ * The minimum version for {pegboard} should be at least 0.2.3 to accomodate
+   div validation (@sstevens2, #259)
+ * The minimuim version for {varnish} should be at least 1.5.0.
+
+# sandpaper 0.3.1
+
+BUG FIXES
+---------
+
+* Documents with footnotes without trailing newlines will now parse the external
+  links correctly by adding a newline between the document and the links.
+
+# sandpaper 0.3.0
+
+NEW FEATURES
+------------
+
+* Common links for markdown lessons can be included via a file at the top of the
+  lesson called `links.md`. If this file exists, it will be concatenated on each
+  markdown file before it is rendered to HTML. Thanks to @sstevens2 for bringing
+  this feature up (@zkamvar, #257)
+* `create_lesson()` now includes `links.md` in main directory.
+* A new help page called `?sandpaper.options` provides documentation on the
+  global options used in a sandpaper lesson (subject to change).
+
+# sandpaper 0.2.0
+
+NEW FEATURES
+------------
+
+* `validate_lesson()` will perform checks on links and fenced divs in your
+  lesson. This is now included in calls to `build_lesson()`, `ci_deploy()` and
+  `serve()` (@zkamvar, #255)
+
+DEPENDENCIES
+------------
+
+* the minimum pegboard version is now 0.2.0
+
+BUG FIXES
+---------
+
+* internal function `this_lesson()` will now properly invalidate and reset if
+  there is a change in commit (e.g. the lesson to build has switched).
+
 # sandpaper 0.1.6
 
 BUG FIX

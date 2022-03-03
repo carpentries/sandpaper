@@ -13,6 +13,9 @@
 build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, override = list(), slug = NULL, built = NULL) {
   # step 1: check pandoc
   check_pandoc(quiet)
+  cl <- getOption("sandpaper.links")
+  on.exit(options(sandpaper.links = cl), add = TRUE)
+  set_common_links(path)
   # step 2: build the package site
   pkg <- pkgdown::as_pkgdown(path_site(path), override = override)
   built_path <- fs::path(pkg$src_path, "built")

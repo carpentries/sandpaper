@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.1.6
+Version: 0.3.4
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -19,10 +19,10 @@ Description: We provide tools to build a Carpentries-themed lesson repository
 License: MIT + file LICENSE
 Imports: 
     pkgdown (>= 1.6.0),
-    pegboard (>= 0.1.0),
+    pegboard (>= 0.2.3),
     cli (>= 2.0.2),
     commonmark,
-    fs,
+    fs (>= 1.5.0),
     gh,
     gert (>= 1.0.1),
     rstudioapi,
@@ -51,7 +51,7 @@ Suggests:
     withr,
     jsonlite,
     sessioninfo,
-    varnish (>= 0.1.0)
+    varnish (>= 0.1.5)
 Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   ropensci/tinkr,
