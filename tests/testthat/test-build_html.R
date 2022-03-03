@@ -152,7 +152,7 @@ test_that("[build_keypoints()] works independently", {
 test_that("[build_keypoints()] learner and instructor views are identical", {
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
-  instruct <- fs::path(pkg$dst_path, "instructor", "keypoints.html")
+  instruct <- fs::path(pkg$dst_path, "instructor", "key-points.html")
   instruct <- xml2::read_html(instruct)
 
   # Instructor sidebar is formatted properly
@@ -160,17 +160,17 @@ test_that("[build_keypoints()] learner and instructor views are identical", {
   expect_length(sidebar, 1L)
   sidelinks <- as.character(xml2::xml_find_all(sidebar, ".//a"))
   expect_length(sidelinks, 4L)
-  expect_match(sidelinks[[1]], "href=[\"]..[/]keypoints.html")
+  expect_match(sidelinks[[1]], "href=[\"]..[/]key-points.html")
   expect_match(sidelinks[[2]], "Summary and Schedule")
 
-  learn <- fs::path(pkg$dst_path, "keypoints.html")
+  learn <- fs::path(pkg$dst_path, "key-points.html")
   learn <- xml2::read_html(learn)
   
   # Learner sidebar is formatted properly
   sidebar <- xml2::xml_find_all(learn, ".//div[@class='sidebar']")
   expect_length(sidebar, 1L)
   sidelinks <- as.character(xml2::xml_find_all(sidebar, ".//a"))
-  expect_match(sidelinks[[1]], "href=[\"]instructor[/]keypoints.html")
+  expect_match(sidelinks[[1]], "href=[\"]instructor[/]key-points.html")
   expect_match(sidelinks[[2]], "Summary and Setup")
 
   # sections are equal
@@ -181,11 +181,11 @@ test_that("[build_keypoints()] learner and instructor views are identical", {
   # the instructor metadata contains this page information
   meta <- xml2::xml_find_first(instruct, ".//script[@type='application/ld+json']")
   meta <- trimws(xml2::xml_text(meta))
-  expect_match(meta, "lesson-example/instructor/keypoints.html")
+  expect_match(meta, "lesson-example/instructor/key-points.html")
 
   # the learner metadata contains this page information
   meta <- xml2::xml_find_first(learn, ".//script[@type='application/ld+json']")
   meta <- trimws(xml2::xml_text(meta))
-  expect_match(meta, "lesson-example/keypoints.html")
+  expect_match(meta, "lesson-example/key-points.html")
 })
 
