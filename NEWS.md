@@ -1,3 +1,11 @@
+# sandpaper 0.3.5
+
+BUG FIX
+-------
+
+* `keypoints.html` is now rendered as `key-points.html` to fix navigation error
+  with varnish.
+
 # sandpaper 0.3.4
 
 CONTINUOUS INTEGRATION

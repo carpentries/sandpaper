@@ -21,7 +21,7 @@ build_keypoints <- function(pkg, quiet, sidebar = NULL) {
   fix_nodes(html)
 
   this_dat <- list(
-    this_page = "keypoints.html",
+    this_page = "key-points.html",
     body = use_learner(html),
     pagetitle = "Keypoints"
   )
@@ -31,5 +31,5 @@ build_keypoints <- function(pkg, quiet, sidebar = NULL) {
   page_globals$meta$update(this_dat)
 
   build_html(template = "extra", pkg = pkg, nodes = html,
-    global_data = page_globals, path_md = "keypoints.html", quiet = quiet)
+    global_data = page_globals, path_md = "key-points.html", quiet = quiet)
 }
