@@ -48,7 +48,7 @@ render_ipynb <- function(path_in, ..., quiet = FALSE) {
   # args <- construct_pandoc_args3(path_in, output = htm, to = "ipynb", ...)
   # callr::r(function(...) rmarkdown::pandoc_convert(...), args = args,
   #          show = !quiet)
-  remove_lines <- paste0("sed -i .bak '/^::::/d' ", path_in)
+  remove_lines <- paste0("sed -i '.bak' '/^::::/d' ", path_in)
   system(remove_lines)
   system(htm)
   paste("COME ipynb PLEASE", collapse = "\n")
