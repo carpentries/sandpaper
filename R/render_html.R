@@ -44,6 +44,16 @@
 render_html <- function(path_in, ..., quiet = FALSE) {
   htm <- tempfile(fileext = ".html")
   on.exit(unlink(htm), add = TRUE)
+  links <- getOption("sandpaper.links")
+  if (length(links) && fs::file_exists(links)) {
+    # if we have links, we concatenate our input files 
+    tmpin <- tempfile(fileext = ".md")
+    fs::file_copy(path_in, tmpin)
+    cat("\n", file = tmpin, append = TRUE)
+    file.append(tmpin, links)
+    path_in <- tmpin
+    on.exit(unlink(tmpin), add = TRUE)
+  }
   args <- construct_pandoc_args(path_in, output = htm, to = "html", ...)
   sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
   callr::r(function(...) rmarkdown::pandoc_convert(...), args = args, 
@@ -79,9 +89,9 @@ construct_pandoc_args <- function(path_in, output, to = "html", ...) {
       "--indented-code-classes=sh", 
       "--section-divs", 
       "--mathjax",
+      ...,
       "--lua-filter",
-      lua_filter,
-      ...
+      lua_filter
     ),
     verbose = FALSE
   )

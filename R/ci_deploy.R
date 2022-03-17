@@ -22,7 +22,7 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
   # Enforce git user exists
   check_git_user(path, name = "GitHub Actions", email = "actions@github.com")
 
-  this_lesson(path)
+  validate_lesson(path)
   # define the files we are looking to build and the order they exist
   set_resource_list(path)
   # define the globals variables needed for varnish to build the site

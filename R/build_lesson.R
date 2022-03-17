@@ -30,9 +30,11 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
 
   # step 0: check pandoc installation; build_lesson defaults to a local build
   check_pandoc()
+  # step 1: validate that the lesson structure makes sense
   slug <- if (fs::is_file(path)) get_slug(path) else NULL
   path <- set_source_path(path)
-  this_lesson(path)
+  # n.b. validate_lesson sets the lesson store cache
+  validate_lesson(path, quiet = quiet)
   # define the files we are looking to build and the order they exist
   set_resource_list(path)
   # define the globals variables needed for varnish to build the site

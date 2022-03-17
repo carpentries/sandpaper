@@ -39,6 +39,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   copy_template("contributing", path, "CONTRIBUTING.md")
   copy_template("setup", fs::path(path, "learners"), "setup.md")
   copy_template("index", path, "index.md")
+  copy_template("links", path, "links.md")
   copy_template("placeholder", fs::path(path, "instructors"), "instructor-notes.md")
   copy_template("placeholder", fs::path(path, "profiles"), "learner-profiles.md")
 
