@@ -250,3 +250,14 @@ build_episode_pdf <- function(path_md, path_src = NULL,
   body <- render_pdf(path_md, quiet = quiet)
 
 }
+
+
+
+build_episode_ipynb <- function(path_md, path_src = NULL,
+                              page_back = "index.md", page_forward = "index.md",
+                              pkg, quiet = FALSE, page_progress = NULL,
+                              sidebar = NULL, date = NULL) {
+  home <- root_path(path_md)
+  body <- render_ipynb(path_md, quiet = quiet)
+
+}

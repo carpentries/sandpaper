@@ -90,6 +90,19 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     )
 
 
+    build_episode_ipynb(
+      path_md      = abs_md[i],
+      path_src     = abs_src[i],
+      page_back    = location["back"],
+      page_forward = location["forward"],
+      page_progress = location["progress"],
+      sidebar      = sidebar,
+      date         = db$date[i],
+      pkg          = pkg,
+      quiet        = quiet
+    )
+
+
   }
   fs::dir_walk(built_path, function(d) copy_assets(d, pkg$dst_path), all = TRUE)
 
