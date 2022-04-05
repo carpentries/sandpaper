@@ -21,11 +21,11 @@ digraph "Lesson Infrastructure Workflow" {
     instructor  [label="Instructor"         , shape="oval"];
     learner     [label="Learner"            , shape="oval"];
      
-    {rank="same"; maintainer,  instructor};
+    {rank="same"; maintainer, instructor};
     {rank="same"; contributor, learner};
-    {rank="same"; source,      site};
-    {rank="same"; sandpaper,   varnish};
-    {rank="same"; stage,       pandoc,      engine};
+    {rank="same"; source, site};
+    {rank="same"; sandpaper, pegboard, varnish};
+    {rank="same"; stage, pandoc, engine};
     
     maintainer  -> source;
     contributor -> source;
@@ -33,8 +33,9 @@ digraph "Lesson Infrastructure Workflow" {
     learner     -> site;
 
     source      -> sandpaper;
-    sandpaper   -> pegboard;
-    pegboard    -> stage;
+    source      -> pegboard;
+    pegboard    -> sandpaper;
+    sandpaper   -> stage;
     varnish     -> site;
     stage       -> pandoc;
     pandoc      -> engine;

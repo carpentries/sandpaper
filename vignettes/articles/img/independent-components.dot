@@ -18,8 +18,6 @@ digraph "Infrastructure Dependencies" {
     engine    [label="Static Site Generator"     ];
     pandoc    [label="Pandoc"                    ];
 
-    /* {rank="same"; actions, cache}; */
-    
     edge [color="black", penwidth=1.5, label="contains"];
     source -> cache;
     source -> actions;
