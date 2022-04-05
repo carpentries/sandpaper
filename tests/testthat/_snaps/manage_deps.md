@@ -2,7 +2,7 @@
 
     Code
       cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")
-    Message <cliMessage>
+    Message
       
       -- Caching Build Packages for Generated Content --------------------------------
       The Carpentries lesson infrastructure uses the renv (R environment) package to
@@ -33,7 +33,7 @@
 
     Code
       cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")
-    Message <cliMessage>
+    Message
       
       [36m--[39m [1mCaching Build Packages for Generated Content[22m [36m--------------------------------[39m
       The Carpentries lesson infrastructure uses the [34mrenv[39m (R environment) package to
@@ -64,7 +64,7 @@
 
     Code
       cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")
-    Message <cliMessage>
+    Message
       
       ── Caching Build Packages for Generated Content ────────────────────────────────
       The Carpentries lesson infrastructure uses the renv (R environment) package to
@@ -95,7 +95,7 @@
 
     Code
       cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")
-    Message <cliMessage>
+    Message
       
       [36m──[39m [1mCaching Build Packages for Generated Content[22m [36m────────────────────────────────[39m
       The Carpentries lesson infrastructure uses the [34mrenv[39m (R environment) package to

@@ -2,7 +2,7 @@
 
     Code
       set_config(list(title = "test: title", license = "CC0"), path = tmp)
-    Message <cliMessage>
+    Message
       - title: Lesson Title
       + title: 'test: title'
       - license: CC-BY 4.0
@@ -15,7 +15,7 @@
 
     Code
       set_config(c(title = "test: title", license = "CC0"), path = tmp, write = TRUE)
-    Message <cliMessage>
+    Message
       i Writing to '[redacted]/lesson-example/config.yaml'
       > title: Lesson Title -> title: 'test: title'
       > license: CC-BY 4.0 -> license: 'CC0'
@@ -24,7 +24,7 @@
 
     Code
       set_config(c(title = "test: title", license = "CC0"), path = tmp, write = TRUE)
-    Message <cliMessage>
+    Message
       [36mi[39m Writing to [34m[34m[redacted]/lesson-example/config.yaml[34m[39m
       > title: Lesson Title -> title: 'test: title'
       > license: CC-BY 4.0 -> license: 'CC0'
@@ -33,7 +33,7 @@
 
     Code
       set_config(c(title = "test: title", license = "CC0"), path = tmp, write = TRUE)
-    Message <cliMessage>
+    Message
       ℹ Writing to '[redacted]/lesson-example/config.yaml'
       → title: Lesson Title -> title: 'test: title'
       → license: CC-BY 4.0 -> license: 'CC0'
@@ -42,7 +42,7 @@
 
     Code
       set_config(c(title = "test: title", license = "CC0"), path = tmp, write = TRUE)
-    Message <cliMessage>
+    Message
       [36mℹ[39m Writing to [34m[34m[redacted]/lesson-example/config.yaml[34m[39m
       → title: Lesson Title -> title: 'test: title'
       → license: CC-BY 4.0 -> license: 'CC0'
@@ -51,7 +51,7 @@
 
     Code
       s <- get_episodes(tmp)
-    Message <cliMessage>
+    Message
       i No schedule set, using Rmd files in 'episodes/' directory.
       > To remove this message, define your schedule in 'config.yaml' or use `set_episodes()` to generate it.
 
@@ -59,7 +59,7 @@
 
     Code
       set_episodes(tmp, s[1])
-    Message <cliMessage>
+    Message
       episodes:
       - 01-introduction.Rmd
       

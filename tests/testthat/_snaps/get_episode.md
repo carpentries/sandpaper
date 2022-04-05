@@ -2,7 +2,7 @@
 
     Code
       expect_error(set_episodes(res, bad, write = TRUE))
-    Message <cliMessage>
+    Message
       episodes:
       - '01-introduction.Rmd'
       - x I-do-not-exist.md
@@ -11,7 +11,7 @@
 
     Code
       expect_error(set_episodes(res, bad, write = TRUE))
-    Message <cliMessage>
+    Message
       episodes:
       - [34m01-introduction.Rmd[39m
       - x [1mI-do-not-exist.md[22m
@@ -20,7 +20,7 @@
 
     Code
       expect_error(set_episodes(res, bad, write = TRUE))
-    Message <cliMessage>
+    Message
       episodes:
       - '01-introduction.Rmd'
       - ✖ I-do-not-exist.md
@@ -29,7 +29,7 @@
 
     Code
       expect_error(set_episodes(res, bad, write = TRUE))
-    Message <cliMessage>
+    Message
       episodes:
       - [34m01-introduction.Rmd[39m
       - ✖ [1mI-do-not-exist.md[22m
@@ -38,35 +38,35 @@
 
     Code
       drafty_out <- get_episodes(res)
-    Message <cliMessage>
+    Message
       i Files are in draft: 'episodes/02-new.Rmd'
 
 # get_episode() will throw a message about episode in draft [ansi]
 
     Code
       drafty_out <- get_episodes(res)
-    Message <cliMessage>
+    Message
       [36mi[39m [3m[3mFiles are in draft: [34m[3m[34mepisodes/02-new.Rmd[34m[3m[39m[3m[23m
 
 # get_episode() will throw a message about episode in draft [unicode]
 
     Code
       drafty_out <- get_episodes(res)
-    Message <cliMessage>
+    Message
       ℹ Files are in draft: 'episodes/02-new.Rmd'
 
 # get_episode() will throw a message about episode in draft [fancy]
 
     Code
       drafty_out <- get_episodes(res)
-    Message <cliMessage>
+    Message
       [36mℹ[39m [3m[3mFiles are in draft: [34m[3m[34mepisodes/02-new.Rmd[34m[3m[39m[3m[23m
 
 # get_episode() will throw a warning if an episode in config does not exist [plain]
 
     Code
       expect_error(get_episodes(res))
-    Message <cliMessage>
+    Message
       episodes:
       - '01-introduction.Rmd'
       - x I-am-an-impostor.md
@@ -75,7 +75,7 @@
 
     Code
       expect_error(get_episodes(res))
-    Message <cliMessage>
+    Message
       episodes:
       - [34m01-introduction.Rmd[39m
       - x [1mI-am-an-impostor.md[22m
@@ -84,7 +84,7 @@
 
     Code
       expect_error(get_episodes(res))
-    Message <cliMessage>
+    Message
       episodes:
       - '01-introduction.Rmd'
       - ✖ I-am-an-impostor.md
@@ -93,7 +93,7 @@
 
     Code
       expect_error(get_episodes(res))
-    Message <cliMessage>
+    Message
       episodes:
       - [34m01-introduction.Rmd[39m
       - ✖ [1mI-am-an-impostor.md[22m

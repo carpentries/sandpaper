@@ -2,7 +2,7 @@
 
     Code
       expect_error(check_lesson(tmp), "There were errors with the lesson structure")
-    Message <cliMessage>
+    Message
       ! The .gitignore file is missing the following elements:
       episodes/*html
       site/*
@@ -30,7 +30,7 @@
 
     Code
       expect_error(check_lesson(tmp), "There were errors with the lesson structure")
-    Message <cliMessage>
+    Message
       [31m![39m The .gitignore file is missing the following elements:
       episodes/*html
       site/*
@@ -58,7 +58,7 @@
 
     Code
       expect_error(check_lesson(tmp), "There were errors with the lesson structure")
-    Message <cliMessage>
+    Message
       ! The .gitignore file is missing the following elements:
       episodes/*html
       site/*
@@ -86,7 +86,7 @@
 
     Code
       expect_error(check_lesson(tmp), "There were errors with the lesson structure")
-    Message <cliMessage>
+    Message
       [31m![39m The .gitignore file is missing the following elements:
       episodes/*html
       site/*

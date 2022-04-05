@@ -2,7 +2,7 @@
 
     Code
       update_github_workflows(tmp)
-    Message <cliMessage>
+    Message
       i Workflows/files updated:
       - '.github/workflows/deleteme.yaml' (deleted)
       - '.github/workflows/sandpaper-main.yaml' (new)
@@ -11,7 +11,7 @@
 
     Code
       update_github_workflows(tmp)
-    Message <cliMessage>
+    Message
       [36mi[39m Workflows/files updated:
       - [34m.github/workflows/deleteme.yaml[39m [3m(deleted)[23m
       - [34m.github/workflows/sandpaper-main.yaml[39m [3m(new)[23m
@@ -20,7 +20,7 @@
 
     Code
       update_github_workflows(tmp)
-    Message <cliMessage>
+    Message
       ℹ Workflows/files updated:
       - '.github/workflows/deleteme.yaml' (deleted)
       - '.github/workflows/sandpaper-main.yaml' (new)
@@ -29,7 +29,7 @@
 
     Code
       update_github_workflows(tmp)
-    Message <cliMessage>
+    Message
       [36mℹ[39m Workflows/files updated:
       - [34m.github/workflows/deleteme.yaml[39m [3m(deleted)[23m
       - [34m.github/workflows/sandpaper-main.yaml[39m [3m(new)[23m
@@ -38,7 +38,7 @@
 
     Code
       update_github_workflows(tmp, "sandpaper-main.yaml")
-    Message <cliMessage>
+    Message
       i Workflows/files updated:
       - '.github/workflows/sandpaper-main.yaml' (modified)
 
@@ -46,7 +46,7 @@
 
     Code
       update_github_workflows(tmp, "sandpaper-main.yaml")
-    Message <cliMessage>
+    Message
       [36mi[39m Workflows/files updated:
       - [34m.github/workflows/sandpaper-main.yaml[39m [3m(modified)[23m
 
@@ -54,7 +54,7 @@
 
     Code
       update_github_workflows(tmp, "sandpaper-main.yaml")
-    Message <cliMessage>
+    Message
       ℹ Workflows/files updated:
       - '.github/workflows/sandpaper-main.yaml' (modified)
 
@@ -62,7 +62,7 @@
 
     Code
       update_github_workflows(tmp, "sandpaper-main.yaml")
-    Message <cliMessage>
+    Message
       [36mℹ[39m Workflows/files updated:
       - [34m.github/workflows/sandpaper-main.yaml[39m [3m(modified)[23m
 
@@ -70,7 +70,7 @@
 
     Code
       update_github_workflows(tmp)
-    Message <cliMessage>
+    Message
       i Workflows/files updated:
       - '.github/workflows/sandpaper-version.txt' (modified)
 
@@ -78,13 +78,13 @@
 
     Code
       update_github_workflows(tmp, overwrite = FALSE)
-    Message <cliMessage>
+    Message
       i Workflows up-to-date!
 
 ---
 
     Code
       update_github_workflows(tmp)
-    Message <cliMessage>
+    Message
       i Workflows up-to-date!
 
