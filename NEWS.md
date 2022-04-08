@@ -1,3 +1,14 @@
+# sandpaper 0.3.6
+
+MISC
+----
+
+* custom sandpaper and varnish engines will be properly linked to the footer
+  of the lesson pages via this version and varnish 0.1.8.
+* testthat tests have been updated.
+* a diagram in the vingettes has been updated to reflect the parallel roles of
+  sandpaper and pegboard to a lesson.
+
 # sandpaper 0.3.5
 
 BUG FIX
