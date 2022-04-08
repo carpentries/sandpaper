@@ -3,7 +3,7 @@ varnish_vars <- function() {
   cfg <- function(pkg) {
     desc <- packageDescription(pkg)
     url <- desc[["RemoteUrl"]]
-    ref <- desc[["RemoteRef"]]
+    ref <- desc[["RemoteRef"]] %||% "HEAD" # if there is no ref, default to HEAD
     vsn <- desc[["Version"]]
     if (!is.null(url) && ref == vsn) {
       user <- "carpentries"
