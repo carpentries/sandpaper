@@ -61,10 +61,12 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
   invisible()
 }
 
+#' Set individual keys in a configuration file
 #' @param pairs a named character vector with keys as the names and the new 
 #'  values as the contents
+#' @inheritParams set_dropdown
+#'
 #' @export
-#' @rdname set_dropdown
 set_config <- function(pairs = NULL, path = ".", write = FALSE) {
   keys <- names(pairs)
   values <- pairs

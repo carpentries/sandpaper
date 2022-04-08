@@ -2,7 +2,6 @@
 % Please edit documentation in R/set_dropdown.R
 \name{set_dropdown}
 \alias{set_dropdown}
-\alias{set_config}
 \alias{set_episodes}
 \alias{set_learners}
 \alias{set_instructors}
@@ -10,8 +9,6 @@
 \title{Set the order of items in a dropdown menu}
 \usage{
 set_dropdown(path = ".", order = NULL, write = FALSE, folder)
-
-set_config(pairs = NULL, path = ".", write = FALSE)
 
 set_episodes(path = ".", order = NULL, write = FALSE)
 
@@ -31,9 +28,6 @@ current file.}
 
 \item{folder}{one of four folders that sandpaper recognises where the files
 listed in \code{order} are located: episodes, learners, instructors, profiles.}
-
-\item{pairs}{a named character vector with keys as the names and the new
-values as the contents}
 }
 \description{
 Set the order of items in a dropdown menu

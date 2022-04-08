@@ -1,9 +1,32 @@
 varnish_vars <- function() {
   ver <- function(pak) glue::glue(" ({packageVersion(pak)})")
+  cfg <- function(pkg) {
+    desc <- packageDescription(pkg)
+    url <- desc[["RemoteUrl"]]
+    ref <- desc[["RemoteRef"]] %||% "HEAD" # if there is no ref, default to HEAD
+    vsn <- desc[["Version"]]
+    if (!is.null(url) && ref == vsn) {
+      user <- "carpentries"
+      repo <- pkg
+    } else {
+      user <- desc[["RemoteUsername"]]
+      repo <- desc[["RemoteRepo"]]
+    }
+    if (is.null(user) || is.null(repo)) {
+      return(NULL)
+    }
+    if (ref == "HEAD" && !is.null(desc[["RemoteSha"]])) {
+      ref <- desc[["RemoteSha"]]
+    }
+    res <- paste0(user, "/", repo, "/tree/", ref)
+    return(res)
+  }
   list(
     sandpaper_version = ver("sandpaper"),
+    sandpaper_cfg     = cfg("sandpaper"),
     pegboard_version  = ver("pegboard"),
-    varnish_version   = ver("varnish")
+    varnish_version   = ver("varnish"),
+    varnish_cfg       = cfg("varnish")
   )
 }
 
