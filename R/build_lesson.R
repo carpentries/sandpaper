@@ -35,15 +35,16 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   path <- set_source_path(path)
   # n.b. validate_lesson sets the lesson store cache
   validate_lesson(path, quiet = quiet)
-  # define the files we are looking to build and the order they exist
-  set_resource_list(path)
-  # define the globals variables needed for varnish to build the site
-  set_globals(path)
+  this_lesson(path)
+  # # define the files we are looking to build and the order they exist
+  # set_resource_list(path)
+  # # define the globals variables needed for varnish to build the site
+  # set_globals(path)
 
   on.exit({
     reset_build_paths()
-    clear_resource_list()
-    clear_globals()
+    # clear_resource_list()
+    # clear_globals()
   })
 
   built <- build_markdown(path = path, rebuild = rebuild, quiet = quiet, slug = slug)

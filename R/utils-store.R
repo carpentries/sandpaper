@@ -77,6 +77,8 @@ clear_resource_list <- function(path) {
       .this_status <<- gert::git_status(repo = path)
       .this_commit <<- gert::git_log(repo = path, max = 1L)$commit
       .this_lesson <<- pegboard::Lesson$new(path, jekyll = FALSE)
+      set_globals(path)
+      set_resource_list(path)
       invisible(.this_lesson)
     },
     clear = function() {
@@ -139,6 +141,9 @@ clear_resource_list <- function(path) {
 
 # storage for get_resource_list()
 .resources <- .list_store()
+
+# storage for rendered pages
+.html <- .list_store()
 
 # storage for global variables for the lesson site (those that get passed on to
 # {varnish})
