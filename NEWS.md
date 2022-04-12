@@ -1,3 +1,24 @@
+# sandpaper 0.4.0
+
+NEW FEATURES
+------------
+
+* An all-in-one page is now available for lesson websites at `/aio.html`. This
+  page does have a bit of overhead in generating due to how pkgdown works, so
+  you may see a slowdown when you first build your lesson, but subsequent builds
+  in the same R session will speed up due to an internal cache. This will be 
+  further optimised in a future version.
+
+MISC
+----
+
+* Provisioning of the global lesson element cache (metadata, AST, and global
+  variables for varnish) is now all executed via `this_lesson()`, which is run
+  during `validate_lesson()`. This simplifies the setup a bit, and provides the
+  same method of cache invalidation (checking git outputs) for all of these
+  elements
+
+
 # sandpaper 0.3.6
 
 MISC
