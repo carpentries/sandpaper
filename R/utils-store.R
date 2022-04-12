@@ -91,6 +91,7 @@ clear_resource_list <- function(path) {
   )
 }
 
+#nocov start
 create_template_check <- function() {
   .varnish_store <- NULL
   list(
@@ -110,6 +111,7 @@ create_template_check <- function() {
 }
 
 template_check <- create_template_check()
+#nocov end
 
 # create a global list of things
 .list_store <-  function() {
