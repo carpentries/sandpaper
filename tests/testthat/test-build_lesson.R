@@ -16,6 +16,21 @@ test_that("Lessons built for the first time are noisy", {
 
 })
 
+test_that("aio page exists", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  aio <- fs::path(sitepath, "aio.html")
+  iaio <- fs::path(sitepath, "instructor/aio.html")
+  expect_true(fs::file_exists(aio))
+  expect_true(fs::file_exists(iaio))
+  html <- xml2::read_html(aio)
+  content <- xml2::xml_find_all(html, 
+    ".//div[contains(@class, 'lesson-content')]/section[starts-with(@id, 'episode-')]")
+  expect_length(content, 1L)
+  expect_equal(xml2::xml_attr(content, "id"), "episode-01-introduction")
+
+})
+
 test_that("sitemap exists", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   sitemap <- fs::path(sitepath, "sitemap.xml")
@@ -164,6 +179,23 @@ test_that("files will not be rebuilt unless they change in content", {
 
   expect_true(fs::file_exists(fs::path(sitepath, "01-introduction.html")))
   expect_true(fs::file_exists(fs::path(sitepath, "02-second-episode.html")))
+
+})
+
+
+test_that("aio page is updated with new pages", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  aio <- fs::path(sitepath, "aio.html")
+  iaio <- fs::path(sitepath, "instructor/aio.html")
+  expect_true(fs::file_exists(aio))
+  expect_true(fs::file_exists(iaio))
+  html <- xml2::read_html(aio)
+  content <- xml2::xml_find_all(html, 
+    ".//div[contains(@class, 'lesson-content')]/section[starts-with(@id, 'episode-')]")
+  expect_length(content, 2L)
+  expect_equal(xml2::xml_attr(content, "id"), 
+    c("episode-01-introduction", "episode-02-second-episode"))
 
 })
 

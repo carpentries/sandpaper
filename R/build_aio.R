@@ -23,6 +23,8 @@ build_aio <- function(pkg, quiet) {
   )
 
   page_globals$instructor$update(this_dat)
+  page_globals$instructor$set("body", use_instructor(html))
+
   page_globals$learner$update(this_dat)
 
   page_globals$meta$update(this_dat)
