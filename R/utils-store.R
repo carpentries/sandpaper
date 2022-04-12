@@ -85,9 +85,31 @@ clear_resource_list <- function(path) {
       .this_diff   <<- NULL
       .this_lesson <<- NULL
       .this_commit <<- NULL
+      clear_globals()
+      clear_resource_list()
     }
   )
 }
+
+create_template_check <- function() {
+  .varnish_store <- NULL
+  list(
+    valid = function() {
+      path <- system.file("pkgdown/templates", package = "varnish")
+      res  <- tools::md5sum(list.files(path, full.names = TRUE))
+      identical(res, .varnish_store)
+    },
+    set = function() {
+      path <- system.file("pkgdown/templates", package = "varnish")
+      .varnish_store <<- tools::md5sum(list.files(path, full.names = TRUE))
+    },
+    clear = function() {
+      .varnish_store <<- NULL
+    }
+  )
+}
+
+template_check <- create_template_check()
 
 # create a global list of things
 .list_store <-  function() {

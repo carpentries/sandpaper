@@ -24,6 +24,8 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
   } else {
     create_site(path)
   }
+  # check if the lesson needs to be reset
+  this_lesson(path)
 
   episode_path <- path_episodes(path)
   outdir       <- path_built(path)

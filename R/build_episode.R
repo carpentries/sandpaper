@@ -67,12 +67,13 @@ build_episode_html <- function(path_md, path_src = NULL,
                                page_back = "index.md", page_forward = "index.md", 
                                pkg, quiet = FALSE, page_progress = NULL, 
                                sidebar = NULL, date = NULL) {
-  page_globals <- setup_page_globals()
   home <- root_path(path_md)
+  this_lesson(home)
+  page_globals <- setup_page_globals()
   slug <- get_slug(path_md)
   # search the cache to see if we have a pre-built HTML page
   body <- .html$get()[[slug]]
-  if (body == "") {
+  if (length(body) == 0 || body == "") {
     body <- render_html(path_md, quiet = quiet)
     .html$set(slug, body)
   }

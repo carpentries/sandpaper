@@ -32,6 +32,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   }
   pkgdown::init_site(pkg)
   fs::file_create(fs::path(pkg$dst_path, ".nojekyll"))
+  # future plans to reduce build times 
+  rebuild_template <- TRUE && !template_check$valid()
 
   new_setup <- any(grepl("[/]setup[.]md", built))
   db <- get_built_db(fs::path(built_path, "md5sum.txt"))
@@ -48,7 +50,12 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   if (is.null(slug)) {
     out <- "index.html"
-    files_to_render <- seq_along(db$built)
+    if (rebuild_template) {
+      files_to_render <- seq_along(db$built)
+    } else {
+      files_to_render <- match(built, abs_src, nomatch = 0) # nocov
+      files_to_render <- files_to_render[files_to_render > 0] # nocov
+    }
   } else {
     out <- paste0(slug, ".html")
     files_to_render <- which(get_slug(db$built) == slug)
@@ -81,15 +88,20 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
       quiet        = quiet
     )
   }
+  # if (rebuild_template) template_check$set()
+
   fs::dir_walk(built_path, function(d) copy_assets(d, pkg$dst_path), all = TRUE)
 
   if (!quiet) cli::cli_rule(cli::style_bold("Creating learner profiles"))
   build_profiles(pkg, quiet = quiet, sidebar = sidebar)
-  if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
-  build_keypoints(pkg, quiet = quiet, sidebar = sidebar)
-  if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
-  build_aio(pkg, quiet = quiet)
-
+  if (length(built)) {
+    if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
+    build_keypoints(pkg, quiet = quiet, sidebar = sidebar)
+    if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
+    build_aio(pkg, quiet = quiet)
+  }
+  if (!quiet) cli::cli_rule(cli::style_bold("testing extra page"))
+  build_extra_template(pkg, quiet)
   if (!quiet) cli::cli_rule(cli::style_bold("Creating homepage"))
   build_home(pkg, quiet = quiet, sidebar = sidebar, new_setup = new_setup, 
     next_page = abs_md[er[1]]

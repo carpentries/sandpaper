@@ -51,7 +51,7 @@ varnish_vars <- function() {
 #'
 #' @keywords internal
 set_globals <- function(path) {
-  this_lesson(path)
+  template_check$set()
   initialise_metadata(path)
   # get the resources if they exist (but do not destroy the global environment)
   old <- .resources$get()
