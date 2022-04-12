@@ -100,8 +100,6 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
     build_aio(pkg, quiet = quiet)
   }
-  if (!quiet) cli::cli_rule(cli::style_bold("testing extra page"))
-  build_extra_template(pkg, quiet)
   if (!quiet) cli::cli_rule(cli::style_bold("Creating homepage"))
   build_home(pkg, quiet = quiet, sidebar = sidebar, new_setup = new_setup, 
     next_page = abs_md[er[1]]
