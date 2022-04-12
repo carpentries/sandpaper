@@ -94,7 +94,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   if (!quiet) cli::cli_rule(cli::style_bold("Creating learner profiles"))
   build_profiles(pkg, quiet = quiet, sidebar = sidebar)
-  if (length(built)) {
+  # rebuild keypoints and aio if they need to be built
+  if (length(built) || is.null(built)) {
     if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
     build_keypoints(pkg, quiet = quiet, sidebar = sidebar)
     if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
