@@ -13,6 +13,7 @@
 build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, override = list(), slug = NULL, built = NULL) {
   # step 1: check pandoc
   check_pandoc(quiet)
+  this_lesson(path)
   cl <- getOption("sandpaper.links")
   on.exit(options(sandpaper.links = cl), add = TRUE)
   set_common_links(path)
@@ -86,6 +87,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   build_profiles(pkg, quiet = quiet, sidebar = sidebar)
   if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
   build_keypoints(pkg, quiet = quiet, sidebar = sidebar)
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
+  build_aio(pkg, quiet = quiet)
 
   if (!quiet) cli::cli_rule(cli::style_bold("Creating homepage"))
   build_home(pkg, quiet = quiet, sidebar = sidebar, new_setup = new_setup, 

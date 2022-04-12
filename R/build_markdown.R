@@ -92,8 +92,10 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
     # Render the episode files to the built directory --------------------------
     renv_check_consent(path, quiet, sources)
     build_me <- db$build[needs_building]
+    slugs    <- get_slug(build_me)
 
     for (i in seq_along(build_me)) {
+      .html$set(slugs[i], "") # reset the html cache
       build_episode_md(
         path    = build_me[i],
         outdir  = outdir,

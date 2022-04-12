@@ -69,7 +69,13 @@ build_episode_html <- function(path_md, path_src = NULL,
                                sidebar = NULL, date = NULL) {
   page_globals <- setup_page_globals()
   home <- root_path(path_md)
-  body <- render_html(path_md, quiet = quiet)
+  slug <- get_slug(path_md)
+  # search the cache to see if we have a pre-built HTML page
+  body <- .html$get()[[slug]]
+  if (body == "") {
+    body <- render_html(path_md, quiet = quiet)
+    .html$set(slug, body)
+  }
   if (body == "") {
     # if there is nothing in the page then we build nothing.
     return(NULL)

@@ -33,19 +33,17 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   # step 1: validate that the lesson structure makes sense
   slug <- if (fs::is_file(path)) get_slug(path) else NULL
   path <- set_source_path(path)
-  # n.b. validate_lesson sets the lesson store cache
-  validate_lesson(path, quiet = quiet)
-  this_lesson(path)
-  # # define the files we are looking to build and the order they exist
-  # set_resource_list(path)
-  # # define the globals variables needed for varnish to build the site
-  # set_globals(path)
-
   on.exit({
     reset_build_paths()
-    # clear_resource_list()
-    # clear_globals()
   })
+  # Validate the lesson and set the global values for the lesson. This includes
+  #
+  #   .store: the lesson as a pegboard::Lesson object
+  #   .resources: a list of markdown resources for the lesson
+  #   this_metadata: metadata with template for including in the pages
+  #   learner_globals: variables for the learner version of the pages
+  #   instructor_globals: variables for the instructor version of the pages
+  validate_lesson(path, quiet = quiet)
 
   built <- build_markdown(path = path, rebuild = rebuild, quiet = quiet, slug = slug)
 
