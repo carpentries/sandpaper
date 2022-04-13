@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,26 @@
       <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="sandpaper-040">sandpaper 0.4.0<a class="anchor" aria-label="anchor" href="#sandpaper-040"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-4-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-4-0"></a></h3>
+<ul><li>An all-in-one page is now available for lesson websites at <code>/aio.html</code> and <code>instructor/aio.html</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="misc-0-4-0">MISC<a class="anchor" aria-label="anchor" href="#misc-0-4-0"></a></h3>
+<ul><li>Provisioning of the global lesson element cache (metadata, AST, and global variables for varnish) is now all executed via <code><a href="../reference/lesson_storage.html">this_lesson()</a></code>, which is run during <code><a href="../reference/validate_lesson.html">validate_lesson()</a></code>. This simplifies the setup a bit, and provides the same method of cache invalidation (checking git outputs) for all of these elements</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.6" id="sandpaper-036">sandpaper 0.3.6<a class="anchor" aria-label="anchor" href="#sandpaper-036"></a></h2>
+<div class="section level3">
+<h3 id="misc-0-3-6">MISC<a class="anchor" aria-label="anchor" href="#misc-0-3-6"></a></h3>
+<ul><li>custom sandpaper and varnish engines will be properly linked to the footer of the lesson pages via this version and varnish 0.1.8.</li>
+<li>testthat tests have been updated.</li>
+<li>a diagram in the vingettes has been updated to reflect the parallel roles of sandpaper and pegboard to a lesson.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.5" id="sandpaper-035">sandpaper 0.3.5<a class="anchor" aria-label="anchor" href="#sandpaper-035"></a></h2>
 <div class="section level3">
@@ -295,7 +315,7 @@
 <div class="section level3">
 <h3 id="api-change-0-0-0-9066">API CHANGE<a class="anchor" aria-label="anchor" href="#api-change-0-0-0-9066"></a></h3>
 <ul><li>
-<code><a href="../reference/set_dropdown.html">set_config()</a></code> now takes a named vector/list instead of a pair of vectors.</li>
+<code><a href="../reference/set_config.html">set_config()</a></code> now takes a named vector/list instead of a pair of vectors.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -303,7 +323,7 @@
 <div class="section level3">
 <h3 id="new-features-0-0-0-9065">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-0-0-9065"></a></h3>
 <ul><li>
-<code><a href="../reference/set_dropdown.html">set_config()</a></code> will set singular items in the configuration file (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/193" class="external-link">#193</a>)</li>
+<code><a href="../reference/set_config.html">set_config()</a></code> will set singular items in the configuration file (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/193" class="external-link">#193</a>)</li>
 </ul></div>
 </div>
     <div class="section level2">

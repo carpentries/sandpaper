@@ -49,6 +49,9 @@
     <loc>https://carpentries.github.io/sandpaper/news/index.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/build_aio.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper/reference/build_episode_html.html</loc>
   </url>
   <url>
@@ -170,6 +173,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/serve.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/set_config.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/set_dropdown.html</loc>
