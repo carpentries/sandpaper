@@ -34,6 +34,7 @@ reference:
    - validate_lesson
    - get_drafts
    - get_config
+   - set_config
    - set_dropdown
    - get_episodes
    - set_episodes
