@@ -3,21 +3,8 @@
 NEW FEATURES
 ------------
 
-* An all-in-one page is now available for lesson websites at `/aio.html`. This
-  page does have a bit of overhead in generating due to how pkgdown works, so
-  you may see a slowdown when you first build your lesson, but subsequent builds
-  in the same R session will speed up due to an internal cache. This will be 
-  further optimised in a future version.
-
-INTERNAL FEATURES
------------------
-
-* An experimental cache of html output from pandoc called `.html` is now
-  available and will provide `build_episode_html()` a way to avoid re-running
-  pandoc on pages that have no changes and to provide fodder for the all-in-one
-  page to coallate content. Developers looking to extend sandpaper should not
-  expect this internal feature to stick around as we will be exploring
-  alternative forms of aggregating lesson components.
+* An all-in-one page is now available for lesson websites at `/aio.html` and
+  `instructor/aio.html`. 
 
 MISC
 ----

@@ -1,3 +1,13 @@
+#' Build the All-in-one page
+#'
+#' @param pkg an object created by {pkgdown}, supplied by [build_site()].
+#' @param quiet If `TRUE` then no messages will be shown when building.
+#'
+#' This function will build the all-in-one page for the lesson website. Because
+#' the bottleneck is often the internal processes of {pkgdown}, we are first 
+#' templating the AIO page as a blank page and then adding in the contents using
+#' {xml2}.
+#' @keywords internal
 build_aio <- function(pkg, quiet) {
   path <- root_path(pkg$src_path)
   out_path <- pkg$dst_path
