@@ -33,7 +33,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   pkgdown::init_site(pkg)
   fs::file_create(fs::path(pkg$dst_path, ".nojekyll"))
   # future plans to reduce build times 
-  rebuild_template <- TRUE && !template_check$valid()
+  rebuild_template <- TRUE || !template_check$valid()
 
   new_setup <- any(grepl("[/]setup[.]md", built))
   db <- get_built_db(fs::path(built_path, "md5sum.txt"))
@@ -50,12 +50,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   if (is.null(slug)) {
     out <- "index.html"
-    if (rebuild_template) {
-      files_to_render <- seq_along(db$built)
-    } else {
-      files_to_render <- match(built, abs_src, nomatch = 0) # nocov
-      files_to_render <- files_to_render[files_to_render > 0] # nocov
-    }
+    files_to_render <- seq_along(db$built)
   } else {
     out <- paste0(slug, ".html")
     files_to_render <- which(get_slug(db$built) == slug)
