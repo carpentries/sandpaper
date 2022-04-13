@@ -67,8 +67,10 @@ build_episode_html <- function(path_md, path_src = NULL,
                                page_back = "index.md", page_forward = "index.md", 
                                pkg, quiet = FALSE, page_progress = NULL, 
                                sidebar = NULL, date = NULL) {
-  page_globals <- setup_page_globals()
   home <- root_path(path_md)
+  this_lesson(home)
+  page_globals <- setup_page_globals()
+  slug <- get_slug(path_md)
   body <- render_html(path_md, quiet = quiet)
   if (body == "") {
     # if there is nothing in the page then we build nothing.

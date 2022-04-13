@@ -13,7 +13,7 @@
 #' @keywords internal
 #' @export
 get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
-  check_lesson(path)
+  this_lesson(path)
    
   # The home page contains three things: 
   # 0. The main title as a header

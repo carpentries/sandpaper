@@ -2,6 +2,7 @@ res <- restore_fixture()
 
 test_that("metadata can be initialised and cleared", {
 
+  this_metadata$clear()
   expect_length(this_metadata$get(), 0L)
 
   initialise_metadata(res)

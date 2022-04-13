@@ -13,6 +13,7 @@
 build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, override = list(), slug = NULL, built = NULL) {
   # step 1: check pandoc
   check_pandoc(quiet)
+  this_lesson(path)
   cl <- getOption("sandpaper.links")
   on.exit(options(sandpaper.links = cl), add = TRUE)
   set_common_links(path)
@@ -31,6 +32,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   }
   pkgdown::init_site(pkg)
   fs::file_create(fs::path(pkg$dst_path, ".nojekyll"))
+  # future plans to reduce build times 
+  rebuild_template <- TRUE || !template_check$valid()
 
   new_setup <- any(grepl("[/]setup[.]md", built))
   db <- get_built_db(fs::path(built_path, "md5sum.txt"))
@@ -80,13 +83,16 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
       quiet        = quiet
     )
   }
+  # if (rebuild_template) template_check$set()
+
   fs::dir_walk(built_path, function(d) copy_assets(d, pkg$dst_path), all = TRUE)
 
   if (!quiet) cli::cli_rule(cli::style_bold("Creating learner profiles"))
   build_profiles(pkg, quiet = quiet, sidebar = sidebar)
   if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
   build_keypoints(pkg, quiet = quiet, sidebar = sidebar)
-
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
+  build_aio(pkg, quiet = quiet)
   if (!quiet) cli::cli_rule(cli::style_bold("Creating homepage"))
   build_home(pkg, quiet = quiet, sidebar = sidebar, new_setup = new_setup, 
     next_page = abs_md[er[1]]

@@ -74,6 +74,9 @@ generate_restore_fixture <- function(repo) {
     # clear the site and recreate it
     fs::dir_delete(fs::path(repo, "site"))
     create_site(repo)
+    # reset the lesson cache
+    clear_this_lesson()
+    set_this_lesson(repo)
     repo
   }
 }

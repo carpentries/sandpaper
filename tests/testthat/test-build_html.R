@@ -107,7 +107,7 @@ test_that("[build_profiles()] learner and instructor views are identical", {
   sidebar <- xml2::xml_find_all(instruct, ".//div[@class='sidebar']")
   expect_length(sidebar, 1L)
   sidelinks <- as.character(xml2::xml_find_all(sidebar, ".//a"))
-  expect_length(sidelinks, 4L)
+  expect_length(sidelinks, 5L)
   expect_match(sidelinks[[1]], "href=[\"]..[/]profiles.html")
   expect_match(sidelinks[[2]], "Summary and Schedule")
 
@@ -159,7 +159,7 @@ test_that("[build_keypoints()] learner and instructor views are identical", {
   sidebar <- xml2::xml_find_all(instruct, ".//div[@class='sidebar']")
   expect_length(sidebar, 1L)
   sidelinks <- as.character(xml2::xml_find_all(sidebar, ".//a"))
-  expect_length(sidelinks, 4L)
+  expect_length(sidelinks, 5L)
   expect_match(sidelinks[[1]], "href=[\"]..[/]key-points.html")
   expect_match(sidelinks[[2]], "Summary and Schedule")
 

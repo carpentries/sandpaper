@@ -77,15 +77,41 @@ clear_resource_list <- function(path) {
       .this_status <<- gert::git_status(repo = path)
       .this_commit <<- gert::git_log(repo = path, max = 1L)$commit
       .this_lesson <<- pegboard::Lesson$new(path, jekyll = FALSE)
+      set_globals(path)
+      set_resource_list(path)
       invisible(.this_lesson)
     },
     clear = function() {
       .this_diff   <<- NULL
       .this_lesson <<- NULL
       .this_commit <<- NULL
+      clear_globals()
+      clear_resource_list()
     }
   )
 }
+
+#nocov start
+create_template_check <- function() {
+  .varnish_store <- NULL
+  list(
+    valid = function() {
+      path <- system.file("pkgdown/templates", package = "varnish")
+      res  <- tools::md5sum(list.files(path, full.names = TRUE))
+      identical(res, .varnish_store)
+    },
+    set = function() {
+      path <- system.file("pkgdown/templates", package = "varnish")
+      .varnish_store <<- tools::md5sum(list.files(path, full.names = TRUE))
+    },
+    clear = function() {
+      .varnish_store <<- NULL
+    }
+  )
+}
+
+template_check <- create_template_check()
+#nocov end
 
 # create a global list of things
 .list_store <-  function() {
@@ -139,6 +165,9 @@ clear_resource_list <- function(path) {
 
 # storage for get_resource_list()
 .resources <- .list_store()
+
+# storage for rendered pages
+.html <- .list_store()
 
 # storage for global variables for the lesson site (those that get passed on to
 # {varnish})
