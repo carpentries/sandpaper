@@ -19,4 +19,22 @@ templating the AIO page as a blank page and then adding in the contents using
 \description{
 Build the All-in-one page
 }
+\note{
+This function assumes that you have already built all the episodes of your
+lesson.
+}
+\examples{
+if (FALSE) {
+  # build_aio() assumes that your lesson has been built and takes in a 
+  # pkgdown object, which can be created from the `site/` folder in your
+  # lesson.
+  lsn <- "/path/to/my/lesson"
+  pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
+
+  build_aio(pkg, quiet = FALSE)
+}
+}
+\seealso{
+\link{provision_aio}, \link{make_section}, \link{get_sections}
+}
 \keyword{internal}
