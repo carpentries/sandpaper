@@ -25,6 +25,7 @@ varnish_vars <- function() {
     sandpaper_version = ver("sandpaper"),
     sandpaper_cfg     = cfg("sandpaper"),
     pegboard_version  = ver("pegboard"),
+    pegboard_cfg      = cfg("pegboard"),
     varnish_version   = ver("varnish"),
     varnish_cfg       = cfg("varnish")
   )

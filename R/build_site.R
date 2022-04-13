@@ -89,13 +89,10 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   if (!quiet) cli::cli_rule(cli::style_bold("Creating learner profiles"))
   build_profiles(pkg, quiet = quiet, sidebar = sidebar)
-  # rebuild keypoints and aio if they need to be built
-  if (length(built) || is.null(built)) {
-    if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
-    build_keypoints(pkg, quiet = quiet, sidebar = sidebar)
-    if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
-    build_aio(pkg, quiet = quiet)
-  }
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
+  build_keypoints(pkg, quiet = quiet, sidebar = sidebar)
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
+  build_aio(pkg, quiet = quiet)
   if (!quiet) cli::cli_rule(cli::style_bold("Creating homepage"))
   build_home(pkg, quiet = quiet, sidebar = sidebar, new_setup = new_setup, 
     next_page = abs_md[er[1]]

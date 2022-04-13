@@ -64,7 +64,7 @@ provision_aio <- function(pkg, quiet) {
   page_globals <- setup_page_globals()
   aio <- fs::path(pkg$dst_path, "aio.html")
   iaio <- fs::path(pkg$dst_path, "instructor", "aio.html")
-  needs_episodes <- !fs::file_exists(iaio)
+  needs_episodes <- TRUE || !fs::file_exists(iaio) # this only saves us ~100ms in reality
   if (needs_episodes) {
     html <- xml2::read_html("<section id='FIXME'></section>")
 
@@ -79,7 +79,7 @@ provision_aio <- function(pkg, quiet) {
     page_globals$meta$update(this_dat)
 
     build_html(template = "extra", pkg = pkg, nodes = html,
-      global_data = page_globals, path_md = "aio.html", quiet = TRUE)
+      global_data = page_globals, path_md = "aio.html", quiet = quiet)
   }
   return(list(learner = xml2::read_html(aio), 
     instructor = xml2::read_html(iaio),
