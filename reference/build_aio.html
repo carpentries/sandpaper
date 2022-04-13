@@ -74,7 +74,29 @@ the bottleneck is often the internal processes of pkgdown, we are first
 templating the AIO page as a blank page and then adding in the contents using
 xml2.</p></dd>
 </dl></div>
+    <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>This function assumes that you have already built all the episodes of your
+lesson.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><a href="provision_aio.html">provision_aio</a>, <a href="make_section.html">make_section</a>, <a href="get_sections.html">get_sections</a></p></div>
+    </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="co"># build_aio() assumes that your lesson has been built and takes in a </span></span>
+<span class="r-in">  <span class="co"># pkgdown object, which can be created from the `site/` folder in your</span></span>
+<span class="r-in">  <span class="co"># lesson.</span></span>
+<span class="r-in">  <span class="va">lsn</span> <span class="op">&lt;-</span> <span class="st">"/path/to/my/lesson"</span></span>
+<span class="r-in">  <span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgdown.r-lib.org/reference/as_pkgdown.html" class="external-link">as_pkgdown</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">lsn</span>, <span class="st">"site"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in">  <span class="fu">build_aio</span><span class="op">(</span><span class="va">pkg</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
