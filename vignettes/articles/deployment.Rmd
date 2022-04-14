@@ -89,6 +89,12 @@ computer.
 
 ## [i] Deployment (GitHub)
 
+![Diagrammatic representation of the GitHub deployment cycle showing four branches,
+gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent
+of the main branch, while the gh-pages and md-outputs branches are orphans. Each
+commit of the main branch has a process represented by a dashed arrow that builds
+a commit of the subsequent orphan branches](img/branch-flow.svg)
+
 Because some lesson content will be auto-generated from an ecosystem of
 software that is constantly evolving, it's important to make sure a few things
 are true:
