@@ -9,7 +9,7 @@ make_section(name, contents, parent)
 \arguments{
 \item{name}{the name of the section, prefixed with \verb{episode-}}
 
-\item{contents}{the episode contents from \code{\link[=get_sections]{get_sections()}}}
+\item{contents}{the episode contents from \code{\link[=get_content]{get_content()}}}
 
 \item{parent}{the parent div of the AiO page.}
 }
@@ -26,13 +26,13 @@ lsn <- "/path/to/lesson"
 pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
 
 # read in the All in One page and extract its content
-aio <- xml2::xml_parent(get_sections("aio", pkg))[[1]]
-episode_content <- get_sections("01-introduction", pkg)
+aio <- xml2::xml_parent(get_content("aio", pkg))[[1]]
+episode_content <- get_content("01-introduction", pkg)
 make_section("episode-01-introduction", 
   contents = episode_content, parent = aio)
 }
 }
 \seealso{
-\code{\link[=build_aio]{build_aio()}}, \code{\link[=get_sections]{get_sections()}}
+\code{\link[=build_aio]{build_aio()}}, \code{\link[=get_content]{get_content()}}
 }
 \keyword{internal}

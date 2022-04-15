@@ -1,6 +1,7 @@
 #' Build the All-in-one page
 #'
 #' @param pkg an object created by {pkgdown}, supplied by [build_site()].
+#' @param pages a list of pages derived from [read_all_html()].
 #' @param quiet If `TRUE` then no messages will be shown when building.
 #'
 #' This function will build the all-in-one page for the lesson website. Because
@@ -14,7 +15,7 @@
 #' lesson. 
 #'
 #' @keywords internal
-#' @seealso [provision_aio], [make_section], [get_sections]
+#' @seealso [provision_aio], [make_section], [get_content]
 #' @examples
 #' if (FALSE) {
 #'   # build_aio() assumes that your lesson has been built and takes in a 
@@ -25,7 +26,7 @@
 #'
 #'   build_aio(pkg, quiet = FALSE)
 #' }
-build_aio <- function(pkg, quiet) {
+build_aio <- function(pkg, pages = NULL, quiet) {
   path <- root_path(pkg$src_path)
   out_path <- pkg$dst_path
   this_lesson(path)
@@ -35,19 +36,24 @@ build_aio <- function(pkg, quiet) {
     remove_fix_node(aio$instructor)
   }
   lesson_content <- ".//main/div[contains(@class, 'lesson-content')]"
-  learn <- get_sections(aio$learner, pkg, aio = TRUE)
+  learn <- get_content(aio$learner, pkg, aio = TRUE)
   learn_parent <- xml2::xml_find_first(aio$learner, lesson_content)
-  instruct <- get_sections(aio$instructor, pkg, aio = TRUE)
+  instruct <- get_content(aio$instructor, pkg, aio = TRUE)
   instruct_parent <- xml2::xml_find_first(aio$instructor, lesson_content)
   the_episodes <- .resources$get()[["episodes"]]
   the_slugs <- paste0("episode-", get_slug(the_episodes))
   old_names <- names(learn)
   
   for (episode in seq(the_episodes)) {
-    this_episode <- the_episodes[episode]
-    ename       <- the_slugs[episode]
-    ep_learn    <- get_sections(this_episode, pkg)
-    ep_instruct <- get_sections(this_episode, pkg, instructor = TRUE)
+    ep_learn <- ep_instruct <- the_episodes[episode]
+    ename    <- the_slugs[episode]
+    if (!is.null(pages)) {
+      name <- sub("^episode-", "", ename)
+      ep_learn <- pages$learner[[name]]
+      ep_instruct <- pages$instructor[[name]]
+    }
+    ep_learn    <- get_content(ep_learn, pkg)
+    ep_instruct <- get_content(ep_instruct, pkg, instructor = TRUE)
     if (ename %in% old_names) {
       # NOTE: this is in prepartion for a more coherent caching mechanism that
       #       will speed up builds a bit in the future, but this works for now.
@@ -95,13 +101,13 @@ build_aio <- function(pkg, quiet) {
 #' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
 #' 
 #' # for AiO pages, this will return only sections:
-#' get_sections("aio", pkg, aio = TRUE)
+#' get_content("aio", pkg, aio = TRUE)
 #'
 #' # for episode pages, this will return everything that's not template
-#' get_sections("01-introduction", pkg)
+#' get_content("01-introduction", pkg)
 #'
 #' }
-get_sections <- function(episode, pkg, aio = FALSE, instructor = FALSE) {
+get_content <- function(episode, pkg = NULL, aio = FALSE, instructor = FALSE) {
   if (!inherits(episode, "xml_document")) {
     if (instructor) {
       path <- fs::path(pkg$dst_path, "instructor", as_html(episode))
@@ -186,20 +192,20 @@ remove_fix_node <- function(html) {
 #' from the episode contents in its own section inside the All In One page.
 #'
 #' @param name the name of the section, prefixed with `episode-`
-#' @param contents the episode contents from [get_sections()]
+#' @param contents the episode contents from [get_content()]
 #' @param parent the parent div of the AiO page. 
 #' @return the section that was added to the parent
 #'
 #' @keywords internal
-#' @seealso [build_aio()], [get_sections()]
+#' @seealso [build_aio()], [get_content()]
 #' @examples
 #' if (FALSE) {
 #' lsn <- "/path/to/lesson"
 #' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
 #' 
 #' # read in the All in One page and extract its content
-#' aio <- xml2::xml_parent(get_sections("aio", pkg))[[1]]
-#' episode_content <- get_sections("01-introduction", pkg)
+#' aio <- xml2::xml_parent(get_content("aio", pkg))[[1]]
+#' episode_content <- get_content("01-introduction", pkg)
 #' make_section("episode-01-introduction", 
 #'   contents = episode_content, parent = aio)
 #' }

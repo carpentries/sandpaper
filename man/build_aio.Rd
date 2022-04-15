@@ -35,6 +35,6 @@ if (FALSE) {
 }
 }
 \seealso{
-\link{provision_aio}, \link{make_section}, \link{get_sections}
+\link{provision_aio}, \link{make_section}, \link{get_content}
 }
 \keyword{internal}
