@@ -1,3 +1,13 @@
+# sandpaper 0.4.1
+
+MISC
+----
+
+Building of Key Points and the All in one page have been revamped to share
+common elements for building aggregate pages. This improves the build time
+somewhat and provides a framework to add more aggregation in the future 
+(e.g. images and instructor notes).
+
 # sandpaper 0.4.0
 
 NEW FEATURES

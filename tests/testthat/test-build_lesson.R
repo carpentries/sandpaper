@@ -25,9 +25,9 @@ test_that("aio page exists", {
   expect_true(fs::file_exists(iaio))
   html <- xml2::read_html(aio)
   content <- xml2::xml_find_all(html, 
-    ".//div[contains(@class, 'lesson-content')]/section[starts-with(@id, 'episode-')]")
+    ".//div[contains(@class, 'lesson-content')]/section[starts-with(@id, 'aio-')]")
   expect_length(content, 1L)
-  expect_equal(xml2::xml_attr(content, "id"), "episode-01-introduction")
+  expect_equal(xml2::xml_attr(content, "id"), "aio-01-introduction")
 
 })
 
@@ -182,6 +182,47 @@ test_that("files will not be rebuilt unless they change in content", {
 
 })
 
+test_that("keypoints learner and instructor views are identical", {
+
+  pkg <- pkgdown::as_pkgdown(fs::path(tmp, "site"))
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  instruct <- fs::path(pkg$dst_path, "instructor", "key-points.html")
+  instruct <- xml2::read_html(instruct)
+
+  # Instructor sidebar is formatted properly
+  sidebar <- xml2::xml_find_all(instruct, ".//div[@class='sidebar']")
+  expect_length(sidebar, 1L)
+  sidelinks <- as.character(xml2::xml_find_all(sidebar, ".//a"))
+  expect_length(sidelinks, 6L)
+  expect_match(sidelinks[[1]], "href=[\"]..[/]key-points.html")
+  expect_match(sidelinks[[2]], "Summary and Schedule")
+
+  learn <- fs::path(pkg$dst_path, "key-points.html")
+  learn <- xml2::read_html(learn)
+  
+  # Learner sidebar is formatted properly
+  sidebar <- xml2::xml_find_all(learn, ".//div[@class='sidebar']")
+  expect_length(sidebar, 1L)
+  sidelinks <- as.character(xml2::xml_find_all(sidebar, ".//a"))
+  expect_match(sidelinks[[1]], "href=[\"]instructor[/]key-points.html")
+  expect_match(sidelinks[[2]], "Summary and Setup")
+
+  # sections are equal
+  learn_sections <- as.character(xml2::xml_find_all(learn, ".//section"))
+  instruct_sections <- as.character(xml2::xml_find_all(instruct, ".//section"))
+  expect_equal(learn_sections, instruct_sections)
+
+  # the instructor metadata contains this page information
+  meta <- xml2::xml_find_first(instruct, ".//script[@type='application/ld+json']")
+  meta <- trimws(xml2::xml_text(meta))
+  expect_match(meta, "lesson-example/instructor/key-points.html")
+
+  # the learner metadata contains this page information
+  meta <- xml2::xml_find_first(learn, ".//script[@type='application/ld+json']")
+  meta <- trimws(xml2::xml_text(meta))
+  expect_match(meta, "lesson-example/key-points.html")
+})
+
 
 test_that("aio page is updated with new pages", {
 
@@ -192,10 +233,10 @@ test_that("aio page is updated with new pages", {
   expect_true(fs::file_exists(iaio))
   html <- xml2::read_html(aio)
   content <- xml2::xml_find_all(html, 
-    ".//div[contains(@class, 'lesson-content')]/section[starts-with(@id, 'episode-')]")
+    ".//div[contains(@class, 'lesson-content')]/section[starts-with(@id, 'aio-')]")
   expect_length(content, 2L)
   expect_equal(xml2::xml_attr(content, "id"), 
-    c("episode-01-introduction", "episode-02-second-episode"))
+    c("aio-01-introduction", "aio-02-second-episode"))
 
 })
 

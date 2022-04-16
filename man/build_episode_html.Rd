@@ -79,6 +79,7 @@ txt <- c(
  "::: testimonial\n\n#### testimony!\n\nwhat\n:::\n"
 )
 file.create(fun_file)
+on.exit(unlink(tmp, recursive = TRUE, force = TRUE))
 writeLines(txt, fun_file)
 hash <- tools::md5sum(fun_file)
 res <- build_episode_md(fun_file, hash)

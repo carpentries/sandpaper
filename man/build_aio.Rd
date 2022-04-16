@@ -4,10 +4,12 @@
 \alias{build_aio}
 \title{Build the All-in-one page}
 \usage{
-build_aio(pkg, quiet)
+build_aio(pkg, pages = NULL, quiet)
 }
 \arguments{
 \item{pkg}{an object created by {pkgdown}, supplied by \code{\link[=build_site]{build_site()}}.}
+
+\item{pages}{a list of pages derived from \code{\link[=read_all_html]{read_all_html()}}.}
 
 \item{quiet}{If \code{TRUE} then no messages will be shown when building.
 
@@ -35,6 +37,6 @@ if (FALSE) {
 }
 }
 \seealso{
-\link{provision_aio}, \link{make_section}, \link{get_content}
+\link{provision_aio}, \link{make_aio_section}, \link{get_content}
 }
 \keyword{internal}

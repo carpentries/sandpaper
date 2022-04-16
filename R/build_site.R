@@ -96,9 +96,11 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   )
 
   html_pages <- read_all_html(pkg$dst_path)
+  provision_extra_template(pkg)
+  on.exit(.html$clear())
 
   if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
-  build_keypoints(pkg, quiet = quiet, sidebar = sidebar)
+  build_keypoints(pkg, pages = html_pages, quiet = quiet)
   if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
   build_aio(pkg, pages = html_pages, quiet = quiet)
 
