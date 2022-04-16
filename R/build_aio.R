@@ -15,7 +15,7 @@
 #' lesson. 
 #'
 #' @keywords internal
-#' @seealso [provision_aio], [make_section], [get_content]
+#' @seealso [provision_aio], [make_aio_section], [get_content]
 #' @examples
 #' if (FALSE) {
 #'   # build_aio() assumes that your lesson has been built and takes in a 
@@ -27,45 +27,8 @@
 #'   build_aio(pkg, quiet = FALSE)
 #' }
 build_aio <- function(pkg, pages = NULL, quiet) {
-  path <- root_path(pkg$src_path)
-  out_path <- pkg$dst_path
-  this_lesson(path)
-  aio <- provision_aio(pkg, quiet)
-  if (aio$needs_episodes) {
-    remove_fix_node(aio$learner)
-    remove_fix_node(aio$instructor)
-  }
-  lesson_content <- ".//main/div[contains(@class, 'lesson-content')]"
-  learn <- get_content(aio$learner, pkg, aio = TRUE)
-  learn_parent <- xml2::xml_find_first(aio$learner, lesson_content)
-  instruct <- get_content(aio$instructor, pkg, aio = TRUE)
-  instruct_parent <- xml2::xml_find_first(aio$instructor, lesson_content)
-  the_episodes <- .resources$get()[["episodes"]]
-  the_slugs <- paste0("episode-", get_slug(the_episodes))
-  old_names <- names(learn)
-  
-  for (episode in seq(the_episodes)) {
-    ep_learn <- ep_instruct <- the_episodes[episode]
-    ename    <- the_slugs[episode]
-    if (!is.null(pages)) {
-      name <- sub("^episode-", "", ename)
-      ep_learn <- pages$learner[[name]]
-      ep_instruct <- pages$instructor[[name]]
-    }
-    ep_learn    <- get_content(ep_learn, pkg)
-    ep_instruct <- get_content(ep_instruct, pkg, instructor = TRUE)
-    if (ename %in% old_names) {
-      # NOTE: this is in prepartion for a more coherent caching mechanism that
-      #       will speed up builds a bit in the future, but this works for now.
-      update_section(learn[[ename]], ep_learn) #nocov
-      update_section(instruct[[ename]], ep_instruct) #nocov
-    } else {
-      make_section(ename, ep_learn, learn_parent)
-      make_section(ename, ep_instruct, instruct_parent)
-    }
-  }
-  writeLines(as.character(aio$learner), fs::path(out_path, "aio.html"))
-  writeLines(as.character(aio$instructor), fs::path(out_path, "instructor", "aio.html"))
+      build_extra_page(pkg = pkg, pages = pages, title = "All in One View",
+        slug = "aio", aggregate = "*", prefix = TRUE, quiet = quiet)
 }
 
 #' Get sections from an episode's HTML page
@@ -73,9 +36,9 @@ build_aio <- function(pkg, pages = NULL, quiet) {
 #' @param episode an object of class `xml_document`, a path to a markdown or
 #'   html file of an episode.
 #' @inheritParams build_aio
-#' @param aio if `TRUE`, the sections of the AiO page are returned named with
-#'   their IDs. Defaults to `FALSE`, which returns all contents within the main
-#'   div.
+#' @param content an XPath fragment. defaults to "*"
+#' @param label if `TRUE`, elements will be named by their ids. This is best
+#'   used when content = "section".
 #' @param instructor if `TRUE`, the instructor version of the episode is read,
 #'   defaults to `FALSE`. This has no effect if the episode is an `xml_document`.
 #'
@@ -101,30 +64,31 @@ build_aio <- function(pkg, pages = NULL, quiet) {
 #' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
 #' 
 #' # for AiO pages, this will return only sections:
-#' get_content("aio", pkg, aio = TRUE)
+#' get_content("aio", content = "section", label = TRUE, pkg = pkg)
 #'
 #' # for episode pages, this will return everything that's not template
-#' get_content("01-introduction", pkg)
+#' get_content("01-introduction", pkg = pkg)
 #'
 #' }
-get_content <- function(episode, pkg = NULL, aio = FALSE, instructor = FALSE) {
-  if (!inherits(episode, "xml_document")) {
-    if (instructor) {
-      path <- fs::path(pkg$dst_path, "instructor", as_html(episode))
-    } else {
-      path <- fs::path(pkg$dst_path, as_html(episode))
+get_content <- function (episode, content = "*", label = FALSE, pkg = NULL, 
+    instructor = FALSE) 
+{
+    if (!inherits(episode, "xml_document")) {
+        if (instructor) {
+            path <- fs::path(pkg$dst_path, "instructor", as_html(episode))
+        }
+        else {
+            path <- fs::path(pkg$dst_path, as_html(episode))
+        }
+        episode <- xml2::read_html(path)
     }
-    episode <- xml2::read_html(path)
-  }
-  XPath <- ".//main/div[contains(@class, 'lesson-content')]/{content}"
-  content <- if (aio) "section" else "*"
-  res <- xml2::xml_find_all(episode, glue::glue(XPath))
-  if (aio) {
-    names(res) <- xml2::xml_attr(res, "id")
-  }
-  res
+    XPath <- ".//main/div[contains(@class, 'lesson-content')]/{content}"
+    res <- xml2::xml_find_all(episode, glue::glue(XPath))
+    if (label) {
+        names(res) <- xml2::xml_attr(res, "id")
+    }
+    res
 }
-
 #' Provision an AiO page
 #' 
 #' @details
@@ -153,38 +117,12 @@ get_content <- function(episode, pkg = NULL, aio = FALSE, instructor = FALSE) {
 #'
 #' @keywords internal
 #' @seealso build_aio
-provision_aio <- function(pkg, quiet) {
-  page_globals <- setup_page_globals()
-  aio <- fs::path(pkg$dst_path, "aio.html")
-  iaio <- fs::path(pkg$dst_path, "instructor", "aio.html")
-  needs_episodes <- TRUE || !fs::file_exists(iaio) # this only saves us ~100ms in reality
-  if (needs_episodes) {
-    html <- xml2::read_html("<section id='FIXME'></section>")
-
-    this_dat <- list(
-      this_page = "aio.html",
-      body = html,
-      pagetitle = "All in one view"
-    )
-
-    page_globals$instructor$update(this_dat)
-    page_globals$learner$update(this_dat)
-    page_globals$meta$update(this_dat)
-
-    build_html(template = "extra", pkg = pkg, nodes = html,
-      global_data = page_globals, path_md = "aio.html", quiet = quiet)
-  }
-  return(list(learner = xml2::read_html(aio), 
-    instructor = xml2::read_html(iaio),
-    needs_episodes = needs_episodes)
-  )
+provision_aio <- function (pkg, quiet) 
+{
+    provision_extra_page(pkg, title = "All in One View", slug = "aio", 
+        quiet)
 }
 
-remove_fix_node <- function(html) {
-  fix_node <- xml2::xml_find_first(html, ".//section[@id='FIXME']")
-  xml2::xml_remove(fix_node)
-  return(html)
-}
 
 #' Make a section and place it inside the All In One page
 #'
@@ -204,12 +142,12 @@ remove_fix_node <- function(html) {
 #' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
 #' 
 #' # read in the All in One page and extract its content
-#' aio <- xml2::xml_parent(get_content("aio", pkg))[[1]]
-#' episode_content <- get_content("01-introduction", pkg)
-#' make_section("episode-01-introduction", 
+#' aio <- get_content("aio", content = "self::*", pkg = pkg)
+#' episode_content <- get_content("01-introduction", pkg = pkg)
+#' make_aio_section("aio-01-introduction", 
 #'   contents = episode_content, parent = aio)
 #' }
-make_section <- function(name, contents, parent) {
+make_aio_section <- function(name, contents, parent) {
   uri <- sub("episode-", "", name)
   title <- xml2::xml_text(contents[[1]])
   new_section <- "<section id='{name}'><p>Content from <a href='{uri}.html'>{title}</a></p><hr/></section>"
