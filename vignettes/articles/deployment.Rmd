@@ -21,19 +21,19 @@ title: Building and Deployment of a {sandpaper} lesson
 
 The broad idea of the deployment strategy is encompassed in three rules:
 
-> 1. No knowledge beyond markdown and github is required to create a lesson website.
-> 2. Any elements of the lesson that need to be rendered will be rendered via continuous integration.
-> 3. All changes to the final site are purposeful.
+> 1. No knowledge beyond markdown and github is required to create a lesson website
+> 2. Any elements of the lesson that need to be rendered will be rendered via continuous integration
+> 3. All changes to the final site are purposeful
 
 The process for adding an episode to a lesson should take three steps, total: 
 
-1. place Markdown or RMarkdown files in the `episodes/` folder
+1. place Markdown or R Markdown files in the `episodes/` folder
 2. define the order of the episodes in the `config.yaml` file
 3. push to github AND/OR preview the website locally with `sandpaper::build_lesson()`
 
-## Why RMarkdown?
+## Why R Markdown?
 
-We have decided on using the RMarkdown format because it is a VERY powerful
+We have decided on using the R Markdown format because it is a VERY powerful
 tool that allows you to write code and text without having to copy and paste
 output/images/tables. It has [support for several languages including python,
 BASH, and SQL](https://bookdown.org/yihui/rmarkdown/language-engines.html).
@@ -46,7 +46,7 @@ and works fairly well.
 ## The Two-Step: Building Locally
 
 To preview the lessons, we build the static files locally, without any servers.
-While it is possible to go directly from RMarkdown to HTML, we use a two-step
+While it is possible to go directly from R Markdown to HTML, we use a two-step
 process:
 
 1. Generate static markdown from the source files with a hash of the original
@@ -65,13 +65,13 @@ to avoid maxing out the github api requests.
 ![diagram of building a local lesson website](img/local-flow.dot.svg)
 
 Now, the first reaction you may have is, "Why do we need a two step process
-when we can generate HTML directly from RMarkdown?" The answer is three-fold. 
+when we can generate HTML directly from R Markdown?" The answer is three-fold. 
 
-First, if there is R code in the RMarkdown document, it takes time to execute
+First, if there is R code in the R Markdown document, it takes time to execute
 the code and add it in to the output document. By having an intermediate
 markdown document that contains a hash of the original document, we can make
 sure that we only build the files that have changed in content with minimal
-overhead in a manner that is compatible with RMarkdown's chunk caching feature.
+overhead in a manner that is compatible with R Markdown's chunk caching feature.
 
 Second, if any generated element of your page creates invalid HTML, it usually
 causes a cascading effect that can be hard to track down if you are looking at
@@ -186,6 +186,12 @@ interaction required.**
 
 ### Pull requests
 
+![The Pull Request flow](img/pr-branch.svg){alt='diagram showing five branches,
+two of which are highlighted: "md-outputs", and "md-outputs-PR-1" where the
+latter is an orphan branch starting from the last commit of the former and
+applying the changes from the "my-edit" branch on top, showing that the output
+has changed'}
+
 Each time a pull request is added, the maintainer should be informed of what
 changes in the lesson (if anything), so the process goes like this:
 
@@ -198,6 +204,11 @@ changes in the lesson (if anything), so the process goes like this:
    amended to the `md-sources-{pr#}` branch (effectively, a squash merge)
 5. Once the maintainer approves the changes, the PR gets merged into master,
    the site is rebuilt from source, and the pr branch is removed.
+
+![A successfully merged Pull Request](img/pr-merge.svg){alt='diagram showing 
+four branches, where "my-edit" is merged into "main" and that drives the 
+two-step process of rendering "md-outputs" and then "gh-pages". The changes
+from the "my-edit" branch are reflected in the "md-outputs" branch output.'}
 
 ### CRON: weekly (updating the HTML templates)
 
