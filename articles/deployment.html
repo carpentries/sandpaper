@@ -96,28 +96,28 @@
 <p>The broad idea of the deployment strategy is encompassed in three rules:</p>
 <blockquote>
 <ol style="list-style-type: decimal">
-<li>No knowledge beyond markdown and github is required to create a lesson website.</li>
-<li>Any elements of the lesson that need to be rendered will be rendered via continuous integration.</li>
-<li>All changes to the final site are purposeful.</li>
+<li>No knowledge beyond markdown and github is required to create a lesson website</li>
+<li>Any elements of the lesson that need to be rendered will be rendered via continuous integration</li>
+<li>All changes to the final site are purposeful</li>
 </ol>
 </blockquote>
 <p>The process for adding an episode to a lesson should take three steps, total:</p>
 <ol style="list-style-type: decimal">
-<li>place Markdown or RMarkdown files in the <code>episodes/</code> folder</li>
+<li>place Markdown or R Markdown files in the <code>episodes/</code> folder</li>
 <li>define the order of the episodes in the <code>config.yaml</code> file</li>
 <li>push to github AND/OR preview the website locally with <code><a href="../reference/build_lesson.html">sandpaper::build_lesson()</a></code>
 </li>
 </ol>
 <div class="section level2">
-<h2 id="why-rmarkdown">Why RMarkdown?<a class="anchor" aria-label="anchor" href="#why-rmarkdown"></a>
+<h2 id="why-r-markdown">Why R Markdown?<a class="anchor" aria-label="anchor" href="#why-r-markdown"></a>
 </h2>
-<p>We have decided on using the RMarkdown format because it is a VERY powerful tool that allows you to write code and text without having to copy and paste output/images/tables. It has <a href="https://bookdown.org/yihui/rmarkdown/language-engines.html" class="external-link">support for several languages including python, BASH, and SQL</a>. Most importantly: the code rendering features of it are purely optional; you can strip away all R-associated content and be left with a markdown document.</p>
+<p>We have decided on using the R Markdown format because it is a VERY powerful tool that allows you to write code and text without having to copy and paste output/images/tables. It has <a href="https://bookdown.org/yihui/rmarkdown/language-engines.html" class="external-link">support for several languages including python, BASH, and SQL</a>. Most importantly: the code rendering features of it are purely optional; you can strip away all R-associated content and be left with a markdown document.</p>
 <p>This is a system that has already been used for our R lessons for several years and works fairly well.</p>
 </div>
 <div class="section level2">
 <h2 id="the-two-step-building-locally">The Two-Step: Building Locally<a class="anchor" aria-label="anchor" href="#the-two-step-building-locally"></a>
 </h2>
-<p>To preview the lessons, we build the static files locally, without any servers. While it is possible to go directly from RMarkdown to HTML, we use a two-step process:</p>
+<p>To preview the lessons, we build the static files locally, without any servers. While it is possible to go directly from R Markdown to HTML, we use a two-step process:</p>
 <ol style="list-style-type: decimal">
 <li>Generate static markdown from the source files with a hash of the original file in the YAML header</li>
 <li>Using external style template, generate website HTML from the built markdown files</li>
@@ -128,8 +128,8 @@
 <div class="figure">
 <img src="img/local-flow.dot.svg" alt=""><p class="caption">diagram of building a local lesson website</p>
 </div>
-<p>Now, the first reaction you may have is, “Why do we need a two step process when we can generate HTML directly from RMarkdown?” The answer is three-fold.</p>
-<p>First, if there is R code in the RMarkdown document, it takes time to execute the code and add it in to the output document. By having an intermediate markdown document that contains a hash of the original document, we can make sure that we only build the files that have changed in content with minimal overhead in a manner that is compatible with RMarkdown’s chunk caching feature.</p>
+<p>Now, the first reaction you may have is, “Why do we need a two step process when we can generate HTML directly from R Markdown?” The answer is three-fold.</p>
+<p>First, if there is R code in the R Markdown document, it takes time to execute the code and add it in to the output document. By having an intermediate markdown document that contains a hash of the original document, we can make sure that we only build the files that have changed in content with minimal overhead in a manner that is compatible with R Markdown’s chunk caching feature.</p>
 <p>Second, if any generated element of your page creates invalid HTML, it usually causes a cascading effect that can be hard to track down if you are looking at raw HTML output. Having a markdown intermediate allows us to more easily single out any potential problems. This particular reason is important in the next section for scheduled deployments where we avoid problems raised explicitly by checking the output.</p>
 <p>Third, having the rendered markdown documents makes them easy to use with other HTML or pandoc templates not provided by The Carpentries.</p>
 <p>You might also be wondering “why aren’t the rendered markdown and HTML files being tracked by git?” The answer is that, they will be, just not on your computer.</p>
@@ -186,6 +186,9 @@
 <div class="section level3">
 <h3 id="pull-requests">Pull requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a>
 </h3>
+<div class="figure">
+<img src="img/pr-branch.svg" alt='diagram showing five branches, two of which are highlighted: "md-outputs", and "md-outputs-PR-1" where the latter is an orphan branch starting from the last commit of the former and applying the changes from the "my-edit" branch on top, showing that the output has changed'><p class="caption">The Pull Request flow</p>
+</div>
 <p>Each time a pull request is added, the maintainer should be informed of what changes in the lesson (if anything), so the process goes like this:</p>
 <ol style="list-style-type: decimal">
 <li>A pull request triggers a new branch from <code>md-sources</code> called <code>md-sources-{pr#}</code>.</li>
@@ -195,6 +198,9 @@
 <li>Any additional commits to the PR branch will be rebuilt and the changes amended to the <code>md-sources-{pr#}</code> branch (effectively, a squash merge)</li>
 <li>Once the maintainer approves the changes, the PR gets merged into master, the site is rebuilt from source, and the pr branch is removed.</li>
 </ol>
+<div class="figure">
+<img src="img/pr-merge.svg" alt='diagram showing  four branches, where "my-edit" is merged into "main" and that drives the  two-step process of rendering "md-outputs" and then "gh-pages". The changes from the "my-edit" branch are reflected in the "md-outputs" branch output.'><p class="caption">A successfully merged Pull Request</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="cron-weekly-updating-the-html-templates">CRON: weekly (updating the HTML templates)<a class="anchor" aria-label="anchor" href="#cron-weekly-updating-the-html-templates"></a>
