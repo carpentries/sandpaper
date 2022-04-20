@@ -27,8 +27,8 @@ pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
 
 # read in the All in One page and extract its content
 aio <- get_content("aio", content = "self::*", pkg = pkg)
-episode_content <- get_content("introduction", pkg = pkg)
-make_aio_section("episode-01-introduction", 
+episode_content <- get_content("01-introduction", pkg = pkg)
+make_aio_section("aio-01-introduction", 
   contents = episode_content, parent = aio)
 }
 }

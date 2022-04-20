@@ -16,19 +16,15 @@ get_content(
 \item{episode}{an object of class \code{xml_document}, a path to a markdown or
 html file of an episode.}
 
-\item{content}{an XPath fragment that describes the content needed from the
-page; defaults to \code{*} which will grab all child nodes.}
+\item{content}{an XPath fragment. defaults to "*"}
 
-\item{label}{try to label the content by the id attribute, if available.}
+\item{label}{if \code{TRUE}, elements will be named by their ids. This is best
+used when content = "section".}
 
 \item{pkg}{an object created by {pkgdown}, supplied by \code{\link[=build_site]{build_site()}}.}
 
 \item{instructor}{if \code{TRUE}, the instructor version of the episode is read,
 defaults to \code{FALSE}. This has no effect if the episode is an \code{xml_document}.}
-
-\item{aio}{if \code{TRUE}, the sections of the AiO page are returned named with
-their IDs. Defaults to \code{FALSE}, which returns all contents within the main
-div.}
 }
 \description{
 Get sections from an episode's HTML page
@@ -55,9 +51,6 @@ get_content("aio", content = "section", label = TRUE, pkg = pkg)
 
 # for episode pages, this will return everything that's not template
 get_content("01-introduction", pkg = pkg)
-
-# to get the parent div
-get_content("introduction", content = "self::*", pkg = pkg)
 
 }
 }

@@ -34,6 +34,84 @@ read_all_html <- function(path) {
   c(htmls, list(paths = paths))
 }
 
+#' Provision an "extra" page in a lesson
+#'
+#' A function that will provision page using a reusable template provisioned
+#' for aggregate pages used in this lesson to avoid the unnecessary
+#' re-rendering of already rendered content.
+#'
+#' @param pkg an object created via [pkgdown::as_pkgdown()] of a lesson.
+#' @param title the new page title 
+#' @param slug the slug for the page (e.g. "aio" will become "aio.html")
+#' @param quiet if `TRUE`, no messages will be emitted (default). If FALSE, 
+#'   pkgdown will report creation of the temporary file.
+#' @return 
+#'  - `provision_extra_page()`: a list:
+#'    - `$learner`: an `xml_document` templated for the learner page
+#'    - `$instructor`: an `xml_document` templated for the instructor page
+#'    - `$needs_episodes`: a logical indicating if the page should be completly
+#'       rebuilt (currently default to TRUE)
+#'  - `provision_extra_template()`: invisibly, a copy of a global list of HTML
+#'   template content available in the internal global object
+#'   `sandpaper:::.html`:
+#'    - `.html$template$extra$learner`: the rendered learner template as a string
+#'    - `.html$template$extra$instructor`: the rendered instructor template as a string
+#' @details
+#' 
+#' Pkgdown provides a lot of services in its rendering: 
+#'
+#'  - cross-linking
+#'  - syntax highlighting
+#'  - dynamic templating 
+#'  - etc.
+#'
+#' The problem is that all of this effort takes time and it scales with the size
+#' of the page being rendered such that in some cases it can take ~2 seconds for
+#' the All in One page of a small lesson. Creating aggregate pages after all of
+#' the markdown content has been rendered should not involve re-rendering
+#' content. 
+#'
+#' Luckily, reading in content with [xml2::read_html()] is very quick and using
+#' XPath queries, we can take the parts we need from the rendered content and
+#' insert it into a template, which we store as a character in the `.html`
+#' global object so it can be passed around to other functions without needing
+#' an argument.
+#' 
+#' `provision_extra_page()` makes a copy of this cache, replaces the FIXME
+#'  values with the appropriate elements, and returns an object created from 
+#'  [xml2::read_html()] for each of the instructor and learner veiws.
+#'
+#' @keywords internal
+#' @rdname provision
+#' @examples
+#' if (FALSE) { # only run if you have provisioned a pkgdown site
+#' lsn_site <- "/path/to/lesson/site"
+#' pkg <- pkgdown::as_pkgdown(lsn_site)
+#' 
+#' # create an AIO page
+#' provision_extra_page(pkg, title = "All In One", slug = "aio", quiet = FALSE)
+#'
+#' }
+provision_extra_page <- function(pkg, title = "Key Points", slug = "key-points", quiet) {
+  if (is.null(.html$get()$template$extra)) {
+    provision_extra_template(pkg)
+  }
+
+  learner <- .html$get()$template$extra$learner
+  instructor <- .html$get()$template$extra$instructor
+  learner <- gsub("--FIXME TITLE", title, learner)
+  instructor <- gsub("--FIXME TITLE", title, instructor)
+  learner <- gsub("--FIXME", slug, learner)
+  instructor <- gsub("--FIXME", slug, instructor)
+
+  return(list(learner = xml2::read_html(learner), 
+    instructor = xml2::read_html(instructor),
+    needs_episodes = TRUE)
+  )
+}
+
+#' @keywords internal
+#' @rdname provision
 provision_extra_template <- function(pkg, quiet = TRUE) {
   page_globals <- setup_page_globals()
   needs_episodes <- TRUE 
@@ -66,23 +144,6 @@ provision_extra_template <- function(pkg, quiet = TRUE) {
     as.character(xml2::read_html(instructor))) 
 }
 
-provision_extra_page <- function(pkg, title = "Key Points", slug = "key-points", quiet) {
-  if (is.null(.html$get()$template$extra)) {
-    provision_extra_template(pkg)
-  }
-
-  learner <- .html$get()$template$extra$learner
-  instructor <- .html$get()$template$extra$instructor
-  learner <- gsub("--FIXME TITLE", title, learner)
-  instructor <- gsub("--FIXME TITLE", title, instructor)
-  learner <- gsub("--FIXME", slug, learner)
-  instructor <- gsub("--FIXME", slug, instructor)
-
-  return(list(learner = xml2::read_html(learner), 
-    instructor = xml2::read_html(instructor),
-    needs_episodes = TRUE)
-  )
-}
 
 provision_fun <- function(slug) {
   get(paste0("provision_", sub("-", "", slug)), asNamespace("sandpaper"))
