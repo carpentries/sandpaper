@@ -85,6 +85,7 @@ reference:
  - title: "[Internal] Post-build Aggregation Components"
    desc: >
      Components to build aggregate pages such as All in One and Keypoints
+ - contents:
    - read_all_html
    - provision
    - get_content
