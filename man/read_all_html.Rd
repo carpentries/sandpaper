@@ -31,3 +31,4 @@ writeLines("<p>Learner</p>", fs::path(tmpdir, "index.html"))
 sandpaper:::read_all_html(tmpdir)
 
 }
+\keyword{internal}

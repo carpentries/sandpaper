@@ -3,7 +3,7 @@
 \name{provision_agg_page}
 \alias{provision_agg_page}
 \alias{provision_extra_template}
-\title{Provision an "extra" page in a lesson}
+\title{Provision an aggregate page in a lesson}
 \usage{
 provision_agg_page(pkg, title = "Key Points", slug = "key-points", quiet)
 
