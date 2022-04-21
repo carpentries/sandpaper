@@ -78,9 +78,11 @@ reference:
    - build_handout
    - build_markdown
    - build_site
+   - build_agg
    - build_episode_md
    - build_episode_html
    - render_html
+   - read_all_html
    - sandpaper.options
  - title: "[Internal] Resource Discovery/Management"
    desc: >
