@@ -9,6 +9,28 @@ build_images <- function(pkg, pages = NULL, quiet = FALSE) {
     quiet = quiet)
 }
 
+#' Make a section of aggregated images
+#'
+#' This will insert xml figure nodes into the images page, printing the alt text
+#' descriptions for users who are not using screen readers.
+#'
+#' @param name the name of the section, (may or may not be prefixed with `images-`)
+#' @param contents an `xml_nodeset` of figure elements from [get_content()]
+#' @param parent the parent div of the images page 
+#' @return the section that was added to the parent
+#'
+#' @keywords internal
+#' @seealso [build_images()], [get_content()]
+#' @examples
+#' if (FALSE) {
+#' lsn <- "/path/to/lesson"
+#' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
+#' 
+#' # read in the All in One page and extract its content
+#' img <- get_content("images", content = "self::*", pkg = pkg)
+#' fig_content <- get_content("01-introduction", content = "/figure", pkg = pkg)
+#' make_images_section("01-introduction", contents = fig_content, parent = img)
+#' }
 make_images_section <- function(name, contents, parent) {
   title <- names(name)
   uri <- sub("^images-", "", name)
