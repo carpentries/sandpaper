@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,14 @@
       <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.1" id="sandpaper-041">sandpaper 0.4.1<a class="anchor" aria-label="anchor" href="#sandpaper-041"></a></h2>
+<div class="section level3">
+<h3 id="misc-0-4-1">MISC<a class="anchor" aria-label="anchor" href="#misc-0-4-1"></a></h3>
+<ul><li>The All in One page and Keypoints page have been redesigned. These now both use the underlying internal function <code><a href="../reference/build_agg.html">build_agg_page()</a></code> (build aggregate page). This allows slow templating processes to be performed once and cached instead of repeated for each page. It provides a framework for future aggregate pages (such as figures, instructor notes, glossary, etc).</li>
+<li>A message is now printed when Keypoints and All-in-one pages are written to disk if <code>quiet = FALSE</code>.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.0" id="sandpaper-040">sandpaper 0.4.0<a class="anchor" aria-label="anchor" href="#sandpaper-040"></a></h2>
 <div class="section level3">
