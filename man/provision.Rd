@@ -16,7 +16,7 @@ provision_extra_template(pkg, quiet = TRUE)
 
 \item{slug}{the slug for the page (e.g. "aio" will become "aio.html")}
 
-\item{quiet}{if \code{TRUE}, no messages will be emitted (default). If FALSE,
+\item{quiet}{if \code{TRUE}, no messages will be emitted. If FALSE,
 pkgdown will report creation of the temporary file.}
 }
 \value{

@@ -28,6 +28,6 @@ fs::dir_create(tmpdir)
 fs::dir_create(fs::path(tmpdir, "instructor"))
 writeLines("<p>Instructor</p>", fs::path(tmpdir, "instructor", "index.html"))
 writeLines("<p>Learner</p>", fs::path(tmpdir, "index.html"))
-read_all_html(tmpdir)
+sandpaper:::read_all_html(tmpdir)
 
 }

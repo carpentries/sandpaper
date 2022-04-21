@@ -19,7 +19,7 @@
 #' fs::dir_create(fs::path(tmpdir, "instructor"))
 #' writeLines("<p>Instructor</p>", fs::path(tmpdir, "instructor", "index.html"))
 #' writeLines("<p>Learner</p>", fs::path(tmpdir, "index.html"))
-#' read_all_html(tmpdir)
+#' sandpaper:::read_all_html(tmpdir)
 #'
 read_all_html <- function(path) {
   paths <- fs::path_abs(fs::dir_ls(path, glob = "*.html", recurse = TRUE))
@@ -43,7 +43,7 @@ read_all_html <- function(path) {
 #' @param pkg an object created via [pkgdown::as_pkgdown()] of a lesson.
 #' @param title the new page title 
 #' @param slug the slug for the page (e.g. "aio" will become "aio.html")
-#' @param quiet if `TRUE`, no messages will be emitted (default). If FALSE, 
+#' @param quiet if `TRUE`, no messages will be emitted. If FALSE, 
 #'   pkgdown will report creation of the temporary file.
 #' @return 
 #'  - `provision_extra_page()`: a list:
@@ -144,28 +144,63 @@ provision_extra_template <- function(pkg, quiet = TRUE) {
     as.character(xml2::read_html(instructor))) 
 }
 
-
-provision_fun <- function(slug) {
-  get(paste0("provision_", sub("-", "", slug)), asNamespace("sandpaper"))
-}
 section_fun <- function(slug) {
   get(paste0("make_", sub("-", "", slug), "_section"), asNamespace("sandpaper"))
 }
 
+#' Build a page for aggregating common elements
+#'
+#' @inheritParams provision_extra_page
+#' @param pages output from the function [read_all_html()]: a nested list of
+#'   `xml_document` objects representing episodes in the lesson
+#' @param aggregate a selector for the lesson content you want to aggregate. 
+#'   The default is "section", which will aggregate all sections, but nothing
+#'   outside of the sections. To grab everything in the page, use "*"
+#' @param prefix flag to add a prefix for the aggregated sections. Defaults to 
+#'   `FALSE`. 
+#' @return NULL, invisibly. This is called for its side-effect 
+#' 
+#' @details 
+#'
+#' Building an aggregate page is very much akin to copy/paste---you take the
+#' same elements across several pages and paste them into one large page. We can
+#' do this programmatically by using XPath to extract nodes from pages and add 
+#' them into the document.
+#'
+#' To customise the page, we need a few things:
+#'
+#' 1. a title
+#' 2. a slug
+#' 3. a method to prepare and insert the extracted content (e.g. [make_aio_section()])
+#' @note
+#' This function assumes that you have already built all the episodes of your
+#' lesson. 
+#'
+#' @keywords internal
+#' @rdname build_extra
+#' @examples
+#' if (FALSE) {
+#'   # build_aio() assumes that your lesson has been built and takes in a 
+#'   # pkgdown object, which can be created from the `site/` folder in your
+#'   # lesson.
+#'   lsn <- "/path/to/my/lesson"
+#'   pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
+#'
+#'   htmls <- read_all_html(pkg$dst_path)
+#'   build_aio(pkg, htmls, quiet = FALSE)
+#'   build_keypoints(pkg, htmls, quiet = FALSE)
+#' }
 build_extra_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "section", prefix = FALSE, quiet = FALSE) {
   path <- root_path(pkg$src_path)
   out_path <- pkg$dst_path
   this_lesson(path)
-
-  provision <- provision_fun(slug)
-  make_section <- section_fun(slug)
-
-  agg <- provision(pkg, quiet)
-
+  agg <- provision_extra_page(pkg, title = title, slug = slug, quiet)
   if (agg$needs_episodes) {
     remove_fix_node(agg$learner, slug)
     remove_fix_node(agg$instructor, slug)
   }
+
+  make_section <- section_fun(slug)
 
   learn <- get_content(agg$learner, content = "section", label = TRUE)
   learn_parent <- get_content(agg$learner, content = "self::*")
@@ -193,10 +228,74 @@ build_extra_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = 
     make_section(ename, ep_learn, learn_parent)
     make_section(ename, ep_instruct, instruct_parent)
   }
+
   learn_out <- fs::path(out_path, as_html(slug))
   instruct_out <- fs::path(out_path, as_html(slug, instructor = TRUE))
+  report <- "Writing '{.file {out}}'"
+  out <- fs::path_rel(learn_out, pkg$dst_path)
+  if (!quiet) cli::cli_text(report)
   writeLines(as.character(agg$learner), learn_out)
+  out <- fs::path_rel(instruct_out, pkg$dst_path)
+  if (!quiet) cli::cli_text(report)
   writeLines(as.character(agg$instructor), instruct_out)
+}
+
+#' Get sections from an episode's HTML page
+#'
+#' @param episode an object of class `xml_document`, a path to a markdown or
+#'   html file of an episode.
+#' @inheritParams build_aio
+#' @param content an XPath fragment. defaults to "*"
+#' @param label if `TRUE`, elements will be named by their ids. This is best
+#'   used when content = "section".
+#' @param instructor if `TRUE`, the instructor version of the episode is read,
+#'   defaults to `FALSE`. This has no effect if the episode is an `xml_document`.
+#'
+#' @details
+#' The contents of the lesson are contained in the following templating cascade:
+#'
+#' ```html
+#' <body>
+#'   <div class='container'>
+#'     <div class='row'>
+#'       <div class='[...] primary-content'>
+#'         <main>
+#'           <div class='[...] lesson-content'>
+#'             CONTENT HERE
+#' ```
+#'
+#' This function will extract the content from the episode without the templating.
+#' 
+#' @keywords internal
+#' @examples
+#' if (FALSE) {
+#' lsn <- "/path/to/lesson"
+#' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
+#' 
+#' # for AiO pages, this will return only sections:
+#' get_content("aio", content = "section", label = TRUE, pkg = pkg)
+#'
+#' # for episode pages, this will return everything that's not template
+#' get_content("01-introduction", pkg = pkg)
+#'
+#' }
+get_content <- function(episode, content = "*", label = FALSE, pkg = NULL, 
+  instructor = FALSE) {
+  if (!inherits(episode, "xml_document")) {
+    if (instructor) {
+      path <- fs::path(pkg$dst_path, "instructor", as_html(episode))
+    }
+    else {
+      path <- fs::path(pkg$dst_path, as_html(episode))
+    }
+    episode <- xml2::read_html(path)
+  }
+  XPath <- ".//main/div[contains(@class, 'lesson-content')]/{content}"
+  res <- xml2::xml_find_all(episode, glue::glue(XPath))
+  if (label) {
+    names(res) <- xml2::xml_attr(res, "id")
+  }
+  res
 }
 
 remove_fix_node <- function(html, id='FIXME') {

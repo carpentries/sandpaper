@@ -97,7 +97,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   html_pages <- read_all_html(pkg$dst_path)
   provision_extra_template(pkg)
-  on.exit(.html$clear())
+  on.exit(.html$clear(), add = TRUE)
 
   if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
   build_keypoints(pkg, pages = html_pages, quiet = quiet)
