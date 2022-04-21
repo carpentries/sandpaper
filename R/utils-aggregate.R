@@ -12,6 +12,7 @@
 #'   - `$instructor`: all of the pages in the instructor view
 #'   - `$paths`: the absolute paths for the pages
 #'
+#' @keywords internal
 #' @examples
 #' tmpdir <- tempfile()
 #' on.exit(fs::dir_delete(tmpdir))
