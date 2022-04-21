@@ -87,10 +87,10 @@ reference:
      Components to build aggregate pages such as All in One and Keypoints
  - contents:
    - read_all_html
-   - provision
+   - provision_extra_template
    - get_content
    - make_aio_section
-   - build_agg
+   - build_agg_page
  - title: "[Internal] Resource Discovery/Management"
    desc: >
      Tools for discovering resources and managing their hashes in a text file
