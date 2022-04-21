@@ -87,18 +87,24 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   fs::dir_walk(built_path, function(d) copy_assets(d, pkg$dst_path), all = TRUE)
 
+
   if (!quiet) cli::cli_rule(cli::style_bold("Creating learner profiles"))
   build_profiles(pkg, quiet = quiet, sidebar = sidebar)
-  if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
-  build_keypoints(pkg, quiet = quiet, sidebar = sidebar)
-  if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
-  build_aio(pkg, quiet = quiet)
   if (!quiet) cli::cli_rule(cli::style_bold("Creating homepage"))
   build_home(pkg, quiet = quiet, sidebar = sidebar, new_setup = new_setup, 
     next_page = abs_md[er[1]]
   )
 
-  build_sitemap(pkg$dst_path, quiet = quiet)
+  html_pages <- read_all_html(pkg$dst_path)
+  provision_extra_template(pkg)
+  on.exit(.html$clear(), add = TRUE)
+
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
+  build_keypoints(pkg, pages = html_pages, quiet = quiet)
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
+  build_aio(pkg, pages = html_pages, quiet = quiet)
+
+  build_sitemap(pkg$dst_path, paths = html_pages$paths, quiet = quiet)
 
   pkgdown::preview_site(pkg, "/", preview = preview)
 

@@ -1,35 +1,24 @@
-build_keypoints <- function(pkg, quiet, sidebar = NULL) {
-  page_globals <- setup_page_globals()
-  path <- root_path(pkg$src_path)
-  lesson <- this_lesson(path)
-  keys <- vapply(lesson$episodes, function(i) {
-    title <- i$get_yaml()$title
-    keys  <- i$keypoints
-    kp <- "No keypoints"
-    if (length(keys) > 1) {
-      kp <- paste("-", i$keypoints, collapse = "\n")
-    }
-    md <- paste0("## [", title, "](", as_html(i$name) ,")\n\n", kp, "\n\n")
-    return(md)
-  }, character(1))
+#' @rdname build_agg
+build_keypoints <- function(pkg, pages = NULL, quiet = FALSE) {
+  build_agg_page(pkg = pkg, 
+    pages = pages, 
+    title = "Key Points", 
+    slug = "key-points", 
+    aggregate = "/div[starts-with(@id, 'keypoints')]/div[@class='callout-inner']/div[@class='callout-content']/*", 
+    prefix = FALSE, 
+    quiet = quiet)
+}
 
-  tmp <- tempfile()
-  on.exit(unlink(tmp), add = TRUE)
-  writeLines(keys, tmp)
-
-  html <- xml2::read_html(render_html(tmp))
-  fix_nodes(html)
-
-  this_dat <- list(
-    this_page = "key-points.html",
-    body = use_learner(html),
-    pagetitle = "Keypoints"
-  )
-  page_globals$instructor$update(this_dat)
-  page_globals$learner$update(this_dat)
-
-  page_globals$meta$update(this_dat)
-
-  build_html(template = "extra", pkg = pkg, nodes = html,
-    global_data = page_globals, path_md = "key-points.html", quiet = quiet)
+make_keypoints_section <- function(name, contents, parent) {
+  title <- names(name)
+  uri <- sub("^keypoints-", "", name)
+  new_section <- "<section id='{name}'>
+  <h2 class='section-heading'><a href='{uri}.html'>{title}</a></h2>
+  <hr class='half-width'/>
+  </section>"
+  section <- xml2::read_xml(glue::glue(new_section))
+  for (element in contents) {
+    xml2::xml_add_child(section, element)
+  }
+  xml2::xml_add_child(parent, section)
 }

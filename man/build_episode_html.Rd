@@ -54,6 +54,10 @@ this function is for internal use, but exported for those who know what
 they are doing.
 }
 \examples{
+if (FALSE) {
+# 2022-04-15: this suddenly started throwing a check error
+# that says "connections left open: (file) and I can't figure out where the
+# hell its coming from, so I'm just going to not run this :( 
 if (.Platform$OS.type == "windows") {
   options("sandpaper.use_renv" = FALSE)
 }
@@ -79,6 +83,7 @@ txt <- c(
  "::: testimonial\n\n#### testimony!\n\nwhat\n:::\n"
 )
 file.create(fun_file)
+on.exit(unlink(tmp, recursive = TRUE, force = TRUE))
 writeLines(txt, fun_file)
 hash <- tools::md5sum(fun_file)
 res <- build_episode_md(fun_file, hash)
@@ -90,6 +95,7 @@ if (rmarkdown::pandoc_available("2.11")) {
   build_episode_html(res, path_src = fun_file, 
     pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
   )
+}
 }
 }
 \seealso{

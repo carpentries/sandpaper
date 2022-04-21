@@ -1,3 +1,16 @@
+# sandpaper 0.4.1
+
+MISC
+----
+
+* The All in One page and Keypoints page have been redesigned. These now both
+  use the underlying internal function `build_agg_page()` (build aggregate
+  page). This allows slow templating processes to be performed once and cached
+  instead of repeated for each page. It provides a framework for future
+  aggregate pages (such as figures, instructor notes, glossary, etc).
+* A message is now printed when Keypoints and All-in-one pages are written to
+  disk if `quiet = FALSE`.
+
 # sandpaper 0.4.0
 
 NEW FEATURES

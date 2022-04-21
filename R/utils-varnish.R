@@ -60,10 +60,6 @@ set_globals <- function(path) {
   set_resource_list(path)
   these_resources <- .resources$get()
 
-  for (slug in get_slug(unlist(these_resources, use.names = FALSE))) {
-    .html$set(slug, "")
-  }
-
   # Sidebar information is largely duplicated across the views. The only thing
   # that is different is the name of the index node.
   idx <- these_resources[["."]]

@@ -25,16 +25,6 @@ make_github_url <- function(path) {
   paste0("https://", res[1], ".github.io/", res[2])
 }
 
-build_sitemap <- function(out, quiet = TRUE) {
-  if (!quiet) cli::cli_rule(cli::style_bold("Creating sitemap.xml"))
-  url <- this_metadata$get()$url
-  paths <- fs::dir_ls(out, glob = "*.html", recurse = TRUE)
-  urls <- paste0(url, fs::path_rel(paths, out))
-  doc <- urls_to_sitemap(urls)
-  sitemap <- fs::path(out, "sitemap.xml")
-  xml2::write_xml(doc, file = sitemap)
-  invisible()
-}
 
 set_common_links <- function(path = ".") {
   links <- getOption("sandpaper.links")
@@ -48,14 +38,6 @@ set_common_links <- function(path = ".") {
 }
 
 
-urls_to_sitemap <- function(urls) {
-  doc <- xml2::read_xml("<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
-  for (url in urls) {
-    child <- xml2::read_xml(paste0("<url><loc>", url, "</loc></url>"))
-    xml2::xml_add_child(doc, child)
-  }
-  doc
-}
 
 get_trimmed_title <- function(next_page) {
   next_page <- get_navbar_info(next_page)
