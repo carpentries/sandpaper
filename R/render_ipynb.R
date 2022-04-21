@@ -43,12 +43,19 @@
 #' }
 render_ipynb <- function(path_in, ..., quiet = FALSE) {
 
-    # jupytext --to notebook notebook.py
+  # jupytext --to notebook notebook.py
   htm <- paste0("jupytext --to notebook ", path_in)
   # args <- construct_pandoc_args3(path_in, output = htm, to = "ipynb", ...)
   # callr::r(function(...) rmarkdown::pandoc_convert(...), args = args,
   #          show = !quiet)
-  remove_lines <- paste0("sed -i '.bak' '/^::::/d' ", path_in)
+
+  # Add a space or not in case we are running on a mac.
+  # sed -i for BSD uses a space to set the backup file, whereas 
+  #        the GNU version doesn't require a space.
+  #        If not used `-i` the file is not change in place.
+  is_mac <- version$os
+  space <- if(grep("darwin", is_mac)) paste(" ") else paste("")
+  remove_lines <- paste0("sed -i", space, "'.bak' '/^::::/d' ", path_in)
   system(remove_lines)
   system(htm)
   paste("COME ipynb PLEASE", collapse = "\n")
