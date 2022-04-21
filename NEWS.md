@@ -3,10 +3,13 @@
 MISC
 ----
 
-Building of Key Points and the All in one page have been revamped to share
-common elements for building aggregate pages. This improves the build time
-somewhat and provides a framework to add more aggregation in the future 
-(e.g. images and instructor notes).
+* The All in One page and Keypoints page have been redesigned. These now both
+  use the underlying internal function `build_agg_page()` (build aggregate
+  page). This allows slow templating processes to be performed once and cached
+  instead of repeated for each page. It provides a framework for future
+  aggregate pages (such as figures, instructor notes, glossary, etc).
+* A message is now printed when Keypoints and All-in-one pages are written to
+  disk if `quiet = FALSE`.
 
 # sandpaper 0.4.0
 

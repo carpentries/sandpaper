@@ -1,6 +1,6 @@
-#' @rdname build_extra
+#' @rdname build_agg
 build_aio <- function(pkg, pages = NULL, quiet = FALSE) {
-  build_extra_page(pkg = pkg, pages = pages, title = "All in One View",
+  build_agg_page(pkg = pkg, pages = pages, title = "All in One View",
     slug = "aio", aggregate = "*", prefix = TRUE, quiet = quiet)
 }
 

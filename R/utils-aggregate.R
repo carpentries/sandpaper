@@ -34,7 +34,7 @@ read_all_html <- function(path) {
   c(htmls, list(paths = paths))
 }
 
-#' Provision an "extra" page in a lesson
+#' Provision an aggregate page in a lesson
 #'
 #' A function that will provision page using a reusable template provisioned
 #' for aggregate pages used in this lesson to avoid the unnecessary
@@ -46,7 +46,7 @@ read_all_html <- function(path) {
 #' @param quiet if `TRUE`, no messages will be emitted. If FALSE, 
 #'   pkgdown will report creation of the temporary file.
 #' @return 
-#'  - `provision_extra_page()`: a list:
+#'  - `provision_agg_page()`: a list:
 #'    - `$learner`: an `xml_document` templated for the learner page
 #'    - `$instructor`: an `xml_document` templated for the instructor page
 #'    - `$needs_episodes`: a logical indicating if the page should be completly
@@ -77,7 +77,7 @@ read_all_html <- function(path) {
 #' global object so it can be passed around to other functions without needing
 #' an argument.
 #' 
-#' `provision_extra_page()` makes a copy of this cache, replaces the FIXME
+#' `provision_agg_page()` makes a copy of this cache, replaces the FIXME
 #'  values with the appropriate elements, and returns an object created from 
 #'  [xml2::read_html()] for each of the instructor and learner veiws.
 #'
@@ -89,10 +89,10 @@ read_all_html <- function(path) {
 #' pkg <- pkgdown::as_pkgdown(lsn_site)
 #' 
 #' # create an AIO page
-#' provision_extra_page(pkg, title = "All In One", slug = "aio", quiet = FALSE)
+#' provision_agg_page(pkg, title = "All In One", slug = "aio", quiet = FALSE)
 #'
 #' }
-provision_extra_page <- function(pkg, title = "Key Points", slug = "key-points", quiet) {
+provision_agg_page <- function(pkg, title = "Key Points", slug = "key-points", quiet) {
   if (is.null(.html$get()$template$extra)) {
     provision_extra_template(pkg)
   }
@@ -150,7 +150,7 @@ section_fun <- function(slug) {
 
 #' Build a page for aggregating common elements
 #'
-#' @inheritParams provision_extra_page
+#' @inheritParams provision_agg_page
 #' @param pages output from the function [read_all_html()]: a nested list of
 #'   `xml_document` objects representing episodes in the lesson
 #' @param aggregate a selector for the lesson content you want to aggregate. 
@@ -177,7 +177,7 @@ section_fun <- function(slug) {
 #' lesson. 
 #'
 #' @keywords internal
-#' @rdname build_extra
+#' @rdname build_agg
 #' @examples
 #' if (FALSE) {
 #'   # build_aio() assumes that your lesson has been built and takes in a 
@@ -190,11 +190,11 @@ section_fun <- function(slug) {
 #'   build_aio(pkg, htmls, quiet = FALSE)
 #'   build_keypoints(pkg, htmls, quiet = FALSE)
 #' }
-build_extra_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "section", prefix = FALSE, quiet = FALSE) {
+build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "section", prefix = FALSE, quiet = FALSE) {
   path <- root_path(pkg$src_path)
   out_path <- pkg$dst_path
   this_lesson(path)
-  agg <- provision_extra_page(pkg, title = title, slug = slug, quiet)
+  agg <- provision_agg_page(pkg, title = title, slug = slug, quiet)
   if (agg$needs_episodes) {
     remove_fix_node(agg$learner, slug)
     remove_fix_node(agg$instructor, slug)

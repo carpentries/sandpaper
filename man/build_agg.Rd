@@ -4,14 +4,14 @@
 \name{build_aio}
 \alias{build_aio}
 \alias{build_keypoints}
-\alias{build_extra_page}
+\alias{build_agg_page}
 \title{Build a page for aggregating common elements}
 \usage{
 build_aio(pkg, pages = NULL, quiet = FALSE)
 
 build_keypoints(pkg, pages = NULL, quiet = FALSE)
 
-build_extra_page(
+build_agg_page(
   pkg,
   pages,
   title = NULL,

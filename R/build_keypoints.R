@@ -1,6 +1,6 @@
-#' @rdname build_extra
+#' @rdname build_agg
 build_keypoints <- function(pkg, pages = NULL, quiet = FALSE) {
-  build_extra_page(pkg = pkg, 
+  build_agg_page(pkg = pkg, 
     pages = pages, 
     title = "Key Points", 
     slug = "key-points", 
