@@ -78,12 +78,18 @@ reference:
    - build_handout
    - build_markdown
    - build_site
-   - build_agg
    - build_episode_md
    - build_episode_html
    - render_html
-   - read_all_html
    - sandpaper.options
+ - title: "[Internal] Post-build Aggregation Components"
+   desc: >
+     Components to build aggregate pages such as All in One and Keypoints
+   - read_all_html
+   - provision
+   - get_content
+   - make_aio_section
+   - build_agg
  - title: "[Internal] Resource Discovery/Management"
    desc: >
      Tools for discovering resources and managing their hashes in a text file
