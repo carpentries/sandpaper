@@ -20,6 +20,7 @@ build_agg_page(
   title = NULL,
   slug = NULL,
   aggregate = "section",
+  append = "self::*",
   prefix = FALSE,
   quiet = FALSE
 )
@@ -30,8 +31,8 @@ build_agg_page(
 \item{pages}{output from the function \code{\link[=read_all_html]{read_all_html()}}: a nested list of
 \code{xml_document} objects representing episodes in the lesson}
 
-\item{quiet}{if \code{TRUE}, no messages will be emitted. If FALSE,
-pkgdown will report creation of the temporary file.}
+\item{quiet}{if \code{TRUE}, no messages will be emitted. If FALSE, pkgdown will
+report creation of the temporary file.}
 
 \item{title}{the new page title}
 
@@ -40,6 +41,10 @@ pkgdown will report creation of the temporary file.}
 \item{aggregate}{a selector for the lesson content you want to aggregate.
 The default is "section", which will aggregate all sections, but nothing
 outside of the sections. To grab everything in the page, use "*"}
+
+\item{append}{a selector for the section of the page where the aggregate data
+should be placed. This defaults to "self::*", which indicates that the
+entire page should be appended.}
 
 \item{prefix}{flag to add a prefix for the aggregated sections. Defaults to
 \code{FALSE}.}

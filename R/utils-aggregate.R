@@ -44,8 +44,9 @@ read_all_html <- function(path) {
 #' @param pkg an object created via [pkgdown::as_pkgdown()] of a lesson.
 #' @param title the new page title 
 #' @param slug the slug for the page (e.g. "aio" will become "aio.html")
-#' @param quiet if `TRUE`, no messages will be emitted. If FALSE, 
-#'   pkgdown will report creation of the temporary file.
+#' @param new if `TRUE`, (default), the page will be generated
+#'   from a new template. If `FALSE`, the page is assumed to have been pre-built and
+#'   should be appended to.
 #' @return 
 #'  - `provision_agg_page()`: a list:
 #'    - `$learner`: an `xml_document` templated for the learner page
@@ -93,21 +94,26 @@ read_all_html <- function(path) {
 #' provision_agg_page(pkg, title = "All In One", slug = "aio", quiet = FALSE)
 #'
 #' }
-provision_agg_page <- function(pkg, title = "Key Points", slug = "key-points", quiet) {
-  if (is.null(.html$get()$template$extra)) {
-    provision_extra_template(pkg)
+provision_agg_page <- function(pkg, title = "Key Points", slug = "key-points", new = FALSE) {
+  if (new) {
+    if (is.null(.html$get()$template$extra)) {
+      provision_extra_template(pkg)
+    }
+    learner <- .html$get()$template$extra$learner
+    instructor <- .html$get()$template$extra$instructor
+    learner <- gsub("--FIXME TITLE", title, learner)
+    instructor <- gsub("--FIXME TITLE", title, instructor)
+    learner <- gsub("--FIXME", slug, learner)
+    instructor <- gsub("--FIXME", slug, instructor)
+  } else {
+    uri <- as_html(slug)
+    learner <- fs::path(pkg$dst_path, uri)
+    instructor <- fs::path(pkg$dst_path, "instructor", uri)
   }
-
-  learner <- .html$get()$template$extra$learner
-  instructor <- .html$get()$template$extra$instructor
-  learner <- gsub("--FIXME TITLE", title, learner)
-  instructor <- gsub("--FIXME TITLE", title, instructor)
-  learner <- gsub("--FIXME", slug, learner)
-  instructor <- gsub("--FIXME", slug, instructor)
 
   return(list(learner = xml2::read_html(learner), 
     instructor = xml2::read_html(instructor),
-    needs_episodes = TRUE)
+    needs_episodes = new)
   )
 }
 
@@ -157,8 +163,13 @@ section_fun <- function(slug) {
 #' @param aggregate a selector for the lesson content you want to aggregate. 
 #'   The default is "section", which will aggregate all sections, but nothing
 #'   outside of the sections. To grab everything in the page, use "*"
+#' @param append a selector for the section of the page where the aggregate data
+#'   should be placed. This defaults to "self::*", which indicates that the 
+#'   entire page should be appended.
 #' @param prefix flag to add a prefix for the aggregated sections. Defaults to 
 #'   `FALSE`. 
+#' @param quiet if `TRUE`, no messages will be emitted. If FALSE, pkgdown will
+#'   report creation of the temporary file.
 #' @return NULL, invisibly. This is called for its side-effect 
 #' 
 #' @details 
@@ -191,11 +202,12 @@ section_fun <- function(slug) {
 #'   build_aio(pkg, htmls, quiet = FALSE)
 #'   build_keypoints(pkg, htmls, quiet = FALSE)
 #' }
-build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "section", prefix = FALSE, quiet = FALSE) {
+build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "section", append = "self::*", prefix = FALSE, quiet = FALSE) {
   path <- root_path(pkg$src_path)
   out_path <- pkg$dst_path
   this_lesson(path)
-  agg <- provision_agg_page(pkg, title = title, slug = slug, quiet)
+  new_content <- append == "self::*"
+  agg <- provision_agg_page(pkg, title = title, slug = slug, new = new_content)
   if (agg$needs_episodes) {
     remove_fix_node(agg$learner, slug)
     remove_fix_node(agg$instructor, slug)
@@ -203,16 +215,12 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
 
   make_section <- section_fun(slug)
 
-  learn <- get_content(agg$learner, content = "section", label = TRUE)
-  learn_parent <- get_content(agg$learner, content = "self::*")
-
-  instruct <- get_content(agg$instructor, content = "section", label = TRUE)
-  instruct_parent <- get_content(agg$instructor, content = "self::*")
+  learn_parent <- get_content(agg$learner, content = append)
+  instruct_parent <- get_content(agg$instructor, content = append)
 
   the_episodes <- .resources$get()[["episodes"]]
   the_slugs <- get_slug(the_episodes)
   the_slugs <- if (prefix) paste0(slug, "-", the_slugs) else the_slugs
-  old_names <- names(learn)
   
   for (episode in seq(the_episodes)) {
     ep_learn <- ep_instruct <- the_episodes[episode]
@@ -224,7 +232,7 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
     }
     ep_title <- as.character(xml2::xml_contents(get_content(ep_learn, ".//h1")))
     names(ename) <- paste(ep_title, collapse = "")
-    ep_learn    <- get_content(ep_learn, content = aggregate, pkg = pkg)
+    ep_learn <- get_content(ep_learn, content = aggregate, pkg = pkg)
     ep_instruct <- get_content(ep_instruct, content = aggregate, pkg = pkg, instructor = TRUE)
     make_section(ename, ep_learn, learn_parent)
     make_section(ename, ep_instruct, instruct_parent)
@@ -273,11 +281,14 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
 #' lsn <- "/path/to/lesson"
 #' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
 #' 
-#' # for AiO pages, this will return only sections:
+#' # for AiO pages, this will return only the top-level sections:
 #' get_content("aio", content = "section", label = TRUE, pkg = pkg)
 #'
 #' # for episode pages, this will return everything that's not template
 #' get_content("01-introduction", pkg = pkg)
+#' 
+#' # for things that are within lessons but we don't know their exact location,
+#' # we can prefix a `/` to double up the slash, which will produce 
 #'
 #' }
 get_content <- function(episode, content = "*", label = FALSE, pkg = NULL, 
