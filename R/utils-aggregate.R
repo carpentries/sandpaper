@@ -164,7 +164,7 @@ section_fun <- function(slug) {
 #'   The default is "section", which will aggregate all sections, but nothing
 #'   outside of the sections. To grab everything in the page, use "*"
 #' @param append a selector for the section of the page where the aggregate data
-#'   should be placed. This defaults to "self::*", which indicates that the 
+#'   should be placed. This defaults to "self::node()", which indicates that the 
 #'   entire page should be appended.
 #' @param prefix flag to add a prefix for the aggregated sections. Defaults to 
 #'   `FALSE`. 
@@ -202,11 +202,12 @@ section_fun <- function(slug) {
 #'   build_aio(pkg, htmls, quiet = FALSE)
 #'   build_keypoints(pkg, htmls, quiet = FALSE)
 #' }
-build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "section", append = "self::*", prefix = FALSE, quiet = FALSE) {
+build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "section", append = "self::node()", prefix = FALSE, quiet = FALSE) {
   path <- root_path(pkg$src_path)
   out_path <- pkg$dst_path
   this_lesson(path)
-  new_content <- append == "self::*"
+
+  new_content <- append == "self::node()" || append == "self::*"
   agg <- provision_agg_page(pkg, title = title, slug = slug, new = new_content)
   if (agg$needs_episodes) {
     remove_fix_node(agg$learner, slug)
@@ -217,6 +218,21 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
 
   learn_parent <- get_content(agg$learner, content = append)
   instruct_parent <- get_content(agg$instructor, content = append)
+  needs_content <- !new_content && length(instruct_parent) == 0
+  if (needs_content) {
+    # When the content requested does not exist, we append a new section with
+    # the id of aggregate-{slug}
+    sid <- paste0("aggregate-", slug)
+    learn_parent <- xml2::xml_add_child(
+      get_content(agg$learner, content = "self::node()"), 
+      "section", id = sid)
+    instruct_parent <- xml2::xml_add_child(
+      get_content(agg$instructor, content = "self::node()"), 
+      "section", id = sid)
+  }
+  # clean up any content that currently exists
+  xml2::xml_remove(xml2::xml_child(learn_parent))
+  xml2::xml_remove(xml2::xml_child(instruct_parent))
 
   the_episodes <- .resources$get()[["episodes"]]
   the_slugs <- get_slug(the_episodes)

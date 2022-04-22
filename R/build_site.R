@@ -105,6 +105,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   build_aio(pkg, pages = html_pages, quiet = quiet)
   if (!quiet) cli::cli_rule(cli::style_bold("Creating Images page"))
   build_images(pkg, pages = html_pages, quiet = quiet)
+  if (!quiet) cli::cli_rule(cli::style_bold("Creating Instructor Notes"))
+  build_instructor_notes(pkg, pages = html_pages, built = built, quiet = quiet)
 
   build_sitemap(pkg$dst_path, paths = html_pages$paths, quiet = quiet)
 
