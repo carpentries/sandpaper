@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Build a page for aggregating common elements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/R/build_aio.R" class="external-link"><code>R/build_aio.R</code></a>, <a href="https://github.com/carpentries/sandpaper/blob/HEAD/R/build_keypoints.R" class="external-link"><code>R/build_keypoints.R</code></a>, <a href="https://github.com/carpentries/sandpaper/blob/HEAD/R/utils-aggregate.R" class="external-link"><code>R/utils-aggregate.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/R/build_aio.R" class="external-link"><code>R/build_aio.R</code></a>, <a href="https://github.com/carpentries/sandpaper/blob/HEAD/R/build_images.R" class="external-link"><code>R/build_images.R</code></a>, <a href="https://github.com/carpentries/sandpaper/blob/HEAD/R/build_instructor_notes.R" class="external-link"><code>R/build_instructor_notes.R</code></a>, and 2 more</small>
       <div class="d-none name"><code>build_agg.Rd</code></div>
     </div>
 
@@ -62,6 +62,10 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">build_aio</span><span class="op">(</span><span class="va">pkg</span>, pages <span class="op">=</span> <span class="cn">NULL</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
+<span class="fu">build_images</span><span class="op">(</span><span class="va">pkg</span>, pages <span class="op">=</span> <span class="cn">NULL</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="fu">build_instructor_notes</span><span class="op">(</span><span class="va">pkg</span>, pages <span class="op">=</span> <span class="cn">NULL</span>, built <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">quiet</span><span class="op">)</span>
+
 <span class="fu">build_keypoints</span><span class="op">(</span><span class="va">pkg</span>, pages <span class="op">=</span> <span class="cn">NULL</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="fu">build_agg_page</span><span class="op">(</span>
@@ -70,6 +74,7 @@
   title <span class="op">=</span> <span class="cn">NULL</span>,
   slug <span class="op">=</span> <span class="cn">NULL</span>,
   aggregate <span class="op">=</span> <span class="st">"section"</span>,
+  append <span class="op">=</span> <span class="st">"self::node()"</span>,
   prefix <span class="op">=</span> <span class="cn">FALSE</span>,
   quiet <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span></code></pre></div>
@@ -83,8 +88,11 @@
 <dd><p>output from the function <code><a href="read_all_html.html">read_all_html()</a></code>: a nested list of
 <code>xml_document</code> objects representing episodes in the lesson</p></dd>
 <dt>quiet</dt>
-<dd><p>if <code>TRUE</code>, no messages will be emitted. If FALSE,
-pkgdown will report creation of the temporary file.</p></dd>
+<dd><p>if <code>TRUE</code>, no messages will be emitted. If FALSE, pkgdown will
+report creation of the temporary file.</p></dd>
+<dt>built</dt>
+<dd><p>a vector of markdown documents that have recently been rebuilt
+(for future use)</p></dd>
 <dt>title</dt>
 <dd><p>the new page title</p></dd>
 <dt>slug</dt>
@@ -93,6 +101,10 @@ pkgdown will report creation of the temporary file.</p></dd>
 <dd><p>a selector for the lesson content you want to aggregate.
 The default is "section", which will aggregate all sections, but nothing
 outside of the sections. To grab everything in the page, use "*"</p></dd>
+<dt>append</dt>
+<dd><p>a selector for the section of the page where the aggregate data
+should be placed. This defaults to "self::node()", which indicates that the
+entire page should be appended.</p></dd>
 <dt>prefix</dt>
 <dd><p>flag to add a prefix for the aggregated sections. Defaults to
 <code>FALSE</code>.</p></dd>
