@@ -223,16 +223,17 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
     # When the content requested does not exist, we append a new section with
     # the id of aggregate-{slug}
     sid <- paste0("aggregate-", slug)
-    learn_parent <- xml2::xml_add_child(
-      get_content(agg$learner, content = "self::node()"), 
-      "section", id = sid)
-    instruct_parent <- xml2::xml_add_child(
-      get_content(agg$instructor, content = "self::node()"), 
-      "section", id = sid)
+    learn_content <- get_content(agg$learner, content = "self::node()") 
+    xml2::xml_add_child(learn_content, "section", id = sid)
+    learn_parent <- xml2::xml_child(learn_content, xml2::xml_length(learn_content))
+
+    instruct_content <- get_content(agg$instructor, content = "self::node()") 
+    xml2::xml_add_child(instruct_content, "section", id = sid)
+    instruct_parent <- xml2::xml_child(instruct_content, xml2::xml_length(instruct_content))
   }
   # clean up any content that currently exists
-  xml2::xml_remove(xml2::xml_child(learn_parent))
-  xml2::xml_remove(xml2::xml_child(instruct_parent))
+  xml2::xml_remove(xml2::xml_children(learn_parent))
+  xml2::xml_remove(xml2::xml_children(instruct_parent))
 
   the_episodes <- .resources$get()[["episodes"]]
   the_slugs <- get_slug(the_episodes)
@@ -257,12 +258,12 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
   learn_out <- fs::path(out_path, as_html(slug))
   instruct_out <- fs::path(out_path, as_html(slug, instructor = TRUE))
   report <- "Writing '{.file {out}}'"
-  out <- fs::path_rel(learn_out, pkg$dst_path)
-  if (!quiet) cli::cli_text(report)
-  writeLines(as.character(agg$learner), learn_out)
   out <- fs::path_rel(instruct_out, pkg$dst_path)
   if (!quiet) cli::cli_text(report)
   writeLines(as.character(agg$instructor), instruct_out)
+  out <- fs::path_rel(learn_out, pkg$dst_path)
+  if (!quiet) cli::cli_text(report)
+  writeLines(as.character(agg$learner), learn_out)
 }
 
 #' Get sections from an episode's HTML page

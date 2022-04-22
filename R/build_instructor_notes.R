@@ -30,7 +30,7 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
     page_globals$meta$update(this_dat)
 
     build_html(template = "extra", pkg = pkg, nodes = html,
-      global_data = page_globals, path_md = "instructor-notes.html", quiet = quiet)
+      global_data = page_globals, path_md = "instructor-notes.html", quiet = TRUE)
   }
   build_agg_page(pkg = pkg, 
     pages = pages, 
@@ -43,6 +43,13 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
 }
 
 make_instructornotes_section <- function(name, contents, parent) {
+  # Since we have hidden the instructor notes from the learner sections,
+  # there is no point to iterate here, so we return early.
+  the_call <- match.call()
+  is_learner <- endsWith(as.character(the_call[["contents"]]), "learn")
+  if (is_learner) {
+    return(invisible(NULL))
+  }
   title <- names(name)
   uri <- sub("^instructor-notes-", "", name)
   new_section <- "<section id='{name}'>
