@@ -13,8 +13,6 @@ test_that("Lessons built for the first time are noisy", {
     expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
       "ordinary text without R code")
   })
-  pkg <- pkgdown::as_pkgdown(fs::path_dir(sitepath))
-  htmls <- read_all_html(sitepath)
   expect_setequal(names(htmls$learner), 
     c("01-introduction", "index", "LICENSE", "CODE_OF_CONDUCT", "profiles", 
       "instructor-notes", "key-points", "aio", "images")
@@ -25,6 +23,9 @@ test_that("Lessons built for the first time are noisy", {
   )
 
 })
+
+htmls <- read_all_html(sitepath)
+pkg <- pkgdown::as_pkgdown(fs::path_dir(sitepath))
 
 test_that("build_lesson() also builds the extra pages", {
   expect_true(fs::dir_exists(sitepath))
@@ -71,7 +72,7 @@ test_that("keypoints page can be rebuilt", {
   expect_true(fs::file_exists(keypoints))
   expect_true(fs::file_exists(ikeypoints))
   html <- xml2::read_html(keypoints)
-  content <- get_content(html, "section[starts-with(@id, 'keypoints-')]")
+  content <- get_content(html, "section")
   expect_length(content, 1L)
   expect_equal(xml2::xml_attr(content, "id"), "01-introduction")
 
