@@ -13,6 +13,7 @@ test_that("Lessons built for the first time are noisy", {
     expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
       "ordinary text without R code")
   })
+  htmls <- read_all_html(sitepath)
   expect_setequal(names(htmls$learner), 
     c("01-introduction", "index", "LICENSE", "CODE_OF_CONDUCT", "profiles", 
       "instructor-notes", "key-points", "aio", "images")
@@ -85,6 +86,33 @@ test_that("keypoints page can be rebuilt", {
   # rebuild the content and check if the section still exists... it shouldn't
   build_keypoints(pkg, pages = htmls, quiet = TRUE)
   content <- get_content(keypoints, "section[@id='ephemeral']", pkg = pkg)
+  expect_length(content, 0L)
+
+})
+
+test_that("instructor-notes page can be rebuilt", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  notes <- fs::path(sitepath, "instructor-notes.html")
+  inotes <- fs::path(sitepath, "instructor/instructor-notes.html")
+  expect_true(fs::file_exists(notes))
+  expect_true(fs::file_exists(inotes))
+  html <- xml2::read_html(inotes)
+  content <- get_content(html, "section[@id='aggregate-instructor-notes']/section")
+  expect_length(content, 1L)
+  expect_equal(xml2::xml_attr(content, "id"), "01-introduction")
+  expect_match(xml2::xml_text(xml2::xml_find_first(content[[1]], ".//p")), 
+    "Inline instructor notes")
+
+  # add an ephemeral section and write it out
+  xml2::xml_add_sibling(content[[1]], "section", id = "ephemeral")
+  writeLines(as.character(html), inotes)
+  content <- get_content(inotes, "/section[@id='ephemeral']", pkg = pkg, instructor = TRUE)
+  expect_length(content, 1L)
+  
+  # rebuild the content and check if the section still exists... it shouldn't
+  build_instructor_notes(pkg, pages = htmls, quiet = TRUE)
+  content <- get_content(inotes, "/section[@id='ephemeral']", pkg = pkg, instructor = TRUE)
   expect_length(content, 0L)
 
 })
