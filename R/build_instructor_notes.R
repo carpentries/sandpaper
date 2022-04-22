@@ -1,3 +1,6 @@
+#' @rdname build_agg
+#' @param built a vector of markdown documents that have recently been rebuilt
+#'   (for future use)
 build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
   path <- root_path(pkg$src_path)
   this_lesson(path)
@@ -42,6 +45,39 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
     quiet = quiet)
 }
 
+#' Make a section of aggregated instructor notes
+#'
+#' This will append instructor notes from the inline sections of the lesson to
+#' the instructor-notes page, separated by section and `<hr>` elements. 
+#'
+#' @param name the name of the section, (may or may not be prefixed with `images-`)
+#' @param contents an `xml_nodeset` of figure elements from [get_content()]
+#' @param parent the parent div of the images page 
+#' @return the section that was added to the parent
+#' @note On the learner view, instructor notes will not be present
+#'
+#' @keywords internal
+#' @seealso [build_instructor_notes()], [get_content()]
+#' @examples
+#' if (FALSE) {
+#' lsn <- "/path/to/lesson"
+#' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
+#' 
+#' # read in the All in One page and extract its content
+#' notes <- get_content("instructor-notes", content =
+#'   "section[@id='aggregate-instructor-notes']", pkg = pkg, instructor = TRUE)
+#' agg <- "/div[contains(@class, 'instructor-note')]//div[@class='accordion-body']"
+#' note_content <- get_content("01-introduction", content = agg, pkg = pkg)
+#' make_instructornotes_section("01-introduction", contents = note_content, 
+#'   parent = notes)
+#'
+#' # NOTE: if the object for "contents" ends with "_learn", no content will be
+#' # appended
+#' note_learn <- note_content
+#' make_instructornotes_section("01-introduction", contents = note_learn, 
+#'   parent = notes)
+#'
+#' }
 make_instructornotes_section <- function(name, contents, parent) {
   # Since we have hidden the instructor notes from the learner sections,
   # there is no point to iterate here, so we return early.

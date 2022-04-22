@@ -1,3 +1,25 @@
+# sandpaper 0.5.0
+
+NEW FEATURES
+------------
+
+ * `images.html` is built with internal function `build_images()`, collecting
+   all images and displaying alt text for non-screen reader users (while
+   marking those paragraphs as `aria-hidden` so that screen reader users do not
+   have it read twice).
+ * `instructor-notes.html` is now built with the internal function
+   `build_instructor_notes()` and now collects instructor notes from the
+   episodes in a section called `aggregate-instructor-notes`.
+
+MISC
+----
+
+ * The internal `build_agg_page()` has a new argument, `append`, which takes an
+   XPath expression of what node should have children appended. Defaults to 
+   `"self::node()"`. An example of alternate usage is in 
+   `build_instructor_notes()`, which uses 
+   `section[@id='aggregate-instructor-notes']`.
+
 # sandpaper 0.4.1
 
 MISC
