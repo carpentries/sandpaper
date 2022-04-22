@@ -20,40 +20,38 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-11,   r: 'release', cache: '~/Library/Application Support/renv', cov: 'true'}
-          - {os: windows-latest, r: 'release', cache: '~\AppData\Local\renv
-'}
-          - {os: ubuntu-18.04,   r: 'devel', cache: '~/.local/share/renv', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest", http-user-agent: "R/4.0.0 (ubuntu-18.04) R (4.0.0 x86_64-pc-linux-gnu x86_64 linux-gnu) on GitHub Actions" }
-          - {os: ubuntu-18.04,   r: 'release', cache: '~/.local/share/renv', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: 'oldrel',  cache: '~/.local/share/renv', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: '3.5',     cache: '~/.local/share/renv', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: '3.4',     cache: '~/.local/share/renv', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: macOS-latest,   cache: '~/Library/Application Support/renv', r: 'release'}
+
+          - {os: windows-latest, cache: '~\AppData\Local\renv', r: 'release'}
+          # Use 3.6 to trigger usage of RTools35
+          - {os: windows-latest, cache: '~\AppData\Local\renv', r: '3.6'}
+
+          # Use older ubuntu to maximise backward compatibility
+          - {os: ubuntu-18.04,   cache: '~/.local/share/renv', r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-18.04,   cache: '~/.local/share/renv', r: 'release', cov: 'true'}
+          - {os: ubuntu-18.04,   cache: '~/.local/share/renv', r: 'oldrel-1'}
+          - {os: ubuntu-18.04,   cache: '~/.local/share/renv', r: 'oldrel-2'}
+          - {os: ubuntu-18.04,   cache: '~/.local/share/renv', r: 'oldrel-3'}
+          - {os: ubuntu-18.04,   cache: '~/.local/share/renv', r: 'oldrel-4'}
 
     env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RENV_PATHS_ROOT: ${{ matrix.config.cache }}
 
     steps:
       - name: Record Linux Version
         if: runner.os == 'Linux'
         run: echo "OS_VERSION=`lsb_release -sr`" >> $GITHUB_ENV
-      
-      - name: Checkout Package
-        uses: actions/checkout@v2
 
-      - name: "Set up R"
-        uses: r-lib/actions/setup-r@v1
-        with:
-          r-version: ${{ matrix.config.r }}
-          http-user-agent: ${{ matrix.config.http-user-agent }}
 
-      - name: "Set up pandoc"
-        uses: r-lib/actions/setup-pandoc@v1
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-pandoc@v2
         if: runner.os != 'Windows'
         with:
-          pandoc-version: '2.11' 
+          pandoc-version: '2.11'
 
       - name: "Change windows temp dir"
         if: runner.os == 'Windows'
@@ -64,21 +62,22 @@ jobs:
         uses: cderv/actions/setup-pandoc-nightly@nightly-pandoc
         if: runner.os == 'Windows'
 
-      - name: Query dependencies
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-        shell: Rscript {0}
-
-      - name: Restore package cache
-        uses: actions/cache@v2
+      - name: "Setup R"
+        uses: r-lib/actions/setup-r@v2
         with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ env.OS_VERSION }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ env.OS_VERSION }}-${{ hashFiles('.github/R-version') }}-1-
+          r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
 
-      - name: Restore {renv} cache
+      - name: "Setup dependencies"
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::rcmdcheck
+            rstudio/rmarkdown
+          needs: check
+
+      - name: "Restore {renv} cache"
         if: runner.os != 'Windows'
         uses: actions/cache@v2
         with:
@@ -87,26 +86,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ runner.r }}-
 
-      - name: Install macOS system dependencies
-        if: runner.os == 'macOS'
-        run: brew install libgit2
-
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        run: |
-          while read -r cmd
-          do
-            eval sudo $cmd
-          done < <(Rscript -e 'cat(remotes::system_requirements("ubuntu", "18.04"), sep = "\n")')
-          sudo apt install libgit2-dev libxslt1-dev
-
-      - name: Install dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
-        shell: Rscript {0}
-
-      - name: Prime {renv} Cache
+      - name: "Prime {renv} Cache"
         if: runner.os != 'Windows'
         run: |
           renv::init()
@@ -115,60 +95,26 @@ jobs:
           system('git restore .')
         shell: Rscript {0}
 
-      - name: Session info
+      - name: "Session info"
         run: |
           options(width = 100)
           pkgs <- installed.packages()[, "Package"]
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
 
-      - name: Check
+      - name: "Check"
+        uses: r-lib/actions/check-r-package@v2
+        if: runner.os != 'Windows'
+        with:
+          upload-snapshots: true
+
+      - name: "Check"
+        uses: r-lib/actions/check-r-package@v2
+        if: runner.os == 'Windows'
         env:
-          _R_CHECK_CRAN_INCOMING_: false
-        run: |
-          if (.Platform$OS.type == "windows") Sys.unsetenv("RENV_PATHS_ROOT")
-          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
-        shell: Rscript {0}
-
-      - name: Checkout Lesson for Integration Test
-        if: runner.os == 'macOS'
-        uses: actions/checkout@v2
+          RENV_PATHS_ROOT: ~
         with:
-          repository: "carpentries/sandpaper-docs"
-          path: ${{ github.workspace }}/sandpaper-docs 
-          clean: false
+          upload-snapshots: true
+    
 
-      - name: Perform Integration Test
-        if: runner.os == 'macOS'
-        run: |
-          remotes::install_local()
-          stopifnot(
-            "::warning ::Could not clone test lesson" = fs::dir_exists("sandpaper-docs")
-          )
-          cat("::group::Pre-built lesson tree")
-          fs::dir_tree("sandpaper-docs")
-          cat("::endgroup::")
-          cat("::group::Managing Dependencies")
-          sandpaper::manage_deps(file.path(getwd(), "sandpaper-docs"))
-          cat("::endgroup::")
-          cat("::group::Post-built lesson tree")
-          sandpaper::build_lesson("sandpaper-docs", quiet = FALSE)
-          stopifnot(
-            "::error ::Markdown files not built" = fs::dir_exists("sandpaper-docs/site/built"),
-            "::error ::HTML files not built" = fs::dir_exists("sandpaper-docs/site/docs")
-          )
-          fs::dir_tree("sandpaper-docs")
-          cat("::endgroup::")
-        shell: Rscript {0}
 
-      - name: Show testthat output
-        if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@main
-        with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
