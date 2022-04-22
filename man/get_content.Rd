@@ -46,11 +46,14 @@ if (FALSE) {
 lsn <- "/path/to/lesson"
 pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
 
-# for AiO pages, this will return only sections:
+# for AiO pages, this will return only the top-level sections:
 get_content("aio", content = "section", label = TRUE, pkg = pkg)
 
 # for episode pages, this will return everything that's not template
 get_content("01-introduction", pkg = pkg)
+
+# for things that are within lessons but we don't know their exact location,
+# we can prefix a `/` to double up the slash, which will produce 
 
 }
 }

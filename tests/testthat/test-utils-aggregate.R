@@ -1,4 +1,3 @@
-
 test_that("read_all_html returns appropriate files", {
 
   tmpdir <- withr::local_tempdir()
@@ -15,4 +14,6 @@ test_that("read_all_html returns appropriate files", {
   expect_equal(xml2::xml_text(res$instructor$index), "Instructor")
 
 })
+
+
 

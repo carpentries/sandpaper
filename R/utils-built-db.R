@@ -42,7 +42,7 @@ get_built_db <- function(db = "site/built/md5sum.txt", filter = "*R?md") {
 #' @seealso [get_built_db()]
 reserved_db <- function(db) {
   reserved <- c("index", "README", "CONTRIBUTING", "learners/setup", 
-    "profiles[/].*", "links")
+    "profiles[/].*", "instructors[/]instructor-notes[.]*", "links")
   reserved <- paste(reserved, collapse = "|")
   reserved <- paste0("^(", reserved, ")[.]R?md")
   db[!grepl(reserved, db$file, perl = TRUE), , drop = FALSE]

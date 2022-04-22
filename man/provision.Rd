@@ -3,9 +3,9 @@
 \name{provision_agg_page}
 \alias{provision_agg_page}
 \alias{provision_extra_template}
-\title{Provision an "extra" page in a lesson}
+\title{Provision an aggregate page in a lesson}
 \usage{
-provision_agg_page(pkg, title = "Key Points", slug = "key-points", quiet)
+provision_agg_page(pkg, title = "Key Points", slug = "key-points", new = FALSE)
 
 provision_extra_template(pkg, quiet = TRUE)
 }
@@ -16,8 +16,9 @@ provision_extra_template(pkg, quiet = TRUE)
 
 \item{slug}{the slug for the page (e.g. "aio" will become "aio.html")}
 
-\item{quiet}{if \code{TRUE}, no messages will be emitted. If FALSE,
-pkgdown will report creation of the temporary file.}
+\item{new}{if \code{TRUE}, (default), the page will be generated
+from a new template. If \code{FALSE}, the page is assumed to have been pre-built and
+should be appended to.}
 }
 \value{
 \itemize{

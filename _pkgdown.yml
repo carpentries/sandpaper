@@ -90,6 +90,7 @@ reference:
    - provision_extra_template
    - get_content
    - make_aio_section
+   - make_images_section
    - build_agg_page
  - title: "[Internal] Resource Discovery/Management"
    desc: >
