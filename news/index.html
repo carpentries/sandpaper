@@ -64,8 +64,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="misc-0-5-0">MISC<a class="anchor" aria-label="anchor" href="#misc-0-5-0"></a></h3>
-<ul><li>The internal <code><a href="../reference/build_agg.html">build_agg_page()</a></code> has a new argument, <code>append</code>, which takes an XPath expression of what node should have children appended. Defaults to <code>"self::node()"</code>. An example of alternate usage is in <code><a href="../reference/build_agg.html">build_instructor_notes()</a></code>, which uses <code>section[@id='aggregate-instructor-notes']</code>.</li>
-</ul></div>
+<ul><li>The internal <code><a href="../reference/build_agg.html">build_agg_page()</a></code> has a new argument, <code>append</code>, which takes an XPath expression of what node should have children appended. Defaults to <code>"self::node()"</code>. An example of alternate usage is in <code><a href="../reference/build_agg.html">build_instructor_notes()</a></code>, which uses <code>section[@id='aggregate-instructor-notes']</code>.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.1" id="sandpaper-041">sandpaper 0.4.1<a class="anchor" aria-label="anchor" href="#sandpaper-041"></a></h2>
@@ -79,12 +78,10 @@
 <h2 class="pkg-version" data-toc-text="0.4.0" id="sandpaper-040">sandpaper 0.4.0<a class="anchor" aria-label="anchor" href="#sandpaper-040"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-4-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-4-0"></a></h3>
-<ul><li>An all-in-one page is now available for lesson websites at <code>/aio.html</code> and <code>instructor/aio.html</code>.</li>
-</ul></div>
+<ul><li>An all-in-one page is now available for lesson websites at <code>/aio.html</code> and <code>instructor/aio.html</code>.</li></ul></div>
 <div class="section level3">
 <h3 id="misc-0-4-0">MISC<a class="anchor" aria-label="anchor" href="#misc-0-4-0"></a></h3>
-<ul><li>Provisioning of the global lesson element cache (metadata, AST, and global variables for varnish) is now all executed via <code><a href="../reference/lesson_storage.html">this_lesson()</a></code>, which is run during <code><a href="../reference/validate_lesson.html">validate_lesson()</a></code>. This simplifies the setup a bit, and provides the same method of cache invalidation (checking git outputs) for all of these elements</li>
-</ul></div>
+<ul><li>Provisioning of the global lesson element cache (metadata, AST, and global variables for varnish) is now all executed via <code><a href="../reference/lesson_storage.html">this_lesson()</a></code>, which is run during <code><a href="../reference/validate_lesson.html">validate_lesson()</a></code>. This simplifies the setup a bit, and provides the same method of cache invalidation (checking git outputs) for all of these elements</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.6" id="sandpaper-036">sandpaper 0.3.6<a class="anchor" aria-label="anchor" href="#sandpaper-036"></a></h2>
@@ -100,15 +97,13 @@
 <div class="section level3">
 <h3 id="bug-fix-0-3-5">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-3-5"></a></h3>
 <ul><li>
-<code>keypoints.html</code> is now rendered as <code>key-points.html</code> to fix navigation error with varnish.</li>
-</ul></div>
+<code>keypoints.html</code> is now rendered as <code>key-points.html</code> to fix navigation error with varnish.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.4" id="sandpaper-034">sandpaper 0.3.4<a class="anchor" aria-label="anchor" href="#sandpaper-034"></a></h2>
 <div class="section level3">
 <h3 id="continuous-integration-0-3-4">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-3-4"></a></h3>
-<ul><li>pr-receive.yaml has been updated to not report errors for workflow updates. See <a href="https://github.com/carpentries/sandpaper/issues/263" class="external-link uri">https://github.com/carpentries/sandpaper/issues/263</a> for details</li>
-</ul></div>
+<ul><li>pr-receive.yaml has been updated to not report errors for workflow updates. See <a href="https://github.com/carpentries/sandpaper/issues/263" class="external-link uri">https://github.com/carpentries/sandpaper/issues/263</a> for details</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.3" id="sandpaper-033">sandpaper 0.3.3<a class="anchor" aria-label="anchor" href="#sandpaper-033"></a></h2>
@@ -122,12 +117,10 @@
 </ul></div>
 <div class="section level3">
 <h3 id="dependencies-0-3-3">DEPENDENCIES<a class="anchor" aria-label="anchor" href="#dependencies-0-3-3"></a></h3>
-<ul><li>The minimum version of {varnish} required is now 0.1.5</li>
-</ul></div>
+<ul><li>The minimum version of {varnish} required is now 0.1.5</li></ul></div>
 <div class="section level3">
 <h3 id="continuous-integration-0-3-3">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-3-3"></a></h3>
-<ul><li>A small bug in the update cache workflow that caused a silent error with no detremental effect was fixed (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/250" class="external-link">#250</a>)</li>
-</ul></div>
+<ul><li>A small bug in the update cache workflow that caused a silent error with no detremental effect was fixed (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/250" class="external-link">#250</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.2" id="sandpaper-032">sandpaper 0.3.2<a class="anchor" aria-label="anchor" href="#sandpaper-032"></a></h2>
@@ -141,8 +134,7 @@
 <h2 class="pkg-version" data-toc-text="0.3.1" id="sandpaper-031">sandpaper 0.3.1<a class="anchor" aria-label="anchor" href="#sandpaper-031"></a></h2>
 <div class="section level3">
 <h3 id="bug-fixes-0-3-1">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-1"></a></h3>
-<ul><li>Documents with footnotes without trailing newlines will now parse the external links correctly by adding a newline between the document and the links.</li>
-</ul></div>
+<ul><li>Documents with footnotes without trailing newlines will now parse the external links correctly by adding a newline between the document and the links.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="sandpaper-030">sandpaper 0.3.0<a class="anchor" aria-label="anchor" href="#sandpaper-030"></a></h2>
@@ -159,46 +151,39 @@
 <div class="section level3">
 <h3 id="new-features-0-2-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h3>
 <ul><li>
-<code><a href="../reference/validate_lesson.html">validate_lesson()</a></code> will perform checks on links and fenced divs in your lesson. This is now included in calls to <code><a href="../reference/build_lesson.html">build_lesson()</a></code>, <code><a href="../reference/ci_deploy.html">ci_deploy()</a></code> and <code><a href="../reference/serve.html">serve()</a></code> (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/255" class="external-link">#255</a>)</li>
-</ul></div>
+<code><a href="../reference/validate_lesson.html">validate_lesson()</a></code> will perform checks on links and fenced divs in your lesson. This is now included in calls to <code><a href="../reference/build_lesson.html">build_lesson()</a></code>, <code><a href="../reference/ci_deploy.html">ci_deploy()</a></code> and <code><a href="../reference/serve.html">serve()</a></code> (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/255" class="external-link">#255</a>)</li></ul></div>
 <div class="section level3">
 <h3 id="dependencies-0-2-0">DEPENDENCIES<a class="anchor" aria-label="anchor" href="#dependencies-0-2-0"></a></h3>
-<ul><li>the minimum pegboard version is now 0.2.0</li>
-</ul></div>
+<ul><li>the minimum pegboard version is now 0.2.0</li></ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-2-0">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0"></a></h3>
-<ul><li>internal function <code><a href="../reference/lesson_storage.html">this_lesson()</a></code> will now properly invalidate and reset if there is a change in commit (e.g. the lesson to build has switched).</li>
-</ul></div>
+<ul><li>internal function <code><a href="../reference/lesson_storage.html">this_lesson()</a></code> will now properly invalidate and reset if there is a change in commit (e.g. the lesson to build has switched).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.6" id="sandpaper-016">sandpaper 0.1.6<a class="anchor" aria-label="anchor" href="#sandpaper-016"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-1-6">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-1-6"></a></h3>
 <ul><li>
-<code><a href="../reference/set_dropdown.html">set_dropdown()</a></code> no longer fails with {cli} version 3.2.0</li>
-</ul></div>
+<code><a href="../reference/set_dropdown.html">set_dropdown()</a></code> no longer fails with {cli} version 3.2.0</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.5" id="sandpaper-015">sandpaper 0.1.5<a class="anchor" aria-label="anchor" href="#sandpaper-015"></a></h2>
 <div class="section level3">
 <h3 id="internal-0-1-5">INTERNAL<a class="anchor" aria-label="anchor" href="#internal-0-1-5"></a></h3>
-<ul><li>metadata is now processed more consistently across page types, which will first and foremost reduces some of the code complexity, and second, allows for more rapid development of future page types. In some instances, this will result in a marginal improvement of build times, but it will not likely be noticable.</li>
-</ul></div>
+<ul><li>metadata is now processed more consistently across page types, which will first and foremost reduces some of the code complexity, and second, allows for more rapid development of future page types. In some instances, this will result in a marginal improvement of build times, but it will not likely be noticable.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.4" id="sandpaper-014">sandpaper 0.1.4<a class="anchor" aria-label="anchor" href="#sandpaper-014"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-1-4">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-1-4"></a></h3>
 <ul><li>
-<code><a href="../reference/build_lesson.html">sandpaper::build_lesson()</a></code> no longer creates an infinite loop when called after <code><a href="../reference/serve.html">sandpaper::serve()</a></code> (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/247" class="external-link">#247</a>)</li>
-</ul></div>
+<code><a href="../reference/build_lesson.html">sandpaper::build_lesson()</a></code> no longer creates an infinite loop when called after <code><a href="../reference/serve.html">sandpaper::serve()</a></code> (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/247" class="external-link">#247</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.3" id="sandpaper-013">sandpaper 0.1.3<a class="anchor" aria-label="anchor" href="#sandpaper-013"></a></h2>
 <div class="section level3">
 <h3 id="misc-0-1-3">MISC<a class="anchor" aria-label="anchor" href="#misc-0-1-3"></a></h3>
-<ul><li>Clarify license information to specify the copyright is held by The Carpentries</li>
-</ul></div>
+<ul><li>Clarify license information to specify the copyright is held by The Carpentries</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.2" id="sandpaper-012">sandpaper 0.1.2<a class="anchor" aria-label="anchor" href="#sandpaper-012"></a></h2>
@@ -212,8 +197,7 @@
 <h2 class="pkg-version" data-toc-text="0.1.1" id="sandpaper-011">sandpaper 0.1.1<a class="anchor" aria-label="anchor" href="#sandpaper-011"></a></h2>
 <div class="section level3">
 <h3 id="dependencies-0-1-1">DEPENDENCIES<a class="anchor" aria-label="anchor" href="#dependencies-0-1-1"></a></h3>
-<ul><li>The {pegboard} package is now required to be 0.1.0 or greater due to a fix for generating the keypoints page (<a href="https://github.com/carpentries/pegboard/pull/76" class="external-link uri">https://github.com/carpentries/pegboard/pull/76</a>)</li>
-</ul></div>
+<ul><li>The {pegboard} package is now required to be 0.1.0 or greater due to a fix for generating the keypoints page (<a href="https://github.com/carpentries/pegboard/pull/76" class="external-link uri">https://github.com/carpentries/pegboard/pull/76</a>)</li></ul></div>
 <div class="section level3">
 <h3 id="metadata-0-1-1">METADATA<a class="anchor" aria-label="anchor" href="#metadata-0-1-1"></a></h3>
 <ul><li>The metadata included in the lesson footer now correctly states the <code>@type</code> as <code>TrainingMaterial</code> (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/236" class="external-link">#236</a>)</li>
@@ -221,8 +205,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fix-0-1-1">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-1-1"></a></h3>
-<ul><li>Empty pages will no longer throw errors in rendering and they will not be included in the output (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/237" class="external-link">#237</a>)</li>
-</ul></div>
+<ul><li>Empty pages will no longer throw errors in rendering and they will not be included in the output (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/237" class="external-link">#237</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="sandpaper-010">sandpaper 0.1.0<a class="anchor" aria-label="anchor" href="#sandpaper-010"></a></h2>
@@ -265,48 +248,41 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9075" id="sandpaper-0009075">sandpaper 0.0.0.9075<a class="anchor" aria-label="anchor" href="#sandpaper-0009075"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9075">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9075"></a></h3>
-<ul><li>Episodes with missing timing metadata will no longer fail if they also contain questions and objectives blocks. (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/222" class="external-link">#222</a>).</li>
-</ul></div>
+<ul><li>Episodes with missing timing metadata will no longer fail if they also contain questions and objectives blocks. (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/222" class="external-link">#222</a>).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9074" id="sandpaper-0009074">sandpaper 0.0.0.9074<a class="anchor" aria-label="anchor" href="#sandpaper-0009074"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9074">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9074"></a></h3>
-<ul><li>Internal function <code>renv_cache_available()</code> continues to work with {renv} 0.15.0. This new version of {renv} changed the default value of a configuration setting for the system cache from a logical to NULL, which casued a logical operation to fail. (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/223" class="external-link">#223</a>)</li>
-</ul></div>
+<ul><li>Internal function <code>renv_cache_available()</code> continues to work with {renv} 0.15.0. This new version of {renv} changed the default value of a configuration setting for the system cache from a logical to NULL, which casued a logical operation to fail. (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/223" class="external-link">#223</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9073" id="sandpaper-0009073">sandpaper 0.0.0.9073<a class="anchor" aria-label="anchor" href="#sandpaper-0009073"></a></h2>
 <div class="section level3">
 <h3 id="dependency-update-0-0-0-9073">DEPENDENCY UPDATE<a class="anchor" aria-label="anchor" href="#dependency-update-0-0-0-9073"></a></h3>
-<ul><li>{renv} is pinned to version 0.14.0 as version 0.13.2 would throw an error when checking for consent.</li>
-</ul></div>
+<ul><li>{renv} is pinned to version 0.14.0 as version 0.13.2 would throw an error when checking for consent.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9072" id="sandpaper-0009072">sandpaper 0.0.0.9072<a class="anchor" aria-label="anchor" href="#sandpaper-0009072"></a></h2>
 <div class="section level3">
 <h3 id="new-function-0-0-0-9072">NEW FUNCTION<a class="anchor" aria-label="anchor" href="#new-function-0-0-0-9072"></a></h3>
 <ul><li>
-<code><a href="../reference/serve.html">serve()</a></code> now allows you to work on your lesson and have it automatically rebuild whenever you save your files to disk.</li>
-</ul></div>
+<code><a href="../reference/serve.html">serve()</a></code> now allows you to work on your lesson and have it automatically rebuild whenever you save your files to disk.</li></ul></div>
 <div class="section level3">
 <h3 id="new-dependencies-0-0-0-9072">NEW DEPENDENCIES<a class="anchor" aria-label="anchor" href="#new-dependencies-0-0-0-9072"></a></h3>
-<ul><li>{servr} is now used in the <code><a href="../reference/serve.html">serve()</a></code> function.</li>
-</ul></div>
+<ul><li>{servr} is now used in the <code><a href="../reference/serve.html">serve()</a></code> function.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9071" id="sandpaper-0009071">sandpaper 0.0.0.9071<a class="anchor" aria-label="anchor" href="#sandpaper-0009071"></a></h2>
 <div class="section level3">
 <h3 id="new-feature-0-0-0-9071">NEW FEATURE<a class="anchor" aria-label="anchor" href="#new-feature-0-0-0-9071"></a></h3>
-<ul><li>Lesson blocks are now treated the same as other blocks. This is a placeholder for us to better test the separation of the lesson veiw from the default learner view.</li>
-</ul></div>
+<ul><li>Lesson blocks are now treated the same as other blocks. This is a placeholder for us to better test the separation of the lesson veiw from the default learner view.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9070" id="sandpaper-0009070">sandpaper 0.0.0.9070<a class="anchor" aria-label="anchor" href="#sandpaper-0009070"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9070">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9070"></a></h3>
-<ul><li>Lessons that have readonly zlib compressed files (read: git objects) can now have their websites built. (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/214" class="external-link">#214</a>)</li>
-</ul></div>
+<ul><li>Lessons that have readonly zlib compressed files (read: git objects) can now have their websites built. (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/214" class="external-link">#214</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9069" id="sandpaper-0009069">sandpaper 0.0.0.9069<a class="anchor" aria-label="anchor" href="#sandpaper-0009069"></a></h2>
@@ -321,8 +297,7 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9068" id="sandpaper-0009068">sandpaper 0.0.0.9068<a class="anchor" aria-label="anchor" href="#sandpaper-0009068"></a></h2>
 <div class="section level3">
 <h3 id="continuous-integration-0-0-0-9068">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-0-0-9068"></a></h3>
-<ul><li>Workflows have been updated to use <code>ubuntu-latest</code> instead of <code>macOS-11</code>. The macOS runners were often ~ 1 minute faster than the ubuntu runners, but the tradeoff was potential failures when packages were not available as binary versions and would need compilation with external C libraries (along with runs failing due to brew timeouts). This update coincides with an update for the github actions, which will now check and install the ubuntu dependencies before updating/installing packages. (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/184" class="external-link">#184</a>)</li>
-</ul></div>
+<ul><li>Workflows have been updated to use <code>ubuntu-latest</code> instead of <code>macOS-11</code>. The macOS runners were often ~ 1 minute faster than the ubuntu runners, but the tradeoff was potential failures when packages were not available as binary versions and would need compilation with external C libraries (along with runs failing due to brew timeouts). This update coincides with an update for the github actions, which will now check and install the ubuntu dependencies before updating/installing packages. (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/184" class="external-link">#184</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9067" id="sandpaper-0009067">sandpaper 0.0.0.9067<a class="anchor" aria-label="anchor" href="#sandpaper-0009067"></a></h2>
@@ -337,37 +312,32 @@
 <div class="section level3">
 <h3 id="api-change-0-0-0-9066">API CHANGE<a class="anchor" aria-label="anchor" href="#api-change-0-0-0-9066"></a></h3>
 <ul><li>
-<code><a href="../reference/set_config.html">set_config()</a></code> now takes a named vector/list instead of a pair of vectors.</li>
-</ul></div>
+<code><a href="../reference/set_config.html">set_config()</a></code> now takes a named vector/list instead of a pair of vectors.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9065" id="sandpaper-0009065">sandpaper 0.0.0.9065<a class="anchor" aria-label="anchor" href="#sandpaper-0009065"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-0-0-9065">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-0-0-9065"></a></h3>
 <ul><li>
-<code><a href="../reference/set_config.html">set_config()</a></code> will set singular items in the configuration file (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/193" class="external-link">#193</a>)</li>
-</ul></div>
+<code><a href="../reference/set_config.html">set_config()</a></code> will set singular items in the configuration file (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/193" class="external-link">#193</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9064" id="sandpaper-0009064">sandpaper 0.0.0.9064<a class="anchor" aria-label="anchor" href="#sandpaper-0009064"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9064">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9064"></a></h3>
-<ul><li>Package discovery now respects the lesson environment, which was unfixed from 0.0.0.9063</li>
-</ul></div>
+<ul><li>Package discovery now respects the lesson environment, which was unfixed from 0.0.0.9063</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9063" id="sandpaper-0009063">sandpaper 0.0.0.9063<a class="anchor" aria-label="anchor" href="#sandpaper-0009063"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9063">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9063"></a></h3>
-<ul><li>The package cache can now be built from external {renv} environments (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/197" class="external-link">#197</a>).</li>
-</ul></div>
+<ul><li>The package cache can now be built from external {renv} environments (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/197" class="external-link">#197</a>).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9062" id="sandpaper-0009062">sandpaper 0.0.0.9062<a class="anchor" aria-label="anchor" href="#sandpaper-0009062"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9062">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9062"></a></h3>
-<ul><li>New lessons that specify custom titles will have them reflected in the config file (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/195" class="external-link">#195</a>).</li>
-</ul></div>
+<ul><li>New lessons that specify custom titles will have them reflected in the config file (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/195" class="external-link">#195</a>).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9061" id="sandpaper-0009061">sandpaper 0.0.0.9061<a class="anchor" aria-label="anchor" href="#sandpaper-0009061"></a></h2>
@@ -381,44 +351,38 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9060" id="sandpaper-0009060">sandpaper 0.0.0.9060<a class="anchor" aria-label="anchor" href="#sandpaper-0009060"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9060">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9060"></a></h3>
-<ul><li>The title of the lesson will now appear in the index page.</li>
-</ul></div>
+<ul><li>The title of the lesson will now appear in the index page.</li></ul></div>
 <div class="section level3">
 <h3 id="misc-0-0-0-9060">MISC<a class="anchor" aria-label="anchor" href="#misc-0-0-0-9060"></a></h3>
 <ul><li>The translation script no longer lives in the lesson repo and has been moved (and modified) to <a href="https://data-lessons/lesson-transition/" class="external-link uri">https://data-lessons/lesson-transition/</a>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9059" id="sandpaper-0009059">sandpaper 0.0.0.9059<a class="anchor" aria-label="anchor" href="#sandpaper-0009059"></a></h2>
 <div class="section level3">
 <h3 id="continuous-integration-0-0-0-9059">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-0-0-9059"></a></h3>
-<ul><li>The scheduler for <code>update-cache.yaml</code> has been fixed to run strictly on the first Tuesday of the month instead of the first seven days of the month AND on Tuesdays.</li>
-</ul></div>
+<ul><li>The scheduler for <code>update-cache.yaml</code> has been fixed to run strictly on the first Tuesday of the month instead of the first seven days of the month AND on Tuesdays.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9058" id="sandpaper-0009058">sandpaper 0.0.0.9058<a class="anchor" aria-label="anchor" href="#sandpaper-0009058"></a></h2>
 <div class="section level3">
 <h3 id="continuous-integration-0-0-0-9058">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-0-0-9058"></a></h3>
 <ul><li>
-<code>update-cache.yaml</code> has been simplified to pull from the carpentries/actions repository and now updates packages that were not previously included in the lockfile (<a href="https://github.com/carpentries/sandpaper/issues/185" class="external-link">#185</a>).</li>
-</ul></div>
+<code>update-cache.yaml</code> has been simplified to pull from the carpentries/actions repository and now updates packages that were not previously included in the lockfile (<a href="https://github.com/carpentries/sandpaper/issues/185" class="external-link">#185</a>).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9057" id="sandpaper-0009057">sandpaper 0.0.0.9057<a class="anchor" aria-label="anchor" href="#sandpaper-0009057"></a></h2>
 <div class="section level3">
 <h3 id="continuous-integration-0-0-0-9057">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-0-0-9057"></a></h3>
 <ul><li>
-<code>update-cache.yaml</code> has been fixed from a regression introduced with 4b8b14d088d03a8a9c6c90e974bb53c35691fb49 where the workflow would not run because it did not check out the repository beforehand.</li>
-</ul></div>
+<code>update-cache.yaml</code> has been fixed from a regression introduced with 4b8b14d088d03a8a9c6c90e974bb53c35691fb49 where the workflow would not run because it did not check out the repository beforehand.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9056" id="sandpaper-0009056">sandpaper 0.0.0.9056<a class="anchor" aria-label="anchor" href="#sandpaper-0009056"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9056">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9056"></a></h3>
 <ul><li>
-<code><a href="../reference/update_github_workflows.html">update_github_workflows()</a></code> now sets <code>clean = "*.yaml"</code> by default to align with the behavior of the GitHub workflow and to prevent stale workflows from being present in the repository. (<a href="https://github.com/carpentries/sandpaper/issues/181" class="external-link">#181</a>, <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>)</li>
-</ul></div>
+<code><a href="../reference/update_github_workflows.html">update_github_workflows()</a></code> now sets <code>clean = "*.yaml"</code> by default to align with the behavior of the GitHub workflow and to prevent stale workflows from being present in the repository. (<a href="https://github.com/carpentries/sandpaper/issues/181" class="external-link">#181</a>, <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9055" id="sandpaper-0009055">sandpaper 0.0.0.9055<a class="anchor" aria-label="anchor" href="#sandpaper-0009055"></a></h2>
@@ -430,27 +394,23 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9055">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9055"></a></h3>
-<ul><li>A bug introduced in 0.0.0.9054 where dependencies were not discovered was fixed.</li>
-</ul></div>
+<ul><li>A bug introduced in 0.0.0.9054 where dependencies were not discovered was fixed.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9054" id="sandpaper-0009054">sandpaper 0.0.0.9054<a class="anchor" aria-label="anchor" href="#sandpaper-0009054"></a></h2>
 <div class="section level3">
 <h3 id="misc-0-0-0-9054">MISC<a class="anchor" aria-label="anchor" href="#misc-0-0-0-9054"></a></h3>
 <ul><li>
-<code><a href="../reference/dependency_management.html">manage_deps()</a></code> runs slightly faster now that it no longer runs <code><a href="https://rstudio.github.io/renv/reference/hydrate.html" class="external-link">renv::hydrate()</a></code> if no new packages have been added in the lesson.</li>
-</ul></div>
+<code><a href="../reference/dependency_management.html">manage_deps()</a></code> runs slightly faster now that it no longer runs <code><a href="https://rstudio.github.io/renv/reference/hydrate.html" class="external-link">renv::hydrate()</a></code> if no new packages have been added in the lesson.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9053" id="sandpaper-0009053">sandpaper 0.0.0.9053<a class="anchor" aria-label="anchor" href="#sandpaper-0009053"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-0-0-9053">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-0-0-9053"></a></h3>
-<ul><li>setting <code>option(sandpaper.handout = TRUE)</code> will create a code handout for R lessons that will live in <code>/files/code-handout.R</code> on your site.</li>
-</ul></div>
+<ul><li>setting <code>option(sandpaper.handout = TRUE)</code> will create a code handout for R lessons that will live in <code>/files/code-handout.R</code> on your site.</li></ul></div>
 <div class="section level3">
 <h3 id="misc-0-0-0-9053">MISC<a class="anchor" aria-label="anchor" href="#misc-0-0-0-9053"></a></h3>
-<ul><li>An internal caching mechanism has been added for <code><a href="https://rdrr.io/pkg/pegboard/man/Lesson.html" class="external-link">pegboard::Lesson</a></code> objects that we use for extracting components for the syllabus and the handout. See <code>?lesson_storage</code> for details.</li>
-</ul></div>
+<ul><li>An internal caching mechanism has been added for <code><a href="https://rdrr.io/pkg/pegboard/man/Lesson.html" class="external-link">pegboard::Lesson</a></code> objects that we use for extracting components for the syllabus and the handout. See <code>?lesson_storage</code> for details.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9052" id="sandpaper-0009052">sandpaper 0.0.0.9052<a class="anchor" aria-label="anchor" href="#sandpaper-0009052"></a></h2>
@@ -465,8 +425,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="documentation-0-0-0-9052">DOCUMENTATION<a class="anchor" aria-label="anchor" href="#documentation-0-0-0-9052"></a></h3>
-<ul><li>Documentation for test fixtures has been improved to include branch functions.</li>
-</ul></div>
+<ul><li>Documentation for test fixtures has been improved to include branch functions.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9051" id="sandpaper-0009051">sandpaper 0.0.0.9051<a class="anchor" aria-label="anchor" href="#sandpaper-0009051"></a></h2>
@@ -534,8 +493,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="misc-0-0-0-9050">MISC<a class="anchor" aria-label="anchor" href="#misc-0-0-0-9050"></a></h3>
-<ul><li>some of the {callr} functions have been made non-anonymous and moved to a separate file so they could be tested independently.</li>
-</ul></div>
+<ul><li>some of the {callr} functions have been made non-anonymous and moved to a separate file so they could be tested independently.</li></ul></div>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9050">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9050"></a></h3>
 <ul><li>changes to <code>config.yaml</code> are now reflected on the lesson site without rebuilding (fixes <a href="https://github.com/carpentries/sandpaper/issues/75" class="external-link">#75</a>)</li>
@@ -550,22 +508,19 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9048" id="sandpaper-0009048">sandpaper 0.0.0.9048<a class="anchor" aria-label="anchor" href="#sandpaper-0009048"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9048">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9048"></a></h3>
-<ul><li>pandoc lua filter no longer errors on raw div HTML elements with no class (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/166" class="external-link">#166</a>)</li>
-</ul></div>
+<ul><li>pandoc lua filter no longer errors on raw div HTML elements with no class (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/166" class="external-link">#166</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9047" id="sandpaper-0009047">sandpaper 0.0.0.9047<a class="anchor" aria-label="anchor" href="#sandpaper-0009047"></a></h2>
 <div class="section level3">
 <h3 id="continuous-integration-0-0-0-9047">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-0-0-9047"></a></h3>
-<ul><li>The <code>update-workflows.yaml</code> workflow now checks if the <code>SANDPAPER_WORKFLOW</code> secret is valid. If not, it provides instructions for creating a new secret.</li>
-</ul></div>
+<ul><li>The <code>update-workflows.yaml</code> workflow now checks if the <code>SANDPAPER_WORKFLOW</code> secret is valid. If not, it provides instructions for creating a new secret.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9046" id="sandpaper-0009046">sandpaper 0.0.0.9046<a class="anchor" aria-label="anchor" href="#sandpaper-0009046"></a></h2>
 <div class="section level3">
 <h3 id="continuous-integration-0-0-0-9046">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-0-0-9046"></a></h3>
-<ul><li>Weekly run pull requests now default to “weekly run” for “who triggered this pull request”</li>
-</ul></div>
+<ul><li>Weekly run pull requests now default to “weekly run” for “who triggered this pull request”</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9045" id="sandpaper-0009045">sandpaper 0.0.0.9045<a class="anchor" aria-label="anchor" href="#sandpaper-0009045"></a></h2>
@@ -579,13 +534,11 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9044" id="sandpaper-0009044">sandpaper 0.0.0.9044<a class="anchor" aria-label="anchor" href="#sandpaper-0009044"></a></h2>
 <div class="section level3">
 <h3 id="contiuous-integration-0-0-0-9044">CONTIUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#contiuous-integration-0-0-0-9044"></a></h3>
-<ul><li>The <code>update-workflow.yaml</code> parameters have been fixed to not use wildcards</li>
-</ul></div>
+<ul><li>The <code>update-workflow.yaml</code> parameters have been fixed to not use wildcards</li></ul></div>
 <div class="section level3">
 <h3 id="misc-0-0-0-9044">MISC<a class="anchor" aria-label="anchor" href="#misc-0-0-0-9044"></a></h3>
 <ul><li>
-<code><a href="../reference/update_github_workflows.html">update_github_workflows()</a></code> gains a <code>clean</code> argument and now will print status reports at the end.</li>
-</ul></div>
+<code><a href="../reference/update_github_workflows.html">update_github_workflows()</a></code> gains a <code>clean</code> argument and now will print status reports at the end.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9043" id="sandpaper-0009043">sandpaper 0.0.0.9043<a class="anchor" aria-label="anchor" href="#sandpaper-0009043"></a></h2>
@@ -600,8 +553,7 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9042" id="sandpaper-0009042">sandpaper 0.0.0.9042<a class="anchor" aria-label="anchor" href="#sandpaper-0009042"></a></h2>
 <div class="section level3">
 <h3 id="continuous-integration-0-0-0-9042">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-0-0-9042"></a></h3>
-<ul><li>An experimental <code>update-workflow.yaml</code> workflow has been created which will create a pull request that will update the workflows. It is still <em>very</em> experimental and it requires a scoped with repo and scope, but, nevertheless, the concept is currently valid.</li>
-</ul></div>
+<ul><li>An experimental <code>update-workflow.yaml</code> workflow has been created which will create a pull request that will update the workflows. It is still <em>very</em> experimental and it requires a scoped with repo and scope, but, nevertheless, the concept is currently valid.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9041" id="sandpaper-0009041">sandpaper 0.0.0.9041<a class="anchor" aria-label="anchor" href="#sandpaper-0009041"></a></h2>
@@ -631,15 +583,13 @@
 <div class="section level3">
 <h3 id="continuous-integration-0-0-0-9039">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-0-0-9039"></a></h3>
 <ul><li>
-<code><a href="../reference/ci_session_info.html">ci_session_info()</a></code> will report the session information, which will help clean up the workflow files.</li>
-</ul></div>
+<code><a href="../reference/ci_session_info.html">ci_session_info()</a></code> will report the session information, which will help clean up the workflow files.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9038" id="sandpaper-0009038">sandpaper 0.0.0.9038<a class="anchor" aria-label="anchor" href="#sandpaper-0009038"></a></h2>
 <div class="section level3">
 <h3 id="continuous-integration-0-0-0-9038">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-0-0-9038"></a></h3>
-<ul><li>Fix broken deploy process on continuous integration caused by attempting to fetch all branches in a shallow clone (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/142" class="external-link">#142</a>)</li>
-</ul></div>
+<ul><li>Fix broken deploy process on continuous integration caused by attempting to fetch all branches in a shallow clone (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/142" class="external-link">#142</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9037" id="sandpaper-0009037">sandpaper 0.0.0.9037<a class="anchor" aria-label="anchor" href="#sandpaper-0009037"></a></h2>
@@ -671,8 +621,7 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9034" id="sandpaper-0009034">sandpaper 0.0.0.9034<a class="anchor" aria-label="anchor" href="#sandpaper-0009034"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-0-0-9034">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-0-0-9034"></a></h3>
-<ul><li>Authors can now cross-link between files within the lesson as they appear in the lesson instead of trying to guess how the link would appear on the website. For example, if you wanted to reference <code>learners/setup.md</code> in <code>episodes/introduction.md</code>, you would write <code>[setup](../learners/setup.md)</code> and it will be automatically converted to the correct URL in the website (<a href="https://github.com/carpentries/sandpaper/issues/43" class="external-link">#43</a>). This is still backwards compatible with the previous iteration of writing the flattened link (as it would appear on the website).</li>
-</ul></div>
+<ul><li>Authors can now cross-link between files within the lesson as they appear in the lesson instead of trying to guess how the link would appear on the website. For example, if you wanted to reference <code>learners/setup.md</code> in <code>episodes/introduction.md</code>, you would write <code>[setup](../learners/setup.md)</code> and it will be automatically converted to the correct URL in the website (<a href="https://github.com/carpentries/sandpaper/issues/43" class="external-link">#43</a>). This is still backwards compatible with the previous iteration of writing the flattened link (as it would appear on the website).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9033" id="sandpaper-0009033">sandpaper 0.0.0.9033<a class="anchor" aria-label="anchor" href="#sandpaper-0009033"></a></h2>
@@ -707,15 +656,13 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9030" id="sandpaper-0009030">sandpaper 0.0.0.9030<a class="anchor" aria-label="anchor" href="#sandpaper-0009030"></a></h2>
 <div class="section level3">
 <h3 id="misc-0-0-0-9030">MISC<a class="anchor" aria-label="anchor" href="#misc-0-0-0-9030"></a></h3>
-<ul><li>A test that caused problems with a new version of {pegboard} was fixed</li>
-</ul></div>
+<ul><li>A test that caused problems with a new version of {pegboard} was fixed</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9029" id="sandpaper-0009029">sandpaper 0.0.0.9029<a class="anchor" aria-label="anchor" href="#sandpaper-0009029"></a></h2>
 <div class="section level3">
 <h3 id="misc-0-0-0-9029">MISC<a class="anchor" aria-label="anchor" href="#misc-0-0-0-9029"></a></h3>
-<ul><li>The internal database is updated to use relative instead of absolute paths. This fixes <a href="https://github.com/carpentries/sandpaper/issues/129" class="external-link">#129</a></li>
-</ul></div>
+<ul><li>The internal database is updated to use relative instead of absolute paths. This fixes <a href="https://github.com/carpentries/sandpaper/issues/129" class="external-link">#129</a></li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9028" id="sandpaper-0009028">sandpaper 0.0.0.9028<a class="anchor" aria-label="anchor" href="#sandpaper-0009028"></a></h2>
@@ -729,8 +676,7 @@
 <div class="section level3">
 <h3 id="misc-0-0-0-9027">MISC<a class="anchor" aria-label="anchor" href="#misc-0-0-0-9027"></a></h3>
 <ul><li>
-<code>create_schedule()</code> (internal function) no longer uses pegboard’s extensions for fixing reference links.</li>
-</ul></div>
+<code>create_schedule()</code> (internal function) no longer uses pegboard’s extensions for fixing reference links.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9026" id="sandpaper-0009026">sandpaper 0.0.0.9026<a class="anchor" aria-label="anchor" href="#sandpaper-0009026"></a></h2>
@@ -756,16 +702,14 @@
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9024">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9024"></a></h3>
 <ul><li>
-<code><a href="../reference/create_lesson.html">create_lesson()</a></code> will now enforce “main” or the default branch (if init.defaultBranch is set) as the default branch for the new lesson. It will also try to make the URL match the project name and user name (but the latter is limited to users who have GitHub PAT set up that {gh} recognises).</li>
-</ul></div>
+<code><a href="../reference/create_lesson.html">create_lesson()</a></code> will now enforce “main” or the default branch (if init.defaultBranch is set) as the default branch for the new lesson. It will also try to make the URL match the project name and user name (but the latter is limited to users who have GitHub PAT set up that {gh} recognises).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9023" id="sandpaper-0009023">sandpaper 0.0.0.9023<a class="anchor" aria-label="anchor" href="#sandpaper-0009023"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9023">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9023"></a></h3>
 <ul><li>
-<code><a href="../reference/build_episode_md.html">build_episode_md()</a></code> now sets the <code>knitr.pandoc.to</code> knit option to allow for the chunk option <code>fig.cap</code> to be rendered as a caption. This fixes <a href="https://github.com/carpentries/sandpaper/issues/114" class="external-link">#114</a>.</li>
-</ul></div>
+<code><a href="../reference/build_episode_md.html">build_episode_md()</a></code> now sets the <code>knitr.pandoc.to</code> knit option to allow for the chunk option <code>fig.cap</code> to be rendered as a caption. This fixes <a href="https://github.com/carpentries/sandpaper/issues/114" class="external-link">#114</a>.</li></ul></div>
 <div class="section level3">
 <h3 id="new-features-0-0-0-9023">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-0-0-9023"></a></h3>
 <ul><li>
@@ -788,38 +732,32 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9021" id="sandpaper-0009021">sandpaper 0.0.0.9021<a class="anchor" aria-label="anchor" href="#sandpaper-0009021"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9021">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9021"></a></h3>
-<ul><li>the template will be initialized with ALL folders with placeholders inside of the <code>instructor/</code> and <code>profile/</code> menus. This fixes <a href="https://github.com/carpentries/sandpaper/issues/103" class="external-link">#103</a>.</li>
-</ul></div>
+<ul><li>the template will be initialized with ALL folders with placeholders inside of the <code>instructor/</code> and <code>profile/</code> menus. This fixes <a href="https://github.com/carpentries/sandpaper/issues/103" class="external-link">#103</a>.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9020" id="sandpaper-0009020">sandpaper 0.0.0.9020<a class="anchor" aria-label="anchor" href="#sandpaper-0009020"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9020">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9020"></a></h3>
-<ul><li>the <code>set_*()</code> functions no longer mess up yaml lists in <code>config.yaml</code>. This fixes <a href="https://github.com/carpentries/sandpaper/issues/53" class="external-link">#53</a>.</li>
-</ul></div>
+<ul><li>the <code>set_*()</code> functions no longer mess up yaml lists in <code>config.yaml</code>. This fixes <a href="https://github.com/carpentries/sandpaper/issues/53" class="external-link">#53</a>.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9019" id="sandpaper-0009019">sandpaper 0.0.0.9019<a class="anchor" aria-label="anchor" href="#sandpaper-0009019"></a></h2>
-<ul><li>The required version of {pegboard} has been bumped to 0.0.0.9012, which gives better error messages and allows us to read in {sandpaper} lessons with the Lesson object.</li>
-</ul></div>
+<ul><li>The required version of {pegboard} has been bumped to 0.0.0.9012, which gives better error messages and allows us to read in {sandpaper} lessons with the Lesson object.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9018" id="sandpaper-0009018">sandpaper 0.0.0.9018<a class="anchor" aria-label="anchor" href="#sandpaper-0009018"></a></h2>
-<ul><li>The episode template has been rearranged slightly and given level 2 headers.</li>
-</ul></div>
+<ul><li>The episode template has been rearranged slightly and given level 2 headers.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9017" id="sandpaper-0009017">sandpaper 0.0.0.9017<a class="anchor" aria-label="anchor" href="#sandpaper-0009017"></a></h2>
 <div class="section level3">
 <h3 id="engine-update-0-0-0-9017">ENGINE UPDATE<a class="anchor" aria-label="anchor" href="#engine-update-0-0-0-9017"></a></h3>
-<ul><li>The version of pandoc will be explicitly checked to ensure that the version used is at least 2.11.</li>
-</ul></div>
+<ul><li>The version of pandoc will be explicitly checked to ensure that the version used is at least 2.11.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9016" id="sandpaper-0009016">sandpaper 0.0.0.9016<a class="anchor" aria-label="anchor" href="#sandpaper-0009016"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9016">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9016"></a></h3>
 <ul><li>
-<code><a href="../reference/create_episode.html">create_episode()</a></code> with <code>make_prefix = FALSE</code> will no longer create episodes prefixed with <code>-</code> (see <a href="https://github.com/carpentries/sandpaper/issues/93" class="external-link">#93</a>).</li>
-</ul></div>
+<code><a href="../reference/create_episode.html">create_episode()</a></code> with <code>make_prefix = FALSE</code> will no longer create episodes prefixed with <code>-</code> (see <a href="https://github.com/carpentries/sandpaper/issues/93" class="external-link">#93</a>).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9015" id="sandpaper-0009015">sandpaper 0.0.0.9015<a class="anchor" aria-label="anchor" href="#sandpaper-0009015"></a></h2>
@@ -863,8 +801,7 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9012" id="sandpaper-0009012">sandpaper 0.0.0.9012<a class="anchor" aria-label="anchor" href="#sandpaper-0009012"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-0-0-9012">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-0-0-9012"></a></h3>
-<ul><li>Inline and reference-based footnotes are now supported.</li>
-</ul></div>
+<ul><li>Inline and reference-based footnotes are now supported.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9011" id="sandpaper-0009011">sandpaper 0.0.0.9011<a class="anchor" aria-label="anchor" href="#sandpaper-0009011"></a></h2>
@@ -878,8 +815,7 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9010" id="sandpaper-0009010">sandpaper 0.0.0.9010<a class="anchor" aria-label="anchor" href="#sandpaper-0009010"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9010">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9010"></a></h3>
-<ul><li>If <code>index.md</code> exists at the top level, it will be used instead of <code>README.md</code> for the lesson index page (fix <a href="https://github.com/carpentries/sandpaper/issues/56" class="external-link">#56</a>).</li>
-</ul></div>
+<ul><li>If <code>index.md</code> exists at the top level, it will be used instead of <code>README.md</code> for the lesson index page (fix <a href="https://github.com/carpentries/sandpaper/issues/56" class="external-link">#56</a>).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9009" id="sandpaper-0009009">sandpaper 0.0.0.9009<a class="anchor" aria-label="anchor" href="#sandpaper-0009009"></a></h2>
@@ -896,13 +832,11 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9008" id="sandpaper-0009008">sandpaper 0.0.0.9008<a class="anchor" aria-label="anchor" href="#sandpaper-0009008"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-0-0-9008">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-0-9008"></a></h3>
-<ul><li>files that were removed from the source are now also removed in the site/built directory. This fixes issue <a href="https://github.com/carpentries/sandpaper/issues/47" class="external-link">#47</a></li>
-</ul></div>
+<ul><li>files that were removed from the source are now also removed in the site/built directory. This fixes issue <a href="https://github.com/carpentries/sandpaper/issues/47" class="external-link">#47</a></li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9007" id="sandpaper-0009007">sandpaper 0.0.0.9007<a class="anchor" aria-label="anchor" href="#sandpaper-0009007"></a></h2>
-<ul><li>HTML will now be processed with pandoc lua filters that will do the following:
-<ul><li>overview block will be constructed from the teaching and exercises metadata with the question and objectives blocks</li>
+<ul><li>HTML will now be processed with pandoc lua filters that will do the following:<ul><li>overview block will be constructed from the teaching and exercises metadata with the question and objectives blocks</li>
 <li>instructor and callout divs will be converted to <code>&lt;aside&gt;</code> tags</li>
 <li>divs without H2 level headers will have them automatically inserted</li>
 <li>divs with incorrect level headers will have them converted to H2</li>
@@ -926,8 +860,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9005" id="sandpaper-0009005">sandpaper 0.0.0.9005<a class="anchor" aria-label="anchor" href="#sandpaper-0009005"></a></h2>
-<ul><li>sandpaper now requires and uses additional folders and files:
-<ul><li>CODE_OF_CONDUCT.md</li>
+<ul><li>sandpaper now requires and uses additional folders and files:<ul><li>CODE_OF_CONDUCT.md</li>
 <li>learners/Setup.md</li>
 <li>instructors/</li>
 <li>profiles/</li>
@@ -978,7 +911,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>
