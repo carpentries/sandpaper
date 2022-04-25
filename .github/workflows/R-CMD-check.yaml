@@ -24,7 +24,7 @@ jobs:
 
           - {os: windows-latest, cache: '~\AppData\Local\renv', r: 'release', rtools-version: '42'}
           # Use 3.6 to trigger usage of RTools35
-          - {os: windows-3.6, cache: '~\AppData\Local\renv', r: '3.6'}
+          - {os: windows-latest, cache: '~\AppData\Local\renv', r: '3.6'}
 
           # Use older ubuntu to maximise backward compatibility
           - {os: ubuntu-18.04,   cache: '~/.local/share/renv', r: 'devel', http-user-agent: 'release'}
