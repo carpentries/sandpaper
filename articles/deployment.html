@@ -125,9 +125,7 @@
 <div class="info">
 <p>NOTE: we need to make sure that we have a renv environment defined for the lessons, but I think this will need to happen after things are released on CRAN to avoid maxing out the github api requests.</p>
 </div>
-<div class="figure">
-<img src="img/local-flow.dot.svg" alt=""><p class="caption">diagram of building a local lesson website</p>
-</div>
+<p><img src="img/local-flow.dot.svg" alt="Thr local two-step model of deployment into local folders">{alt=‘diagram of three folders. The first folder, “episodes/”, labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/’, labelled as Markdown. The Markdown folder has an arrow (labelled as “apply template”) pointing to “site/docs/”, labelled as “HTML”. The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.’}</p>
 <p>Now, the first reaction you may have is, “Why do we need a two step process when we can generate HTML directly from R Markdown?” The answer is three-fold.</p>
 <p>First, if there is R code in the R Markdown document, it takes time to execute the code and add it in to the output document. By having an intermediate markdown document that contains a hash of the original document, we can make sure that we only build the files that have changed in content with minimal overhead in a manner that is compatible with R Markdown’s chunk caching feature.</p>
 <p>Second, if any generated element of your page creates invalid HTML, it usually causes a cascading effect that can be hard to track down if you are looking at raw HTML output. Having a markdown intermediate allows us to more easily single out any potential problems. This particular reason is important in the next section for scheduled deployments where we avoid problems raised explicitly by checking the output.</p>
@@ -138,7 +136,7 @@
 <h2 id="i-deployment-github">[i] Deployment (GitHub)<a class="anchor" aria-label="anchor" href="#i-deployment-github"></a>
 </h2>
 <div class="figure">
-<img src="img/branch-flow.svg" alt=""><p class="caption">Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches</p>
+<img src="img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><p class="caption">Two-step deployment model on continuous integration</p>
 </div>
 <p>Because some lesson content will be auto-generated from an ecosystem of software that is constantly evolving, it’s important to make sure a few things are true:</p>
 <ol style="list-style-type: decimal">

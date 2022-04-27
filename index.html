@@ -87,9 +87,6 @@
 </div>
 <!-- README.md is generated from README.Rmd. Please edit that file --><!-- badges: start -->
 <p>The {sandpaper} package was created by <a href="https://carpentries.org" class="external-link">The Carpentries</a> to re-imagine our method of creating lesson websites for our workshops. This package will take a series of <a href="https://www.markdownguide.org/getting-started/" class="external-link">Markdown</a> or <a href="https://rmarkdown.rstudio.com/" class="external-link">RMarkdown</a> files and generate a static website with the features and styling of The Carpentries lessons including customized layouts and callout blocks. Much of the functionality in this package is inspired by <a href="https://jennybryan.org/" class="external-link">Jenny Bryan’s</a> work with the <a href="https://usethis.r-lib.org/" class="external-link">{usethis}</a> package.</p>
-<hr>
-<blockquote><p>Please note: {sandpaper} is very much a work in progress. Please <a href="https://github.com/carpentries/sandpaper/issues/new" class="external-link">open an issue</a> if you have any comments or suggestions!</p></blockquote>
-<hr>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
@@ -138,7 +135,7 @@
 <p>This package is designed to make the life of the lesson contributors and maintainers easier by separating the tools needed to build the site from the user-defined content of the site itself. It will no longer rely on Jekyll or any of the other <a href="https://staticsitegenerators.net" class="external-link">&gt;450 static site generators</a>, but instead rely on R, RStudio, and <a href="https://github.com/r-lib/pkgdown#readme" class="external-link">{pkgdown}</a> to generate a site with the following features:</p>
 <ul>
 <li>
-<input type="checkbox" disabled>optional offline use</li>
+<input type="checkbox" disabled checked>optional offline use</li>
 <li>
 <input type="checkbox" disabled checked>filename-agnostic episode arrangements</li>
 <li>
@@ -159,7 +156,7 @@
 <div class="section level3">
 <h3 id="rendering-locally">Rendering locally<a class="anchor" aria-label="anchor" href="#rendering-locally"></a>
 </h3>
-<p>In a repository generated via {sandpaper}, only the source is committed to avoid issues surrounding out-of-date artefacts and directory structure confusion.</p>
+<figure><img src="articles/articles/img/local-flow.dot.svg" alt='diagram of three folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML". The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'><figcaption aria-hidden="true">The local two-step model of deployment into local folders</figcaption></figure><p>In a repository generated via {sandpaper}, only the source is committed to avoid issues surrounding out-of-date artefacts and directory structure confusion.</p>
 <p>The website is generated in two steps:</p>
 <ol style="list-style-type: decimal">
 <li>markdown files from the source files are rendered containing a hash for the source file so that these need only be re-rendered when they change.</li>
@@ -170,7 +167,7 @@
 <div class="section level3">
 <h3 id="rendering-on-continuous-integration">Rendering on continuous integration<a class="anchor" aria-label="anchor" href="#rendering-on-continuous-integration"></a>
 </h3>
-<p>Continuous integration will act as the single source-of-truth for how the outputs of the lessons are rendered. For this, we want the resulting website to be:</p>
+<figure><img src="articles/articles/img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><figcaption aria-hidden="true">Two-step deployment model on continuous integration</figcaption></figure><p>Continuous integration will act as the single source-of-truth for how the outputs of the lessons are rendered. For this, we want the resulting website to be:</p>
 <ul>
 <li>CI agnostic (but currently set up with GitHub)</li>
 <li>easy to set up</li>
