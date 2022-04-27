@@ -62,7 +62,13 @@ to avoid maxing out the github api requests.
 
 </div>
 
-![diagram of building a local lesson website](img/local-flow.dot.svg)
+![Thr local two-step model of deployment into local
+folders](img/local-flow.dot.svg){alt='diagram of three folders. The first
+folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash
+episodes) pointing to "site/built/', labelled as Markdown. The Markdown folder
+has an arrow (labelled as "apply template") pointing to "site/docs/", labelled
+as "HTML". The first folder is labelled in pale yellow, indicating that it is
+the only one tracked by git.'}
 
 Now, the first reaction you may have is, "Why do we need a two step process
 when we can generate HTML directly from R Markdown?" The answer is three-fold. 
@@ -89,11 +95,12 @@ computer.
 
 ## [i] Deployment (GitHub)
 
-![Diagrammatic representation of the GitHub deployment cycle showing four branches,
-gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent
-of the main branch, while the gh-pages and md-outputs branches are orphans. Each
-commit of the main branch has a process represented by a dashed arrow that builds
-a commit of the subsequent orphan branches](img/branch-flow.svg)
+![Two-step deployment model on continuous integration](img/branch-flow.svg){alt='Diagrammatic representation of the GitHub
+deployment cycle showing four branches, gh-pages, md-outputs, main, and
+my-edit. The my-edit branch is a direct descendent of the main branch, while
+the gh-pages and md-outputs branches are orphans. Each commit of the main
+branch has a process represented by a dashed arrow that builds a commit of the
+subsequent orphan branches'}
 
 Because some lesson content will be auto-generated from an ecosystem of
 software that is constantly evolving, it's important to make sure a few things
