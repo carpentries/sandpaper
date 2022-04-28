@@ -65,7 +65,7 @@ to avoid maxing out the github api requests.
 ![Thr local two-step model of deployment into local
 folders](img/local-flow.dot.svg){alt='diagram of three folders. The first
 folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash
-episodes) pointing to "site/built/', labelled as Markdown. The Markdown folder
+episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder
 has an arrow (labelled as "apply template") pointing to "site/docs/", labelled
 as "HTML". The first folder is labelled in pale yellow, indicating that it is
 the only one tracked by git.'}
