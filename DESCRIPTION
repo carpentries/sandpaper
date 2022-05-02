@@ -51,7 +51,8 @@ Suggests:
     withr,
     jsonlite,
     sessioninfo,
-    varnish (>= 0.1.5)
+    varnish (>= 0.1.5),
+    mockr
 Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   ropensci/tinkr,

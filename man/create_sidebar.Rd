@@ -26,4 +26,7 @@ which episode is the current one within the sidebar.
 \details{
 This function creates that sidebar.
 }
+\examples{
+chapters <- 
+}
 \keyword{internal}
