@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.5.0
+Version: 0.5.1
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -51,7 +51,8 @@ Suggests:
     withr,
     jsonlite,
     sessioninfo,
-    varnish (>= 0.1.5)
+    varnish (>= 0.1.5),
+    mockr
 Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   ropensci/tinkr,

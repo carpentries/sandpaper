@@ -121,7 +121,9 @@ create_sidebar <- function(chapters, name = "", html = "<a href='https://carpent
   for (i in seq(chapters)) {
     position <- if (name == chapters[i]) "current" else i
     info <- get_navbar_info(chapters[i])
-    page_link <- paste0("<a href='", info$href, "'>", info$pagetitle, "</a>")
+    page_link <- paste0("<a href='", info$href, "'>", 
+      i - 1, ". ", info$pagetitle, 
+      "</a>")
     res[i] <- create_sidebar_item(html, page_link, position)
   }
   res

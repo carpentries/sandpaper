@@ -1,3 +1,19 @@
+# sandpaper 0.5.1
+
+NEW FEATURES
+------------
+
+* The sidebar now enumerates episodes so it is easier for instructors and
+  learners to indicate episode by number instead of by name (suggested by
+  @fiveop in #276). (@zkamvar, #277)
+
+NEW SUGGESTS
+------------
+
+* {mockr} is now a suggested package (aka soft-dependency) to facilitate testing
+  functions that do not need an entire lesson set up to test their functionality
+
+
 # sandpaper 0.5.0
 
 NEW FEATURES
