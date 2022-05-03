@@ -61,6 +61,14 @@
 <div class="section level3">
 <h3 id="new-suggests-0-5-1">NEW SUGGESTS<a class="anchor" aria-label="anchor" href="#new-suggests-0-5-1"></a></h3>
 <ul><li>{mockr} is now a suggested package (aka soft-dependency) to facilitate testing functions that do not need an entire lesson set up to test their functionality</li></ul></div>
+<div class="section level3">
+<h3 id="continuous-integration-0-5-1">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-5-1"></a></h3>
+<ul><li>
+<code>setup-r</code> and <code>setup-pandoc</code> actions have been pinned to version 2</li>
+<li>
+<code>setup-r</code> action now uses the default R installation on GitHub’s runner, which decreases build times by ~ 1 minute.</li>
+<li>All R actions will use the RStudio Package Manager, which should avoid overly lengthy build times.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="sandpaper-050">sandpaper 0.5.0<a class="anchor" aria-label="anchor" href="#sandpaper-050"></a></h2>
