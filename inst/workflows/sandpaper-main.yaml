@@ -21,6 +21,10 @@ jobs:
   full-build:
     name: "Build Full Site"
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: write
+      pages: write
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PATHS_ROOT: ~/.local/share/renv/
@@ -30,12 +34,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: "Set up R"
-        uses: r-lib/actions/setup-r@v1
+        uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
+          install-r: false
 
       - name: "Set up Pandoc"
-        uses: r-lib/actions/setup-pandoc@v1
+        uses: r-lib/actions/setup-pandoc@v2
         with:
           pandoc-version: "2.11.4"
 

@@ -13,6 +13,14 @@ NEW SUGGESTS
 * {mockr} is now a suggested package (aka soft-dependency) to facilitate testing
   functions that do not need an entire lesson set up to test their functionality
 
+CONTINUOUS INTEGRATION
+----------------------
+
+ * `setup-r` and `setup-pandoc` actions have been pinned to version 2
+ * `setup-r` action now uses the default R installation on GitHub's runner,
+   which decreases build times by ~ 1 minute.
+ * All R actions will use the RStudio Package Manager, which should avoid overly
+   lengthy build times. 
 
 # sandpaper 0.5.0
 
