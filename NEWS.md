@@ -21,6 +21,7 @@ CONTINUOUS INTEGRATION
    which decreases build times by ~ 1 minute.
  * All R actions will use the RStudio Package Manager, which should avoid overly
    lengthy build times. 
+ * explicit permissions have been set for the deploy workflow (@zkamvar, #279)
 
 # sandpaper 0.5.0
 
