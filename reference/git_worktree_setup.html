@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,17 +95,8 @@ when evaluated.</p>
 push derived outputs to non-main branches in our repository. We use this to
 populate the markdown and HTML outputs from the lesson so that we don't have
 to rebuild the lesson from scratch every time.</p>
-<p>The logic behind this looks like</p><div class="sourceCode"><pre><code>worktree setup
-[IF BRANCH DOES NOT EXIST]
-  git checkout --orphan &lt;branch&gt;
-  git rm -rf --quiet .
-  git commit --allow-empty -m
-  git push remote HEAD:&lt;branch&gt;
-  git checkout -
-git fetch &lt;remote&gt; +refs/heads/&lt;branch&gt;:refs/remotes/&lt;remote&gt;/&lt;branch&gt;
-git worktree add --track -B &lt;branch&gt; /path/to/dir &lt;remote&gt;/&lt;branch&gt;
-</code></pre></div>
-
+<p>The logic behind this looks like</p>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
