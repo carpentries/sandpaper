@@ -1,3 +1,12 @@
+# sandpaper 0.5.2
+
+TEMPORARY BUG FIX
+-----------------
+
+* {downlit} shim has been updated to no longer fail when parsing BASH globs.
+  (see https://github.com/r-lib/downlit/pull/138)
+
+
 # sandpaper 0.5.1
 
 NEW FEATURES

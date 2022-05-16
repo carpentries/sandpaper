@@ -61,7 +61,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   sidebar <- create_sidebar(c(fs::path(built_path, "index.md"), chapters))
   # shim for downlit ----------------------------------------------------------
   shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-  expected <- "5484c37e9b9c324361d775a10dea4946"
+  # expected <- "5484c37e9b9c324361d775a10dea4946"
+  expected <- "ae062f5cbdbe345b6c414230703d8b1c"
   actual   <- tools::md5sum(shimstem_file)
   if (expected == actual) {
     # evaluate the shim in our namespace
