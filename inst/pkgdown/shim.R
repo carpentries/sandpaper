@@ -17,6 +17,6 @@ ht <- dl$href_topic
 unlockBinding("token_href", dl)
 unlockBinding("href_topic", dl)
 dl$token_href <- function(token, text) rep(NA, length(token))
-dl$href_topic <- function(topic) NA_character_
+dl$href_topic <- function(topic, package) NA_character_
 parse(text = "{\ndl$token_href <- tr\nlockBinding('token_href', dl)\n}")
 parse(text = "{\ndl$href_topic <- ht\nlockBinding('href_topic', dl)\n}")
