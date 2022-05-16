@@ -1,7 +1,7 @@
 varnish_vars <- function() {
-  ver <- function(pak) glue::glue(" ({packageVersion(pak)})")
+  ver <- function(pak) glue::glue(" ({utils::packageVersion(pak)})")
   cfg <- function(pkg) {
-    desc <- packageDescription(pkg)
+    desc <- utils::packageDescription(pkg)
     url <- desc[["RemoteUrl"]]
     ref <- desc[["RemoteRef"]] %||% "HEAD" # if there is no ref, default to HEAD
     vsn <- desc[["Version"]]
