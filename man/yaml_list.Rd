@@ -16,33 +16,49 @@ We want to manipulate our config file from the command line AND preserve
 comments. Unfortunately, the yaml C library does not parse comments and it
 makes things difficult to handle. At the moment we have a hack where we use
 whisker templates for these, but the drawback for whisker is that it does not
-know how to handle lists, so it concatenates them with commas:\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- c("a", "b", "c")
+know how to handle lists, so it concatenates them with commas:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- c("a", "b", "c")
 hx <- list(hello = x)
 cat(yaml::as.yaml(hx)) # representation in yaml
-}\if{html}{\out{</div>}}\preformatted{## hello:
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## hello:
 ## - a
 ## - b
 ## - c
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{cat(whisker::whisker.render("hello: \{\{hello\}\}", hx)) # messed up whisker
-}\if{html}{\out{</div>}}\preformatted{## hello: a,b,c
-}
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{cat(whisker::whisker.render("hello: \{\{hello\}\}", hx)) # messed up whisker
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## hello: a,b,c
+}\if{html}{\out{</div>}}
 
 Moreover, we want to indicate that a yaml list is not a single key/value pair
-so we want to enforce that we have\preformatted{key:
-- value1
-}
+so we want to enforce that we have
 
-and not\preformatted{key: value1
-}
+\if{html}{\out{<div class="sourceCode">}}\preformatted{key:
+- value1
+}\if{html}{\out{</div>}}
+
+and not
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{key: value1
+}\if{html}{\out{</div>}}
 
 This converts the elements to a yaml list before it enters whisker and makes
-sure that the values are clearly lists.\if{html}{\out{<div class="sourceCode r">}}\preformatted{hx[["hello"]] <- sandpaper:::yaml_list(hx[["hello"]])
+sure that the values are clearly lists.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{hx[["hello"]] <- sandpaper:::yaml_list(hx[["hello"]])
 cat(whisker::whisker.render("hello: \{\{hello\}\}", hx)) # good whisker
-}\if{html}{\out{</div>}}\preformatted{## hello: 
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## hello: 
 ## - a
 ## - b
 ## - c
-}
+}\if{html}{\out{</div>}}
 }
 \description{
 Create a valid, opinionated yaml list for insertion into a whisker template

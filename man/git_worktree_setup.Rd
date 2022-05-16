@@ -38,7 +38,9 @@ push derived outputs to non-main branches in our repository. We use this to
 populate the markdown and HTML outputs from the lesson so that we don't have
 to rebuild the lesson from scratch every time.
 
-The logic behind this looks like\preformatted{worktree setup
+The logic behind this looks like
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{worktree setup
 [IF BRANCH DOES NOT EXIST]
   git checkout --orphan <branch>
   git rm -rf --quiet .
@@ -47,7 +49,7 @@ The logic behind this looks like\preformatted{worktree setup
   git checkout -
 git fetch <remote> +refs/heads/<branch>:refs/remotes/<remote>/<branch>
 git worktree add --track -B <branch> /path/to/dir <remote>/<branch>
-}
+}\if{html}{\out{</div>}}
 }
 \note{
 this internal function has been modified from the logic in

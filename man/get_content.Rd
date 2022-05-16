@@ -30,7 +30,9 @@ defaults to \code{FALSE}. This has no effect if the episode is an \code{xml_docu
 Get sections from an episode's HTML page
 }
 \details{
-The contents of the lesson are contained in the following templating cascade:\if{html}{\out{<div class="sourceCode html">}}\preformatted{<body>
+The contents of the lesson are contained in the following templating cascade:
+
+\if{html}{\out{<div class="sourceCode html">}}\preformatted{<body>
   <div class='container'>
     <div class='row'>
       <div class='[...] primary-content'>
