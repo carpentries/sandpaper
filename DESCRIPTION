@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.5.1
+Version: 0.5.2
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -64,7 +64,7 @@ LazyData: true
 Config/testthat/edition: 3
 Config/testthat/parallel: false
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 URL: https://github.com/carpentries/sandpaper/
 BugReports: https://github.com/carpentries/sandpaper/issues/
 VignetteBuilder: knitr
