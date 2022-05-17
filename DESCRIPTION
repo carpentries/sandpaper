@@ -65,6 +65,6 @@ Config/testthat/edition: 3
 Config/testthat/parallel: false
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
-URL: https://github.com/carpentries/sandpaper/
+URL: https://carpentries.github.io/sandpaper/
 BugReports: https://github.com/carpentries/sandpaper/issues/
 VignetteBuilder: knitr
