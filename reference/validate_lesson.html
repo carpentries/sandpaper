@@ -61,7 +61,7 @@ pegboard article Validation of Lesson Elements"><meta property="og:image" conten
     </div>
 
     <div class="ref-description section level2">
-    <p>A validator based on the <a href="https://rdrr.io/pkg/pegboard/man/Lesson.html" class="external-link">pegboard::Lesson</a> class cached with <code><a href="lesson_storage.html">this_lesson()</a></code>
+    <p>A validator based on the <a href="https://carpentries.github.io/pegboard/reference/Lesson.html" class="external-link">pegboard::Lesson</a> class cached with <code><a href="lesson_storage.html">this_lesson()</a></code>
 that will provide line reports for fenced divs, links, images, and heading
 structure. For details on the type of validators avaliable, see the
 pegboard article <a href="https://carpentries.github.io/pegboard/articles/validation.html" class="external-link">Validation of Lesson Elements</a></p>
@@ -86,7 +86,7 @@ messages will be issued for each test</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>a list with the results for each test as described in
-<a href="https://rdrr.io/pkg/pegboard/man/Lesson.html" class="external-link">pegboard::Lesson</a></p>
+<a href="https://carpentries.github.io/pegboard/reference/Lesson.html" class="external-link">pegboard::Lesson</a></p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -96,7 +96,7 @@ messages will be issued for each test</p></dd>
 
 
 <p>We expect the headings to be semantic and informative. Details of the tests
-for headings can be found at <code><a href="https://rdrr.io/pkg/pegboard/man/validate_headings.html" class="external-link">pegboard::validate_headings()</a></code></p>
+for headings can be found at <code><a href="https://carpentries.github.io/pegboard/reference/validate_headings.html" class="external-link">pegboard::validate_headings()</a></code></p>
 </div>
 
 <div class="section">
@@ -104,7 +104,7 @@ for headings can be found at <code><a href="https://rdrr.io/pkg/pegboard/man/val
 
 
 <p>Internal links and images should exist and images should have alt text.
-Details for these tests can be found at <code><a href="https://rdrr.io/pkg/pegboard/man/validate_links.html" class="external-link">pegboard::validate_links()</a></code></p>
+Details for these tests can be found at <code><a href="https://carpentries.github.io/pegboard/reference/validate_links.html" class="external-link">pegboard::validate_links()</a></code></p>
 </div>
 
 <div class="section">
@@ -112,7 +112,7 @@ Details for these tests can be found at <code><a href="https://rdrr.io/pkg/pegbo
 
 
 <p>Callout Blocks should be one of the expected types. Details for this test
-can be found at <code><a href="https://rdrr.io/pkg/pegboard/man/validate_divs.html" class="external-link">pegboard::validate_divs()</a></code></p>
+can be found at <code><a href="https://carpentries.github.io/pegboard/reference/validate_divs.html" class="external-link">pegboard::validate_divs()</a></code></p>
 </div>
 
     </div>
@@ -121,13 +121,13 @@ can be found at <code><a href="https://rdrr.io/pkg/pegboard/man/validate_divs.ht
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">lsn</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="va">tmp</span>, open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp8tMb99/file421f5643fd89</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/Rtmp8tMb99/file421f5643fd89/episodes/01-introduction.Rmd</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp8tMb99/file421f5643fd89</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwsbBSy/file42de17f1f69e</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/RtmpwsbBSy/file42de17f1f69e/episodes/01-introduction.Rmd</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwsbBSy/file42de17f1f69e</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Workflows up-to-date!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp8tMb99/file421f5643fd89</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/Rtmp8tMb99/file421f5643fd89</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp8tMb99/file421f5643fd89</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwsbBSy/file42de17f1f69e</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/RtmpwsbBSy/file42de17f1f69e</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwsbBSy/file42de17f1f69e</span>...</span>
 <span class="r-in"><span class="fu">validate_lesson</span><span class="op">(</span><span class="va">lsn</span>, headings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── Validating Headings ─────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── Validating Fenced Divs ──────────────────────────────────────────────</span>
