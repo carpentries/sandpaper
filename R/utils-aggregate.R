@@ -327,6 +327,11 @@ get_content <- function(episode, content = "*", label = FALSE, pkg = NULL,
   res
 }
 
+# escape pesky ampersands in output text
+escape_ampersand <- function(text) {
+  gsub("[&](?![#]?[A-Za-z0-9]+?[;])", "&amp;", text, perl = TRUE)
+}
+
 remove_fix_node <- function(html, id='FIXME') {
   fix_node <- xml2::xml_find_first(html, paste0(".//section[@id='", id, "']"))
   xml2::xml_remove(fix_node)

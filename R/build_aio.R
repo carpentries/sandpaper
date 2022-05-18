@@ -30,7 +30,7 @@ build_aio <- function(pkg, pages = NULL, quiet = FALSE) {
 #' }
 make_aio_section <- function(name, contents, parent) {
   uri <- sub("aio-", "", name)
-  title <- xml2::xml_text(contents[[1]])
+  title <- escape_ampersand(xml2::xml_text(contents[[1]]))
   new_section <- "<section id='{name}'><p>Content from <a href='{uri}.html'>{title}</a></p><hr/></section>"
   section <- xml2::read_xml(glue::glue(new_section))
   for (element in contents[-1]) {
