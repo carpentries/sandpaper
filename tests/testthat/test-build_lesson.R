@@ -25,7 +25,12 @@ test_that("Lessons built for the first time are noisy", {
 
 })
 
-htmls <- read_all_html(sitepath)
+
+htmls <- NULL
+if (rmarkdown::pandoc_available("2.11")) {
+  htmls <- read_all_html(sitepath)
+}
+
 pkg <- pkgdown::as_pkgdown(fs::path_dir(sitepath))
 
 test_that("build_lesson() also builds the extra pages", {
