@@ -15,5 +15,11 @@ test_that("read_all_html returns appropriate files", {
 
 })
 
+test_that("escape ampersand works as promised", {
+
+  expected <- "Hall &amp; Oates"
+  expect_equal(escape_ampersand("Hall & Oates"), expected)
+
+})
 
 
