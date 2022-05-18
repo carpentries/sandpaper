@@ -1,3 +1,11 @@
+# sandpaper 0.5.3
+
+BUG FIX
+-------
+
+* Episodes with ampersands in their titles no longer break the aggregate page
+  building.
+
 # sandpaper 0.5.2
 
 TEMPORARY BUG FIX
