@@ -9,7 +9,7 @@ build_episode_md(
   hash = NULL,
   outdir = path_built(path),
   workdir = path_built(path),
-  workenv = new.env(),
+  workenv = globalenv(),
   profile = "lesson-requirements",
   quiet = FALSE
 )
@@ -24,10 +24,11 @@ is effectively useless.}
 
 \item{workdir}{the directory where the episode should be rendered}
 
+\item{workenv}{an environment to use for evaluation. Defaults to the global
+environment, which evaluates to the environment from \code{\link[callr:r]{callr::r()}}.}
+
 \item{quiet}{if \code{TRUE}, output is suppressed, default is \code{FALSE} to show
 {knitr} output.}
-
-\item{env}{a blank environment}
 }
 \value{
 the path to the output, invisibly

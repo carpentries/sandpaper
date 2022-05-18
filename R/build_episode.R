@@ -178,7 +178,8 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
 #'   is effectively useless.
 #' @param outdir the directory to write to
 #' @param workdir the directory where the episode should be rendered
-#' @param env a blank environment
+#' @param workenv an environment to use for evaluation. Defaults to the global
+#'   environment, which evaluates to the environment from [callr::r()]. 
 #' @param quiet if `TRUE`, output is suppressed, default is `FALSE` to show 
 #'   {knitr} output.
 #' @return the path to the output, invisibly
@@ -209,7 +210,7 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
 #' res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
 build_episode_md <- function(path, hash = NULL, outdir = path_built(path), 
                              workdir = path_built(path), 
-                             workenv = new.env(), profile = "lesson-requirements", quiet = FALSE) {
+                             workenv = globalenv(), profile = "lesson-requirements", quiet = FALSE) {
 
   # define the output
   md <- fs::path_ext_set(fs::path_file(path), "md")

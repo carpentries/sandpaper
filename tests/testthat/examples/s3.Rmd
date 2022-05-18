@@ -1,0 +1,29 @@
+---
+title: Fun times
+---
+
+
+# new page
+
+This is coming from `r R.version.string` with an [internal link](fun.Rmd)
+
+::: instructor
+this is an instructor note
+:::
+
+```{r}
+#| name: example
+point <- function(x, y) {
+  stopifnot(is.numeric(x), is.numeric(y))
+  structure(list(x = x, y = y), class = "point")
+}
+
+abs.point <- function(x) {
+  sqrt(x$x ^ 2 + x$y ^ 2)
+}
+
+points <- mapply(point, runif(5), runif(5), SIMPLIFY = FALSE)
+
+sapply(points, abs)
+```
+
