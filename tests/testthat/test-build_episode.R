@@ -13,7 +13,6 @@ test_that("build_episode_html() returns nothing for an empty page", {
 
 test_that("build_episode functions works independently", {
 
-
   withr::local_options(list(sandpaper.use_renv = FALSE))
   pkg <- pkgdown::as_pkgdown(file.path(tmp, "site"))
   expect_output(pkgdown::init_site(pkg))
@@ -22,19 +21,10 @@ test_that("build_episode functions works independently", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   # create a new file in extras
   fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
-  txt <- c(
-    "---\ntitle: Fun times\n---\n\n",
-    "# new page\n", 
-    "This is coming from `r R.version.string` with an [internal link](fun.Rmd)\n",
-    "::: instructor",
-    "this is an instructor note",
-    ":::"
-  )
-  file.create(fun_file)
-  writeLines(txt, fun_file)
+  file.copy(test_path("examples/s3.Rmd"), fun_file, overwrite = TRUE)
+  expect_true(fs::file_exists(fun_file))
 
   skip_on_os("windows")
-  manage_deps(tmp)
   expect_output({
     res <- build_episode_md(fun_file, workdir = dirname(fun_file))
   }, "inline R code fragments")
@@ -45,6 +35,11 @@ test_that("build_episode functions works independently", {
   expect_equal(lines[[2]], "title: Fun times")
   from_r <- grep("This is coming from", lines)
   expect_match(lines[from_r], "This is coming from R (version|Under)")
+  
+  # Explicitly testing https://github.com/carpentries/sandpaper/issues/288
+  # If we specify a `new.env()`, then the S3 dispatch will not work, but when we
+  # default to `globalenv()`, the S3 dispatch works. 
+  expect_false(any(grepl("Error", lines)))
 
   expect_false(file.exists(file.path(tmp, "site", "docs", "fun.html")))
   expect_false(file.exists(file.path(tmp, "site", "docs", "instructor", "fun.html")))

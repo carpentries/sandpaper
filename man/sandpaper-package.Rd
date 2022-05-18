@@ -13,7 +13,7 @@ We provide tools to build a Carpentries-themed lesson repository into an accessi
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/carpentries/sandpaper/}
+  \item \url{https://carpentries.github.io/sandpaper/}
   \item Report bugs at \url{https://github.com/carpentries/sandpaper/issues/}
 }
 

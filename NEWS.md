@@ -1,3 +1,11 @@
+# sandpaper 0.5.4
+
+BUG FIX
+-------
+
+* `build_episode_md()` argument `workenv` now defaults to `globalenv()` to avoid
+  S3 dispatch issues that can occur in `new.env()` (see https://github.com/carpentries/sandpaper/issues/288)
+
 # sandpaper 0.5.3
 
 BUG FIX
