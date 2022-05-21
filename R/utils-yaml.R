@@ -187,7 +187,11 @@ create_pkgdown_yaml <- function(path) {
       NULL     
     )
   )
-  structure(yaml::yaml.load(yaml, eval.expr = FALSE), header = get_information_header(yaml))
+  rendered <- yaml::yaml.load(yaml, eval.expr = FALSE)
+  items <- names(rendered$template$params)
+  rendered$template$params <- c(rendered$template$params, 
+    c(usr[!names(usr) %in% items]))
+  structure(rendered, header = get_information_header(yaml))
 }
 
 update_site_timestamp <- function(path) {
