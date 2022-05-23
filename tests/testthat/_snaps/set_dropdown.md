@@ -47,6 +47,14 @@
       → title: Lesson Title -> title: 'test: title'
       → license: CC-BY 4.0 -> license: 'CC0'
 
+# custom keys can be modified by set_config()
+
+    Code
+      set_config(c(`test-key` = "!yeh"), path = tmp, write = TRUE)
+    Message
+      i Writing to '/tmp/RtmpAHEMfb/filec81490bd248/lesson-example/config.yaml'
+      > test-key: 'hey!' -> test-key: '!yeh'
+
 # set_episodes() will display the modifications if write is not specified [plain]
 
     Code
