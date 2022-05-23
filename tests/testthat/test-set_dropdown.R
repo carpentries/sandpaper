@@ -35,7 +35,8 @@ test_that("custom keys can be modified by set_config()", {
   writeLines(c("test-key: 'hey!'", readLines(fs::path(tmp, "config.yaml"))),
     fs::path(tmp, "config.yaml"))
   expect_equal(get_config(tmp)[["test-key"]], "hey!")
-  expect_snapshot(set_config(c("test-key" = "!yeh"), path = tmp, write = TRUE))
+  expect_snapshot(set_config(c("test-key" = "!yeh"), path = tmp, write = TRUE),
+    transform = function(s) mask_tmpdir(s, dirname(tmp)))
   expect_equal(get_config(tmp)[["test-key"]], "!yeh")
   expect_equal(readLines(fs::path(tmp, "config.yaml"), n = 1L), "test-key: '!yeh'")
 })
