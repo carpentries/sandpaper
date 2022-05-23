@@ -69,3 +69,12 @@ This is not poetry
   expect_named(YML, c("a", "b"))
 
 })
+
+
+test_that("yaml_list() processes nested lists", {
+  
+  x <- letters[1:3]
+  nester <- list(b = x, a = list(hello = x, jello = as.list(setNames(x, rev(x)))))
+  expect_snapshot_output(writeLines(yaml_list(nester)))
+})
+

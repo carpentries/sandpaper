@@ -1,3 +1,13 @@
+# sandpaper 0.5.5
+
+MISC
+----
+
+* New YAML items can now be added at-will and will be available to varnish in
+  a `{{#yaml}}` context. 
+* internal function `set_dropdown()` will preserve the yaml items that are not
+  explicitly coded in the config menu. 
+
 # sandpaper 0.5.4
 
 BUG FIX

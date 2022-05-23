@@ -10,11 +10,13 @@ generate_template_function <- function(f) {
 #nocov end
 
 # copy template on disk
-copy_template <- function(template, path, name, values = NULL) {
+copy_template <- function(template, path = NULL, name = NULL, values = NULL) {
   template <- eval(parse(text = paste0("template_", template, "()")))
+  out <- if (is.null(path)) NULL else fs::path(path, name)
   if (!is.null(values)) {
     temp <- readLines(template, encoding = "UTF-8")
-    writeLines(whisker::whisker.render(temp, values), fs::path(path, name))
+    res  <- whisker::whisker.render(template = temp, data = values)
+    if (length(out)) writeLines(res, out) else return(out)
   } else {
     fs::file_copy(template, new_path = fs::path(path, name))
   }
