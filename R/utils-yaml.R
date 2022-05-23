@@ -209,14 +209,31 @@ get_navbar_info <- function(i) {
   )
 }
 
+known_yaml_keys <- c(
+  "title",
+  "carpentry",
+  "life_cycle",
+  "license",
+  "source",
+  "branch",
+  "contact",
+  "created",
+  "keywords"
+)
+
+known_yaml_items <- c(
+  known_yaml_keys,
+  "episodes",
+  "instructors",
+  "learners",
+  "profiles"
+)
+
+
 quote_config_items <- function(yaml) {
-  yaml$title      <- siQuote(yaml$title)
-  yaml$carpentry  <- siQuote(yaml$carpentry)
-  yaml$life_cycle <- siQuote(yaml$life_cycle)
-  yaml$license    <- siQuote(yaml$license)
-  yaml$source     <- siQuote(yaml$source)
-  yaml$branch     <- siQuote(yaml$branch)
-  yaml$contact    <- siQuote(yaml$contact)
+  for (i in known_yaml_keys) {
+    yaml[[i]] <- siQuote(yaml[[i]])
+  }
   yaml
 }
 
