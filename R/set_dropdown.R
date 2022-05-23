@@ -40,6 +40,9 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
     error_missing_config(order, real_files, folder)
   }
   yaml  <- quote_config_items(get_config(path))
+
+  # account for extra items not yet known to our config
+  yaml$custom_items <- yaml_list(yaml[!names(yaml) %in% known_yaml_items])
   sched <- yaml[[folder]]
   sched <- if (is.null(sched) && folder == "episodes") yaml[["schedule"]] else sched
   sched_folders <- c("episodes", "learners", "instructors", "profiles")
