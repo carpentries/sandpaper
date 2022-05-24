@@ -1,3 +1,11 @@
+# sandpaper 0.5.6
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* Pull requests will now report on elements of the lesson that do not pass
+  checks.
+
 # sandpaper 0.5.5
 
 MISC

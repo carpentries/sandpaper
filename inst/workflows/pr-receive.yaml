@@ -65,6 +65,7 @@ jobs:
         id: build-site
         run: |
           sandpaper::package_cache_trigger(TRUE)
+          sandpaper::validate_lesson()
           sandpaper:::build_markdown(path = '${{ github.workspace }}', quiet = FALSE)
         shell: Rscript {0}
 
