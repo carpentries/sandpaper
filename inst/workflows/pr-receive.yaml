@@ -61,10 +61,11 @@ jobs:
         with:
           cache-version: ${{ secrets.CACHE_VERSION }}
 
-      - name: "Build Site"
+      - name: "Validate and Build Markdown"
         id: build-site
         run: |
           sandpaper::package_cache_trigger(TRUE)
+          sandpaper::validate_lesson(path = '${{ github.workspace }}')
           sandpaper:::build_markdown(path = '${{ github.workspace }}', quiet = FALSE)
         shell: Rscript {0}
 

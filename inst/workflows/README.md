@@ -117,7 +117,7 @@ pull requests that do not pass checks and do not have bots commented on them.**
 This series of workflows all go together and are described in the following 
 diagram and the below sections:
 
-![Graph representation of a pull request](https://raw.githubusercontent.com/zkamvar/stunning-barnacle/main/img/pr-flow.dot.svg)
+![Graph representation of a pull request](../../vignettes/articles/img/pr-flow.dot.svg)
 
 ### Recieve Pull Request (pr-recieve.yaml)
 
@@ -143,6 +143,7 @@ process as the sandpaper-main workflow with the same caching mechanisms.
 
 The artifacts produced are used by the next workflow.
 
+# sandpaper 0.5.5
 ### Comment on Pull Request (pr-comment.yaml)
 
 This workflow is triggered if the `pr-recieve.yaml` workflow is successful.
