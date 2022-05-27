@@ -1,3 +1,11 @@
+# sandpaper 0.5.7
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* Workflows that update lesson elements will now report a more obvious summary
+  of next steps to take with an invalid token (see https://github.com/carpentries/actions/pull/45)
+
 # sandpaper 0.5.6
 
 CONTINUOUS INTEGRATION
