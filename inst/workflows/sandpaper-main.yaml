@@ -14,9 +14,10 @@ on:
         required: true
         default: 'Maintainer (via GitHub)'
       reset:
-        description: 'Should the cached markdown files be reset? (true/false)'
-        required: true
+        description: 'Reset cached markdown files'
+        required: false
         default: false
+        type: boolean
 jobs:
   full-build:
     name: "Build Full Site"

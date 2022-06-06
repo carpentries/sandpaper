@@ -1,3 +1,13 @@
+# sandpaper 0.5.8
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* Running the main workflow from GitHub's actions tab now uses a checkbox to
+  indicate if the markdown file cache should be cleared.
+* The README file for the workflows no longer contains a link to an image that
+  does not exist.
+
 # sandpaper 0.5.7
 
 CONTINUOUS INTEGRATION

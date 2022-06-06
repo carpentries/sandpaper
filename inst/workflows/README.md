@@ -117,7 +117,7 @@ pull requests that do not pass checks and do not have bots commented on them.**
 This series of workflows all go together and are described in the following 
 diagram and the below sections:
 
-![Graph representation of a pull request](../../vignettes/articles/img/pr-flow.dot.svg)
+![Graph representation of a pull request](https://carpentries.github.io/sandpaper/articles/img/pr-flow.dot.svg)
 
 ### Recieve Pull Request (pr-recieve.yaml)
 
