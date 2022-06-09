@@ -26,6 +26,17 @@ make_github_url <- function(path) {
 }
 
 
+slugify <- function(title) {
+  # remove emoji encoded as github codes (e.g. :joy_cat:)
+  slug <- gsub("(?>\\s|^)[:][a-z_]+?[:](?=\\s|$)", "-", tolower(title), perl = TRUE)
+  # replace all punctuation and spaces with a single hyphen, but preserve
+  # emojis and non latin characters
+  slug <- gsub("[[:punct:][:space:]]+", "-", slug, perl = TRUE)
+  # trim hanging hyphens
+  gsub("^[-]|[-]$", "", slug, perl = TRUE)
+}
+
+
 set_common_links <- function(path = ".") {
   links <- getOption("sandpaper.links")
   # Include common links if they exist ----------------------------------------
