@@ -19,9 +19,10 @@ create_episode <- function(title, make_prefix = TRUE, add = FALSE, path = ".") {
     suppressWarnings(prefix <- as.integer(sub("^([0-9]{2}).+$", "\\1", episodes)))
     no_prefix <- length(prefix) == 0 || all(is.na(prefix))
     prefix <- if (no_prefix) "01-" else sprintf("%02d-", max(prefix, na.rm = TRUE) + 1L)
-  } 
-  ename <- paste0(prefix, title, ".Rmd")
-  copy_template("episode", fs::path(path, "episodes"), ename)
+  }
+  slug <- slugify(title)
+  ename <- paste0(prefix, slug, ".Rmd")
+  copy_template("episode", fs::path(path, "episodes"), ename, list(title = siQuote(title)))
   if (add) {
     suppressWarnings(sched <- get_episodes(path))
     set_episodes(path, c(sched, ename), write = TRUE)
