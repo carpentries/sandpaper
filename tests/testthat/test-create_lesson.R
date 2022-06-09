@@ -63,8 +63,8 @@ test_that("Templated files are correct", {
     readLines(template_gitignore())
   )
   expect_setequal(
-    readLines(fs::path(tmp, "episodes", "01-introduction.Rmd")), 
-    readLines(template_episode())
+    readLines(fs::path(tmp, "episodes", "01-introduction.Rmd"))[-2], 
+    readLines(template_episode())[-2]
   )
   
 })

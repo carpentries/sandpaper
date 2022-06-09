@@ -188,7 +188,7 @@ test_that("Individual files contain matching metadata", {
 
   actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
   actual <- trimws(xml2::xml_text(actual))
-  expect_match(actual, "Using RMarkdown")
+  expect_match(actual, '"name": "second-episode"')
   expect_match(actual, "02-second-episode.html")
 })
 
@@ -222,7 +222,8 @@ test_that("source files are hashed", {
   # see helper-hash.R
   h1 <- expect_hashed(tmp, "01-introduction.Rmd")
   h2 <- expect_hashed(tmp, "02-second-episode.Rmd")
-  expect_equal(h1, h2, ignore_attr = TRUE)
+  # the hashes will no longer be equal because the titles are now different
+  expect_failure(expect_equal(h1, h2, ignore_attr = TRUE))
 
 })
 

@@ -12,7 +12,7 @@ test_that("syllabus can be extracted from source files", {
   expect_named(res, c("episode", "timings", "path"))
   expect_equal(nrow(res), 2)
   expect_equal(res$timings, c("00:00", "00:12"))
-  expect_equal(res$episode, c("Using RMarkdown", "Finish"))
+  expect_equal(res$episode, c("introduction", "Finish"))
   expect_equal(fs::path_file(res$path), c("01-introduction.html", ""))
 })
 
@@ -23,7 +23,7 @@ test_that("syllabus will update with new files", {
   expect_named(res, c("episode", "timings", "path", "questions"))
   expect_equal(nrow(res), 3)
   expect_equal(res$timings, c("00:00", "00:12", "00:24"))
-  expect_equal(res$episode, c(rep("Using RMarkdown", 2), "Finish"))
+  expect_equal(res$episode, c("introduction", "postroduction", "Finish"))
   expect_equal(fs::path_file(res$path), c("01-introduction.html", "02-postroduction.html", ""))
   expect_equal(res$questions, c(rep(q, 2), ""))
   
@@ -41,7 +41,7 @@ test_that("episodes missing question blocks do not throw error", {
   expect_warning(res <- get_syllabus(tmp, questions = TRUE))
   expect_equal(nrow(res), 4)
   expect_equal(res$timings, c("00:00", "00:12", "00:24", "00:24"))
-  expect_equal(res$episode, c(rep("Using RMarkdown", 2), "Break", "Finish"))
+  expect_equal(res$episode, c("introduction", "postroduction", "Break", "Finish"))
   expect_equal(fs::path_file(res$path), c("01-introduction.html", "02-postroduction.html", "break.html", ""))
   expect_equal(res$questions, c(rep(q, 2), "", ""))
 
