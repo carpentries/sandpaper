@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,36 +60,53 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">create_episode</span><span class="op">(</span><span class="va">title</span>, make_prefix <span class="op">=</span> <span class="cn">TRUE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">create_episode</span><span class="op">(</span><span class="va">title</span>, ext <span class="op">=</span> <span class="st">"Rmd"</span>, make_prefix <span class="op">=</span> <span class="cn">TRUE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>
+
+<span class="fu">create_episode_md</span><span class="op">(</span><span class="va">title</span>, make_prefix <span class="op">=</span> <span class="cn">TRUE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>
+
+<span class="fu">create_episode_rmd</span><span class="op">(</span><span class="va">title</span>, make_prefix <span class="op">=</span> <span class="cn">TRUE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>title</dt>
 <dd><p>the title of the episode</p></dd>
+
+
+<dt>ext</dt>
+<dd><p>a character. If <code>ext = "Rmd"</code> (default), then the new episode will
+be an R Markdown episode. If <code>ext = "md"</code>, then the new episode will be
+a markdown episode, which can not generate dynamic content.</p></dd>
+
+
 <dt>make_prefix</dt>
 <dd><p>a logical. If <code>TRUE</code>, the prefix for the file will be
 automatically determined by the files already present. Otherwise, it assumes
 you have added the prefix.</p></dd>
+
+
 <dt>add</dt>
 <dd><p>if <code>TRUE</code>, the lesson is added to the schedule. Defaults to <code>FALSE</code></p></dd>
+
+
 <dt>path</dt>
 <dd><p>the path to the sandpaper lesson.</p></dd>
+
 </dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file41701643b7fa</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file41701643b7fa/episodes/01-introduction.Rmd</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file41701643b7fa</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3205fe249</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3205fe249/episodes/01-introduction.Rmd</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3205fe249</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Workflows up-to-date!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file41701643b7fa</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file41701643b7fa</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file41701643b7fa</span>...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpwmC5fV/file41701643b7fa</span></span>
-<span class="r-in"><span class="fu">create_episode</span><span class="op">(</span><span class="st">"getting-started"</span>, path <span class="op">=</span> <span class="va">tmp</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3205fe249</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3205fe249</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3205fe249</span>...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpfLri9S/file3ad3205fe249</span></span>
+<span class="r-in"><span class="fu">create_episode_md</span><span class="op">(</span><span class="st">"getting-started"</span>, path <span class="op">=</span> <span class="va">tmp</span><span class="op">)</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -101,7 +118,7 @@ you have added the prefix.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,20 +73,31 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>path</dt>
 <dd><p>path to the repository</p></dd>
+
+
 <dt>dest_dir</dt>
 <dd><p>path to the destination directory to contain the work tree</p></dd>
+
+
 <dt>branch</dt>
 <dd><p>the branch associated with the work tree (default: gh-pages)</p></dd>
+
+
 <dt>remote</dt>
 <dd><p>the remote name (default: origin)</p></dd>
+
+
 <dt>throwaway</dt>
 <dd><p>if <code>TRUE</code>, the worktree created is in a detached HEAD state
 from from the remote branch and will not create a new branch in your
 repository. Defaults to <code>FALSE</code>, which will create the branch from upstream.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>an <code><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression()</a></code> that calls <code>git worktree remove</code> on the worktree
+    
+
+<p>an <code><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression()</a></code> that calls <code>git worktree remove</code> on the worktree
 when evaluated.</p>
     </div>
     <div class="section level2">
@@ -96,7 +107,15 @@ push derived outputs to non-main branches in our repository. We use this to
 populate the markdown and HTML outputs from the lesson so that we don't have
 to rebuild the lesson from scratch every time.</p>
 <p>The logic behind this looks like</p>
-<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a>worktree setup</span>
+<span id="cb1-2"><a href="#cb1-2"></a>[IF BRANCH DOES NOT EXIST]</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  git checkout <span class="op">--</span>orphan <span class="op">&lt;</span>branch<span class="op">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="st">  </span>git rm <span class="op">-</span>rf <span class="op">--</span>quiet .</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  git commit <span class="op">--</span>allow<span class="op">-</span>empty <span class="op">-</span>m</span>
+<span id="cb1-6"><a href="#cb1-6"></a>  git push remote HEAD<span class="op">:</span><span class="er">&lt;</span>branch<span class="op">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="st">  </span>git checkout <span class="op">-</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>git fetch <span class="op">&lt;</span>remote<span class="op">&gt;</span><span class="st"> </span><span class="op">+</span>refs<span class="op">/</span>heads<span class="op">/</span><span class="er">&lt;</span>branch<span class="op">&gt;</span><span class="er">:</span>refs<span class="op">/</span>remotes<span class="op">/</span><span class="er">&lt;</span>remote<span class="op">&gt;</span><span class="er">/&lt;</span>branch<span class="op">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>git worktree add <span class="op">--</span>track <span class="op">-</span>B <span class="op">&lt;</span>branch<span class="op">&gt;</span><span class="st"> </span><span class="er">/</span>path<span class="op">/</span>to<span class="op">/</span>dir <span class="op">&lt;</span>remote<span class="op">&gt;</span><span class="er">/&lt;</span>branch<span class="op">&gt;</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -171,7 +190,7 @@ to rebuild the lesson from scratch every time.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

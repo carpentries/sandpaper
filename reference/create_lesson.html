@@ -12,7 +12,7 @@ and initialize a git repository."><meta property="og:image" content="https://car
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +66,7 @@ and initialize a git repository.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">create_lesson</span><span class="op">(</span>
   <span class="va">path</span>,
   name <span class="op">=</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path_file.html" class="external-link">path_file</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span>,
+  rmd <span class="op">=</span> <span class="cn">TRUE</span>,
   rstudio <span class="op">=</span> <span class="fu">rstudioapi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rstudioapi/man/isAvailable.html" class="external-link">isAvailable</a></span><span class="op">(</span><span class="op">)</span>,
   open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
@@ -75,16 +76,32 @@ and initialize a git repository.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>path</dt>
 <dd><p>the path to the new lesson folder</p></dd>
+
+
 <dt>name</dt>
 <dd><p>the name of the lesson. If not provided, the folder name will be used.</p></dd>
+
+
+<dt>rmd</dt>
+<dd><p>logical indicator if the lesson should use R Markdown (<code>TRUE</code>,
+default), or if it should use Markdown (<code>FALSE</code>). Note that lessons can be
+converted to use R Markdown at any time by adding a file with the <code>.Rmd</code>
+file extension in the lesson.</p></dd>
+
+
 <dt>rstudio</dt>
 <dd><p>create an RStudio project (defaults to if RStudio exits)</p></dd>
+
+
 <dt>open</dt>
 <dd><p>if interactive, the lesson will open in a new editor window.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>the path to the new lesson</p>
+    
+
+<p>the path to the new lesson</p>
     </div>
 
     <div class="section level2">
@@ -92,15 +109,15 @@ and initialize a git repository.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">lsn</span> <span class="op">&lt;-</span> <span class="fu">create_lesson</span><span class="op">(</span><span class="va">tmp</span>, name <span class="op">=</span> <span class="st">"This Lesson"</span>, open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file417015f08fb0</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file417015f08fb0/episodes/01-introduction.Rmd</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file417015f08fb0</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3411a652</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3411a652/episodes/01-introduction.Rmd</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3411a652</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Workflows up-to-date!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file417015f08fb0</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file417015f08fb0</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpwmC5fV/file417015f08fb0</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3411a652</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3411a652</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpfLri9S/file3ad3411a652</span>...</span>
 <span class="r-in"><span class="va">lsn</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpwmC5fV/file417015f08fb0</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpfLri9S/file3ad3411a652</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -112,7 +129,7 @@ and initialize a git repository.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

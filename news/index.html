@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,23 @@
       <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.6.0" id="sandpaper-060">sandpaper 0.6.0<a class="anchor" aria-label="anchor" href="#sandpaper-060"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-6-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-6-0"></a></h3>
+<ul><li>
+<code><a href="../reference/create_lesson.html">create_lesson()</a></code> gains the <code>rmd</code> parameter, which is a logical indicator that the lesson should use R Markdown (<code>TRUE</code> by default). When this is <code>FALSE</code>, a markdown lesson is created and no package cache is initialised.</li>
+<li>
+<code><a href="../reference/create_episode.html">create_episode()</a></code> gains the <code>ext</code> parameter, which allows users to create plain markdown episodes if they do not need R Markdown functionality (see <a href="https://github.com/carpentries/sandpaper/issues/296" class="external-link uri">https://github.com/carpentries/sandpaper/issues/296</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fix-0-6-0">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-6-0"></a></h3>
+<ul><li>
+<code><a href="../reference/create_episode.html">create_episode()</a></code> will now slugify titles so that they only contain lowercase ASCII letters, numbers and UTF-8 characters with words separated by single hyphens (see <a href="https://github.com/carpentries/sandpaper/issues/294" class="external-link uri">https://github.com/carpentries/sandpaper/issues/294</a>).</li></ul></div>
+<div class="section level3">
+<h3 id="misc-0-6-0">MISC<a class="anchor" aria-label="anchor" href="#misc-0-6-0"></a></h3>
+<ul><li>The internal <code>check_episode()</code> function has been removed as it was over- engineered with marginal value.</li></ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.8" id="sandpaper-058">sandpaper 0.5.8<a class="anchor" aria-label="anchor" href="#sandpaper-058"></a></h2>
 <div class="section level3">
@@ -265,7 +282,7 @@
 <ul><li>The {pegboard} package is now required to be 0.1.0 or greater due to a fix for generating the keypoints page (<a href="https://github.com/carpentries/pegboard/pull/76" class="external-link uri">https://github.com/carpentries/pegboard/pull/76</a>)</li></ul></div>
 <div class="section level3">
 <h3 id="metadata-0-1-1">METADATA<a class="anchor" aria-label="anchor" href="#metadata-0-1-1"></a></h3>
-<ul><li>The metadata included in the lesson footer now correctly states the <code>@type</code> as <code>TrainingMaterial</code> (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/236" class="external-link">#236</a>)</li>
+<ul><li>The metadata included in the lesson footer now correctly states the <code><a href="https://github.com/type" class="external-link">@type</a></code> as <code>TrainingMaterial</code> (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/236" class="external-link">#236</a>)</li>
 <li>A basic sitemap is now constructed for the lesson (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/243" class="external-link">#243</a>)</li>
 </ul></div>
 <div class="section level3">
@@ -976,7 +993,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

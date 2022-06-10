@@ -14,7 +14,7 @@ utilities for removal and updating of the old database."><meta property="og:imag
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,18 +79,27 @@ utilities for removal and updating of the old database.</p>
     <dl><dt>sources</dt>
 <dd><p>a character vector of ALL source files OR a single file to be
 rebuilt. These must be <em>absolute paths</em></p></dd>
+
+
 <dt>db</dt>
 <dd><p>the path to the database</p></dd>
+
+
 <dt>rebuild</dt>
 <dd><p>if the files should be rebuilt, set this to TRUE (defaults to
 FALSE)</p></dd>
+
+
 <dt>write</dt>
 <dd><p>if TRUE, the database will be updated, Defaults to FALSE,
 meaning that the database will remain the same.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>a list of the following elements</p><ul><li><p><em>build</em> absolute paths of files to build</p></li>
+    
+
+<p>a list of the following elements</p><ul><li><p><em>build</em> absolute paths of files to build</p></li>
 <li><p><em>new</em> a new data frame with three columns:</p><ul><li><p>file the relative path to the source file</p></li>
 <li><p>checksum the md5 sum of the source file</p></li>
 <li><p>built the relative path to the built file</p></li>
@@ -123,7 +132,7 @@ entries missing from the sources.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

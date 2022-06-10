@@ -16,7 +16,7 @@ are used in tests/testthat/setup.R. For more information, see the package scope 
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,22 +91,37 @@ are used in <code>tests/testthat/setup.R</code>. For more information, see the <
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>repo</dt>
 <dd><p>path to a git repository</p></dd>
+
+
 <dt>remote</dt>
 <dd><p>path to an empty or uninitialized directory. Defaults to a
 tempfile</p></dd>
+
+
 <dt>name</dt>
 <dd><p>of the remote, defaults to "sandpaper-local"</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>if <code>TRUE</code>, messages and output from git will be printed to
 screen. Defaults to <code>FALSE</code>.</p></dd>
+
+
 <dt>branch</dt>
 <dd><p>the name of the new branch to be deleted</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>(<code>generate_restore_fixture</code>) a function that will restore the test fixture
-(<code>setup_local_remote()</code>) the repo, invisibly
-(<code>remove_local_remote()</code>) FALSE indicating an error or a string
+    
+
+<p>(<code>generate_restore_fixture</code>) a function that will restore the test fixture</p>
+
+
+<p>(<code>setup_local_remote()</code>) the repo, invisibly</p>
+
+
+<p>(<code>remove_local_remote()</code>) FALSE indicating an error or a string
 indicating the path to the remote</p>
     </div>
     <div class="section level2">
@@ -171,7 +186,7 @@ the fixture lesson.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

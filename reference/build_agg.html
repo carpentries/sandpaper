@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,34 +84,53 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>pkg</dt>
 <dd><p>an object created via <code><a href="https://pkgdown.r-lib.org/reference/as_pkgdown.html" class="external-link">pkgdown::as_pkgdown()</a></code> of a lesson.</p></dd>
+
+
 <dt>pages</dt>
 <dd><p>output from the function <code><a href="read_all_html.html">read_all_html()</a></code>: a nested list of
 <code>xml_document</code> objects representing episodes in the lesson</p></dd>
+
+
 <dt>quiet</dt>
 <dd><p>if <code>TRUE</code>, no messages will be emitted. If FALSE, pkgdown will
 report creation of the temporary file.</p></dd>
+
+
 <dt>built</dt>
 <dd><p>a vector of markdown documents that have recently been rebuilt
 (for future use)</p></dd>
+
+
 <dt>title</dt>
 <dd><p>the new page title</p></dd>
+
+
 <dt>slug</dt>
 <dd><p>the slug for the page (e.g. "aio" will become "aio.html")</p></dd>
+
+
 <dt>aggregate</dt>
 <dd><p>a selector for the lesson content you want to aggregate.
 The default is "section", which will aggregate all sections, but nothing
 outside of the sections. To grab everything in the page, use "*"</p></dd>
+
+
 <dt>append</dt>
 <dd><p>a selector for the section of the page where the aggregate data
 should be placed. This defaults to "self::node()", which indicates that the
 entire page should be appended.</p></dd>
+
+
 <dt>prefix</dt>
 <dd><p>flag to add a prefix for the aggregated sections. Defaults to
 <code>FALSE</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>NULL, invisibly. This is called for its side-effect</p>
+    
+
+<p>NULL, invisibly. This is called for its side-effect</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -153,7 +172,7 @@ lesson.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>
