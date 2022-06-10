@@ -87,10 +87,6 @@ test_that("The site/ directory is ignored by git", {
   expect_true(check_lesson(tmp))
 })
 
-test_that("Episode validation works", {
-  expect_true(check_episode(fs::path(tmp, "episodes", "01-introduction.Rmd")))
-})
-  
 test_that("We have a git repo that's correctly configured", {
   # Ensure it is a git repo
   expect_true(fs::dir_exists(fs::path(tmp, ".git")))
