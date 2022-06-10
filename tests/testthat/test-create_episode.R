@@ -9,14 +9,14 @@ test_that("prefixed episodes can be created", {
   second_episode <- create_episode_md("First Markdown", path = tmp) %>%
     expect_match("02-first-markdown.md", fixed = TRUE)
 
-  ep1 <- readLines(initial_episode, n = 2)
-  ep2 <- readLines(second_episode, n = 2)
+  ep1 <- readLines(initial_episode)
+  ep2 <- readLines(second_episode)
 
   expect_equal(ep1[[2]], "title: 'introduction'")
-  expect_true(any(grepl(ep1, "[`]{3}[{]r"))) # first episode will have R Markdown
+  expect_true(any(grepl("^```[{]r pyramid", ep1))) # first episode will have R Markdown
   
   expect_equal(ep2[[2]], "title: 'First Markdown'")
-  expect_no_match(ep2, "[`]{3}[{]r") # second episode will not have R Markdown
+  expect_no_match(ep2, "^```[{]r pyramid") # second episode will not have R Markdown
   expect_no_match(ep2, "^Or you") # second episode will not have R Markdown
 
 })
