@@ -6,14 +6,18 @@ test_that("prefixed episodes can be created", {
     expect_length(1L) %>%
     expect_match("01-introduction.Rmd")
 
-  second_episode <- create_episode("First Script", path = tmp) %>%
-    expect_match("02-first-script.Rmd", fixed = TRUE)
+  second_episode <- create_episode_md("First Markdown", path = tmp) %>%
+    expect_match("02-first-markdown.md", fixed = TRUE)
 
-  expect_equal(readLines(second_episode, n = 2)[[2]], "title: 'First Script'")
-  expect_equal(readLines(initial_episode, n = 2)[[2]], "title: 'introduction'")
+  ep1 <- readLines(initial_episode)
+  ep2 <- readLines(second_episode)
 
-  expect_true(check_episode(initial_episode))
-  expect_true(check_episode(second_episode))
+  expect_equal(ep1[[2]], "title: 'introduction'")
+  expect_true(any(grepl("^```[{]r pyramid", ep1))) # first episode will have R Markdown
+  
+  expect_equal(ep2[[2]], "title: 'First Markdown'")
+  expect_no_match(ep2, "^```[{]r pyramid") # second episode will not have R Markdown
+  expect_no_match(ep2, "^Or you") # second episode will not have R Markdown
 
 })
 
@@ -21,10 +25,9 @@ test_that("un-prefixed episodes can be created", {
 
   skip_on_os("windows") # y'all ain't ready for this
   title <- "\uC548\uB155 :joy_cat: \U0001F62D KITTY"
-  third_episode <- create_episode(title, make_prefix = FALSE, path = tmp) %>%
+  third_episode <- create_episode_rmd(title, make_prefix = FALSE, path = tmp) %>%
     expect_match("\uC548\uB155-\U0001F62D-kitty.Rmd", fixed = TRUE)
 
-  expect_true(check_episode(third_episode))
   expect_equal(readLines(third_episode, n = 2)[[2]], 
     paste0("title: '", title, "'"))
 })

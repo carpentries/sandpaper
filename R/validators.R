@@ -25,14 +25,6 @@ assertthat::on_failure(check_gitignore) <- function(call, env) {
   )
 }
 
-## lesson name validator -------------------------------------------------------
-check_episode_name <- function(path) {
-  grepl("^[0-9]{2}[-]", fs::path_file(path))
-}
-assertthat::on_failure(check_episode_name) <- function(call, env) {
-  paste0("The file '", eval(call$path, env), "' must start with a two-digit number") 
-}
-
 # reporting of validators ------------------------------------------------------
 report_validation <- function(checklist, msg = "There were errors") {
   errs <- Filter(Negate(isTRUE), checklist)

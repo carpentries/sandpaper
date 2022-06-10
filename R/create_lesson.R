@@ -5,6 +5,10 @@
 #'
 #' @param path the path to the new lesson folder
 #' @param name the name of the lesson. If not provided, the folder name will be used.
+#' @param rmd logical indicator if the lesson should use R Markdown (`TRUE`,
+#'   default), or if it should use Markdown (`FALSE`). Note that lessons can be
+#'   converted to use R Markdown at any time by adding a file with the `.Rmd`
+#'   file extension in the lesson.
 #' @param rstudio create an RStudio project (defaults to if RStudio exits)
 #' @param open if interactive, the lesson will open in a new editor window.
 #'
@@ -15,7 +19,7 @@
 #' on.exit(unlink(tmp))
 #' lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #' lsn
-create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi::isAvailable(), open = rlang::is_interactive()) {
+create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio = rstudioapi::isAvailable(), open = rlang::is_interactive()) {
 
   path <- fs::path_abs(path)
   id <- cli::cli_status("{cli::symbol$arrow_right} Creating Lesson in {.file {path}}...")
@@ -63,7 +67,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   create_site(path)
 
   cli::cli_status_update("{cli::symbol$arrow_right} Creating first episode ...")
-  ep <- create_episode("introduction", path = path)
+  ep <- create_episode("introduction", ext = if (rmd) "Rmd" else "md", path = path)
   cli::cli_alert_success("First episode created in {.file {ep}}")
 
   if (rstudio) {
@@ -76,7 +80,7 @@ create_lesson <- function(path, name = fs::path_file(path), rstudio = rstudioapi
   cli::cli_status_update("{cli::symbol$arrow_right} Inserting GitHub workflows ...")
   update_github_workflows(path)
 
-  has_consent <- getOption("sandpaper.use_renv")
+  has_consent <- rmd && getOption("sandpaper.use_renv")
   if (has_consent) {
     cli::cli_status_update("{cli::symbol$arrow_right} Managing Dependencies ...")
     manage_deps(path, snapshot = TRUE)

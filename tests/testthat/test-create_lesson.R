@@ -62,9 +62,11 @@ test_that("Templated files are correct", {
     readLines(fs::path(tmp, ".gitignore")), 
     readLines(template_gitignore())
   )
+  expected <- copy_template("episode", 
+    values = list(title = siQuote("introduction"), md = FALSE))
   expect_setequal(
-    readLines(fs::path(tmp, "episodes", "01-introduction.Rmd"))[-2], 
-    readLines(template_episode())[-2]
+    readLines(fs::path(tmp, "episodes", "01-introduction.Rmd")), 
+    strsplit(expected, "\n")[[1]]
   )
   
 })
@@ -87,10 +89,6 @@ test_that("The site/ directory is ignored by git", {
   expect_true(check_lesson(tmp))
 })
 
-test_that("Episode validation works", {
-  expect_true(check_episode(fs::path(tmp, "episodes", "01-introduction.Rmd")))
-})
-  
 test_that("We have a git repo that's correctly configured", {
   # Ensure it is a git repo
   expect_true(fs::dir_exists(fs::path(tmp, ".git")))

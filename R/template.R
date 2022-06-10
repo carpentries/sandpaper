@@ -9,14 +9,25 @@ generate_template_function <- function(f) {
 }
 #nocov end
 
-# copy template on disk
+#' copy a sandpaper template file to a path with data
+#'
+#' @param template the base of a valid template function (e.g. "episode" for 
+#'   [template_episode()])
+#' @param path the folder in which to write the file. Defaults to `NULL`, which 
+#'   will return the filled template as a character vector
+#' @param name the name of the file. Defaults to `NULL`
+#' @param values the values to fill in the template (if any). Consult the
+#'   files in the `templates/` folder of your sandpaper installation for details.
+#' @return a character vector if `path` or `name` is `NULL`, otherwise, this is
+#'   used for its side effect of creating a file.
+#' @keywords internal
 copy_template <- function(template, path = NULL, name = NULL, values = NULL) {
   template <- eval(parse(text = paste0("template_", template, "()")))
   out <- if (is.null(path)) NULL else fs::path(path, name)
   if (!is.null(values)) {
     temp <- readLines(template, encoding = "UTF-8")
     res  <- whisker::whisker.render(template = temp, data = values)
-    if (length(out)) writeLines(res, out) else return(out)
+    if (length(out)) writeLines(res, out) else return(res)
   } else {
     fs::file_copy(template, new_path = fs::path(path, name))
   }
@@ -29,6 +40,7 @@ copy_template <- function(template, path = NULL, name = NULL, values = NULL) {
 #'
 #' @rdname template
 #' @export
+#' @keywords internal
 #' @return a character string with the path to the template within the
 #'   {sandpaper} repo. 
 #' @examples

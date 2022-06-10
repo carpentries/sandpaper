@@ -2,7 +2,7 @@
 title: 'Internationalisation (i18n) and Localisation (l10n)'
 ---
 
-> NOTE: This is currently a WIP
+> NOTE: This is currently a WIP and several things ahve changed since it's initial writing
 
 Internationalization of the lessons have always been a priority for The
 Carpentries given the fact that we are a global organization. There are three

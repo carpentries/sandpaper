@@ -34,6 +34,7 @@ if (rmarkdown::pandoc_available("2.11")) {
 pkg <- pkgdown::as_pkgdown(fs::path_dir(sitepath))
 
 test_that("build_lesson() also builds the extra pages", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
   expect_true(fs::dir_exists(sitepath))
   expect_true(fs::file_exists(fs::path(sitepath, "instructor-notes.html")))
   expect_true(fs::file_exists(fs::path(sitepath, "instructor", "instructor-notes.html")))
