@@ -20,9 +20,9 @@ exercises: 2
 ## Introduction
 
 This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown][pandoc] for static files and
-[R Markdown][r-markdown] for dynamic files that can render code into output. 
-Please refer to the [Introduction to The Carpentries 
+[Pandoc-flavored Markdown][pandoc] for static files (with extension `.md`) and
+[R Markdown][r-markdown] for dynamic files that can render code into output
+(with extension `.Rmd`). Please refer to the [Introduction to The Carpentries
 Workbench][carpentries-workbench] for full documentation.
 
 What you need to know is that there are three sections required for a valid
@@ -74,7 +74,8 @@ You can add a line with at least three colons and a `solution` tag.
 
 ## Figures
 
-You can also include figures generated from R Markdown:
+{{^md}}
+You can include figures generated from R Markdown:
 
 ```{r pyramid, fig.alt = "pie chart illusion of a pyramid", fig.cap = "Sun arise each and every morning"}
 pie(
@@ -84,8 +85,7 @@ pie(
   border = FALSE
 )
 ```
-
-Or you can use standard markdown for static figures with the following syntax:
+Or you{{/md}}{{#md}}You{{/md}} can use pandoc markdown for static figures with the following syntax:
 
 `![optional caption that appears below the figure](figure url){alt='alt text for
 accessibility purposes'}`
