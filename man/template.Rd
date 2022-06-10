@@ -56,3 +56,4 @@ Use these files as templates for your own sandpaper lesson
 
 cat(readLines(template_gitignore(), n = 6), sep = "\n")
 }
+\keyword{internal}

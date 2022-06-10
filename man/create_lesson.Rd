@@ -7,6 +7,7 @@
 create_lesson(
   path,
   name = fs::path_file(path),
+  rmd = TRUE,
   rstudio = rstudioapi::isAvailable(),
   open = rlang::is_interactive()
 )
@@ -15,6 +16,11 @@ create_lesson(
 \item{path}{the path to the new lesson folder}
 
 \item{name}{the name of the lesson. If not provided, the folder name will be used.}
+
+\item{rmd}{logical indicator if the lesson should use R Markdown (\code{TRUE},
+default), or if it should use Markdown (\code{FALSE}). Note that lessons can be
+converted to use R Markdown at any time by adding a file with the \code{.Rmd}
+file extension in the lesson.}
 
 \item{rstudio}{create an RStudio project (defaults to if RStudio exits)}
 

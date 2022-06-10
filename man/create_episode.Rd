@@ -2,12 +2,22 @@
 % Please edit documentation in R/create_episode.R
 \name{create_episode}
 \alias{create_episode}
+\alias{create_episode_md}
+\alias{create_episode_rmd}
 \title{Create an Episode from a template}
 \usage{
-create_episode(title, make_prefix = TRUE, add = FALSE, path = ".")
+create_episode(title, ext = "Rmd", make_prefix = TRUE, add = FALSE, path = ".")
+
+create_episode_md(title, make_prefix = TRUE, add = FALSE, path = ".")
+
+create_episode_rmd(title, make_prefix = TRUE, add = FALSE, path = ".")
 }
 \arguments{
 \item{title}{the title of the episode}
+
+\item{ext}{a character. If \code{ext = "Rmd"} (default), then the new episode will
+be an R Markdown episode. If \code{ext = "md"}, then the new episode will be
+a markdown episode, which can not generate dynamic content.}
 
 \item{make_prefix}{a logical. If \code{TRUE}, the prefix for the file will be
 automatically determined by the files already present. Otherwise, it assumes
@@ -23,5 +33,5 @@ Create an Episode from a template
 \examples{
 tmp <- tempfile()
 create_lesson(tmp)
-create_episode("getting-started", path = tmp)
+create_episode_md("getting-started", path = tmp)
 }

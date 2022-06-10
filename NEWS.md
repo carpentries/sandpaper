@@ -1,11 +1,28 @@
-# sandpaper 0.5.9
+# sandpaper 0.6.0
+
+NEW FEATURES
+------------
+
+* `create_lesson()` gains the `rmd` parameter, which is a logical indicator that
+  the lesson should use R Markdown (`TRUE` by default). When this is `FALSE`, a
+  markdown lesson is created and no package cache is initialised.
+* `create_episode()` gains the `ext` parameter, which allows users to create
+  plain markdown episodes if they do not need R Markdown functionality
+  (see https://github.com/carpentries/sandpaper/issues/296).
 
 BUG FIX
 -------
 
 * `create_episode()` will now slugify titles so that they only contain lowercase
   ASCII letters, numbers and UTF-8 characters with words separated by single
-  hyphens. (see https://github.com/carpentries/sandpaper/issues/294)
+  hyphens (see https://github.com/carpentries/sandpaper/issues/294).
+
+MISC
+----
+
+* The internal `check_episode()` function has been removed as it was over-
+  engineered with marginal value.
+
 
 
 # sandpaper 0.5.8
