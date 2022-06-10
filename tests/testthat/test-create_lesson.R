@@ -62,9 +62,11 @@ test_that("Templated files are correct", {
     readLines(fs::path(tmp, ".gitignore")), 
     readLines(template_gitignore())
   )
+  expected <- copy_template("episode", 
+    values = list(title = siQuote("introduction"), md = FALSE))
   expect_setequal(
     readLines(fs::path(tmp, "episodes", "01-introduction.Rmd"))[-2], 
-    readLines(template_episode())[-2]
+    strsplit(expected, "\n")[[1]]
   )
   
 })
