@@ -27,7 +27,7 @@ copy_template <- function(template, path = NULL, name = NULL, values = NULL) {
   if (!is.null(values)) {
     temp <- readLines(template, encoding = "UTF-8")
     res  <- whisker::whisker.render(template = temp, data = values)
-    if (length(out)) writeLines(res, out) else return(out)
+    if (length(out)) writeLines(res, out) else return(res)
   } else {
     fs::file_copy(template, new_path = fs::path(path, name))
   }
