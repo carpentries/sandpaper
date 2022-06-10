@@ -1,3 +1,13 @@
+# sandpaper 0.5.9
+
+BUG FIX
+-------
+
+* `create_episode()` will now slugify titles so that they only contain lowercase
+  ASCII letters, numbers and UTF-8 characters with words separated by single
+  hyphens. (see https://github.com/carpentries/sandpaper/issues/294)
+
+
 # sandpaper 0.5.8
 
 CONTINUOUS INTEGRATION

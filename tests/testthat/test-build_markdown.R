@@ -194,7 +194,8 @@ test_that("Hashes are correct", {
   # see helper-hash.R
   h1 <- expect_hashed(res, "01-introduction.Rmd")
   h2 <- expect_hashed(res, "02-second-episode.Rmd")
-  expect_equal(h1, h2, ignore_attr = TRUE)
+  # the hashes will no longer be equal because the titles are now different
+  expect_failure(expect_equal(h1, h2, ignore_attr = TRUE))
 
 })
 
