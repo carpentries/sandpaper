@@ -18,6 +18,8 @@ test_that("prefixed episodes can be created", {
 })
 
 test_that("un-prefixed episodes can be created", {
+
+  skip_on_os("windows") # y'all ain't ready for this
   title <- "\uC548\uB155 :joy_cat: \U0001F62D KITTY"
   third_episode <- create_episode(title, make_prefix = FALSE, path = tmp) %>%
     expect_match("\uC548\uB155-\U0001F62D-kitty.Rmd", fixed = TRUE)
