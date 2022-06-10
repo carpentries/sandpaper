@@ -65,7 +65,7 @@ test_that("Templated files are correct", {
   expected <- copy_template("episode", 
     values = list(title = siQuote("introduction"), md = FALSE))
   expect_setequal(
-    readLines(fs::path(tmp, "episodes", "01-introduction.Rmd"))[-2], 
+    readLines(fs::path(tmp, "episodes", "01-introduction.Rmd")), 
     strsplit(expected, "\n")[[1]]
   )
   
