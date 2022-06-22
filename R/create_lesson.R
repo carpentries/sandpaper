@@ -52,7 +52,7 @@ create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio 
   copy_template("config", path, "config.yaml",
     values = list(
       title      = if (is.null(match.call()$name)) "Lesson Title" else siQuote(name),
-      carpentry  = "cp",
+      carpentry  = "incubator",
       life_cycle = "pre-alpha",
       license    = "CC-BY 4.0",
       source     = glue::glue("https://github.com/{account}/{basename(path)}"),
@@ -97,11 +97,10 @@ create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio 
     if (usethis::proj_activate(path)) {
       on.exit()
     }
-  } 
+  }
 
 
   cli::cli_status_clear()
   invisible(return(path))
 
 }
-
