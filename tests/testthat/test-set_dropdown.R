@@ -55,8 +55,8 @@ test_that("schedule is empty by default", {
   expect_equal(cfg[no_episodes], get_config(tmp)[no_episodes])
 
   # the config file now has the `test-key` at the bottom
-  cfgtxt <- readLines(fs::path(tmp, "config.yaml"))
-  expect_equal(cfgtxt[length(cfgtxt) - 1L], "test-key: '!yeh'")
+  cfgtxt <- get_config(tmp)
+  expect_equal(cfgtxt[["test-key"]], "!yeh")
 
 })
 
