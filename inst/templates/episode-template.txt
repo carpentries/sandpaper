@@ -75,7 +75,7 @@ You can add a line with at least three colons and a `solution` tag.
 ## Figures
 
 {{^md}}
-You can include figures generated from R Markdown:
+You can include figures generated from R Markdown using any `print()`-like function:
 
 ```{r pyramid, fig.alt = "pie chart illusion of a pyramid", fig.cap = "Sun arise each and every morning"}
 pie(
