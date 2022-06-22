@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.6.0
+Version: 0.6.1
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -11,6 +11,10 @@ Authors@R: c(
            family = "Michonneau",
            role = c("ctb"),
            email = "francois@carpentries.org"),
+    person(given = "Toby",
+           family = "Hodges",
+           role = c("ctb"),
+           email = "tobyhodges@carpentries.org"),
     person())
 Description: We provide tools to build a Carpentries-themed lesson repository
   into an accessible standalone static website. These include local tools and
@@ -65,6 +69,6 @@ Config/testthat/edition: 3
 Config/testthat/parallel: false
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
-URL: https://carpentries.github.io/sandpaper/
+URL: https://carpentries.github.io/sandpaper/, https://github.com/carpentries/sandpaper/, https://carpentries.github.io/workbench/
 BugReports: https://github.com/carpentries/sandpaper/issues/
 VignetteBuilder: knitr

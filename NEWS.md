@@ -1,3 +1,11 @@
+# sandpaper 0.6.1
+
+MISC
+----
+
+* the `config.yaml` template has been updated to default to incubator lessons
+  and has more helpful information included about formatting (@tobyhodges, #302)
+
 # sandpaper 0.6.0
 
 NEW FEATURES
