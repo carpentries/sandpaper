@@ -14,6 +14,8 @@ We provide tools to build a Carpentries-themed lesson repository into an accessi
 Useful links:
 \itemize{
   \item \url{https://carpentries.github.io/sandpaper/}
+  \item \url{https://github.com/carpentries/sandpaper/}
+  \item \url{https://carpentries.github.io/workbench/}
   \item Report bugs at \url{https://github.com/carpentries/sandpaper/issues/}
 }
 
@@ -24,6 +26,7 @@ Useful links:
 Other contributors:
 \itemize{
   \item François Michonneau \email{francois@carpentries.org} [contributor]
+  \item Toby Hodges \email{tobyhodges@carpentries.org} [contributor]
 }
 
 }

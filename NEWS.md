@@ -1,3 +1,12 @@
+# sandpaper 0.6.2
+
+BUG FIX
+-------
+
+* The sidebar navigation in mobile and tablet views now includes all the 
+  information that was included in the navigation bar for the desktop mode. 
+  (reported: https://github.com/carpentries/workbench/issues/16#issuecomment-1165307355 by @Athanasiamo and #306, fixed: #307 by @zkamvar)
+
 # sandpaper 0.6.1
 
 MISC
