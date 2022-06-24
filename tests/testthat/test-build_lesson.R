@@ -164,7 +164,7 @@ test_that("Lesson websites contains instructor metadata", {
 
 test_that("single files can be built", {
 
-  create_episode("second-episode", path = tmp)
+  create_episode("Second Episode!", path = tmp)
   suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
 
@@ -189,7 +189,7 @@ test_that("Individual files contain matching metadata", {
 
   actual <- xml2::xml_find_first(idx, ".//script[@type='application/ld+json']")
   actual <- trimws(xml2::xml_text(actual))
-  expect_match(actual, '"name": "second-episode"')
+  expect_match(actual, '"name": "Second Episode!"')
   expect_match(actual, "02-second-episode.html")
 })
 
@@ -281,24 +281,20 @@ test_that("keypoints learner and instructor views are identical", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   instruct <- fs::path(pkg$dst_path, "instructor", "key-points.html")
   instruct <- xml2::read_html(instruct)
+  learn <- fs::path(pkg$dst_path, "key-points.html")
+  learn <- xml2::read_html(learn)
 
   # Instructor sidebar is formatted properly
   sidebar <- xml2::xml_find_all(instruct, ".//div[@class='sidebar']")
   expect_length(sidebar, 1L)
-  sidelinks <- as.character(xml2::xml_find_all(sidebar, ".//a"))
-  expect_length(sidelinks, 6L)
-  expect_match(sidelinks[[1]], "href=[\"]..[/]key-points.html")
-  expect_match(sidelinks[[2]], "Summary and Schedule")
+  sidelinks_instructor <- as.character(xml2::xml_find_all(sidebar, ".//a"))
+  expect_snapshot(writeLines(sidelinks_instructor))
 
-  learn <- fs::path(pkg$dst_path, "key-points.html")
-  learn <- xml2::read_html(learn)
-  
   # Learner sidebar is formatted properly
   sidebar <- xml2::xml_find_all(learn, ".//div[@class='sidebar']")
   expect_length(sidebar, 1L)
-  sidelinks <- as.character(xml2::xml_find_all(sidebar, ".//a"))
-  expect_match(sidelinks[[1]], "href=[\"]instructor[/]key-points.html")
-  expect_match(sidelinks[[2]], "Summary and Setup")
+  sidelinks_learner <- as.character(xml2::xml_find_all(sidebar, ".//a"))
+  expect_snapshot(writeLines(sidelinks_learner))
 
   # sections are equal
   learn_sections <- as.character(xml2::xml_find_all(learn, ".//section"))

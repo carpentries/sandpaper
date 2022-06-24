@@ -46,9 +46,8 @@ create_resources_dropdown <- function(files, type = "learners") {
       info <- get_navbar_info(f)
       make_links(info$href, parse_title(info$text))
     }, character(2))
-    prof <- make_links("profiles.html", "Learner Profiles")
-    out[["extras"]] <- unname(c(prof[1], res[1, , drop = TRUE]))
-    out[["resources"]] <- unname(c(prof[2], res[2, , drop = TRUE]))
+    out[["extras"]] <- unname(res[1, , drop = TRUE])
+    out[["resources"]] <- unname(res[2, , drop = TRUE])
   }
   return(out)
 }
