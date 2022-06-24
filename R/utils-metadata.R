@@ -26,6 +26,7 @@ metadata_url <- function(cfg) {
 initialise_metadata <- function(path = ".") {
   if (length(this_metadata$get()) == 0) {
     cfg <- get_config(path)
+    this_metadata$set(NULL, cfg)
     this_metadata$set("metadata_template", readLines(template_metadata()))
     this_metadata$set("pagetitle", cfg$title)
     this_metadata$set("url", metadata_url(cfg))

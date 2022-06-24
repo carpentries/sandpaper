@@ -2,7 +2,6 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   page_globals <- setup_page_globals()
   path  <- root_path(pkg$src_path)
   syl   <- format_syllabus(get_syllabus(path, questions = TRUE), use_col = FALSE)
-  cfg   <- get_config(path)
   idx      <- fs::path(pkg$src_path, "built", "index.md")
   readme   <- fs::path(pkg$src_path, "built", "README.md")
   idx_file <- if (fs::file_exists(idx)) idx else readme

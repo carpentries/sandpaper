@@ -182,6 +182,9 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
 #'   environment, which evaluates to the environment from [callr::r()]. 
 #' @param quiet if `TRUE`, output is suppressed, default is `FALSE` to show 
 #'   {knitr} output.
+#' @param error if `TRUE` (default) errors do not make an invalid build.
+#'   This can be set to false to cause the build to fail if an error occurs.
+#'   This is generally controlled via the `fail_on_error` config option.
 #' @return the path to the output, invisibly
 #' @keywords internal
 #' @export
@@ -210,7 +213,10 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
 #' res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
 build_episode_md <- function(path, hash = NULL, outdir = path_built(path), 
                              workdir = path_built(path), 
-                             workenv = globalenv(), profile = "lesson-requirements", quiet = FALSE) {
+                             workenv = globalenv(), 
+                             profile = "lesson-requirements", 
+                             quiet = FALSE,
+                             error = TRUE) {
 
   # define the output
   md <- fs::path_ext_set(fs::path_file(path), "md")
@@ -229,7 +235,8 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
     outpath = outpath,
     workdir = workdir,
     root    = if (has_consent) root else "",
-    quiet   = quiet
+    quiet   = quiet,
+    error   = error
   )
 
   # Build the article in a separate  process via {callr}

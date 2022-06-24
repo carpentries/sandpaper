@@ -13,9 +13,11 @@ test_that("metadata can be initialised and cleared", {
 
 })
 
-test_that("metadata can be created with custom items", {
+test_that("metadata can be initialised with custom items added ", {
   initialise_metadata(res)
   on.exit(this_metadata$clear())
+  # metadata has same values as config
+  expect_equal(this_metadata$get()[["carpentry"]], "incubator")
   met <- create_metadata_jsonld(res, 
     date = list(created = "2022-02-01", modified = "2022-02-08", published = "2022-02-09"),
     pagetitle = "The Importance of Being Ernest Scared Stupid",
