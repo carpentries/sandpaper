@@ -46,8 +46,7 @@ test_that("[build_home()] learner index file is index and setup", {
   html <- xml2::read_html(learn_index)
   # Dropdown contains ifnromation for the sections in the setup page
   items <- xml2::xml_find_all(html, ".//div[@class='accordion-body']/ul/li")
-  expect_length(items, 2L)
-  expect_equal(xml2::xml_text(items), c("Data Sets", "Software Setup"))
+  expect_snapshot(writeLines(as.character(items)))
 
   # There are four out links to the next page
   fwd <- xml2::xml_find_all(html, ".//a[starts-with(@class, 'chapter-link')]/@href")
@@ -69,8 +68,7 @@ test_that("[build_home()] instructor index file is index and schedule", {
 
   # there is only one dropdown in here and it is the common instructor linkouts
   items <- xml2::xml_find_all(html, ".//div[@class='accordion-body']/ul/li")
-  expect_length(items, 1L) 
-  expect_equal(xml2::xml_text(items), c("Learner Profiles"))
+  expect_snapshot(writeLines(as.character(items)))
 
   # There are four out links to the next page
   fwd <- xml2::xml_find_all(html, ".//a[starts-with(@class, 'chapter-link')]/@href")
@@ -107,9 +105,8 @@ test_that("[build_profiles()] learner and instructor views are identical", {
   sidebar <- xml2::xml_find_all(instruct, ".//div[@class='sidebar']")
   expect_length(sidebar, 1L)
   sidelinks <- as.character(xml2::xml_find_all(sidebar, ".//a"))
-  expect_length(sidelinks, 5L)
-  expect_match(sidelinks[[1]], "href=[\"]..[/]profiles.html")
-  expect_match(sidelinks[[2]], "Summary and Schedule")
+  sidelinks_instructor <- as.character(xml2::xml_find_all(sidebar, ".//a"))
+  expect_snapshot(writeLines(sidelinks_instructor))
 
   learn <- fs::path(pkg$dst_path, "profiles.html")
   learn <- xml2::read_html(learn)
@@ -117,9 +114,8 @@ test_that("[build_profiles()] learner and instructor views are identical", {
   # Learner sidebar is formatted properly
   sidebar <- xml2::xml_find_all(learn, ".//div[@class='sidebar']")
   expect_length(sidebar, 1L)
-  sidelinks <- as.character(xml2::xml_find_all(sidebar, ".//a"))
-  expect_match(sidelinks[[1]], "href=[\"]instructor[/]profiles.html")
-  expect_match(sidelinks[[2]], "Summary and Setup")
+  sidelinks_learner <- as.character(xml2::xml_find_all(sidebar, ".//a"))
+  expect_snapshot(writeLines(sidelinks_learner))
 
   # sections are equal
   learn_sections <- as.character(xml2::xml_find_all(learn, ".//section"))
