@@ -1,5 +1,5 @@
 pandoc: 2.7.3
-pkgdown: 2.0.4
+pkgdown: 2.0.5
 pkgdown_sha: ~
 articles:
   deployment: deployment.html
@@ -8,7 +8,7 @@ articles:
   toolchain: toolchain.html
   automated-pull-requests: automated-pull-requests.html
   building-with-renv: building-with-renv.html
-last_built: 2022-06-22T21:44Z
+last_built: 2022-06-24T19:50Z
 urls:
   reference: https://carpentries.github.io/sandpaper/reference
   article: https://carpentries.github.io/sandpaper/articles

@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,35 +107,35 @@
 </ul>
 <p>To get started, you need to <em>explicitly</em> give {sandpaper} permission to create and use a cache with the function <code><a href="../reference/package_cache.html">use_package_cache()</a></code></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://carpentries.github.io/sandpaper/">"sandpaper"</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://carpentries.github.io/sandpaper/">"sandpaper"</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/package_cache.html">use_package_cache</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#| </span>
-<span class="co">#| <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Caching Build Packages for Generated Content</span> <span style="color: #00BBBB;">────────────────────────</span></span>
-<span class="co">#| The Carpentries lesson infrastructure uses the <span style="color: #0000BB;">renv</span> (R environment)</span>
-<span class="co">#| package to maintain reproducibility for lessons with generated content.</span>
-<span class="co">#| It looks like you have not yet used <span style="color: #0000BB;">renv</span> before, so <span style="font-weight: bold;">this is a one-time</span></span>
-<span class="co">#| <span style="font-weight: bold;">message</span> that gives you information about how the package cache can help</span>
-<span class="co">#| you with your lesson.</span>
-<span class="co">#| </span>
-<span class="co">#| <span style="color: #080808; background-color: #FFFFD7;">renv maintains a local cache of data on the filesystem, located at:</span></span>
-<span class="co">#| </span>
-<span class="co">#| - "/path/to/cache"</span>
-<span class="co">#| </span>
-<span class="co">#| This path can be customized: please see the documentation in</span>
-<span class="co">#| `?renv::paths`.</span>
-<span class="co">#| </span>
-<span class="co">#| → This may take some time to set up the first time you use it, but once</span>
-<span class="co">#| the cache is established, the process will run much more quickly.</span>
-<span class="co">#| </span>
-<span class="co">#| If you choose not to use the package cache, be aware that you may find</span>
-<span class="co">#| differences between the lesson you render on your computer and what is</span>
-<span class="co">#| rendered online.</span>
-<span class="co">#| </span>
-<span class="co">#| <span style="font-weight: bold;">Do you want to using a package cache for Carpentries lessons?</span></span>
-<span class="co">#| ── Enter your selection or press 0 to exit ─────────────────────────────</span>
-<span class="co">#| 1: <span style="font-weight: bold;">Yes</span>, please use the package cache (recommended)</span>
-<span class="co">#| 2: <span style="font-weight: bold;">No</span>, I want to use my default library</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/package_cache.html">use_package_cache</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#| </span></span>
+<span><span class="co">#| <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Caching Build Packages for Generated Content</span> <span style="color: #00BBBB;">────────────────────────</span></span></span>
+<span><span class="co">#| The Carpentries lesson infrastructure uses the <span style="color: #0000BB;">renv</span> (R environment)</span></span>
+<span><span class="co">#| package to maintain reproducibility for lessons with generated content.</span></span>
+<span><span class="co">#| It looks like you have not yet used <span style="color: #0000BB;">renv</span> before, so <span style="font-weight: bold;">this is a one-time</span></span></span>
+<span><span class="co">#| <span style="font-weight: bold;">message</span> that gives you information about how the package cache can help</span></span>
+<span><span class="co">#| you with your lesson.</span></span>
+<span><span class="co">#| </span></span>
+<span><span class="co">#| <span style="color: #080808; background-color: #FFFFD7;">renv maintains a local cache of data on the filesystem, located at:</span></span></span>
+<span><span class="co">#| </span></span>
+<span><span class="co">#| - "/path/to/cache"</span></span>
+<span><span class="co">#| </span></span>
+<span><span class="co">#| This path can be customized: please see the documentation in</span></span>
+<span><span class="co">#| `?renv::paths`.</span></span>
+<span><span class="co">#| </span></span>
+<span><span class="co">#| → This may take some time to set up the first time you use it, but once</span></span>
+<span><span class="co">#| the cache is established, the process will run much more quickly.</span></span>
+<span><span class="co">#| </span></span>
+<span><span class="co">#| If you choose not to use the package cache, be aware that you may find</span></span>
+<span><span class="co">#| differences between the lesson you render on your computer and what is</span></span>
+<span><span class="co">#| rendered online.</span></span>
+<span><span class="co">#| </span></span>
+<span><span class="co">#| <span style="font-weight: bold;">Do you want to using a package cache for Carpentries lessons?</span></span></span>
+<span><span class="co">#| ── Enter your selection or press 0 to exit ─────────────────────────────</span></span>
+<span><span class="co">#| 1: <span style="font-weight: bold;">Yes</span>, please use the package cache (recommended)</span></span>
+<span><span class="co">#| 2: <span style="font-weight: bold;">No</span>, I want to use my default library</span></span></code></pre>
 <blockquote>
 <p>NOTE: If you have already used {renv} previously, then you will not get this notification. Instead, you will get a notification that your consent has already been provided.</p>
 </blockquote>
@@ -156,52 +156,52 @@
 <span id="cb4-13"><a href="#cb4-13"></a><span class="bn">```</span></span></code></pre></div>
 <p>When you build your lesson, you will see this kind of output:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="output"><code><span class="co">#| ℹ Consent to use package cache provided</span>
-<span class="co">#| → Searching for and installing available dependencies</span>
-<span class="co">#| * Discovering package dependencies ... Done!</span>
-<span class="co">#| * Copying packages into the library ... Done!</span>
-<span class="co">#| * Resolving missing dependencies  ... </span>
-<span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/cowsay_0.8.0.tar.gz" ...</span>
-<span class="co">#|  OK [downloaded 564.5 Kb in 0.1 secs]</span>
-<span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/crayon_1.4.1.tar.gz" ...</span>
-<span class="co">#|  OK [downloaded 34.9 Kb in 0.1 secs]</span>
-<span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/fortunes_1.5-4.tar.gz" ...</span>
-<span class="co">#|  OK [downloaded 188.4 Kb in 0.1 secs]</span>
-<span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/rmsfact_0.0.3.tar.gz" ...</span>
-<span class="co">#|  OK [downloaded 10.5 Kb in 0.1 secs]</span>
-<span class="co">#| Installing crayon [1.4.1] ...</span>
-<span class="co">#|  OK [built from source]</span>
-<span class="co">#| Copying crayon [1.4.1] into the cache ...</span>
-<span class="co">#|  OK [copied to cache in 5.9 milliseconds]</span>
-<span class="co">#| Installing fortunes [1.5-4] ...</span>
-<span class="co">#|  OK [built from source]</span>
-<span class="co">#| Copying fortunes [1.5-4] into the cache ...</span>
-<span class="co">#|  OK [copied to cache in 5.6 milliseconds]</span>
-<span class="co">#| Installing rmsfact [0.0.3] ...</span>
-<span class="co">#|  OK [built from source]</span>
-<span class="co">#| Copying rmsfact [0.0.3] into the cache ...</span>
-<span class="co">#|  OK [copied to cache in 5.7 milliseconds]</span>
-<span class="co">#| Installing cowsay [0.8.0] ...</span>
-<span class="co">#|  OK [built from source]</span>
-<span class="co">#| Copying cowsay [0.8.0] into the cache ...</span>
-<span class="co">#|  OK [copied to cache in 7.5 milliseconds]</span>
-<span class="co">#| → Restoring any dependency versions</span>
-<span class="co">#| * The library is already synchronized with the lockfile.</span>
-<span class="co">#| → Recording changes in lockfile</span>
-<span class="co">#| The following package(s) will be updated in the lockfile:</span>
-<span class="co">#| </span>
-<span class="co">#| # CRAN ===============================</span>
-<span class="co">#| - cowsay     [* -&gt; 0.8.0]</span>
-<span class="co">#| - crayon     [* -&gt; 1.4.1]</span>
-<span class="co">#| - curl       [* -&gt; 4.3.2]</span>
-<span class="co">#| - fortunes   [* -&gt; 1.5-4]</span>
-<span class="co">#| - rmsfact    [* -&gt; 0.0.3]</span>
-<span class="co">#| </span>
-<span class="co">#| * Lockfile written to "/path/to/lesson/renv/profiles/lesson-requirements/renv.lock".</span>
-<span class="co">#| ℹ Using package cache in /path/to/cache</span>
-<span class="co">#| </span>
-<span class="co">#| [ truncated ]</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre class="output"><code><span><span class="co">#| ℹ Consent to use package cache provided</span></span>
+<span><span class="co">#| → Searching for and installing available dependencies</span></span>
+<span><span class="co">#| * Discovering package dependencies ... Done!</span></span>
+<span><span class="co">#| * Copying packages into the library ... Done!</span></span>
+<span><span class="co">#| * Resolving missing dependencies  ... </span></span>
+<span><span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/cowsay_0.8.0.tar.gz" ...</span></span>
+<span><span class="co">#|  OK [downloaded 564.5 Kb in 0.1 secs]</span></span>
+<span><span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/crayon_1.4.1.tar.gz" ...</span></span>
+<span><span class="co">#|  OK [downloaded 34.9 Kb in 0.1 secs]</span></span>
+<span><span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/fortunes_1.5-4.tar.gz" ...</span></span>
+<span><span class="co">#|  OK [downloaded 188.4 Kb in 0.1 secs]</span></span>
+<span><span class="co">#| Retrieving "https://cran.rstudio.com/src/contrib/rmsfact_0.0.3.tar.gz" ...</span></span>
+<span><span class="co">#|  OK [downloaded 10.5 Kb in 0.1 secs]</span></span>
+<span><span class="co">#| Installing crayon [1.4.1] ...</span></span>
+<span><span class="co">#|  OK [built from source]</span></span>
+<span><span class="co">#| Copying crayon [1.4.1] into the cache ...</span></span>
+<span><span class="co">#|  OK [copied to cache in 5.9 milliseconds]</span></span>
+<span><span class="co">#| Installing fortunes [1.5-4] ...</span></span>
+<span><span class="co">#|  OK [built from source]</span></span>
+<span><span class="co">#| Copying fortunes [1.5-4] into the cache ...</span></span>
+<span><span class="co">#|  OK [copied to cache in 5.6 milliseconds]</span></span>
+<span><span class="co">#| Installing rmsfact [0.0.3] ...</span></span>
+<span><span class="co">#|  OK [built from source]</span></span>
+<span><span class="co">#| Copying rmsfact [0.0.3] into the cache ...</span></span>
+<span><span class="co">#|  OK [copied to cache in 5.7 milliseconds]</span></span>
+<span><span class="co">#| Installing cowsay [0.8.0] ...</span></span>
+<span><span class="co">#|  OK [built from source]</span></span>
+<span><span class="co">#| Copying cowsay [0.8.0] into the cache ...</span></span>
+<span><span class="co">#|  OK [copied to cache in 7.5 milliseconds]</span></span>
+<span><span class="co">#| → Restoring any dependency versions</span></span>
+<span><span class="co">#| * The library is already synchronized with the lockfile.</span></span>
+<span><span class="co">#| → Recording changes in lockfile</span></span>
+<span><span class="co">#| The following package(s) will be updated in the lockfile:</span></span>
+<span><span class="co">#| </span></span>
+<span><span class="co">#| # CRAN ===============================</span></span>
+<span><span class="co">#| - cowsay     [* -&gt; 0.8.0]</span></span>
+<span><span class="co">#| - crayon     [* -&gt; 1.4.1]</span></span>
+<span><span class="co">#| - curl       [* -&gt; 4.3.2]</span></span>
+<span><span class="co">#| - fortunes   [* -&gt; 1.5-4]</span></span>
+<span><span class="co">#| - rmsfact    [* -&gt; 0.0.3]</span></span>
+<span><span class="co">#| </span></span>
+<span><span class="co">#| * Lockfile written to "/path/to/lesson/renv/profiles/lesson-requirements/renv.lock".</span></span>
+<span><span class="co">#| ℹ Using package cache in /path/to/cache</span></span>
+<span><span class="co">#| </span></span>
+<span><span class="co">#| [ truncated ]</span></span></code></pre>
 <p>The output will use the newly downloaded packages:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
@@ -236,13 +236,14 @@
 </h3>
 <p>There are times when you might want to not use the cache for a lesson. To do this you can use <code><a href="../reference/package_cache.html">no_package_cache()</a></code> and your lesson will default to using your local library.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/package_cache.html">no_package_cache</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu"><a href="../reference/build_markdown.html">build_markdown</a></span><span class="op">(</span>rebuild <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre class="output"><code><span class="co">#| ℹ Consent to use package cache not given. Using default library.</span>
-<span class="co">#| → use `use_package_cache()` to enable the package cache for reproducible builds.</span>
-<span class="co">#| → You can switch between using your cache and the default library with `options(sandpaper.use_renv = TRUE)` (`FALSE` for the default library)</span>
-<span class="co">#| </span>
-<span class="co">#| [ truncated ]</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/package_cache.html">no_package_cache</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu"><a href="../reference/build_markdown.html">build_markdown</a></span><span class="op">(</span>rebuild <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre class="output"><code><span></span>
+<span><span class="co">#| ℹ Consent to use package cache not given. Using default library.</span></span>
+<span><span class="co">#| → use `use_package_cache()` to enable the package cache for reproducible builds.</span></span>
+<span><span class="co">#| → You can switch between using your cache and the default library with `options(sandpaper.use_renv = TRUE)` (`FALSE` for the default library)</span></span>
+<span><span class="co">#| </span></span>
+<span><span class="co">#| [ truncated ]</span></span></code></pre>
 <p>The output will use packages if they are available, but throw errors if they do not exist:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
 <span id="cb10-2"><a href="#cb10-2"></a></span>
@@ -261,8 +262,8 @@
 <span id="cb10-15"><a href="#cb10-15"></a><span class="bn">```</span></span></code></pre></div>
 <p>When you want to turn it on again, you can use <code><a href="../reference/package_cache.html">use_package_cache()</a></code></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/package_cache.html">use_package_cache</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="output"><code><span class="co">#| ℹ Consent for renv provided---consent for package cache implied.</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/package_cache.html">use_package_cache</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre class="output"><code><span><span class="co">#| ℹ Consent for renv provided---consent for package cache implied.</span></span></code></pre>
 <p>Read on for information about how to add, update, and remove packages from your cache.</p>
 </div>
 </div>
@@ -290,12 +291,12 @@
 <p>On continuous integration (cloud deployment), any change in the lockfile will cause the lesson to rebuild itself to make sure that the deployed version of the lesson matches with the source of truth for the lockfile.</p>
 <p>The function that controls this behavior is called <code><a href="../reference/package_cache.html">package_cache_trigger()</a></code> when you call it without any arguments, it will report <code>TRUE</code> or <code>FALSE</code>, indicating if changes to the lockfile will trigger a rebuild or not, respectively:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#| [1] FALSE</span>
-<span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># set the package cache to auto-trigger rebuilds</span>
-<span class="co">#| [1] TRUE</span>
-<span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co"># prevent package cache from triggering rebuilds</span>
-<span class="co">#| [1] FALSE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#| [1] FALSE</span></span>
+<span><span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># set the package cache to auto-trigger rebuilds</span></span>
+<span><span class="co">#| [1] TRUE</span></span>
+<span><span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co"># prevent package cache from triggering rebuilds</span></span>
+<span><span class="co">#| [1] FALSE</span></span></code></pre></div>
 <p>You might want to set this to <code>TRUE</code> when you pull changes from upstream.</p>
 </div>
 <div class="section level2">
@@ -317,7 +318,7 @@
 </h2>
 <p>To pin a specific package version (e.g. the newest version has breaking changes you want to work on before release), you can use the <code><a href="../reference/dependency_management.html">pin_version()</a></code> function. For example, here’s how you would pin the {cowsay} package to version 0.7.0:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dependency_management.html">pin_version</a></span><span class="op">(</span><span class="st">"cowsay@0.7.0"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dependency_management.html">pin_version</a></span><span class="op">(</span><span class="st">"cowsay@0.7.0"</span><span class="op">)</span></span></code></pre></div>
 <p>This will record the package in the lockfile so that the next time <code><a href="../reference/dependency_management.html">manage_deps()</a></code> runs, it will use the correct version.</p>
 </div>
 <div class="section level2">
@@ -325,7 +326,7 @@
 </h2>
 <p>If you want to update the packages in the package cache, you can use the function <code>fetch_updates()</code>. This requires an internet connection and will scan the packages in your lesson for any potential updates and ask if you want to update them. This will update those packages in your package cache and your lockfile.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dependency_management.html">update_cache</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dependency_management.html">update_cache</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -340,7 +341,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>
