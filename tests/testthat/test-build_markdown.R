@@ -228,11 +228,11 @@ test_that("Output is not commented", {
   output <- ep[outid[1]]
   fence  <- ep[outid[1] - 1]
   if (tolower(Sys.info()[["sysname"]]) == "windows") {
-    print("file: ", built[[1]])
-    print("id: ", outid)
-    print("fence: ", fence)
-    print("output: ", output)
-    print("episode: ", ep)
+    print(c("file: ", built[[1]]))
+    print(c("id: ", outid))
+    print(c("fence: ", fence))
+    print(c("output: ", output))
+    print(c("episode: ", ep))
   }
   expect_match(output, "^\\[1\\]")
   expect_match(fence, "^[`]{3}[{]?\\.?output[}]?")
