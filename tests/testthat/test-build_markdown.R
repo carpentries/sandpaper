@@ -101,7 +101,7 @@ test_that("setting `fail_on_error: true` in config will cause build to fail", {
   suppressMessages({
     out <- capture.output({
       build_markdown(res, quiet = FALSE) %>%
-        expect_message("use error=TRUE")
+        expect_message("use error=TRUE") %>%
         expect_error("in the name of love")
     })
   })
