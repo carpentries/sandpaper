@@ -68,44 +68,6 @@ test_that("changes in config.yaml triggers a rebuild of the site yaml", {
 })
 
 
-test_that("setting `fail_on_error: true` in config will cause build to fail", {
-  old_yaml <- withr::local_tempfile()
-  old_episode <- withr::local_tempfile()
-  suppressMessages(episode <- get_episodes(res, trim = FALSE)[[1]])
-  yaml <- fs::path(res, "config.yaml")
-  fs::file_copy(yaml, old_yaml)
-  fs::file_copy(episode, old_episode)
-  withr::defer({
-    fs::file_copy(old_yaml, yaml, overwrite = TRUE)
-    fs::file_copy(old_episode, episode, overwrite = TRUE)
-  })
-  ep <- pegboard::Episode$new(episode)$confirm_sandpaper()
-  # Adding two errors to the top of the document. The first one will not error
-  # because it has `error = TRUE`, meaning that it will pass.
-  noerr <- "```{r this-will-not-error, error=TRUE}\nstop('hammertime')\n```\n"
-  # The second error will throw an error because it does not have an error=TRUE
-  err <- "```{r this-will-error}\nstop('in the name of love')\n```\n"
-  ep$add_md(err, 1L)
-  ep$add_md(noerr, 1L)
-  ep$write(fs::path(res, "episodes"), format = "Rmd")
-  cat("fail_on_error: true\n", file = yaml, append = TRUE)
-  # Important context for the test: there are two chunks in the top of the
-  # document that will throw errors in this order:
-  #
-  # 1. hammertime
-  # 2. in the name of love
-  # 
-  # The first chunk is allowed to show the error in the document, the second
-  # is not. When we check for the text of the second error, that confirms that
-  # the first error is passed over.
-  suppressMessages({
-    out <- capture.output({
-      build_markdown(res, quiet = FALSE) %>%
-        expect_message("use error=TRUE") %>%
-        expect_error("in the name of love")
-    })
-  })
-})
 
 
 test_that("markdown sources can be rebuilt without fail", {
@@ -227,6 +189,13 @@ test_that("Output is not commented", {
   outid  <- grep("[1]", ep, fixed = TRUE)
   output <- ep[outid[1]]
   fence  <- ep[outid[1] - 1]
+  if (tolower(Sys.info()[["sysname"]]) == "windows") {
+    print(c("file: ", built[[1]]))
+    print(c("id: ", outid))
+    print(c("fence: ", fence))
+    print(c("output: ", output))
+    print(c("episode: ", ep))
+  }
   expect_match(output, "^\\[1\\]")
   expect_match(fence, "^[`]{3}[{]?\\.?output[}]?")
 
@@ -327,4 +296,43 @@ test_that("Removing partially matching slugs will not have side-effects", {
   pyramid_fig <- fs::path(built_path, "fig", "01-introduction-rendered-pyramid-1.png")
   expect_true(fs::file_exists(pyramid_fig))
   
+})
+
+test_that("setting `fail_on_error: true` in config will cause build to fail", {
+  old_yaml <- withr::local_tempfile()
+  old_episode <- withr::local_tempfile()
+  suppressMessages(episode <- get_episodes(res, trim = FALSE)[[1]])
+  yaml <- fs::path(res, "config.yaml")
+  fs::file_copy(yaml, old_yaml)
+  fs::file_copy(episode, old_episode)
+  withr::defer({
+    fs::file_copy(old_yaml, yaml, overwrite = TRUE)
+    fs::file_copy(old_episode, episode, overwrite = TRUE)
+  })
+  ep <- pegboard::Episode$new(episode)$confirm_sandpaper()
+  # Adding two errors to the top of the document. The first one will not error
+  # because it has `error = TRUE`, meaning that it will pass.
+  noerr <- "```{r this-will-not-error, error=TRUE}\nstop('hammertime')\n```\n"
+  # The second error will throw an error because it does not have an error=TRUE
+  err <- "```{r this-will-error}\nstop('in the name of love')\n```\n"
+  ep$add_md(err, 1L)
+  ep$add_md(noerr, 1L)
+  ep$write(fs::path(res, "episodes"), format = "Rmd")
+  cat("fail_on_error: true\n", file = yaml, append = TRUE)
+  # Important context for the test: there are two chunks in the top of the
+  # document that will throw errors in this order:
+  #
+  # 1. hammertime
+  # 2. in the name of love
+  # 
+  # The first chunk is allowed to show the error in the document, the second
+  # is not. When we check for the text of the second error, that confirms that
+  # the first error is passed over.
+  suppressMessages({
+    out <- capture.output({
+      build_markdown(res, quiet = FALSE) %>%
+        expect_message("use error=TRUE") %>%
+        expect_error("in the name of love")
+    })
+  })
 })
