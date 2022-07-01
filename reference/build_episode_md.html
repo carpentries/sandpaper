@@ -14,7 +14,7 @@ options bleeding in."><meta property="og:image" content="https://carpentries.git
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,8 @@ options bleeding in.</p>
 <span>  workdir <span class="op">=</span> <span class="fu">path_built</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>,</span>
 <span>  workenv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">globalenv</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  profile <span class="op">=</span> <span class="st">"lesson-requirements"</span>,</span>
-<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -104,6 +105,12 @@ environment, which evaluates to the environment from <code><a href="https://call
 <dt>quiet</dt>
 <dd><p>if <code>TRUE</code>, output is suppressed, default is <code>FALSE</code> to show
 knitr output.</p></dd>
+
+
+<dt>error</dt>
+<dd><p>if <code>TRUE</code> (default) errors do not make an invalid build.
+This can be set to false to cause the build to fail if an error occurs.
+This is generally controlled via the <code>fail_on_error</code> config option.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -146,12 +153,12 @@ they are doing.</p>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">build_episode_md</span><span class="op">(</span><span class="va">fun_file</span>, outdir <span class="op">=</span> <span class="va">fun_dir</span>, workdir <span class="op">=</span> <span class="va">fun_dir</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> processing file: /tmp/RtmplJqIa6/file3c0635422753/episodes/fun.Rmd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> processing file: /tmp/RtmpO4Neqy/file3c343fdaf193/episodes/fun.Rmd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |......................................................................| 100%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    inline R code fragments</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">output file: /tmp/RtmplJqIa6/file3c0635422753/fun.md</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">output file: /tmp/RtmpO4Neqy/file3c343fdaf193/fun.md</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
