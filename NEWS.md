@@ -1,3 +1,14 @@
+# sandpaper 0.7.0
+
+NEW FEATURE
+-----------
+
+* Placing `fail_on_error: true` in `config.yaml` will set the global chunk
+  option `error = FALSE` for R Markdown documents, meaning that if an error
+  is produced from a chunk, the build will fail unless that chunk explicitly
+  uses the `error = TRUE` option. (requested: #306 by @davidps, implemented:
+  #310 by @zkamvar)
+
 # sandpaper 0.6.2
 
 BUG FIX
