@@ -95,13 +95,19 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
     renv_check_consent(path, quiet, sources)
     build_me <- db$build[needs_building]
     slugs    <- get_slug(build_me)
+    error    <- this_metadata$get()[["fail_on_error"]]
+    error    <- !is.null(error) && !error
+    if (!error && !quiet) {
+      cli::cli_alert_info("{.code fail_on_error: true}. Use {.code error=TRUE} in code chunks for demonstrative errors")
+    }
 
     for (i in seq_along(build_me)) {
       build_episode_md(
         path    = build_me[i],
         outdir  = outdir,
         workdir = outdir,
-        quiet   = quiet
+        quiet   = quiet,
+        error   = error
       )
     }
     handout <- getOption("sandpaper.handout", default = FALSE)

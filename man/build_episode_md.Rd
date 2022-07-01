@@ -11,7 +11,8 @@ build_episode_md(
   workdir = path_built(path),
   workenv = globalenv(),
   profile = "lesson-requirements",
-  quiet = FALSE
+  quiet = FALSE,
+  error = TRUE
 )
 }
 \arguments{
@@ -29,6 +30,10 @@ environment, which evaluates to the environment from \code{\link[callr:r]{callr:
 
 \item{quiet}{if \code{TRUE}, output is suppressed, default is \code{FALSE} to show
 {knitr} output.}
+
+\item{error}{if \code{TRUE} (default) errors do not make an invalid build.
+This can be set to false to cause the build to fail if an error occurs.
+This is generally controlled via the \code{fail_on_error} config option.}
 }
 \value{
 the path to the output, invisibly

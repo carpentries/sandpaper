@@ -1,4 +1,4 @@
-callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, quiet) {
+callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, quiet, error = TRUE) {
   # Shortcut if the source is a markdown file
   # Taken directly from tools::file_ext
   file_ext <- function (x) {
@@ -28,6 +28,7 @@ callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, 
   slug <- file_path_sans_ext(basename(outpath))
 
   knitr::opts_chunk$set(
+    error         = error,
     comment       = "",
     fig.align     = "center",
     class.output  = "output",
