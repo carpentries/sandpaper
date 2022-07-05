@@ -93,10 +93,14 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
   if (any(needs_building)) {
     # Render the episode files to the built directory --------------------------
     renv_check_consent(path, quiet, sources)
+    # determine if we need to fail when errors are triggered
+    fail_on_error <- this_metadata$get()[["fail_on_error"]]
+    # this is `error` in the knitr sense of `error = TRUE` means 
+    # fail_on_error = FALSE.
+    error <- is.null(fail_on_error) || !fail_on_error
+    # exclude files that do not need to be rebuilt
     build_me <- db$build[needs_building]
     slugs    <- get_slug(build_me)
-    error    <- this_metadata$get()[["fail_on_error"]]
-    error    <- !is.null(error) && !error
     if (!error && !quiet) {
       cli::cli_alert_info("{.code fail_on_error: true}. Use {.code error=TRUE} in code chunks for demonstrative errors")
     }

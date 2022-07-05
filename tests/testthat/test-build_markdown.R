@@ -299,6 +299,8 @@ test_that("Removing partially matching slugs will not have side-effects", {
 })
 
 test_that("setting `fail_on_error: true` in config will cause build to fail", {
+  # fail_on_error is NULL by default
+  expect_null(this_metadata$get()[["fail_on_error"]])
   old_yaml <- withr::local_tempfile()
   old_episode <- withr::local_tempfile()
   suppressMessages(episode <- get_episodes(res, trim = FALSE)[[1]])
@@ -327,7 +329,7 @@ test_that("setting `fail_on_error: true` in config will cause build to fail", {
   # 
   # The first chunk is allowed to show the error in the document, the second
   # is not. When we check for the text of the second error, that confirms that
-  # the first error is passed over.
+  # the first error is passed over
   suppressMessages({
     out <- capture.output({
       build_markdown(res, quiet = FALSE) %>%
@@ -335,4 +337,6 @@ test_that("setting `fail_on_error: true` in config will cause build to fail", {
         expect_error("in the name of love")
     })
   })
+  # fail on error is true
+  expect_true(this_metadata$get()[["fail_on_error"]])
 })

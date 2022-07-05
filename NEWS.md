@@ -1,3 +1,11 @@
+# sandpaper 0.7.1
+
+BUG FIX
+-------
+
+* A bug where `fail_on_error` defaulted to `true` has been fixed. This will
+  default to `false` if they key is not present in `config.yaml` (#314, @zkamvar).
+
 # sandpaper 0.7.0
 
 NEW FEATURE
