@@ -21,6 +21,7 @@ jobs:
       is_valid: ${{ steps.check-pr.outputs.VALID }}
       payload: ${{ steps.check-pr.outputs.payload }}
       number: ${{ steps.get-pr.outputs.NUM }}
+      msg: ${{ steps.check-pr.outputs.MSG }}
     steps:
       - name: 'Download PR artifact'
         id: dl
@@ -42,7 +43,10 @@ jobs:
         run: |
           echo '::error::A pull request number was not recorded. The pull request that triggered this workflow is likely malicious.'
           exit 1
-      
+      - name: "Get Invalid Hashes File"
+        id: hash
+        run: |
+          echo "::set-output name=json::$(curl -sL https://files.carpentries.org/invalid-hashes.json)"
       - name: "Check PR"
         id: check-pr
         if: ${{ steps.dl.outputs.success == 'true' }}
@@ -50,6 +54,7 @@ jobs:
         with:
           pr: ${{ steps.get-pr.outputs.NUM }}
           sha: ${{ github.events.workflow_run.head_commit.sha }}
+          invalid-hash: ${{ fromJSON(steps.hash.outputs.json)[github.repository] }}
 
   # Create an orphan branch on this repository with two commits
   #  - the current HEAD of the md-outputs branch
@@ -136,13 +141,9 @@ jobs:
       NR: ${{ needs.test-pr.outputs.number }}
     steps:
       - name: "Comment on PR"
-        if: ${{ needs.test-pr.outputs.payload }}
         id: comment-diff
         uses: carpentries/actions/comment-diff@main
         with:
-          pr: ${{ env.NR }} 
-          body: |
-            This pull request contains modified workflows and no preview will be created.
-
-            **Please inspect the changes for any malicious content.**
+          pr: ${{ env.NR }}
+          body: ${{ needs.test-pr.outputs.msg }}
 
