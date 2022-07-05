@@ -24,8 +24,8 @@ metadata_url <- function(cfg) {
 }
 
 initialise_metadata <- function(path = ".") {
+  cfg <- get_config(path)
   if (length(this_metadata$get()) == 0) {
-    cfg <- get_config(path)
     this_metadata$set(NULL, cfg)
     this_metadata$set("metadata_template", readLines(template_metadata()))
     this_metadata$set("pagetitle", cfg$title)
@@ -36,6 +36,8 @@ initialise_metadata <- function(path = ".") {
     # TODO: implement custom DESCRIPTION
     # For the Description, it would be good to take this from an ABOUT page
     # where the description paragraph can be found under the Description header
+  } else {
+    this_metadata$update(cfg)
   }
   this_metadata$set(c("date", "modified"), format(Sys.Date(), "%F"))
   this_metadata$set(c("date", "published"), format(Sys.Date(), "%F"))
