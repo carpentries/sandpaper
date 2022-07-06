@@ -1,3 +1,18 @@
+# sandpaper 0.8.0
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* A new workflow called `pr-preflight.yaml` has been created to perform a quick
+  pre-flight check on the pull request to ensure that there is no malicious
+  activity on the lesson itself, which may look like modifying both workflow
+  and lesson files in the same pull request. For lessons that transition to the
+  workbench from styles in official and community-developed lessons, an extra
+  check is added that will validate the branch of the incoming PR does not
+  contain invalid commits.
+
+* Pull Request workflows have been simplified.
+
 # sandpaper 0.7.1
 
 BUG FIX
