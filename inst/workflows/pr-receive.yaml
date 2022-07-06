@@ -7,12 +7,24 @@ on:
 
 jobs:
   test-pr:
-    name: "Test if pull request is valid"
+    name: "Record PR number"
     if: ${{ github.event.action != 'closed' }}
     runs-on: ubuntu-latest
     outputs:
       is_valid: ${{ steps.check-pr.outputs.VALID }}
     steps:
+      - name: "Record PR number"
+        id: record
+        if: ${{ always() }}
+        run: |
+          echo ${{ github.event.number }} > ${{ github.workspace }}/NR # 2022-03-02: artifact name fixed to be NR
+      - name: "Upload PR number"
+        id: upload
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: pr
+          path: ${{ github.workspace }}/NR
       - name: "Get Invalid Hashes File"
         id: hash
         run: |
@@ -26,21 +38,9 @@ jobs:
         with:
           pr: ${{ github.event.number }}
           invalid: ${{ fromJSON(steps.hash.outputs.json)[github.repository] }}
-      - name: "Record PR number"
-        id: record
-        if: ${{ always() }}
-        run: |
-          echo ${{ github.event.number }} > ${{ github.workspace }}/NR # 2022-03-02: artifact name fixed to be NR
-      - name: "Upload PR number"
-        id: upload
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: pr
-          path: ${{ github.workspace }}/NR
 
   build-md-source:
-    name: "Build markdown source files"
+    name: "Build markdown source files if valid"
     needs: test-pr
     runs-on: ubuntu-latest
     if: ${{ needs.test-pr.outputs.is_valid == 'true' }}
