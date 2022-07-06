@@ -53,8 +53,9 @@ jobs:
         uses: carpentries/actions/check-valid-pr@main
         with:
           pr: ${{ steps.get-pr.outputs.NUM }}
-          sha: ${{ github.events.workflow_run.head_commit.sha }}
+          sha: ${{ github.event.workflow_run.head_sha }}
           invalid: ${{ fromJSON(steps.hash.outputs.json)[github.repository] }}
+          fail_on_error: true
 
   # Create an orphan branch on this repository with two commits
   #  - the current HEAD of the md-outputs branch
@@ -138,12 +139,31 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ always() && needs.test-pr.outputs.is_valid == 'false' }}
     env:
-      NR: ${{ needs.test-pr.outputs.number }}
+      NR: ${{ github.event.workflow_run.pull_requests[0].number }}
+      body: ${{ needs.test-pr.outputs.msg }}
     steps:
+      - name: 'Check for spoofing'
+        id: dl
+        uses: carpentries/actions/download-workflow-artifact@main
+        with:
+          run: ${{ github.event.workflow_run.id }}
+          name: 'built'
+
+      - name: 'Alert if spoofed'
+        id: spoof
+        if: ${{ steps.dl.outputs.success == 'true' }}
+        run: |
+          echo 'body<<EOF' >> $GITHUB_ENV
+          echo '' >> $GITHUB_ENV
+          echo '## :x: DANGER :x:' >> $GITHUB_ENV
+          echo 'This pull request has modified workflows that created output. Close this now.' >> $GITHUB_ENV
+          echo '' >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
       - name: "Comment on PR"
         id: comment-diff
         uses: carpentries/actions/comment-diff@main
         with:
           pr: ${{ env.NR }}
-          body: ${{ needs.test-pr.outputs.msg }}
+          body: ${{ env.body }}
 
