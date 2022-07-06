@@ -54,7 +54,7 @@ jobs:
         with:
           pr: ${{ steps.get-pr.outputs.NUM }}
           sha: ${{ github.events.workflow_run.head_commit.sha }}
-          invalid-hash: ${{ fromJSON(steps.hash.outputs.json)[github.repository] }}
+          invalid: ${{ fromJSON(steps.hash.outputs.json)[github.repository] }}
 
   # Create an orphan branch on this repository with two commits
   #  - the current HEAD of the md-outputs branch
@@ -136,7 +136,7 @@ jobs:
     name: "Comment if workflow files have changed"
     needs: test-pr
     runs-on: ubuntu-latest
-    if: ${{ needs.test-pr.outputs.is_valid == 'false' }}
+    if: ${{ always() && needs.test-pr.outputs.is_valid == 'false' }}
     env:
       NR: ${{ needs.test-pr.outputs.number }}
     steps:
