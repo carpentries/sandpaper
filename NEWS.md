@@ -1,3 +1,12 @@
+# sandpaper 0.8.1
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* A new workflow called `deploy-aws.yaml` has been created to deploy a site to
+  AWS when the right secrets from AWS are available. Because this workflow
+  does not affect normal use, I am relegating this to a patch release.
+
 # sandpaper 0.8.0
 
 CONTINUOUS INTEGRATION
