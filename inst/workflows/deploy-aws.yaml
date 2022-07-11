@@ -49,3 +49,12 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SOURCE_DIR: 'source'
           DEST_DIR: ${{ needs.preflight.outputs.folder }}
+
+      - name: "Invalidate CloudFront"
+        uses: chetan/invalidate-cloudfront-action@master
+        env:
+          PATHS: /*
+          AWS_REGION: 'us-east-1'
+          DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
