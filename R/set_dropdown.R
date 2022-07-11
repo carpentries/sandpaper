@@ -68,10 +68,13 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #'
 #' @param pairs a named character vector with keys as the names and the new 
 #'  values as the contents
+#' @param create if `TRUE`, any new values in `pairs` will be created and
+#'   appended; defaults to `FALSE`, which prevents typos from sneaking in. 
+#'   single key-pair values currently supported.
 #' @inheritParams set_dropdown
 #'
 #' @export
-set_config <- function(pairs = NULL, path = ".", write = FALSE) {
+set_config <- function(pairs = NULL, create = FALSE, path = ".", write = FALSE) {
   keys <- names(pairs)
   values <- pairs
   stopifnot(
@@ -81,10 +84,35 @@ set_config <- function(pairs = NULL, path = ".", write = FALSE) {
   )
   cfg <- path_config(path)
   l <- readLines(cfg)
-  what <- vapply(glue::glue("^{keys}:"), grep, integer(1), l)
+  what <- vapply(glue::glue("^{keys}:"), function(key, config, create) {
+    position <- which(grepl(key, config))
+    if (length(position)) {
+      return(position)
+    } else if (create) {
+      return(-9L)
+    } else {
+      return(0L)
+    }
+  }, integer(1), config = l, create = create)
+  # creates a character vector for the number of keys we need
   line <- character(length(keys))
   for (i in seq(keys)) {
     line[i] <- glue::glue("{keys[[i]]}: {siQuote(values[[i]])}")
+  }
+  if (create) {
+    appends <- what == -9L
+    if (any(appends)) {
+      start <- length(l) + 1L
+      end <- start + length(what[!appends])
+      what[appends] <- seq(from = start, to = end)
+    }
+  } else {
+    toss <- what == 0
+    if (any(toss)) {
+      cli::cli_alert_danger("{?This/These} key{?s} do not exist: {.code {keys[toss]}}")
+      cli::cli_alert_info("Use {.code create = TRUE} if you want to create new keys")
+      stop("`set_config()`: Unknown keys", call. = FALSE)
+    }
   }
   if (write) {
     cli::cli_alert_info("Writing to {.file {cfg}}")
@@ -98,7 +126,10 @@ set_config <- function(pairs = NULL, path = ".", write = FALSE) {
     thm <- cli::cli_div(theme = sandpaper_cli_theme())
     on.exit(cli::cli_end(thm))
     for (i in seq(line)) {
-      cli::cli_text(c(cli::col_cyan("- "), cli::style_blurred(l[what][i])))
+      not_missing <- !is.na(l[what][i])
+      if (not_missing) {
+        cli::cli_text(c(cli::col_cyan("- "), cli::style_blurred(l[what][i])))
+      }
       cli::cli_text(c(cli::col_yellow("+ "), line[i]))
     }
     the_call[["write"]] <- TRUE

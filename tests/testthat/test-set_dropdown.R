@@ -30,15 +30,23 @@ cli::test_that_cli("set_config() will write items", {
 })
 
 
+test_that("custom keys will return an error with default", {
+  suppressMessages({
+  expect_snapshot_error(
+    set_config(c("test-key" = "hey!", "keytest" = "yo?"), 
+      path = tmp, write = TRUE, create = FALSE)
+  )
+  })
+})
+
 
 test_that("custom keys can be modified by set_config()", {
-  writeLines(c("test-key: 'hey!'", readLines(fs::path(tmp, "config.yaml"))),
-    fs::path(tmp, "config.yaml"))
+  expect_snapshot(set_config(c("test-key" = "hey!"), path = tmp, write = TRUE, create = TRUE),
+    transform = function(s) mask_tmpdir(s, dirname(tmp)))
   expect_equal(get_config(tmp)[["test-key"]], "hey!")
   expect_snapshot(set_config(c("test-key" = "!yeh"), path = tmp, write = TRUE),
     transform = function(s) mask_tmpdir(s, dirname(tmp)))
   expect_equal(get_config(tmp)[["test-key"]], "!yeh")
-  expect_equal(readLines(fs::path(tmp, "config.yaml"), n = 1L), "test-key: '!yeh'")
 })
 
 test_that("schedule is empty by default", {

@@ -1,4 +1,10 @@
-# sandpaper 0.8.1
+# sandpaper 0.9.0
+
+MISC
+----
+
+* `set_config()` gains the option `create`, which will create new variables if
+  they do not exist. 
 
 CONTINUOUS INTEGRATION
 ----------------------

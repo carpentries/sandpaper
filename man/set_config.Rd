@@ -4,11 +4,15 @@
 \alias{set_config}
 \title{Set individual keys in a configuration file}
 \usage{
-set_config(pairs = NULL, path = ".", write = FALSE)
+set_config(pairs = NULL, create = FALSE, path = ".", write = FALSE)
 }
 \arguments{
 \item{pairs}{a named character vector with keys as the names and the new
 values as the contents}
+
+\item{create}{if \code{TRUE}, any new values in \code{pairs} will be created and
+appended; defaults to \code{FALSE}, which prevents typos from sneaking in.
+single key-pair values currently supported.}
 
 \item{path}{path to the lesson. Defaults to the current directory.}
 
