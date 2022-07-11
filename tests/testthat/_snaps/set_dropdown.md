@@ -47,7 +47,19 @@
       → title: Lesson Title -> title: 'test: title'
       → license: CC-BY 4.0 -> license: 'CC0'
 
+# custom keys will return an error with default
+
+    `set_config()`: Unknown keys
+
 # custom keys can be modified by set_config()
+
+    Code
+      set_config(c(`test-key` = "hey!"), path = tmp, write = TRUE, create = TRUE)
+    Message
+      i Writing to '[redacted]/lesson-example/config.yaml'
+      > NA -> test-key: 'hey!'
+
+---
 
     Code
       set_config(c(`test-key` = "!yeh"), path = tmp, write = TRUE)
