@@ -102,9 +102,9 @@ set_config <- function(pairs = NULL, create = FALSE, path = ".", write = FALSE) 
   if (create) {
     appends <- what == -9L
     if (any(appends)) {
-      start <- length(l) + 1L
-      end <- start + length(what[!appends])
-      what[appends] <- seq(from = start, to = end)
+      start <- length(l)
+      end <- start + length(what[appends])
+      what[appends] <- seq(from = start + 1L, to = end)
     }
   } else {
     toss <- what == 0
