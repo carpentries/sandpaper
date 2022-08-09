@@ -1,3 +1,11 @@
+# sandpaper 0.9.2
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* The version of the s3-sync action has been corrected. This only affects lessons
+  that deploy to AWS
+
 # sandpaper 0.9.1
 
 MISC
