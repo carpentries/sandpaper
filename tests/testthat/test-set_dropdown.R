@@ -62,10 +62,6 @@ test_that("schedule is empty by default", {
   no_episodes <- names(cfg)[names(cfg) != "episodes"]
   expect_equal(cfg[no_episodes], get_config(tmp)[no_episodes])
 
-  # the config file now has the `test-key` at the bottom
-  cfgtxt <- get_config(tmp)
-  expect_equal(cfgtxt[["test-key"]], "!yeh")
-
 })
 
 
@@ -162,6 +158,8 @@ test_that("the schedule can be truncated", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
 
   # build the lesson here just to be absolutely sure
+  withr::defer(use_package_cache(prompt = FALSE, quiet = TRUE))
+  no_package_cache()
   expect_silent(build_lesson(tmp, quiet = TRUE, preview = FALSE))
   html <- xml2::read_html(fs::path(tmp, "site/docs/index.html"))
   episodes <- xml2::xml_find_all(html, 

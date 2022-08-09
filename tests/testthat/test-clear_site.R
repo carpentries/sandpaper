@@ -16,6 +16,8 @@ test_that("the site can be cleared", {
   saveRDS(expected, file = fs::path(tmp, "episodes", "data", "test.rds"))
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
+  withr::defer(use_package_cache(prompt = FALSE, quiet = TRUE))
+  no_package_cache()
   build_lesson(tmp, preview = FALSE, quiet = TRUE)
 
   built_site <- fs::dir_ls(fs::path(tmp, "site"))
