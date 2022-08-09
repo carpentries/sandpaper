@@ -89,8 +89,9 @@ create_sidebar_headings <- function(nodes) {
   if (any(have_children)) {
     for (child in which(have_children)) {
       # Headings that have embedded HTML will need this
-      child_html <- as.character(xml2::xml_contents(h2[[child]]))
-      txt[child] <- paste(child_html, collapse = "")
+      child_html <- xml2::xml_contents(h2[[child]])
+      no_anchor  <- !xml2::xml_attr(child_html, "class") %in% "anchor"
+      txt[child] <- paste(child_html[no_anchor], collapse = "")
     }
   }
   if (length(ids) && length(txt)) {

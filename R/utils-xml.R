@@ -16,6 +16,8 @@ fix_headings <- function(nodes = NULL) {
   sections <- xml2::xml_parent(h2)
   xml2::xml_set_name(sections, "section")
   xml2::xml_set_attr(sections, "class", NULL)
+  id <- xml2::xml_attr(sections, "id")
+  add_anchors(h2, xml2::xml_attr(sections, "id"))
   invisible(nodes)
 }
 
@@ -62,6 +64,21 @@ fix_figures <- function(nodes = NULL) {
   invisible(nodes)
 }
 
+add_anchors <- function(nodes, ids) {
+  anchor <- paste0(
+    "<a class='anchor' aria-label='anchor' href='#", ids, "'></a>"
+  )
+  for (i in seq_along(nodes)) {
+    heading <- nodes[[i]]
+    if (length(xml2::xml_contents(heading)) == 0) {
+      # skip empty headings
+      next
+    }
+    # Insert anchor in first element of header
+    xml2::xml_add_child(heading, xml2::read_xml(anchor[[i]]))
+  }
+}
+
 fix_callouts <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   callouts <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'callout')]")
@@ -69,6 +86,7 @@ fix_callouts <- function(nodes = NULL) {
   xml2::xml_set_attr(h3, "class", "callout-title")
   inner_div <- xml2::xml_parent(h3)
   xml2::xml_set_attr(inner_div, "class", "callout-inner")
+  add_anchors(h3, xml2::xml_attr(inner_div, "id"))
   invisible(nodes)
 }
 

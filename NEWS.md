@@ -1,3 +1,13 @@
+# sandpaper 0.9.1
+
+MISC
+---
+
+* Anchor links are now included in all sections and callouts for easy navigation
+  to sections. Thanks to @fiveop and @anenadic for requesting this feature.
+  requested in #285 and https://github.com/carpentries/workbench/issues/28; 
+  fixed in #325
+
 # sandpaper 0.9.0
 
 MISC
