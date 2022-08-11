@@ -1,3 +1,12 @@
+# sandpaper 0.9.3
+
+MISC
+----
+
+* A test that was failing on the R-universe has been skipped
+* documentation has been updated to detail the expected and optional values in
+  config.yaml in `set_dropdown()`
+
 # sandpaper 0.9.2
 
 CONTINUOUS INTEGRATION
