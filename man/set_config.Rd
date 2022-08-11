@@ -23,6 +23,8 @@ current file.}
 Set individual keys in a configuration file
 }
 \details{
+This function deals strictly with keypairs in the yaml. For lists, see
+\code{\link[=set_dropdown]{set_dropdown()}}.
 \subsection{Default Keypairs Known by Sandpaper}{
 
 When you create a new lesson in sandpaper, the following keys are known:
@@ -45,10 +47,14 @@ The following keypairs are known by sandpaper, but are optional:
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{url: 'https://lessons.carpentries.org/sandpaper-docs' # custom URL if you are
   # deploying to a custom url
-workbench-beta: yes # [boolean] if truthy, this displays a banner on the site
 fail_on_error: yes # [boolean] for R Markdown lessons; fail the build if any
   # chunks produce an error. Use `error: true` in chunk options to allow the 
   # error to be displayed
+workbench-beta: yes # [boolean] if truthy, this displays a banner on the site
+  # that indicates the site is in the workbench beta phase.
 }\if{html}{\out{</div>}}
+
+As the workbench becomes more developed, some of these optional keys may
+disappear.
 }
 }

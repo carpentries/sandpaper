@@ -75,6 +75,9 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #'
 #' @details
 #'
+#' This function deals strictly with keypairs in the yaml. For lists, see
+#' [set_dropdown()].
+#' 
 #' ### Default Keypairs Known by Sandpaper
 #'
 #' When you create a new lesson in sandpaper, the following keys are known:
@@ -98,11 +101,15 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #' ```yaml
 #' url: 'https://lessons.carpentries.org/sandpaper-docs' # custom URL if you are
 #'   # deploying to a custom url
-#' workbench-beta: yes # [boolean] if truthy, this displays a banner on the site
 #' fail_on_error: yes # [boolean] for R Markdown lessons; fail the build if any
 #'   # chunks produce an error. Use `error: true` in chunk options to allow the 
 #'   # error to be displayed
+#' workbench-beta: yes # [boolean] if truthy, this displays a banner on the site
+#'   # that indicates the site is in the workbench beta phase.
 #' ```
+#' 
+#' As the workbench becomes more developed, some of these optional keys may 
+#' disappear. 
 #'
 #' @export
 set_config <- function(pairs = NULL, create = FALSE, path = ".", write = FALSE) {
