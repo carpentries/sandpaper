@@ -22,3 +22,33 @@ current file.}
 \description{
 Set individual keys in a configuration file
 }
+\details{
+\subsection{Default Keypairs Known by Sandpaper}{
+
+When you create a new lesson in sandpaper, the following keys are known:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{carpentry: 'incubator' # [character] one of cp, dc, swc, lab, incubator
+title: 'Lesson Title' # [character] the lesson title
+created: '2021-02-09' # [character] Date in ISO 8601 format; defaults to ~
+keywords: 'static site, lesson template, markdown, R, software' # comma-separated list
+life_cycle: 'pre-alpha' # [character]: pre-alpha, alpha, beta, stable
+license: 'CC-BY 4.0' # [character]
+source: 'https://github.com/carpentries/sandpaper-docs/' # github repository
+branch: 'main' # [character] default branch
+contact: 'zkamvar@carpentries.org'
+}\if{html}{\out{</div>}}
+}
+
+\subsection{Optional Keypairs Known by Sandpaper}{
+
+The following keypairs are known by sandpaper, but are optional:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{url: 'https://lessons.carpentries.org/sandpaper-docs' # custom URL if you are
+  # deploying to a custom url
+workbench-beta: yes # [boolean] if truthy, this displays a banner on the site
+fail_on_error: yes # [boolean] for R Markdown lessons; fail the build if any
+  # chunks produce an error. Use `error: true` in chunk options to allow the 
+  # error to be displayed
+}\if{html}{\out{</div>}}
+}
+}
