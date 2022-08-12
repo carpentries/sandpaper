@@ -82,36 +82,44 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #'
 #' When you create a new lesson in sandpaper, the following keys are known:
 #'
-#' ```yaml
-#' carpentry: 'incubator' # [character] one of cp, dc, swc, lab, incubator
-#' title: 'Lesson Title' # [character] the lesson title
-#' created: '2021-02-09' # [character] Date in ISO 8601 format; defaults to ~
-#' keywords: 'static site, lesson template, markdown, R, software' # comma-separated list
-#' life_cycle: 'pre-alpha' # [character]: pre-alpha, alpha, beta, stable
-#' license: 'CC-BY 4.0' # [character]
-#' source: 'https://github.com/carpentries/sandpaper-docs/' # github repository
-#' branch: 'main' # [character] default branch
-#' contact: 'zkamvar@carpentries.org'
-#' ```
+#' - **carpentry** `[character]` one of cp, dc, swc, lab, incubator
+#' - **title** `[character]` the lesson title (e.g. `'Introduction to R for
+#'   Plant Pathologists'`
+#' - **created** `[character]` Date in ISO 8601 format (e.g. `'2021-02-09'`)
+#' - **keywords** `[character]` comma-separated list (e.g `'static site, R, tidyverse'`)
+#' - **life_cycle** `[character]` one of pre-alpha, alpha, beta, stable
+#' - **license** `[character]` a license for the lesson (e.g. `'CC-BY 4.0'`)
+#' - **source** `[character]` the source repository URL
+#' - **branch** `[character]` the default branch (e.g. `'main'`)
+#' - **contact** `[character]` an email address of who to contact for more 
+#'   information about the lesson 
 #'
 #' ### Optional Keypairs Known by Sandpaper
 #'
 #' The following keypairs are known by sandpaper, but are optional:
 #'
-#' ```yaml
-#' url: 'https://lessons.carpentries.org/sandpaper-docs' # custom URL if you are
-#'   # deploying to a custom url
-#' fail_on_error: yes # [boolean] for R Markdown lessons; fail the build if any
-#'   # chunks produce an error. Use `error: true` in chunk options to allow the 
-#'   # error to be displayed
-#' workbench-beta: yes # [boolean] if truthy, this displays a banner on the site
-#'   # that indicates the site is in the workbench beta phase.
-#' ```
+#' - **url** `[character]` custom URL if you are deploying to a URL that is not
+#'   the default github pages io domain. 
+#' - **fail_on_error** `[boolean]` for R Markdown lessons; fail the build if any
+#'   chunks produce an error. Use `#| error: true` in chunk options to allow the 
+#'   error to be displayed
+#' - **workbench-beta** yes `[boolean]` if truthy, this displays a banner on the
+#'   site that indicates the site is in the workbench beta phase.
 #' 
 #' As the workbench becomes more developed, some of these optional keys may 
 #' disappear. 
 #'
 #' @export
+#' @examples
+#' if (FALSE) {
+#' tmp <- tempfile()
+#' create_lesson(tmp, "test lesson")
+#' # Change the title and License
+#' set_config(c(title = "Absolutely Free Lesson", license = "CC0"), 
+#'   path = tmp,
+#'   write = TRUE
+#' )
+#' }
 set_config <- function(pairs = NULL, create = FALSE, path = ".", write = FALSE) {
   keys <- names(pairs)
   values <- pairs

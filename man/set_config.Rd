@@ -28,33 +28,45 @@ This function deals strictly with keypairs in the yaml. For lists, see
 \subsection{Default Keypairs Known by Sandpaper}{
 
 When you create a new lesson in sandpaper, the following keys are known:
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{carpentry: 'incubator' # [character] one of cp, dc, swc, lab, incubator
-title: 'Lesson Title' # [character] the lesson title
-created: '2021-02-09' # [character] Date in ISO 8601 format; defaults to ~
-keywords: 'static site, lesson template, markdown, R, software' # comma-separated list
-life_cycle: 'pre-alpha' # [character]: pre-alpha, alpha, beta, stable
-license: 'CC-BY 4.0' # [character]
-source: 'https://github.com/carpentries/sandpaper-docs/' # github repository
-branch: 'main' # [character] default branch
-contact: 'zkamvar@carpentries.org'
-}\if{html}{\out{</div>}}
+\itemize{
+\item \strong{carpentry} \verb{[character]} one of cp, dc, swc, lab, incubator
+\item \strong{title} \verb{[character]} the lesson title (e.g. \code{'Introduction to R for Plant Pathologists'}
+\item \strong{created} \verb{[character]} Date in ISO 8601 format (e.g. \code{'2021-02-09'})
+\item \strong{keywords} \verb{[character]} comma-separated list (e.g \code{'static site, R, tidyverse'})
+\item \strong{life_cycle} \verb{[character]} one of pre-alpha, alpha, beta, stable
+\item \strong{license} \verb{[character]} a license for the lesson (e.g. \code{'CC-BY 4.0'})
+\item \strong{source} \verb{[character]} the source repository URL
+\item \strong{branch} \verb{[character]} the default branch (e.g. \code{'main'})
+\item \strong{contact} \verb{[character]} an email address of who to contact for more
+information about the lesson
+}
 }
 
 \subsection{Optional Keypairs Known by Sandpaper}{
 
 The following keypairs are known by sandpaper, but are optional:
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{url: 'https://lessons.carpentries.org/sandpaper-docs' # custom URL if you are
-  # deploying to a custom url
-fail_on_error: yes # [boolean] for R Markdown lessons; fail the build if any
-  # chunks produce an error. Use `error: true` in chunk options to allow the 
-  # error to be displayed
-workbench-beta: yes # [boolean] if truthy, this displays a banner on the site
-  # that indicates the site is in the workbench beta phase.
-}\if{html}{\out{</div>}}
+\itemize{
+\item \strong{url} \verb{[character]} custom URL if you are deploying to a URL that is not
+the default github pages io domain.
+\item \strong{fail_on_error} \verb{[boolean]} for R Markdown lessons; fail the build if any
+chunks produce an error. Use \verb{#| error: true} in chunk options to allow the
+error to be displayed
+\item \strong{workbench-beta} yes \verb{[boolean]} if truthy, this displays a banner on the
+site that indicates the site is in the workbench beta phase.
+}
 
 As the workbench becomes more developed, some of these optional keys may
 disappear.
+}
+}
+\examples{
+if (FALSE) {
+tmp <- tempfile()
+create_lesson(tmp, "test lesson")
+# Change the title and License
+set_config(c(title = "Absolutely Free Lesson", license = "CC0"), 
+  path = tmp,
+  write = TRUE
+)
 }
 }
