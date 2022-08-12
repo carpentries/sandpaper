@@ -73,7 +73,55 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #'   single key-pair values currently supported.
 #' @inheritParams set_dropdown
 #'
+#' @details
+#'
+#' This function deals strictly with keypairs in the yaml. For lists, see
+#' [set_dropdown()].
+#' 
+#' ### Default Keypairs Known by Sandpaper
+#'
+#' When you create a new lesson in sandpaper, there are a set of default
+#' keypairs that are pre-filled. To make sure contact information and links in
+#' the footer are accurate, please modify these values. 
+#'
+#' - **carpentry** `[character]` one of cp, dc, swc, lab, incubator
+#' - **title** `[character]` the lesson title (e.g. `'Introduction to R for
+#'   Plant Pathologists'`
+#' - **created** `[character]` Date in ISO 8601 format (e.g. `'2021-02-09'`)
+#' - **keywords** `[character]` comma-separated list (e.g `'static site, R, tidyverse'`)
+#' - **life_cycle** `[character]` one of pre-alpha, alpha, beta, stable
+#' - **license** `[character]` a license for the lesson (e.g. `'CC-BY 4.0'`)
+#' - **source** `[character]` the source repository URL
+#' - **branch** `[character]` the default branch (e.g. `'main'`)
+#' - **contact** `[character]` an email address of who to contact for more 
+#'   information about the lesson 
+#'
+#' ### Optional Keypairs Known by Sandpaper
+#'
+#' The following keypairs are known by sandpaper, but are optional:
+#'
+#' - **url** `[character]` custom URL if you are deploying to a URL that is not
+#'   the default github pages io domain. 
+#' - **fail_on_error** `[boolean]` for R Markdown lessons; fail the build if any
+#'   chunks produce an error. Use `#| error: true` in chunk options to allow the 
+#'   error to be displayed
+#' - **workbench-beta** yes `[boolean]` if truthy, this displays a banner on the
+#'   site that indicates the site is in the workbench beta phase.
+#' 
+#' As the workbench becomes more developed, some of these optional keys may 
+#' disappear. 
+#'
 #' @export
+#' @examples
+#' if (FALSE) {
+#' tmp <- tempfile()
+#' create_lesson(tmp, "test lesson")
+#' # Change the title and License
+#' set_config(c(title = "Absolutely Free Lesson", license = "CC0"), 
+#'   path = tmp,
+#'   write = TRUE
+#' )
+#' }
 set_config <- function(pairs = NULL, create = FALSE, path = ".", write = FALSE) {
   keys <- names(pairs)
   values <- pairs

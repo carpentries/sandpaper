@@ -21,18 +21,12 @@ know how to handle lists, so it concatenates them with commas:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- c("a", "b", "c")
 hx <- list(hello = x)
 cat(yaml::as.yaml(hx)) # representation in yaml
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## hello:
-## - a
-## - b
-## - c
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{cat(whisker::whisker.render("hello: \{\{hello\}\}", hx)) # messed up whisker
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## hello: a,b,c
+#> hello:
+#> - a
+#> - b
+#> - c
+cat(whisker::whisker.render("hello: \{\{hello\}\}", hx)) # messed up whisker
+#> hello: a,b,c
 }\if{html}{\out{</div>}}
 
 Moreover, we want to indicate that a yaml list is not a single key/value pair
@@ -52,12 +46,10 @@ sure that the values are clearly lists.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{hx[["hello"]] <- sandpaper:::yaml_list(hx[["hello"]])
 cat(whisker::whisker.render("hello: \{\{hello\}\}", hx)) # good whisker
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## hello: 
-## - a
-## - b
-## - c
+#> hello: 
+#> - a
+#> - b
+#> - c
 }\if{html}{\out{</div>}}
 }
 \description{
