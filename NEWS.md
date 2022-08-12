@@ -6,6 +6,7 @@ MISC
 * A test that was failing on the R-universe has been skipped
 * documentation has been updated to detail the expected and optional values in
   config.yaml in `set_dropdown()`
+* The template for the code of conduct has been updated to reflect our style guide
 
 # sandpaper 0.9.2
 
