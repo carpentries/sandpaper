@@ -27,7 +27,9 @@ This function deals strictly with keypairs in the yaml. For lists, see
 \code{\link[=set_dropdown]{set_dropdown()}}.
 \subsection{Default Keypairs Known by Sandpaper}{
 
-When you create a new lesson in sandpaper, the following keys are known:
+When you create a new lesson in sandpaper, there are a set of default
+keypairs that are pre-filled. To make sure contact information and links in
+the footer are accurate, please modify these values.
 \itemize{
 \item \strong{carpentry} \verb{[character]} one of cp, dc, swc, lab, incubator
 \item \strong{title} \verb{[character]} the lesson title (e.g. \code{'Introduction to R for Plant Pathologists'}
