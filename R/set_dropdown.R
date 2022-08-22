@@ -107,9 +107,38 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #'   error to be displayed
 #' - **workbench-beta** yes `[boolean]` if truthy, this displays a banner on the
 #'   site that indicates the site is in the workbench beta phase.
-#' 
+#'
 #' As the workbench becomes more developed, some of these optional keys may 
 #' disappear. 
+#'
+#' #### Custom Engines
+#'
+#' To use a specific version of sandpaper or varnish locally, you would install
+#' them using `remotes::install_github("carpentries/sandpaper@VERSION")` syntax,
+#' but to provision these versions on GitHub, you can provision these in the 
+#' `config.yaml` file:
+#'
+#'  - **sandpaper** `[character]` github string or version number of sandpaper
+#'    version to use
+#'  - **varnish** `[character]` github string or version number of varnish
+#'    version to use
+#' 
+#' For example, if you had forked your own version of varnish to modify the
+#' colourscheme, you could use:
+#'
+#' ```
+#' varnish: MYACCOUNT/varnish
+#' ```
+#'
+#' If there is a specific branch of sandpaper or varnish that is being tested,
+#' and you want to test it on your lesson temporarily, you could use the `@`
+#' symbol to refer to the specific branch or commit to use:
+#'
+#' ```
+#' sandpaper: carpentries/sandpaper@BRANCH-NAME
+#' varnish: carpentries/varnish@BRANCH-name
+#' ```
+#' 
 #'
 #' @export
 #' @examples

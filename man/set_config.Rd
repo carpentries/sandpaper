@@ -59,6 +59,34 @@ site that indicates the site is in the workbench beta phase.
 
 As the workbench becomes more developed, some of these optional keys may
 disappear.
+\subsection{Custom Engines}{
+
+To use a specific version of sandpaper or varnish locally, you would install
+them using \code{remotes::install_github("carpentries/sandpaper@VERSION")} syntax,
+but to provision these versions on GitHub, you can provision these in the
+\code{config.yaml} file:
+\itemize{
+\item \strong{sandpaper} \verb{[character]} github string or version number of sandpaper
+version to use
+\item \strong{varnish} \verb{[character]} github string or version number of varnish
+version to use
+}
+
+For example, if you had forked your own version of varnish to modify the
+colourscheme, you could use:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{varnish: MYACCOUNT/varnish
+}\if{html}{\out{</div>}}
+
+If there is a specific branch of sandpaper or varnish that is being tested,
+and you want to test it on your lesson temporarily, you could use the \code{@}
+symbol to refer to the specific branch or commit to use:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{sandpaper: carpentries/sandpaper@BRANCH-NAME
+varnish: carpentries/varnish@BRANCH-name
+}\if{html}{\out{</div>}}
+}
+
 }
 }
 \examples{
