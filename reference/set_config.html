@@ -118,7 +118,28 @@ error to be displayed</p></li>
 <li><p><strong>workbench-beta</strong> yes <code>[boolean]</code> if truthy, this displays a banner on the
 site that indicates the site is in the workbench beta phase.</p></li>
 </ul><p>As the workbench becomes more developed, some of these optional keys may
-disappear.</p>
+disappear.</p><div class="section">
+<h4 id="custom-engines">Custom Engines<a class="anchor" aria-label="anchor" href="#custom-engines"></a></h4>
+
+
+<p>To use a specific version of sandpaper or varnish locally, you would install
+them using <code>remotes::install_github("carpentries/sandpaper@VERSION")</code> syntax,
+but to provision these versions on GitHub, you can provision these in the
+<code>config.yaml</code> file:</p><ul><li><p><strong>sandpaper</strong> <code>[character]</code> github string or version number of sandpaper
+version to use</p></li>
+<li><p><strong>varnish</strong> <code>[character]</code> github string or version number of varnish
+version to use</p></li>
+</ul><p>For example, if you had forked your own version of varnish to modify the
+colourscheme, you could use:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a>varnish<span class="op">:</span><span class="st"> </span>MYACCOUNT<span class="op">/</span>varnish</span></code></pre><p></p></div>
+<p>If there is a specific branch of sandpaper or varnish that is being tested,
+and you want to test it on your lesson temporarily, you could use the <code>@</code>
+symbol to refer to the specific branch or commit to use:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a>sandpaper<span class="op">:</span><span class="st"> </span>carpentries<span class="op">/</span>sandpaper<span class="op">@</span>BRANCH<span class="op">-</span>NAME</span>
+<span id="cb1-2"><a href="#cb1-2"></a>varnish<span class="op">:</span><span class="st"> </span>carpentries<span class="op">/</span>varnish<span class="op">@</span>BRANCH<span class="op">-</span>name</span></code></pre><p></p></div>
+</div>
+
+
 </div>
 
     </div>
