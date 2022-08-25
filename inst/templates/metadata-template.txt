@@ -3,7 +3,7 @@
   "@context": "https://schema.org",
   "@type": "TrainingMaterial",
   "@id": "<% url %>",
-  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/0.9-DRAFT-2020_12_08",
+  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
   "description": "<% desc %><% ^desc %>A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide<% /desc %>",
   "keywords": "<% keywords %><% ^keywords %>software,data,lesson,The Carpentries<% /keywords %>",
   "name": "<% &pagetitle %>",
