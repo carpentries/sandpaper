@@ -4,9 +4,9 @@
 #' @param ext a character. If `ext = "Rmd"` (default), then the new episode will
 #'   be an R Markdown episode. If `ext = "md"`, then the new episode will be
 #'   a markdown episode, which can not generate dynamic content.
-#' @param make_prefix a logical. If `TRUE`, the prefix for the file will be
-#'   automatically determined by the files already present. Otherwise, it assumes
-#'   you have added the prefix.
+#' @param make_prefix a logical. When `TRUE`, the prefix for the file will be
+#'   automatically determined by the files already present. When `FALSE`
+#'   (default), it assumes no prefix is needed.
 #' @param path the path to the {sandpaper} lesson.
 #' @param add if `TRUE`, the lesson is added to the schedule. Defaults to `FALSE`
 #' @export
@@ -14,7 +14,7 @@
 #' tmp <- tempfile()
 #' create_lesson(tmp)
 #' create_episode_md("getting-started", path = tmp)
-create_episode <- function(title, ext = "Rmd", make_prefix = TRUE, add = FALSE, path = ".") {
+create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = FALSE, path = ".") {
   check_lesson(path)
   ext <- switch(match.arg(tolower(ext), c("rmd", "md")), rmd = ".Rmd", md = ".md")
   prefix <- ""

@@ -6,7 +6,13 @@
 \alias{create_episode_rmd}
 \title{Create an Episode from a template}
 \usage{
-create_episode(title, ext = "Rmd", make_prefix = TRUE, add = FALSE, path = ".")
+create_episode(
+  title,
+  ext = "Rmd",
+  make_prefix = FALSE,
+  add = FALSE,
+  path = "."
+)
 
 create_episode_md(title, make_prefix = TRUE, add = FALSE, path = ".")
 
@@ -19,9 +25,9 @@ create_episode_rmd(title, make_prefix = TRUE, add = FALSE, path = ".")
 be an R Markdown episode. If \code{ext = "md"}, then the new episode will be
 a markdown episode, which can not generate dynamic content.}
 
-\item{make_prefix}{a logical. If \code{TRUE}, the prefix for the file will be
-automatically determined by the files already present. Otherwise, it assumes
-you have added the prefix.}
+\item{make_prefix}{a logical. When \code{TRUE}, the prefix for the file will be
+automatically determined by the files already present. When \code{FALSE}
+(default), it assumes no prefix is needed.}
 
 \item{add}{if \code{TRUE}, the lesson is added to the schedule. Defaults to \code{FALSE}}
 
