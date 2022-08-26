@@ -4,10 +4,10 @@ test_that("prefixed episodes can be created", {
 
   initial_episode <- fs::dir_ls(fs::path(tmp, "episodes"), glob = "*Rmd") %>%
     expect_length(1L) %>%
-    expect_match("01-introduction.Rmd")
+    expect_match("introduction.Rmd")
 
   second_episode <- create_episode_md("First Markdown", path = tmp) %>%
-    expect_match("02-first-markdown.md", fixed = TRUE)
+    expect_match("first-markdown.md", fixed = TRUE)
 
   ep1 <- readLines(initial_episode)
   ep2 <- readLines(second_episode)
