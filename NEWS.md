@@ -3,6 +3,8 @@
 * The default behavior of `create_episode()` and `create_lesson()` is to use
   episodes _without_ numbered prefixes (requested: @tobyhodges, #330; fixed
   @zkamvar, #333)
+* New Function `move_episode()` allows the lesson contributor to move an episode
+  in the schedule (requested: @tobyhodges, #330, fixed: @zkamvar, #333)
 
 # sandpaper 0.9.4
 

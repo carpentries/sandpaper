@@ -14,9 +14,9 @@ create_episode(
   path = "."
 )
 
-create_episode_md(title, make_prefix = TRUE, add = FALSE, path = ".")
+create_episode_md(title, make_prefix = FALSE, add = FALSE, path = ".")
 
-create_episode_rmd(title, make_prefix = TRUE, add = FALSE, path = ".")
+create_episode_rmd(title, make_prefix = FALSE, add = FALSE, path = ".")
 }
 \arguments{
 \item{title}{the title of the episode}

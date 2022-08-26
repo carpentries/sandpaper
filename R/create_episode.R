@@ -35,14 +35,15 @@ create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = FALSE,
   invisible(fs::path(path, "episodes", ename))
 }
 
+
 #' @export
 #' @rdname create_episode
-create_episode_md <- function(title, make_prefix = TRUE, add = FALSE, path = ".") {
+create_episode_md <- function(title, make_prefix = FALSE, add = FALSE, path = ".") {
   create_episode(title, ext = "md", make_prefix = make_prefix, add = add, path = path)
 }
 
 #' @export
 #' @rdname create_episode
-create_episode_rmd <- function(title, make_prefix = TRUE, add = FALSE, path = ".") {
+create_episode_rmd <- function(title, make_prefix = FALSE, add = FALSE, path = ".") {
   create_episode(title, ext = "Rmd", make_prefix = make_prefix, add = add, path = path)
 }
