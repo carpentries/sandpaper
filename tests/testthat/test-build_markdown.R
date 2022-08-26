@@ -174,8 +174,8 @@ test_that("Artifacts are accounted for", {
 
 test_that("Hashes are correct", {
   # see helper-hash.R
-  h1 <- expect_hashed(res, "01-introduction.Rmd")
-  h2 <- expect_hashed(res, "02-second-episode.Rmd")
+  h1 <- expect_hashed(res, "introduction.Rmd")
+  h2 <- expect_hashed(res, "second-episode.Rmd")
   # the hashes will no longer be equal because the titles are now different
   expect_failure(expect_equal(h1, h2, ignore_attr = TRUE))
 
@@ -210,7 +210,7 @@ test_that("Markdown rendering does not happen if content is not changed", {
   })
   expect_length(out, 0)
 
-  fs::file_touch(fs::path(res, "episodes", "01-introduction.Rmd"))
+  fs::file_touch(fs::path(res, "episodes", "introduction.Rmd"))
 
   suppressMessages({
     expect_message(out <- capture.output(build_markdown(res)), "nothing to rebuild")
@@ -220,21 +220,21 @@ test_that("Markdown rendering does not happen if content is not changed", {
 
 test_that("Removing source removes built", {
   # Removing files will result in the markdown files being removed
-  e2 <- fs::path(res, "episodes", "02-second-episode.Rmd")
+  e2 <- fs::path(res, "episodes", "second-episode.Rmd")
   built_path <- path_built(res)
   fs::file_delete(e2)
   reset_episodes(res)
-  set_episodes(res, "01-introduction.Rmd", write = TRUE)
+  set_episodes(res, "introduction.Rmd", write = TRUE)
   build_markdown(res, quiet = TRUE)
-#  h1 <- expect_hashed(res, "01-introduction.Rmd")
-  expect_length(get_figs(res, "01-introduction"), 1)
+#  h1 <- expect_hashed(res, "introduction.Rmd")
+  expect_length(get_figs(res, "introduction"), 1)
 
   # The second episode should not exist
   expect_false(fs::file_exists(e2))
-  expect_false(fs::file_exists(fs::path(built_path, "02-second-episode.md")))
+  expect_false(fs::file_exists(fs::path(built_path, "second-episode.md")))
 
   # The figures for the second episode should not exist either
-  expect_length(get_figs(res, "02-second-episode"), 0)
+  expect_length(get_figs(res, "second-episode"), 0)
 })
 
 test_that("old md5sum.txt db will work", {
@@ -286,14 +286,14 @@ test_that("Removing partially matching slugs will not have side-effects", {
   
   fs::file_delete(fs::path(res, "instructors", "pyramid.md"))
   build_markdown(res, quiet = TRUE)
-  h1 <- expect_hashed(res, "01-introduction.Rmd")
-  expect_length(get_figs(res, "01-introduction"), 1)
+  h1 <- expect_hashed(res, "introduction.Rmd")
+  expect_length(get_figs(res, "introduction"), 1)
 
   # The deleted file should be properly removed
   expect_false(fs::file_exists(fs::path(built_path, "pyramid.md")))
 
   # The image should still exist
-  pyramid_fig <- fs::path(built_path, "fig", "01-introduction-rendered-pyramid-1.png")
+  pyramid_fig <- fs::path(built_path, "fig", "introduction-rendered-pyramid-1.png")
   expect_true(fs::file_exists(pyramid_fig))
   
 })
