@@ -103,7 +103,7 @@ renv_check_consent <- function(path, quiet, src_files = NULL) {
       msg2 <- "use {.fn use_package_cache} to enable the package cache"
       msg3 <- "for reproducible builds."
       cli::cli_alert_info(msg1)
-      cli::cli_alert(cli::style_dim(paste(msg2, msg3)), class = "alert-suggestion")
+      cli::cli_alert(cli::style_italic(paste(msg2, msg3)), class = "alert-suggestion")
     }
   }
 }

@@ -1,3 +1,10 @@
+# sandpaper 0.9.4
+
+* The CLI styling of an important message about {renv} has been fixed to be more
+  readable (reported: @zkamvar, #331; fixed: @zkamvar, #332).
+* The bioschemas metadata version has been updated to 1.0 
+  (reported: @zkamvar, #329; fixed @zkamvar, #332).
+
 # sandpaper 0.9.3
 
 MISC
