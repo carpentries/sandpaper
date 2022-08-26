@@ -10,3 +10,5 @@
 ^$
 ^vignettes/articles/*$
 ^docs/*$
+^testthat-problems.rds$
+^testthat.Rout.fail$

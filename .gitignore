@@ -3,4 +3,6 @@
 .RData
 inst/doc
 docs/
+*.fail
+testthat-problems.*
 
