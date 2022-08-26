@@ -9,10 +9,11 @@
 #'   If `TRUE`, the schedule will be modified and written to `config.yaml`
 #' @param path the path to the lesson (defaults to the current working directory)
 #' @seealso [create_episode()], [set_episodes()], [get_drafts()], [get_episodes()]
+#' @export
 #' @examples
 #' if (interactive() || Sys.getenv("CI") != "") {
 #'   tmp <- tempfile()
-#'   create_lesson(tmp)
+#'   create_lesson(tmp, quiet = TRUE)
 #'   create_episode_md("getting-started", path = tmp)
 #'   create_episode_rmd("plotting", path = tmp)
 #'   create_episode_md("experimental", path = tmp, add = FALSE)

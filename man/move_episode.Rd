@@ -25,7 +25,7 @@ Move an episode in the schedule
 \examples{
 if (interactive() || Sys.getenv("CI") != "") {
   tmp <- tempfile()
-  create_lesson(tmp)
+  create_lesson(tmp, quiet = TRUE)
   create_episode_md("getting-started", path = tmp)
   create_episode_rmd("plotting", path = tmp)
   create_episode_md("experimental", path = tmp, add = FALSE)
