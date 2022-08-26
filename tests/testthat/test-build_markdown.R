@@ -184,18 +184,12 @@ test_that("Hashes are correct", {
 test_that("Output is not commented", {
   # Output is not commented
   built  <- get_markdown_files(res)
-  ep     <- trimws(readLines(built[[1]]))
+  built_file <- grep("introduction.md$", built)
+  ep     <- trimws(readLines(built[[built_file]]))
   ep     <- ep[ep != ""]
   outid  <- grep("[1]", ep, fixed = TRUE)
   output <- ep[outid[1]]
   fence  <- ep[outid[1] - 1]
-  if (tolower(Sys.info()[["sysname"]]) == "windows") {
-    print(c("file: ", built[[1]]))
-    print(c("id: ", outid))
-    print(c("fence: ", fence))
-    print(c("output: ", output))
-    print(c("episode: ", ep))
-  }
   expect_match(output, "^\\[1\\]")
   expect_match(fence, "^[`]{3}[{]?\\.?output[}]?")
 
