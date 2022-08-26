@@ -81,8 +81,8 @@
       set_episodes(tmp, s[1])
     Message
       episodes:
-      - 01-introduction.Rmd
+      - introduction.Rmd
       
       -- Removed episodes ------------------------------------------------------------
-      - 02-new.Rmd
+      - new.Rmd
 
