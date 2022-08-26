@@ -1,3 +1,9 @@
+# sandpaper 0.10.0
+
+* The default behavior of `create_episode()` and `create_lesson()` is to use
+  episodes _without_ numbered prefixes (requested: @tobyhodges, #330; fixed
+  @zkamvar, #333)
+
 # sandpaper 0.9.4
 
 * The CLI styling of an important message about {renv} has been fixed to be more
