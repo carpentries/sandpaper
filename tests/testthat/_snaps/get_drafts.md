@@ -31,28 +31,28 @@
     Code
       drf <- get_drafts(res, "episodes")
     Message
-      i Files are in draft: 'episodes/02-new.Rmd'
+      i Files are in draft: 'episodes/new.Rmd'
 
 # Draft episodes are and added episodes ignored [ansi]
 
     Code
       drf <- get_drafts(res, "episodes")
     Message
-      [36mi[39m [3m[3mFiles are in draft: [34m[3m[34mepisodes/02-new.Rmd[34m[3m[39m[3m[23m
+      [36mi[39m [3m[3mFiles are in draft: [34m[3m[34mepisodes/new.Rmd[34m[3m[39m[3m[23m
 
 # Draft episodes are and added episodes ignored [unicode]
 
     Code
       drf <- get_drafts(res, "episodes")
     Message
-      ℹ Files are in draft: 'episodes/02-new.Rmd'
+      ℹ Files are in draft: 'episodes/new.Rmd'
 
 # Draft episodes are and added episodes ignored [fancy]
 
     Code
       drf <- get_drafts(res, "episodes")
     Message
-      [36mℹ[39m [3m[3mFiles are in draft: [34m[3m[34mepisodes/02-new.Rmd[34m[3m[39m[3m[23m
+      [36mℹ[39m [3m[3mFiles are in draft: [34m[3m[34mepisodes/new.Rmd[34m[3m[39m[3m[23m
 
 # No draft episodes reports all episodes published [plain]
 

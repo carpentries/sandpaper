@@ -15,7 +15,7 @@ cli::test_that_cli("Draft episodes are and added episodes ignored", {
   reset_episodes(res)
   suppressMessages(set_episodes(res, get_episodes(res)[1], write = TRUE))
   expect_snapshot(drf <- get_drafts(res, "episodes"))
-  expect_equal(fs::path_file(drf), "02-new.Rmd", ignore_attr = TRUE)
+  expect_equal(fs::path_file(drf), "new.Rmd", ignore_attr = TRUE)
 
 })
 
