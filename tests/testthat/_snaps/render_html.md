@@ -29,9 +29,9 @@
          [Para [Str "How",Space,Str "do",Space,Str "you",Space,Str "write",Space,Str "markdown",Space,Str "divs?"]
          ,Para [Str "This",Space,Link ("",[],[]) [Str "link",Space,Str "should",Space,Str "be",Space,Str "transformed"] ("Setup.html","")]
          ,Para [Str "This",Space,Link ("",[],[]) [Str "rmd",Space,Str "link",Space,Str "also"] ("01-Introduction.html","")]
-         ,Para [Str "This",Space,Link ("",[],[]) [Str "rmd",Space,Str "is",Space,Str "safe"] ("https://example.com/01-Introduction.Rmd","")]
+         ,Para [Str "This",Space,Link ("",["newclass"],[]) [Str "rmd",Space,Str "is",Space,Str "safe"] ("https://example.com/01-Introduction.Rmd","")]
          ,Para [Str "This",Space,Link ("",[],[]) [Str "too"] ("Setup.html#windows-setup","windows setup")]
-         ,Para [Image ("",[],[("alt","alt text")]) [Str "link",Space,Str "should",Space,Str "be",Space,Str "transformed"] ("fig/Setup.png","fig:")]]]]
+         ,Para [Image ("fig-first",["imgclass"],[("alt","alt text")]) [Str "link",Space,Str "should",Space,Str "be",Space,Str "transformed"] ("fig/Setup.png","fig:")]]]]
       ,Div ("accordionSolution1",["accordion","challenge-accordion","accordion-flush"],[])
        [Div ("",["accordion-item"],[])
         [RawBlock (Format "html") "<button class=\"accordion-button solution-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseSolution1\" aria-expanded=\"false\" aria-controls=\"collapseSolution1\">\n  <h4 class=\"accordion-header\" id=\"headingSolution1\">\n  Write now\n  </h4>\n</button>"
@@ -113,10 +113,10 @@
       <p>How do you write markdown divs?</p>
       <p>This <a href="Setup.html">link should be transformed</a></p>
       <p>This <a href="01-Introduction.html">rmd link also</a></p>
-      <p>This <a href="https://example.com/01-Introduction.Rmd">rmd is safe</a></p>
+      <p>This <a href="https://example.com/01-Introduction.Rmd" class="newclass">rmd is safe</a></p>
       <p>This <a href="Setup.html#windows-setup" title="windows setup">too</a></p>
       <div class="figure">
-      <img src="fig/Setup.png" alt="alt text" alt="" />
+      <img src="fig/Setup.png" id="fig-first" class="imgclass" alt="alt text" alt="" />
       <p class="caption">link should be transformed</p>
       </div>
       </div>
