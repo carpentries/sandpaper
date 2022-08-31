@@ -8,7 +8,9 @@
 #'   automatically determined by the files already present. When `FALSE`
 #'   (default), it assumes no prefix is needed.
 #' @param path the path to the {sandpaper} lesson.
-#' @param add if `TRUE`, the lesson is added to the schedule. Defaults to `FALSE`
+#' @param add (logical or numeric) If numeric, it represents the position the
+#'   episode should be added. If `TRUE`, the episode is added to the end of the 
+#'   schedule. If `FALSE`, the episode is added as a draft episode.
 #' @export
 #' @examples
 #' tmp <- tempfile()
@@ -30,7 +32,7 @@ create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = FALSE,
     values = list(title = siQuote(title), md = ext == ".md"))
   if (add) {
     suppressWarnings(sched <- get_episodes(path))
-    set_episodes(path, c(sched, ename), write = TRUE)
+    move_episode(ename, position = add, write = TRUE, path = path)
   }
   invisible(fs::path(path, "episodes", ename))
 }
