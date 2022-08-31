@@ -1,5 +1,9 @@
 #' Create an Episode from a template
 #'
+#' These functions allow you to create an episode that will be added to the
+#' schedule.
+#'
+#'
 #' @param title the title of the episode
 #' @param ext a character. If `ext = "Rmd"` (default), then the new episode will
 #'   be an R Markdown episode. If `ext = "md"`, then the new episode will be
@@ -48,4 +52,16 @@ create_episode_md <- function(title, make_prefix = FALSE, add = FALSE, path = ".
 #' @rdname create_episode
 create_episode_rmd <- function(title, make_prefix = FALSE, add = FALSE, path = ".") {
   create_episode(title, ext = "Rmd", make_prefix = make_prefix, add = add, path = path)
+}
+
+#' @export
+#' @rdname create_episode
+draft_episode_md <- function(title, make_prefix = FALSE, path = ".") {
+  create_episode(title, ext = "md", make_prefix = make_prefix, add = FALSE, path = path)
+}
+
+#' @export
+#' @rdname create_episode
+draft_episode_rmd <- function(title, make_prefix = FALSE, path = ".") {
+  create_episode(title, ext = "Rmd", make_prefix = make_prefix, add = FALSE, path = path)
 }

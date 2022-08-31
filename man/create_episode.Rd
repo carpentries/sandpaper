@@ -4,6 +4,8 @@
 \alias{create_episode}
 \alias{create_episode_md}
 \alias{create_episode_rmd}
+\alias{draft_episode_md}
+\alias{draft_episode_rmd}
 \title{Create an Episode from a template}
 \usage{
 create_episode(
@@ -17,6 +19,10 @@ create_episode(
 create_episode_md(title, make_prefix = FALSE, add = FALSE, path = ".")
 
 create_episode_rmd(title, make_prefix = FALSE, add = FALSE, path = ".")
+
+draft_episode_md(title, make_prefix = FALSE, path = ".")
+
+draft_episode_rmd(title, make_prefix = FALSE, path = ".")
 }
 \arguments{
 \item{title}{the title of the episode}
@@ -29,12 +35,15 @@ a markdown episode, which can not generate dynamic content.}
 automatically determined by the files already present. When \code{FALSE}
 (default), it assumes no prefix is needed.}
 
-\item{add}{if \code{TRUE}, the lesson is added to the schedule. Defaults to \code{FALSE}}
+\item{add}{(logical or numeric) If numeric, it represents the position the
+episode should be added. If \code{TRUE}, the episode is added to the end of the
+schedule. If \code{FALSE}, the episode is added as a draft episode.}
 
 \item{path}{the path to the {sandpaper} lesson.}
 }
 \description{
-Create an Episode from a template
+These functions allow you to create an episode that will be added to the
+schedule.
 }
 \examples{
 tmp <- tempfile()
