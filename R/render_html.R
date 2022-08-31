@@ -68,13 +68,14 @@ construct_pandoc_args <- function(path_in, output, to = "html", ...) {
     "autolink_bare_uris",
     "emoji",
     "footnotes",
+    "header_attributes",
     "inline_notes",
+    "link_attributes",
+    "markdown_in_html_blocks",
+    "native_divs",
     "tex_math_dollars",
     "tex_math_single_backslash",
-    "markdown_in_html_blocks",
     "yaml_metadata_block",
-    "header_attributes",
-    "native_divs",
     sep = "+"
   )
   from <- paste0("markdown", "-hard_line_breaks", "+", exts)

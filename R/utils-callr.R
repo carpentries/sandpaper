@@ -22,8 +22,31 @@ callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, 
   # Set knitr options for output ---------------------------
   ochunk <- knitr::opts_chunk$get()
   oknit  <- knitr::opts_knit$get()
+  keng   <- knitr::knit_engines$get()
   on.exit(knitr::opts_chunk$restore(ochunk), add = TRUE)
   on.exit(knitr::opts_knit$restore(oknit), add = TRUE)
+  on.exit(knitr::knit_engines$set(keng), add = TRUE)
+  
+  # START IMPORT
+  # modified from knitr on 2022-08-30
+  # https://github.com/yihui/knitr/blob/83fb5084daa1161d3ee2f000b637e48bdcf64617/R/engine.R
+  # helper to create engines the wrap embedded html assets (e.g. css,js)
+  eng_html_asset = function(prefix, postfix) {
+    function(options) {
+      out = if (options$eval) { # remove markdown exclusion here
+        paste(c(prefix, options$code, postfix), collapse = "\n")
+      }
+      options$results = 'asis'
+      knitr::engine_output(options, options$code, out)
+    }
+  }
+  # include js in a script tag (ignore if not html output)
+  eng_js = eng_html_asset('<script type="text/javascript">', '</script>')
+  # include css in a style tag (ignore if not html output)
+  eng_css = eng_html_asset('<style type="text/css">', '</style>')
+  # END IMPORT
+
+  knitr::knit_engines$set(css = eng_css, js = eng_js)
 
   slug <- file_path_sans_ext(basename(outpath))
 
