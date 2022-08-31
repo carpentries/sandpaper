@@ -1,5 +1,9 @@
 #' Move an episode in the schedule
 #'
+#' If you need to move a single episode, this function gives you a programmatic
+#' or interactive interface to accomplishing this task, whether you need to add
+#' and episode, draft, or remove an episode from the schedule.
+#'
 #' @param ep the name of a draft episode or the name/number of a published
 #'   episode to move.
 #' @param position the position in the schedule to move the episode. Valid
@@ -77,28 +81,18 @@ move_episode <- function(ep = NULL, position = NULL, write = FALSE, path = ".") 
     ins <- ep
     ep <- eps[ins]
   }
-  invalid <- function(pos) {
-    !is.finite(pos) || (pos < 0 || pos > n)
-  }
-  #nocov start
   if (is.null(position)) {
-    position <- -1L
-    cli::cli_div()
-    cli::cli_alert_info("Select a number to insert your episode")
-    cli::cli_text("(if an episode already occupies that position, it will be shifted down)") 
-    cli::cli_text()
-    choices <- if (draft) c(eps, "[insert at end]") else eps
-    cli::cli_ol(choices)
-    cli::cli_text()
-    cli::cli_div()
-    while (invalid(position)) {
-      position <- suppressWarnings(as.integer(readline("Choice: ")))
-    }
+    position <- user_find_position(eps, draft)
   }
-  #nocov end
-  if (invalid(position)) {
+  if (!is.finite(position) || (position < 0 || position > n)) {
     stop(glue::glue("Can not move an episode to position {position}, it is out of bounds."), call. = FALSE)
+  } else {
+    # if the position is `TRUE`, then we assume it is being added to the end of
+    # the episode list, otherwise, it remains unchanged. a value of `FALSE` will
+    # be coerced to 0L.
+    position <- if (isTRUE(position)) n else position
   }
+  
   eps <- eps[-ins]
   n <- length(eps)
   if (position == 0) {
@@ -117,4 +111,36 @@ move_episode <- function(ep = NULL, position = NULL, write = FALSE, path = ".") 
   }
   new <- c(eps[first], ep, eps[last])
   set_episodes(path = path, order = new, write = write)
+}
+
+#' Have user select position for an episode from a list
+#'
+#' This function is interactive at the while loop where it will check if the 
+#' position element is finite (failing on anything that can not be coerced to
+#' an integer) and if it is in bounds. It will repeat until a correct choice has
+#' been selected.
+#' 
+#' For testing, it will return -1 and trigger an error in `move_episode()`
+#'
+#' @param eps a vector of episode names
+#' @param draft if `TRUE`, the number of choices will be the number of episodes
+#'   plus a space at the end to insert the new episode.
+#' @noRd
+user_find_position <- function(eps, draft = FALSE) {
+  has_user <- interactive() && !identical(Sys.getenv("TESTTHAT"), "true")
+  position <- -1L
+  cli::cli_div()
+  cli::cli_alert_info("Select a number to insert your episode")
+  cli::cli_text("(if an episode already occupies that position, it will be shifted down)") 
+  cli::cli_text()
+  choices <- if (draft) c(eps, "[insert at end]") else eps
+  cli::cli_ol(choices)
+  cli::cli_text()
+  cli::cli_div()
+  #nocov start
+  while (has_user && (!is.finite(position) || (position < 0 || position > n))) {
+    position <- suppressWarnings(as.integer(readline("Choice: ")))
+  }
+  #nocov end
+  position
 }

@@ -20,7 +20,9 @@ If \code{TRUE}, the schedule will be modified and written to \code{config.yaml}}
 \item{path}{the path to the lesson (defaults to the current working directory)}
 }
 \description{
-Move an episode in the schedule
+If you need to move a single episode, this function gives you a programmatic
+or interactive interface to accomplishing this task, whether you need to add
+and episode, draft, or remove an episode from the schedule.
 }
 \examples{
 if (interactive() || Sys.getenv("CI") != "") {

@@ -29,6 +29,12 @@ test_that("Errors happen with invalid position arguments", {
 
 })
 
+cli::test_that_cli("no position will trigger an interactive search", {
+
+  expect_snapshot(tryCatch(move_episode(1, path = res), 
+      error = function(e) e$message))
+
+})
 
 cli::test_that_cli("Episodes can be moved to a different position", {
 
@@ -66,6 +72,10 @@ cli::test_that_cli("Episodes can be moved out of position", {
   expect_snapshot(move_episode("new-mewtwo-three.Rmd", 0, write = FALSE, path = res))
   expect_equal(get_episodes(res), eporder)
 
+  # FALSE is equivalent to zero
+  expect_snapshot(move_episode("new-mewtwo-three.Rmd", FALSE, write = FALSE, path = res))
+  expect_equal(get_episodes(res), eporder)
+
   expect_snapshot(move_episode(3, 0, write = FALSE, path = res))
   expect_equal(get_episodes(res), eporder)
 
@@ -75,11 +85,18 @@ cli::test_that_cli("Episodes can be moved out of position", {
 
 })
 
+cli::test_that_cli("no position will trigger an interactive search", {
+
+  expect_snapshot(tryCatch(move_episode("new-mewtwo-three.Rmd", path = res), 
+      error = function(e) e$message))
+
+})
+
 test_that("Errors happen with invalid file arguments", {
 
   suppressMessages({
   move_episode(TRUE, 1, path = res) %>%
-    expect_message("'TRUE' does not refere to any episode") %>%
+    expect_message("'TRUE' does not refer to any episode") %>%
     expect_error()
   move_episode(c("one", "two"), 1, path = res) %>%
     expect_message("Too many episodes specified: one and two.") %>%
@@ -99,6 +116,10 @@ cli::test_that_cli("Drafts can be added to the index", {
   expect_equal(get_episodes(res), eporder[-3])
 
   expect_snapshot(move_episode("new-mewtwo-three.Rmd", 4, write = FALSE, path = res))
+  expect_equal(get_episodes(res), eporder[-3])
+
+  # true is the equivalent of the end of the list
+  expect_snapshot(move_episode("new-mewtwo-three.Rmd", TRUE, write = FALSE, path = res))
   expect_equal(get_episodes(res), eporder[-3])
 
   expect_snapshot(move_episode("new-mewtwo-three.Rmd", 4, write = TRUE, path = res))
