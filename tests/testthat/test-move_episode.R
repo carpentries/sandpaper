@@ -19,7 +19,11 @@ test_that("all episodes are present in the config file", {
 test_that("Errors happen with invalid position arguments", {
 
   expect_error(move_episode(4, 5, path = res), "position")
-  expect_error(move_episode(6, 5, path = res))
+  suppressMessages({
+  move_episode(6, 5, path = res) %>%
+    expect_message("Episode index 6 is out of range") %>%
+    expect_error()
+  })
   expect_error(move_episode("new.Rmd", 5, path = res), "position")
   expect_error(move_episode("new.Rmd", -5, path = res), "position")
 
@@ -73,9 +77,16 @@ cli::test_that_cli("Episodes can be moved out of position", {
 
 test_that("Errors happen with invalid file arguments", {
 
-  expect_error(move_episode(TRUE, 1, path = res))
-  expect_error(move_episode(character(2), 1, path = res), "one episode")
-  expect_error(move_episode("more-more-more.Rmd", 1, path = res), "episodes or drafts")
+  suppressMessages({
+  move_episode(TRUE, 1, path = res) %>%
+    expect_message("'TRUE' does not refere to any episode") %>%
+    expect_error()
+  move_episode(c("one", "two"), 1, path = res) %>%
+    expect_message("Too many episodes specified: one and two.") %>%
+    expect_error("file name")
+  move_episode("more-more-more.Rmd", 1, path = res) %>%
+    expect_error("episodes or drafts")
+  })
 
 })
 

@@ -48,10 +48,21 @@ move_episode <- function(ep = NULL, position = NULL, write = FALSE, path = ".") 
   drafts <- fs::path_file(get_sources(path, "episodes"))
   draft <- FALSE
   n <- length(eps)
-  stopifnot(
-    "can only move one episode at a time" = length(ep) == 1,
-    "`ep` must be an episode or a draft index" = is.character(ep) || is.numeric(ep) && ep <= n && ep > 0
-  )
+  if (length(ep) != 1) {
+    cli::cli_alert_danger("Too many episodes specified: {ep}. {.fn move_episode} can only move one episode at a time.")
+    stop("parameter `ep` must be a single file name or position", call. = FALSE)
+  }
+  ep_is_char <- is.character(ep)
+  if (!ep_is_char) {
+    if (is.numeric(ep) && (ep > n || ep < 0)) {
+      cli::cli_alert_danger("Episode index {ep} is out of range (0--{n}). {.fn move_episode} can only move existing files.")
+      stop("`ep` must be an episode index if it is numeric.")
+    }
+    if (!is.numeric(ep)) {
+      cli::cli_alert_danger("'{ep}' does not refer to any episode. {.fn move_episode} can only move existing files.")
+      stop("`ep` must be an episode name or index.")
+    }
+  }
   if (is.character(ep)) {
     if (ep %in% eps) {
       ins <- match(ep, eps)
