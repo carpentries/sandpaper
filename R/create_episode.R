@@ -20,7 +20,7 @@
 #' tmp <- tempfile()
 #' create_lesson(tmp)
 #' create_episode_md("getting-started", path = tmp)
-create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = FALSE, path = ".") {
+create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = TRUE, path = ".") {
   check_lesson(path)
   ext <- switch(match.arg(tolower(ext), c("rmd", "md")), rmd = ".Rmd", md = ".md")
   prefix <- ""
@@ -35,7 +35,6 @@ create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = FALSE,
   copy_template("episode", fs::path(path, "episodes"), ename, 
     values = list(title = siQuote(title), md = ext == ".md"))
   if (add) {
-    suppressWarnings(sched <- get_episodes(path))
     move_episode(ename, position = add, write = TRUE, path = path)
   }
   invisible(fs::path(path, "episodes", ename))
@@ -44,13 +43,13 @@ create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = FALSE,
 
 #' @export
 #' @rdname create_episode
-create_episode_md <- function(title, make_prefix = FALSE, add = FALSE, path = ".") {
+create_episode_md <- function(title, make_prefix = FALSE, add = TRUE, path = ".") {
   create_episode(title, ext = "md", make_prefix = make_prefix, add = add, path = path)
 }
 
 #' @export
 #' @rdname create_episode
-create_episode_rmd <- function(title, make_prefix = FALSE, add = FALSE, path = ".") {
+create_episode_rmd <- function(title, make_prefix = FALSE, add = TRUE, path = ".") {
   create_episode(title, ext = "Rmd", make_prefix = make_prefix, add = add, path = path)
 }
 
