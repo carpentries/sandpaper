@@ -95,6 +95,10 @@ move_episode <- function(ep = NULL, position = NULL, write = FALSE, path = ".") 
   
   eps <- eps[-ins]
   n <- length(eps)
+  if (n == 0) {
+    # this is the first episode being added!
+    return(set_episodes(path = path, order = ep, write = write))
+  }
   if (position == 0) {
     first <- seq(n)
     last <- 0L
@@ -134,6 +138,7 @@ user_find_position <- function(eps, draft = FALSE) {
   cli::cli_text("(if an episode already occupies that position, it will be shifted down)") 
   cli::cli_text()
   choices <- if (draft) c(eps, "[insert at end]") else eps
+  n <- length(choices)
   cli::cli_ol(choices)
   cli::cli_text()
   cli::cli_div()
