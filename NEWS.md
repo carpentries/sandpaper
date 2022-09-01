@@ -1,3 +1,4 @@
+
 # sandpaper 0.10.0
 
 * The default behavior of `create_episode()` and `create_lesson()` is to use
@@ -7,6 +8,16 @@
   in the schedule (requested: @tobyhodges, #330, fixed: @zkamvar, #333)
 * New functions `draft_lesson_md()` and `draft_lesson_rmd()` perform the task of
   `create_lesson(add = FALSE)`.
+
+# sandpaper 0.9.5
+
+* css and js can now be embedded into individual pages for custom styling
+  (see <https://bookdown.org/yihui/rmarkdown-cookbook/html-css.html> for
+  implementation details).
+* The pandoc extension `link_attributes` has been added to process custom link
+  classes (see <https://pandoc.org/MANUAL.html#extension-link_attributes> for
+  details).
+
 
 # sandpaper 0.9.4
 
