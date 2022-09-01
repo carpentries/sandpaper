@@ -58,16 +58,16 @@ contact: {{ contact }}
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes: {{ episodes }}
+episodes: {{{ episodes }}}
 
 # Information for Learners
-learners: {{ learners }}
+learners: {{{ learners }}}
 
 # Information for Instructors
-instructors: {{ instructors }}
+instructors: {{{ instructors }}}
 
 # Learner Profiles
-profiles: {{ profiles }}
+profiles: {{{ profiles }}}
 
 # Customisation ---------------------------------------------
 #
