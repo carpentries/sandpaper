@@ -37,6 +37,7 @@ test_that("un-prefixed episodes can be created", {
 
 test_that("draft episodes can be dreated", {
 
+  skip_on_os("windows") # y'all ain't ready for this
   draft_episode_md("ignore-me", path = tmp)
   expect_equal(get_episodes(tmp), c("introduction.Rmd", "first-markdown.md", "\uC548\uB155-\U0001F62D-kitty.Rmd"))
   draft_episode_rmd("ignore-me-in-r", path = tmp)
