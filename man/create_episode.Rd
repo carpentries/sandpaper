@@ -8,17 +8,11 @@
 \alias{draft_episode_rmd}
 \title{Create an Episode from a template}
 \usage{
-create_episode(
-  title,
-  ext = "Rmd",
-  make_prefix = FALSE,
-  add = FALSE,
-  path = "."
-)
+create_episode(title, ext = "Rmd", make_prefix = FALSE, add = TRUE, path = ".")
 
-create_episode_md(title, make_prefix = FALSE, add = FALSE, path = ".")
+create_episode_md(title, make_prefix = FALSE, add = TRUE, path = ".")
 
-create_episode_rmd(title, make_prefix = FALSE, add = FALSE, path = ".")
+create_episode_rmd(title, make_prefix = FALSE, add = TRUE, path = ".")
 
 draft_episode_md(title, make_prefix = FALSE, path = ".")
 
