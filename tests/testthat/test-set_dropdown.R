@@ -65,11 +65,11 @@ test_that("schedule is empty by default", {
 })
 
 
-test_that("new episodes will not add to the schedule by default", {
+test_that("new episodes will add to the schedule by default", {
 
   set_episodes(tmp, "introduction.Rmd", write = TRUE)
   create_episode("new", path = tmp)
-  expect_equal(get_episodes(tmp), "introduction.Rmd", ignore_attr = TRUE)
+  expect_equal(get_episodes(tmp), c("introduction.Rmd", "new.Rmd"), ignore_attr = TRUE)
 
 })
 

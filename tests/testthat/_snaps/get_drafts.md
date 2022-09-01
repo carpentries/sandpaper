@@ -26,28 +26,28 @@
     Message
       [36mℹ[39m All files in [34m[34m[34mepisodes[34m/[34m[39m published (config.yaml empty)
 
-# Draft episodes are and added episodes ignored [plain]
+# Draft episodes are reported and added episodes ignored [plain]
 
     Code
       drf <- get_drafts(res, "episodes")
     Message
       i Files are in draft: 'episodes/new.Rmd'
 
-# Draft episodes are and added episodes ignored [ansi]
+# Draft episodes are reported and added episodes ignored [ansi]
 
     Code
       drf <- get_drafts(res, "episodes")
     Message
       [36mi[39m [3m[3mFiles are in draft: [34m[3m[34mepisodes/new.Rmd[34m[3m[39m[3m[23m
 
-# Draft episodes are and added episodes ignored [unicode]
+# Draft episodes are reported and added episodes ignored [unicode]
 
     Code
       drf <- get_drafts(res, "episodes")
     Message
       ℹ Files are in draft: 'episodes/new.Rmd'
 
-# Draft episodes are and added episodes ignored [fancy]
+# Draft episodes are reported and added episodes ignored [fancy]
 
     Code
       drf <- get_drafts(res, "episodes")

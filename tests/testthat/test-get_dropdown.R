@@ -9,6 +9,7 @@ lt <- fs::file_create(fs::path(tmp, "learners", c("learner-test.md")))
 it <- fs::file_create(fs::path(tmp, "instructors", c("test1.md", "test2.md")))
 pt <- fs::file_create(fs::path(tmp, "profiles", c("profileA.md", "profileB.md")))
 eps <- c("introduction.Rmd", "outroduction.md")
+reset_episodes(res)
 }
 
 cli::test_that_cli("get_dropdown works as expected with messages", {
