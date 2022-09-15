@@ -1,5 +1,8 @@
 # sandpaper 0.10.0
 
+NEW FEATURES
+------------
+
 * The default behavior of `create_episode()` and `create_lesson()` is to use
   episodes _without_ numbered prefixes and will now automatically add episodes
   to the schedule (requested: @tobyhodges, #330; fixed @zkamvar, #333)
@@ -9,6 +12,11 @@
   `create_lesson(add = FALSE)`.
 * Helper function `strip_prefix()` will automatically strip the prefixes for all
   episodes in the schedule.
+
+BUG FIX
+-------
+
+* `get_config()` now has a default `path` argument.
 
 # sandpaper 0.9.6
 
