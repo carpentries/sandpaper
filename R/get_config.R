@@ -7,7 +7,7 @@
 #' tmp <- tempfile()
 #' create_lesson(tmp)
 #' get_config(tmp)
-get_config <- function(path) {
+get_config <- function(path = ".") {
   cfg <- path_config(path)
   if (!fs::file_exists(cfg)) {
     stop("config file does not exist")
