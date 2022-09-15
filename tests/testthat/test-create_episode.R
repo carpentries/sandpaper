@@ -53,6 +53,7 @@ test_that("draft episodes can be drafted", {
 test_that("prefixed episodes can be reverted", {
 
   # setup: create episodes with prefixes and remove the schedule
+  skip_on_os("windows") # y'all ain't ready for this
   episodes <- get_episodes(tmp)
   epathodes <- path_episodes(tmp)
   new_episodes <- sprintf("%02d-%s", seq(episodes), episodes)
