@@ -7,6 +7,8 @@
   in the schedule (requested: @tobyhodges, #330, fixed: @zkamvar, #333)
 * New functions `draft_lesson_md()` and `draft_lesson_rmd()` perform the task of
   `create_lesson(add = FALSE)`.
+* Helper function `strip_prefix()` will automatically strip the prefixes for all
+  episodes in the schedule.
 
 # sandpaper 0.9.6
 

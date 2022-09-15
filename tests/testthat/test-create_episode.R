@@ -1,6 +1,6 @@
 tmp <- res <- restore_fixture()
 
-test_that("prefixed episodes can be created", {
+test_that("non-prefixed episodes can be created", {
 
   initial_episode <- fs::dir_ls(fs::path(tmp, "episodes"), glob = "*Rmd") %>%
     expect_length(1L) %>%
@@ -35,7 +35,7 @@ test_that("un-prefixed episodes can be created", {
 })
 
 
-test_that("draft episodes can be dreated", {
+test_that("draft episodes can be drafted", {
 
   skip_on_os("windows") # y'all ain't ready for this
   draft_episode_md("ignore-me", path = tmp)
@@ -49,3 +49,28 @@ test_that("draft episodes can be dreated", {
 
 })
 
+
+test_that("prefixed episodes can be reverted", {
+
+  # setup: create episodes with prefixes and remove the schedule
+  episodes <- get_episodes(tmp)
+  epathodes <- path_episodes(tmp)
+  new_episodes <- sprintf("%02d-%s", seq(episodes), episodes)
+  fs::file_move(fs::path(epathodes, episodes), fs::path(epathodes, new_episodes))
+  reset_episodes(tmp)
+
+  # set the schedule and test the strip_prefix info
+  set_episodes(tmp, new_episodes, write = TRUE)
+  expect_equal(get_episodes(tmp), new_episodes)
+  expect_snapshot(strip_prefix(tmp, write = FALSE))
+  
+  # check that nothing has been written and then rewrite the episodes
+  expect_equal(get_episodes(tmp), new_episodes)
+  strip_prefix(tmp, write = TRUE)
+  
+  # none of the draft episodes should appear here
+  expect_equal(get_episodes(tmp), episodes)
+
+  expect_snapshot(strip_prefix(tmp, write = FALSE))
+
+})

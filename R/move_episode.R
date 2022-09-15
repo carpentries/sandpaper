@@ -149,3 +149,60 @@ user_find_position <- function(eps, draft = FALSE) {
   #nocov end
   position
 }
+
+#' This will strip existing episode prefixes and set the schedule
+#'
+#' Episode order for Carpentries lessons originally used a strategy of prefixing
+#' files by a two-digit number to force a specific order by filename. This
+#' function will strip these numbers from the filename and set the schedule
+#' according to the original order.
+#' 
+#' @inheritParams move_episode
+#' @return when `write = TRUE`, the modified list of episodes. When 
+#'  `write = FALSE`, the modified call is returned.
+#'
+#' @note git will recognise this as deleting a file and then adding a new file
+#'   in the stage. If you run `git add`, it should recognise that it is a rename.
+#' 
+#' @export
+#' @seealso [create_episode()] for creating new episodes, [move_episode()] for
+#'   moving individual episodes around.
+#'
+#' @examples
+#' if (FALSE) {
+#'   strip_prefix() # test if the function is doing what you want it to do
+#'   strip_prefix(write = TRUE) # rewrite the episode names
+#' }
+strip_prefix <- function(path = ".", write = FALSE) {
+  path <- root_path(path)
+  episodes <- get_episodes(path)
+  suppressWarnings(prefix <- as.integer(sub("^([0-9]{2}).+$", "\\1", episodes)))
+  no_prefix <- length(prefix) == 0 || all(is.na(prefix))
+  if (no_prefix) {
+    cli::cli_alert_info("No prefix detected... nothing to do")
+    return(episodes)
+  }
+  epathodes <- path_episodes(path)
+  all_episodes <- fs::path_file(fs::dir_ls(epathodes, regexp = "*.[Rr]?md"))
+  scheduled_episodes <- all_episodes[all_episodes %in% episodes]
+  moved_episodes <- sub("^[0-9]{2}(\\.[0-9]+)?[-]", "", scheduled_episodes, perl = TRUE)
+  if (write) {
+    fs::file_move(fs::path(epathodes, scheduled_episodes), 
+      fs::path(epathodes, moved_episodes))
+    return(set_episodes(path = path, order = moved_episodes, write = TRUE))
+  } else {
+    the_call <- match.call()
+    thm <- cli::cli_div(theme = sandpaper_cli_theme())
+    on.exit(cli::cli_end(thm))
+    cli::cli_alert_info("Stripped prefixes")
+    cli::cli_ol()
+    for (i in seq(moved_episodes)) {
+      cli::cli_li("{.file {scheduled_episodes[i]}}\t->\t{.file {moved_episodes[i]}}")
+    }
+    the_call[["write"]] <- TRUE
+    cll <- gsub("\\s+", " ", paste(utils::capture.output(the_call), collapse = ""))
+    cli::cli_rule()
+    cli::cli_alert_info("To save this configuration, use\n\n{.code {cll}}")
+    return(invisible(the_call))
+  }
+}
