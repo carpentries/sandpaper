@@ -24,7 +24,7 @@ License: MIT + file LICENSE
 Imports: 
     pkgdown (>= 1.6.0),
     pegboard (>= 0.2.3),
-    cli (>= 2.0.2),
+    cli (>= 3.4.0),
     commonmark,
     fs (>= 1.5.0),
     gh,

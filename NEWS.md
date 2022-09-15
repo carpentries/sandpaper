@@ -1,8 +1,23 @@
 # sandpaper 0.9.6
 
+BUG FIX
+-------
+
 * A minor bug is fixed. It originated from the most recent update in {cli}
   where newlines in a span are collapsed. This will fix (reported: @zkamvar,
   #336; fixed @zkamvar #337)
+
+DEPENDENCIES
+------------
+
+* The minimum version of CLI has been updated to version 3.4.0
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* Pull request response workflows have been updated to make sure their
+  conditionals do not always default to TRUE (see 
+  https://github.com/carpentries/actions/pull/56)
 
 # sandpaper 0.9.5
 
