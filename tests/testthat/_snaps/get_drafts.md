@@ -10,7 +10,7 @@
     Code
       drf <- get_drafts(res, "episodes")
     Message
-      [36mi[39m All files in [34m[34m[34mepisodes[34m/[34m[39m published (config.yaml empty)
+      [36mi[39m All files in [34m[34mepisodes/[34m[39m published (config.yaml empty)
 
 # Default state reports all episodes published [unicode]
 
@@ -24,7 +24,7 @@
     Code
       drf <- get_drafts(res, "episodes")
     Message
-      [36mℹ[39m All files in [34m[34m[34mepisodes[34m/[34m[39m published (config.yaml empty)
+      [36mℹ[39m All files in [34m[34mepisodes/[34m[39m published (config.yaml empty)
 
 # Draft episodes are and added episodes ignored [plain]
 
@@ -66,7 +66,7 @@
     Code
       drf <- get_drafts(res, "episodes")
     Message
-      [36mi[39m All files in [34m[34m[34mepisodes[34m/[34m[39m published
+      [36mi[39m All files in [34m[34mepisodes/[34m[39m published
 
 # No draft episodes reports all episodes published [unicode]
 
@@ -80,5 +80,5 @@
     Code
       drf <- get_drafts(res, "episodes")
     Message
-      [36mℹ[39m All files in [34m[34m[34mepisodes[34m/[34m[39m published
+      [36mℹ[39m All files in [34m[34mepisodes/[34m[39m published
 
