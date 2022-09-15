@@ -1,3 +1,9 @@
+# sandpaper 0.9.6
+
+* A minor bug is fixed. It originated from the most recent update in {cli}
+  where newlines in a span are collapsed. This will fix (reported: @zkamvar,
+  #336; fixed @zkamvar #337)
+
 # sandpaper 0.9.5
 
 * css and js can now be embedded into individual pages for custom styling
