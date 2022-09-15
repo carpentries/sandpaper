@@ -94,7 +94,7 @@ message_draft_files <- function(hopes, real_files, subfolder) {
 message_package_cache <- function(msg) {
   our_lines <- grep("^(renv maintains|This path can be customized)", msg)
   RENV_MESSAGE <- msg[our_lines[1]:our_lines[2]]
-  RENV_MESSAGE <- paste(RENV_MESSAGE, collapse = "\n")
+  RENV_MESSAGE <- paste(RENV_MESSAGE, collapse = "\f")
   txt <- readLines(system.file("templates", "consent-form.txt", package = "sandpaper"))
   txt <- paste(txt, collapse = "\n")
   cli::cli_div(theme = sandpaper_cli_theme())
