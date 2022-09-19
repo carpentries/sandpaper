@@ -185,7 +185,7 @@ strip_prefix <- function(path = ".", write = FALSE) {
   epathodes <- path_episodes(path)
   all_episodes <- fs::path_file(fs::dir_ls(epathodes, regexp = "*.[Rr]?md"))
   scheduled_episodes <- all_episodes[all_episodes %in% episodes]
-  moved_episodes <- sub("^[0-9]{2}(\\.[0-9]+)?[-]", "", scheduled_episodes, perl = TRUE)
+  moved_episodes <- trimws(sub("^[0-9]{2}(\\.[0-9]+)?[-]", "", scheduled_episodes, perl = TRUE))
   if (write) {
     fs::file_move(fs::path(epathodes, scheduled_episodes), 
       fs::path(epathodes, moved_episodes))
