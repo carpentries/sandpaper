@@ -97,13 +97,13 @@ defaults to <code>FALSE</code>. This has no effect if the episode is an <code>xm
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The contents of the lesson are contained in the following templating cascade:</p>
-<p></p><div class="sourceCode html"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">&lt;body&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">'container'</span><span class="kw">&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">'row'</span><span class="kw">&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>      <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">'[...] primary-content'</span><span class="kw">&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>        <span class="kw">&lt;main&gt;</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>          <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">'[...] lesson-content'</span><span class="kw">&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>            CONTENT HERE</span></code></pre><p></p></div>
+<p></p><div class="sourceCode html"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">'container'</span><span class="kw">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">'row'</span><span class="kw">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">'[...] primary-content'</span><span class="kw">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;main&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">'[...] lesson-content'</span><span class="kw">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            CONTENT HERE</span></code></pre><p></p></div>
 <p>This function will extract the content from the episode without the templating.</p>
     </div>
 
@@ -111,7 +111,7 @@ defaults to <code>FALSE</code>. This has no effect if the episode is an <code>xm
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">lsn</span> <span class="op">&lt;-</span> <span class="st">"/path/to/lesson"</span></span></span>
-<span class="r-in"><span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgdown.r-lib.org/reference/as_pkgdown.html" class="external-link">as_pkgdown</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">lsn</span>, <span class="st">"site"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu">pkgdown</span><span class="fu">::</span><span class="fu">as_pkgdown</span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu">path</span><span class="op">(</span><span class="va">lsn</span>, <span class="st">"site"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># for AiO pages, this will return only the top-level sections:</span></span></span>
 <span class="r-in"><span><span class="fu">get_content</span><span class="op">(</span><span class="st">"aio"</span>, content <span class="op">=</span> <span class="st">"section"</span>, label <span class="op">=</span> <span class="cn">TRUE</span>, pkg <span class="op">=</span> <span class="va">pkg</span><span class="op">)</span></span></span>

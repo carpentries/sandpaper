@@ -97,10 +97,10 @@ reports the markdown build via pandoc</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/pandoc_available.html" class="external-link">pandoc_available</a></span><span class="op">(</span><span class="st">"2.11"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu">pandoc_available</span><span class="op">(</span><span class="st">"2.11"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># first example---markdown to HTML</span></span></span>
-<span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"# Markdown"</span>, </span></span>
+<span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu">tempfile</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ex</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"# Markdown"</span>, </span></span>
 <span class="r-in"><span>  <span class="st">""</span>, </span></span>
 <span class="r-in"><span>  <span class="st">"::: challenge"</span>, </span></span>
 <span class="r-in"><span>  <span class="st">""</span>, </span></span>
@@ -108,21 +108,48 @@ reports the markdown build via pandoc</p></dd>
 <span class="r-in"><span>  <span class="st">""</span>, </span></span>
 <span class="r-in"><span>  <span class="st">":::"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">ex</span>, <span class="va">tmp</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">render_html</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">writeLines</span><span class="op">(</span><span class="va">ex</span>, <span class="va">tmp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cat</span><span class="op">(</span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">render_html</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># adding a lua filter</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lua</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">lu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Str = function (elem)"</span>,</span></span>
+<span class="r-in"><span><span class="va">lua</span> <span class="op">&lt;-</span> <span class="fu">tempfile</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lu</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Str = function (elem)"</span>,</span></span>
 <span class="r-in"><span><span class="st">"  if elem.text == 'markdown' then"</span>,</span></span>
 <span class="r-in"><span><span class="st">"    return pandoc.Emph {pandoc.Str 'mowdrank'}"</span>,</span></span>
 <span class="r-in"><span><span class="st">"  end"</span>,</span></span>
 <span class="r-in"><span><span class="st">"end"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">lu</span>, <span class="va">lua</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">lf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"--lua-filter="</span>, <span class="va">lua</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">render_html</span><span class="op">(</span><span class="va">tmp</span>, <span class="va">lf</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">writeLines</span><span class="op">(</span><span class="va">lu</span>, <span class="va">lua</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lf</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="st">"--lua-filter="</span>, <span class="va">lua</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cat</span><span class="op">(</span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">render_html</span><span class="op">(</span><span class="va">tmp</span>, <span class="va">lf</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="markdown" class="section level1"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;h1&gt;Markdown&lt;/h1&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="discussion1" class="callout discussion"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="callout-square"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;i class='callout-icon' data-feather='message-circle'&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="section level3 callout-title callout-inner"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;h3 class="callout-title"&gt;Challenge&lt;/h3&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="callout-content"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;p&gt;How do you write markdown divs?&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;div id="markdown" class="section level1"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;h1&gt;Markdown&lt;/h1&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="discussion1" class="callout discussion"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="callout-square"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;i class='callout-icon' data-feather='message-circle'&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="section level3 callout-title callout-inner"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;h3 class="callout-title"&gt;Challenge&lt;/h3&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="callout-content"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;p&gt;How do you write &lt;em&gt;mowdrank&lt;/em&gt; divs?&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

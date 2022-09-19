@@ -82,7 +82,8 @@
 
 
 
-<script src="automated-pull-requests_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Working with Automated Pull Requests</h1>
             
@@ -148,8 +149,8 @@
 </h2>
 <p>If you want to create updates manually without using GitHub Actions, there are two functions available:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/update_github_workflows.html">update_github_workflows</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># updates the package workflows</span></span>
-<span><span class="fu"><a href="../reference/dependency_management.html">update_cache</a></span><span class="op">(</span><span class="op">)</span>      <span class="co"># uses `renv::update()` to check for updates to the package cache</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">update_github_workflows</span><span class="op">(</span><span class="op">)</span>  <span class="co"># updates the package workflows</span></span>
+<span><span class="fu">update_cache</span><span class="op">(</span><span class="op">)</span>      <span class="co"># uses `renv::update()` to check for updates to the package cache</span></span></code></pre></div>
 <p>Both of these functions will modify files locally so if you do not like them, you can use <code>git restore .</code> to revert them to their original state.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

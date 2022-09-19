@@ -133,7 +133,7 @@
 <h2 id="design">Design<a class="anchor" aria-label="anchor" href="#design"></a>
 </h2>
 <p>This package is designed to make the life of the lesson contributors and maintainers easier by separating the tools needed to build the site from the user-defined content of the site itself. It will no longer rely on Jekyll or any of the other <a href="https://staticsitegenerators.net" class="external-link">&gt;450 static site generators</a>, but instead rely on R, RStudio, and <a href="https://github.com/r-lib/pkgdown#readme" class="external-link">{pkgdown}</a> to generate a site with the following features:</p>
-<ul>
+<ul class="task-list">
 <li>
 <input type="checkbox" disabled checked>optional offline use</li>
 <li>
@@ -295,28 +295,28 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="st">"~/Desktop/r-intermediate-penguins"</span><span class="op">)</span></span></code></pre></div>
 <p>This will create folder on your desktop called <code>r-intermediate-penguins</code> with the following structure:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">|--</span><span class="st"> </span>.gitignore               <span class="co"># - Ignore everything in the site/ folder</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="op">|--</span><span class="st"> </span>.github<span class="op">/</span><span class="st">                 </span><span class="co"># - Scripts used for continuous integration</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="er">|</span><span class="st">   `</span><span class="dt">-- workflows/           #</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="dt">|       |-- deploy-site.yaml # -   Build the source files on github pages</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="dt">|       |-- build-md.yaml    # -   Build the markdown files on github pages</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="dt">|       </span><span class="st">`</span><span class="op">--</span><span class="st"> </span>cron.yaml        <span class="co"># -   reset package cache and test</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="op">|--</span><span class="st"> </span>episodes<span class="op">/</span><span class="st">                </span><span class="co"># - PUT YOUR MARKDOWN FILES IN THIS FOLDER</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>data<span class="op">/</span><span class="st">                </span><span class="co"># -   Data for your lesson goes here</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>figures<span class="op">/</span><span class="st">             </span><span class="co"># -   All static figures and diagrams are here</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="er">|</span><span class="st">   </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>files<span class="op">/</span><span class="st">               </span><span class="co"># -   Additional files (e.g. handouts) </span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="er">|</span><span class="st">   `</span><span class="dt">-- 00-introducition.Rmd # -   Lessons start with a two-digit number</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="dt">|-- instructors/             # - Information for Instructors</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="dt">|-- learners/                # - Information for Learners</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="dt">|   </span><span class="st">`</span><span class="op">--</span><span class="st"> </span>setup.md             <span class="co"># -   setup instructions (REQUIRED)</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="op">|--</span><span class="st"> </span>profiles<span class="op">/</span><span class="st">                </span><span class="co"># - Learner and/or Instructor Profiles</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="er">|</span><span class="op">--</span><span class="st"> </span>site<span class="op">/</span><span class="st">                    </span><span class="co"># - This folder is where the rendered markdown files and static site will live</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="er">|</span><span class="st">   `</span><span class="dt">-- README.md            # -   placeholder</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="dt">|-- config.yaml              # - Use this to configure commonly used variables</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="dt">|-- CONTRIBUTING.md          # - Carpentries Rules for Contributions (REQUIRED)</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="dt">|-- CODE_OF_CONDUCT.md       # - Carpentries Code of Conduct (REQUIRED)</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="dt">|-- LICENSE.md               # - Carpentries Licenses (REQUIRED)</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="st">`</span><span class="op">--</span><span class="st"> </span>README.md                <span class="co"># - Introduces folks how to use this lesson and where they can find more information.</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">|--</span> .gitignore               <span class="co"># - Ignore everything in the site/ folder</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="sc">|--</span> .github<span class="sc">/</span>                 <span class="co"># - Scripts used for continuous integration</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="er">|</span>   <span class="st">`</span><span class="at">-- workflows/           #</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">|       |-- deploy-site.yaml # -   Build the source files on github pages</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">|       |-- build-md.yaml    # -   Build the markdown files on github pages</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">|       </span><span class="st">`</span><span class="sc">--</span> cron.yaml        <span class="co"># -   reset package cache and test</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="sc">|--</span> episodes<span class="sc">/</span>                <span class="co"># - PUT YOUR MARKDOWN FILES IN THIS FOLDER</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="er">|</span>   <span class="er">|</span><span class="sc">--</span> data<span class="sc">/</span>                <span class="co"># -   Data for your lesson goes here</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="er">|</span>   <span class="er">|</span><span class="sc">--</span> figures<span class="sc">/</span>             <span class="co"># -   All static figures and diagrams are here</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="er">|</span>   <span class="er">|</span><span class="sc">--</span> files<span class="sc">/</span>               <span class="co"># -   Additional files (e.g. handouts) </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="er">|</span>   <span class="st">`</span><span class="at">-- 00-introducition.Rmd # -   Lessons start with a two-digit number</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="at">|-- instructors/             # - Information for Instructors</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="at">|-- learners/                # - Information for Learners</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="at">|   </span><span class="st">`</span><span class="sc">--</span> setup.md             <span class="co"># -   setup instructions (REQUIRED)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="sc">|--</span> profiles<span class="sc">/</span>                <span class="co"># - Learner and/or Instructor Profiles</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="er">|</span><span class="sc">--</span> site<span class="sc">/</span>                    <span class="co"># - This folder is where the rendered markdown files and static site will live</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="er">|</span>   <span class="st">`</span><span class="at">-- README.md            # -   placeholder</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="at">|-- config.yaml              # - Use this to configure commonly used variables</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="at">|-- CONTRIBUTING.md          # - Carpentries Rules for Contributions (REQUIRED)</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="at">|-- CODE_OF_CONDUCT.md       # - Carpentries Code of Conduct (REQUIRED)</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="at">|-- LICENSE.md               # - Carpentries Licenses (REQUIRED)</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="sc">--</span> README.md                <span class="co"># - Introduces folks how to use this lesson and where they can find more information.</span></span></code></pre></div>
 <p>Once you have your site set up, you can add your RMarkdown files in the episodes folder. By default, they will be built in alphabetical order, but you can use the <code><a href="reference/set_dropdown.html">set_episodes()</a></code> command to build the schedule in your <code>config.yaml</code> file:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">::</span><span class="fu"><a href="reference/get_dropdown.html">get_episodes</a></span><span class="op">(</span><span class="op">)</span></span>
