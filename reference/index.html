@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,11 +70,11 @@
         <dd>Create a carpentries lesson</dd>
       </dl><dl><dt>
           
-          <code><a href="create_episode.html">create_episode()</a></code> <code><a href="create_episode.html">create_episode_md()</a></code> <code><a href="create_episode.html">create_episode_rmd()</a></code> 
+          <code><a href="create_episode.html">create_episode()</a></code> <code><a href="create_episode.html">create_episode_md()</a></code> <code><a href="create_episode.html">create_episode_rmd()</a></code> <code><a href="create_episode.html">draft_episode_md()</a></code> <code><a href="create_episode.html">draft_episode_rmd()</a></code> 
         </dt>
         <dd>Create an Episode from a template</dd>
       </dl></div><div class="section level2">
-      <h2 id="working-with-lessons">Working With Lessons<a class="anchor" aria-label="anchor" href="#working-with-lessons"></a></h2>
+      <h2 id="building-lessons">Building Lessons<a class="anchor" aria-label="anchor" href="#building-lessons"></a></h2>
       
       <p class="section-desc"></p><p>Functions to work build, audit, and preview lesson content. These will be used with regularity in your work.</p>
 
@@ -104,7 +104,18 @@
           <code><a href="validate_lesson.html">validate_lesson()</a></code> 
         </dt>
         <dd>Pre-build validation of lesson elements</dd>
-      </dl><dl><dt>
+      </dl></div><div class="section level2">
+      <h2 id="lesson-development-helpers">Lesson Development Helpers<a class="anchor" aria-label="anchor" href="#lesson-development-helpers"></a></h2>
+      
+      <p class="section-desc"></p><p>Functions to programmatically assess and modify configuration and source elements of a lesson. These are often used when developing a lesson.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="get_drafts.html">get_drafts()</a></code> 
         </dt>
@@ -131,6 +142,11 @@
         <dd>Helpers to extract contents of dropdown menus on the site</dd>
       </dl><dl><dt>
           
+          <code><a href="move_episode.html">move_episode()</a></code> 
+        </dt>
+        <dd>Move an episode in the schedule</dd>
+      </dl><dl><dt>
+          
           <code><a href="get_syllabus.html">get_syllabus()</a></code> 
         </dt>
         <dd>Create a syllabus for the lesson</dd>
@@ -144,6 +160,11 @@
           <code><a href="reset_site.html">reset_site()</a></code> 
         </dt>
         <dd>Remove all files associated with the site</dd>
+      </dl><dl><dt>
+          
+          <code><a href="strip_prefix.html">strip_prefix()</a></code> 
+        </dt>
+        <dd>This will strip existing episode prefixes and set the schedule</dd>
       </dl></div><div class="section level2">
       <h2 id="the-pacakge-cache">The Pacakge Cache<a class="anchor" aria-label="anchor" href="#the-pacakge-cache"></a></h2>
       

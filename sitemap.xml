@@ -157,6 +157,9 @@
     <loc>https://carpentries.github.io/sandpaper/reference/make_instructornotes_section.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/move_episode.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper/reference/package_cache.html</loc>
   </url>
   <url>
@@ -203,6 +206,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/set_globals.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/strip_prefix.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/template.html</loc>

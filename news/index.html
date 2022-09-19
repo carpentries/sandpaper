@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,22 @@
       <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.10.0" id="sandpaper-0100">sandpaper 0.10.0<a class="anchor" aria-label="anchor" href="#sandpaper-0100"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-10-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-10-0"></a></h3>
+<ul><li>The default behavior of <code><a href="../reference/create_episode.html">create_episode()</a></code> and <code><a href="../reference/create_lesson.html">create_lesson()</a></code> is to use episodes <em>without</em> numbered prefixes and will now automatically add episodes to the schedule (requested: <a href="https://github.com/tobyhodges" class="external-link">@tobyhodges</a>, <a href="https://github.com/carpentries/sandpaper/issues/330" class="external-link">#330</a>; fixed <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/333" class="external-link">#333</a>)</li>
+<li>New function <code><a href="../reference/move_episode.html">move_episode()</a></code> allows the lesson contributor to move an episode in the schedule (requested: <a href="https://github.com/tobyhodges" class="external-link">@tobyhodges</a>, <a href="https://github.com/carpentries/sandpaper/issues/330" class="external-link">#330</a>, fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/333" class="external-link">#333</a>)</li>
+<li>New functions <code>draft_lesson_md()</code> and <code>draft_lesson_rmd()</code> perform the task of <code>create_lesson(add = FALSE)</code>.</li>
+<li>Helper function <code><a href="../reference/strip_prefix.html">strip_prefix()</a></code> will automatically strip the prefixes for all episodes in the schedule.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fix-0-10-0">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-10-0"></a></h3>
+<ul><li>
+<code><a href="../reference/get_config.html">get_config()</a></code> now has a default <code>path</code> argument.</li>
+<li>A bug where anchors for callout headings with generic names (e.g. “discussion” or “keypoints”) were missing was fixed.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.6" id="sandpaper-096">sandpaper 0.9.6<a class="anchor" aria-label="anchor" href="#sandpaper-096"></a></h2>
 <div class="section level3">
