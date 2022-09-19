@@ -17,6 +17,8 @@ BUG FIX
 -------
 
 * `get_config()` now has a default `path` argument.
+* A bug where anchors for callout headings with generic names (e.g. "discussion"
+  or "keypoints") were missing was fixed.
 
 # sandpaper 0.9.6
 
