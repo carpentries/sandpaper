@@ -72,6 +72,6 @@ test_that("prefixed episodes can be reverted", {
   # none of the draft episodes should appear here
   expect_equal(get_episodes(tmp), episodes)
 
-  expect_snapshot(strip_prefix(tmp, write = FALSE))
+  expect_snapshot(strip_prefix(tmp, write = FALSE), transform = function(x) trimws(x))
 
 })
