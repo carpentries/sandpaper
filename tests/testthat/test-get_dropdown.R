@@ -1,14 +1,15 @@
 {
 tmp <- res <- restore_fixture()
 create_episode("outroduction", path = res)
-outro <- fs::path(res, "episodes", "02-outroduction.Rmd")
+outro <- fs::path(res, "episodes", "outroduction.Rmd")
 fs::file_move(outro, fs::path_ext_set(outro, "md"))
 
 # NOTE: make sure that filenames do not clash at the moment... they will. 
 lt <- fs::file_create(fs::path(tmp, "learners", c("learner-test.md")))
 it <- fs::file_create(fs::path(tmp, "instructors", c("test1.md", "test2.md")))
 pt <- fs::file_create(fs::path(tmp, "profiles", c("profileA.md", "profileB.md")))
-eps <- c("01-introduction.Rmd", "02-outroduction.md")
+eps <- c("introduction.Rmd", "outroduction.md")
+reset_episodes(res)
 }
 
 cli::test_that_cli("get_dropdown works as expected with messages", {

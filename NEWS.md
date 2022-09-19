@@ -1,3 +1,25 @@
+# sandpaper 0.10.0
+
+NEW FEATURES
+------------
+
+* The default behavior of `create_episode()` and `create_lesson()` is to use
+  episodes _without_ numbered prefixes and will now automatically add episodes
+  to the schedule (requested: @tobyhodges, #330; fixed @zkamvar, #333)
+* New function `move_episode()` allows the lesson contributor to move an episode
+  in the schedule (requested: @tobyhodges, #330, fixed: @zkamvar, #333)
+* New functions `draft_lesson_md()` and `draft_lesson_rmd()` perform the task of
+  `create_lesson(add = FALSE)`.
+* Helper function `strip_prefix()` will automatically strip the prefixes for all
+  episodes in the schedule.
+
+BUG FIX
+-------
+
+* `get_config()` now has a default `path` argument.
+* A bug where anchors for callout headings with generic names (e.g. "discussion"
+  or "keypoints") were missing was fixed.
+
 # sandpaper 0.9.6
 
 BUG FIX
@@ -27,6 +49,7 @@ CONTINUOUS INTEGRATION
 * The pandoc extension `link_attributes` has been added to process custom link
   classes (see <https://pandoc.org/MANUAL.html#extension-link_attributes> for
   details).
+
 
 # sandpaper 0.9.4
 

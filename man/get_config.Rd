@@ -4,7 +4,7 @@
 \alias{get_config}
 \title{Get the configuration parameters for the lesson}
 \usage{
-get_config(path)
+get_config(path = ".")
 }
 \arguments{
 \item{path}{path to the lesson}

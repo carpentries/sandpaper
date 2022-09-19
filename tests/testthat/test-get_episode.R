@@ -20,7 +20,7 @@ cli::test_that_cli("set_episode() will throw an error if an episode does not exi
 cli::test_that_cli("get_episode() will throw a message about episode in draft", {
 
   withr::local_options(list("sandpaper.show_draft" = TRUE))
-  if (!fs::file_exists(fs::path(res, "episodes", "02-new.Rmd"))) {
+  if (!fs::file_exists(fs::path(res, "episodes", "new.Rmd"))) {
     create_episode("new", add = FALSE, path = res)
   }
   expect_snapshot(drafty_out <- get_episodes(res))

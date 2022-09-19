@@ -3,9 +3,9 @@
     Code
       set_config(list(title = "test: title", license = "CC0"), path = tmp)
     Message
-      - title: Lesson Title
+      - title: 'Lesson Title'
       + title: 'test: title'
-      - license: CC-BY 4.0
+      - license: 'CC-BY 4.0'
       + license: 'CC0'
       i To save this configuration, use
       
@@ -17,8 +17,8 @@
       set_config(c(title = "test: title", license = "CC0"), path = tmp, write = TRUE)
     Message
       i Writing to '[redacted]/lesson-example/config.yaml'
-      > title: Lesson Title -> title: 'test: title'
-      > license: CC-BY 4.0 -> license: 'CC0'
+      > title: 'Lesson Title' -> title: 'test: title'
+      > license: 'CC-BY 4.0' -> license: 'CC0'
 
 # set_config() will write items [ansi]
 
@@ -26,8 +26,8 @@
       set_config(c(title = "test: title", license = "CC0"), path = tmp, write = TRUE)
     Message
       [36mi[39m Writing to [34m[34m[redacted]/lesson-example/config.yaml[34m[39m
-      > title: Lesson Title -> title: 'test: title'
-      > license: CC-BY 4.0 -> license: 'CC0'
+      > title: 'Lesson Title' -> title: 'test: title'
+      > license: 'CC-BY 4.0' -> license: 'CC0'
 
 # set_config() will write items [unicode]
 
@@ -35,8 +35,8 @@
       set_config(c(title = "test: title", license = "CC0"), path = tmp, write = TRUE)
     Message
       ℹ Writing to '[redacted]/lesson-example/config.yaml'
-      → title: Lesson Title -> title: 'test: title'
-      → license: CC-BY 4.0 -> license: 'CC0'
+      → title: 'Lesson Title' -> title: 'test: title'
+      → license: 'CC-BY 4.0' -> license: 'CC0'
 
 # set_config() will write items [fancy]
 
@@ -44,8 +44,8 @@
       set_config(c(title = "test: title", license = "CC0"), path = tmp, write = TRUE)
     Message
       [36mℹ[39m Writing to [34m[34m[redacted]/lesson-example/config.yaml[34m[39m
-      → title: Lesson Title -> title: 'test: title'
-      → license: CC-BY 4.0 -> license: 'CC0'
+      → title: 'Lesson Title' -> title: 'test: title'
+      → license: 'CC-BY 4.0' -> license: 'CC0'
 
 # custom keys will return an error with default
 
@@ -81,8 +81,8 @@
       set_episodes(tmp, s[1])
     Message
       episodes:
-      - 01-introduction.Rmd
+      - introduction.Rmd
       
       -- Removed episodes ------------------------------------------------------------
-      - 02-new.Rmd
+      - new.Rmd
 

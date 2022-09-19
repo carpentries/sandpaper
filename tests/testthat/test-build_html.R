@@ -26,7 +26,7 @@ test_that("[build_home()] works independently", {
   fs::file_copy(fs::path(res, "index.md"), built_dir)
   fs::file_copy(fs::path(res, "learners", "setup.md"), built_dir)
   build_home(pkg, quiet = TRUE, new_setup = TRUE,
-    next_page = fs::path(res, "episodes", "01-introduction.Rmd")
+    next_page = fs::path(res, "episodes", "introduction.Rmd")
   )
   learn_index <- fs::path(pkg$dst_path, "index.html")
   expect_true(fs::file_exists(learn_index))
@@ -51,7 +51,7 @@ test_that("[build_home()] learner index file is index and setup", {
   # There are four out links to the next page
   fwd <- xml2::xml_find_all(html, ".//a[starts-with(@class, 'chapter-link')]/@href")
   expect_length(fwd, 4L)
-  expect_equal(xml2::xml_text(fwd), rep("01-introduction.html", 4L))
+  expect_equal(xml2::xml_text(fwd), rep("introduction.html", 4L))
 
   # The metadata contains this page information
   meta <- xml2::xml_find_first(html, ".//script[@type='application/ld+json']")
@@ -73,7 +73,7 @@ test_that("[build_home()] instructor index file is index and schedule", {
   # There are four out links to the next page
   fwd <- xml2::xml_find_all(html, ".//a[starts-with(@class, 'chapter-link')]/@href")
   expect_length(fwd, 4L)
-  expect_equal(xml2::xml_text(fwd), rep("../instructor/01-introduction.html", 4L))
+  expect_equal(xml2::xml_text(fwd), rep("../instructor/introduction.html", 4L))
 
   # the metadata contains this page information
   meta <- xml2::xml_find_first(html, ".//script[@type='application/ld+json']")

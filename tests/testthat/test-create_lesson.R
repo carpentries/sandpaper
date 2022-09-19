@@ -52,7 +52,7 @@ test_that("All template files exist", {
   expect_true(fs::file_exists(fs::path(tmp, "site", "DESCRIPTION")))
   expect_true(fs::file_exists(fs::path(tmp, "site", "_pkgdown.yaml")))
   expect_true(fs::file_exists(fs::path(tmp, "site", "built")))
-  expect_true(fs::file_exists(fs::path(tmp, "episodes", "01-introduction.Rmd")))
+  expect_true(fs::file_exists(fs::path(tmp, "episodes", "introduction.Rmd")))
   expect_true(fs::file_exists(fs::path(tmp, ".gitignore")))
   expect_true(fs::file_exists(fs::path(tmp, paste0(basename(tmp), ".Rproj"))))
 })
@@ -65,7 +65,7 @@ test_that("Templated files are correct", {
   expected <- copy_template("episode", 
     values = list(title = siQuote("introduction"), md = FALSE))
   expect_setequal(
-    readLines(fs::path(tmp, "episodes", "01-introduction.Rmd")), 
+    readLines(fs::path(tmp, "episodes", "introduction.Rmd")), 
     strsplit(expected, "\n")[[1]]
   )
   

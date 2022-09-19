@@ -84,12 +84,12 @@ add_anchors <- function(nodes, ids) {
 
 fix_callouts <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
-  callouts <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'callout')]")
+  callouts <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'callout ')]")
   h3 <- xml2::xml_find_all(callouts, "./div/h3")
   xml2::xml_set_attr(h3, "class", "callout-title")
   inner_div <- xml2::xml_parent(h3)
   xml2::xml_set_attr(inner_div, "class", "callout-inner")
-  add_anchors(h3, xml2::xml_attr(inner_div, "id"))
+  add_anchors(h3, xml2::xml_attr(callouts, "id"))
   invisible(nodes)
 }
 

@@ -1,29 +1,29 @@
 {
   res <- restore_fixture()
-  create_episode("new", add = FALSE, path = res)
+  create_episode("new", path = res)
 }
 
 cli::test_that_cli("Default state reports all episodes published", {
 
+  reset_episodes(res)
   expect_snapshot(drf <- get_drafts(res, "episodes"))
   expect_length(drf, 0)
 
 })
 
-cli::test_that_cli("Draft episodes are and added episodes ignored", {
+cli::test_that_cli("Draft episodes are reported and added episodes ignored", {
 
   reset_episodes(res)
-  suppressMessages(set_episodes(res, get_episodes(res)[1], write = TRUE))
+  set_episodes(res, "introduction.Rmd", write = TRUE)
   expect_snapshot(drf <- get_drafts(res, "episodes"))
-  expect_equal(fs::path_file(drf), "02-new.Rmd", ignore_attr = TRUE)
+  expect_equal(fs::path_file(drf), "new.Rmd", ignore_attr = TRUE)
 
 })
 
 
 cli::test_that_cli("No draft episodes reports all episodes published", {
 
-  reset_episodes(res)
-  suppressMessages(set_episodes(res, get_episodes(res), write = TRUE))
+  move_episode("new.Rmd", 2, write = TRUE, path = res)
   expect_snapshot(drf <- get_drafts(res, "episodes"))
   expect_length(drf, 0)
 
