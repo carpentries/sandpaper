@@ -36,7 +36,7 @@
       writeLines(sidelinks_instructor)
     Output
       <a href="../profiles.html">Learner View</a>
-      <a href="index.html">Summary and Schedule</a>
+      <a href="index.html"><strong>TEST</strong> title</a>
       <a href="introduction.html">1. introduction</a>
       <a href="../instructor/key-points.html">Key Points</a>
       <a href="../instructor/instructor-notes.html">Instructor Notes</a>
@@ -49,7 +49,7 @@
       writeLines(sidelinks_learner)
     Output
       <a href="instructor/profiles.html">Instructor View</a>
-      <a href="index.html">Summary and Setup</a>
+      <a href="index.html"><strong>TEST</strong> title</a>
       <a href="introduction.html">1. introduction</a>
       <a href="key-points.html">Key Points</a>
       <a href="reference.html#glossary">Glossary</a>
