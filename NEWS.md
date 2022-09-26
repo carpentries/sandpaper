@@ -5,7 +5,7 @@ NEW FEATURES
 
 * If the `index.md (or Rmd)` file has a `title` YAML element, this will take
   precedence over the default title of "Summary and Setup". 
-  (requested: @SaraMorsey, #339; fixed: @zkamvar #342)
+  (requested: @SaraMorsy, #339; fixed: @zkamvar #342)
 
 BUG FIX
 -------
