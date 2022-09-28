@@ -1,3 +1,17 @@
+# sandpaper 0.10.1
+
+NEW FEATURES
+------------
+
+* If the `index.md (or Rmd)` file has a `title` YAML element, this will take
+  precedence over the default title of "Summary and Setup". 
+  (requested: @SaraMorsy, #339; fixed: @zkamvar #342)
+
+BUG FIX
+-------
+
+* Titles in navigation bar now have Markdown parsed correctly.
+
 # sandpaper 0.10.0
 
 NEW FEATURES

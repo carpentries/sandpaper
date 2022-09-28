@@ -1,5 +1,8 @@
 res <- restore_fixture()
 withr::defer(clear_globals())
+idx <- readLines(fs::path(res, "index.md"))
+writeLines(c(idx[1], "title: '**TEST** title'", idx[-1]), 
+  fs::path(res, "index.md"))
 set_globals(res)
 pkg <- pkgdown::as_pkgdown(path_site(res))
 # shim for downlit ----------------------------------------------------------
@@ -32,9 +35,18 @@ test_that("[build_home()] works independently", {
   expect_true(fs::file_exists(learn_index))
   idx <- xml2::read_html(learn_index)
   expect_true(xml2::xml_find_lgl(idx, "boolean(.//main/section[@id='setup'])"))
+  newtitle <- xml2::xml_find_first(idx, ".//span[@class='current-chapter']/*")
+  expect_identical(as.character(newtitle), "<strong>TEST</strong>")
+  newtitle <- xml2::xml_find_first(idx, ".//h1/*")
+  expect_identical(as.character(newtitle), "<strong>TEST</strong>")
+
   instruct_index <- fs::path(pkg$dst_path, "instructor", "index.html")
   expect_true(fs::file_exists(instruct_index))
   idx <- xml2::read_html(instruct_index)
+  newtitle <- xml2::xml_find_first(idx, ".//span[@class='current-chapter']/*")
+  expect_identical(as.character(newtitle), "<strong>TEST</strong>")
+  newtitle <- xml2::xml_find_first(idx, ".//h1/*")
+  expect_identical(as.character(newtitle), "<strong>TEST</strong>")
   expect_true(xml2::xml_find_lgl(idx, "boolean(.//main/section[@id='setup'])"))
   expect_true(xml2::xml_find_lgl(idx, "boolean(.//main/section[@id='schedule'])"))
 })

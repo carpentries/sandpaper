@@ -65,9 +65,18 @@ set_globals <- function(path) {
   idx <- these_resources[["."]]
   idx <- idx[as_html(idx) == "index.html"]
   instructor_sidebar <- create_sidebar(c(idx, these_resources[["episodes"]]))
+  # check if we have a title in the index sidebar and replace with 
+  # "summary and schedule" if it does not exist.
+  idx_item <- xml2::read_html(instructor_sidebar[[1]])
+  idx_link <- xml2::xml_find_first(idx_item, ".//a")
+  idx_text <- xml2::xml_contents(idx_link)
+  if (length(idx_text) == 1 && xml2::xml_text(idx_text) == "0. ") {
+    xml2::xml_set_text(idx_link, "Summary and Schedule")
+  } else {
+    xml2::xml_set_text(idx_text, sub("^0[.] ", "", xml2::xml_text(idx_text)))
+  }
+  sindex <- create_sidebar_item(nodes = NULL, as.character(idx_link), 1)
   learner_sidebar <- instructor_sidebar
-  sindex <- create_sidebar_item(nodes = NULL,
-    "<a href='index.html'>Summary and Schedule</a>", 1)
   instructor_sidebar[[1]] <- sindex
   learner_sidebar[[1]] <- sub("Schedule", "Setup", sindex)
 

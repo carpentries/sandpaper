@@ -23,14 +23,18 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
 
   nav <- get_nav_data(idx_file, fs::path_file(idx_file), page_forward = next_page)
 
-  nav$pagetitle <- "Summary and Schedule"
+  if (nav$pagetitle == "") {
+    nav$pagetitle <- "Summary and Schedule"
+  }
   nav$page_forward <- as_html(nav$page_forward, instructor = TRUE)
   page_globals$instructor$update(nav)
   page_globals$instructor$set("syllabus", paste(syl, collapse = ""))
   page_globals$instructor$set("readme", use_instructor(html))
   page_globals$instructor$set("setup", use_instructor(setup))
 
-  nav$pagetitle <- "Summary and Setup"
+  if (nav$pagetitle == "") {
+    nav$pagetitle <- "Summary and Setup"
+  }
   nav$page_forward <- as_html(nav$page_forward)
   page_globals$learner$update(nav)
   page_globals$learner$set("readme", use_learner(html))
