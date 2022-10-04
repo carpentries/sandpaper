@@ -1,4 +1,10 @@
-# sandpaper 0.10.1
+# sandpaper 0.10.2
+
+BUG FIX
+-------
+
+* The default `.gitignore` now has `renv/sandbox` to avoid a sandbox directory
+  from being tracked by git. (see https://github.com/rstudio/renv/issues/1088)
 
 CONTINUOUS INTEGRATION
 ----------------------
