@@ -12,3 +12,4 @@
 ^docs/*$
 ^testthat-problems.rds$
 ^testthat.Rout.fail$
+^sandpaper/renv/sandbox$
