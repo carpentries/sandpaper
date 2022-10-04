@@ -51,7 +51,7 @@ test_that("manage_deps() will create a renv folder", {
   fs::file_move(rnv, tmp)
   withr::defer({
     fs::dir_delete(rnv)
-    fs::file_move(tmp, rnv) 
+    fs::file_move(fs::path(tmp, "renv"), rnv) 
   })
   expect_false(fs::dir_exists(rnv))
 
