@@ -49,16 +49,6 @@ the `renv.lock` file, respectively. If there is a problem with the cache,
 manual invaliation is necessary and can be done by setting the `CACHE_VERSION`
 secret to the current date.
 
-### Deploy to AWS (deploy-aws.yaml)
-
-If you have an AWS bucket that is set up to deploy the site from a folder, this
-workflow will deploy the site to that folder after `01 Build and Deploy` runs.
-It can also be triggered manually.
-
-Note: for this to work, you must have the `AWS_S3_BUCKET`, `AWS_ACCESS_KEY_ID`,
-and `AWS_SECRET_ACCESS_KEY` in your repository secrets. If any of these are
-missing, the workflow will not run.
-
 ## Updates
 
 ### Setup Information

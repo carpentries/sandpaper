@@ -44,10 +44,14 @@ test_that("manage_deps() will create a renv folder", {
   skip_on_cran()
   skip_on_os("windows")
   rnv <- fs::path(lsn, "renv")
-  fs::file_move(rnv, fs::path(lsn, "vner"))
+  # need to move renv folder outside of the lesson or it will detect the
+  # suggested packages within the package and chaos will ensue
+  tmp <- withr::local_tempfile()
+  fs::dir_create(tmp)
+  fs::file_move(rnv, tmp)
   withr::defer({
     fs::dir_delete(rnv)
-    fs::file_move(fs::path(lsn, "vner"), rnv) 
+    fs::file_move(fs::path(tmp, "renv"), rnv) 
   })
   expect_false(fs::dir_exists(rnv))
 

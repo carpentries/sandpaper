@@ -25,6 +25,7 @@
       .Renviron
       docs/
       po/*~
+      renv/sandbox
 
 # Destruction of the .gitignore file renders the lesson incorrect [ansi]
 
@@ -53,6 +54,7 @@
       .Renviron
       docs/
       po/*~
+      renv/sandbox
 
 # Destruction of the .gitignore file renders the lesson incorrect [unicode]
 
@@ -81,6 +83,7 @@
       .Renviron
       docs/
       po/*~
+      renv/sandbox
 
 # Destruction of the .gitignore file renders the lesson incorrect [fancy]
 
@@ -109,4 +112,5 @@
       .Renviron
       docs/
       po/*~
+      renv/sandbox
 
