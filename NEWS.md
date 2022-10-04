@@ -1,5 +1,14 @@
 # sandpaper 0.10.1
 
+CONTINUOUS INTEGRATION
+----------------------
+
+* The `deploy-aws.yaml` workflow has been removed as plans for its use is 
+  relegated to the beta stage of the workbench.
+
+
+# sandpaper 0.10.1
+
 NEW FEATURES
 ------------
 
