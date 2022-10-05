@@ -1,3 +1,14 @@
+# sandpaper 0.10.3
+
+BUG FIX
+-------
+
+* An accidental commit of `sandpaper-version.txt` in version 0.8.0 inside the
+  workflow templates folder was causing workflow update script to create pull
+  requests for the workflows every week when they should have been much less
+  frequent (the irony of this commit is that it will trigger another pull
+  request).
+
 # sandpaper 0.10.2
 
 BUG FIX
