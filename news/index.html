@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,16 +54,23 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.10.4" id="sandpaper-0104">sandpaper 0.10.4<a class="anchor" aria-label="anchor" href="#sandpaper-0104"></a></h2>
+<div class="section level3">
+<h3 id="bug-fix-0-10-4">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-10-4"></a></h3>
+<ul><li>
+<code>renv/sandbox</code> no longer required in <code>.gitignore</code>. A new bug introduced in 0.10.2 caused all lessons built before 0.10.2 to fail when rebuilt on CI. This was due to the assumption that the .gitignore item <code>renv/sandbox</code> was strictly necessary with no clear method to automatically update a file like this (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/347" class="external-link">#347</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/348" class="external-link">#348</a>).</li></ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.10.3" id="sandpaper-0103">sandpaper 0.10.3<a class="anchor" aria-label="anchor" href="#sandpaper-0103"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-10-3">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-10-3"></a></h3>
-<ul><li>An accidental commit of <code>sandpaper-version.txt</code> in version 0.8.0 inside the workflow templates folder was causing workflow update script to create pull requests for the workflows every week when they should have been much less frequent (the irony of this commit is that it will trigger another pull request).</li></ul></div>
+<ul><li>An accidental commit of <code>sandpaper-version.txt</code> in version 0.8.0 inside the workflow templates folder was causing workflow update script to create pull requests for the workflows every week when they should have been much less frequent (the irony of this commit is that it will trigger another pull request) (fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/346" class="external-link">#346</a>).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.10.2" id="sandpaper-0102">sandpaper 0.10.2<a class="anchor" aria-label="anchor" href="#sandpaper-0102"></a></h2>
 <div class="section level3">
 <h3 id="bug-fix-0-10-2">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-10-2"></a></h3>
-<ul><li>The default <code>.gitignore</code> now has <code>renv/sandbox</code> to avoid a sandbox directory from being tracked by git. (see <a href="https://github.com/rstudio/renv/issues/1088" class="external-link uri">https://github.com/rstudio/renv/issues/1088</a>)</li></ul></div>
+<ul><li>The default <code>.gitignore</code> now has <code>renv/sandbox</code> to avoid a sandbox directory from being tracked by git. (see <a href="https://github.com/rstudio/renv/issues/1088" class="external-link uri">https://github.com/rstudio/renv/issues/1088</a>) (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>; <a href="https://github.com/carpentries/sandpaper/issues/344" class="external-link">#344</a>, fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/343" class="external-link">#343</a>)</li></ul></div>
 <div class="section level3">
 <h3 id="continuous-integration-0-10-2">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-10-2"></a></h3>
 <ul><li>The <code>deploy-aws.yaml</code> workflow has been removed as plans for its use is relegated to the beta stage of the workbench.</li></ul></div>
