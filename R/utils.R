@@ -191,7 +191,7 @@ check_order <- function(order, what) {
 # to reload this thing every time we need it 
 gitignore_items <- function() {
   ours <- readLines(template_gitignore(), encoding = "UTF-8")
-  ours[!grepl("^([#].+?|)$", trimws(ours))]
+  ours[!grepl("^([#].+?|.+? # OPTIONAL|)$", trimws(ours))]
 }
 #nocov end
 

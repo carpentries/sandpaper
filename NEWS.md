@@ -1,3 +1,14 @@
+# sandpaper 0.10.4
+
+BUG FIX
+-------
+
+* `renv/sandbox` no longer required in `.gitignore`. A new bug introduced in
+  0.10.2 caused all lessons built before 0.10.2 to fail when rebuilt on CI.
+  This was due to the assumption that the .gitignore item `renv/sandbox` was
+  strictly necessary with no clear method to automatically update a file like
+  this (reported: @zkamvar, #347; fixed: @zkamvar, #348).
+
 # sandpaper 0.10.3
 
 BUG FIX
@@ -7,7 +18,7 @@ BUG FIX
   workflow templates folder was causing workflow update script to create pull
   requests for the workflows every week when they should have been much less
   frequent (the irony of this commit is that it will trigger another pull
-  request).
+  request) (fixed: @zkamvar, #346).
 
 # sandpaper 0.10.2
 
@@ -16,6 +27,7 @@ BUG FIX
 
 * The default `.gitignore` now has `renv/sandbox` to avoid a sandbox directory
   from being tracked by git. (see https://github.com/rstudio/renv/issues/1088)
+  (reported: @zkamvar; #344, fixed: @zkamvar, #343)
 
 CONTINUOUS INTEGRATION
 ----------------------
