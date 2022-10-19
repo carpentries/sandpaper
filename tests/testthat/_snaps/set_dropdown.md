@@ -7,6 +7,7 @@
       + title: 'test: title'
       - license: 'CC-BY 4.0'
       + license: 'CC0'
+      --------------------------------------------------------------------------------
       i To save this configuration, use
       
       `set_config(pairs = list(title = "test: title", license = "CC0"), path = tmp, write = TRUE)`
@@ -85,4 +86,8 @@
       
       -- Removed episodes ------------------------------------------------------------
       - new.Rmd
+      --------------------------------------------------------------------------------
+      i To save this configuration, use
+      
+      `set_episodes(path = tmp, order = s[1], write = TRUE)`
 
