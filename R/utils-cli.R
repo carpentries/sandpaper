@@ -66,8 +66,26 @@ show_changed_yaml <- function(sched, order, yaml, what = "episodes") {
       cli::cli_li("{cli::style_italic(i)}")
     }
     cli::cli_end(lid)
-
   }
+
+}
+
+show_write_hint <- function(the_call = NULL, write = "write", additions = list(), which = 1) {
+  if (is.null(the_call)) {
+    return(invisible(the_call))
+  }
+  should_write <- the_call[[write]]
+  if (identical(should_write, TRUE)) {
+    return(invisible(the_call))
+  }
+  the_call[[write]] <- TRUE
+  for (a in names(additions)) {
+    the_call[[a]] <- additions[[a]]
+  }
+  cll <- gsub("\\s+", " ", paste(utils::capture.output(the_call), collapse = ""))
+  cli::cli_rule()
+  cli::cli_alert_info("To save this configuration, use\n\n{.code {cll}}")
+  return(invisible(the_call))
 }
 
 message_default_draft <- function(subfolder) {
