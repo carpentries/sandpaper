@@ -144,7 +144,7 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `move_episode(ep = "new-too.Rmd", position = 3, write = TRUE, path = res)`
+      move_episode(ep = "new-too.Rmd", position = 3, write = TRUE, path = res)
 
 ---
 
@@ -160,7 +160,7 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `move_episode(ep = "introduction.Rmd", position = 4, write = TRUE, path = res)`
+      move_episode(ep = "introduction.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 
@@ -176,7 +176,7 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `move_episode(ep = 4, position = 3, write = TRUE, path = res)`
+      move_episode(ep = 4, position = 3, write = TRUE, path = res)
 
 # Episodes can be moved to a different position [ansi]
 
@@ -192,7 +192,7 @@
       --------------------------------------------------------------------------------
       [36mi[39m To save this configuration, use
       
-      `move_episode(ep = "new-too.Rmd", position = 3, write = TRUE, path = res)`
+      move_episode(ep = "new-too.Rmd", position = 3, write = TRUE, path = res)
 
 ---
 
@@ -208,7 +208,7 @@
       --------------------------------------------------------------------------------
       [36mi[39m To save this configuration, use
       
-      `move_episode(ep = "introduction.Rmd", position = 4, write = TRUE, path = res)`
+      move_episode(ep = "introduction.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 
@@ -224,7 +224,7 @@
       --------------------------------------------------------------------------------
       [36mi[39m To save this configuration, use
       
-      `move_episode(ep = 4, position = 3, write = TRUE, path = res)`
+      move_episode(ep = 4, position = 3, write = TRUE, path = res)
 
 # Episodes can be moved to a different position [unicode]
 
@@ -240,7 +240,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       ℹ To save this configuration, use
       
-      `move_episode(ep = "new-too.Rmd", position = 3, write = TRUE, path = res)`
+      move_episode(ep = "new-too.Rmd", position = 3, write = TRUE, path = res)
 
 ---
 
@@ -256,7 +256,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       ℹ To save this configuration, use
       
-      `move_episode(ep = "introduction.Rmd", position = 4, write = TRUE, path = res)`
+      move_episode(ep = "introduction.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 
@@ -272,7 +272,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       ℹ To save this configuration, use
       
-      `move_episode(ep = 4, position = 3, write = TRUE, path = res)`
+      move_episode(ep = 4, position = 3, write = TRUE, path = res)
 
 # Episodes can be moved to a different position [fancy]
 
@@ -288,7 +288,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       [36mℹ[39m To save this configuration, use
       
-      `move_episode(ep = "new-too.Rmd", position = 3, write = TRUE, path = res)`
+      move_episode(ep = "new-too.Rmd", position = 3, write = TRUE, path = res)
 
 ---
 
@@ -304,7 +304,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       [36mℹ[39m To save this configuration, use
       
-      `move_episode(ep = "introduction.Rmd", position = 4, write = TRUE, path = res)`
+      move_episode(ep = "introduction.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 
@@ -320,7 +320,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       [36mℹ[39m To save this configuration, use
       
-      `move_episode(ep = 4, position = 3, write = TRUE, path = res)`
+      move_episode(ep = 4, position = 3, write = TRUE, path = res)
 
 # Episodes can be moved out of position [plain]
 
@@ -337,7 +337,7 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)
 
 ---
 
@@ -354,7 +354,7 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = FALSE, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)
 
 ---
 
@@ -371,7 +371,7 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `move_episode(ep = 3, position = 0, write = TRUE, path = res)`
+      move_episode(ep = 3, position = 0, write = TRUE, path = res)
 
 # Episodes can be moved out of position [ansi]
 
@@ -388,7 +388,7 @@
       --------------------------------------------------------------------------------
       [36mi[39m To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)
 
 ---
 
@@ -405,7 +405,7 @@
       --------------------------------------------------------------------------------
       [36mi[39m To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = FALSE, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)
 
 ---
 
@@ -422,7 +422,7 @@
       --------------------------------------------------------------------------------
       [36mi[39m To save this configuration, use
       
-      `move_episode(ep = 3, position = 0, write = TRUE, path = res)`
+      move_episode(ep = 3, position = 0, write = TRUE, path = res)
 
 # Episodes can be moved out of position [unicode]
 
@@ -439,7 +439,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       ℹ To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)
 
 ---
 
@@ -456,7 +456,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       ℹ To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = FALSE, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)
 
 ---
 
@@ -473,7 +473,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       ℹ To save this configuration, use
       
-      `move_episode(ep = 3, position = 0, write = TRUE, path = res)`
+      move_episode(ep = 3, position = 0, write = TRUE, path = res)
 
 # Episodes can be moved out of position [fancy]
 
@@ -490,7 +490,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       [36mℹ[39m To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)
 
 ---
 
@@ -507,7 +507,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       [36mℹ[39m To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = FALSE, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 0, write = TRUE, path = res)
 
 ---
 
@@ -524,7 +524,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       [36mℹ[39m To save this configuration, use
       
-      `move_episode(ep = 3, position = 0, write = TRUE, path = res)`
+      move_episode(ep = 3, position = 0, write = TRUE, path = res)
 
 # Drafts can be added to the index [plain]
 
@@ -540,7 +540,7 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 1, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 1, write = TRUE, path = res)
 
 ---
 
@@ -556,7 +556,7 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 
@@ -572,7 +572,7 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 4L, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 
@@ -593,7 +593,7 @@
       --------------------------------------------------------------------------------
       [36mi[39m To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 1, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 1, write = TRUE, path = res)
 
 ---
 
@@ -609,7 +609,7 @@
       --------------------------------------------------------------------------------
       [36mi[39m To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 
@@ -625,7 +625,7 @@
       --------------------------------------------------------------------------------
       [36mi[39m To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 4L, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 
@@ -646,7 +646,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       ℹ To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 1, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 1, write = TRUE, path = res)
 
 ---
 
@@ -662,7 +662,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       ℹ To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 
@@ -678,7 +678,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       ℹ To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 4L, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 
@@ -699,7 +699,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       [36mℹ[39m To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 1, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 1, write = TRUE, path = res)
 
 ---
 
@@ -715,7 +715,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       [36mℹ[39m To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 
@@ -731,7 +731,7 @@
       ────────────────────────────────────────────────────────────────────────────────
       [36mℹ[39m To save this configuration, use
       
-      `move_episode(ep = "new-mewtwo-three.Rmd", position = 4L, write = TRUE, path = res)`
+      move_episode(ep = "new-mewtwo-three.Rmd", position = 4, write = TRUE, path = res)
 
 ---
 

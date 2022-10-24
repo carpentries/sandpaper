@@ -115,7 +115,7 @@ move_episode <- function(ep = NULL, position = NULL, write = FALSE, path = ".") 
   }
   new <- c(eps[first], ep, eps[last])
   set_dropdown(path = path, order = new, write = write, folder = "episodes")
-  show_write_hint(match.call(), additions = list(position = position))
+  show_write_hint(match.call(), additions = list(position = as.numeric(position)))
 }
 
 #' Have user select position for an episode from a list

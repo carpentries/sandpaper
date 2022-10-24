@@ -84,7 +84,7 @@ show_write_hint <- function(the_call = NULL, write = "write", additions = list()
   }
   cll <- gsub("\\s+", " ", paste(utils::capture.output(the_call), collapse = ""))
   cli::cli_rule()
-  cli::cli_alert_info("To save this configuration, use\n\n{.code {cll}}")
+  cli::cli_alert_info("To save this configuration, use\n\n{cll}")
   return(invisible(the_call))
 }
 
