@@ -1,3 +1,10 @@
+# sandpaper 0.10.5
+
+## MISC
+
+* The the `source` config parameter will have the trailing `/` trimmed off when
+  passed to the site so that the URL does not have two consectutive slashes.
+
 # sandpaper 0.10.4
 
 BUG FIX
