@@ -10,7 +10,7 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `set_config(pairs = list(title = "test: title", license = "CC0"), path = tmp, write = TRUE)`
+      set_config(pairs = list(title = "test: title", license = "CC0"), path = tmp, write = TRUE)
 
 # set_config() will write items [plain]
 
@@ -89,5 +89,5 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `set_episodes(path = tmp, order = s[1], write = TRUE)`
+      set_episodes(path = tmp, order = s[1], write = TRUE)
 
