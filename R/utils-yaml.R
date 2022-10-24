@@ -166,7 +166,7 @@ create_pkgdown_yaml <- function(path) {
       config  = siQuote(path_config(path)),
       title   = siQuote(usr$title),
       time    = UTC_timestamp(Sys.time()),
-      source  = siQuote(usr$source),
+      source  = siQuote(sub("/$", "", usr$source)),
       branch  = siQuote(usr$branch),
       contact = siQuote(usr$contact),
       # What carpentry are we dealing with?
