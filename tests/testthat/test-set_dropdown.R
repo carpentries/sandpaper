@@ -54,7 +54,8 @@ test_that("schedule is empty by default", {
   cfg <- get_config(tmp)
   suppressMessages(s <- get_episodes(tmp))
   expect_equal(s, "introduction.Rmd", ignore_attr = TRUE)
-  expect_null(set_episodes(tmp, s, write = TRUE))
+  # The output of set_episodes is a call object
+  expect_type(set_episodes(tmp, s, write = TRUE), "language")
   expect_silent(s <- get_episodes(tmp))
   expect_equal(s, "introduction.Rmd", ignore_attr = TRUE)
 

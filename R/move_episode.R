@@ -114,7 +114,8 @@ move_episode <- function(ep = NULL, position = NULL, write = FALSE, path = ".") 
     last <- seq(position, n)
   }
   new <- c(eps[first], ep, eps[last])
-  set_episodes(path = path, order = new, write = write)
+  set_dropdown(path = path, order = new, write = write, folder = "episodes")
+  show_write_hint(match.call(), additions = list(position = as.numeric(position)))
 }
 
 #' Have user select position for an episode from a list
@@ -191,7 +192,6 @@ strip_prefix <- function(path = ".", write = FALSE) {
       fs::path(epathodes, moved_episodes))
     return(set_episodes(path = path, order = moved_episodes, write = TRUE))
   } else {
-    the_call <- match.call()
     thm <- cli::cli_div(theme = sandpaper_cli_theme())
     on.exit(cli::cli_end(thm))
     cli::cli_alert_info("Stripped prefixes")
@@ -199,10 +199,6 @@ strip_prefix <- function(path = ".", write = FALSE) {
     for (i in seq(moved_episodes)) {
       cli::cli_li("{.file {scheduled_episodes[i]}}\t->\t{.file {moved_episodes[i]}}")
     }
-    the_call[["write"]] <- TRUE
-    cll <- gsub("\\s+", " ", paste(utils::capture.output(the_call), collapse = ""))
-    cli::cli_rule()
-    cli::cli_alert_info("To save this configuration, use\n\n{.code {cll}}")
-    return(invisible(the_call))
+    show_write_hint(match.call())
   }
 }

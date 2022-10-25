@@ -1,6 +1,17 @@
+# sandpaper 0.10.6
+
+NEW FEATURES
+------------
+
+* Interactive functions to modify lesson structure (`move_episode()`, 
+  `set_episode()`, etc) will now display a message if the user does not specify
+  `write = TRUE`. This message will present a command that, when executed, will
+  make the desired change (requested: @tobyhodges, #345, fixed: @zkamvar, #352)
+
 # sandpaper 0.10.5
 
-## MISC
+MISC
+----
 
 * The the `source` config parameter will have the trailing `/` trimmed off when
   passed to the site so that the URL does not have two consectutive slashes.

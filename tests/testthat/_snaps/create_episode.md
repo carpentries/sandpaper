@@ -10,7 +10,7 @@
       --------------------------------------------------------------------------------
       i To save this configuration, use
       
-      `strip_prefix(path = tmp, write = TRUE)`
+      strip_prefix(path = tmp, write = TRUE)
 
 ---
 

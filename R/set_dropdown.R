@@ -61,7 +61,6 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
   } else {
     show_changed_yaml(sched, order, yaml, folder)
   }
-  invisible()
 }
 
 #' Set individual keys in a configuration file
@@ -209,10 +208,7 @@ set_config <- function(pairs = NULL, create = FALSE, path = ".", write = FALSE) 
       }
       cli::cli_text(c(cli::col_yellow("+ "), line[i]))
     }
-    the_call[["write"]] <- TRUE
-    cll <- gsub("\\s+", " ", paste(utils::capture.output(the_call), collapse = ""))
-    cli::cli_alert_info("To save this configuration, use\n\n{.code {cll}}")
-    return(invisible(the_call))
+    show_write_hint(match.call())
   }
 }
 
@@ -221,23 +217,27 @@ set_config <- function(pairs = NULL, create = FALSE, path = ".", write = FALSE) 
 #' @rdname set_dropdown
 set_episodes <- function(path = ".", order = NULL, write = FALSE) {
   set_dropdown(path, order, write, "episodes")
+  show_write_hint(match.call())
 }
 
 #' @export
 #' @rdname set_dropdown
 set_learners <- function(path = ".", order = NULL, write = FALSE) {
   set_dropdown(path, order, write, "learners")
+  show_write_hint(match.call())
 }
 
 #' @export
 #' @rdname set_dropdown
 set_instructors <- function(path = ".", order = NULL, write = FALSE) {
   set_dropdown(path, order, write, "instructors")
+  show_write_hint(match.call())
 }
 
 #' @export
 #' @rdname set_dropdown
 set_profiles <- function(path = ".", order = NULL, write = FALSE) {
   set_dropdown(path, order, write, "profiles")
+  show_write_hint(match.call())
 }
 
