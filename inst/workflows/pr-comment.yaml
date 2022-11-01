@@ -72,7 +72,7 @@ jobs:
       NR: ${{ needs.test-pr.outputs.number }}
     steps:
       - name: 'Checkout md outputs'
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.5.0
         with:
           ref: md-outputs
           path: built
