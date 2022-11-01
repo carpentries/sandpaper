@@ -1,3 +1,15 @@
+# sandpaper 0.10.7
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* Workflows that update workflows and packages will now push to single branches
+  called `update/workflows` and `update/packages`, respectively. This will avoid
+  the issue with #350
+- Workflows no longer use the deprecated `set-output` command (reported: 
+  @zkamvar, #349; fixed @zkamvar, #356)
+- Versions of external actions have been updated to include `actions/core@1.10.0`
+
 # sandpaper 0.10.6
 
 NEW FEATURES
