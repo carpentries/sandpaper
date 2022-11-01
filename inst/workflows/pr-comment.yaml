@@ -98,9 +98,9 @@ jobs:
           git checkout --orphan md-outputs-PR-${NR}
           git add -A 
           git commit -m "source commit: ${CURR_HEAD}"
-          ls -A | grep -v '^.git' | xargs rm -r
+          ls -A | grep -v '^.git$' | xargs rm -r
           cd ..
-          unzip -d built built.zip
+          unzip -o -d built built.zip
           cd built
           git add -A
           git commit --allow-empty -m "differences for PR #${NR}"
