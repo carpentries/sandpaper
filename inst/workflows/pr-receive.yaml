@@ -28,7 +28,7 @@ jobs:
       - name: "Get Invalid Hashes File"
         id: hash
         run: |
-          echo "::set-output name=json::"$(curl -sL https://files.carpentries.org/invalid-hashes.json)
+          echo "json=$(curl -sL https://files.carpentries.org/invalid-hashes.json)" >> $GITHUB_OUTPUT
       - name: "echo output"
         run: |
           echo ${{ steps.hash.outputs.json }}
