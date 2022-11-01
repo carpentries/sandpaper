@@ -48,7 +48,9 @@ jobs:
       - name: "Get Invalid Hashes File"
         id: hash
         run: |
-          echo "json=$(curl -sL https://files.carpentries.org/invalid-hashes.json)" >> $GITHUB_OUTPUT
+          echo "json<<EOF
+          $(curl -sL https://files.carpentries.org/invalid-hashes.json)
+          EOF" >> $GITHUB_OUTPUT
       - name: "Check PR"
         id: check-pr
         if: ${{ steps.dl.outputs.success == 'true' }}
