@@ -28,6 +28,9 @@ jobs:
         with:
           pandoc-version: '2.11' 
 
+      - name: update apt
+        run: sudo apt update
+
       - name: Add Carpentries Repos
         run: |
           writeLines('options(repos = c(carpentries = "https://carpentries.r-universe.dev", carpentries_archive = "https://carpentries.github.io/drat", CRAN = "https://cran.rstudio.com"))', file("~/.Rprofile", "ab"))
