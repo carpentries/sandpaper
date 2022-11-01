@@ -46,7 +46,7 @@ jobs:
         run: echo "OS_VERSION=`lsb_release -sr`" >> $GITHUB_ENV
 
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.5.0
 
       - uses: r-lib/actions/setup-pandoc@v2
         if: runner.os != 'Windows'
@@ -80,7 +80,7 @@ jobs:
 
       - name: "Restore {renv} cache"
         if: runner.os != 'Windows'
-        uses: actions/cache@v2
+        uses: actions/cache@v3.0.11
         with:
           path: ${{ env.RENV_PATHS_ROOT }}
           key: ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ runner.r }}-${{ hashFiles('.github/workflows/R-CMD-check.yaml') }}
