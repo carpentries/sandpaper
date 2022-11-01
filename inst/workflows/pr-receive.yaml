@@ -54,10 +54,10 @@ jobs:
       MD: ${{ github.workspace }}/site/built
     steps:
       - name: "Check Out Main Branch"
-        uses: actions/checkout@v2.5.0
+        uses: actions/checkout@v3
 
       - name: "Check Out Staging Branch"
-        uses: actions/checkout@v2.5.0
+        uses: actions/checkout@v3
         with:
           ref: md-outputs
           path: ${{ env.MD }}
