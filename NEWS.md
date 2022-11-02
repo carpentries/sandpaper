@@ -3,7 +3,8 @@
 CONTINUOUS INTEGRATION
 ----------------------
 
-* pandoc is now set to version 2.19.2
+* pandoc is now set to use the default version for r-lib/setup-pandoc (at the
+  time of this update, it is version 2.19.2.
 * Workflows that update workflows and packages will now push to single branches
   called `update/workflows` and `update/packages`, respectively. This will avoid
   the issue with #350
