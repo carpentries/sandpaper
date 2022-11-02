@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,16 +97,28 @@
 <div class="section level2">
 <h2 id="quickstart">Quickstart<a class="anchor" aria-label="anchor" href="#quickstart"></a>
 </h2>
-<p>If you are working on a lesson that has content with generated output, then this guide is for you. This will get you started using a local package cache separate from your default library for your lessons that ensure you can reproduce your lesson locally. The {sandpaper} engine is mindful of lessons with generated content in the following ways:</p>
+<p>If you are working on a lesson that has content with generated
+output, then this guide is for you. This will get you started using a
+local package cache separate from your default library for your lessons
+that ensure you can reproduce your lesson locally. The {sandpaper}
+engine is mindful of lessons with generated content in the following
+ways:</p>
 <ul>
 <li>
-<em>reliable setup</em>: the version of the lesson built on the carpentries website will be the same as what you build on your computer because the packages will be identical</li>
+<em>reliable setup</em>: the version of the lesson built on the
+carpentries website will be the same as what you build on your computer
+because the packages will be identical</li>
 <li>
-<em>environmentally friendly</em>: The lesson dependencies are NOT stored in your default R library and they will not alter your R environment.</li>
+<em>environmentally friendly</em>: The lesson dependencies are NOT
+stored in your default R library and they will not alter your R
+environment.</li>
 <li>
-<em>transparent</em>: any additions or deletions to the cache will be recorded in the lockfile, which is tracked by git.</li>
+<em>transparent</em>: any additions or deletions to the cache will
+be recorded in the lockfile, which is tracked by git.</li>
 </ul>
-<p>To get started, you need to <em>explicitly</em> give {sandpaper} permission to create and use a cache with the function <code><a href="../reference/package_cache.html">use_package_cache()</a></code></p>
+<p>To get started, you need to <em>explicitly</em> give {sandpaper}
+permission to create and use a cache with the function
+<code><a href="../reference/package_cache.html">use_package_cache()</a></code></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="st">"sandpaper"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -138,10 +150,17 @@
 <span><span class="co">#| 1: <span style="font-weight: bold;">Yes</span>, please use the package cache (recommended)</span></span>
 <span><span class="co">#| 2: <span style="font-weight: bold;">No</span>, I want to use my default library</span></span></code></pre>
 <blockquote>
-<p>NOTE: If you have already used {renv} previously, then you will not get this notification. Instead, you will get a notification that your consent has already been provided.</p>
+<p>NOTE: If you have already used {renv} previously, then you will not
+get this notification. Instead, you will get a notification that your
+consent has already been provided.</p>
 </blockquote>
-<p>When you select <code>1</code> for yes, your global package cache will be created by the {renv} package and sandpaper will automatically detect and install any packages (and updates) needed for your lesson. <strong>Once you have set up your cache, it can be used for <em>all</em> of your lessons going forward.</strong></p>
-<p>For example, let’s say you have a lesson that uses the {cowsay} and {curl} packages to bring a random cat fact at the end of the lesson:</p>
+<p>When you select <code>1</code> for yes, your global package cache
+will be created by the {renv} package and sandpaper will automatically
+detect and install any packages (and updates) needed for your lesson.
+<strong>Once you have set up your cache, it can be used for <em>all</em>
+of your lessons going forward.</strong></p>
+<p>For example, let’s say you have a lesson that uses the {cowsay} and
+{curl} packages to bring a random cat fact at the end of the lesson:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for lessons even if you don"t need to generate any code</span>
@@ -235,7 +254,9 @@
 <div class="section level3">
 <h3 id="temporarily-turning-off-the-cache">Temporarily Turning Off the Cache<a class="anchor" aria-label="anchor" href="#temporarily-turning-off-the-cache"></a>
 </h3>
-<p>There are times when you might want to not use the cache for a lesson. To do this you can use <code><a href="../reference/package_cache.html">no_package_cache()</a></code> and your lesson will default to using your local library.</p>
+<p>There are times when you might want to not use the cache for a
+lesson. To do this you can use <code><a href="../reference/package_cache.html">no_package_cache()</a></code> and your
+lesson will default to using your local library.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">no_package_cache</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">build_markdown</span><span class="op">(</span>rebuild <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -245,7 +266,8 @@
 <span><span class="co">#| → You can switch between using your cache and the default library with `options(sandpaper.use_renv = TRUE)` (`FALSE` for the default library)</span></span>
 <span><span class="co">#| </span></span>
 <span><span class="co">#| [ truncated ]</span></span></code></pre>
-<p>The output will use packages if they are available, but throw errors if they do not exist:</p>
+<p>The output will use packages if they are available, but throw errors
+if they do not exist:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for lessons even if you don"t need to generate any code</span>
@@ -261,36 +283,75 @@
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{.error}</span></span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="in">Error in say("catfact", "cat"): could not find function "say"</span></span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-<p>When you want to turn it on again, you can use <code><a href="../reference/package_cache.html">use_package_cache()</a></code></p>
+<p>When you want to turn it on again, you can use
+<code><a href="../reference/package_cache.html">use_package_cache()</a></code></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">use_package_cache</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre class="output"><code><span><span class="co">#| ℹ Consent for renv provided---consent for package cache implied.</span></span></code></pre>
-<p>Read on for information about how to add, update, and remove packages from your cache.</p>
+<p>Read on for information about how to add, update, and remove packages
+from your cache.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
-<p>One of the biggest motivations for building the lesson infrastructure around {sandpaper} is to be mindful of how we build lessons with generated content. For the moment, these are explicitly R Markdown lessons, but in the future, it is possible for us to expand to different engines <em>without changing your lesson’s</em> setup.</p>
-<p>In the past, we’ve done this by including a script inside the lesson template that would automatically scan the dependencies of your lesson and install them to your computer. While convenient, there were drawbacks to this method in that it would alter your personal R library if any of the packages update, which was not good if you were using R for you own work and wanted to preserve the package versions that you had.</p>
-<p>The ‘renv’ package provides a very useful interface to bring one aspect of reproducibility to R projects. Because people working on Carpentries lessons are also working academics and will likely have projects on their computer where the package versions are necessary for their work, it’s important that those environments are respected.</p>
-<p>Our flavor of renv applies a package cache explicitly to the content of the lesson, but does not impose itself as the default renv environment.</p>
+<p>One of the biggest motivations for building the lesson infrastructure
+around {sandpaper} is to be mindful of how we build lessons with
+generated content. For the moment, these are explicitly R Markdown
+lessons, but in the future, it is possible for us to expand to different
+engines <em>without changing your lesson’s</em> setup.</p>
+<p>In the past, we’ve done this by including a script inside the lesson
+template that would automatically scan the dependencies of your lesson
+and install them to your computer. While convenient, there were
+drawbacks to this method in that it would alter your personal R library
+if any of the packages update, which was not good if you were using R
+for you own work and wanted to preserve the package versions that you
+had.</p>
+<p>The ‘renv’ package provides a very useful interface to bring one
+aspect of reproducibility to R projects. Because people working on
+Carpentries lessons are also working academics and will likely have
+projects on their computer where the package versions are necessary for
+their work, it’s important that those environments are respected.</p>
+<p>Our flavor of renv applies a package cache explicitly to the content
+of the lesson, but does not impose itself as the default renv
+environment.</p>
 <p>This provisioner will do the following steps:</p>
 <ol style="list-style-type: decimal">
-<li><p>check for consent to use the package cache via ‘use_package_cache()’ and prompt for it if needed</p></li>
-<li><p>check if the profile has been created and create it if needed via ‘renv::init()’</p></li>
-<li><p>populate the cache with packages needed from the user’s system and download any that are missing via ‘renv::hydrate()’. This includes all new packages that have been added to the lesson.</p></li>
-<li><p>If there is a lockfile already present, make sure the packages in the cache are aligned with the lockfile (downloading sources if needed) via ‘renv::restore()’.</p></li>
-<li><p>Record the state of the cache in a lockfile tracked by git. This will include adding new packages and removing old packages. ‘renv::snapshot()’</p></li>
+<li><p>check for consent to use the package cache via
+‘use_package_cache()’ and prompt for it if needed</p></li>
+<li><p>check if the profile has been created and create it if needed via
+‘renv::init()’</p></li>
+<li><p>populate the cache with packages needed from the user’s system
+and download any that are missing via ‘renv::hydrate()’. This includes
+all new packages that have been added to the lesson.</p></li>
+<li><p>If there is a lockfile already present, make sure the packages in
+the cache are aligned with the lockfile (downloading sources if needed)
+via ‘renv::restore()’.</p></li>
+<li><p>Record the state of the cache in a lockfile tracked by git. This
+will include adding new packages and removing old packages.
+‘renv::snapshot()’</p></li>
 </ol>
-<p>When the lockfile changes, you will see it in git and have the power to either commit or restore those changes.</p>
+<p>When the lockfile changes, you will see it in git and have the power
+to either commit or restore those changes.</p>
 </div>
 <div class="section level2">
 <h2 id="rebuild-with-the-package-cache">Rebuild with the Package Cache<a class="anchor" aria-label="anchor" href="#rebuild-with-the-package-cache"></a>
 </h2>
-<p>By default, {sandpaper} will only rebuild files that have changed in content. This is designed to minmize the time spent rebuilding your lesson when you are actively writing it. If you are using the package cache, this fact will remain true <em>even if the lockfile changes</em>. Again, this is designed to minimize the time spent rebuilding the lesson when you add unrelated, adjacent packages to your lesson.</p>
-<p>On continuous integration (cloud deployment), any change in the lockfile will cause the lesson to rebuild itself to make sure that the deployed version of the lesson matches with the source of truth for the lockfile.</p>
-<p>The function that controls this behavior is called <code><a href="../reference/package_cache.html">package_cache_trigger()</a></code> when you call it without any arguments, it will report <code>TRUE</code> or <code>FALSE</code>, indicating if changes to the lockfile will trigger a rebuild or not, respectively:</p>
+<p>By default, {sandpaper} will only rebuild files that have changed in
+content. This is designed to minmize the time spent rebuilding your
+lesson when you are actively writing it. If you are using the package
+cache, this fact will remain true <em>even if the lockfile changes</em>.
+Again, this is designed to minimize the time spent rebuilding the lesson
+when you add unrelated, adjacent packages to your lesson.</p>
+<p>On continuous integration (cloud deployment), any change in the
+lockfile will cause the lesson to rebuild itself to make sure that the
+deployed version of the lesson matches with the source of truth for the
+lockfile.</p>
+<p>The function that controls this behavior is called
+<code><a href="../reference/package_cache.html">package_cache_trigger()</a></code> when you call it without any
+arguments, it will report <code>TRUE</code> or <code>FALSE</code>,
+indicating if changes to the lockfile will trigger a rebuild or not,
+respectively:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">package_cache_trigger</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#| [1] FALSE</span></span>
@@ -298,34 +359,52 @@
 <span><span class="co">#| [1] TRUE</span></span>
 <span><span class="fu">package_cache_trigger</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co"># prevent package cache from triggering rebuilds</span></span>
 <span><span class="co">#| [1] FALSE</span></span></code></pre></div>
-<p>You might want to set this to <code>TRUE</code> when you pull changes from upstream.</p>
+<p>You might want to set this to <code>TRUE</code> when you pull changes
+from upstream.</p>
 </div>
 <div class="section level2">
 <h2 id="adding-new-pacakges-to-the-cache">Adding New Pacakges to the Cache<a class="anchor" aria-label="anchor" href="#adding-new-pacakges-to-the-cache"></a>
 </h2>
-<p>The {sandpaper} cache records ONLY the packages needed for the repository itself. This means that if you want to use a package, you <em>must</em> have it declared somewhere within your lesson either as <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> or <code>package::function()</code>.</p>
-<p>For example, if I wanted to use the <code>sessioninfo</code> package to create a record at the end of an episode, I would only need to add the following chunk:</p>
+<p>The {sandpaper} cache records ONLY the packages needed for the
+repository itself. This means that if you want to use a package, you
+<em>must</em> have it declared somewhere within your lesson either as
+<code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> or <code>package::function()</code>.</p>
+<p>For example, if I wanted to use the <code>sessioninfo</code> package
+to create a record at the end of an episode, I would only need to add
+the following chunk:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r sessioninfo, echo = FALSE}</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="in">sessioninfo::session_info()</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-<p>From there, {sandpaper} will be able to detect the package and add it to the cache.</p>
+<p>From there, {sandpaper} will be able to detect the package and add it
+to the cache.</p>
 <blockquote>
-<p>Note: {renv} can not detect packages that are programmatically loaded, so one workaround is to have a file called <code>episodes/install.R</code> that lists the installation scripts for the packages in your lesson</p>
+<p>Note: {renv} can not detect packages that are programmatically
+loaded, so one workaround is to have a file called
+<code>episodes/install.R</code> that lists the installation scripts for
+the packages in your lesson</p>
 </blockquote>
 <p>If you want to pin a package to a specific version, read on.</p>
 </div>
 <div class="section level2">
 <h2 id="pinning-specific-package-versions">Pinning Specific Package Versions<a class="anchor" aria-label="anchor" href="#pinning-specific-package-versions"></a>
 </h2>
-<p>To pin a specific package version (e.g. the newest version has breaking changes you want to work on before release), you can use the <code><a href="../reference/dependency_management.html">pin_version()</a></code> function. For example, here’s how you would pin the {cowsay} package to version 0.7.0:</p>
+<p>To pin a specific package version (e.g. the newest version has
+breaking changes you want to work on before release), you can use the
+<code><a href="../reference/dependency_management.html">pin_version()</a></code> function. For example, here’s how you would
+pin the {cowsay} package to version 0.7.0:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pin_version</span><span class="op">(</span><span class="st">"cowsay@0.7.0"</span><span class="op">)</span></span></code></pre></div>
-<p>This will record the package in the lockfile so that the next time <code><a href="../reference/dependency_management.html">manage_deps()</a></code> runs, it will use the correct version.</p>
+<p>This will record the package in the lockfile so that the next time
+<code><a href="../reference/dependency_management.html">manage_deps()</a></code> runs, it will use the correct version.</p>
 </div>
 <div class="section level2">
 <h2 id="updating-the-cache">Updating the Cache<a class="anchor" aria-label="anchor" href="#updating-the-cache"></a>
 </h2>
-<p>If you want to update the packages in the package cache, you can use the function <code>fetch_updates()</code>. This requires an internet connection and will scan the packages in your lesson for any potential updates and ask if you want to update them. This will update those packages in your package cache and your lockfile.</p>
+<p>If you want to update the packages in the package cache, you can use
+the function <code>fetch_updates()</code>. This requires an internet
+connection and will scan the packages in your lesson for any potential
+updates and ask if you want to update them. This will update those
+packages in your package cache and your lockfile.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">update_cache</span><span class="op">(</span>prompt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>

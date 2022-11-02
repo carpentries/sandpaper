@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,61 +97,134 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>One of the innovations of {sandpaper} is the out-of-the-box integration with GitHub Actions by supplying several workflows that deploy, validate, and update the lesson. This vignette will focus on the latter set of workflows: those that update the lesson in some form. In this vignette, we will outline the components of the lesson that need updating, demonstrate pull requests and the requirements to set them up on a non-carpentries account, and demonstrate functions to manually update these components.</p>
+<p>One of the innovations of {sandpaper} is the out-of-the-box
+integration with GitHub Actions by supplying several workflows that
+deploy, validate, and update the lesson. This vignette will focus on the
+latter set of workflows: those that update the lesson in some form. In
+this vignette, we will outline the components of the lesson that need
+updating, demonstrate pull requests and the requirements to set them up
+on a non-carpentries account, and demonstrate functions to manually
+update these components.</p>
 </div>
 <div class="section level2">
 <h2 id="components-which-need-to-be-updated">Components which Need to be Updated<a class="anchor" aria-label="anchor" href="#components-which-need-to-be-updated"></a>
 </h2>
-<p>The concept of a {sandpaper} lesson is simple: place a set of markdown or R markdown files in a folder, run a command, and get a website out of it. It’s not much different than a static site generator. What makes it different is that, with a {sandpaper} lesson, you are no longer solely responsible for ensuring that the styling and build tools are kept up-to-date as these have been stripped from the repository and separated into three stand-alone packages. There are, however two places in a lesson where build requirements still live and will need updating from time to time:</p>
+<p>The concept of a {sandpaper} lesson is simple: place a set of
+markdown or R markdown files in a folder, run a command, and get a
+website out of it. It’s not much different than a static site generator.
+What makes it different is that, with a {sandpaper} lesson, you are no
+longer solely responsible for ensuring that the styling and build tools
+are kept up-to-date as these have been stripped from the repository and
+separated into three stand-alone packages. There are, however two places
+in a lesson where build requirements still live and will need updating
+from time to time:</p>
 <ol style="list-style-type: decimal">
-<li>Continuous Integration Workflows (in the <code>.github/</code> folder)</li>
-<li>Lesson Requirements for Generated Content (in the <code>renv/</code> folder)</li>
+<li>Continuous Integration Workflows (in the <code>.github/</code>
+folder)</li>
+<li>Lesson Requirements for Generated Content (in the <code>renv/</code>
+folder)</li>
 </ol>
-<p>A lesson created with {sandpaper} relies on deployment workflows that live inside the <code>.github/</code> folder to ensure that it can not only be properly deployed, but also that pull requests can be tested and validated. Additionally, if you have a lesson that uses generated content via R Markdown, then you will have a folder called <code>renv/</code> in your repository. This folder will contain a lockfile at <code>renv/profiles/lesson-requirements/renv.lock</code>, which will detail the packages required to build the lesson, along with their versions and specific hash of the package contents.</p>
+<p>A lesson created with {sandpaper} relies on deployment workflows that
+live inside the <code>.github/</code> folder to ensure that it can not
+only be properly deployed, but also that pull requests can be tested and
+validated. Additionally, if you have a lesson that uses generated
+content via R Markdown, then you will have a folder called
+<code>renv/</code> in your repository. This folder will contain a
+lockfile at <code>renv/profiles/lesson-requirements/renv.lock</code>,
+which will detail the packages required to build the lesson, along with
+their versions and specific hash of the package contents.</p>
 </div>
 <div class="section level2">
 <h2 id="pull-request-updates">Pull Request Updates<a class="anchor" aria-label="anchor" href="#pull-request-updates"></a>
 </h2>
-<p>When you host a lesson on one of The Carpentries’ repositories, the automated workflows will periodically check for updates and issue pull requests <em>if there are available updates</em>. These pull requests are designed to be minimally invasive and predictable to ensure that your lesson remains up-to-date.</p>
-<p>In addition to being run periodically, you can run them at any time by going to your repository &gt; actions and selecting one of the workflows that starts with “Maintain”. There will be a button that says “Run Workflow” that you can push and it will start the process of checking for updates.</p>
+<p>When you host a lesson on one of The Carpentries’ repositories, the
+automated workflows will periodically check for updates and issue pull
+requests <em>if there are available updates</em>. These pull requests
+are designed to be minimally invasive and predictable to ensure that
+your lesson remains up-to-date.</p>
+<p>In addition to being run periodically, you can run them at any time
+by going to your repository &gt; actions and selecting one of the
+workflows that starts with “Maintain”. There will be a button that says
+“Run Workflow” that you can push and it will start the process of
+checking for updates.</p>
 <div class="section level3">
 <h3 id="weekly-checks-update-workflows">Weekly Checks: Update Workflows<a class="anchor" aria-label="anchor" href="#weekly-checks-update-workflows"></a>
 </h3>
-<p>On a weekly basis, the workflow located in <code>.github/workflows/update-workflows.yaml</code> will run and update the workflow files with the current versions from {sandpaper}. This will then create a pull request with the title “Update Workflows to Version X.Y.Z” from the <a href="https://github.com/znk-machine" class="external-link">Carpentries Apprentice Bot</a>. <em>A pull request is only created if there are updates to be had, otherwise, it will report that there are no updates at this time.</em></p>
-<p>Check to make sure that this workflow <em>only</em> contains modified workflows in the .<code>github/workflows/</code> and that no secrets have been accidentally divulged.</p>
+<p>On a weekly basis, the workflow located in
+<code>.github/workflows/update-workflows.yaml</code> will run and update
+the workflow files with the current versions from {sandpaper}. This will
+then create a pull request with the title “Update Workflows to Version
+X.Y.Z” from the <a href="https://github.com/znk-machine" class="external-link">Carpentries
+Apprentice Bot</a>. <em>A pull request is only created if there are
+updates to be had, otherwise, it will report that there are no updates
+at this time.</em></p>
+<p>Check to make sure that this workflow <em>only</em> contains modified
+workflows in the .<code>github/workflows/</code> and that no secrets
+have been accidentally divulged.</p>
 </div>
 <div class="section level3">
 <h3 id="monthly-checks-update-lesson-requirements">Monthly Checks: Update Lesson Requirements<a class="anchor" aria-label="anchor" href="#monthly-checks-update-lesson-requirements"></a>
 </h3>
-<p>On a monthly basis, if the lesson has generated content, the workflow in <code>.github/workflows/update-cache.yaml</code> will run to check for updates to the lockfile in <code>renv/profiles/lesson-requirements/renv.lock</code>. This pull request will change only the <code>renv.lock</code> file and it will report in the pull request itself what packages have changed.</p>
-<p>This pull request will be followed closely by a comment that will inform you what has changed in the generated content based on the new versions. If the packages are relatively stable, then not much should change. This is the time to inspect the generated output for any errors that occurr due to packages updating their expectations or dependencies.</p>
+<p>On a monthly basis, if the lesson has generated content, the workflow
+in <code>.github/workflows/update-cache.yaml</code> will run to check
+for updates to the lockfile in
+<code>renv/profiles/lesson-requirements/renv.lock</code>. This pull
+request will change only the <code>renv.lock</code> file and it will
+report in the pull request itself what packages have changed.</p>
+<p>This pull request will be followed closely by a comment that will
+inform you what has changed in the generated content based on the new
+versions. If the packages are relatively stable, then not much should
+change. This is the time to inspect the generated output for any errors
+that occurr due to packages updating their expectations or
+dependencies.</p>
 </div>
 <div class="section level3">
 <h3 id="setting-up-a-pull-request-bot">Setting up a Pull Request Bot<a class="anchor" aria-label="anchor" href="#setting-up-a-pull-request-bot"></a>
 </h3>
-<p>Both of these pull requests are provided with the help of <a href="https://github.com/znk-machine" class="external-link">The Carpentries Apprentice Bot</a>. This bot is available across The Carpentries github organisations and if you have a lesson hosted on one of these organisations, then you do not need to worry about this section.</p>
-<p>If you are hosting your own lesson and would like to take advantage of these periodic updates, you do not necessarily need a bot account, but you do need access to an account that has the following aspects</p>
+<p>Both of these pull requests are provided with the help of <a href="https://github.com/znk-machine" class="external-link">The Carpentries Apprentice
+Bot</a>. This bot is available across The Carpentries github
+organisations and if you have a lesson hosted on one of these
+organisations, then you do not need to worry about this section.</p>
+<p>If you are hosting your own lesson and would like to take advantage
+of these periodic updates, you do not necessarily need a bot account,
+but you do need access to an account that has the following aspects</p>
 <ol style="list-style-type: decimal">
-<li>Access to your lesson repository (as a collaborator or self), and</li>
-<li>A Personal Access Token registered as <code>SANDPAPER_WORKFLOW</code> in that repository with the <code>repo</code> and <code>workflow</code> scopes</li>
+<li>Access to your lesson repository (as a collaborator or self),
+and</li>
+<li>A Personal Access Token registered as
+<code>SANDPAPER_WORKFLOW</code> in that repository with the
+<code>repo</code> and <code>workflow</code> scopes</li>
 </ol>
 <div class="section level4">
 <h4 id="creating-a-pat">Creating a PAT<a class="anchor" aria-label="anchor" href="#creating-a-pat"></a>
 </h4>
-<p>Whether or not you choose to use a bot account or your own account, you will need to <a href="https://github.com/settings/tokens/new?scopes=repo,workflow&amp;description=Sandpaper%20Token" class="external-link">generate a new Personal Access Token with the repo and workflow scope</a>.</p>
-<p>Once there, add more context in the <code>Note</code> field, set an expiration date (default is 30 days), scroll down to the bottom of the page and select “Generate Token”</p>
-<p>Your token will appear in a green box and will start with <code>ghp_</code>. Copy the token by clicking on the clipboard symbol immediately to the right of the token and then go to your repository &gt; settings &gt; secrets and select “New Repository Secret” if you haven’t created the <code>SANDPAPER_WORKFLOW</code> secret before. Add <code>SANDPAPER_WORKFLOW</code> in the “Name” field and paste your token in the “Value” field.</p>
+<p>Whether or not you choose to use a bot account or your own account,
+you will need to <a href="https://github.com/settings/tokens/new?scopes=repo,workflow&amp;description=Sandpaper%20Token" class="external-link">generate
+a new Personal Access Token with the repo and workflow scope</a>.</p>
+<p>Once there, add more context in the <code>Note</code> field, set an
+expiration date (default is 30 days), scroll down to the bottom of the
+page and select “Generate Token”</p>
+<p>Your token will appear in a green box and will start with
+<code>ghp_</code>. Copy the token by clicking on the clipboard symbol
+immediately to the right of the token and then go to your repository
+&gt; settings &gt; secrets and select “New Repository Secret” if you
+haven’t created the <code>SANDPAPER_WORKFLOW</code> secret before. Add
+<code>SANDPAPER_WORKFLOW</code> in the “Name” field and paste your token
+in the “Value” field.</p>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="manual-updates">Manual Updates<a class="anchor" aria-label="anchor" href="#manual-updates"></a>
 </h2>
-<p>If you want to create updates manually without using GitHub Actions, there are two functions available:</p>
+<p>If you want to create updates manually without using GitHub Actions,
+there are two functions available:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">update_github_workflows</span><span class="op">(</span><span class="op">)</span>  <span class="co"># updates the package workflows</span></span>
 <span><span class="fu">update_cache</span><span class="op">(</span><span class="op">)</span>      <span class="co"># uses `renv::update()` to check for updates to the package cache</span></span></code></pre></div>
-<p>Both of these functions will modify files locally so if you do not like them, you can use <code>git restore .</code> to revert them to their original state.</p>
+<p>Both of these functions will modify files locally so if you do not
+like them, you can use <code>git restore .</code> to revert them to
+their original state.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

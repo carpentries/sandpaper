@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,31 +95,66 @@
     
     
 <blockquote>
-<p>NOTE: This is currently a WIP and several things ahve changed since it’s initial writing</p>
+<p>NOTE: This is currently a WIP and several things ahve changed since
+it’s initial writing</p>
 </blockquote>
-<p>Internationalization of the lessons have always been a priority for The Carpentries given the fact that we are a global organization. There are three levels at which translations can be added:</p>
+<p>Internationalization of the lessons have always been a priority for
+The Carpentries given the fact that we are a global organization. There
+are three levels at which translations can be added:</p>
 <ol style="list-style-type: decimal">
-<li>The structural elements for the page (e.g. dropdown menu headings and navigation tooltips)</li>
+<li>The structural elements for the page (e.g. dropdown menu headings
+and navigation tooltips)</li>
 <li>References and definitions</li>
 <li>Page content</li>
 </ol>
 <div class="section level2">
 <h2 id="structural-elements-l10n">Structural Elements (l10n)<a class="anchor" aria-label="anchor" href="#structural-elements-l10n"></a>
 </h2>
-<p>The first issue is common for all websites and has several available solutions that exits in several languages.</p>
-<p>At the moment, <a href="https://carpentries.org" class="external-link">The Carpentries website</a> supports l10n in a low-rent manner by including a yaml dictionary in the <code>_data</code> directory and switching languages via the <code>site.data.language</code> variable (<a href="https://github.com/carpentries/carpentries.org/blob/ea3395f7001d05420e9a6e0a2ef735c4f940c8d7/_includes/_improve_content.html#L13" class="external-link">as shown in this example that translates “This content is open source”</a>). Though, how exactly this is accessible via the main site is not clear.</p>
-<p>To make sure that the translations are compatible no matter what tooling we use (R, Python, JavaScript, PhP), we should store the translations in the <code>*.po</code> (portable object) so that each language can use its own <code><a href="https://rdrr.io/r/base/gettext.html" class="external-link">gettext()</a></code> utility to swap out the translations.</p>
-<p>Because it will be associated with the lesson template itself, the <code>*po</code> files will live in the <a href="https://github.com/zkamvar/varnish" class="external-link">{varnish}</a> package and be used from R to translate messages when the website is being generated.</p>
+<p>The first issue is common for all websites and has several available
+solutions that exits in several languages.</p>
+<p>At the moment, <a href="https://carpentries.org" class="external-link">The Carpentries
+website</a> supports l10n in a low-rent manner by including a yaml
+dictionary in the <code>_data</code> directory and switching languages
+via the <code>site.data.language</code> variable (<a href="https://github.com/carpentries/carpentries.org/blob/ea3395f7001d05420e9a6e0a2ef735c4f940c8d7/_includes/_improve_content.html#L13" class="external-link">as
+shown in this example that translates “This content is open
+source”</a>). Though, how exactly this is accessible via the main site
+is not clear.</p>
+<p>To make sure that the translations are compatible no matter what
+tooling we use (R, Python, JavaScript, PhP), we should store the
+translations in the <code>*.po</code> (portable object) so that each
+language can use its own <code><a href="https://rdrr.io/r/base/gettext.html" class="external-link">gettext()</a></code> utility to swap out the
+translations.</p>
+<p>Because it will be associated with the lesson template itself, the
+<code>*po</code> files will live in the <a href="https://github.com/zkamvar/varnish" class="external-link">{varnish}</a> package and be
+used from R to translate messages when the website is being
+generated.</p>
 </div>
 <div class="section level2">
 <h2 id="references-and-definitions">References and Definitions<a class="anchor" aria-label="anchor" href="#references-and-definitions"></a>
 </h2>
-<p>References for definitions is achieved via the <a href="https://glosario.carpentries.org/" class="external-link">{glosario}</a> project where the glossary is formatted as a yaml file and there are python, and R libraries that can be used to extract specific translations for these glossaries.</p>
+<p>References for definitions is achieved via the <a href="https://glosario.carpentries.org/" class="external-link">{glosario}</a> project where
+the glossary is formatted as a yaml file and there are python, and R
+libraries that can be used to extract specific translations for these
+glossaries.</p>
 </div>
 <div class="section level2">
 <h2 id="page-content-i18n">Page Content (i18n)<a class="anchor" aria-label="anchor" href="#page-content-i18n"></a>
 </h2>
-<p>This is a topic that is currently not well addressed and is quite hard to do because translating prose is much harder than translating individual messages because the context of an individual paragraph in a section is important. David Pérez-Suárez has proposed to use a <code>{gettext}</code> solution because this is a standard for translating messages in several computer programs. He found a python + BASH project called <a href="https://github.com/carpentries-i18n/po4gitbook" class="external-link">po4gitbook</a> that will convert markdown content to po files for translation and back again. However, he’s finding that it breaks down a lot with parsing markdown elements like lists and R chunks. I’m thinking that a solution is to use parse the markdown with the commonmark XML spec and then use that to extract the paragraph elements, recast them into markdown and use those for basis of the translated messages. This way, parsing won’t be an issue. The big challenge is that the library has to be re-written for that to happen.</p>
+<p>This is a topic that is currently not well addressed and is quite
+hard to do because translating prose is much harder than translating
+individual messages because the context of an individual paragraph in a
+section is important. David Pérez-Suárez has proposed to use a
+<code>{gettext}</code> solution because this is a standard for
+translating messages in several computer programs. He found a python +
+BASH project called <a href="https://github.com/carpentries-i18n/po4gitbook" class="external-link">po4gitbook</a>
+that will convert markdown content to po files for translation and back
+again. However, he’s finding that it breaks down a lot with parsing
+markdown elements like lists and R chunks. I’m thinking that a solution
+is to use parse the markdown with the commonmark XML spec and then use
+that to extract the paragraph elements, recast them into markdown and
+use those for basis of the translated messages. This way, parsing won’t
+be an issue. The big challenge is that the library has to be re-written
+for that to happen.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

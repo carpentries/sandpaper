@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,7 +85,9 @@
 <img src="logo.png" class="logo" alt=""><h1 id="sandpaper-user-interface-to-the-carpentries-workbench-">{sandpaper}: User Interface to The Carpentries Workbench <a class="anchor" aria-label="anchor" href="#sandpaper-user-interface-to-the-carpentries-workbench-"></a>
 </h1>
 </div>
-<!-- README.md is generated from README.Rmd. Please edit that file --><!-- badges: start -->
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- badges: start -->
+
 <p>The {sandpaper} package was created by <a href="https://carpentries.org" class="external-link">The Carpentries</a> to re-imagine our method of creating lesson websites for our workshops. This package will take a series of <a href="https://www.markdownguide.org/getting-started/" class="external-link">Markdown</a> or <a href="https://rmarkdown.rstudio.com/" class="external-link">RMarkdown</a> files and generate a static website with the features and styling of The Carpentries lessons including customized layouts and callout blocks. Much of the functionality in this package is inspired by <a href="https://jennybryan.org/" class="external-link">Jenny Bryan’s</a> work with the <a href="https://usethis.r-lib.org/" class="external-link">{usethis}</a> package.</p>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
@@ -156,7 +158,9 @@
 <div class="section level3">
 <h3 id="rendering-locally">Rendering locally<a class="anchor" aria-label="anchor" href="#rendering-locally"></a>
 </h3>
-<figure><img src="articles/articles/img/local-flow.dot.svg" alt='diagram of three folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML". The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'><figcaption aria-hidden="true">The local two-step model of deployment into local folders</figcaption></figure><p>In a repository generated via {sandpaper}, only the source is committed to avoid issues surrounding out-of-date artefacts and directory structure confusion.</p>
+<figure><img src="articles/articles/img/local-flow.dot.svg" alt='diagram of three folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML". The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'><figcaption aria-hidden="true">
+The local two-step model of deployment into local folders
+</figcaption></figure><p>In a repository generated via {sandpaper}, only the source is committed to avoid issues surrounding out-of-date artefacts and directory structure confusion.</p>
 <p>The website is generated in two steps:</p>
 <ol style="list-style-type: decimal">
 <li>markdown files from the source files are rendered containing a hash for the source file so that these need only be re-rendered when they change.</li>
@@ -167,7 +171,9 @@
 <div class="section level3">
 <h3 id="rendering-on-continuous-integration">Rendering on continuous integration<a class="anchor" aria-label="anchor" href="#rendering-on-continuous-integration"></a>
 </h3>
-<figure><img src="articles/articles/img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><figcaption aria-hidden="true">Two-step deployment model on continuous integration</figcaption></figure><p>Continuous integration will act as the single source-of-truth for how the outputs of the lessons are rendered. For this, we want the resulting website to be:</p>
+<figure><img src="articles/articles/img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><figcaption aria-hidden="true">
+Two-step deployment model on continuous integration
+</figcaption></figure><p>Continuous integration will act as the single source-of-truth for how the outputs of the lessons are rendered. For this, we want the resulting website to be:</p>
 <ul>
 <li>CI agnostic (but currently set up with GitHub)</li>
 <li>easy to set up</li>

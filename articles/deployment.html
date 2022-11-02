@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,95 +94,191 @@
 
     
     
-<p>The broad idea of the deployment strategy is encompassed in three rules:</p>
+<p>The broad idea of the deployment strategy is encompassed in three
+rules:</p>
 <blockquote>
 <ol style="list-style-type: decimal">
-<li>No knowledge beyond markdown and github is required to create a lesson website</li>
-<li>Any elements of the lesson that need to be rendered will be rendered via continuous integration</li>
+<li>No knowledge beyond markdown and github is required to create a
+lesson website</li>
+<li>Any elements of the lesson that need to be rendered will be rendered
+via continuous integration</li>
 <li>All changes to the final site are purposeful</li>
 </ol>
 </blockquote>
-<p>The process for adding an episode to a lesson should take three steps, total:</p>
+<p>The process for adding an episode to a lesson should take three
+steps, total:</p>
 <ol style="list-style-type: decimal">
-<li>place Markdown or R Markdown files in the <code>episodes/</code> folder</li>
-<li>define the order of the episodes in the <code>config.yaml</code> file</li>
-<li>push to github AND/OR preview the website locally with <code><a href="../reference/build_lesson.html">sandpaper::build_lesson()</a></code>
+<li>place Markdown or R Markdown files in the <code>episodes/</code>
+folder</li>
+<li>define the order of the episodes in the <code>config.yaml</code>
+file</li>
+<li>push to github AND/OR preview the website locally with
+<code><a href="../reference/build_lesson.html">sandpaper::build_lesson()</a></code>
 </li>
 </ol>
 <div class="section level2">
 <h2 id="why-r-markdown">Why R Markdown?<a class="anchor" aria-label="anchor" href="#why-r-markdown"></a>
 </h2>
-<p>We have decided on using the R Markdown format because it is a VERY powerful tool that allows you to write code and text without having to copy and paste output/images/tables. It has <a href="https://bookdown.org/yihui/rmarkdown/language-engines.html" class="external-link">support for several languages including python, BASH, and SQL</a>. Most importantly: the code rendering features of it are purely optional; you can strip away all R-associated content and be left with a markdown document.</p>
-<p>This is a system that has already been used for our R lessons for several years and works fairly well.</p>
+<p>We have decided on using the R Markdown format because it is a VERY
+powerful tool that allows you to write code and text without having to
+copy and paste output/images/tables. It has <a href="https://bookdown.org/yihui/rmarkdown/language-engines.html" class="external-link">support
+for several languages including python, BASH, and SQL</a>. Most
+importantly: the code rendering features of it are purely optional; you
+can strip away all R-associated content and be left with a markdown
+document.</p>
+<p>This is a system that has already been used for our R lessons for
+several years and works fairly well.</p>
 </div>
 <div class="section level2">
 <h2 id="the-two-step-building-locally">The Two-Step: Building Locally<a class="anchor" aria-label="anchor" href="#the-two-step-building-locally"></a>
 </h2>
-<p>To preview the lessons, we build the static files locally, without any servers. While it is possible to go directly from R Markdown to HTML, we use a two-step process:</p>
+<p>To preview the lessons, we build the static files locally, without
+any servers. While it is possible to go directly from R Markdown to
+HTML, we use a two-step process:</p>
 <ol style="list-style-type: decimal">
-<li>Generate static markdown from the source files with a hash of the original file in the YAML header</li>
-<li>Using external style template, generate website HTML from the built markdown files</li>
+<li>Generate static markdown from the source files with a hash of the
+original file in the YAML header</li>
+<li>Using external style template, generate website HTML from the built
+markdown files</li>
 </ol>
 <div class="info">
-<p>NOTE: we need to make sure that we have a renv environment defined for the lessons, but I think this will need to happen after things are released on CRAN to avoid maxing out the github api requests.</p>
+<p>NOTE: we need to make sure that we have a renv environment defined
+for the lessons, but I think this will need to happen after things are
+released on CRAN to avoid maxing out the github api requests.</p>
 </div>
 <div class="figure">
-<img src="img/local-flow.dot.svg" alt='diagram of three folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML". The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'><p class="caption">Thr local two-step model of deployment into local folders</p>
+<img src="img/local-flow.dot.svg" alt='diagram of three folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML". The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'><p class="caption">Thr local two-step model of deployment into local
+folders</p>
 </div>
-<p>Now, the first reaction you may have is, “Why do we need a two step process when we can generate HTML directly from R Markdown?” The answer is three-fold.</p>
-<p>First, if there is R code in the R Markdown document, it takes time to execute the code and add it in to the output document. By having an intermediate markdown document that contains a hash of the original document, we can make sure that we only build the files that have changed in content with minimal overhead in a manner that is compatible with R Markdown’s chunk caching feature.</p>
-<p>Second, if any generated element of your page creates invalid HTML, it usually causes a cascading effect that can be hard to track down if you are looking at raw HTML output. Having a markdown intermediate allows us to more easily single out any potential problems. This particular reason is important in the next section for scheduled deployments where we avoid problems raised explicitly by checking the output.</p>
-<p>Third, having the rendered markdown documents makes them easy to use with other HTML or pandoc templates not provided by The Carpentries.</p>
-<p>You might also be wondering “why aren’t the rendered markdown and HTML files being tracked by git?” The answer is that, they will be, just not on your computer.</p>
+<p>Now, the first reaction you may have is, “Why do we need a two step
+process when we can generate HTML directly from R Markdown?” The answer
+is three-fold.</p>
+<p>First, if there is R code in the R Markdown document, it takes time
+to execute the code and add it in to the output document. By having an
+intermediate markdown document that contains a hash of the original
+document, we can make sure that we only build the files that have
+changed in content with minimal overhead in a manner that is compatible
+with R Markdown’s chunk caching feature.</p>
+<p>Second, if any generated element of your page creates invalid HTML,
+it usually causes a cascading effect that can be hard to track down if
+you are looking at raw HTML output. Having a markdown intermediate
+allows us to more easily single out any potential problems. This
+particular reason is important in the next section for scheduled
+deployments where we avoid problems raised explicitly by checking the
+output.</p>
+<p>Third, having the rendered markdown documents makes them easy to use
+with other HTML or pandoc templates not provided by The Carpentries.</p>
+<p>You might also be wondering “why aren’t the rendered markdown and
+HTML files being tracked by git?” The answer is that, they will be, just
+not on your computer.</p>
 </div>
 <div class="section level2">
 <h2 id="i-deployment-github">[i] Deployment (GitHub)<a class="anchor" aria-label="anchor" href="#i-deployment-github"></a>
 </h2>
 <div class="figure">
-<img src="img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><p class="caption">Two-step deployment model on continuous integration</p>
+<img src="img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><p class="caption">Two-step deployment model on continuous
+integration</p>
 </div>
-<p>Because some lesson content will be auto-generated from an ecosystem of software that is constantly evolving, it’s important to make sure a few things are true:</p>
+<p>Because some lesson content will be auto-generated from an ecosystem
+of software that is constantly evolving, it’s important to make sure a
+few things are true:</p>
 <ol style="list-style-type: decimal">
-<li>The website is always up and available (barring blackouts from GitHub)</li>
+<li>The website is always up and available (barring blackouts from
+GitHub)</li>
 <li>The style of the lessons can be updated on the fly.</li>
 <li>The output of the lessons match what the maintainers expect.</li>
 <li>Changes in the lesson output is easily auditable via git diff.</li>
 </ol>
-<p>Because we have two sources of entropy (software environment needed to build the lesson content and CSS/HTML/JS needed to create the website), it’s important to separate these steps because if there is a failure, having them separate allows us to audit the failure and fix the issue on the appropriate end. Thus, we use the same two-step system we presented earlier in local rendering, with weekly and monthly checks:</p>
+<p>Because we have two sources of entropy (software environment needed
+to build the lesson content and CSS/HTML/JS needed to create the
+website), it’s important to separate these steps because if there is a
+failure, having them separate allows us to audit the failure and fix the
+issue on the appropriate end. Thus, we use the same two-step system we
+presented earlier in local rendering, with weekly and monthly
+checks:</p>
 <div class="figure">
-<img src="https://imgur.com/l64RiGs.png" alt=""><p class="caption">Diagrammatic representation of the GitHub deployment cycle</p>
+<img src="https://imgur.com/l64RiGs.png" alt=""><p class="caption">Diagrammatic representation of the GitHub deployment
+cycle</p>
 </div>
-<p>Zooming in on the Pull request workflow we can see that there is only one point of entry. The box elements represent user interactions, the ellipses are GitHub workflows. The color indicates permission levels for the workflows. Lavender workflows only have the ability to check out code and compare it. Wheat/yellow colored workflows have full permissions to push to the repository:</p>
+<p>Zooming in on the Pull request workflow we can see that there is only
+one point of entry. The box elements represent user interactions, the
+ellipses are GitHub workflows. The color indicates permission levels for
+the workflows. Lavender workflows only have the ability to check out
+code and compare it. Wheat/yellow colored workflows have full
+permissions to push to the repository:</p>
 <div class="figure">
 <img src="img/pr-flow.dot.svg" alt=""><p class="caption">Representation of PR deployment cycle</p>
 </div>
-<p>Because we only track the source files of the lesson and not the output from the maintainer’s computer, we need to rely on Continuous Integration to rebuild the lesson and deploy it to the cloud. We still use the two-step process here, but the difference is that we don’t want to make any extra commits to the main branch, so instead of creating the commits in two extra directories, we create them in orphan branches called <code>md-sources</code> and <code>gh-pages</code>. The latter is familiar to most lesson maintainers, and the former serves as a staging and evaluation area for changes in generated content.</p>
+<p>Because we only track the source files of the lesson and not the
+output from the maintainer’s computer, we need to rely on Continuous
+Integration to rebuild the lesson and deploy it to the cloud. We still
+use the two-step process here, but the difference is that we don’t want
+to make any extra commits to the main branch, so instead of creating the
+commits in two extra directories, we create them in orphan branches
+called <code>md-sources</code> and <code>gh-pages</code>. The latter is
+familiar to most lesson maintainers, and the former serves as a staging
+and evaluation area for changes in generated content.</p>
 <div class="figure">
-<img src="img/independent-components.dot.svg" alt=""><p class="caption">Dependency relationship between components of the Lesson Template</p>
+<img src="img/independent-components.dot.svg" alt=""><p class="caption">Dependency relationship between components of the
+Lesson Template</p>
 </div>
 <blockquote>
-<p>Takeaway from this diagram: Yes, this is complex, but its modularity ensures that we can replace components without needing to significantly modify any of the other components.</p>
+<p>Takeaway from this diagram: Yes, this is complex, but its modularity
+ensures that we can replace components without needing to significantly
+modify any of the other components.</p>
 </blockquote>
-<p>The diagram above describes the dependency graph of the lesson template. Each component in the graph represents either a file (beige files/folders/documents) or tools (boxes). The edges (lines connecting the components) are categorized with the following labels:</p>
+<p>The diagram above describes the dependency graph of the lesson
+template. Each component in the graph represents either a file (beige
+files/folders/documents) or tools (boxes). The edges (lines connecting
+the components) are categorized with the following labels:</p>
 <dl>
 <dt>depends</dt>
-<dd>(e.g. a -&gt; b means component a <em>depends on</em> component b). This is usually reserved for lesson artifacts such as generated markdown and HTML. If a component is dependent on another component, that means that it can not exist without the upstream component. Changes in the upstream component can happen independently to the downstream component, but these changes will affect the state of the downstream component.
+<dd>
+(e.g. a -&gt; b means component a <em>depends on</em> component b). This
+is usually reserved for lesson artifacts such as generated markdown and
+HTML. If a component is dependent on another component, that means that
+it can not exist without the upstream component. Changes in the upstream
+component can happen independently to the downstream component, but
+these changes will affect the state of the downstream component.
 </dd>
 <dt>uses</dt>
-<dd>(e.g. a -&gt; b means component a <em>uses</em> aspects of component b). In this relationship, each of these components are independent and they can change independent of one another without necessarily affecting the state of the other.
+<dd>
+(e.g. a -&gt; b means component a <em>uses</em> aspects of component b).
+In this relationship, each of these components are independent and they
+can change independent of one another without necessarily affecting the
+state of the other.
 </dd>
 <dt>contains</dt>
-<dd>(e.g. a -&gt; b means component a <em>contains</em> component b). A component that contains another component <em>must</em> change when the contained component changes. For example, any changes to the package cache lockfile requires a corresponding commit in the source files.
+<dd>
+(e.g. a -&gt; b means component a <em>contains</em> component b). A
+component that contains another component <em>must</em> change when the
+contained component changes. For example, any changes to the package
+cache lockfile requires a corresponding commit in the source files.
 </dd>
 <dt>modifies</dt>
-<dd>(e.g. a -&gt; b means component a <em>modifies</em> component b). Modification occurs when a component is the agent of change for a downstream component, but changes in the upstream component do not necessarily correspond to a change in the downstream component. For example the GitHub Actions component is the only one on this graph that can modify other components (including itself), but if it were to undergo a change to update frequency, that would not necessarily affect the changes that the downstream components see.
+<dd>
+(e.g. a -&gt; b means component a <em>modifies</em> component b).
+Modification occurs when a component is the agent of change for a
+downstream component, but changes in the upstream component do not
+necessarily correspond to a change in the downstream component. For
+example the GitHub Actions component is the only one on this graph that
+can modify other components (including itself), but if it were to
+undergo a change to update frequency, that would not necessarily affect
+the changes that the downstream components see.
 </dd>
 </dl>
 <div class="section level3">
 <h3 id="push-to-main-branch">Push to main branch<a class="anchor" aria-label="anchor" href="#push-to-main-branch"></a>
 </h3>
-<p>Each time a commit is pushed to the main branch, the command <code><a href="../reference/ci_deploy.html">sandpaper::ci_deploy()</a></code> is run in GitHub actions and it will render any changed source files from <code>main</code> to <code>md-source</code> and then apply the HTML template, <a href="https://github.com/zkamvar/varnish" class="external-link">{varnish}</a> to the files in <code>md-source</code> to create the website.</p>
-<p>This process assumes that pushes to the main branch will not break the rendering process as they will either be cosmetic changes or changes that come from pull requests (which have previously been vetted). <strong>No extra maintainer interaction required.</strong></p>
+<p>Each time a commit is pushed to the main branch, the command
+<code><a href="../reference/ci_deploy.html">sandpaper::ci_deploy()</a></code> is run in GitHub actions and it will
+render any changed source files from <code>main</code> to
+<code>md-source</code> and then apply the HTML template, <a href="https://github.com/zkamvar/varnish" class="external-link">{varnish}</a> to the files in
+<code>md-source</code> to create the website.</p>
+<p>This process assumes that pushes to the main branch will not break
+the rendering process as they will either be cosmetic changes or changes
+that come from pull requests (which have previously been vetted).
+<strong>No extra maintainer interaction required.</strong></p>
 </div>
 <div class="section level3">
 <h3 id="pull-requests">Pull requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a>
@@ -190,14 +286,22 @@
 <div class="figure">
 <img src="img/pr-branch.svg" alt='diagram showing five branches, two of which are highlighted: "md-outputs", and "md-outputs-PR-1" where the latter is an orphan branch starting from the last commit of the former and applying the changes from the "my-edit" branch on top, showing that the output has changed'><p class="caption">The Pull Request flow</p>
 </div>
-<p>Each time a pull request is added, the maintainer should be informed of what changes in the lesson (if anything), so the process goes like this:</p>
+<p>Each time a pull request is added, the maintainer should be informed
+of what changes in the lesson (if anything), so the process goes like
+this:</p>
 <ol style="list-style-type: decimal">
-<li>A pull request triggers a new branch from <code>md-sources</code> called <code>md-sources-{pr#}</code>.</li>
+<li>A pull request triggers a new branch from <code>md-sources</code>
+called <code>md-sources-{pr#}</code>.</li>
 <li>The PR is built into <code>md-sources-{pr#}</code>
 </li>
-<li>The diff between <code>md-sources-{pr#}</code> and <code>md-sources</code> is added to the PR comments as a link.</li>
-<li>Any additional commits to the PR branch will be rebuilt and the changes amended to the <code>md-sources-{pr#}</code> branch (effectively, a squash merge)</li>
-<li>Once the maintainer approves the changes, the PR gets merged into master, the site is rebuilt from source, and the pr branch is removed.</li>
+<li>The diff between <code>md-sources-{pr#}</code> and
+<code>md-sources</code> is added to the PR comments as a link.</li>
+<li>Any additional commits to the PR branch will be rebuilt and the
+changes amended to the <code>md-sources-{pr#}</code> branch
+(effectively, a squash merge)</li>
+<li>Once the maintainer approves the changes, the PR gets merged into
+master, the site is rebuilt from source, and the pr branch is
+removed.</li>
 </ol>
 <div class="figure">
 <img src="img/pr-merge.svg" alt='diagram showing  four branches, where "my-edit" is merged into "main" and that drives the  two-step process of rendering "md-outputs" and then "gh-pages". The changes from the "my-edit" branch are reflected in the "md-outputs" branch output.'><p class="caption">A successfully merged Pull Request</p>
@@ -206,17 +310,34 @@
 <div class="section level3">
 <h3 id="cron-weekly-updating-the-html-templates">CRON: weekly (updating the HTML templates)<a class="anchor" aria-label="anchor" href="#cron-weekly-updating-the-html-templates"></a>
 </h3>
-<p>As I mentioned above, the HTML templates will not live within the lesson repository. They will live in the <a href="https://github.com/zkamvar/varnish" class="external-link">{varnish}</a> package and applied to the rendered markdown files. This step will start at the <code>md-source</code> branch and re-apply a fresh version of the template to bring in any stylistic changes that have occurred in the {varnish} repository (e.g. new CSS rules) in the previous week.</p>
-<p>This step will test that our HTML template is working correctly. If an error occurs, we know that we need to fix the HTML template and not the lesson. <strong>No maintainer interaction required.</strong></p>
+<p>As I mentioned above, the HTML templates will not live within the
+lesson repository. They will live in the <a href="https://github.com/zkamvar/varnish" class="external-link">{varnish}</a> package and
+applied to the rendered markdown files. This step will start at the
+<code>md-source</code> branch and re-apply a fresh version of the
+template to bring in any stylistic changes that have occurred in the
+{varnish} repository (e.g. new CSS rules) in the previous week.</p>
+<p>This step will test that our HTML template is working correctly. If
+an error occurs, we know that we need to fix the HTML template and not
+the lesson. <strong>No maintainer interaction required.</strong></p>
 </div>
 <div class="section level3">
 <h3 id="cron-monthly-keeping-software-current">CRON: monthly (keeping software current)<a class="anchor" aria-label="anchor" href="#cron-monthly-keeping-software-current"></a>
 </h3>
-<p>Because the weekly CRON jobs ensure that the HTML template works, we run the monthly jobs to make sure the software stack continues to work as expected. This is important for making sure that the generated output matches the output that the learners would see and that the narrative additionally matches the output.</p>
-<p>This will explicitly test changes in the lesson due to changes in the software stack and not the HTML template. Because many of the changes will produce technically valid output, <strong>Manual inspection of the diffs is required</strong>. There are six steps in this process, one of which requires a maintainer’s input:</p>
+<p>Because the weekly CRON jobs ensure that the HTML template works, we
+run the monthly jobs to make sure the software stack continues to work
+as expected. This is important for making sure that the generated output
+matches the output that the learners would see and that the narrative
+additionally matches the output.</p>
+<p>This will explicitly test changes in the lesson due to changes in the
+software stack and not the HTML template. Because many of the changes
+will produce technically valid output, <strong>Manual inspection of the
+diffs is required</strong>. There are six steps in this process, one of
+which requires a maintainer’s input:</p>
 <ol style="list-style-type: decimal">
-<li>A new branch is created from <code>main</code> with the format <code>YYYY-MM</code>.</li>
-<li>The {renv} configuration file for <code>YYYY-MM</code> is reset and a Pull Request is created.</li>
+<li>A new branch is created from <code>main</code> with the format
+<code>YYYY-MM</code>.</li>
+<li>The {renv} configuration file for <code>YYYY-MM</code> is reset and
+a Pull Request is created.</li>
 <li>The maintainer follows the regular pull request protocol.</li>
 </ol>
 </div>
