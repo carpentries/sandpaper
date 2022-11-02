@@ -17,7 +17,7 @@ jobs:
       OS_VERSION: 1
 
     steps:
-      - uses: actions/checkout@v2.5.0
+      - uses: actions/checkout@v3
 
       - uses: r-lib/actions/setup-r@v2
         with:
@@ -28,10 +28,30 @@ jobs:
         with:
           pandoc-version: '2.11' 
 
-      - name: update apt
+      - name: "Install sysreqs"
+        id: run-apt
+        shell: bash
         run: |
-          sudo apt update
-          sudo apt install -y libcurl4-openssl-dev
+          sudo apt update || exit 0
+          curl https://carpentries.r-universe.dev/stats/sysdeps 2> /dev/null \
+          | jq -r '.headers[0] | select(. != null)' 2> /dev/null \
+          > ${{ runner.temp }}/sysdeps.txt
+          if [[ `wc -l < ${{ runner.temp }}/sysdeps.txt` -gt 0 ]]; then
+            echo 'sysdeps acquired'
+          else
+            echo 'fetching sysdeps from descriptions'
+            curl https://carpentries.r-universe.dev/stats/descriptions \
+            | jq -r '._builder.sysdeps | .[].headers | select(. != null)' 2> /dev/null \
+            > ${{ runner.temp }}/sysdeps.txt
+          fi
+          if [[ `wc -l < ${{ runner.temp }}/sysdeps.txt` -eq 0 ]]; then
+            echo "::warn::System dependencies could not be acquired. Builds may fail"
+            exit 1
+          else
+            echo "found sysdeps: $(cat ${{ runner.temp }}/sysdeps.txt)"
+          fi
+          printf "libxslt-dev\n" >> ${{ runner.temp }}/sysdeps.txt
+          sudo xargs apt-get install --fix-missing -y < ${{ runner.temp }}/sysdeps.txt || echo "Not on Ubuntu"
 
       - name: Add Carpentries Repos
         run: |
