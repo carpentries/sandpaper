@@ -23,7 +23,7 @@ jobs:
         id: get-pr
         run: |
           unzip pr.zip
-          echo "::set-output name=NUM::$(<./NUM)"
+          echo "NUM=$(<./NUM)" >> $GITHUB_OUTPUT
       - name: 'Remove branch'
         uses: carpentries/actions/remove-branch@main
         with:

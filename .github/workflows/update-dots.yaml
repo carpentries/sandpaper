@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.5.0
       
       - name: Setup Graphviz
         uses: ts-graphviz/setup-graphviz@v1

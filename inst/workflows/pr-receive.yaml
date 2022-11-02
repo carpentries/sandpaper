@@ -28,10 +28,12 @@ jobs:
       - name: "Get Invalid Hashes File"
         id: hash
         run: |
-          echo "::set-output name=json::"$(curl -sL https://files.carpentries.org/invalid-hashes.json)
+          echo "json<<EOF
+          $(curl -sL https://files.carpentries.org/invalid-hashes.json)
+          EOF" >> $GITHUB_OUTPUT
       - name: "echo output"
         run: |
-          echo ${{ steps.hash.outputs.json }}
+          echo "${{ steps.hash.outputs.json }}"
       - name: "Check PR"
         id: check-pr
         uses: carpentries/actions/check-valid-pr@main
@@ -52,10 +54,10 @@ jobs:
       MD: ${{ github.workspace }}/site/built
     steps:
       - name: "Check Out Main Branch"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: "Check Out Staging Branch"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: md-outputs
           path: ${{ env.MD }}
@@ -68,8 +70,6 @@ jobs:
 
       - name: "Set up Pandoc"
         uses: r-lib/actions/setup-pandoc@v2
-        with:
-          pandoc-version: "2.11.4"
 
       - name: "Setup Lesson Engine"
         uses: carpentries/actions/setup-sandpaper@main

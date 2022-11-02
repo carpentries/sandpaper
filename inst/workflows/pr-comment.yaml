@@ -37,7 +37,7 @@ jobs:
         id: get-pr
         run: |
           unzip pr.zip
-          echo "::set-output name=NUM::$(<./NR)"
+          echo "NUM=$(<./NR)" >> $GITHUB_OUTPUT
 
       - name: "Fail if PR number was not present"
         id: bad-pr
@@ -48,7 +48,9 @@ jobs:
       - name: "Get Invalid Hashes File"
         id: hash
         run: |
-          echo "::set-output name=json::"$(curl -sL https://files.carpentries.org/invalid-hashes.json)
+          echo "json<<EOF
+          $(curl -sL https://files.carpentries.org/invalid-hashes.json)
+          EOF" >> $GITHUB_OUTPUT
       - name: "Check PR"
         id: check-pr
         if: ${{ steps.dl.outputs.success == 'true' }}
@@ -72,7 +74,7 @@ jobs:
       NR: ${{ needs.test-pr.outputs.number }}
     steps:
       - name: 'Checkout md outputs'
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
         with:
           ref: md-outputs
           path: built
@@ -98,9 +100,9 @@ jobs:
           git checkout --orphan md-outputs-PR-${NR}
           git add -A 
           git commit -m "source commit: ${CURR_HEAD}"
-          ls -A | grep -v '^.git' | xargs rm -r
+          ls -A | grep -v '^.git$' | xargs rm -r
           cd ..
-          unzip -d built built.zip
+          unzip -o -d built built.zip
           cd built
           git add -A
           git commit --allow-empty -m "differences for PR #${NR}"
