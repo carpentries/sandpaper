@@ -29,7 +29,9 @@ jobs:
           pandoc-version: '2.11' 
 
       - name: update apt
-        run: sudo apt update
+        run: |
+          sudo apt update
+          sudo apt install -y libcurl4-openssl-dev
 
       - name: Add Carpentries Repos
         run: |
