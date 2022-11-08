@@ -1,3 +1,13 @@
+# sandpaper 0.10.8
+
+MISC
+----
+
+* schedule/syllabus timings are now displayed as XXh XXm to clarify the scope of
+  the timing (requested: @tobyhodges, #361; fixed @zkamvar, #363).
+* Documentation for automated pull requests updated to reflect bots should have
+  `public_repo` scope.
+
 # sandpaper 0.10.7
 
 CONTINUOUS INTEGRATION
