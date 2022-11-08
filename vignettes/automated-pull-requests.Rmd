@@ -99,13 +99,13 @@ access to an account that has the following aspects
 
 1. Access to your lesson repository (as a collaborator or self), and 
 2. A Personal Access Token registered as `SANDPAPER_WORKFLOW` in that repository
-   with the `repo` and `workflow` scopes
+   with the `public_repo` and `workflow` scopes
 
 #### Creating a PAT
 
 Whether or not you choose to use a bot account or your own account, you will
 need to [generate a new Personal Access Token with the repo and workflow 
-scope](https://github.com/settings/tokens/new?scopes=repo,workflow&description=Sandpaper%20Token).
+scope](https://github.com/settings/tokens/new?scopes=public_repo,workflow&description=Sandpaper%20Token).
 
 Once there, add more context in the `Note` field, set an expiration date (default
 is 30 days), scroll down to the bottom of the page and select "Generate Token"
