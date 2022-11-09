@@ -49,7 +49,7 @@ get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
 
   out <- data.frame(
     episode = c(titles, "Finish"), 
-    timings = format(start + cumulative_minutes * 60L, "%H:%M"),
+    timings = format(start + cumulative_minutes * 60L, "%Hh %Mm"),
     path = c(paths, ""),
     stringsAsFactors = FALSE
   )
