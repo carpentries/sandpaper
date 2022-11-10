@@ -129,7 +129,7 @@ renv_setup_profile <- function(path = ".", profile = "lesson-requirements") {
     setwd(path)
     # NOTE: I do not know why, but this takes forever to run when no internet is
     # available. Kevin may know why. 
-    renv::init(project = path, bare = TRUE, restart = FALSE, profile = profile)
+    renv::init(project = path, bare = TRUE, restart = FALSE, profile = profile, bioconductor = TRUE)
     renv::deactivate(project = path)
   },
   args = list(path = path, profile = profile),
