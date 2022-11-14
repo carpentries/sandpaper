@@ -8,6 +8,12 @@ MISC
 * Documentation for automated pull requests updated to reflect bots should have
   `public_repo` scope.
 
+BUG FIX
+-------
+
+* A bug where the index page title was the same for both instructor and learner
+  view has been fixed (reported: @tobyhodges, #361; fixed @zkamvar, #366)
+
 # sandpaper 0.10.7
 
 CONTINUOUS INTEGRATION
