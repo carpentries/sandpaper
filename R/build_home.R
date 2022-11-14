@@ -22,8 +22,9 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   fix_nodes(setup)
 
   nav <- get_nav_data(idx_file, fs::path_file(idx_file), page_forward = next_page)
+  needs_title <- nav$pagetitle == ""
 
-  if (nav$pagetitle == "") {
+  if (needs_title) {
     nav$pagetitle <- "Summary and Schedule"
   }
   nav$page_forward <- as_html(nav$page_forward, instructor = TRUE)
@@ -32,7 +33,7 @@ build_home <- function(pkg, quiet, sidebar = NULL, new_setup = TRUE, next_page =
   page_globals$instructor$set("readme", use_instructor(html))
   page_globals$instructor$set("setup", use_instructor(setup))
 
-  if (nav$pagetitle == "") {
+  if (needs_title) {
     nav$pagetitle <- "Summary and Setup"
   }
   nav$page_forward <- as_html(nav$page_forward)
