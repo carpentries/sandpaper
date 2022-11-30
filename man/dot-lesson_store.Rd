@@ -24,7 +24,7 @@ lesson object based on the status of the git repository
 }
 \seealso{
 \code{\link[=.list_store]{.list_store()}} for a generic list implementation and
-\code{\link[=this_leson]{this_leson()}} for details of the implementation of this generator in
+\code{\link[=this_lesson]{this_lesson()}} for details of the implementation of this generator in
 sandpaper
 }
 \keyword{internal}

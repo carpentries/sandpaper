@@ -167,7 +167,7 @@ clear_resource_list <- function(path) {
 #' 
 #' @keywords internal
 #' @seealso [.list_store()] for a generic list implementation and
-#' [this_leson()] for details of the implementation of this generator in
+#' [this_lesson()] for details of the implementation of this generator in
 #' sandpaper
 .lesson_store <- function() {
   .this_diff <- NULL
