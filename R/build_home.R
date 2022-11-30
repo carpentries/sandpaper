@@ -54,7 +54,7 @@ format_syllabus <- function(syl, use_col = TRUE) {
   syl$questions <- gsub("\n", "<br/>", syl$questions)
   syl$number <- sprintf("%2d\\. ", seq(nrow(syl)))
   links <- glue::glue_data(
-    syl[-nrow(syl), ], 
+    syl[-nrow(syl), c("number", "episode", "path")], 
     "{gsub('^[ ]', '&nbsp;', number)}<a href='{fs::path_file(path)}'>{episode}</a>"
   )
   if (use_col) {
