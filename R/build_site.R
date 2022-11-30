@@ -59,6 +59,11 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   out <- if (is.null(slug)) "index.html" else paste0(slug, ".html")
   chapters <- abs_md[seq(er[1], er[2])]
   sidebar <- create_sidebar(c(fs::path(built_path, "index.md"), chapters))
+
+  # Get percentages from the syllabus table
+  pct <- get_syllabus(path, questions = TRUE)$percents
+  names(pct) <- db$file[er[1]:er[2]]
+  print(pct)
   # shim for downlit ----------------------------------------------------------
   shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
   expected <- "41aea9a01589d636768f56a333343ec5"
@@ -76,7 +81,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
       path_src     = abs_src[i],
       page_back    = location["back"],
       page_forward = location["forward"],
-      page_progress = location["progress"],
+      page_progress = pct[db$file[i]],
       sidebar      = sidebar,
       date         = db$date[i],
       pkg          = pkg,
