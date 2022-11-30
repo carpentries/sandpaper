@@ -195,6 +195,9 @@ clear_resource_list <- function(path) {
       set_globals(path)
       # resource list of files for the lesson via `get_resource_list()`
       set_resource_list(path)
+      instructor_globals$set("syllabus", 
+        create_syllabus(.resources$get()[["episodes"]], .this_lesson, path)
+      )
       invisible(.this_lesson)
     },
     clear = function() {
