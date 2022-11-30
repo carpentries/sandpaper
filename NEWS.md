@@ -1,3 +1,7 @@
+# sandpaper 0.10.9
+
+* Documentation for internal storage objects updated.
+
 # sandpaper 0.10.8
 
 MISC
