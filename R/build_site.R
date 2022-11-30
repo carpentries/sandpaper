@@ -63,7 +63,6 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   # Get percentages from the syllabus table
   pct <- get_syllabus(path, questions = TRUE)$percents
   names(pct) <- db$file[er[1]:er[2]]
-  print(pct)
   # shim for downlit ----------------------------------------------------------
   shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
   expected <- "41aea9a01589d636768f56a333343ec5"
