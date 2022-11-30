@@ -1,20 +1,22 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+#
+# NOTE: This workflow is overkill for most R packages and
+# check-standard.yaml is likely a better choice.
+# usethis::use_github_action("check-standard") will install it.
 on:
   push:
-    branches:
-      - main
+    branches: [main, master]
   pull_request:
-    branches:
-      - main
+    branches: [main, master]
 
 name: R-CMD-check
 
 jobs:
   R-CMD-check:
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
-
-    if: "!contains(github.event.commits[0].message, '[skip ci]')"
     runs-on: ${{ matrix.config.os }}
 
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
       fail-fast: false
@@ -22,11 +24,12 @@ jobs:
         config:
           - {os: macOS-latest,   cache: '~/Library/Application Support/renv', r: 'release'}
 
-          - {os: windows-latest, cache: '~\AppData\Local\renv', r: 'release', rtools-version: '42'}
+          - {os: windows-latest, r: 'release'}
           # Use 3.6 to trigger usage of RTools35
           - {os: windows-latest, cache: '~\AppData\Local\renv', r: '3.6'}
+          # use 4.1 to check with rtools40's older compiler
+          - {os: windows-latest, r: '4.1'}
 
-          # Use older ubuntu to maximise backward compatibility
           - {os: ubuntu-18.04,   cache: '~/.local/share/renv', r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-18.04,   cache: '~/.local/share/renv', r: 'release', cov: 'true'}
           - {os: ubuntu-18.04,   cache: '~/.local/share/renv', r: 'oldrel-1'}
@@ -45,8 +48,7 @@ jobs:
         if: runner.os == 'Linux'
         run: echo "OS_VERSION=`lsb_release -sr`" >> $GITHUB_ENV
 
-
-      - uses: actions/checkout@v2.5.0
+      - uses: actions/checkout@v3
 
       - uses: r-lib/actions/setup-pandoc@v2
         if: runner.os != 'Windows'
@@ -66,16 +68,13 @@ jobs:
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
-          rtools-version: ${{ matrix.config.rtools-version }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
       - name: "Setup dependencies"
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: |
-            any::rcmdcheck
-            rstudio/rmarkdown
+          extra-packages: any::rcmdcheck
           needs: check
 
       - name: "Restore {renv} cache"
