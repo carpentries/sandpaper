@@ -1,6 +1,9 @@
-# sandpaper 0.10.9
+# sandpaper 0.11.0
 
 * Documentation for internal storage objects updated.
+* Page progress indicators reflect estimated percentage progress through the
+  lesson based on the timings recorded in each episode as opposed to fraction
+  of pages (reported: anonymous, #369; fixed @zkamvar, #370).
 
 # sandpaper 0.10.8
 
