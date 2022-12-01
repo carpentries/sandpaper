@@ -13,8 +13,7 @@
 #' @keywords internal
 #' @export
 get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
-  this_lesson(path)
-   
+  
   # The home page contains three things: 
   # 0. The main title as a header
   # 1. the content of index.md from the top level of the lesson directory
@@ -22,13 +21,19 @@ get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
   #
   # The syllabus is a table containing timings, links, and questions associated
   # with each episode.
-  
+  this_lesson(path)
+  if (!is.null(instructor_globals$get()$syllabus)) {
+    return(instructor_globals$get()$syllabus)
+  }
   sched <- .resources$get()[["episodes"]] %||%
     get_resource_list(path, trim = TRUE, subfolder = "episodes")
 
-  sched <- fs::path_file(sched)
-  lesson   <- this_lesson(path)
-  # We have to invalidate the cache if the schedule is mis-matched
+  create_syllabus(sched, this_lesson(path), path, questions)
+}
+
+create_syllabus <- function(episodes, lesson, path, questions = TRUE) {
+  sched <- fs::path_file(episodes)
+  # We have to invalidate the cache if the syllabus is mis-matched
   cache_invalid <- !setequal(sched, names(lesson$episodes))
   if (cache_invalid) {
     lesson <- set_this_lesson(path)
@@ -45,12 +50,13 @@ get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
   
   start <- as.POSIXlt("00:00", format = "%H:%M", tz = "UTC")
   # Note: we are creating a start time of 0 and adding "Finish" to the end.
-  cumulative_minutes <- cumsum(c(0, timings))
+  cumulative_minutes <- cumsum(c(0, timings)) * 60L
 
   out <- data.frame(
     episode = c(titles, "Finish"), 
-    timings = format(start + cumulative_minutes * 60L, "%Hh %Mm"),
+    timings = format(start + cumulative_minutes, "%Hh %Mm"),
     path = c(paths, ""),
+    percents = sprintf("%1.0f", 100 * (cumulative_minutes / max(cumulative_minutes))),
     stringsAsFactors = FALSE
   )
   if (questions) {

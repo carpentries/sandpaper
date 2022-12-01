@@ -59,6 +59,10 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   out <- if (is.null(slug)) "index.html" else paste0(slug, ".html")
   chapters <- abs_md[seq(er[1], er[2])]
   sidebar <- create_sidebar(c(fs::path(built_path, "index.md"), chapters))
+
+  # Get percentages from the syllabus table
+  pct <- get_syllabus(path, questions = TRUE)$percents
+  names(pct) <- db$file[er[1]:er[2]]
   # shim for downlit ----------------------------------------------------------
   shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
   expected <- "41aea9a01589d636768f56a333343ec5"
@@ -76,7 +80,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
       path_src     = abs_src[i],
       page_back    = location["back"],
       page_forward = location["forward"],
-      page_progress = location["progress"],
+      page_progress = pct[db$file[i]],
       sidebar      = sidebar,
       date         = db$date[i],
       pkg          = pkg,
@@ -95,10 +99,28 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     next_page = abs_md[er[1]]
   )
 
+  # Generated content ----------------------------------------------------------
+  #
+  # In this part of the code, we use existing content to generate pages that the
+  # user does not have to modify or create. To prepare for this, we do two 
+  # things:
+  #
+  # 1. read in all of the HTML
   html_pages <- read_all_html(pkg$dst_path)
+  # 2. provision the template pages for extra pages, storing them in the `.html`
+  #    global variable. 
   provision_extra_template(pkg)
   on.exit(.html$clear(), add = TRUE)
+  #
+  # The reason for pre-processing the template extra pages is that rendering
+  # this page via pkgdown is costly as pkgdown has to do a read -> write -> read
+  # -> modify loop in order to generate a single page. Because we are using the
+  # same template, modifying only a few variables, it is easier for us to create
+  # a pre-processed template where we can have variables that we can replace for
+  # use.
 
+  # Once we have the pre-processed templates and HTML content, we can pass these
+  # to our aggregator functions:
   if (!quiet) cli::cli_rule(cli::style_bold("Creating keypoints summary"))
   build_keypoints(pkg, pages = html_pages, quiet = quiet)
   if (!quiet) cli::cli_rule(cli::style_bold("Creating All-in-one page"))
@@ -108,6 +130,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   if (!quiet) cli::cli_rule(cli::style_bold("Creating Instructor Notes"))
   build_instructor_notes(pkg, pages = html_pages, built = built, quiet = quiet)
 
+  # At the end, a sitemap is created with our aggregated pages.
   build_sitemap(pkg$dst_path, paths = html_pages$paths, quiet = quiet)
 
   pkgdown::preview_site(pkg, "/", preview = preview)
