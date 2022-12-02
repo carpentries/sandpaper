@@ -7,12 +7,14 @@ set_globals(res)
 pkg <- pkgdown::as_pkgdown(path_site(res))
 # shim for downlit ----------------------------------------------------------
 shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-expected <- "5484c37e9b9c324361d775a10dea4946"
+expected <- "62a291ba3386aad91e5ade20480ad7cf" 
 actual   <- tools::md5sum(shimstem_file)
 if (expected == actual) {
   # evaluate the shim in our namespace
   when_done <- source(shimstem_file, local = TRUE)$value
   withr::defer(eval(when_done))
+} else {
+  stop("shim broken")
 }
 # end downlit shim ----------------------------------------------------------
 
@@ -28,7 +30,7 @@ test_that("[build_home()] works independently", {
   fs::dir_create(built_dir)
   fs::file_copy(fs::path(res, "index.md"), built_dir)
   fs::file_copy(fs::path(res, "learners", "setup.md"), built_dir)
-  build_home(pkg, quiet = TRUE, new_setup = TRUE,
+  build_home(pkg, quiet = TRUE, 
     next_page = fs::path(res, "episodes", "introduction.Rmd")
   )
   learn_index <- fs::path(pkg$dst_path, "index.html")

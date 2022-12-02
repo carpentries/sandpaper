@@ -65,7 +65,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   names(pct) <- db$file[er[1]:er[2]]
   # shim for downlit ----------------------------------------------------------
   shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-  expected <- "41aea9a01589d636768f56a333343ec5"
+  expected <- "62a291ba3386aad91e5ade20480ad7cf" 
   actual   <- tools::md5sum(shimstem_file)
   if (expected == actual) {
     # evaluate the shim in our namespace
