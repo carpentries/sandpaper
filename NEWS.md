@@ -1,3 +1,8 @@
+# sandpaper 0.11.1
+
+* code inside of main `build_` functions cleaned up. Unused variables removed
+  and narrative comments added to provide context. 
+
 # sandpaper 0.11.0
 
 * Documentation for internal storage objects updated.
