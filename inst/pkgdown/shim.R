@@ -23,9 +23,9 @@ new_ht <- ht <- dl$href_topic
 unlockBinding("token_href", dl)
 unlockBinding("href_topic", dl)
 # 3. Replace the function bodies with those that return NA
-body(new_tr) <- str2lang("rep(NA, length(token))")
+body(new_tr) <- parse(text = "rep(NA, length(token))", keep.source = FALSE)[[1]]
 dl$token_href <- new_tr
-body(new_ht) <- str2lang("NA_character_")
+body(new_ht) <- parse(text = "NA_character_", keep.source = FALSE)[[1]]
 dl$href_topic <- new_ht
 # 4. evaluate the expressions to reset the functions to their original values
 reset_tr <- parse(text = "{\ndl$token_href <- tr\nlockBinding('token_href', dl)\n}")
