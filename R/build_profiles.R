@@ -1,4 +1,4 @@
-build_profiles <- function(pkg, quiet, sidebar = NULL) {
+build_profiles <- function(pkg, quiet) {
   page_globals <- setup_page_globals()
   path <- root_path(pkg$src_path)
   profs <- get_profiles(path, trim = FALSE)

@@ -1,3 +1,18 @@
+# sandpaper 0.11.1
+
+BUG FIX
+-------
+
+* A bug in deployment where GitHub deployments fail due to an error that says
+  "Error: Can't find DESCRIPTION" has been fixed (reported: @tobyhodges, #371; 
+  fixed, @zkamvar, #372)
+
+MISC
+----
+
+* code inside of main `build_` functions cleaned up. Unused variables removed
+  and narrative comments added to provide context. 
+
 # sandpaper 0.11.0
 
 * Documentation for internal storage objects updated.

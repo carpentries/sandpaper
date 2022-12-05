@@ -1,6 +1,9 @@
 ci_group <- function(group = "Group") {
   cli::cat_line(glue::glue("::group::{group}"))
 }
+describe_progress <- function(..., quiet = FALSE) {
+  if (!quiet) cli::cli_rule(cli::style_bold(...))
+}
 
 sandpaper_cli_theme <- function() {
   list(

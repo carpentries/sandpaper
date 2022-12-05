@@ -45,7 +45,8 @@ create_syllabus <- function(episodes, lesson, path, questions = TRUE) {
   timings <- vapply(episodes, get_timings, numeric(1))
   titles  <- vapply(episodes, get_titles, character(1))
 
-  paths <- fs::path(pkgdown::as_pkgdown(path_site(path))$dst_path, sched)
+  # pkgdown::as_pkgdown
+  paths <- fs::path(path_site(path), "docs", sched)
   paths <- fs::path_ext_set(paths, "html")
   
   start <- as.POSIXlt("00:00", format = "%H:%M", tz = "UTC")
