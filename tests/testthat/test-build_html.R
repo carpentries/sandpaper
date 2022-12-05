@@ -13,7 +13,7 @@ actual   <- hash_file(shimstem_file)
 M1 <- sprintf("SHIM FILE: %s", shimstem_file)
 M2 <- sprintf("--------- CONTENTS ----------\n%s\n-----------------------------",
     paste(readLines(shimstem_file), collapse = "\n"))
-if (expected == actual || expected == win_expect) {
+if (expected == actual || win_expect == actual) {
   # evaluate the shim in our namespace
   when_done <- source(shimstem_file, local = TRUE)$value
   withr::defer(eval(when_done))
