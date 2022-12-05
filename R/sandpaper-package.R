@@ -8,5 +8,6 @@
 #' @importFrom utils write.table
 #' @importFrom utils modifyList
 #' @importFrom utils tail
+#' @importFrom rlang is_interactive hash_file
 ## usethis namespace: end
 NULL

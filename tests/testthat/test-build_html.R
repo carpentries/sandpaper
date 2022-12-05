@@ -7,8 +7,8 @@ set_globals(res)
 pkg <- pkgdown::as_pkgdown(path_site(res))
 # shim for downlit ----------------------------------------------------------
 shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-expected <- "bb4c612faa5614cf824b5becd332a257"
-actual   <- tools::md5sum(shimstem_file)
+expected <- "877dcdfb9f88ae21172b37b49a1291e7"
+actual   <- hash_file(shimstem_file)
 M1 <- sprintf("SHIM FILE: %s", shimstem_file)
 M2 <- sprintf("--------- CONTENTS ----------\n%s\n-----------------------------",
     paste(readLines(shimstem_file), collapse = "\n"))
