@@ -7,17 +7,18 @@ set_globals(res)
 pkg <- pkgdown::as_pkgdown(path_site(res))
 # shim for downlit ----------------------------------------------------------
 shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-expected <- "62a291ba3386aad91e5ade20480ad7cf" 
+expected <- "bb4c612faa5614cf824b5becd332a257"
 actual   <- tools::md5sum(shimstem_file)
+M1 <- sprintf("SHIM FILE: %s", shimstem_file)
+M2 <- sprintf("--------- CONTENTS ----------\n%s\n-----------------------------",
+    paste(readLines(shimstem_file), collapse = "\n"))
 if (expected == actual) {
   # evaluate the shim in our namespace
   when_done <- source(shimstem_file, local = TRUE)$value
   withr::defer(eval(when_done))
 } else {
-  message(sprintf("SHIM FILE: %s", shimstem_file))
-  message(sprintf("--------- CONTENTS ----------\n%s\n-----------------------------",
-      paste(readLines(shimstem_file), collapse = "\n")))
-  stop(sprintf("shim broken\nexpected: %s\nactual:   %s\n", expected, actual))
+  stop(sprintf("shim broken\nexpected: %s\nactual:   %s\n%s\n%s", 
+      expected, actual, M1, M2))
 }
 # end downlit shim ----------------------------------------------------------
 
