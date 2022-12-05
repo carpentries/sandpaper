@@ -12,7 +12,7 @@ the instructor-notes page, separated by section and &amp;lt;hr&amp;gt; elements.
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,13 +99,13 @@ the instructor-notes page, separated by section and <code>&lt;hr&gt;</code> elem
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">lsn</span> <span class="op">&lt;-</span> <span class="st">"/path/to/lesson"</span></span></span>
-<span class="r-in"><span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu">pkgdown</span><span class="fu">::</span><span class="fu">as_pkgdown</span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu">path</span><span class="op">(</span><span class="va">lsn</span>, <span class="st">"site"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgdown.r-lib.org/reference/as_pkgdown.html" class="external-link">as_pkgdown</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">lsn</span>, <span class="st">"site"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># read in the All in One page and extract its content</span></span></span>
-<span class="r-in"><span><span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu">get_content</span><span class="op">(</span><span class="st">"instructor-notes"</span>, content <span class="op">=</span></span></span>
+<span class="r-in"><span><span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_content.html">get_content</a></span><span class="op">(</span><span class="st">"instructor-notes"</span>, content <span class="op">=</span></span></span>
 <span class="r-in"><span>  <span class="st">"section[@id='aggregate-instructor-notes']"</span>, pkg <span class="op">=</span> <span class="va">pkg</span>, instructor <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">agg</span> <span class="op">&lt;-</span> <span class="st">"/div[contains(@class, 'instructor-note')]//div[@class='accordion-body']"</span></span></span>
-<span class="r-in"><span><span class="va">note_content</span> <span class="op">&lt;-</span> <span class="fu">get_content</span><span class="op">(</span><span class="st">"01-introduction"</span>, content <span class="op">=</span> <span class="va">agg</span>, pkg <span class="op">=</span> <span class="va">pkg</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">note_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_content.html">get_content</a></span><span class="op">(</span><span class="st">"01-introduction"</span>, content <span class="op">=</span> <span class="va">agg</span>, pkg <span class="op">=</span> <span class="va">pkg</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">make_instructornotes_section</span><span class="op">(</span><span class="st">"01-introduction"</span>, contents <span class="op">=</span> <span class="va">note_content</span>, </span></span>
 <span class="r-in"><span>  parent <span class="op">=</span> <span class="va">notes</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>

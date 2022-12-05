@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -220,8 +220,8 @@ in the “Value” field.</p>
 <p>If you want to create updates manually without using GitHub Actions,
 there are two functions available:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">update_github_workflows</span><span class="op">(</span><span class="op">)</span>  <span class="co"># updates the package workflows</span></span>
-<span><span class="fu">update_cache</span><span class="op">(</span><span class="op">)</span>      <span class="co"># uses `renv::update()` to check for updates to the package cache</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/update_github_workflows.html">update_github_workflows</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># updates the package workflows</span></span>
+<span><span class="fu"><a href="../reference/dependency_management.html">update_cache</a></span><span class="op">(</span><span class="op">)</span>      <span class="co"># uses `renv::update()` to check for updates to the package cache</span></span></code></pre></div>
 <p>Both of these functions will modify files locally so if you do not
 like them, you can use <code>git restore .</code> to revert them to
 their original state.</p>

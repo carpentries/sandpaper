@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,8 +126,8 @@ to rebuild the lesson from scratch every time.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">run_ok</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">has_git</span><span class="op">(</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span></span>
-<span class="r-in"><span>  <span class="fu">requireNamespace</span><span class="op">(</span><span class="st">"withr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span></span>
-<span class="r-in"><span>  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu">pandoc_available</span><span class="op">(</span><span class="st">"2.11"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"withr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span></span>
+<span class="r-in"><span>  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/pandoc_available.html" class="external-link">pandoc_available</a></span><span class="op">(</span><span class="st">"2.11"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use Worktrees to deploy a lesson -----------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># This example is a bit inovlved, but it is effectively what we do inside of</span></span></span>
@@ -146,38 +146,38 @@ to rebuild the lesson from scratch every time.</p>
 <span class="r-in"><span><span class="co"># During the clean up phase, the output of `git_worktree_setup()` is </span></span></span>
 <span class="r-in"><span><span class="co"># evaluated</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run_ok</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu">cli_h1</span><span class="op">(</span><span class="st">"Set up"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu">cli_h2</span><span class="op">(</span><span class="st">"Create Lesson"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">restore_fixture</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">create_test_lesson</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">getOption</span><span class="op">(</span><span class="st">"sandpaper.test_fixture"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h1</a></span><span class="op">(</span><span class="st">"Set up"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"Create Lesson"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">restore_fixture</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu"><a href="fixtures.html">create_test_lesson</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"sandpaper.test_fixture"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">check_git_user</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu">cli_h2</span><span class="op">(</span><span class="st">"Create Remote"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">rmt</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu">file_temp</span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"REMOTE-"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">setup_local_remote</span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span>, remote <span class="op">=</span> <span class="va">rmt</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu">cli_h2</span><span class="op">(</span><span class="st">"Create Worktrees"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">git_worktree_setup</span><span class="op">(</span><span class="va">res</span>, <span class="fu">fs</span><span class="fu">::</span><span class="fu">path</span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"built"</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"Create Remote"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rmt</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/file_temp.html" class="external-link">file_temp</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"REMOTE-"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu"><a href="fixtures.html">setup_local_remote</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span>, remote <span class="op">=</span> <span class="va">rmt</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"Create Worktrees"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">git_worktree_setup</span><span class="op">(</span><span class="va">res</span>, <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"built"</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>  branch <span class="op">=</span> <span class="st">"md-outputs"</span>, remote <span class="op">=</span> <span class="st">"sandpaper-local"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">git_worktree_setup</span><span class="op">(</span><span class="va">res</span>, <span class="fu">fs</span><span class="fu">::</span><span class="fu">path</span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"docs"</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">git_worktree_setup</span><span class="op">(</span><span class="va">res</span>, <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"docs"</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>  branch <span class="op">=</span> <span class="st">"gh-pages"</span>, remote <span class="op">=</span> <span class="st">"sandpaper-local"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu">cli_h1</span><span class="op">(</span><span class="st">"Build Lesson into worktrees"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">build_lesson</span><span class="op">(</span><span class="va">res</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span>, preview <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu">cli_h2</span><span class="op">(</span><span class="st">"git status: {gert::git_branch(repo = res)}"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">print</span><span class="op">(</span><span class="fu">gert</span><span class="fu">::</span><span class="fu">git_status</span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu">cli_h2</span><span class="op">(</span><span class="st">'git status: {gert::git_branch(repo = fs::path(res, "site", "built"))}'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">print</span><span class="op">(</span><span class="fu">gert</span><span class="fu">::</span><span class="fu">git_status</span><span class="op">(</span>repo <span class="op">=</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu">path</span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"built"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu">cli_h2</span><span class="op">(</span><span class="st">'git status: {gert::git_branch(repo = fs::path(res, "site", "docs"))}'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">print</span><span class="op">(</span><span class="fu">gert</span><span class="fu">::</span><span class="fu">git_status</span><span class="op">(</span>repo <span class="op">=</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu">path</span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"docs"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu">cli_h1</span><span class="op">(</span><span class="st">"Clean Up"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu">cli_alert_info</span><span class="op">(</span><span class="st">"object db is an expression that evaluates to {.code {db}}"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">eval</span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu">cli_alert_info</span><span class="op">(</span><span class="st">"object ds is an expression that evaluates to {.code {ds}}"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">eval</span><span class="op">(</span><span class="va">ds</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">remove_local_remote</span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h1</a></span><span class="op">(</span><span class="st">"Build Lesson into worktrees"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="va">res</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span>, preview <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"git status: {gert::git_branch(repo = res)}"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_commit.html" class="external-link">git_status</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">'git status: {gert::git_branch(repo = fs::path(res, "site", "built"))}'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_commit.html" class="external-link">git_status</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"built"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">'git status: {gert::git_branch(repo = fs::path(res, "site", "docs"))}'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_commit.html" class="external-link">git_status</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"docs"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h1</a></span><span class="op">(</span><span class="st">"Clean Up"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"object db is an expression that evaluates to {.code {db}}"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"object ds is an expression that evaluates to {.code {ds}}"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a></span><span class="op">(</span><span class="va">ds</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu"><a href="fixtures.html">remove_local_remote</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">reset_git_user</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># remove the test fixture and report</span></span></span>
-<span class="r-in"><span><span class="kw">tryCatch</span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu">dir_delete</span><span class="op">(</span><span class="va">res</span><span class="op">)</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/delete.html" class="external-link">dir_delete</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Set up</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────────────────</span></span>
@@ -190,11 +190,15 @@ to rebuild the lesson from scratch every time.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">→ Recording changes in lockfile</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">The following package(s) will be updated in the lockfile:</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # CRAN ===============================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - stringr     [* -&gt; 1.5.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # RSPM ===============================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - R6          [* -&gt; 2.5.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - base64enc   [* -&gt; 0.1-3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - bslib       [* -&gt; 0.4.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - cachem      [* -&gt; 1.0.6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - cli         [* -&gt; 3.4.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - digest      [* -&gt; 0.6.30]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - evaluate    [* -&gt; 0.18]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - fastmap     [* -&gt; 1.1.0]</span>
@@ -205,6 +209,7 @@ to rebuild the lesson from scratch every time.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - jquerylib   [* -&gt; 0.1.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - jsonlite    [* -&gt; 1.8.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - knitr       [* -&gt; 1.41]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - lifecycle   [* -&gt; 1.0.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - magrittr    [* -&gt; 2.0.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - memoise     [* -&gt; 2.0.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rappdirs    [* -&gt; 0.3.3]</span>
@@ -213,15 +218,15 @@ to rebuild the lesson from scratch every time.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rmarkdown   [* -&gt; 2.18]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - sass        [* -&gt; 0.4.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - stringi     [* -&gt; 1.7.8]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - stringr     [* -&gt; 1.4.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - tinytex     [* -&gt; 0.42]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - vctrs       [* -&gt; 0.5.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - xfun        [* -&gt; 0.35]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - yaml        [* -&gt; 2.3.6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The version of R recorded in the lockfile will be updated:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - R           [*] -&gt; [4.2.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * Lockfile written to '/tmp/Rtmpi5bjQq/file19a616160010/lesson-example/renv/profiles/lesson-requirements/renv.lock'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> * Lockfile written to '/tmp/RtmpIJPmKt/file1a707aa9b89f/lesson-example/renv/profiles/lesson-requirements/renv.lock'.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Create Remote</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -232,9 +237,9 @@ to rebuild the lesson from scratch every time.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to a new branch 'md-outputs'</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git rm -rf --quiet .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git commit --allow-empty -m 'Initializing md-outputs branch'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [md-outputs (root-commit) 62de536] Initializing md-outputs branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [md-outputs (root-commit) 53a88d8] Initializing md-outputs branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git push sandpaper-local 'HEAD:md-outputs'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpi5bjQq/REMOTE-19a6fb0b16c</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/RtmpIJPmKt/REMOTE-1a70be4d0</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * [new branch]      HEAD -&gt; md-outputs</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout main</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Your branch is up to date with 'sandpaper-local/main'.</span>
@@ -243,26 +248,26 @@ to rebuild the lesson from scratch every time.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Fetch sandpaper-local/md-outputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local md-outputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git fetch sandpaper-local md-outputs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmpi5bjQq/REMOTE-19a6fb0b16c</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/RtmpIJPmKt/REMOTE-1a70be4d0</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * branch            md-outputs -&gt; FETCH_HEAD</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local '*'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Add worktree for sandpaper-local/md-outputs in site/built</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree add --track -B md-outputs \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpi5bjQq/file19a616160010/lesson-example/site/built \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/RtmpIJPmKt/file1a707aa9b89f/lesson-example/site/built \</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   sandpaper-local/md-outputs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'md-outputs'; was at 62de536)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'md-outputs'; was at 53a88d8)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> branch 'md-outputs' set up to track 'sandpaper-local/md-outputs'.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at 62de536 Initializing md-outputs branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at 53a88d8 Initializing md-outputs branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Create New Branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout --orphan gh-pages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to a new branch 'gh-pages'</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git rm -rf --quiet .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git commit --allow-empty -m 'Initializing gh-pages branch'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [gh-pages (root-commit) 9fa4a8e] Initializing gh-pages branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [gh-pages (root-commit) 1606540] Initializing gh-pages branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git push sandpaper-local 'HEAD:gh-pages'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpi5bjQq/REMOTE-19a6fb0b16c</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/RtmpIJPmKt/REMOTE-1a70be4d0</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * [new branch]      HEAD -&gt; gh-pages</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout main</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Your branch is up to date with 'sandpaper-local/main'.</span>
@@ -271,17 +276,17 @@ to rebuild the lesson from scratch every time.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Fetch sandpaper-local/gh-pages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local gh-pages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git fetch sandpaper-local gh-pages</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmpi5bjQq/REMOTE-19a6fb0b16c</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/RtmpIJPmKt/REMOTE-1a70be4d0</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * branch            gh-pages   -&gt; FETCH_HEAD</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local '*'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Add worktree for sandpaper-local/gh-pages in site/docs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree add --track -B gh-pages \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpi5bjQq/file19a616160010/lesson-example/site/docs \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/RtmpIJPmKt/file1a707aa9b89f/lesson-example/site/docs \</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   sandpaper-local/gh-pages</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'gh-pages'; was at 9fa4a8e)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'gh-pages'; was at 1606540)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> branch 'gh-pages' set up to track 'sandpaper-local/gh-pages'.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at 9fa4a8e Initializing gh-pages branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at 1606540 Initializing gh-pages branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Build Lesson into worktrees</span> <span style="color: #00BBBB;">─────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -323,12 +328,12 @@ to rebuild the lesson from scratch every time.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> bootstrap-toc.js           new    FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 24 more rows</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Clean Up</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> object db is an expression that evaluates to `sandpaper:::github_worktree_remove("/tmp/Rtmpi5bjQq/file19a616160010/lesson-example/site/built", "/tmp/Rtmpi5bjQq/file19a616160010/lesson-example")`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> object db is an expression that evaluates to `sandpaper:::github_worktree_remove("/tmp/RtmpIJPmKt/file1a707aa9b89f/lesson-example/site/built", "/tmp/RtmpIJPmKt/file1a707aa9b89f/lesson-example")`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree remove --force \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpi5bjQq/file19a616160010/lesson-example/site/built</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> object ds is an expression that evaluates to `sandpaper:::github_worktree_remove("/tmp/Rtmpi5bjQq/file19a616160010/lesson-example/site/docs", "/tmp/Rtmpi5bjQq/file19a616160010/lesson-example")`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/RtmpIJPmKt/file1a707aa9b89f/lesson-example/site/built</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> object ds is an expression that evaluates to `sandpaper:::github_worktree_remove("/tmp/RtmpIJPmKt/file1a707aa9b89f/lesson-example/site/docs", "/tmp/RtmpIJPmKt/file1a707aa9b89f/lesson-example")`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree remove --force \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpi5bjQq/file19a616160010/lesson-example/site/docs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/RtmpIJPmKt/file1a707aa9b89f/lesson-example/site/docs</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

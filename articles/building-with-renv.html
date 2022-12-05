@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,9 +120,9 @@ be recorded in the lockfile, which is tracked by git.</li>
 permission to create and use a cache with the function
 <code><a href="../reference/package_cache.html">use_package_cache()</a></code></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="st">"sandpaper"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://carpentries.github.io/sandpaper/">"sandpaper"</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">use_package_cache</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/package_cache.html">use_package_cache</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#| </span></span>
 <span><span class="co">#| <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Caching Build Packages for Generated Content</span> <span style="color: #00BBBB;">────────────────────────</span></span></span>
 <span><span class="co">#| The Carpentries lesson infrastructure uses the <span style="color: #0000BB;">renv</span> (R environment)</span></span>
@@ -176,7 +176,7 @@ of your lessons going forward.</strong></p>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>When you build your lesson, you will see this kind of output:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">build_lesson</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre class="output"><code><span><span class="co">#| ℹ Consent to use package cache provided</span></span>
 <span><span class="co">#| → Searching for and installing available dependencies</span></span>
 <span><span class="co">#| * Discovering package dependencies ... Done!</span></span>
@@ -258,8 +258,8 @@ of your lessons going forward.</strong></p>
 lesson. To do this you can use <code><a href="../reference/package_cache.html">no_package_cache()</a></code> and your
 lesson will default to using your local library.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">no_package_cache</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">build_markdown</span><span class="op">(</span>rebuild <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/package_cache.html">no_package_cache</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu"><a href="../reference/build_markdown.html">build_markdown</a></span><span class="op">(</span>rebuild <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre class="output"><code><span></span>
 <span><span class="co">#| ℹ Consent to use package cache not given. Using default library.</span></span>
 <span><span class="co">#| → use `use_package_cache()` to enable the package cache for reproducible builds.</span></span>
@@ -286,7 +286,7 @@ if they do not exist:</p>
 <p>When you want to turn it on again, you can use
 <code><a href="../reference/package_cache.html">use_package_cache()</a></code></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">use_package_cache</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/package_cache.html">use_package_cache</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre class="output"><code><span><span class="co">#| ℹ Consent for renv provided---consent for package cache implied.</span></span></code></pre>
 <p>Read on for information about how to add, update, and remove packages
 from your cache.</p>
@@ -353,11 +353,11 @@ arguments, it will report <code>TRUE</code> or <code>FALSE</code>,
 indicating if changes to the lockfile will trigger a rebuild or not,
 respectively:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">package_cache_trigger</span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#| [1] FALSE</span></span>
-<span><span class="fu">package_cache_trigger</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># set the package cache to auto-trigger rebuilds</span></span>
+<span><span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># set the package cache to auto-trigger rebuilds</span></span>
 <span><span class="co">#| [1] TRUE</span></span>
-<span><span class="fu">package_cache_trigger</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co"># prevent package cache from triggering rebuilds</span></span>
+<span><span class="fu"><a href="../reference/package_cache.html">package_cache_trigger</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co"># prevent package cache from triggering rebuilds</span></span>
 <span><span class="co">#| [1] FALSE</span></span></code></pre></div>
 <p>You might want to set this to <code>TRUE</code> when you pull changes
 from upstream.</p>
@@ -393,7 +393,7 @@ breaking changes you want to work on before release), you can use the
 <code><a href="../reference/dependency_management.html">pin_version()</a></code> function. For example, here’s how you would
 pin the {cowsay} package to version 0.7.0:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">pin_version</span><span class="op">(</span><span class="st">"cowsay@0.7.0"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dependency_management.html">pin_version</a></span><span class="op">(</span><span class="st">"cowsay@0.7.0"</span><span class="op">)</span></span></code></pre></div>
 <p>This will record the package in the lockfile so that the next time
 <code><a href="../reference/dependency_management.html">manage_deps()</a></code> runs, it will use the correct version.</p>
 </div>
@@ -406,7 +406,7 @@ connection and will scan the packages in your lesson for any potential
 updates and ask if you want to update them. This will update those
 packages in your package cache and your lockfile.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">update_cache</span><span class="op">(</span>prompt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dependency_management.html">update_cache</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
