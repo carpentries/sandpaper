@@ -14,6 +14,8 @@ if (expected == actual) {
   when_done <- source(shimstem_file, local = TRUE)$value
   withr::defer(eval(when_done))
 } else {
+  message(sprintf("SHIM FILE CONTENTS ----------\n%s\n-----------------------------",
+      paste(readLines(shimstem_file), collapse = "\n")))
   stop(sprintf("shim broken\nexpected: %s\nactual:   %s\n", expected, actual))
 }
 # end downlit shim ----------------------------------------------------------
