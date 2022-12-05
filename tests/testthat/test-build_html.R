@@ -9,7 +9,6 @@ pkg <- pkgdown::as_pkgdown(path_site(res))
 shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
 expected <- "41aea9a01589d636768f56a333343ec5"
 actual   <- tools::md5sum(shimstem_file)
-win_expect <- expected
 # expected <- "877dcdfb9f88ae21172b37b49a1291e7"
 # win_expect <- "32714ffc021f7afb54a1bce5b54408e7"
 # actual   <- hash_file(shimstem_file)
