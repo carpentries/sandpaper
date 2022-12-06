@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,16 @@
       <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.11.2" id="sandpaper-0112">sandpaper 0.11.2<a class="anchor" aria-label="anchor" href="#sandpaper-0112"></a></h2>
+<div class="section level3">
+<h3 id="misc-0-11-2">MISC<a class="anchor" aria-label="anchor" href="#misc-0-11-2"></a></h3>
+<ul><li>The <code>create_syllabus()</code> function no longer uses <code><a href="https://pkgdown.r-lib.org/reference/as_pkgdown.html" class="external-link">pkgdown::as_pkgdown()</a></code> and assumes a flat file structure when creating the syllabus. This provides a further fix for <a href="https://github.com/carpentries/sandpaper/issues/371" class="external-link">#371</a>.</li>
+<li>The downlit shim has been updated to modify the function bodies while preserving the function signatures.</li>
+<li>workflows for testing on Windows has been fixed by setting the git config <code>autocrlf</code> to <code>false</code> before checkout (thanks to <a href="https://github.com/assignUser" class="external-link">@assignUser</a> for the tip).</li>
+<li>The test coverage workflow has been updated to avoid long build times.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.1" id="sandpaper-0111">sandpaper 0.11.1<a class="anchor" aria-label="anchor" href="#sandpaper-0111"></a></h2>
 <div class="section level3">
@@ -1145,7 +1155,7 @@
 <h3 id="new-features-0-0-0-9013">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-0-0-9013"></a></h3>
 <ul><li>In RStudio, the <strong>knit button works</strong> <span class="emoji" data-emoji="tada">🎉</span> (fix <a href="https://github.com/carpentries/sandpaper/issues/77" class="external-link">#77</a>; <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/82" class="external-link">#82</a>)</li>
 <li>
-<code><a href="../reference/sandpaper_site.html">sandpaper_site()</a></code> is a site generator function that allows {rmarkdown} to use the {sandpaper} machinery to build the site from <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render_site.html" class="external-link">rmarkdown::render_site()</a></code>
+<code><a href="../reference/sandpaper_site.html">sandpaper_site()</a></code> is a site generator function that allows {rmarkdown} to use the {sandpaper} machinery to build the site from <code><a href="https://rdrr.io/pkg/rmarkdown/man/render_site.html" class="external-link">rmarkdown::render_site()</a></code>
 </li>
 <li>
 <code><a href="../reference/build_site.html">build_site()</a></code> gains a <code>slug</code> argument that tailors the previewed content.</li>
