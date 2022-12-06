@@ -15,6 +15,7 @@ M2 <- sprintf("--------- CONTENTS ----------\n%s\n-----------------------------"
     paste(readLines(shimstem_file), collapse = "\n"))
 if (expected == actual || win_expect == actual) {
   # evaluate the shim in our namespace
+  if (win_expect == actual) print("WINDOWS")
   when_done <- source(shimstem_file, local = TRUE)$value
   withr::defer(eval(when_done))
 } else {

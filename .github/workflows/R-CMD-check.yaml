@@ -48,17 +48,19 @@ jobs:
         if: runner.os == 'Linux'
         run: echo "OS_VERSION=`lsb_release -sr`" >> $GITHUB_ENV
 
+      - name: "Setup windows quirks"
+        if: runner.os == 'Windows'
+        run: |
+          git config --global core.autocrlf false
+          echo "TMPDIR=${{ runner.temp }}" >> $GITHUB_ENV
+        shell: bash
+
       - uses: actions/checkout@v3
 
       - uses: r-lib/actions/setup-pandoc@v2
         if: runner.os != 'Windows'
         with:
           pandoc-version: '2.11'
-
-      - name: "Change windows temp dir"
-        if: runner.os == 'Windows'
-        run: echo "TMPDIR=${{ runner.temp }}" >> $GITHUB_ENV
-        shell: bash
 
       - name: "Setup devel pandoc windows"
         uses: cderv/actions/setup-pandoc-nightly@nightly-pandoc
