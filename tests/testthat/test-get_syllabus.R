@@ -8,7 +8,9 @@ test_that("syllabus can be extracted from source files", {
   suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
 
-  res <- get_syllabus(tmp)
+  # testing that create_esyllabus is independent
+  lsn <- pegboard::Lesson$new(tmp, jekyll = FALSE)
+  res <- create_syllabus(s, lesson = lsn)
   expect_named(res, c("episode", "timings", "path", "percents", "questions"))
   expect_equal(nrow(res), 2)
   expect_equal(res$timings, c("00h 00m", "00h 12m"))

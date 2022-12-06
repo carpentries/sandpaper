@@ -1,3 +1,17 @@
+# sandpaper 0.11.2
+
+MISC
+----
+
+* The `create_syllabus()` function no longer uses `pkgdown::as_pkgdown()` and
+  assumes a flat file structure when creating the syllabus. This provides a
+  further fix for #371.
+* The downlit shim has been updated to modify the function bodies while 
+  preserving the function signatures.
+- workflows for testing on Windows has been fixed by setting the git config 
+  `autocrlf` to `false` before checkout (thanks to @assignUser for the tip).
+- The test coverage workflow has been updated to avoid long build times.
+
 # sandpaper 0.11.1
 
 BUG FIX

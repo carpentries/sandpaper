@@ -53,11 +53,6 @@ jobs:
           printf "libxslt-dev\n" >> ${{ runner.temp }}/sysdeps.txt
           sudo xargs apt-get install --fix-missing -y < ${{ runner.temp }}/sysdeps.txt || echo "Not on Ubuntu"
 
-      - name: Add Carpentries Repos
-        run: |
-          writeLines('options(repos = c(carpentries = "https://carpentries.r-universe.dev", carpentries_archive = "https://carpentries.github.io/drat", CRAN = "https://cran.rstudio.com"))', file("~/.Rprofile", "ab"))
-        shell: Rscript {0}
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::covr
