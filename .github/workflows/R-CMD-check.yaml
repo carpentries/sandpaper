@@ -62,7 +62,9 @@ jobs:
 
       - name: "Windows: setup TMPDIR"
         if: runner.os == 'Windows'
-        run: echo "TMPDIR=${{ runner.temp }}" >> $GITHUB_ENV
+        run: |
+          git config --global core.autocrlf true # reset setting to prevent errors downstream
+          echo "TMPDIR=${{ runner.temp }}" >> $GITHUB_ENV
         shell: bash
 
       - name: "Setup devel pandoc windows"
