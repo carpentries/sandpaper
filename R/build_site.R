@@ -77,8 +77,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   # Bypass certain downlit functions that produce unintented effects such
   # as linking function documentation.
   shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-  expected <- "877dcdfb9f88ae21172b37b49a1291e7"
-  actual   <- hash_file(shimstem_file)
+  expected <- "230853fec984d1a0e5766d3da79f1cea" 
+  actual   <- tools::md5sum(shimstem_file)
   if (expected == actual) {
     # evaluate the shim in our namespace
     when_done <- source(shimstem_file, local = TRUE)$value

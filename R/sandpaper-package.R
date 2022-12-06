@@ -8,6 +8,7 @@
 #' @importFrom utils write.table
 #' @importFrom utils modifyList
 #' @importFrom utils tail
-#' @importFrom rlang is_interactive hash_file
+#' @importFrom tools md5sum
+#' @importFrom rlang is_interactive
 ## usethis namespace: end
 NULL
