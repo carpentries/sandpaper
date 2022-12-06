@@ -8,14 +8,12 @@ pkg <- pkgdown::as_pkgdown(path_site(res))
 # shim for downlit ----------------------------------------------------------
 shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
 expected <- "877dcdfb9f88ae21172b37b49a1291e7"
-win_expect <- "32714ffc021f7afb54a1bce5b54408e7"
 actual   <- hash_file(shimstem_file)
 M1 <- sprintf("SHIM FILE: %s", shimstem_file)
 M2 <- sprintf("--------- CONTENTS ----------\n%s\n-----------------------------",
     paste(readLines(shimstem_file), collapse = "\n"))
-if (expected == actual || win_expect == actual) {
+if (expected == actual) {
   # evaluate the shim in our namespace
-  if (win_expect == actual) print("WINDOWS")
   when_done <- source(shimstem_file, local = TRUE)$value
   withr::defer(eval(when_done))
 } else {
