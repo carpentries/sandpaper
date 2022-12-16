@@ -147,6 +147,11 @@ pull request. GitHub has safeguarded the token used in this workflow to have no
 priviledges in the repository, but we have taken precautions to protect against
 spoofing.
 
+This workflow is triggered with every push to a pull request. If this workflow
+is already running and a new push is sent to the pull request, the workflow
+running from the previous push will be cancelled and a new workflow run will be
+started.
+
 The first step of this workflow is to check if it is valid (e.g. that no
 workflow files have been modified). If there are workflow files that have been
 modified, a comment is made that indicates that the workflow is not run. If 
@@ -160,7 +165,7 @@ request. This builds the content and uploads three artifacts:
 3. The rendered files (build)
 
 Because this workflow builds generated content, it follows the same general 
-process as the sandpaper-main workflow with the same caching mechanisms.
+process as the `sandpaper-main` workflow with the same caching mechanisms.
 
 The artifacts produced are used by the next workflow.
 
@@ -176,7 +181,7 @@ The steps in this workflow are:
 3. If it is valid: update the pull request comment with the summary of changes
 
 Importantly: if the pull request is invalid, the branch is not created so any
-malicious code is not published. 
+malicious code is not published.
 
 From here, the maintainer can request changes from the author and eventually 
 either merge or reject the PR. When this happens, if the PR was valid, the 

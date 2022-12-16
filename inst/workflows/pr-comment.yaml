@@ -8,6 +8,11 @@ on:
     types:
       - completed
 
+concurrency:
+  group: pr-${{ github.event.workflow_run.pull_requests[0].number }}
+  cancel-in-progress: true
+
+
 jobs:
   # Pull requests are valid if:
   #  - they match the sha of the workflow run head commit
@@ -58,6 +63,7 @@ jobs:
         with:
           pr: ${{ steps.get-pr.outputs.NUM }}
           sha: ${{ github.event.workflow_run.head_sha }}
+          headroom: 3 # if it's within the last three commits, we can keep going, because it's likely rapid-fire
           invalid: ${{ fromJSON(steps.hash.outputs.json)[github.repository] }}
           fail_on_error: true
 
