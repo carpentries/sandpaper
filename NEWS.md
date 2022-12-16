@@ -1,3 +1,16 @@
+# sandpaper 0.11.3
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* Pull Request workflows will now automatically cancel if several commits are
+  sent in succession. Specifically, the workflows `pr-recieve.yaml` and 
+  `pr-comment.yaml` are given separate `concurrency` parameters based on the
+  branch name and the pull request number. These concurrencies will prevent
+  false alarms as found in 
+  <https://github.com/carpentries/lesson-development-training/pull/165#issuecomment-1337182275>.
+  (discovered: @anenadic; reported: @zkamvar, #374; fixed: @zkamvar, #376)
+
 # sandpaper 0.11.2
 
 MISC
