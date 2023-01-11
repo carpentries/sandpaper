@@ -5,6 +5,18 @@ test_that("null pipe works", {
 })
 
 
+
+test_that("example docs can run in a safe environment", {
+
+  skip_on_cran()
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  skip_if_not(has_git())
+  skip_if_not_installed("withr")
+
+  expect_true(example_can_run())
+
+})
+
 test_that("copy assets will fail gracefully", {
 
 
@@ -12,7 +24,7 @@ test_that("copy assets will fail gracefully", {
   tmpdir <- fs::file_temp()
   withr::defer(fs::dir_delete(c(tmpdir)))
   fs::dir_create(tmpdir)
-  expect_message(copy_assets(getOption("sandpaper.test_fixture"), tmpdir), 
+  expect_message(copy_assets(getOption("sandpaper.test_fixture"), tmpdir),
     "There was an issue copying")
 
 })

@@ -15,7 +15,7 @@ example_can_run <- function(need_git = FALSE, skip_cran = TRUE) {
    requireNamespace("withr", quietly = TRUE) &&
    rmarkdown::pandoc_available("2.11")
   if (skip_cran) {
-    run_ok <- run_ok && !identical(Sys.getenv("NOT_CRAN"), "true")
+    run_ok <- run_ok && identical(Sys.getenv("NOT_CRAN"), "true")
   }
   run_ok
 }
