@@ -9,6 +9,17 @@ as_html <- function(i, instructor = FALSE) {
   if (instructor) fs::path("instructor", res) else res
 }
 
+example_can_run <- function(need_git = FALSE, skip_cran = TRUE) {
+  no_need_git <- !need_git
+  run_ok <- (no_need_git || has_git()) &&
+   requireNamespace("withr", quietly = TRUE) &&
+   rmarkdown::pandoc_available("2.11")
+  if (skip_cran) {
+    run_ok <- run_ok && !identical(Sys.getenv("NOT_CRAN"), "true")
+  }
+  run_ok
+}
+
 
 # Parse a markdown title to html
 #
@@ -89,7 +100,7 @@ isTRUE  <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && x
 create_lesson_readme <- function(name, path) {
 
   writeLines(glue::glue("# {name}
-      
+
       This is the lesson repository for {name}
   "), con = fs::path(path, "README.md"))
 
@@ -102,7 +113,7 @@ create_site_readme <- function(path) {
   }
   writeLines(glue::glue("
   This directory contains rendered lesson materials. Please do not edit files
-  here.  
+  here.
   "), con = readme)
 }
 
@@ -188,7 +199,7 @@ check_order <- function(order, what) {
 
 #nocov start
 # Make it easy to contribute to our gitignore template, but also avoid having
-# to reload this thing every time we need it 
+# to reload this thing every time we need it
 gitignore_items <- function() {
   ours <- readLines(template_gitignore(), encoding = "UTF-8")
   ours[!grepl("^([#].+?|.+? # OPTIONAL|)$", trimws(ours))]

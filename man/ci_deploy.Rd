@@ -21,18 +21,129 @@ ci_deploy(
 
 \item{remote}{the name of the git remote to which you should deploy.}
 
-\item{reset}{if \code{TRUE}, the site cache is cleared before rebuilding, this
-defaults to \code{FALSE} meaning that the cache in the md_branch will be used}
+\item{reset}{if \code{TRUE}, the markdown cache is cleared before rebuilding,
+this defaults to \code{FALSE} meaning the markdown cache will be provisioned
+and used.}
 }
 \value{
 Nothing, invisibly. This is used for it's side-effect
 }
 \description{
-(INTERNAL) Build and deploy the site with continous integration
+A platform-agnostic method of deploying a lesson website and cached content.
+This function takes advantage of git worktrees to render and push content to
+orphan branches, which can be used to host the lesson website. \strong{This
+function assumes that you are in a git clone from a remote and have write
+access to that remote}.
+}
+\details{
+\code{ci_deploy()} does the same thing as \code{\link[=build_lesson]{build_lesson()}}, except instead of
+storing the outputs under the \verb{site/} folder, it pushes the outputs to
+remote orphan branches (determined by the \code{md_branch} and \code{site_branch}
+arguments). These branches are used as the cache and the website,
+respectively. If these branches do not exist, they will be created.
+\subsection{Requirements}{
+
+This function can only run in a non-interactive fashion. If you try to run
+it interactively, you will get an error message. It assumes that the
+following are true:
+\itemize{
+\item it is running in a script or automated workflow
+\item it is running in a clone of a git repository
+\item the remote exists and is writable
+}
+
+Unexpected consequences can arise from violating these assumptions.
+}
+
+\subsection{Workflow}{
+
+This function has a similar two-step workflow as \code{\link[=build_lesson]{build_lesson()}}, with a
+few extra steps to ensure that the git branches are set up correctly. Below
+are the steps with elements common to \code{\link[=build_lesson]{build_lesson()}} annotated with \code{*}
+\enumerate{
+\item check that a git user and email is registered
+\item \code{*} Validate the lesson and generate global variables with \code{\link[=validate_lesson]{validate_lesson()}}
+\item provision, build, and deploy markdown branch with \code{\link[=ci_build_markdown]{ci_build_markdown()}}
+i. provision markdown branch with \code{\link[=git_worktree_setup]{git_worktree_setup()}}
+ii. \code{*} build the markdown source documents with \code{\link[=build_markdown]{build_markdown()}}
+iii. commit and push the git worktree to the remote branch with \code{\link[=github_worktree_commit]{github_worktree_commit()}}
+\item provision, build, and deploy site branch with \code{\link[=ci_build_site]{ci_build_site()}}
+i. provision site branch with \code{\link[=git_worktree_setup]{git_worktree_setup()}}
+ii. \code{*} build the site HTML documents with \code{\link[=build_site]{build_site()}}
+iii. commit and push the git worktree to the remote branch with \code{\link[=github_worktree_commit]{github_worktree_commit()}}
+iv. remove the git worktree with \code{\link[=github_worktree_remove]{github_worktree_remove()}}
+\item remove markdown git worktree with \code{\link[=github_worktree_remove]{github_worktree_remove()}}
+}
+}
 }
 \note{
 this function is not for interactive use. It requires git to be
 installed on your machine and will destroy anything you have in the
-\verb{site/} folder.
+\verb{site/} folder. For R-based lessons it \emph{will} rebuild all components if the
+lockfile has changed.
+}
+\examples{
+\dontshow{if (example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# For this example, we are setting up a temporary repository with a local
+# remote called `sandpaper-local`. This demonstrates how `ci_deploy()`
+# modifies the remote, but there are setup and teardown steps to run.
+# The actual example is highlighted below under the DEPLOY comment.
+
+# SETUP -------------------------------------------------------------------
+snd <- asNamespace("sandpaper")
+tik <- Sys.time()
+cli::cli_h1("Set up")
+cli::cli_h2("Create Lesson")
+restore_fixture <- snd$create_test_lesson()
+res <- getOption("sandpaper.test_fixture")
+cli::cli_h2("Create Remote")
+rmt <- fs::file_temp(pattern = "REMOTE-")
+snd$setup_local_remote(repo = res, remote = rmt, verbose = FALSE)
+tok <- Sys.time()
+cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
+
+# reporting -----
+# The repository should only have one branch and the remote should be in
+# sync with the local.
+cli::cli_h2("Local status")
+gert::git_branch_list(repo = res)[c('name', 'commit', 'updated')]
+cli::cli_h2("First episode status")
+gert::git_stat_files("episodes/introduction.Rmd", repo = res)
+gert::git_stat_files("episodes/introduction.Rmd", repo = rmt)
+
+# DEPLOY ------------------------------------------------------------------
+tik <- Sys.time()
+cli::cli_h1("deploy to remote")
+sandpaper:::ci_deploy(path = res, remote = "sandpaper-local")
+tok <- Sys.time()
+cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
+
+# reporting -----
+# The repository and remote should both have three branches
+cli::cli_h2("Local status")
+gert::git_branch_list(repo = res)[c('name', 'commit', 'updated')]
+
+# An indicator this worked: the first episode should be represented as
+# different files across the branches:
+# - main: Rmd
+# - md-outputs: md
+# - gh-pages: html
+cli::cli_h2("First episode status")
+gert::git_stat_files("episodes/introduction.Rmd", repo = rmt)
+cli::cli_h3("rendered markdown")
+gert::git_stat_files("introduction.md", repo = rmt, ref = "md-outputs")
+cli::cli_h3("html file")
+gert::git_stat_files("introduction.html", repo = rmt, ref = "gh-pages")
+
+# CLEAN -------------------------------------------------------------------
+tik <- Sys.time()
+cli::cli_h1("Clean Up")
+snd$remove_local_remote(repo = res)
+snd$reset_git_user(res)
+# remove the test fixture and report
+tryCatch(fs::dir_delete(res), error = function() FALSE)
+tok <- Sys.time()
+cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}
