@@ -36,11 +36,15 @@ This function orchestrates rendering generated lesson content and applying
 the theme for the HTML site.
 }
 \examples{
+\dontshow{if (example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 tmp <- tempfile()
 create_lesson(tmp, open = FALSE)
 create_episode("first-script", path = tmp)
 check_lesson(tmp)
-if (rmarkdown::pandoc_available("2.11"))
-  build_lesson(tmp)
+build_lesson(tmp)
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=serve]{serve()}}: an interactive way to build and edit lesson content.
 }
