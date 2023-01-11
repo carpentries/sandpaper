@@ -133,8 +133,7 @@ by Hadley Wickham</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># sandpaper:::example_can_run()</span></span></span>
-<span class="r-in"><span><span class="co"># Use Worktrees to deploy a lesson -----------------------------------------</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Use Worktrees to deploy a lesson -----------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># This example is a bit inovlved, but it is effectively what we do inside of</span></span></span>
 <span class="r-in"><span><span class="co"># the `ci_deploy()` function (after setting up the lesson).</span></span></span>
 <span class="r-in"><span><span class="co">#</span></span></span>
@@ -152,49 +151,234 @@ by Hadley Wickham</p>
 <span class="r-in"><span><span class="co"># evaluated</span></span></span>
 <span class="r-in"><span><span class="va">tik</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h1</a></span><span class="op">(</span><span class="st">"Set up"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Set up</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────────────────</span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"Create Lesson"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Create Lesson</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">restore_fixture</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu"><a href="fixtures.html">create_test_lesson</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">→ Searching for and installing available dependencies</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> * Discovering package dependencies ... Done!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> * Copying packages into the library ... Done!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">→ Recording changes in lockfile</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">The following package(s) will be updated in the lockfile:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # RSPM ===============================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - R6          [* -&gt; 2.5.1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - base64enc   [* -&gt; 0.1-3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - bslib       [* -&gt; 0.4.2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - cachem      [* -&gt; 1.0.6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - cli         [* -&gt; 3.6.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - digest      [* -&gt; 0.6.31]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - ellipsis    [* -&gt; 0.3.2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - evaluate    [* -&gt; 0.19]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - fastmap     [* -&gt; 1.1.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - fs          [* -&gt; 1.5.2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - glue        [* -&gt; 1.6.2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - highr       [* -&gt; 0.10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - htmltools   [* -&gt; 0.5.4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - jquerylib   [* -&gt; 0.1.4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - jsonlite    [* -&gt; 1.8.4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - knitr       [* -&gt; 1.41]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - lifecycle   [* -&gt; 1.0.3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - magrittr    [* -&gt; 2.0.3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - memoise     [* -&gt; 2.0.1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - mime        [* -&gt; 0.12]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - rappdirs    [* -&gt; 0.3.3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - renv        [* -&gt; 0.16.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - rlang       [* -&gt; 1.0.6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - rmarkdown   [* -&gt; 2.19]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - sass        [* -&gt; 0.4.4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - stringi     [* -&gt; 1.7.8]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - stringr     [* -&gt; 1.5.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - tinytex     [* -&gt; 0.43]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - vctrs       [* -&gt; 0.5.1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - xfun        [* -&gt; 0.36]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - yaml        [* -&gt; 2.3.6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The version of R recorded in the lockfile will be updated:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - R           [*] -&gt; [4.2.2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> * Lockfile written to '/tmp/Rtmpg5xT2w/file1ba55c6ae94d/lesson-example/renv/profiles/lesson-requirements/renv.lock'.</span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"sandpaper.test_fixture"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">check_git_user</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"Create Remote"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Create Remote</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">rmt</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/file_temp.html" class="external-link">file_temp</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"REMOTE-"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu"><a href="fixtures.html">setup_local_remote</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span>, remote <span class="op">=</span> <span class="va">rmt</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"Elapsed time: {round(tok - tik, 2)} seconds"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 4.08 seconds</span>
 <span class="r-in"><span><span class="va">tik</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"Create Worktrees"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Create Worktrees</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">git_worktree_setup</span><span class="op">(</span><span class="va">res</span>, <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"built"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  branch <span class="op">=</span> <span class="st">"md-outputs"</span>, remote <span class="op">=</span> <span class="st">"sandpaper-local"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Create New Branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout --orphan md-outputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to a new branch 'md-outputs'</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git rm -rf --quiet .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git commit --allow-empty -m 'Initializing md-outputs branch'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [md-outputs (root-commit) 33a490a] Initializing md-outputs branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git push sandpaper-local 'HEAD:md-outputs'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpg5xT2w/REMOTE-1ba55f66066b</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * [new branch]      HEAD -&gt; md-outputs</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout main</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Your branch is up to date with 'sandpaper-local/main'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to branch 'main'</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Fetch sandpaper-local/md-outputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local md-outputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git fetch sandpaper-local md-outputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmpg5xT2w/REMOTE-1ba55f66066b</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * branch            md-outputs -&gt; FETCH_HEAD</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local '*'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Add worktree for sandpaper-local/md-outputs in site/built</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree add --track -B md-outputs \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpg5xT2w/file1ba55c6ae94d/lesson-example/site/built \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sandpaper-local/md-outputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'md-outputs'; was at 33a490a)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> branch 'md-outputs' set up to track 'sandpaper-local/md-outputs'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at 33a490a Initializing md-outputs branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-in"><span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">git_worktree_setup</span><span class="op">(</span><span class="va">res</span>, <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"docs"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  branch <span class="op">=</span> <span class="st">"gh-pages"</span>, remote <span class="op">=</span> <span class="st">"sandpaper-local"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Create New Branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout --orphan gh-pages</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to a new branch 'gh-pages'</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git rm -rf --quiet .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git commit --allow-empty -m 'Initializing gh-pages branch'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [gh-pages (root-commit) fe86b1f] Initializing gh-pages branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git push sandpaper-local 'HEAD:gh-pages'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpg5xT2w/REMOTE-1ba55f66066b</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * [new branch]      HEAD -&gt; gh-pages</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout main</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Your branch is up to date with 'sandpaper-local/main'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to branch 'main'</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Fetch sandpaper-local/gh-pages</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local gh-pages</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git fetch sandpaper-local gh-pages</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmpg5xT2w/REMOTE-1ba55f66066b</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * branch            gh-pages   -&gt; FETCH_HEAD</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local '*'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Add worktree for sandpaper-local/gh-pages in site/docs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree add --track -B gh-pages \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpg5xT2w/file1ba55c6ae94d/lesson-example/site/docs \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sandpaper-local/gh-pages</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'gh-pages'; was at fe86b1f)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> branch 'gh-pages' set up to track 'sandpaper-local/gh-pages'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at fe86b1f Initializing gh-pages branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-in"><span><span class="va">tok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"Elapsed time: {round(tok - tik, 2)} seconds"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 0.47 seconds</span>
 <span class="r-in"><span><span class="va">tik</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h1</a></span><span class="op">(</span><span class="st">"Build Lesson into worktrees"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Build Lesson into worktrees</span> <span style="color: #00BBBB;">─────────────────────────────────────────</span></span>
 <span class="r-in"><span><span class="fu"><a href="build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="va">res</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span>, preview <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"git status: {gert::git_branch(repo = res)}"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">git status: main</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_commit.html" class="external-link">git_status</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 3 variables: file &lt;chr&gt;, status &lt;chr&gt;, staged &lt;lgl&gt;</span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">'git status: {gert::git_branch(repo = fs::path(res, "site", "built"))}'</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">git status: md-outputs</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_commit.html" class="external-link">git_status</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"built"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    file                status staged</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> CODE_OF_CONDUCT.md  new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> LICENSE.md          new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> config.yaml         new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> fig/                new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> index.md            new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> instructor-notes.md new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> introduction.md     new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> learner-profiles.md new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> links.md            new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> md5sum.txt          new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> renv.lock           new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> setup.md            new    FALSE </span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">'git status: {gert::git_branch(repo = fs::path(res, "site", "docs"))}'</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">git status: gh-pages</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_commit.html" class="external-link">git_status</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"site"</span>, <span class="st">"docs"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 34 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    file                       status staged</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> .nojekyll                  new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> CODE_OF_CONDUCT.html       new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> LICENSE.html               new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> aio.html                   new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> android-chrome-192x192.png new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> android-chrome-512x512.png new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> apple-touch-icon.png       new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> assets/                    new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> bootstrap-toc.css          new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> bootstrap-toc.js           new    FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 24 more rows</span></span>
 <span class="r-in"><span><span class="va">tok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"Elapsed time: {round(tok - tik, 2)} seconds"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 14.06 seconds</span>
 <span class="r-in"><span><span class="va">tik</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h1</a></span><span class="op">(</span><span class="st">"Clean Up"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Clean Up</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────</span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"object db is an expression that evaluates to {.code {db}}"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> object db is an expression that evaluates to `sandpaper:::github_worktree_remove("/tmp/Rtmpg5xT2w/file1ba55c6ae94d/lesson-example/site/built", "/tmp/Rtmpg5xT2w/file1ba55c6ae94d/lesson-example")`</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree remove --force \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpg5xT2w/file1ba55c6ae94d/lesson-example/site/built</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $status</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $stdout</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $stderr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $timeout</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"object ds is an expression that evaluates to {.code {ds}}"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> object ds is an expression that evaluates to `sandpaper:::github_worktree_remove("/tmp/Rtmpg5xT2w/file1ba55c6ae94d/lesson-example/site/docs", "/tmp/Rtmpg5xT2w/file1ba55c6ae94d/lesson-example")`</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a></span><span class="op">(</span><span class="va">ds</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree remove --force \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpg5xT2w/file1ba55c6ae94d/lesson-example/site/docs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $status</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $stdout</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $stderr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $timeout</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu"><a href="fixtures.html">remove_local_remote</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu">reset_git_user</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># remove the test fixture and report</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/delete.html" class="external-link">dir_delete</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"Elapsed time: {round(tok - tik, 2)} seconds"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 0.19 seconds</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
