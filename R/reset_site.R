@@ -5,7 +5,7 @@
 #' @param path the path to the site
 #'
 #' @export
-#' @examplesIf sandpaper:::examples_can_run()
+#' @examplesIf sandpaper:::example_can_run()
 #' tmp <- tempfile()
 #' create_lesson(tmp)
 #' build_lesson(tmp, preview = FALSE)

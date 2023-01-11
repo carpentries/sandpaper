@@ -13,7 +13,7 @@ reset_site(path = ".")
 Use this if you want to rebuild your site from scratch.
 }
 \examples{
-\dontshow{if (sandpaper:::examples_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (sandpaper:::example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 tmp <- tempfile()
 create_lesson(tmp)
 build_lesson(tmp, preview = FALSE)
