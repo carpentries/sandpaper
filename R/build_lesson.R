@@ -3,7 +3,6 @@
 #' This function orchestrates rendering generated lesson content and applying
 #' the theme for the HTML site.
 #'
-#'
 #' @param path the path to your repository (defaults to your current working
 #' directory)
 #' @param rebuild if `TRUE`, everything will be built from scratch as if there
@@ -16,6 +15,39 @@
 #'
 #' @return `TRUE` if it was successful, a character vector of issues if it was
 #'   unsuccessful.
+#'
+#' @details
+#'
+#' ## Structure of a Workbench Lesson
+#'
+#' A Carpentries Workbench lesson is comprised of a set of markdown files and
+#' folders:
+#'
+#' ```
+#' +-- config.yaml
+#' +-- index.md
+#' +-- episodes
+#' |   +-- data
+#' |   +-- fig
+#' |   +-- files
+#' |   \-- introduction.Rmd
+#' +-- instructors
+#' |   \-- instructor-notes.md
+#' +-- learners
+#' |   \-- setup.md
+#' +-- profiles
+#' |   \-- learner-profiles.md
+#' +-- links.md
+#' +-- site
+#'     \-- [...]
+#' +-- renv
+#' |   \-- [...]
+#' +-- CODE_OF_CONDUCT.md
+#' +-- CONTRIBUTING.md
+#' +-- LICENSE.md
+#' \-- README.md
+#' ```
+#'
 #'
 #' @export
 #' @seealso [serve()]: an interactive way to build and edit lesson content.

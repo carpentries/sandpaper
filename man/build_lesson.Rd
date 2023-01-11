@@ -35,6 +35,37 @@ unsuccessful.
 This function orchestrates rendering generated lesson content and applying
 the theme for the HTML site.
 }
+\details{
+\subsection{Structure of a Workbench Lesson}{
+
+A Carpentries Workbench lesson is comprised of a set of markdown files and
+folders:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{+-- config.yaml
++-- index.md
++-- episodes
+|   +-- data
+|   +-- fig
+|   +-- files
+|   \\-- introduction.Rmd
++-- instructors
+|   \\-- instructor-notes.md
++-- learners
+|   \\-- setup.md
++-- profiles
+|   \\-- learner-profiles.md
++-- links.md
++-- site
+    \\-- [...]
++-- renv
+|   \\-- [...]
++-- CODE_OF_CONDUCT.md
++-- CONTRIBUTING.md
++-- LICENSE.md
+\\-- README.md
+}\if{html}{\out{</div>}}
+}
+}
 \examples{
 \dontshow{if (example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
