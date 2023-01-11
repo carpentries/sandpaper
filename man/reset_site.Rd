@@ -13,11 +13,12 @@ reset_site(path = ".")
 Use this if you want to rebuild your site from scratch.
 }
 \examples{
+\dontshow{if (sandpaper:::examples_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 tmp <- tempfile()
 create_lesson(tmp)
-if (rmarkdown::pandoc_available("2.11"))
-  build_lesson(tmp, preview = FALSE)
+build_lesson(tmp, preview = FALSE)
 dir(file.path(tmp, "site"))
 reset_site(tmp)
 dir(file.path(tmp, "site"))
+\dontshow{\}) # examplesIf}
 }
