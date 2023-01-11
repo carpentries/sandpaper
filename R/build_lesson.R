@@ -51,7 +51,7 @@
 #'
 #' @export
 #' @seealso [serve()]: an interactive way to build and edit lesson content.
-#' @examplesIf example_can_run()
+#' @examplesIf sandpaper:::example_can_run()
 #'
 #' tmp <- tempfile()
 #' create_lesson(tmp, open = FALSE)

@@ -83,7 +83,7 @@ installed on your machine and will destroy anything you have in the
 lockfile has changed.
 }
 \examples{
-\dontshow{if (example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (sandpaper:::example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # For this example, we are setting up a temporary repository with a local
 # remote called `sandpaper-local`. This demonstrates how `ci_deploy()`
 # modifies the remote, but there are setup and teardown steps to run.

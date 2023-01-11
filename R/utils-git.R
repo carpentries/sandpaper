@@ -78,7 +78,7 @@ git_clean_everything <- function(repo = ".") {
 #'
 #' @keywords internal
 #' @rdname git_worktree
-#' @examplesIf example_can_run()
+#' @examplesIf sandpaper:::example_can_run()
 #' # Use Worktrees to deploy a lesson -----------------------------------------
 #' # This example is a bit inovlved, but it is effectively what we do inside of
 #' # the `ci_deploy()` function (after setting up the lesson).

@@ -68,7 +68,7 @@ Wickham
 by Hadley Wickham
 }
 \examples{
-\dontshow{if (example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (sandpaper:::example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Use Worktrees to deploy a lesson -----------------------------------------
 # This example is a bit inovlved, but it is effectively what we do inside of
 # the `ci_deploy()` function (after setting up the lesson).

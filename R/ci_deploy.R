@@ -62,7 +62,7 @@
 #'
 #' @keywords internal
 #' @rdname ci_deploy
-#' @examplesIf example_can_run()
+#' @examplesIf sandpaper:::example_can_run()
 #' # For this example, we are setting up a temporary repository with a local
 #' # remote called `sandpaper-local`. This demonstrates how `ci_deploy()`
 #' # modifies the remote, but there are setup and teardown steps to run.
