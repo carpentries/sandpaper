@@ -2,6 +2,8 @@
 % Please edit documentation in R/utils-git.R
 \name{git_worktree_setup}
 \alias{git_worktree_setup}
+\alias{github_worktree_commit}
+\alias{github_worktree_remove}
 \title{Setup a git worktree for concurrent manipulation of a separate branch}
 \usage{
 git_worktree_setup(
@@ -11,6 +13,10 @@ git_worktree_setup(
   remote = "origin",
   throwaway = FALSE
 )
+
+github_worktree_commit(dir, commit_message, remote, branch)
+
+github_worktree_remove(dir, home = NULL)
 }
 \arguments{
 \item{path}{path to the repository}
@@ -52,31 +58,34 @@ git worktree add --track -B <branch> /path/to/dir <remote>/<branch>
 }\if{html}{\out{</div>}}
 }
 \note{
-this internal function has been modified from the logic in
+\code{git_worktree_setup()} has been modified from the logic in
 \code{\link[pkgdown:deploy_to_branch]{pkgdown::deploy_to_branch()}}, by Hadley Wickham.
+
+\code{github_worktree_commit()}: Modified from \code{pkgdown:::github_push} by Hadley
+Wickham
+
+\code{github_worktree_remove()}: Modified from \code{pkgdown:::github_worktree_remove}
+by Hadley Wickham
 }
 \examples{
-run_ok <- sandpaper:::has_git() &&
-  requireNamespace("withr", quietly = TRUE) &&
-  rmarkdown::pandoc_available("2.11")
-
+\dontshow{if (sandpaper:::example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Use Worktrees to deploy a lesson -----------------------------------------
 # This example is a bit inovlved, but it is effectively what we do inside of
-# the `ci_deploy()` function (after setting up the lesson). 
-# 
+# the `ci_deploy()` function (after setting up the lesson).
+#
 # The setup phase will create a new lesson and a corresponding remote (self
-# contained, no GitHub authentication required). 
-# 
+# contained, no GitHub authentication required).
+#
 # The worktrees will be created for both the markdown and HTML outputs on the
-# branches "md-outputs" and "gh-pages", respectively. 
-# 
+# branches "md-outputs" and "gh-pages", respectively.
+#
 # After the worktrees are created, we will build the lesson into the
 # worktrees and display the output of `git_status()` for each of the three
 # branches: "main", "md-outputs", and "gh-pages"
-# 
-# During the clean up phase, the output of `git_worktree_setup()` is 
+#
+# During the clean up phase, the output of `git_worktree_setup()` is
 # evaluated
-if (run_ok) {
+tik <- Sys.time()
 cli::cli_h1("Set up")
 cli::cli_h2("Create Lesson")
 restore_fixture <- sandpaper:::create_test_lesson()
@@ -85,13 +94,19 @@ sandpaper:::check_git_user(res)
 cli::cli_h2("Create Remote")
 rmt <- fs::file_temp(pattern = "REMOTE-")
 sandpaper:::setup_local_remote(repo = res, remote = rmt, verbose = FALSE)
+tok <- Sys.time()
+cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
+tik <- Sys.time()
 cli::cli_h2("Create Worktrees")
-db <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "built"), 
+db <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "built"),
   branch = "md-outputs", remote = "sandpaper-local"
 )
-ds <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "docs"), 
+ds <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "docs"),
   branch = "gh-pages", remote = "sandpaper-local"
 )
+tok <- Sys.time()
+cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
+tik <- Sys.time()
 cli::cli_h1("Build Lesson into worktrees")
 build_lesson(res, quiet = TRUE, preview = FALSE)
 cli::cli_h2("git status: {gert::git_branch(repo = res)}")
@@ -100,6 +115,9 @@ cli::cli_h2('git status: {gert::git_branch(repo = fs::path(res, "site", "built")
 print(gert::git_status(repo = fs::path(res, "site", "built")))
 cli::cli_h2('git status: {gert::git_branch(repo = fs::path(res, "site", "docs"))}')
 print(gert::git_status(repo = fs::path(res, "site", "docs")))
+tok <- Sys.time()
+cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
+tik <- Sys.time()
 cli::cli_h1("Clean Up")
 cli::cli_alert_info("object db is an expression that evaluates to {.code {db}}")
 eval(db)
@@ -109,6 +127,8 @@ sandpaper:::remove_local_remote(repo = res)
 sandpaper:::reset_git_user(res)
 # remove the test fixture and report
 tryCatch(fs::dir_delete(res), error = function() FALSE)
-}
+tok <- Sys.time()
+cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

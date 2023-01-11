@@ -13,4 +13,5 @@
 ^testthat-problems.rds$
 ^testthat.Rout.fail$
 ^renv/sandbox$
+^.editorconfig
 

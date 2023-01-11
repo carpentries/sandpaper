@@ -5,7 +5,7 @@ has_git <- function() {
 # Shamelessly stolen from {pkgdown}, originally authored by Hadley Wickam
 git <- function (..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
   if (!has_git()) stop(cli::format_error("{.pkg git} is not installed"), call. = FALSE)
-  callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, 
+  callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo,
     error_on_status = error_on_status)
 }
 
@@ -13,7 +13,7 @@ git <- function (..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
 # originally authored by Hadley Wickham
 git_has_remote_branch <- function (remote, branch) {
   git(
-    "ls-remote", "--quiet", "--exit-code", remote, branch, 
+    "ls-remote", "--quiet", "--exit-code", remote, branch,
     echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE
     )$status == 0
 }
@@ -48,16 +48,16 @@ git_clean_everything <- function(repo = ".") {
 #' @param branch the branch associated with the work tree (default: gh-pages)
 #' @param remote the remote name (default: origin)
 #' @param throwaway if `TRUE`, the worktree created is in a detached HEAD state
-#'   from from the remote branch and will not create a new branch in your 
+#'   from from the remote branch and will not create a new branch in your
 #'   repository. Defaults to `FALSE`, which will create the branch from upstream.
 #' @return an [expression()] that calls `git worktree remove` on the worktree
-#'   when evaluated. 
+#'   when evaluated.
 #' @details
 #'
 #' This function is used in continuous integration settings where we want to
 #' push derived outputs to non-main branches in our repository. We use this to
 #' populate the markdown and HTML outputs from the lesson so that we don't have
-#' to rebuild the lesson from scratch every time. 
+#' to rebuild the lesson from scratch every time.
 #'
 #' The logic behind this looks like
 #'
@@ -73,32 +73,29 @@ git_clean_everything <- function(repo = ".") {
 #' git worktree add --track -B <branch> /path/to/dir <remote>/<branch>
 #' ```
 #'
-#' @note this internal function has been modified from the logic in 
+#' @note `git_worktree_setup()` has been modified from the logic in
 #' [pkgdown::deploy_to_branch()], by Hadley Wickham.
 #'
 #' @keywords internal
-#' @examples
-#' run_ok <- sandpaper:::has_git() &&
-#'   requireNamespace("withr", quietly = TRUE) &&
-#'   rmarkdown::pandoc_available("2.11")
-#'
+#' @rdname git_worktree
+#' @examplesIf sandpaper:::example_can_run()
 #' # Use Worktrees to deploy a lesson -----------------------------------------
 #' # This example is a bit inovlved, but it is effectively what we do inside of
-#' # the `ci_deploy()` function (after setting up the lesson). 
-#' # 
+#' # the `ci_deploy()` function (after setting up the lesson).
+#' #
 #' # The setup phase will create a new lesson and a corresponding remote (self
-#' # contained, no GitHub authentication required). 
-#' # 
+#' # contained, no GitHub authentication required).
+#' #
 #' # The worktrees will be created for both the markdown and HTML outputs on the
-#' # branches "md-outputs" and "gh-pages", respectively. 
-#' # 
+#' # branches "md-outputs" and "gh-pages", respectively.
+#' #
 #' # After the worktrees are created, we will build the lesson into the
 #' # worktrees and display the output of `git_status()` for each of the three
 #' # branches: "main", "md-outputs", and "gh-pages"
-#' # 
-#' # During the clean up phase, the output of `git_worktree_setup()` is 
+#' #
+#' # During the clean up phase, the output of `git_worktree_setup()` is
 #' # evaluated
-#' if (run_ok) {
+#' tik <- Sys.time()
 #' cli::cli_h1("Set up")
 #' cli::cli_h2("Create Lesson")
 #' restore_fixture <- sandpaper:::create_test_lesson()
@@ -107,13 +104,19 @@ git_clean_everything <- function(repo = ".") {
 #' cli::cli_h2("Create Remote")
 #' rmt <- fs::file_temp(pattern = "REMOTE-")
 #' sandpaper:::setup_local_remote(repo = res, remote = rmt, verbose = FALSE)
+#' tok <- Sys.time()
+#' cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
+#' tik <- Sys.time()
 #' cli::cli_h2("Create Worktrees")
-#' db <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "built"), 
+#' db <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "built"),
 #'   branch = "md-outputs", remote = "sandpaper-local"
 #' )
-#' ds <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "docs"), 
+#' ds <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "docs"),
 #'   branch = "gh-pages", remote = "sandpaper-local"
 #' )
+#' tok <- Sys.time()
+#' cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
+#' tik <- Sys.time()
 #' cli::cli_h1("Build Lesson into worktrees")
 #' build_lesson(res, quiet = TRUE, preview = FALSE)
 #' cli::cli_h2("git status: {gert::git_branch(repo = res)}")
@@ -122,6 +125,9 @@ git_clean_everything <- function(repo = ".") {
 #' print(gert::git_status(repo = fs::path(res, "site", "built")))
 #' cli::cli_h2('git status: {gert::git_branch(repo = fs::path(res, "site", "docs"))}')
 #' print(gert::git_status(repo = fs::path(res, "site", "docs")))
+#' tok <- Sys.time()
+#' cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
+#' tik <- Sys.time()
 #' cli::cli_h1("Clean Up")
 #' cli::cli_alert_info("object db is an expression that evaluates to {.code {db}}")
 #' eval(db)
@@ -131,7 +137,8 @@ git_clean_everything <- function(repo = ".") {
 #' sandpaper:::reset_git_user(res)
 #' # remove the test fixture and report
 #' tryCatch(fs::dir_delete(res), error = function() FALSE)
-#' }
+#' tok <- Sys.time()
+#' cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
 git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remote = "origin", throwaway = FALSE) {
 
   if (!has_git() || !requireNamespace("withr", quietly = TRUE)) {
@@ -145,7 +152,7 @@ git_worktree_setup <- function (path = ".", dest_dir, branch = "gh-pages", remot
       old_branch <- gert::git_branch(repo = path)
       git("checkout", "--orphan", branch)
       git("rm", "-rf", "--quiet", ".")
-      git("commit", "--allow-empty", "-m", 
+      git("commit", "--allow-empty", "-m",
         sprintf("Initializing %s branch", branch)
       )
       git("push", remote, paste0("HEAD:", branch))
@@ -177,8 +184,10 @@ github_worktree_add <- function (dir, remote, branch, throwaway = FALSE) {
   git("worktree", "add", the_tree, paste0(remote, "/", branch))
 }
 
-# Commit on a worktree
-# Modified from pkgdown:::github_push by Hadley Wickham
+#' @rdname git_worktree
+#' @note
+#' `github_worktree_commit()`: Modified from `pkgdown:::github_push` by Hadley
+#' Wickham
 github_worktree_commit <- function (dir, commit_message, remote, branch) {
   force(commit_message)
   if (requireNamespace("cli", quietly = TRUE))
@@ -200,10 +209,12 @@ github_worktree_commit <- function (dir, commit_message, remote, branch) {
   })
 }
 
-# Remove a git worktree
-# Modified from pkgdown:::github_worktree_remove by Hadley Wickham
+#' @rdname git_worktree
+#' @note
+#' `github_worktree_remove()`: Modified from `pkgdown:::github_worktree_remove`
+#' by Hadley Wickham
 github_worktree_remove <- function (dir, home = NULL) {
-  if (requireNamespace("cli", quietly = TRUE)) 
+  if (requireNamespace("cli", quietly = TRUE))
     cli::rule("Removing worktree", line = "-")
   # ZNK: add --force
   if (is.null(home)) home <- root_path(dir)
@@ -242,8 +253,8 @@ message_source <- function(commit_message = "", source_branch = "main", dir = ".
 #       branch       = "md-outputs"
 #     )
 #   shell: Rscript {0}
-ci_bundle_pr_artifacts <- function(repo, pr_number, 
-  path_md, path_archive, path_pr, 
+ci_bundle_pr_artifacts <- function(repo, pr_number,
+  path_md, path_archive, path_pr,
   branch = "md-outputs") {
   if (!fs::dir_exists(path_archive)) fs::dir_create(path_archive)
   if (!fs::dir_exists(path_pr)) fs::dir_create(path_pr)
@@ -263,8 +274,8 @@ ci_bundle_pr_artifacts <- function(repo, pr_number,
     # Two dot: compare the changes between the branches as they exist today.
     #
     # https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-comparing-branches-in-pull-requests#three-dot-and-two-dot-git-diff-comparisons
-    # 
-    # I was using the two-dot method because that's the only thing I learned, 
+    #
+    # I was using the two-dot method because that's the only thing I learned,
     # but it can be really overwhelming if there are rapid changes. This way,
     # only the relevant changes are shown (unless there is a conflict).
     copy_template("pr_diff", path_archive, "diff.md",
@@ -296,8 +307,8 @@ check_git_user <- function(path, name = "carpenter", email = "team@carpentries.o
 #
 #  1. create a new branch called "main"
 #  2. change "master" to "main" in .git/HEAD (txt file)
-#  3. delete "master" branch 
-# 
+#  3. delete "master" branch
+#
 # If the user HAS set a default branch, we will use that one.
 enforce_main_branch <- function(path) {
   current <- gert::git_branch(path)
@@ -323,8 +334,8 @@ get_default_branch <- function() {
   if (invalid) "main" else default
 }
 
-# This checks if we have set a temporary git user and then unsets it. It will 
-# supriously unset a user if they happened to have 
+# This checks if we have set a temporary git user and then unsets it. It will
+# supriously unset a user if they happened to have
 # "carpenter <team@carpentries.org>" as their email.
 reset_git_user <- function(path) {
   cfg <- gert::git_config(path)

@@ -35,12 +35,47 @@ unsuccessful.
 This function orchestrates rendering generated lesson content and applying
 the theme for the HTML site.
 }
+\details{
+\subsection{Structure of a Workbench Lesson}{
+
+A Carpentries Workbench lesson is comprised of a set of markdown files and
+folders:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{+-- config.yaml
++-- index.md
++-- episodes
+|   +-- data
+|   +-- fig
+|   +-- files
+|   \\-- introduction.Rmd
++-- instructors
+|   \\-- instructor-notes.md
++-- learners
+|   \\-- setup.md
++-- profiles
+|   \\-- learner-profiles.md
++-- links.md
++-- site
+    \\-- [...]
++-- renv
+|   \\-- [...]
++-- CODE_OF_CONDUCT.md
++-- CONTRIBUTING.md
++-- LICENSE.md
+\\-- README.md
+}\if{html}{\out{</div>}}
+}
+}
 \examples{
+\dontshow{if (sandpaper:::example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 tmp <- tempfile()
 create_lesson(tmp, open = FALSE)
 create_episode("first-script", path = tmp)
 check_lesson(tmp)
-if (rmarkdown::pandoc_available("2.11"))
-  build_lesson(tmp)
+build_lesson(tmp)
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=serve]{serve()}}: an interactive way to build and edit lesson content.
 }

@@ -51,7 +51,7 @@ test_that("ci_deploy() will fetch sources from upstream", {
   expect_true(gert::git_branch_exists("SITE", local = TRUE, repo = res))
 
   # Add an extra file that should be removed to the site -----------------------
-  # 
+  #
   # check out the branch
   gert::git_branch_checkout("SITE", repo = res)
   withr::defer(gert::git_branch_checkout("main", repo = res))
@@ -106,7 +106,7 @@ test_that("ci_deploy() will do a full rebuild", {
   gert::git_branch_delete("SITE", repo = res)
   expect_false(gert::git_branch_exists("MD", local = TRUE, repo = res))
   expect_false(gert::git_branch_exists("SITE", local = TRUE, repo = res))
-  
+
   # The built directory does _not_ exist right now
   expect_false(fs::dir_exists(path_built(res)))
 
