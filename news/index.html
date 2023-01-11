@@ -805,7 +805,7 @@
 <li>
 <code><a href="../reference/package_cache.html">no_package_cache()</a></code> does the opposite of <code><a href="../reference/package_cache.html">use_package_cache()</a></code> and revokes consent to use the package cache in a lesson temporarily. This can be useful in situtations where the cache is mis-behaving or you want to test the lesson using a newer set of packages. Internally, this enforces that <code>options(sandpaper.use_renv = FALSE)</code>.</li>
 <li>
-<code>package_cache_trigger(TRUE)</code> allows you to trigger a full rebuild when the lockfile changes. This is set to <code>TRUE</code> by default on <code><a href="../reference/ci_build_markdown.html">ci_build_markdown()</a></code>
+<code>package_cache_trigger(TRUE)</code> allows you to trigger a full rebuild when the lockfile changes. This is set to <code>TRUE</code> by default on <code><a href="../reference/ci_build.html">ci_build_markdown()</a></code>
 </li>
 </ul></div>
 <div class="section level4">
@@ -935,7 +935,7 @@
 <ul><li>
 <code><a href="../reference/ci_deploy.html">ci_deploy()</a></code> gains the <code>reset</code> argument, which can be used to clear the cache for a clean build of the lesson.</li>
 <li>
-<code><a href="../reference/ci_deploy.html">ci_deploy()</a></code> now uses <code><a href="../reference/ci_build_markdown.html">ci_build_markdown()</a></code> and <code><a href="../reference/ci_build_site.html">ci_build_site()</a></code>, internally</li>
+<code><a href="../reference/ci_deploy.html">ci_deploy()</a></code> now uses <code><a href="../reference/ci_build.html">ci_build_markdown()</a></code> and <code><a href="../reference/ci_build.html">ci_build_site()</a></code>, internally</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -965,7 +965,7 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9036" id="sandpaper-0009036">sandpaper 0.0.0.9036<a class="anchor" aria-label="anchor" href="#sandpaper-0009036"></a></h2>
 <div class="section level3">
 <h3 id="continuous-integration-0-0-0-9036">CONTINUOUS INTEGRATION<a class="anchor" aria-label="anchor" href="#continuous-integration-0-0-0-9036"></a></h3>
-<ul><li>Documentation for <code><a href="../reference/git_worktree_setup.html">git_worktree_setup()</a></code> has been added for future versions of the maintainer and future contributors.</li>
+<ul><li>Documentation for <code><a href="../reference/git_worktree.html">git_worktree_setup()</a></code> has been added for future versions of the maintainer and future contributors.</li>
 <li>
 <code>ci_bundle_pr_artifacts()</code> is a new internal function that will create artifacts for GitHub to upload upon receipt of a pull request. This will replace clunky shell code that lived inside a YAML configuration file. (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/139" class="external-link">#139</a>)</li>
 <li>add {brio} to soft dependencies (for testing, but maybe could speed up???)</li>
@@ -1228,9 +1228,9 @@
 <ul><li>
 <code><a href="../reference/ci_deploy.html">ci_deploy()</a></code> will build the markdown source and the site and commit them to separate branches, including information about their source.</li>
 <li>
-<code><a href="../reference/ci_build_markdown.html">ci_build_markdown()</a></code> will build the markdown source files and commit them to a separate branch, including information about the source commit.</li>
+<code><a href="../reference/ci_build.html">ci_build_markdown()</a></code> will build the markdown source files and commit them to a separate branch, including information about the source commit.</li>
 <li>
-<code><a href="../reference/ci_build_site.html">ci_build_site()</a></code> will build the site directly from the markdown branch, bypassing re-rendering the markdown files.</li>
+<code><a href="../reference/ci_build.html">ci_build_site()</a></code> will build the site directly from the markdown branch, bypassing re-rendering the markdown files.</li>
 </ul><p>Miscellaneous additions</p>
 <ul><li>{dovetail} no longer in suggests</li>
 <li>new internal function <code><a href="../reference/build_site.html">build_site()</a></code> compartmentalizes the conversion from markdown to html</li>

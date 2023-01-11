@@ -76,10 +76,7 @@
     <loc>https://carpentries.github.io/sandpaper/reference/check_lesson.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/sandpaper/reference/ci_build_markdown.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/reference/ci_build_site.html</loc>
+    <loc>https://carpentries.github.io/sandpaper/reference/ci_build.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/ci_deploy.html</loc>
@@ -145,7 +142,7 @@
     <loc>https://carpentries.github.io/sandpaper/reference/get_syllabus.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/sandpaper/reference/git_worktree_setup.html</loc>
+    <loc>https://carpentries.github.io/sandpaper/reference/git_worktree.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/index.html</loc>
