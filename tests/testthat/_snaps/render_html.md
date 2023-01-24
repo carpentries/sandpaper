@@ -3,7 +3,7 @@
     Code
       cat(readLines(out), sep = "\n")
     Output
-      [Null
+      [RawBlock (Format "text") ""
       ,Div ("",["overview","card"],[])
        [RawBlock (Format "html") "<h2 class='card-header'>Overview</h2>"
        ,Div ("",["row","g-0"],[])
@@ -52,7 +52,7 @@
     Code
       cat(readLines(out), sep = "\n")
     Output
-      [Null
+      [RawBlock (Format "text") ""
       ,Div ("",["overview","card"],[])
        [RawBlock (Format "html") "<h2 class='card-header'>Overview</h2>"
        ,Div ("",["row","g-0"],[])

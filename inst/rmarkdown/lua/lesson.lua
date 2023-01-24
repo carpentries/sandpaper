@@ -55,7 +55,7 @@ end
 --
 -- This was originally taken care of by Jekyll, but since we are not necessarily
 -- relying on a logic-based templating language (liquid can diaf), we can create
--- this here. 
+-- this here.
 --
 --]]
 function overview_card()
@@ -70,9 +70,9 @@ function overview_card()
   local overview = pandoc.Div({}, {class="overview card"})
   -- create headers. Note because of --section-divs, we have to insert raw
   -- headers so that the divs do not inherit the header classes afterwards
-  table.insert(questions_div.content, 
+  table.insert(questions_div.content,
   pandoc.RawBlock("html", "<h3 class='card-title'>Questions</h3>"))
-  table.insert(objectives_div.content, 
+  table.insert(objectives_div.content,
   pandoc.RawBlock("html", "<h3 class='card-title'>Objectives</h3>"))
 
   -- Insert the content from the objectives and the questions
@@ -92,9 +92,9 @@ function overview_card()
   table.insert(obody.content, objectives_div)
   table.insert(qcol.content, qbody)
   table.insert(ocol.content, obody)
-  table.insert(row.content, qcol) 
-  table.insert(row.content, ocol) 
-  table.insert(overview.content, 
+  table.insert(row.content, qcol)
+  table.insert(row.content, ocol)
+  table.insert(overview.content,
   pandoc.RawBlock("html", "<h2 class='card-header'>Overview</h2>"))
   table.insert(overview.content, row)
   table.insert(res, overview)
@@ -126,7 +126,7 @@ function get_header(el, level)
 end
 
 -- Add a header to a Div element if it doesn't exist
--- 
+--
 -- @param el a pandoc.Div element
 -- @param level an integer specifying the level of the header
 --
@@ -222,7 +222,7 @@ accordion = function(el, class)
 
   -- constructing the button that contains a heading
   local this_button = accordion_button
-  this_button = this_button:gsub("{{heading}}", button_headings[class]) 
+  this_button = this_button:gsub("{{heading}}", button_headings[class])
   this_button = this_button:gsub("{{title}}", title)
   this_button = this_button:gsub("{{class}}", class)
   this_button = this_button:gsub("{{id}}", label)
@@ -270,7 +270,7 @@ callout_block = function(el)
   classes:insert(1, "callout")
   local header = get_header(el, 3)
 
-  local icon = pandoc.RawBlock("html", 
+  local icon = pandoc.RawBlock("html",
   "<i class='callout-icon' data-feather='"..this_icon.."'></i>")
   local callout_square = pandoc.Div(icon, {class = "callout-square"})
 
@@ -301,7 +301,7 @@ challenge_block = function(el)
   -- This challenge is a placeholder to stuff the original challenge contents in
   local this_challenge = pandoc.Div({this_head}, {class = "challenge"})
   -- Indicator if the challenge block should be inserted before the accordion.
-  -- Once we hit an accordion block, we no longer need the challenge inserted 
+  -- Once we hit an accordion block, we no longer need the challenge inserted
   -- and any new challenge items go in a new block
   local needs_challenge = true
   for idx, block in ipairs(el.content) do
@@ -314,7 +314,7 @@ challenge_block = function(el)
       challenge_train:insert(block)
     else
       if block.t == "Header" and #this_challenge.content == 1 then
-        -- if we started a new challenge block and it already has a header, 
+        -- if we started a new challenge block and it already has a header,
         -- then we need to remove our continuation header
         this_challenge.content:remove(1)
       end
@@ -339,8 +339,8 @@ handle_our_divs = function(el)
     questions = el
     if objectives ~= nil then
       return overview_card()
-    else 
-      return pandoc.Null()
+    else
+      return pandoc.RawBlock("text", "")
     end
   end
 
@@ -349,8 +349,8 @@ handle_our_divs = function(el)
     objectives = el
     if questions ~= nil then
       return overview_card()
-    else 
-      return pandoc.Null()
+    else
+      return pandoc.RawBlock("text", "")
     end
   end
 
@@ -394,7 +394,7 @@ end
 --
 -- 1. removes any leading ../[folder]/ from the links to prepare them for the
 --    way the resources appear in the HTML site
--- 2. renames all local Rmd and md files to .html 
+-- 2. renames all local Rmd and md files to .html
 --
 -- NOTE: it _IS_ possible to use variable expansion with this so that we can
 --       configure this to do specific things (e.g. decide how we want the
