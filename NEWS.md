@@ -1,3 +1,12 @@
+# sandpaper 0.11.4
+
+PANDOC
+------
+
+* This updates {sandaper} to be used by pandoc version 3, which no longer
+  implements the `pandoc.Null()` constructor for Lua filters (reported:
+  @zkamvar, #380; fixed: @zkamvar: #385)
+
 # sandpaper 0.11.3
 
 CONTINUOUS INTEGRATION
