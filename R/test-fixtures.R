@@ -140,7 +140,7 @@ clean_branch <- function(repo, branch = NULL, name = "sandpaper-local", verbose 
   gert::git_branch_delete(branch, repo = repo)
   rmt_url <- gert::git_remote_list(repo)
   rmt_url <- rmt_url$url[rmt_url$name == name]
-  if (length(rmt_url) > 0) { 
+  if (length(rmt_url) > 0) {
     gert::git_branch_delete(branch, repo = rmt_url)
   }
 }
@@ -150,8 +150,8 @@ clean_branch <- function(repo, branch = NULL, name = "sandpaper-local", verbose 
 #' ## `remove_local_remote()`
 #'
 #' Destorys the local remote repository and removes it from the fixture lesson
-#' 
-#' @return (`remove_local_remote()`) FALSE indicating an error or a string 
+#'
+#' @return (`remove_local_remote()`) FALSE indicating an error or a string
 #'   indicating the path to the remote
 #' @rdname fixtures
 remove_local_remote <- function(repo, name = "sandpaper-local") {
@@ -159,13 +159,23 @@ remove_local_remote <- function(repo, name = "sandpaper-local") {
     return(repo)
   }
   remotes <- tryCatch(gert::git_remote_list(repo = repo),
-    error = function(e) data.frame(name = character(0))
+    error = function(e) {
+      e$message <- paste0("error from within: ", e$message)
+      d <- data.frame(name = character(0))
+      return(d)
+    }
   )
   if (any(the_remote <- remotes$name %in% name)) {
     gert::git_remote_remove(name, repo)
     to_remove <- remotes$url[the_remote]
     # don't error if we can not delete this.
-    return(tryCatch(fs::dir_delete(to_remove), error = function() FALSE))
+    res <- tryCatch(fs::dir_delete(to_remove),
+      error = function(e) {
+        e$message <- paste0("error from within: ", e$message)
+        return(FALSE)
+      }
+    )
+    return(res)
   }
   return(invisible("(no remote present)"))
 }
