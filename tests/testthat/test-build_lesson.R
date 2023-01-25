@@ -10,16 +10,16 @@ test_that("Lessons built for the first time are noisy", {
 
   # It's noisy at first
   suppressMessages({
-    expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
-      "ordinary text without R code")
+    expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE),
+      processing_("introduction.Rmd")) # chunk name from example episode
   })
   htmls <- read_all_html(sitepath)
-  expect_setequal(names(htmls$learner), 
-    c("introduction", "index", "LICENSE", "CODE_OF_CONDUCT", "profiles", 
+  expect_setequal(names(htmls$learner),
+    c("introduction", "index", "LICENSE", "CODE_OF_CONDUCT", "profiles",
       "instructor-notes", "key-points", "aio", "images")
   )
-  expect_setequal(names(htmls$instructor), 
-    c("introduction", "index", "LICENSE", "CODE_OF_CONDUCT", "profiles", 
+  expect_setequal(names(htmls$instructor),
+    c("introduction", "index", "LICENSE", "CODE_OF_CONDUCT", "profiles",
       "instructor-notes", "key-points", "aio", "images")
   )
 
@@ -74,7 +74,7 @@ test_that("aio page can be rebuilt", {
   writeLines(as.character(html), aio)
   content <- get_content(aio, "section[@id='ephemeral']", pkg = pkg)
   expect_length(content, 1L)
-  
+
   # rebuild the content and check if the section still exists... it shouldn't
   build_aio(pkg, pages = htmls, quiet = TRUE)
   content <- get_content(aio, "section[@id='ephemeral']", pkg = pkg)
@@ -99,7 +99,7 @@ test_that("keypoints page can be rebuilt", {
   writeLines(as.character(html), keypoints)
   content <- get_content(keypoints, "section[@id='ephemeral']", pkg = pkg)
   expect_length(content, 1L)
-  
+
   # rebuild the content and check if the section still exists... it shouldn't
   build_keypoints(pkg, pages = htmls, quiet = TRUE)
   content <- get_content(keypoints, "section[@id='ephemeral']", pkg = pkg)
@@ -118,7 +118,7 @@ test_that("instructor-notes page can be rebuilt", {
   content <- get_content(html, "section[@id='aggregate-instructor-notes']/section")
   expect_length(content, 1L)
   expect_equal(xml2::xml_attr(content, "id"), "introduction")
-  expect_match(xml2::xml_text(xml2::xml_find_first(content[[1]], ".//p")), 
+  expect_match(xml2::xml_text(xml2::xml_find_first(content[[1]], ".//p")),
     "Inline instructor notes")
 
   # add an ephemeral section and write it out
@@ -126,7 +126,7 @@ test_that("instructor-notes page can be rebuilt", {
   writeLines(as.character(html), inotes)
   content <- get_content(inotes, "/section[@id='ephemeral']", pkg = pkg, instructor = TRUE)
   expect_length(content, 1L)
-  
+
   # rebuild the content and check if the section still exists... it shouldn't
   build_instructor_notes(pkg, pages = htmls, quiet = TRUE)
   content <- get_content(inotes, "/section[@id='ephemeral']", pkg = pkg, instructor = TRUE)
@@ -186,7 +186,7 @@ test_that("single files can be built", {
 
   suppressMessages({
     rdr$render() %>%
-      expect_output("ordinary text without R code") %>%
+      expect_output(processing_("second-episode.Rmd")) %>%
       expect_message("Output created: .*second-episode.html")
   })
 
@@ -215,7 +215,7 @@ test_that("single files can be re-built", {
 
   suppressMessages({
     rdr$render() %>%
-      expect_output("ordinary text without R code") %>%
+      expect_output(processing_("second-episode.Rmd")) %>%
       expect_message("Output created: .*second-episode.html")
   })
 
@@ -249,11 +249,11 @@ test_that("HTML files are present and have the correct elements", {
 
   # Div tags show up as expected
   expect_true(any(grepl(".div.+? class..callout challenge", ep)))
-  # figure captions show up from knitr 
-  # (https://github.com/carpentries/sandpaper/issues/114) 
+  # figure captions show up from knitr
+  # (https://github.com/carpentries/sandpaper/issues/114)
   expect_true(any(grepl("Sun arise each and every morning", ep)))
   expect_true(any(grepl(
-        ".div.+? class..callout challenge", 
+        ".div.+? class..callout challenge",
         readLines(fs::path(sitepath, "second-episode.html"))
   )))
   expect_true(any(grepl(
@@ -267,8 +267,8 @@ test_that("files will not be rebuilt unless they change in content", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   suppressMessages({
     expect_failure({
-      expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
-      "ordinary text without R code")
+      expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE),
+      processing_("second-episode.Rmd"))
     })
   })
 
@@ -276,8 +276,8 @@ test_that("files will not be rebuilt unless they change in content", {
 
   suppressMessages({
     expect_failure({
-      expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), 
-      "ordinary text without R code")
+      expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE),
+      processing_("introduction.Rmd"))
     })
   })
 
@@ -332,10 +332,10 @@ test_that("aio page is updated with new pages", {
   expect_true(fs::file_exists(aio))
   expect_true(fs::file_exists(iaio))
   html <- xml2::read_html(aio)
-  content <- xml2::xml_find_all(html, 
+  content <- xml2::xml_find_all(html,
     ".//div[contains(@class, 'lesson-content')]/section[starts-with(@id, 'aio-')]")
   expect_length(content, 2L)
-  expect_equal(xml2::xml_attr(content, "id"), 
+  expect_equal(xml2::xml_attr(content, "id"),
     c("aio-introduction", "aio-second-episode"))
 
 })
@@ -362,7 +362,8 @@ test_that("episodes with HTML in the title are rendered correctly", {
   writeLines(se, fs::path(tmp, "episodes", "second-episode.Rmd"))
 
   suppressMessages({
-    expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), "ordinary text without R code")
+    expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE),
+      processing_("second-episode.Rmd"))
   })
 
   h1 <- expect_hashed(tmp, "introduction.Rmd")
@@ -371,7 +372,7 @@ test_that("episodes with HTML in the title are rendered correctly", {
   expect_true(fs::file_exists(fs::path(sitepath, "second-episode.html")))
 
   expect_true(any(grepl(
-        "A <strong>bold</strong> title", 
+        "A <strong>bold</strong> title",
         readLines(fs::path(sitepath, "second-episode.html")),
         fixed = TRUE
   )))

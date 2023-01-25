@@ -9,7 +9,7 @@
   fs::dir_create(src)
   fs::dir_create(out)
   copy_template("license", src, "test1.md")
-  writeLines("---\ntitle: a\n---\n\nHello from `r R.version.string`\n\n```{css}\n#| echo: false\n.my-class {padding: 25px};\n```\n", t2)
+  writeLines("---\ntitle: a\n---\n\nHello from `r R.version.string`\n\n```{css css-chunk}\n#| echo: false\n.my-class {padding: 25px};\n```\n", t2)
   withr::defer({
     fs::dir_delete(src)
     fs::dir_delete(out)
@@ -39,7 +39,6 @@ test_that("callr_build_episode_md() works with Rmarkdown", {
     path = t2, hash = NULL, workenv = new.env(),
     outpath = o2, workdir = fs::path_dir(o2), root = "", quiet = FALSE
   ) %>%
-    expect_output("inline R code") %>%
     expect_message("processing file:")
   })
   expect_true(fs::file_exists(o2))

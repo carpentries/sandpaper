@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-built-db.R
 \name{reserved_db}
 \alias{reserved_db}
-\title{Filter reserved files from the built db}
+\title{Filter reserved markdown files from the built db}
 \usage{
 reserved_db(db)
 }
@@ -10,12 +10,42 @@ reserved_db(db)
 \item{db}{the database from \code{\link[=get_built_db]{get_built_db()}}}
 }
 \value{
-a data frame, but a bit shorter
+the same database with the above files filtered out
 }
 \description{
-Filter reserved files from the built db
+This provides a service for \code{build_site()} so that it does not build files
+that are used for aggregation, resource provision, or GitHub specific files
+}
+\details{
+There are three types of files that are reserved and we do not want to
+propogate to the HTML site
+\subsection{GitHub specific files}{
+
+These are the README and CONTRIBUTING files. Both of these files provide
+information that is useful only in the context of GitHub
+}
+
+\subsection{Aggregation files}{
+
+These are files that are aggregated together with other files or have
+content appended to them:
+\itemize{
+\item \code{index} and \code{learners/setup} are concatenated
+\item all markdown files in \verb{profiles/} are concatenated
+\item \code{instructors/instructor-notes} have the inline instructor notes
+concatenated.
+}
+}
+
+\subsection{Resource provision files}{
+
+At the moment, there is one file that we use for resource provision and
+should not be propogated to the site: \code{links}. This provides global links
+for the lesson. It provides no content in and of itself.
+}
 }
 \seealso{
-\code{\link[=get_built_db]{get_built_db()}}
+\code{\link[=get_built_db]{get_built_db()}} that provides the database and \code{\link[=build_site]{build_site()}},
+which uses the function
 }
 \keyword{internal}

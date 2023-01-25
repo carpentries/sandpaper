@@ -20,7 +20,8 @@
 #' @keywords internal
 #' @rdname fixtures
 create_test_lesson <- function() {
-  if (interactive()) {
+  noise <- interactive() || Sys.getenv("CI") == "true"
+  if (noise) {
     cli::cli_status("{cli::symbol$arrow_right} Bootstrapping example lesson")
   }
   # We explicitly need the package cache for tests
@@ -28,7 +29,7 @@ create_test_lesson <- function() {
   repodir <- fs::file_temp()
   fs::dir_create(repodir)
   repo <- fs::path(repodir, "lesson-example")
-  if (interactive()) {
+  if (noise) {
     cli::cli_status_update(
       "{cli::symbol$arrow_right} Bootstrapping example lesson in {repo}"
     )
