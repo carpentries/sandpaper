@@ -12,7 +12,7 @@ this is an instructor note
 :::
 
 ```{r}
-#| name: example
+#| label: example-chunk
 point <- function(x, y) {
   stopifnot(is.numeric(x), is.numeric(y))
   structure(list(x = x, y = y), class = "point")

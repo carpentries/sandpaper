@@ -29,7 +29,7 @@ test_that("build_episode functions works independently", {
   skip_on_os("windows")
   expect_output({
     res <- build_episode_md(fun_file, workdir = dirname(fun_file))
-  }, "inline R code fragments")
+  }, "example-chunk") # name of chunk in template episode
 
   expect_equal(basename(res), "fun.md")
   expect_true(file.exists(file.path(tmp, "site", "built", "fun.md")))
