@@ -38,7 +38,7 @@ test_that("markdown sources can be built without fail", {
   suppressMessages({
     build_markdown(res, quiet = FALSE) %>%
       expect_message("Consent to use package cache (provided|not given)") %>%
-      expect_output("ordinary text without R code")
+      expect_output("pyramid") # chunk name from template episode
   })
 
   # # Accidentaly rendered HTML is removed before building
@@ -94,7 +94,7 @@ test_that("markdown sources can be rebuilt without fail", {
   suppressMessages({
     build_markdown(res, quiet = FALSE, rebuild = TRUE) %>%
       expect_message("Consent to use package cache not given.") %>%
-      expect_output("ordinary text without R code")
+      expect_output("pyramid") # chunk name from template episode
   })
   expect_false(getOption("sandpaper.use_renv"))
 })
