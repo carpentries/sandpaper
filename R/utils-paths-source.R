@@ -25,6 +25,17 @@ path_profiles <- function(inpath) {
   fs::path(home, "profiles")
 }
 
+
+provide_setup <- function(cfg, setup = "setup.md") {
+  if (is.null(cfg) || is.null(cfg$learners)) {
+    return(cfg)
+  }
+  if (get_slug(setup) %nin% get_slug(cfg$learners)) {
+    cfg$learners <- c(cfg$learners, setup)
+  }
+  return(cfg)
+}
+
 #' Get the full resource list of markdown files
 #'
 #' @param path path to the lesson
@@ -114,6 +125,9 @@ get_resource_list <- function(path, trim = FALSE, subfolder = NULL, warn = FALSE
   if (use_subfolder) {
     names(res) <- subfolder
   } else {
+    lrn <- res[["learners"]]
+    stp <- fs::path_file(lrn[get_slug(lrn) %in% "setup"])
+    cfg <- provide_setup(cfg, stp)
     subfolder <- c("episodes", "learners", "instructors", "profiles")
   }
 

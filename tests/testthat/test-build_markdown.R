@@ -11,15 +11,17 @@ writeLines(c(
  ),
   con = instruct
 )
+fs::file_copy(instruct, fs::path(tmp, "learners", "dimaryp.md"))
 set_globals(res)
 withr::defer(clear_globals())
 }
 
 
 test_that("markdown sources can be built without fail", {
-  
+
   suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
+  set_learners(tmp, "dimaryp.md", write = TRUE)
   expect_equal(res, tmp, ignore_attr = TRUE)
   # The episodes should be the only things in the directory
   e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
@@ -29,7 +31,7 @@ test_that("markdown sources can be built without fail", {
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   # Accidentally rendered html live in their parent folders
   rmarkdown::render(instruct, quiet = TRUE)
-  expect_true(fs::file_exists(fs::path_ext_set(instruct, "html"))) 
+  expect_true(fs::file_exists(fs::path_ext_set(instruct, "html")))
 
   withr::local_options(list(sandpaper.handout = TRUE))
   # It's noisy at first
@@ -41,9 +43,13 @@ test_that("markdown sources can be built without fail", {
 
   # # Accidentaly rendered HTML is removed before building
   expect_false(fs::file_exists(fs::path_ext_set(instruct, "html")))
-  expect_true(fs::file_exists(fs::path(res, "site", "built", "files", "code-handout.R")))
+  build_path <- function(...) fs::path(res, "site", "built", ...)
+  expect_true(fs::file_exists(build_path("files", "code-handout.R")))
+  expect_true(fs::file_exists(build_path("pyramid.md")))
+  expect_true(fs::file_exists(build_path("dimaryp.md")))
+  expect_true(fs::file_exists(build_path("setup.md")))
   fs::file_delete(fs::path(res, "site", "built", "files", "code-handout.R"))
-  
+
 })
 
 test_that("changes in config.yaml triggers a rebuild of the site yaml", {
@@ -51,7 +57,7 @@ test_that("changes in config.yaml triggers a rebuild of the site yaml", {
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   yml <- get_path_site_yaml(res)$title
   expect_identical(yml, "Lesson Title")
-  cfg <- gsub("Lesson Title", "NEW: Lesson Title", 
+  cfg <- gsub("Lesson Title", "NEW: Lesson Title",
     readLines(fs::path(res, "config.yaml")))
   writeLines(cfg, fs::path(res, "config.yaml"))
 
@@ -71,7 +77,7 @@ test_that("changes in config.yaml triggers a rebuild of the site yaml", {
 
 
 test_that("markdown sources can be rebuilt without fail", {
-  
+
   # no building needed
   skip_on_os("windows")
   suppressMessages({
@@ -81,7 +87,7 @@ test_that("markdown sources can be rebuilt without fail", {
     })
   })
   expect_length(out, 0)
-  
+
   withr::local_options(list(sandpaper.use_renv = FALSE))
   # everything rebuilt
   expect_false(getOption("sandpaper.use_renv"))
@@ -94,12 +100,12 @@ test_that("markdown sources can be rebuilt without fail", {
 })
 
 test_that("modifying a file suffix will force the file to be rebuilt", {
-  
+
   instruct <- fs::path(tmp, "instructors", "pyramid.md")
   instruct_rmd <- fs::path_ext_set(instruct, "Rmd")
   expect_true(fs::file_exists(instruct))
 
-  # If we change a markdown file to an Rmarkdown file, 
+  # If we change a markdown file to an Rmarkdown file,
   # that file should be rebuilt
   fs::file_move(instruct, instruct_rmd)
   expect_false(fs::file_exists(instruct))
@@ -131,14 +137,14 @@ test_that("Artifacts are accounted for", {
   # The artifacts are present in the built directory
   b <- c(
     # Generated markdown files
-    fs::path_ext_set(s, "md"), 
-    "CODE_OF_CONDUCT.md", 
-    "LICENSE.md", 
+    fs::path_ext_set(s, "md"),
+    "CODE_OF_CONDUCT.md",
+    "LICENSE.md",
     "config.yaml",
     if (.Platform$OS.type != "windows") "renv.lock",
     "setup.md",
     # Folders
-    "data", 
+    "data",
     "fig",
     "files",
     "index.md",
@@ -146,15 +152,16 @@ test_that("Artifacts are accounted for", {
     "links.md",
     "learner-profiles.md",
     "md5sum.txt",
-    "pyramid.md"
+    "pyramid.md",
+    "dimaryp.md"
   )
   a <- fs::dir_ls(fs::path(tmp, "site", "built"))
   expect_setequal(fs::path_file(a), b)
   b <- c(
     # Generated markdown files
-    fs::path_ext_set(s, "md"), 
-    "CODE_OF_CONDUCT.md", 
-    "LICENSE.md", 
+    fs::path_ext_set(s, "md"),
+    "CODE_OF_CONDUCT.md",
+    "LICENSE.md",
     "config.yaml",
     if (.Platform$OS.type != "windows") "renv.lock",
     "setup.md",
@@ -165,7 +172,8 @@ test_that("Artifacts are accounted for", {
     "links.md",
     "learner-profiles.md",
     "md5sum.txt",
-    "pyramid.md"
+    "pyramid.md",
+    "dimaryp.md"
   )
   a <- fs::dir_ls(fs::path(tmp, "site", "built"), recurse = TRUE, type = "file")
   expect_setequal(fs::path_file(a), b)
@@ -198,7 +206,7 @@ test_that("Output is not commented", {
 test_that("Markdown rendering does not happen if content is not changed", {
 
   skip_on_os("windows")
-  
+
   suppressMessages({
     expect_message(out <- capture.output(build_markdown(res)), "nothing to rebuild")
   })
@@ -277,7 +285,7 @@ test_that("dates are preserved in md5sum.txt", {
 
 test_that("Removing partially matching slugs will not have side-effects", {
   built_path <- path_built(res)
-  
+
   fs::file_delete(fs::path(res, "instructors", "pyramid.md"))
   build_markdown(res, quiet = TRUE)
   h1 <- expect_hashed(res, "introduction.Rmd")
@@ -289,7 +297,7 @@ test_that("Removing partially matching slugs will not have side-effects", {
   # The image should still exist
   pyramid_fig <- fs::path(built_path, "fig", "introduction-rendered-pyramid-1.png")
   expect_true(fs::file_exists(pyramid_fig))
-  
+
 })
 
 test_that("setting `fail_on_error: true` in config will cause build to fail", {
@@ -320,7 +328,7 @@ test_that("setting `fail_on_error: true` in config will cause build to fail", {
   #
   # 1. hammertime
   # 2. in the name of love
-  # 
+  #
   # The first chunk is allowed to show the error in the document, the second
   # is not. When we check for the text of the second error, that confirms that
   # the first error is passed over
