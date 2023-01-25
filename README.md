@@ -6,8 +6,6 @@
 
 [![R
 Universe](https://carpentries.r-universe.dev/badges/sandpaper)](https://carpentries.r-universe.dev/ui#builds)
-[![R build
-status](https://github.com/carpentries/sandpaper/workflows/R-CMD-check/badge.svg)](https://github.com/carpentries/sandpaper/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/carpentries/sandpaper/branch/main/graph/badge.svg)](https://codecov.io/gh/carpentries/sandpaper?branch=main)
 [![Lifecycle:
