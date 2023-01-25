@@ -15,11 +15,11 @@ get_hash <- function(path, db = fs::path(path_built(path), "md5sum.txt")) {
 #' Get the database of built files and their hashes
 #'
 #' @param db the path to the database.
-#' @param filter regex describing files to include. 
+#' @param filter regex describing files to include.
 #' @return a data frame with three columns:
 #'   - file: the path to the source file
 #'   - checksum: the hash of the source file to generate the built file
-#'   - built: the path to the built file 
+#'   - built: the path to the built file
 #' @keywords internal
 #' @seealso [build_status()], [get_hash()]
 get_built_db <- function(db = "site/built/md5sum.txt", filter = "*R?md") {
@@ -34,14 +34,44 @@ get_built_db <- function(db = "site/built/md5sum.txt", filter = "*R?md") {
   return(files[are_markdown, , drop = FALSE])
 }
 
-#' Filter reserved files from the built db
+#' Filter reserved markdown files from the built db
+#'
+#' This provides a service for `build_site()` so that it does not build files
+#' that are used for aggregation, resource provision, or GitHub specific files
+#'
+#' @details
+#'
+#' There are three types of files that are reserved and we do not want to
+#' propogate to the HTML site
+#'
+#' ## GitHub specific files
+#'
+#' These are the README and CONTRIBUTING files. Both of these files provide
+#' information that is useful only in the context of GitHub
+#'
+#' ## Aggregation files
+#'
+#' These are files that are aggregated together with other files or have
+#' content appended to them:
+#'
+#'  - `index` and `learners/setup` are concatenated
+#'  - all markdown files in `profiles/` are concatenated
+#'  - `instructors/instructor-notes` have the inline instructor notes
+#'     concatenated.
+#'
+#' ## Resource provision files
+#'
+#' At the moment, there is one file that we use for resource provision and
+#' should not be propogated to the site: `links`. This provides global links
+#' for the lesson. It provides no content in and of itself.
 #'
 #' @param db the database from [get_built_db()]
-#' @return a data frame, but a bit shorter
+#' @return the same database with the above files filtered out
 #' @keywords internal
-#' @seealso [get_built_db()]
+#' @seealso [get_built_db()] that provides the database and [build_site()],
+#'   which uses the function
 reserved_db <- function(db) {
-  reserved <- c("index", "README", "CONTRIBUTING", "learners/setup", 
+  reserved <- c("index", "README", "CONTRIBUTING", "learners/setup",
     "profiles[/].*", "instructors[/]instructor-notes[.]*", "links")
   reserved <- paste(reserved, collapse = "|")
   reserved <- paste0("^(", reserved, ")[.]R?md")
@@ -53,7 +83,7 @@ write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 #' Identify what files need to be rebuilt and what need to be removed
 #'
 #' This takes in a vector of files and compares them against a text database of
-#' files with checksums. It's been heavily adapted from blogdown to provide 
+#' files with checksums. It's been heavily adapted from blogdown to provide
 #' utilities for removal and updating of the old database.
 #'
 #' @details
@@ -72,10 +102,10 @@ write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 #' @param rebuild if the files should be rebuilt, set this to TRUE (defaults to
 #'   FALSE)
 #' @param write if TRUE, the database will be updated, Defaults to FALSE,
-#' meaning that the database will remain the same. 
+#' meaning that the database will remain the same.
 #' @return a list of the following elements
 #'   - *build* absolute paths of files to build
-#'   - *new* a new data frame with three columns: 
+#'   - *new* a new data frame with three columns:
 #'      - file the relative path to the source file
 #'      - checksum the md5 sum of the source file
 #'      - built the relative path to the built file
@@ -166,7 +196,7 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   # also remove the files that no longer exist in the sources list.
   one <- one[match(sources, one$file), , drop = FALSE]
   # TODO: see if we can have rebuild be a vector matching the sources so that
-  #       we can indicate a vector of files to rebuild. 
+  #       we can indicate a vector of files to rebuild.
   if (rebuild) {
     files = one[['file']]
     to_remove <- old[['built']]
