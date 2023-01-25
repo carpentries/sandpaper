@@ -11,7 +11,7 @@ test_that("Lessons built for the first time are noisy", {
   # It's noisy at first
   suppressMessages({
     expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE),
-      "pyramid") # chunk name from example episode
+      processing_("introduction.Rmd")) # chunk name from example episode
   })
   htmls <- read_all_html(sitepath)
   expect_setequal(names(htmls$learner),
@@ -186,7 +186,7 @@ test_that("single files can be built", {
 
   suppressMessages({
     rdr$render() %>%
-      expect_output("pyramid") %>% # chunk name from example episode
+      expect_output(processing_("second-episode.Rmd")) %>%
       expect_message("Output created: .*second-episode.html")
   })
 
@@ -215,7 +215,7 @@ test_that("single files can be re-built", {
 
   suppressMessages({
     rdr$render() %>%
-      expect_output("pyramid") %>% # chunk name from example episode
+      expect_output(processing_("second-episode.Rmd")) %>%
       expect_message("Output created: .*second-episode.html")
   })
 
@@ -268,7 +268,7 @@ test_that("files will not be rebuilt unless they change in content", {
   suppressMessages({
     expect_failure({
       expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE),
-      "pyramid") # chunk name from example episode
+      processing_("second-episode.Rmd"))
     })
   })
 
@@ -277,7 +277,7 @@ test_that("files will not be rebuilt unless they change in content", {
   suppressMessages({
     expect_failure({
       expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE),
-      "pyramid") # chunk name from example episode
+      processing_("introduction.Rmd"))
     })
   })
 
@@ -362,7 +362,8 @@ test_that("episodes with HTML in the title are rendered correctly", {
   writeLines(se, fs::path(tmp, "episodes", "second-episode.Rmd"))
 
   suppressMessages({
-    expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE), "pyramid")
+    expect_output(build_lesson(tmp, preview = FALSE, quiet = FALSE),
+      processing_("second-episode.Rmd"))
   })
 
   h1 <- expect_hashed(tmp, "introduction.Rmd")

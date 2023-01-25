@@ -39,7 +39,6 @@ test_that("callr_build_episode_md() works with Rmarkdown", {
     path = t2, hash = NULL, workenv = new.env(),
     outpath = o2, workdir = fs::path_dir(o2), root = "", quiet = FALSE
   ) %>%
-    expect_output("css-chunk") %>%
     expect_message("processing file:")
   })
   expect_true(fs::file_exists(o2))

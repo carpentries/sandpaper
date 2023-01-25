@@ -38,7 +38,7 @@ test_that("markdown sources can be built without fail", {
   suppressMessages({
     build_markdown(res, quiet = FALSE) %>%
       expect_message("Consent to use package cache (provided|not given)") %>%
-      expect_output("pyramid") # chunk name from template episode
+      expect_output(processing_("second-episode.Rmd"))
   })
 
   # # Accidentaly rendered HTML is removed before building
@@ -76,7 +76,7 @@ test_that("changes in config.yaml triggers a rebuild of the site yaml", {
 
 
 
-test_that("markdown sources can be rebuilt without fail", {
+test_that("markdown sources can be rebuilt without renv", {
 
   # no building needed
   skip_on_os("windows")
@@ -94,7 +94,7 @@ test_that("markdown sources can be rebuilt without fail", {
   suppressMessages({
     build_markdown(res, quiet = FALSE, rebuild = TRUE) %>%
       expect_message("Consent to use package cache not given.") %>%
-      expect_output("pyramid") # chunk name from template episode
+      expect_output(processing_("second-episode")) # chunk name from template episode
   })
   expect_false(getOption("sandpaper.use_renv"))
 })

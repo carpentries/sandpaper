@@ -1,8 +1,5 @@
 res <- tmp <- restore_fixture()
 
-print(fs::dir_tree(res, recurse = 1))
-
-
 
 test_that("build_episode_html() returns nothing for an empty page", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
@@ -29,7 +26,7 @@ test_that("build_episode functions works independently", {
   skip_on_os("windows")
   expect_output({
     res <- build_episode_md(fun_file, workdir = dirname(fun_file))
-  }, "example-chunk") # name of chunk in template episode
+  }, processing_(fun_file))
 
   expect_equal(basename(res), "fun.md")
   expect_true(file.exists(file.path(tmp, "site", "built", "fun.md")))
