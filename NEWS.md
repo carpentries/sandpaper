@@ -1,5 +1,12 @@
 # sandpaper 0.11.4
 
+BUG FIX
+-------
+
+* The setup page will always be provisioned for lessons regardless if it
+  exists in the `learners:` field in `config.yaml`
+  (reported: @zkamvar, #386; fixed: @zkamvar #387).
+
 PANDOC
 ------
 
