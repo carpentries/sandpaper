@@ -131,52 +131,37 @@ test_that("modifying a file suffix will force the file to be rebuilt", {
 test_that("Artifacts are accounted for", {
 
   s <- get_episodes(tmp)
-  # No artifacts should be present in the directory
-  e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
-  expect_equal(fs::path_file(e), s, ignore_attr = TRUE)
   # The artifacts are present in the built directory
   b <- c(
-    # Generated markdown files
-    fs::path_ext_set(s, "md"),
     "CODE_OF_CONDUCT.md",
     "LICENSE.md",
-    "config.yaml",
-    if (.Platform$OS.type != "windows") "renv.lock",
     "setup.md",
-    # Folders
-    "data",
-    "fig",
-    "files",
     "index.md",
     "instructor-notes.md",
     "links.md",
     "learner-profiles.md",
-    "md5sum.txt",
     "pyramid.md",
-    "dimaryp.md"
+    "dimaryp.md",
+    # Generated markdown files
+    fs::path_ext_set(s, "md"),
+    "config.yaml",
+    if (.Platform$OS.type != "windows") "renv.lock",
+    "md5sum.txt"
   )
+
+  # No artifacts should be present in the source dir --------------
+  e <- fs::dir_ls(fs::path(tmp, "episodes"), recurse = TRUE, type = "file")
+  expect_equal(fs::path_file(e), s, ignore_attr = TRUE)
+
+  # Testing for top-level artifacts -------------------------------
+  folders <- c( "data", "fig", "files")
   a <- fs::dir_ls(fs::path(tmp, "site", "built"))
-  expect_setequal(fs::path_file(a), b)
-  b <- c(
-    # Generated markdown files
-    fs::path_ext_set(s, "md"),
-    "CODE_OF_CONDUCT.md",
-    "LICENSE.md",
-    "config.yaml",
-    if (.Platform$OS.type != "windows") "renv.lock",
-    "setup.md",
-    # Generated figures
-    paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png"),
-    "index.md",
-    "instructor-notes.md",
-    "links.md",
-    "learner-profiles.md",
-    "md5sum.txt",
-    "pyramid.md",
-    "dimaryp.md"
-  )
+  expect_setequal(fs::path_file(a), c(folders, b))
+
+  # Testing for generated figures included ------------------------
+  figs <- paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png")
   a <- fs::dir_ls(fs::path(tmp, "site", "built"), recurse = TRUE, type = "file")
-  expect_setequal(fs::path_file(a), b)
+  expect_setequal(fs::path_file(a), c(figs, b))
 
 })
 
@@ -198,7 +183,10 @@ test_that("Output is not commented", {
   outid  <- grep("[1]", ep, fixed = TRUE)
   output <- ep[outid[1]]
   fence  <- ep[outid[1] - 1]
+
+  # code output lines start with normal R indexing ---------------
   expect_match(output, "^\\[1\\]")
+  # code output fences have the output class ---------------------
   expect_match(fence, "^[`]{3}[{]?\\.?output[}]?")
 
 })
