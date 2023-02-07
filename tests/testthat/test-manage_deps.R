@@ -51,7 +51,7 @@ test_that("manage_deps() will create a renv folder", {
   fs::file_move(rnv, tmp)
   withr::defer({
     fs::dir_delete(rnv)
-    fs::file_move(fs::path(tmp, "renv"), rnv) 
+    fs::file_move(fs::path(tmp, "renv"), rnv)
   })
   expect_false(fs::dir_exists(rnv))
 
@@ -64,8 +64,8 @@ test_that("manage_deps() will create a renv folder", {
 
   expect_true(fs::dir_exists(rnv))
   expect_false(
-    renv_should_rebuild(lsn, 
-      rebuild = FALSE, 
+    renv_should_rebuild(lsn,
+      rebuild = FALSE,
       db_path = fs::path(path_built(lsn), "md5sum.txt")
     )
   )
@@ -83,9 +83,9 @@ test_that("manage_deps() will run without callr", {
   ))
 
   suppressMessages({
-  callr_manage_deps(lsn, 
-    repos = renv_carpentries_repos(), 
-    snapshot = TRUE, 
+  callr_manage_deps(lsn,
+    repos = renv_carpentries_repos(),
+    snapshot = TRUE,
     lockfile_exists = TRUE) %>%
     expect_message("Restoring any dependency versions") %>%
     expect_output("package dependencies")
@@ -96,16 +96,16 @@ test_that("manage_deps() will run without callr", {
 
 
 test_that("renv will not trigger a rebuild when nothing changes", {
-  
+
   skip_on_cran()
   skip_on_os("windows")
   # nothing changes, so we do not rebuild
   db_path <- fs::path(path_built(lsn), "md5sum.txt")
   profile <- "lesson-requirements"
-  
+
   expect_false(
-    renv_should_rebuild(lsn, 
-      rebuild = FALSE, 
+    renv_should_rebuild(lsn,
+      rebuild = FALSE,
       db_path = fs::path(path_built(lsn), "md5sum.txt")
     )
   )
@@ -123,7 +123,7 @@ test_that("renv will not trigger a rebuild when nothing changes", {
 
 
 test_that("pin_version() will use_specific versions", {
-  
+
   skip_on_cran()
   skip_on_os("windows")
   skip_if_offline()
@@ -136,7 +136,7 @@ test_that("pin_version() will use_specific versions", {
 
   writeLines("library(sessioninfo)", con = fs::path(lsn, "episodes", "si.R"))
   expect_output({
-    pin_version("sessioninfo@1.1.0", path = lsn) # old version of sessioninfo
+    pin_version("sessioninfo@1.1.0", path = fs::path(lsn, "episodes")) # old version of sessioninfo
   }, "Updated 1 record in")
 
   # Need to consider this because there is something happening inside of covr
@@ -161,7 +161,7 @@ test_that("Package cache changes will trigger a rebuild", {
   # nothing changes, so we do not rebuild
   db_path <- fs::path(path_built(lsn), "md5sum.txt")
   profile <- "lesson-requirements"
-  
+
   # default: no rebuilding
   expect_false(renv_should_rebuild(lsn, rebuild = FALSE, db_path = db_path))
   withr::defer(package_cache_trigger(FALSE))
@@ -191,14 +191,14 @@ test_that("Package cache changes will trigger a rebuild", {
 
 
 test_that("update_cache() will update old package versions", {
-  
+
   skip_on_cran()
   skip_on_os("windows")
   skip_if_offline()
   skip_if(covr::in_covr())
 
   suppressMessages({
-    res <- update_cache(path = lsn, prompt = FALSE, quiet = FALSE) %>%
+    res <- update_cache(path = fs::path(lsn, "episodes"), prompt = FALSE, quiet = FALSE) %>%
       expect_output("sessioninfo")
   })
   expect_true(

@@ -1,3 +1,14 @@
+# sandpaper 0.11.5
+
+BUG FIX
+-------
+
+* `update_cache()` and `pin_version()` will now find the root path of the
+  lesson before checking and manipulating dependencies. This will circumvent
+  the issue where a user could accidentally create a `episodes/renv` folder by
+  running `update_cache()` from the `episodes/` directory (discovered:
+  @sarahkaspar; reported: @zkamvar, #391; fixed: @zkamvar, #392).
+
 # sandpaper 0.11.4
 
 BUG FIX
