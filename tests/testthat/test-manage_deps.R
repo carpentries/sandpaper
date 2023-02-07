@@ -136,7 +136,7 @@ test_that("pin_version() will use_specific versions", {
 
   writeLines("library(sessioninfo)", con = fs::path(lsn, "episodes", "si.R"))
   expect_output({
-    pin_version("sessioninfo@1.1.0", path = lsn) # old version of sessioninfo
+    pin_version("sessioninfo@1.1.0", path = fs::path(lsn, "episodes")) # old version of sessioninfo
   }, "Updated 1 record in")
 
   # Need to consider this because there is something happening inside of covr
