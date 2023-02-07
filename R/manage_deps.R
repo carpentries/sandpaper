@@ -164,6 +164,7 @@ pin_version <- function(records = NULL, profile = "lesson-requirements", path = 
     Sys.setenv("RENV_PROFILE" = prof)
     setwd(wd)
   })
+  path <- root_path(path)
   setwd(path)
   Sys.setenv("RENV_PROFILE" = profile)
   lockfile <- renv::paths$lockfile(project = path)
