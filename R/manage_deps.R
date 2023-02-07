@@ -34,7 +34,7 @@
 #'   Carpentries lessons are also working academics and will likely have
 #'   projects on their computer where the package versions are necessary for
 #'   their work, it's important that those environments are respected.
-#'  
+#'
 #'   Our flavor of {renv} applies a package cache explicitly to the content of
 #'   the lesson, but does not impose itself as the default {renv} environment.
 #'
@@ -105,6 +105,7 @@ manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = 
 #' @rdname dependency_management
 #' @export
 update_cache <- function(path = ".", profile = "lesson-requirements", prompt = interactive(), quiet = !prompt, snapshot = TRUE) {
+  path <- root_path(path)
   prof <- Sys.getenv("RENV_PROFILE")
   on.exit({
     invisible(utils::capture.output(renv::deactivate(path), type = "message"))
@@ -140,15 +141,15 @@ update_cache <- function(path = ".", profile = "lesson-requirements", prompt = i
 #' Pin a resource to a specific version
 #'
 #' This is a wrapper around [renv::record()], which helps you record a package
-#' or set of packages in your lockfile. It can be useful when you want to 
-#' upgrade or downgrade a specific package. 
+#' or set of packages in your lockfile. It can be useful when you want to
+#' upgrade or downgrade a specific package.
 #'
 #' @param records a character vector or list of packages/resources to include
 #' in the lockfile. The most common way to do this is to use the
 #' `[package]@[version]` syntax (e.g. `gert@0.1.3`), but there are other
 #' specifications where you can specify the remote repository. See
 #' [renv::record()] for details.
-#' @param profile default to the profile for the lesson. Defaults to 
+#' @param profile default to the profile for the lesson. Defaults to
 #' `lesson-requirements`. Only use this if you know what you are doing.
 #' @param path path to your lesson. Defaults to the current working directory.
 #'
