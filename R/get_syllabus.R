@@ -13,8 +13,8 @@
 #' @keywords internal
 #' @export
 get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
-  
-  # The home page contains three things: 
+
+  # The home page contains three things:
   # 0. The main title as a header
   # 1. the content of index.md from the top level of the lesson directory
   # 2. The computed syllabus
@@ -39,7 +39,7 @@ create_syllabus <- function(episodes, lesson, path, questions = TRUE) {
     lesson <- set_this_lesson(path)
   }
   episodes <- lesson$episodes[sched]
-  
+
   quest <- if (questions) vapply(episodes, get_questions, character(1)) else NULL
 
   timings <- vapply(episodes, get_timings, numeric(1))
@@ -47,13 +47,20 @@ create_syllabus <- function(episodes, lesson, path, questions = TRUE) {
 
   # NOTE: This assumes a flat file structure for the website.
   paths <- fs::path_ext_set(sched, "html")
-  
+
   start <- as.POSIXlt("00:00", format = "%H:%M", tz = "UTC")
   # Note: we are creating a start time of 0 and adding "Finish" to the end.
-  cumulative_minutes <- cumsum(c(0, timings)) * 60L
+  if (any(timings < 0)) {
+    bad <- which(timings < 0)
+    msg <- c("There are missing timings from {length(bad)} episode{?s}.",
+      "*" = "{.file {sched[bad]}}",
+      "i" = "The default value of {.emph 5 minutes} will be used for teaching and exercises.")
+    cli::cli_warn(msg)
+  }
+  cumulative_minutes <- cumsum(c(0, abs(timings))) * 60L
 
   out <- data.frame(
-    episode = c(titles, "Finish"), 
+    episode = c(titles, "Finish"),
     timings = format(start + cumulative_minutes, "%Hh %Mm"),
     path = c(paths, ""),
     percents = sprintf("%1.0f", 100 * (cumulative_minutes / max(cumulative_minutes))),
@@ -72,7 +79,22 @@ get_titles <- function(ep) {
 
 get_timings <- function(ep) {
   yaml <- ep$get_yaml()
-  as.numeric(sum(yaml$teaching, yaml$exercises, na.rm = TRUE))
+  coerce_integer <- function(i, default = -5L) {
+    not_integer <- !grepl("^[0-9]+$", i)
+    # NULL will return logical(0)
+    if (length(not_integer) == 0 || not_integer) {
+      i <- default
+    }
+    return(as.integer(i))
+  }
+  times <- c(coerce_integer(yaml$teaching), coerce_integer(yaml$exercises))
+  signs <- any(times < 0)
+  res <- as.integer(sum(abs(times), na.rm = TRUE))
+  if (signs) {
+    -res
+  } else {
+    res
+  }
 }
 
 get_questions <- function(ep) {
