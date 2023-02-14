@@ -1,6 +1,6 @@
 #nocov start
 # very internal function for me to burn everything down. This will remove
-# the local library, local cache, and the entire {renv} cache. 
+# the local library, local cache, and the entire {renv} cache.
 renv_burn_it_down <- function(path = ".", profile = "lesson-requirements") {
   callr::r(function(path, profile) {
     wd <- getwd()
@@ -68,7 +68,7 @@ renv_lockfile_hash <- function(path, db_path, profile = "lesson-requirements") {
 #' been created or that consent has already been provided.)
 #'
 #' @param force if `TRUE`, consent is forced to be TRUE, creating the cache
-#'   directory if it did not exist before. Defaults to `FALSE`, which gently 
+#'   directory if it did not exist before. Defaults to `FALSE`, which gently
 #'   inquires for consent.
 #' @return a character vector
 #' @keywords internal
@@ -85,7 +85,7 @@ try_use_renv <- function(force = FALSE) {
   lines <- readLines(tmp)
   if (force) {
     lines <- lines[length(lines)]
-  } 
+  }
   invisible(lines)
 }
 
@@ -128,7 +128,7 @@ renv_setup_profile <- function(path = ".", profile = "lesson-requirements") {
     on.exit(setwd(wd))
     setwd(path)
     # NOTE: I do not know why, but this takes forever to run when no internet is
-    # available. Kevin may know why. 
+    # available. Kevin may know why.
     renv::init(project = path, bare = TRUE, restart = FALSE, profile = profile)
     renv::deactivate(project = path)
   },
@@ -157,7 +157,7 @@ renv_setup_profile <- function(path = ".", profile = "lesson-requirements") {
 #'   # install.packages("cowsay") # install cowsay to your lesson cache
 #'   # cowsay::say() # hello world
 #'   # detach('package:cowsay') # detach the package from your current session
-#'   done() # finish the session 
+#'   done() # finish the session
 #'   # try(cowsay::say()) # this fails because it's not in your global library
 #'   print(.libPaths())
 #' }
@@ -203,7 +203,7 @@ renv_diagnostics <- function(path = ".", profile = "lesson-requirements") {
 
 
 renv_cache_available <- function() {
-  rccs <- renv::config$cache.symlinks() 
+  rccs <- renv::config$cache.symlinks()
   stf  <- getOption("sandpaper.test_fixture")
   if (is.null(rccs) && is.null(stf)) {
     return("")
@@ -235,7 +235,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   # Steps to update a {renv} environment regardless of whether or not the user
   # has initiated {renv} in the first place
   #
-  # 1. find the packages we need from the global library or elsewhere, and 
+  # 1. find the packages we need from the global library or elsewhere, and
   #    load them into the profile's library
   cli::cli_alert("Searching for and installing available dependencies")
   #nocov start
@@ -254,14 +254,27 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   }
   #nocov end
   if (needs_hydration) {
-    hydra <- renv::hydrate(packages = pkgs, library = renv_lib, update = FALSE, 
+    hydra <- renv::hydrate(packages = pkgs, library = renv_lib, update = FALSE,
       project = path)
+    #nocov start
+    # NOTE: I am not testing this now because this code requires yet another
+    # step to install packages. I will rely on the integration tests to help
+    # me out here.
+    #
+    # When we have missing packages, this will help to search for and install
+    # missing bioconductor packages, if this is the actual problem.
+    if (length(hydra$missing)) {
+      pkgs <- vapply(hydra$missing, function(pkg) pkg$package, character(1))
+      cli::cli_alert_warning("Attempting to install missing packages assuming bioc")
+      renv::install(paste0("bioc::", pkgs), library = renv_lib, project = path)
+    }
+    #nocov end
   }
   # 2. If the lockfile exists, we update the library to the versions that are
   #    recorded.
   if (lockfile_exists) {
     cli::cli_alert("Restoring any dependency versions")
-    res <- renv::restore(project = path, library = renv_lib, 
+    res <- renv::restore(project = path, library = renv_lib,
       lockfile = renv_lock, prompt = FALSE)
   }
   if (snapshot) {
@@ -272,7 +285,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
       invisible(utils::capture.output(renv::deactivate(project = path), type = "message"))
       return(snap)
     }, add = TRUE)
-    # 4. Snapshot the current state of the library to the lockfile to 
+    # 4. Snapshot the current state of the library to the lockfile to
     #    synchronize
     cli::cli_alert("Recording changes in lockfile")
     snap <- renv::snapshot(project = path, lockfile = renv_lock, prompt = FALSE)

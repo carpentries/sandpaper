@@ -7,6 +7,14 @@
   warning will be issued listing which episodes have missing timings.
   (reported: @zkamvar, #395; fixed: @zkamvar, #396)
 
+## BUG FIX
+
+* `manage_deps()` will now attempt to recover errors from "missing" bioconductor
+  packages. Note that this is a provisional solution because it treats
+  BioConductor packages as an afterthought. The full fix for this should be
+  when {renv} bootstraps BioConductor repositories (reported: @zkamvar, #365 and
+  https://github.com/rstudio/renv/issues/1110; fixed: @zkamvar, #397)
+
 # sandpaper 0.11.5 (2023-02-09)
 
 ## BUG FIX
