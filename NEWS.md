@@ -3,7 +3,8 @@
 ## NEW FEATURE
 
 * blank or character timing estimates (e.g. XX) will now be treated as unknown
-  and an estimate of 5 minutes will be used for each missing element
+  and an estimate of 5 minutes will be used for each missing element. A 
+  warning will be issued listing which episodes have missing timings.
   (reported: @zkamvar, #395; fixed: @zkamvar, #396)
 
 # sandpaper 0.11.5 (2023-02-09)

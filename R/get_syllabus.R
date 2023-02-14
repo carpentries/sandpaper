@@ -50,7 +50,14 @@ create_syllabus <- function(episodes, lesson, path, questions = TRUE) {
 
   start <- as.POSIXlt("00:00", format = "%H:%M", tz = "UTC")
   # Note: we are creating a start time of 0 and adding "Finish" to the end.
-  cumulative_minutes <- cumsum(c(0, timings)) * 60L
+  if (any(timings < 0)) {
+    bad <- which(timings < 0)
+    msg <- c("There are missing timings from {length(bad)} episode{?s}.",
+      "*" = "{.file {sched[bad]}}",
+      "i" = "The default value of {.emph 5 minutes} will be used for teaching and exercises.")
+    cli::cli_warn(msg)
+  }
+  cumulative_minutes <- cumsum(c(0, abs(timings))) * 60L
 
   out <- data.frame(
     episode = c(titles, "Finish"),
@@ -72,7 +79,7 @@ get_titles <- function(ep) {
 
 get_timings <- function(ep) {
   yaml <- ep$get_yaml()
-  coerce_integer <- function(i, default = 5L) {
+  coerce_integer <- function(i, default = -5L) {
     not_integer <- !grepl("^[0-9]+$", i)
     # NULL will return logical(0)
     if (length(not_integer) == 0 || not_integer) {
@@ -80,9 +87,14 @@ get_timings <- function(ep) {
     }
     return(as.integer(i))
   }
-  teach <- coerce_integer(yaml$teaching)
-  exerc <- coerce_integer(yaml$exercises)
-  as.integer(sum(teach, exerc, na.rm = TRUE))
+  times <- c(coerce_integer(yaml$teaching), coerce_integer(yaml$exercises))
+  signs <- any(times < 0)
+  res <- as.integer(sum(abs(times), na.rm = TRUE))
+  if (signs) {
+    -res
+  } else {
+    res
+  }
 }
 
 get_questions <- function(ep) {

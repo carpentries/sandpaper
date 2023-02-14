@@ -41,7 +41,9 @@ test_that("episodes missing question blocks and timings do not throw error", {
 
   set_episodes(tmp, c(get_episodes(tmp), "break.md"), write = TRUE)
 
-  expect_warning(res <- get_syllabus(tmp, questions = TRUE), "questions")
+  (res <- get_syllabus(tmp, questions = TRUE)) %>%
+    expect_warning("No section called 'questions'") %>%
+    expect_warning("missing timings from 1 episode")
   expect_equal(nrow(res), 4)
   expect_equal(res$timings, c("00h 00m", "00h 12m", "00h 24m", "00h 34m"))
   expect_equal(res$percents, c("0", "35", "71", "100"))
