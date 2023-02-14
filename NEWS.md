@@ -1,3 +1,11 @@
+# sandpaper 0.11.6 (in development)
+
+## NEW FEATURE
+
+* blank or character timing estimates (e.g. XX) will now be treated as unknown
+  and an estimate of 5 minutes will be used for each missing element
+  (reported: @zkamvar, #395; fixed: @zkamvar, #396)
+
 # sandpaper 0.11.5 (2023-02-09)
 
 ## BUG FIX
