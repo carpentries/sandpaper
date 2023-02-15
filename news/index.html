@@ -59,6 +59,11 @@
 <h3 id="new-feature-0-11-6">NEW FEATURE<a class="anchor" aria-label="anchor" href="#new-feature-0-11-6"></a></h3>
 <ul><li>blank or character timing estimates (e.g. XX) will now be treated as unknown and an estimate of 5 minutes will be used for each missing element. A warning will be issued listing which episodes have missing timings. (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/395" class="external-link">#395</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/396" class="external-link">#396</a>)</li>
 </ul></div>
+<div class="section level3">
+<h3 id="bug-fix-0-11-6">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-11-6"></a></h3>
+<ul><li>
+<code><a href="../reference/dependency_management.html">manage_deps()</a></code> will now attempt to recover errors from “missing” bioconductor packages. Note that this is a provisional solution because it treats BioConductor packages as an afterthought. The full fix for this should be when {renv} bootstraps BioConductor repositories (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/365" class="external-link">#365</a> and <a href="https://github.com/rstudio/renv/issues/1110" class="external-link uri">https://github.com/rstudio/renv/issues/1110</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/397" class="external-link">#397</a>)</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.5" id="sandpaper-0115-2023-02-09">sandpaper 0.11.5 (2023-02-09)<a class="anchor" aria-label="anchor" href="#sandpaper-0115-2023-02-09"></a></h2>
