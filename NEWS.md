@@ -1,4 +1,4 @@
-# sandpaper 0.11.6 (in development)
+# sandpaper 0.11.6 (2023-02-15)
 
 ## NEW FEATURE
 
