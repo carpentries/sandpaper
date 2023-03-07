@@ -1,3 +1,8 @@
+# sandpaper 0.11.7 (2023-03-07)
+
+* This helps test for and prevent bugs in renv 0.17.0 [placeholder]
+  see https://github.com/carpentries/sandpaper/issues/406
+
 # sandpaper 0.11.6 (2023-02-15)
 
 ## NEW FEATURE
