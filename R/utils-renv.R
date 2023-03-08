@@ -257,6 +257,8 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
     cli::cli_alert("Hydrating missing dependencies")
     hydra <- renv::hydrate(packages = pkgs, library = renv_lib, update = FALSE,
       project = path)
+    print(hydra)
+    renv::diagnostics(project = path)
     #nocov start
     # NOTE: I am not testing this now because this code requires yet another
     # step to install packages. I will rely on the integration tests to help
