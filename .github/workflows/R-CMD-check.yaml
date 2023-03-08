@@ -44,12 +44,14 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RENV_PATHS_ROOT: ${{ matrix.config.cache }}
-      RENV_PATHS_SANDBOX: "${{ runner.temp }}/sandbox/"
 
     steps:
       - name: Record Linux Version
         if: runner.os == 'Linux'
-        run: echo "OS_VERSION=`lsb_release -sr`" >> $GITHUB_ENV
+        run: |
+          echo "OS_VERSION=`lsb_release -sr`" >> $GITHUB_ENV
+          mkdir -p "${{ runner.temp }}/sandbox/"
+          echo "RENV_PATHS_SANDBOX=${{ runner.temp }}/sandbox/" >> $GITHUB_ENV
 
       - name: "Windows: prevent autocrlf"
         if: runner.os == 'Windows'
@@ -99,7 +101,6 @@ jobs:
       - name: "Prime {renv} Cache"
         if: runner.os != 'Windows'
         run: |
-          system('mkdir -p ${{ runner.temp }}/sandbox')
           renv::init()
           system('sudo rm -rf renv.lock renv .Rprofile')
           system('git clean -fd -e .github')
