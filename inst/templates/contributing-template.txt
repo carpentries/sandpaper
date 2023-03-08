@@ -42,6 +42,8 @@ and to meet some of our community members.
     and would like to add or change material,
     you can submit a pull request (PR).
     Instructions for doing this are [included below](#using-github).
+    
+Note: if you want to build the website locally, please refer to [template-doc].    
 
 ## Where to Contribute
 
