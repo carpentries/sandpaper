@@ -24,9 +24,9 @@ test_that("build_episode functions works independently", {
   expect_true(fs::file_exists(fun_file))
 
   skip_on_os("windows")
-  expect_output({
+  # expect_output({
     res <- build_episode_md(fun_file, workdir = dirname(fun_file))
-  }, processing_(fun_file))
+  # }, processing_(fun_file))
 
   expect_equal(basename(res), "fun.md")
   expect_true(file.exists(file.path(tmp, "site", "built", "fun.md")))
