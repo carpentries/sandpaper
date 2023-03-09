@@ -256,7 +256,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   if (needs_hydration) {
     cli::cli_alert("Hydrating missing dependencies")
     hydra <- renv::hydrate(packages = pkgs, library = renv_lib, update = FALSE,
-      project = path)
+      sources = .libPaths(), project = path)
     cli::cli_h1("renv diagnostics")
     cli::cli_h2("find.package")
     print(find.package("rmarkdown"))
