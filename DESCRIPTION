@@ -62,7 +62,7 @@ Remotes:
   ropensci/tinkr,
   carpentries/pegboard,
   carpentries/varnish,
-  rstudio/renv
+  rstudio/renv#1162
 SystemRequirements: pandoc (>= 1.11.4) - http://pandoc.org
 Encoding: UTF-8
 LazyData: true
