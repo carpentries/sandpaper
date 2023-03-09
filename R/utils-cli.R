@@ -43,7 +43,7 @@ warn_schedule <- function() {
 
 show_changed_yaml <- function(sched, order, yaml, what = "episodes") {
 
-  # display for the user to distinguish what was added and what was taken 
+  # display for the user to distinguish what was added and what was taken
   removed <- sched %nin% order
   added   <- order %nin% sched
   thm <- cli::cli_div(theme = sandpaper_cli_theme())
@@ -113,7 +113,7 @@ message_draft_files <- function(hopes, real_files, subfolder) {
 }
 
 message_package_cache <- function(msg) {
-  our_lines <- grep("^(renv maintains|This path can be customized)", msg)
+  our_lines <- grep("(renv maintains a local cache)|^(This path can be customized)", msg)
   RENV_MESSAGE <- msg[our_lines[1]:our_lines[2]]
   RENV_MESSAGE <- paste(RENV_MESSAGE, collapse = "\f")
   txt <- readLines(system.file("templates", "consent-form.txt", package = "sandpaper"))
