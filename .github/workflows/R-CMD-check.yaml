@@ -83,13 +83,6 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - name: "FIX R ENVVARS"
-        if: runner.os != 'Windows'
-        run: |
-          echo "R_LIBS_USER=" >> $GITHUB_ENV
-          echo "R_LIBS_SITE=" >> $GITHUB_ENV
-
-
       - name: "Setup dependencies"
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
