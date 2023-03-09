@@ -1,7 +1,13 @@
+# sandpaper 0.11.8 (2023-03-09)
+
+## BUG FIX
+
+* Excessive output from `renv::diagnostics()` during building of R Markdown
+  documents has been suppressed.
+
 # sandpaper 0.11.7 (2023-03-09)
 
-MISC INTERNAL FIXES
-----
+## MISC INTERNAL FIXES
 
 * We now build {sandpaper} against the development version of {renv} to avoid
   bugs that come from {renv} version 0.17.0. See #406 for details.
