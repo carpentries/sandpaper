@@ -17,7 +17,6 @@ callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, 
   # directory.
   if (root != "") {
     renv::load(root)
-    renv::diagnostics(root)
     on.exit(invisible(utils::capture.output(renv::deactivate(root), type = "message")), add = TRUE)
   }
   # Set knitr options for output ---------------------------
