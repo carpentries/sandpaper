@@ -1,6 +1,6 @@
 
 
-test_that("paths in instructor view that are not HTML get diverted", {
+test_that("paths in instructor view that are nested or not HTML get diverted", {
   html_test <- xml2::read_html(commonmark::markdown_html(c(
     "[a](index.html)",
     "[b](./index.html)",
@@ -11,7 +11,7 @@ test_that("paths in instructor view that are not HTML get diverted", {
     "[g](files/confirmation.html)"
   )))
   res <- xml2::read_html(use_instructor(html_test))
-  # there are fo
+  # All but two refs are transformed according to our rules
   refs <- xml2::xml_text(xml2::xml_find_all(res, ".//@href"))
   expect_equal(startsWith(refs, "../"),
     c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE))

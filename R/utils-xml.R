@@ -115,11 +115,17 @@ use_learner <- function(nodes = NULL) {
 use_instructor <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   copy <- xml2::read_html(as.character(nodes))
+  # find all local links and transform non-html and nested links ---------
   lnk <- xml2::xml_find_all(copy, ".//a[not(starts-with(@href, 'http'))]")
   lnk_hrefs <- xml2::xml_attr(lnk, "href")
-  is_above <- fs::path_ext(lnk_hrefs) != "html"
+  # links without HTML extension
+  not_html <- fs::path_ext(lnk_hrefs) != "html"
+  # links that are not in the root directory (e.g. files/a.html, but not ./a.html)
+  is_nested <- lengths(strsplit(sub("^[.][/]", "", lnk_hrefs), "/")) > 1
+  is_above <- not_html | is_nested
   lnk_hrefs[is_above] <- fs::path("../", lnk_hrefs[is_above])
   xml2::xml_set_attr(lnk, "href", lnk_hrefs)
+  # find all images and refer back to source
   img <- xml2::xml_find_all(copy, ".//img[not(starts-with(@src, 'http'))]")
   xml2::xml_set_attr(img, "src", fs::path("../", xml2::xml_attr(img, "src")))
   as.character(copy)
