@@ -1,3 +1,12 @@
+# sandpaper 0.11.9 (in development)
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* Lessons with files that have spaces in their names (e.g as a learning tool)
+  no longer fail to comment on pull request previews (reported: @zkamvar, #399;
+  fixed: @zkamvar, #400)
+
 # sandpaper 0.11.8 (2023-03-09)
 
 ## BUG FIX
