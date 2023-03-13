@@ -7,9 +7,14 @@ test_that("paths in instructor view that are not HTML get diverted", {
     "[c](fig/thing.png)",
     "[d](./fig/thang.jpg)",
     "[e](data/thing.csv)",
-    "[f](files/papers/thing.pdf)"
+    "[f](files/papers/thing.pdf)",
+    "[g](files/confirmation.html)"
   )))
   res <- xml2::read_html(use_instructor(html_test))
+  # there are fo
+  refs <- xml2::xml_text(xml2::xml_find_all(res, ".//@href"))
+  expect_equal(startsWith(refs, "../"),
+    c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE))
   expect_snapshot(xml2::xml_find_all(html_test, ".//a"))
   expect_snapshot(xml2::xml_find_all(res, ".//a"))
 })
