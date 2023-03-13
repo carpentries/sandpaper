@@ -1,4 +1,21 @@
 
+
+test_that("paths in instructor view that are not HTML get diverted", {
+  html_test <- xml2::read_html(commonmark::markdown_html(c(
+    "[a](index.html)",
+    "[b](./index.html)",
+    "[c](fig/thing.png)",
+    "[d](./fig/thang.jpg)",
+    "[e](data/thing.csv)",
+    "[f](files/papers/thing.pdf)"
+  )))
+  res <- xml2::read_html(use_instructor(html_test))
+  expect_snapshot(xml2::xml_find_all(html_test, ".//a"))
+  expect_snapshot(xml2::xml_find_all(res, ".//a"))
+})
+
+
+
 test_that("empty args result in nothing happening", {
   expect_null(fix_nodes())
   expect_null(fix_setup_link())

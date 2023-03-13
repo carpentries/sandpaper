@@ -40,12 +40,12 @@ fix_codeblocks <- function(nodes = NULL) {
 add_code_heading <- function(codes = NULL, labels = "OUTPUT") {
   if (length(codes) == 0) return(codes)
   xml2::xml_set_attr(codes, "tabindex", "0")
-  heads <- xml2::xml_add_sibling(codes, "h3", labels, class = "code-label", 
+  heads <- xml2::xml_add_sibling(codes, "h3", labels, class = "code-label",
     .where = "before")
   for (head in heads) {
-    xml2::xml_add_child(head, "i", 
+    xml2::xml_add_child(head, "i",
       "aria-hidden" = "true", "data-feather" = "chevron-left")
-    xml2::xml_add_child(head, "i", 
+    xml2::xml_add_child(head, "i",
       "aria-hidden" = "true", "data-feather" = "chevron-right")
   }
   invisible(codes)
@@ -97,7 +97,7 @@ fix_setup_link <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   links <- xml2::xml_find_all(nodes, ".//a")
   hrefs <- xml2::url_parse(xml2::xml_attr(links, "href"))
-  setup_links <- hrefs$scheme == "" & 
+  setup_links <- hrefs$scheme == "" &
     hrefs$server == "" &
     hrefs$path == "setup.html"
   xml2::xml_set_attr(links[setup_links], "href", "index.html#setup")
@@ -115,9 +115,12 @@ use_learner <- function(nodes = NULL) {
 use_instructor <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   copy <- xml2::read_html(as.character(nodes))
-  # lnk <- xml2::xml_find_all(copy, ".//a[not(starts-with(@href, 'http'))]")
+  lnk <- xml2::xml_find_all(copy, ".//a[not(starts-with(@href, 'http'))]")
+  lnk_hrefs <- xml2::xml_attr(lnk, "href")
+  is_above <- fs::path_ext(lnk_hrefs) != "html"
+  lnk_hrefs[is_above] <- fs::path("../", lnk_hrefs[is_above])
+  xml2::xml_set_attr(lnk, "href", lnk_hrefs)
   img <- xml2::xml_find_all(copy, ".//img[not(starts-with(@src, 'http'))]")
-  # xml2::xml_set_attr(lnk, "href", fs::path("instructor/", xml2::xml_attr(lnk, "href")))
   xml2::xml_set_attr(img, "src", fs::path("../", xml2::xml_attr(img, "src")))
   as.character(copy)
 }
