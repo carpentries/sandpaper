@@ -1,4 +1,4 @@
-# paths in instructor view that are not HTML get diverted
+# paths in instructor view that are nested or not HTML get diverted
 
     Code
       xml2::xml_find_all(html_test, ".//a")
