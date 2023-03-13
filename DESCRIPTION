@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.11.6
+Version: 0.11.8
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -61,14 +61,15 @@ Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   ropensci/tinkr,
   carpentries/pegboard,
-  carpentries/varnish
+  carpentries/varnish,
+  rstudio/renv
 SystemRequirements: pandoc (>= 1.11.4) - http://pandoc.org
 Encoding: UTF-8
 LazyData: true
 Config/testthat/edition: 3
 Config/testthat/parallel: false
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 URL: https://carpentries.github.io/sandpaper/, https://github.com/carpentries/sandpaper/, https://carpentries.github.io/workbench/
 BugReports: https://github.com/carpentries/sandpaper/issues/
 VignetteBuilder: knitr

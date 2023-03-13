@@ -13,7 +13,7 @@ callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, 
     file.copy(path, outpath, overwrite = TRUE)
     return(NULL)
   }
-  # Load required packages if it's an RMarkdown file and we know the root 
+  # Load required packages if it's an RMarkdown file and we know the root
   # directory.
   if (root != "") {
     renv::load(root)
@@ -26,7 +26,7 @@ callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, 
   on.exit(knitr::opts_chunk$restore(ochunk), add = TRUE)
   on.exit(knitr::opts_knit$restore(oknit), add = TRUE)
   on.exit(knitr::knit_engines$set(keng), add = TRUE)
-  
+
   # START IMPORT
   # modified from knitr on 2022-08-30
   # https://github.com/yihui/knitr/blob/83fb5084daa1161d3ee2f000b637e48bdcf64617/R/engine.R

@@ -21,7 +21,7 @@ if (interactive() && fs::dir_exists("episodes")) {
   # install.packages("cowsay") # install cowsay to your lesson cache
   # cowsay::say() # hello world
   # detach('package:cowsay') # detach the package from your current session
-  done() # finish the session 
+  done() # finish the session
   # try(cowsay::say()) # this fails because it's not in your global library
   print(.libPaths())
 }

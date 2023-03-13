@@ -10,7 +10,7 @@
       have not yet used renv before, so this is a one-time message that gives you
       information about how the package cache can help you with your lesson.
       
-      renv maintains a local cache of data on the filesystem, located at:
+      Finally, renv maintains a local cache of data on the filesystem, located at:
       
       - "/path/to/cache"
       
@@ -41,7 +41,7 @@
       have not yet used [34mrenv[39m before, so [1mthis is a one-time message[22m that gives you
       information about how the package cache can help you with your lesson.
       
-      [30m[47mrenv maintains a local cache of data on the filesystem, located at:[49m[39m
+      [30m[47mFinally, renv maintains a local cache of data on the filesystem, located at:[49m[39m
       
       - "/path/to/cache"
       
@@ -72,7 +72,7 @@
       have not yet used renv before, so this is a one-time message that gives you
       information about how the package cache can help you with your lesson.
       
-      renv maintains a local cache of data on the filesystem, located at:
+      Finally, renv maintains a local cache of data on the filesystem, located at:
       
       - "/path/to/cache"
       
@@ -103,7 +103,7 @@
       have not yet used [34mrenv[39m before, so [1mthis is a one-time message[22m that gives you
       information about how the package cache can help you with your lesson.
       
-      [30m[47mrenv maintains a local cache of data on the filesystem, located at:[49m[39m
+      [30m[47mFinally, renv maintains a local cache of data on the filesystem, located at:[49m[39m
       
       - "/path/to/cache"
       
