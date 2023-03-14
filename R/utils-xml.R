@@ -116,7 +116,9 @@ use_instructor <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   copy <- xml2::read_html(as.character(nodes))
   # find all local links and transform non-html and nested links ---------
-  lnk <- xml2::xml_find_all(copy, ".//a[not(starts-with(@href, 'http'))]")
+  lnk <- xml2::xml_find_all(copy,
+    ".//a[@href][not(contains(@href, '://')) and not(starts-with(@href, '#'))]"
+  )
   lnk_hrefs <- xml2::xml_attr(lnk, "href")
   # links without HTML extension
   not_html <- fs::path_ext(lnk_hrefs) != "html"

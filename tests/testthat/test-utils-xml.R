@@ -2,21 +2,23 @@
 
 test_that("paths in instructor view that are nested or not HTML get diverted", {
   html_test <- xml2::read_html(commonmark::markdown_html(c(
+    "<a id='what-the'></a><h2>h</h2>\n",
     "[a](index.html)",
     "[b](./index.html)",
     "[c](fig/thing.png)",
     "[d](./fig/thang.jpg)",
     "[e](data/thing.csv)",
     "[f](files/papers/thing.pdf)",
-    "[g](files/confirmation.html)"
+    "[g](files/confirmation.html)",
+    "[h](#what-the)"
   )))
   res <- xml2::read_html(use_instructor(html_test))
   # All but two refs are transformed according to our rules
   refs <- xml2::xml_text(xml2::xml_find_all(res, ".//@href"))
   expect_equal(startsWith(refs, "../"),
-    c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE))
-  expect_snapshot(xml2::xml_find_all(html_test, ".//a"))
-  expect_snapshot(xml2::xml_find_all(res, ".//a"))
+    c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE))
+  expect_snapshot(xml2::xml_find_all(html_test, ".//a[@href]"))
+  expect_snapshot(xml2::xml_find_all(res, ".//a[@href]"))
 })
 
 
