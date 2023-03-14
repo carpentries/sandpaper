@@ -120,10 +120,11 @@ use_instructor <- function(nodes = NULL) {
     ".//a[@href][not(contains(@href, '://')) and not(starts-with(@href, '#'))]"
   )
   lnk_hrefs <- xml2::xml_attr(lnk, "href")
+  lnk_paths <- xml2::url_parse(lnk_hrefs)$path
   # links without HTML extension
-  not_html <- fs::path_ext(lnk_hrefs) != "html"
+  not_html <- !fs::path_ext(lnk_paths) %in% c("html", "")
   # links that are not in the root directory (e.g. files/a.html, but not ./a.html)
-  is_nested <- lengths(strsplit(sub("^[.][/]", "", lnk_hrefs), "/")) > 1
+  is_nested <- lengths(strsplit(sub("^[.][/]", "", lnk_paths), "/")) > 1
   is_above <- not_html | is_nested
   lnk_hrefs[is_above] <- fs::path("../", lnk_hrefs[is_above])
   xml2::xml_set_attr(lnk, "href", lnk_hrefs)
