@@ -1,5 +1,11 @@
 # sandpaper 0.11.9 (in development)
 
+BUG FIX
+-------
+
+* Links to assets in instructor view no longer render a 404. (reported:
+  @brownsarahm, #404; fixed: @zkamvar, #408)
+
 CONTINUOUS INTEGRATION
 ----------------------
 
