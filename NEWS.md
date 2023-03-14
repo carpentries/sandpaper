@@ -4,7 +4,7 @@ BUG FIX
 -------
 
 * Links to assets in instructor view no longer render a 404. (reported:
-  @sarahmbrown, #404; fixed: @zkamvar, #408)
+  @brownsarahm, #404; fixed: @zkamvar, #408)
 
 CONTINUOUS INTEGRATION
 ----------------------
