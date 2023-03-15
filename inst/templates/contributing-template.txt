@@ -52,7 +52,7 @@ Note: if you want to build the website locally, please refer to [template-doc].
 2.  If you wish to change the example lesson,
     - not applicable
 3.  If you wish to change the template used for workshop websites,
-    please refer to [template-doc].
+    please refer to [The Workbench documentation][template-doc].
 
 
 ## What to Contribute
