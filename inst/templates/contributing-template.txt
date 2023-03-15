@@ -42,27 +42,16 @@ and to meet some of our community members.
     and would like to add or change material,
     you can submit a pull request (PR).
     Instructions for doing this are [included below](#using-github).
+    
+Note: if you want to build the website locally, please refer to [The Workbench documentation][template-doc].    
 
 ## Where to Contribute
 
 1.  If you wish to change this lesson,
-    please work in <https://github.com/swcarpentry/shell-novice>,
-    which can be viewed at <https://swcarpentry.github.io/shell-novice>.
+    add issues and PR here.   
+2.  If you wish to change the template used for workshop websites,
+    please refer to [The Workbench documentation][template-doc].
 
-2.  If you wish to change the example lesson,
-    please work in <https://github.com/carpentries/lesson-example>,
-    which documents the format of our lessons
-    and can be viewed at <https://carpentries.github.io/lesson-example>.
-
-3.  If you wish to change the template used for workshop websites,
-    please work in <https://github.com/carpentries/workshop-template>.
-    The home page of that repository explains how to set up workshop websites,
-    while the extra pages in <https://carpentries.github.io/workshop-template>
-    provide more background on our design choices.
-
-4.  If you wish to change CSS style files, tools,
-    or HTML boilerplate for lessons or workshops stored in `_includes` or `_layouts`,
-    please work in <https://github.com/carpentries/styles>.
 
 ## What to Contribute
 
@@ -78,7 +67,7 @@ and [Software Carpentry][swc-issues] projects.
 
 Comments on issues and reviews of pull requests are just as welcome:
 we are smarter together than we are on our own.
-Reviews from novices and newcomers are particularly valuable:
+**Reviews from novices and newcomers are particularly valuable**:
 it's easy for people who have been using these lessons for a while
 to forget how impenetrable some of this material can be,
 so fresh eyes are always welcome.
@@ -104,17 +93,7 @@ our lessons must run equally well on all three.
 If you choose to contribute via GitHub,
 you may want to look at
 [How to Contribute to an Open Source Project on GitHub][how-contribute].
-In brief:
-
-1.  The published copy of the lesson is in the `gh-pages` branch of the repository
-    (so that GitHub will regenerate it automatically).
-    Please create all branches from that,
-    and merge the [master repository][repo]'s `gh-pages` branch into your `gh-pages` branch
-    before starting work.
-    Please do *not* work directly in your `gh-pages` branch,
-    since that will make it difficult for you to work on other contributions.
-
-2.  We use [GitHub flow][github-flow] to manage changes:
+In brief, we use [GitHub flow][github-flow] to manage changes:
     1.  Create a new branch in your desktop copy of this repository for each significant change.
     2.  Commit the change in that branch.
     3.  Push that branch to your fork of this repository on GitHub.
@@ -122,6 +101,8 @@ In brief:
     5.  If you receive feedback,
         make changes on your desktop and push to your branch on GitHub:
         the pull request will update automatically.
+
+NB: The published copy of the lesson is usually in the `main` branch.
 
 Each lesson has two maintainers who review issues and pull requests
 or encourage others to do so.
@@ -149,3 +130,4 @@ You can also [reach us by email][contact].
 [swc-issues]: https://github.com/issues?q=user%3Aswcarpentry
 [swc-lessons]: http://software-carpentry.org/lessons/
 [swc-site]: http://software-carpentry.org/
+[template-doc]: https://carpentries.github.io/workbench/
