@@ -49,9 +49,7 @@ Note: if you want to build the website locally, please refer to [The Workbench d
 
 1.  If you wish to change this lesson,
     add issues and PR here.   
-2.  If you wish to change the example lesson,
-    - not applicable
-3.  If you wish to change the template used for workshop websites,
+2.  If you wish to change the template used for workshop websites,
     please refer to [The Workbench documentation][template-doc].
 
 
@@ -95,14 +93,7 @@ our lessons must run equally well on all three.
 If you choose to contribute via GitHub,
 you may want to look at
 [How to Contribute to an Open Source Project on GitHub][how-contribute].
-In brief:
-
-1.  The published copy of the lesson is in the `main` branch of the repository,
-    that branch should be protected from direct commits.
-    Please create all branches from that,
-    discuss with the maintainer about what branch to use before starting to work.
-
-2.  We use [GitHub flow][github-flow] to manage changes:
+In brief, we use [GitHub flow][github-flow] to manage changes:
     1.  Create a new branch in your desktop copy of this repository for each significant change.
     2.  Commit the change in that branch.
     3.  Push that branch to your fork of this repository on GitHub.
@@ -110,6 +101,8 @@ In brief:
     5.  If you receive feedback,
         make changes on your desktop and push to your branch on GitHub:
         the pull request will update automatically.
+
+NB: The published copy of the lesson is usually in the `main` branch.
 
 Each lesson has two maintainers who review issues and pull requests
 or encourage others to do so.
