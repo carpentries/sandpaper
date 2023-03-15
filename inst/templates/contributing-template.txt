@@ -43,7 +43,7 @@ and to meet some of our community members.
     you can submit a pull request (PR).
     Instructions for doing this are [included below](#using-github).
     
-Note: if you want to build the website locally, please refer to [template-doc].    
+Note: if you want to build the website locally, please refer to [The Workbench documentation][template-doc].    
 
 ## Where to Contribute
 
