@@ -24,12 +24,12 @@ page_location <- function(i, abs_md, er) {
 #' @return a list with character vectors of HTML list elements.
 #' @keywords internal
 create_resources_dropdown <- function(files, type = "learners") {
-  files <- files[!grepl("reference.md", fs::path_file(files))]
+  files <- files[!grepl("reference[.]R?md$", fs::path_file(files))]
   if (type == "learners") {
-    files <- files[!grepl("setup[.]R?md", fs::path_file(files))]
+    files <- files[!grepl("setup[.]R?md$", fs::path_file(files))]
   }
   if (type == "instructors") {
-    files <- files[!grepl("instructor-notes.md", fs::path_file(files))]
+    files <- files[!grepl("instructor-notes[.]R?md$", fs::path_file(files))]
   }
   out <- list(extras = NULL, resources = NULL)
   # NOTE: this creates a vector of length two: the first one has links with the
