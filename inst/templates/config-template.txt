@@ -14,20 +14,20 @@ carpentry: {{ carpentry }}
 title: {{ title }}
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: ~
+created: {{ created }}{{ ^created }}~ # FIXME {{ /created }}
 
 # Comma-separated list of keywords for the lesson
-keywords: {{keywords}}{{^keywords}}software, data, lesson, The Carpentries{{/keywords}}
+keywords: {{keywords}}{{^keywords}}software, data, lesson, The Carpentries # FIXME{{/keywords}}
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
 life_cycle: {{ life_cycle }}
 
-# License of the lesson
+# License of the lesson materials (recommended CC-BY 4.0)
 license: {{ license }}
 
 # Link to the source repository for this lesson
-source: {{ source }}{{ ^source }}https://example.com/template-source{{ /source }}
+source: {{ source }}{{ ^source }}https://example.com/FIXME-template-source{{ /source }}
 
 # Default branch of your lesson
 branch: {{ branch }}{{ ^branch }}main{{ /branch }}

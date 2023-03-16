@@ -1,9 +1,9 @@
 ---
-title: FIXME
+title: {{title}}{{^title}}FIXME{{/title}}
 ---
 
-{{#title}}
-## {{title}}
+{{#heading}}
+## {{heading}}
 
-{{/title}}
+{{/heading}}
 This is a placeholder file. Please add content here.
