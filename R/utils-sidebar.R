@@ -24,7 +24,6 @@ page_location <- function(i, abs_md, er) {
 #' @return a list with character vectors of HTML list elements.
 #' @keywords internal
 create_resources_dropdown <- function(files, type = "learners") {
-  files <- files[!grepl("reference[.]R?md$", fs::path_file(files))]
   if (type == "learners") {
     files <- files[!grepl("setup[.]R?md$", fs::path_file(files))]
   }
