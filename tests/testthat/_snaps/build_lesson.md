@@ -24,5 +24,6 @@
       <a href="key-points.html">Key Points</a>
       <a href="reference.html#glossary">Glossary</a>
       <a href="profiles.html">Learner Profiles</a>
+      <a href="reference.html">Reference</a>
       <a href="aio.html">See all in one page</a>
 
