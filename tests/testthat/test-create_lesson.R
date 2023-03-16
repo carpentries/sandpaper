@@ -37,9 +37,9 @@ test_that("check_lesson() passes muster on new lessons", {
 test_that("All template files exist", {
   expect_true(fs::dir_exists(tmp))
   expect_equal(
-    politely_get_yaml(fs::path(tmp, "index.md"))[[2]], 
+    politely_get_yaml(fs::path(tmp, "index.md"))[[2]],
     "site: sandpaper::sandpaper_site"
-  ) 
+  )
   expect_true(fs::dir_exists(fs::path(tmp, "site")))
   expect_true(fs::dir_exists(fs::path(tmp, "episodes")))
   expect_true(fs::dir_exists(fs::path(tmp, "episodes", "data")))
@@ -48,8 +48,12 @@ test_that("All template files exist", {
   expect_true(fs::dir_exists(fs::path(tmp, "instructors")))
   expect_true(fs::dir_exists(fs::path(tmp, "learners")))
   expect_true(fs::dir_exists(fs::path(tmp, "profiles")))
+  expect_true(fs::file_exists(fs::path(tmp, "learners", "setup.md")))
+  expect_true(fs::file_exists(fs::path(tmp, "learners", "reference.md")))
+  expect_true(any(grepl("Glossary", readLines(fs::path(tmp, "learners", "reference.md")))))
+  expect_true(fs::file_exists(fs::path(tmp, "instructors", "instructor-notes.md")))
   expect_true(fs::file_exists(fs::path(tmp, "README.md")))
-  expect_match(readLines(fs::path(tmp, "README.md"))[1], "BRAND NEW LESSON", fixed = TRUE) 
+  expect_match(readLines(fs::path(tmp, "README.md"))[1], "BRAND NEW LESSON", fixed = TRUE)
   expect_true(fs::file_exists(fs::path(tmp, "site", "README.md")))
   expect_true(fs::file_exists(fs::path(tmp, "site", "DESCRIPTION")))
   expect_true(fs::file_exists(fs::path(tmp, "site", "_pkgdown.yaml")))
@@ -61,16 +65,16 @@ test_that("All template files exist", {
 
 test_that("Templated files are correct", {
   expect_setequal(
-    readLines(fs::path(tmp, ".gitignore")), 
+    readLines(fs::path(tmp, ".gitignore")),
     readLines(template_gitignore())
   )
-  expected <- copy_template("episode", 
+  expected <- copy_template("episode",
     values = list(title = siQuote("introduction"), md = FALSE))
   expect_setequal(
-    readLines(fs::path(tmp, "episodes", "introduction.Rmd")), 
+    readLines(fs::path(tmp, "episodes", "introduction.Rmd")),
     strsplit(expected, "\n")[[1]]
   )
-  
+
 })
 
 test_that("Lesson configuration is correctly provisioned", {
@@ -121,8 +125,8 @@ cli::test_that_cli("Destruction of the .gitignore file renders the lesson incorr
 
   if (fs::file_exists(gi <- fs::path(tmp, ".gitignore"))) fs::file_delete(gi)
   expect_snapshot({
-    expect_error( 
-      check_lesson(tmp), 
+    expect_error(
+      check_lesson(tmp),
       "There were errors with the lesson structure"
     )
   })
