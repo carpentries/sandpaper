@@ -1,13 +1,24 @@
-# sandpaper 0.11.9 (in development)
+# sandpaper 0.11.10 (in development)
 
-BUG FIX
--------
+## BUG FIX
+
+* New lessons will now provision `learners/resources.md`, which will allow the
+  glossary link to work (reported: @elichad, #404 and 
+  @ManonMarchand,
+  https://github.com/carpentries/workbench-template-md/issues/20; 
+  fixed: @zkamvar, #410)
+- default CONTRIBUTING file is better suited to The Workbench and no longer
+  references the now-defunct lesson-example repository (reported and fixed:
+  @jcolomb, #407)
+
+# sandpaper 0.11.9 (2023-03-14)
+
+## BUG FIX
 
 * Links to assets in instructor view no longer render a 404. (reported:
-  @brownsarahm, #404; fixed: @zkamvar, #408)
+  @brownsarahm, #404; fixed: @zkamvar, #409)
 
-CONTINUOUS INTEGRATION
-----------------------
+## CONTINUOUS INTEGRATION
 
 * Lessons with files that have spaces in their names (e.g as a learning tool)
   no longer fail to comment on pull request previews (reported: @zkamvar, #399;
