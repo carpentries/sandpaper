@@ -22,6 +22,11 @@
 create_test_lesson <- function() {
   noise <- interactive() || Sys.getenv("CI") == "true"
   if (noise) {
+    t1 <- Sys.time()
+    on.exit({
+      ts <- format(Sys.time() - t1)
+      cli::cli_alert_info("Lesson bootstrapped in {ts}")
+    }, add = TRUE)
     cli::cli_status("{cli::symbol$arrow_right} Bootstrapping example lesson")
   }
   # We explicitly need the package cache for tests
@@ -36,10 +41,11 @@ create_test_lesson <- function() {
   }
   suppressMessages({
     withr::with_envvar(list(RENV_CONFIG_CACHE_SYMLINKS = FALSE), {
-      create_lesson(repo, open = FALSE)
+      renv_output <- capture.output(create_lesson(repo, open = FALSE))
     })
   })
   options(sandpaper.test_fixture = repo)
+  options(sandpaper.test_fixture_output = renv_output)
   generate_restore_fixture(repo)
 }
 
@@ -100,6 +106,14 @@ generate_restore_fixture <- function(repo) {
 #' @keywords internal
 setup_local_remote <- function(repo, remote = tempfile(), name = "sandpaper-local", verbose = FALSE) {
   tf <- getOption("sandpaper.test_fixture")
+  noise <- interactive() || Sys.getenv("CI") == "true"
+  if (noise) {
+    t1 <- Sys.time()
+    on.exit({
+      ts <- format(Sys.time() - t1)
+      cli::cli_alert_info("Remote set up in {ts}")
+    }, add = TRUE)
+  }
   stopifnot("This should only be run in a test context" = !is.null(tf))
   if (!fs::dir_exists(remote)) {
     fs::dir_create(remote)

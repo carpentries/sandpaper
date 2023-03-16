@@ -10,9 +10,11 @@
 test_that("lessons can be created in empty directories", {
 
   expect_false(fs::dir_exists(tmp))
-  suppressMessages({expect_message({
+  suppressMessages({capture.output({
     res <- create_lesson(tmp, name = "BRAND NEW LESSON", rstudio = TRUE, open = TRUE)
-  }, "Setting active project to")})
+  }) %>%
+    expect_message("Lesson successfully created")
+  })
   tmp <- normalizePath(tmp)
   expect_false(wd == fs::path(normalizePath(getwd())))
   expect_equal(normalizePath(getwd()), tmp)
