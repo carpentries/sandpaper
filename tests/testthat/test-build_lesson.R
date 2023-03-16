@@ -16,11 +16,11 @@ test_that("Lessons built for the first time are noisy", {
   htmls <- read_all_html(sitepath)
   expect_setequal(names(htmls$learner),
     c("introduction", "index", "LICENSE", "CODE_OF_CONDUCT", "profiles",
-      "instructor-notes", "key-points", "aio", "images")
+      "instructor-notes", "key-points", "aio", "images", "reference")
   )
   expect_setequal(names(htmls$instructor),
     c("introduction", "index", "LICENSE", "CODE_OF_CONDUCT", "profiles",
-      "instructor-notes", "key-points", "aio", "images")
+      "instructor-notes", "key-points", "aio", "images", "reference")
   )
 
 })
