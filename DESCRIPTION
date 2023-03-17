@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.11.10
+Version: 0.11.11
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -14,7 +14,7 @@ Authors@R: c(
     person(given = "Julien",
            family = "Colomb",
            role = c("ctb"),
-           comment = c(ORCID = "0000-0002-3127-5520")),       
+           comment = c(ORCID = "0000-0002-3127-5520")),
     person(given = "Toby",
            family = "Hodges",
            role = c("ctb"),

@@ -1,4 +1,17 @@
-# sandpaper 0.11.10 (in development)
+# sandpaper 0.11.11 (2023-03-17)
+
+## BUG FIX
+
+* `update_cache()` will now work with {renv} version 0.17.1, which lost a
+  print method for the `renv_updates` class (reported: @zkamvar, #415; 
+  fixed: @zkamvar, #416 and 
+  https://github.com/zkamvar/vise/commit/ee4798701a958ee48429980eb970266885f8265b
+
+# MISC
+
+* @jcolomb has been added as a contributor in the DESCRIPTION.
+
+# sandpaper 0.11.10 (2023-03-16)
 
 ## BUG FIX
 
