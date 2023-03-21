@@ -335,7 +335,7 @@ This will record the package in the lockfile so that the next time
 ## Updating the Cache
 
 If you want to update the packages in the package cache, you can use the
-function `fetch_updates()`. This requires an internet connection and will scan
+function `update_cache(prompt=TRUE)`. This requires an internet connection and will scan
 the packages in your lesson for any potential updates and ask if you want to 
 update them. This will update those packages in your package cache and your 
 lockfile.
