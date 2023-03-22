@@ -1,4 +1,20 @@
-# sandpaper 0.11.12 (unreleased)
+# sandpaper 0.11.12 (2023-03-22)
+
+CONTINUOUS INTEGRATION
+----------------------
+
+* workflow files now have explicit permissions to comment on pull requests or
+  create new branches when called. This fixes an issue where new lessons would
+  not have the ability to preview pull requests or update workflows.
+  (reported: #420, @zkamvar; fixed #421, @zkamvar)
+* the `create-pull-request` action is now coming from a fork in The Carpentries
+  organisation for security. 
+
+MISC
+----
+
+* A typo has been fixed in the package cache vignette
+- The CONTRIBUTING boilerplate has been updated to fix formatting issues
 
 # sandpaper 0.11.11 (2023-03-17)
 
