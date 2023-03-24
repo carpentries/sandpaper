@@ -1,3 +1,15 @@
+# sandpaper 0.11.12.001 (in development)
+
+WORKAROUND
+----------
+
+* Fix an issue for {renv} version 0.17.2 where it was unable to provision
+  packages that were being used in the parent environment. This was a problem
+  in environments where the version of {sandpaper} was controlled by {renv}. 
+  (reported: https://github.com/rstudio/renv/issues/1177, @zkamvar; fixed
+  #422, @zkamvar). Note that this fix is ONLY applicable to {renv} 0.17.2
+  and will be fixed with newer versions of {renv}.
+
 # sandpaper 0.11.12 (2023-03-22)
 
 CONTINUOUS INTEGRATION

@@ -254,6 +254,20 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   }
   #nocov end
   if (needs_hydration) {
+    #nocov start
+    if (packageVersion("renv") == "0.17.2") {
+      # 2023-03-24 ---- renv cannot find the right packages
+      # <https://github.com/rstudio/renv/issues/1177#issuecomment-1483295938>
+      #
+      # The problem here is that renv sees that 'callr' and other packages are
+      # installed in other libraries on the .libPaths(), and so skips
+      # installing them into the project library that is being hydrated.
+      #
+      # If you need a temporary workaround, it should suffice to "clear" the
+      # library paths before calling hydrate()
+      .libPaths(character())
+    }
+    #nocov end
     hydra <- renv::hydrate(packages = pkgs, library = renv_lib, update = FALSE,
       sources = .libPaths(), project = path)
     #nocov start
