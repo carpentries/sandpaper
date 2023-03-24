@@ -1,4 +1,4 @@
-# sandpaper 0.11.12.001 (in development)
+# sandpaper 0.11.13 (2023-03-25)
 
 WORKAROUND
 ----------
