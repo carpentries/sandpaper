@@ -1,7 +1,19 @@
+# sandpaper 0.11.14 (2023-04-04)
+
+## DEPENDENCIES
+
+* The minimum version of {pegboard} has been set to 0.5.1
+
+## TEMPLATES
+
+* The README, LICENSE, CONTRIBUTING, and SETUP templates have been fixed to work
+  with {pegboard} version 0.5.1
+* The LICENSE and CONTRIBUTING templates now refer to The Carpentries as a
+  whole and provides correct links to community forums. 
+
 # sandpaper 0.11.13 (2023-03-25)
 
-WORKAROUND
-----------
+## WORKAROUND
 
 * Fix an issue for {renv} version 0.17.2 where it was unable to provision
   packages that were being used in the parent environment. This was a problem
@@ -12,8 +24,7 @@ WORKAROUND
 
 # sandpaper 0.11.12 (2023-03-22)
 
-CONTINUOUS INTEGRATION
-----------------------
+## CONTINUOUS INTEGRATION
 
 * workflow files now have explicit permissions to comment on pull requests or
   create new branches when called. This fixes an issue where new lessons would
@@ -22,8 +33,7 @@ CONTINUOUS INTEGRATION
 * the `create-pull-request` action is now coming from a fork in The Carpentries
   organisation for security. 
 
-MISC
-----
+## MISC
 
 * A typo has been fixed in the package cache vignette
 - The CONTRIBUTING boilerplate has been updated to fix formatting issues

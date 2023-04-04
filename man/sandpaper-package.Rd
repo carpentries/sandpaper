@@ -26,6 +26,7 @@ Useful links:
 Other contributors:
 \itemize{
   \item François Michonneau \email{francois@carpentries.org} [contributor]
+  \item Julien Colomb (\href{https://orcid.org/0000-0002-3127-5520}{ORCID}) [contributor]
   \item Toby Hodges \email{tobyhodges@carpentries.org} [contributor]
 }
 

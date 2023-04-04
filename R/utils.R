@@ -99,7 +99,7 @@ isTRUE  <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && x
 
 create_lesson_readme <- function(name, path) {
 
-  writeLines(glue::glue("# {name}
+  writeLines(glue::glue("## {name}
 
       This is the lesson repository for {name}
   "), con = fs::path(path, "README.md"))

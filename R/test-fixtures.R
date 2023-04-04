@@ -41,7 +41,9 @@ create_test_lesson <- function() {
   }
   suppressMessages({
     withr::with_envvar(list(RENV_CONFIG_CACHE_SYMLINKS = FALSE), {
-      renv_output <- utils::capture.output(create_lesson(repo, open = FALSE))
+      renv_output <- utils::capture.output(
+        create_lesson(repo, open = FALSE)
+      )
     })
   })
   options(sandpaper.test_fixture = repo)
