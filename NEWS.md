@@ -1,5 +1,10 @@
 # sandpaper 0.11.14 (2023-04-04)
 
+## BUG FIX
+
+* A 404 page has been added (reported: @fmichonneau, #268; fixed: 
+  @zkamvar, #429)
+
 ## DEPENDENCIES
 
 * The minimum version of {pegboard} has been set to 0.5.1

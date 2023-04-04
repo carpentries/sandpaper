@@ -7,20 +7,20 @@
 #'   If this is `NULL`, the preview will default to the home page. If you have
 #'   an episode whose slug is 01-introduction, then setting `slug =
 #'   "01-introduction"` will allow RStudio to open the preview window to the
-#'   right page. 
-#' @param built a character vector of newly built files or NULL. 
+#'   right page.
+#' @param built a character vector of newly built files or NULL.
 #' @keywords internal
 build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, override = list(), slug = NULL, built = NULL) {
   # Setup ----------------------------------------------------------------------
   #
   # Because this can be run independently of build_lesson(), we need to check
   # that pandoc exists and to provision the global lesson components if they do
-  # not yet exist. 
+  # not yet exist.
   check_pandoc(quiet)
   this_lesson(path)
-  # One feature of The Workbench is a global common links file that will be 
+  # One feature of The Workbench is a global common links file that will be
   # appended to the markdown files before they are sent to be rendered into
-  # HTML so that they will render the links correctly. 
+  # HTML so that they will render the links correctly.
   cl <- getOption("sandpaper.links")
   on.exit(options(sandpaper.links = cl), add = TRUE)
   set_common_links(path)
@@ -32,7 +32,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   pkg <- pkgdown::as_pkgdown(path_site(path), override = override)
   built_path <- fs::path(pkg$src_path, "built")
   # NOTE: This is a kludge to prevent pkgdown from displaying a bunch of noise
-  #       if the user asks for quiet. 
+  #       if the user asks for quiet.
   if (quiet) {
     f <- file()
     on.exit({
@@ -43,7 +43,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   }
   pkgdown::init_site(pkg)
   fs::file_create(fs::path(pkg$dst_path, ".nojekyll"))
-  # NOTE: future plans to reduce build times 
+  # NOTE: future plans to reduce build times
   rebuild_template <- TRUE || !template_check$valid()
 
   # Determining what to rebuild ------------------------------------------------
@@ -68,7 +68,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     out <- paste0(slug, ".html")
     files_to_render <- which(get_slug(db$built) == slug)
   }
-  
+
   # Rebuilding Episodes and generated files ------------------------------------
   # Get percentages from the syllabus table
   pct <- get_syllabus(path, questions = TRUE)$percents
@@ -77,7 +77,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   # Bypass certain downlit functions that produce unintented effects such
   # as linking function documentation.
   shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-  expected <- "230853fec984d1a0e5766d3da79f1cea" 
+  expected <- "230853fec984d1a0e5766d3da79f1cea"
   actual   <- tools::md5sum(shimstem_file)
   if (expected == actual) {
     # evaluate the shim in our namespace
@@ -103,6 +103,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   fs::dir_walk(built_path, function(d) copy_assets(d, pkg$dst_path), all = TRUE)
 
+  describe_progress("Creating 404 page", quiet = quiet)
+  build_404(pkg, quiet = quiet)
 
   # Combined pages -------------------------------------------------------------
   #
@@ -110,22 +112,22 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   #
   # 1. learner profiles which concatenates the files in the profiles/ folder
   describe_progress("Creating learner profiles", quiet = quiet)
-  build_profiles(pkg, quiet = quiet)#, sidebar = sidebar)
+  build_profiles(pkg, quiet = quiet)
   #
-  # 2. home page which concatenates index.md and learners/setup.md 
+  # 2. home page which concatenates index.md and learners/setup.md
   describe_progress("Creating homepage", quiet = quiet)
   build_home(pkg, quiet = quiet, next_page = abs_md[er[1]])
 
   # Generated content ----------------------------------------------------------
   #
   # In this part of the code, we use existing content to generate pages that the
-  # user does not have to modify or create. To prepare for this, we do two 
+  # user does not have to modify or create. To prepare for this, we do two
   # things:
   #
   # 1. read in all of the HTML
   html_pages <- read_all_html(pkg$dst_path)
   # 2. provision the template pages for extra pages, storing them in the `.html`
-  #    global variable. 
+  #    global variable.
   provision_extra_template(pkg)
   on.exit(.html$clear(), add = TRUE)
   #

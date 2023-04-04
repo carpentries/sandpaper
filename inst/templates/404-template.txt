@@ -1,0 +1,16 @@
+---
+title: "Page not found"
+---
+
+## Our apologies!
+
+We cannot seem to find the page you are looking for. Here are some tips that may
+help:
+
+1. try going back to the <a href="javascript:history.back()">previous page</a> or
+2. navigate to any other page using the navigation bar on the left.
+3. if the URL ends with `/index.html`, try removing that.
+4. head over to the [home page of this lesson](index.html)
+
+If you came here from a link in this lesson, please contact the lesson
+maintainers using the links at the foot of this page.
