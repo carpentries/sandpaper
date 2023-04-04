@@ -38,7 +38,7 @@ documentation][template-doc].
 
 ### Where to Contribute
 
-1. If you wish to change this lesson, add issues and PR here.
+1. If you wish to change this lesson, add issues and pull requests here.
 2. If you wish to change the template used for workshop websites, please refer
    to [The Workbench documentation][template-doc].
 
@@ -47,9 +47,9 @@ documentation][template-doc].
 
 There are many ways to contribute, from writing new exercises and improving
 existing ones to updating or filling in the documentation and submitting [bug
-reports][issues] about things that don't work, aren't clear, or are missing. If
+reports][issues] about things that do not work, are not clear, or are missing. If
 you are looking for ideas, please see [the list of issues for this
-repository][issues], or the issues for [Data Carpentry][dc-issues] and
+repository][issues], or the issues for [Data Carpentry][dc-issues], [Library Carpentry][lc-issues], and
 [Software Carpentry][swc-issues] projects.
 
 Comments on issues and reviews of pull requests are just as welcome: we are
@@ -88,7 +88,7 @@ use [GitHub flow][github-flow] to manage changes:
 
 NB: The published copy of the lesson is usually in the `main` branch.
 
-Each lesson has two maintainers who review issues and pull requests or
+Each lesson has a team of maintainers who review issues and pull requests or
 encourage others to do so. The maintainers are community volunteers, and have
 final say over what gets merged into the lesson.
 
@@ -112,6 +112,7 @@ email][contact].
 [github-join]: https://github.com/join
 [how-contribute]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
 [issues]: https://carpentries.org/help-wanted-issues/
+[lc-issues]: https://github.com/issues?q=user%3ALibraryCarpentry
 [repo]: https://github.com/swcarpentry/shell-novice/
 [swc-issues]: https://github.com/issues?q=user%3Aswcarpentry
 [swc-lessons]: https://software-carpentry.org/lessons/
