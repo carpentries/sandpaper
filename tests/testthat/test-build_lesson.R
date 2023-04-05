@@ -49,6 +49,26 @@ test_that("build_lesson() also builds the extra pages", {
 })
 
 
+
+test_that("local site build produces 404 page with relative links", {
+
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  # in the site branch, it does exist
+  expect_true(file.exists(file.path(sitepath, "404.html")))
+  # parse the page to find the stylesheet node
+  html <- xml2::read_html(file.path(sitepath, "404.html"))
+  stysh <- xml2::xml_find_first(html, ".//head/link[@rel='stylesheet']")
+  url <- xml2::xml_attr(stysh, "href")
+  parsed <- xml2::url_parse(url)
+
+  # test that it does not hav the form of
+  # https://[server]/lesson-example/[stylesheet]
+  expect_equal(parsed[["scheme"]], "")
+  expect_equal(parsed[["server"]], "")
+  expect_false(startsWith(parsed[["path"]], "/lesson-example"))
+})
+
+
 test_that("Anchors for Keypoints are not missing", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   html <- xml2::read_html(fs::path(sitepath, "introduction.html"))

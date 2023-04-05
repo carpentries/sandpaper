@@ -37,7 +37,7 @@
 #       it going
 serve <- function(path = ".") {
   path <- root_path(path)
-  rend <- function(file_list = ".") {
+  rend <- function(file_list = path) {
     for (f in file_list) {
       build_lesson(f, preview = FALSE)
     }

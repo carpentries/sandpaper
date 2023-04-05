@@ -1,3 +1,12 @@
+# sandpaper 0.11.15 (2023-04-05)
+
+## BUG FIX
+
+* The 404 page will now have proper styling applied when the site is deployed
+  via one of the `ci_` functions (reported: @zkamvar, #430; fixed: @zkamvar,
+  #431).
+* `sandpaper::serve()` will no longer error if a different directory is used.
+
 # sandpaper 0.11.14 (2023-04-04)
 
 ## BUG FIX
