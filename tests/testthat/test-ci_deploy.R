@@ -92,11 +92,37 @@ test_that("ci_deploy() will fetch sources from upstream", {
 
 })
 
-test_that("ci_deploy() will do a full rebuild", {
 
+test_that("404 page root will be lesson URL", {
   skip_on_cran()
   skip_if_not(has_git())
   skip_if_not(rmarkdown::pandoc_available("2.11"))
+
+  # in the main branch, this file does not exist
+  expect_false(file.exists(file.path(res, "404.html")))
+
+  # setup for test inside of site branch
+  withr::defer(gert::git_branch_checkout("main", repo = res))
+  gert::git_branch_checkout("SITE", repo = res)
+
+  # in the site branch, it does exist
+  expect_true(file.exists(file.path(res, "404.html")))
+  # parse the page to find the stylesheet node
+  html <- xml2::read_html(file.path(res, "404.html"))
+  stysh <- xml2::xml_find_first(html, ".//head/link[@rel='stylesheet']")
+  url <- xml2::xml_attr(stysh, "href")
+  parsed <- xml2::url_parse(url)
+
+  # test that it has the form of https://[server]/lesson-example/[stylesheet]
+  expect_equal(parsed[["scheme"]], "https")
+  expect_false(parsed[["server"]] == "")
+  expect_true(startsWith(parsed[["path"]], "/lesson-example"))
+
+})
+
+
+test_that("ci_deploy() will do a full rebuild", {
+
 
   expect_true(gert::git_branch_exists("MD", local = TRUE, repo = res))
   expect_true(gert::git_branch_exists("SITE", local = TRUE, repo = res))
