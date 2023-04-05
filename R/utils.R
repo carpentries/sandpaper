@@ -20,6 +20,41 @@ example_can_run <- function(need_git = FALSE, skip_cran = TRUE) {
   run_ok
 }
 
+# Search parent calls for a specific set of function signatures and return TRUE
+# if any one of them match.
+parent_calls_contain <- function(search = NULL, calls = sys.calls()) {
+  # escape early if there is no search. No search; no match.
+  if (length(search) == 0L || is.na(search)[[1L]]) {
+    return(FALSE)
+  }
+  # we assume no match
+  found <- FALSE
+  # calls will be arranged in order from user -> here, so the first call will
+  # be the call that triggered the chain of command.
+  for (call in calls) {
+    # the first part of the call will be the function name
+    fn <- as.character(call[[1L]])
+    # pkg::function is parsed as the character c("::", "pkg", "function")
+    # because "::" is a function, thus if we have 3, we take the function name
+    if (length(fn) == 3L) {
+      fn <- fn[3L]
+    }
+    print(fn)
+    found <- fn %in% search || found
+    # once we find it, return early. This limits the time we spend in this loop
+    if (found) {
+      return(found)
+    }
+  }
+  # if we reach here, it should be FALSE.
+  found
+}
+
+in_production <- function(calls = sys.calls()) {
+  fns <- c("ci_deploy", "ci_build_site", "ci_build_markdown")
+  parent_calls_contain(fns, calls)
+}
+
 
 # Parse a markdown title to html
 #
