@@ -128,3 +128,21 @@ create_sidebar <- function(chapters, name = "", html = "<a href='https://carpent
   }
   res
 }
+
+update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE) {
+  if (is.null(sidebar)) return(sidebar)
+  if (inherits(sidebar, "list-store")) {
+    # if it's a list store, then we need to get the sidebar and update itself
+    title <- if (is.null(title)) sidebar$get()[["pagetitle"]] else title
+    sb <- update_sidebar(sidebar$get()[["sidebar"]], nodes, path_md, title,
+      instructor)
+    sidebar$set("sidebar", paste(sb, collapse = "\n"))
+  }
+  this_page <- as_html(path_md)
+  to_change <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), sidebar)
+  if (length(to_change)) {
+    sidebar[to_change] <- create_sidebar_item(nodes, title, "current")
+  }
+  sidebar
+}
+

@@ -8,12 +8,12 @@
 #'   (usually via [build_episode_md()]).
 #' @param path_src the default is `NULL` indicating that the source file should
 #'   be determined from the `sandpaper-source` entry in the yaml header. If this
-#'   is not present, then this option allows you to specify that file. 
+#'   is not present, then this option allows you to specify that file.
 #' @param page_back the URL for the previous page
 #' @param page_forward the URL for the next page
 #' @param pkg a `pkgdown` object containing metadata for the site
 #' @param quiet if `TRUE`, messages are not produced. Defaults to `TRUE`.
-#' @param page_progress an integer between 0 and 100 indicating the rounded 
+#' @param page_progress an integer between 0 and 100 indicating the rounded
 #'   percent of the page progress. Defaults to NULL.
 #' @param sidebar a character vector of links to other episodes to use for the
 #'   sidebar. The current episode will be replaced with an index of all the
@@ -22,14 +22,14 @@
 #' @return `TRUE` if the page was successful, `FALSE` otherwise.
 #' @export
 #' @note this function is for internal use, but exported for those who know what
-#'   they are doing. 
+#'   they are doing.
 #' @keywords internal
 #' @seealso [build_episode_md()], [build_lesson()], [build_markdown()], [render_html()]
 #' @examples
 #' if (FALSE) {
 #' # 2022-04-15: this suddenly started throwing a check error
 #' # that says "connections left open: (file) and I can't figure out where the
-#' # hell its coming from, so I'm just going to not run this :( 
+#' # hell its coming from, so I'm just going to not run this :(
 #' if (.Platform$OS.type == "windows") {
 #'   options("sandpaper.use_renv" = FALSE)
 #' }
@@ -50,7 +50,7 @@
 #' fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
 #' txt <- c(
 #'  "---\ntitle: Fun times\n---\n\n",
-#'  "# new page\n", 
+#'  "# new page\n",
 #'  "This is coming from `r R.version.string`\n",
 #'  "::: testimonial\n\n#### testimony!\n\nwhat\n:::\n"
 #' )
@@ -64,14 +64,14 @@
 #'   sandpaper:::set_globals(res)
 #'   on.exit(clear_globals(), add = TRUE)
 #'   # we can only build this if we have pandoc
-#'   build_episode_html(res, path_src = fun_file, 
+#'   build_episode_html(res, path_src = fun_file,
 #'     pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
 #'   )
 #' }
 #' }
-build_episode_html <- function(path_md, path_src = NULL, 
-                               page_back = "index.md", page_forward = "index.md", 
-                               pkg, quiet = FALSE, page_progress = NULL, 
+build_episode_html <- function(path_md, path_src = NULL,
+                               page_back = "index.md", page_forward = "index.md",
+                               pkg, quiet = FALSE, page_progress = NULL,
                                sidebar = NULL, date = NULL) {
   home <- root_path(path_md)
   this_lesson(home)
@@ -87,7 +87,7 @@ build_episode_html <- function(path_md, path_src = NULL,
 
   # setup varnish data
   this_page <- as_html(path_md)
-  nav_list <- get_nav_data(path_md, path_src, home, 
+  nav_list <- get_nav_data(path_md, path_src, home,
     this_page, page_back, page_forward)
 
   page_globals$metadata$update(c(nav_list, list(date = list(modified = date))))
@@ -109,30 +109,13 @@ build_episode_html <- function(path_md, path_src = NULL,
 
 }
 
-update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE) {
-  if (is.null(sidebar)) return(sidebar)
-  if (inherits(sidebar, "list-store")) {
-    # if it's a list store, then we need to get the sidebar and update itself
-    title <- if (is.null(title)) sidebar$get()[["pagetitle"]] else title
-    sb <- update_sidebar(sidebar$get()[["sidebar"]], nodes, path_md, title,
-      instructor)
-    sidebar$set("sidebar", paste(sb, collapse = "\n"))
-  }
-  this_page <- as_html(path_md)
-  to_change <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), sidebar)
-  if (length(to_change)) {
-    sidebar[to_change] <- create_sidebar_item(nodes, title, "current")
-  }
-  sidebar
-}
-
 #' Generate the navigation data for a page
 #'
 #' @inheritParams build_episode_html
 #' @param home the path to the lesson home
 #' @param this_page the current page relative html address
 #' @keywords internal
-get_nav_data <- function(path_md, path_src = NULL, home = NULL, 
+get_nav_data <- function(path_md, path_src = NULL, home = NULL,
   this_page = NULL, page_back = NULL, page_forward = NULL) {
   if (is.null(home)) {
     home <- root_path(path_md)
@@ -171,7 +154,7 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
 #'
 #' This uses [knitr::knit()] with custom options set for the Carpentries
 #' template. It runs in a separate process to avoid issues with user-specific
-#' options bleeding in. 
+#' options bleeding in.
 #'
 #' @param path path to the RMarkdown file
 #' @param hash hash to prepend to the output. This parameter is deprecated and
@@ -179,8 +162,8 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
 #' @param outdir the directory to write to
 #' @param workdir the directory where the episode should be rendered
 #' @param workenv an environment to use for evaluation. Defaults to the global
-#'   environment, which evaluates to the environment from [callr::r()]. 
-#' @param quiet if `TRUE`, output is suppressed, default is `FALSE` to show 
+#'   environment, which evaluates to the environment from [callr::r()].
+#' @param quiet if `TRUE`, output is suppressed, default is `FALSE` to show
 #'   {knitr} output.
 #' @param error if `TRUE` (default) errors do not make an invalid build.
 #'   This can be set to false to cause the build to fail if an error occurs.
@@ -189,7 +172,7 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
 #' @keywords internal
 #' @export
 #' @note this function is for internal use, but exported for those who know what
-#'   they are doing. 
+#'   they are doing.
 #' @seealso [render_html()], [build_episode_html()]
 #' @examples
 #' if (.Platform$OS.type == "windows") {
@@ -206,15 +189,15 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
 #' file.create(fun_file)
 #' txt <- c(
 #'  "---\ntitle: Fun times\n---\n\n",
-#'  "# new page\n", 
+#'  "# new page\n",
 #'  "This is coming from `r R.version.string`"
 #' )
 #' writeLines(txt, fun_file)
 #' res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
-build_episode_md <- function(path, hash = NULL, outdir = path_built(path), 
-                             workdir = path_built(path), 
-                             workenv = globalenv(), 
-                             profile = "lesson-requirements", 
+build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
+                             workdir = path_built(path),
+                             workenv = globalenv(),
+                             profile = "lesson-requirements",
                              quiet = FALSE,
                              error = TRUE) {
 
@@ -222,7 +205,7 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
   md <- fs::path_ext_set(fs::path_file(path), "md")
   outpath <- fs::path(outdir, md)
 
-  # Set up the arguments 
+  # Set up the arguments
   root <- root_path(path)
   prof <- fs::path(root, "renv", "profiles", profile)
   # If we have consent to use renv and the profile exists, then we can use renv,
