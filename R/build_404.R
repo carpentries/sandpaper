@@ -18,7 +18,7 @@ build_404 <- function(pkg, quiet) {
     # update navigation so that we have full URL
     nav <- page_globals$learner$get()[c("sidebar", "more", "resources")]
     for (item in names(nav)) {
-      new <- gsub("href='", paste0("href='", url), nav[item])
+      new <- gsub("href='", paste0("href='", url), nav[[item]])
       page_globals$learner$set(item, new)
       page_globals$instructor$set(item, new)
     }
