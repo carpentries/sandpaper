@@ -131,6 +131,8 @@ create_sidebar <- function(chapters, name = "", html = "<a href='https://carpent
 
 update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE) {
   if (is.null(sidebar)) return(sidebar)
+  # NOTE: this is the place we need to modify to address
+  # https://github.com/carpentries/workbench/issues/42
   if (inherits(sidebar, "list-store")) {
     # if it's a list store, then we need to get the sidebar and update itself
     title <- if (is.null(title)) sidebar$get()[["pagetitle"]] else title
