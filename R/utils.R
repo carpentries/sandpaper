@@ -38,8 +38,9 @@ parent_calls_contain <- function(search = NULL, calls = sys.calls()) {
     # because "::" is a function, thus if we have 3, we take the function name
     if (length(fn) == 3L) {
       fn <- fn[3L]
+    } else {
+      fn <- fn[1L]
     }
-    print(fn)
     found <- fn %in% search || found
     # once we find it, return early. This limits the time we spend in this loop
     if (found) {
