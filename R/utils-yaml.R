@@ -17,7 +17,7 @@ politely_get_yaml <- function(path) {
     next_ten <- vector(mode = "character", length = 10)
     while (length(barriers) < 2) {
       next_ten <- scan(
-        path, 
+        path,
         what = character(),
         sep = "\n",
         skip = to_skip,
@@ -57,7 +57,7 @@ yaml_writer <- function(yaml, path) {
   # if this is null, no harm done
   header <- attr(yaml, "header")
   yaml <- yaml::as.yaml(
-    yaml, 
+    yaml,
     handlers = list(POSIXct = UTC_timestamp)
   )
   writeLines(c(header, yaml), path)
@@ -69,11 +69,11 @@ write_pkgdown_yaml <- function(yaml, path) {
 
 
 #' Create a valid, opinionated yaml list for insertion into a whisker template
-#' 
+#'
 #' @param thing a vector or list
 #' @return a character vector
 #'
-#' We want to manipulate our config file from the command line AND preserve 
+#' We want to manipulate our config file from the command line AND preserve
 #' comments. Unfortunately, the yaml C library does not parse comments and it
 #' makes things difficult to handle. At the moment we have a hack where we use
 #' whisker templates for these, but the drawback for whisker is that it does not
@@ -87,7 +87,7 @@ write_pkgdown_yaml <- function(yaml, path) {
 #' ```
 #'
 #' Moreover, we want to indicate that a yaml list is not a single key/value pair
-#' so we want to enforce that we have 
+#' so we want to enforce that we have
 #'
 #' ```
 #' key:
@@ -110,7 +110,7 @@ write_pkgdown_yaml <- function(yaml, path) {
 #'
 #' @keywords internal
 #' @note there IS a better solution than this hack, but for now, we will
-#' keep what we are doing because it's okay for our purposes: 
+#' keep what we are doing because it's okay for our purposes:
 #'   https://github.com/rstudio/blogdown/issues/560
 #' @examples
 #' x <- c("a", "b", "c")
@@ -137,7 +137,7 @@ get_information_header <- function(yaml) {
 # Returns a character vector of the yaml file with comments in tact
 get_yaml_text <- function(path, collapse = TRUE) {
   out <- scan(
-    path, 
+    path,
     what = character(),
     sep = "\n",
     encoding = "UTF-8",
@@ -159,7 +159,7 @@ create_pkgdown_yaml <- function(path) {
   # can be super-verbose here and create any logic we need on the R-side.
   usr <- yaml::read_yaml(path_config(path), eval.expr = FALSE)
   yaml <- get_yaml_text(template_pkgdown())
-  yaml <- whisker::whisker.render(yaml, 
+  yaml <- whisker::whisker.render(yaml,
     data = list(
       # Basic information
       version = siQuote(utils::packageVersion("sandpaper")),
@@ -184,18 +184,18 @@ create_pkgdown_yaml <- function(path) {
       pre_alpha  = if (usr$life_cycle == "pre-alpha") TRUE else "~",
       alpha      = if (usr$life_cycle == "alpha")     TRUE else "~",
       beta       = if (usr$life_cycle == "beta")      TRUE else "~",
-      NULL     
+      NULL
     )
   )
   rendered <- yaml::yaml.load(yaml, eval.expr = FALSE)
   items <- names(rendered$template$params)
-  rendered$template$params <- c(rendered$template$params, 
+  rendered$template$params <- c(rendered$template$params,
     c(usr[!names(usr) %in% items]))
   structure(rendered, header = get_information_header(yaml))
 }
 
 update_site_timestamp <- function(path) {
-  yaml <- get_path_site_yaml(path) 
+  yaml <- get_path_site_yaml(path)
   yaml$template$params$time <- Sys.time()
   write_pkgdown_yaml(yaml, path)
 }
