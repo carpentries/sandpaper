@@ -107,8 +107,10 @@ test_that("404 page root will be lesson URL", {
 
   # in the site branch, it does exist
   expect_true(file.exists(file.path(res, "404.html")))
-  # parse the page to find the stylesheet node
+
   html <- xml2::read_html(file.path(res, "404.html"))
+
+  # find the stylesheet node: expect that it has https link
   stysh <- xml2::xml_find_first(html, ".//head/link[@rel='stylesheet']")
   url <- xml2::xml_attr(stysh, "href")
   parsed <- xml2::url_parse(url)
@@ -117,6 +119,16 @@ test_that("404 page root will be lesson URL", {
   expect_equal(parsed[["scheme"]], "https")
   expect_false(parsed[["server"]] == "")
   expect_true(startsWith(parsed[["path"]], "/lesson-example"))
+
+  # test that the menu items all have same form
+  resources <- xml2::xml_find_all(html, ".//li/a[not(starts-with(@href, 'java'))] | .//div[@accordion-header]/a")
+  hrefs <- xml2::xml_attr(resources, "href")
+  parsed <- xml2::url_parse(hrefs)
+
+  expect_equal(unique(parsed[["scheme"]]), "https")
+  expect_false(unique(parsed[["server"]]) == "")
+  expect_true(all(startsWith(parsed[["path"]], "/lesson-example")))
+
 
 })
 
