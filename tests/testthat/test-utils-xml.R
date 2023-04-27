@@ -24,6 +24,28 @@ test_that("paths in instructor view that are nested or not HTML get diverted", {
 })
 
 
+test_that("fix figures account for inline images and do not clobber them into figures", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  test_md <- fs::path_abs(test_path("examples/figures.md"))
+  raw <- render_html(test_md)
+  html <- xml2::read_html(raw)
+  fix_figures(html)
+
+  # there should be four images and one figure
+  figgies <- xml2::xml_find_all(html, ".//figure")
+  kitties <- xml2::xml_find_all(html, ".//img")
+  expect_length(figgies, 2L)
+  expect_length(kitties, 6L)
+
+  # The immediate parents of the kitties should be a link, list, paragraph, and
+  # two figures.
+  rents   <- xml2::xml_parent(kitties)
+  expect_equal(xml2::xml_name(rents),
+    c("a", "li", "p", "figure", "figure"))
+})
+
+
+
 
 test_that("empty args result in nothing happening", {
   expect_null(fix_nodes())
