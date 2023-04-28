@@ -53,7 +53,8 @@ add_code_heading <- function(codes = NULL, labels = "OUTPUT") {
 
 fix_figures <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
-  figs <- xml2::xml_find_all(nodes, ".//img")
+  # not all images are figs
+  figs <- xml2::xml_find_all(nodes, ".//div[@class='figure']/img")
   caps <- xml2::xml_find_all(nodes, ".//p[@class='caption']")
   fig_element <- xml2::xml_parent(figs)
   classes <- xml2::xml_attr(figs, "class")
