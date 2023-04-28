@@ -1,3 +1,10 @@
+# sandpaper 0.11.16 (unreleased)
+
+## BUG FIX
+
+* Inline images are no longer automatically transformed to figure blocks.
+  (reported: @ostephens, #445; fixed: @zkamvar, #446)
+
 # sandpaper 0.11.15 (2023-04-05)
 
 ## BUG FIX
