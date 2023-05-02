@@ -31,7 +31,8 @@
          ,Para [Str "This",Space,Link ("",[],[]) [Str "rmd",Space,Str "link",Space,Str "also"] ("01-Introduction.html","")]
          ,Para [Str "This",Space,Link ("",["newclass"],[]) [Str "rmd",Space,Str "is",Space,Str "safe"] ("https://example.com/01-Introduction.Rmd","")]
          ,Para [Str "This",Space,Link ("",[],[]) [Str "too"] ("Setup.html#windows-setup","windows setup")]
-         ,Para [Image ("fig-first",["imgclass"],[("alt","alt text")]) [Str "link",Space,Str "should",Space,Str "be",Space,Str "transformed"] ("fig/Setup.png","fig:")]]]]
+         ,Para [Image ("fig-first",["imgclass"],[("alt","alt text")]) [Str "link",Space,Str "should",Space,Str "be",Space,Str "transformed"] ("fig/Setup.png","fig:")]
+         ,Para [Str "This",Space,Link ("",[],[]) [Str "markdown",Space,Str "data",Space,Str "file",Space,Str "is",Space,Str "also",Space,Str "safe"] ("data/markdown-example.md","")]]]]
       ,Div ("accordionSolution1",["accordion","challenge-accordion","accordion-flush"],[])
        [Div ("",["accordion-item"],[])
         [RawBlock (Format "html") "<button class=\"accordion-button solution-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseSolution1\" aria-expanded=\"false\" aria-controls=\"collapseSolution1\">\n  <h4 class=\"accordion-header\" id=\"headingSolution1\">\n  Write now\n  </h4>\n</button>"
@@ -119,6 +120,7 @@
       <img src="fig/Setup.png" id="fig-first" class="imgclass" alt="alt text" alt="" />
       <p class="caption">link should be transformed</p>
       </div>
+      <p>This <a href="data/markdown-example.md">markdown data file is also safe</a></p>
       </div>
       </div>
       </div>

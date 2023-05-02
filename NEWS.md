@@ -1,3 +1,10 @@
+# sandpaper 0.11.16 (unreleased)
+
+## BUG FIX
+
+- links to markdown files under `episodes/{data,fig,files}` folders are no
+  longer converted to html extensions. 
+
 # sandpaper 0.11.15 (2023-04-05)
 
 ## BUG FIX

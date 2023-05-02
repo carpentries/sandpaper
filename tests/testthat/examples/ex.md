@@ -31,6 +31,8 @@ This [too](learners/Setup.md#windows-setup 'windows setup')
 
 ![link should be transformed](../episodes/fig/Setup.png){#fig-first .imgclass alt='alt text'}
 
+This [markdown data file is also safe](data/markdown-example.md)
+
 ::: solution
 
 # Write now
