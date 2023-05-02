@@ -422,7 +422,6 @@ flatten_links = function(el)
   -- rename local markdown/Rmarkdown
   -- link.md goes to link.html
   -- link.md#section1 goes to link.html#section1
-  local proto = text.sub(tgt, 1, 4)
   -- We want to transformt the links only for local markdown files
   -- TODO: revisit this to allow/disallow/retransform files that should be
   -- included.
