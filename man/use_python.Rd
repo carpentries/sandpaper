@@ -28,7 +28,7 @@ called for its side effects.
 }
 \description{
 Associate a version of Python with your lesson. This is essentially a wrapper
-around \code{\link[renv:use_python]{renv::use_python()}}.
+around \code{\link[renv:use_python]{renv::use_python()}}. To add Python packages, use \code{\link[=py_install]{py_install()}}.
 }
 \seealso{
 \code{\link[renv:use_python]{renv::use_python()}}
