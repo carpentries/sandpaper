@@ -288,8 +288,12 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   #    recorded.
   if (lockfile_exists) {
     cli::cli_alert("Restoring any dependency versions")
-    res <- renv::restore(project = path, library = renv_lib,
-      lockfile = renv_lock, prompt = FALSE)
+    # Load profile, this ensures Python dependencies also get restored
+    renv::load(project = path)
+    on.exit({
+      invisible(utils::capture.output(renv::deactivate(project = path), type = "message"))
+    }, add = TRUE)
+    res <- renv::restore(project = path, prompt = FALSE)
   }
   if (snapshot) {
     # 3. Load the current profile, unloading it when we exit
