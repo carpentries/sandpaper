@@ -11,6 +11,16 @@
 #'   file extension in the lesson.
 #' @param rstudio create an RStudio project (defaults to if RStudio exits)
 #' @param open if interactive, the lesson will open in a new editor window.
+#' @param add_python if set to `TRUE`, will add Python as a dependency for the
+#'   lesson. See [use_python()] for details. Defaults to `FALSE`.
+#' @param python the path to the version of Python to be used. The default,
+#'   `NULL`, will prompt the user to select an appropriate version of Python in
+#'   interactive sessions. In non-interactive sessions, \pkg{renv} will attempt
+#'   to automatically select an appropriate version. See [renv::use_python()]
+#'   for more details.
+#' @param type the type of Python environment to use. When `"auto"`, the
+#'   default, virtual environments will be used. See [renv::use_python()] for
+#'   more details.
 #'
 #' @export
 #' @return the path to the new lesson
