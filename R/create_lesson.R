@@ -19,7 +19,8 @@
 #' on.exit(unlink(tmp))
 #' lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #' lsn
-create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio = rstudioapi::isAvailable(), open = rlang::is_interactive()) {
+create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio = rstudioapi::isAvailable(), open = rlang::is_interactive(),
+                          add_python = FALSE, python = NULL, type = c("auto", "virtualenv", "conda", "system")) {
 
   path <- fs::path_abs(path)
   id <- cli::cli_status("{cli::symbol$arrow_right} Creating Lesson in {.file {path}}...")
@@ -92,6 +93,11 @@ create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio 
   if (has_consent) {
     cli::cli_status_update("{cli::symbol$arrow_right} Managing Dependencies ...")
     manage_deps(path, snapshot = TRUE)
+
+    if (add_python) {
+      cli::cli_status_update("{cli::symbol$arrow_right} Setting up Python ...")
+      use_python(path = path, python = python, type = type)
+    }
   }
 
   cli::cli_status_update("{cli::symbol$arrow_right} Committing ...")
