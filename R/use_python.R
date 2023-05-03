@@ -18,9 +18,14 @@ use_python <- function(path = ".", python = NULL,
   on.exit({
     invisible(utils::capture.output(renv::deactivate(project = path), type = "message"))
   }, add = TRUE)
-  renv::load(project = path)
 
+  renv::load(project = path)
+  prof <- Sys.getenv("RENV_PROFILE")
   renv::use_python(python = python, type = type, ...)
+
+  ## NOTE: use_python() deactivates the default profile, see https://github.com/rstudio/renv/issues/1217
+  ## Workaround: re-activate the profile
+  renv::activate(project = path, profile = prof)
 }
 
 
