@@ -1,14 +1,29 @@
-#' Use Python
+#' Add Python as a lesson dependency
 #'
 #' Associate a version of Python with your lesson. This is essentially a wrapper
-#' around [renv::use_python()]. To add Python packages, use [py_install()].
+#' around [renv::use_python()].
 #'
 #' @param path path to the current project
 #' @inheritParams renv::use_python
 #' @param ... Further arguments to be passed on to [renv::use_python()]
 #'
+#' @details
+#' This helper function adds Python as a dependency to the \pkg{renv} lockfile
+#' and installs a Python environment of the specified `type`. This ensures any
+#' Python packages used for this lesson are installed separately from the user's
+#' main library, much like the R packages (see [manage_deps()]).
+#'
+#' Note that \pkg{renv} is not (yet) able to automatically detect Python package
+#' dependencies (e.g. from `import` statements). So any required Python packages
+#' still need to be installed manually. To facilitate this, the [py_install()]
+#' helper is provided. This will install Python packages in the correct
+#' environment and record them in a `requirements.txt` file, which will be
+#' tracked by \pkg{renv}. Subsequent calls of [manage_deps()] will then
+#' correctly restore the required Python packages if needed.
+#'
 #' @export
-#' @seealso [renv::use_python()]
+#' @rdname use_python
+#' @seealso [renv::use_python()], [py_install()]
 #' @return The path to the Python executable. Note that this function is mainly
 #'   called for its side effects.
 use_python <- function(path = ".", python = NULL,
@@ -37,22 +52,17 @@ use_python <- function(path = ".", python = NULL,
 
 #' Install Python packages and add them to the cache
 #'
-#' Installs Python packages with [reticulate::py_install()] and then records
-#' them in the renv environment. This ensures [manage_deps()] keeps track of the
-#' Python packages as well.
+#' To add Python packages, `py_install()` is provided, which installs Python
+#' packages with [reticulate::py_install()] and then records them in the renv
+#' environment. This ensures [manage_deps()] keeps track of the Python packages
+#' as well.
 #'
 #' @param packages Python packages to be installed as a character vecto.
 #' @param path path to your lesson. Defaults to the current working directory.
 #' @param ... Further arguments to be passed to [reticulate::py_install()]
 #'
-#' @details
-#' Unlike with R packages, \pkg{renv} is not yet capable of automatically
-#' detecting Python dependencies. Therefore, this helper function is provided to
-#' correctly install Python packages and recording them in the renv environment.
-#' Subsequent calls of [manage_deps()] will then correctly restore the required
-#' Python packages if needed.
-#'
 #' @export
+#' @rdname use_python
 py_install <- function(packages, path = ".",  ...) {
 
   ## Load the renv profile, unloading it upon exit
