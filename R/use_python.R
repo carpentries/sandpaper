@@ -26,6 +26,22 @@
 #' @seealso [renv::use_python()], [py_install()]
 #' @return The path to the Python executable. Note that this function is mainly
 #'   called for its side effects.
+#' @examples
+#' \dontrun{
+#' tmp <- tempfile()
+#' on.exit(unlink(tmp))
+#'
+#' ## Create lesson with Python support
+#' lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE, add_python = TRUE)
+#' lsn
+#'
+#' ## Add Python as a dependency to an existing lesson
+#' setwd(lsn)
+#' use_python()
+#'
+#' ## Install Python packages and record them as dependencies
+#' py_install("numpy")
+#' }
 use_python <- function(path = ".", python = NULL,
                        type = c("auto", "virtualenv", "conda", "system"), ...) {
 

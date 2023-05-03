@@ -54,6 +54,23 @@ environment and record them in a \code{requirements.txt} file, which will be
 tracked by \pkg{renv}. Subsequent calls of \code{\link[=manage_deps]{manage_deps()}} will then
 correctly restore the required Python packages if needed.
 }
+\examples{
+\dontrun{
+tmp <- tempfile()
+on.exit(unlink(tmp))
+
+## Create lesson with Python support
+lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE, add_python = TRUE)
+lsn
+
+## Add Python as a dependency to an existing lesson
+setwd(lsn)
+use_python()
+
+## Install Python packages and record them as dependencies
+py_install("numpy")
+}
+}
 \seealso{
 \code{\link[renv:use_python]{renv::use_python()}}, \code{\link[=py_install]{py_install()}}
 }
