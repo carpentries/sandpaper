@@ -14,13 +14,19 @@
 use_python <- function(path = ".", python = NULL,
                        type = c("auto", "virtualenv", "conda", "system"), ...) {
 
+  wd <- getwd()
+
   ## Load the renv profile, unloading it upon exit
   on.exit({
     invisible(utils::capture.output(renv::deactivate(project = path), type = "message"))
+    setwd(wd)
   }, add = TRUE)
 
+  ## Set up working directory, avoids some renv side effects
+  setwd(path)
   renv::load(project = path)
   prof <- Sys.getenv("RENV_PROFILE")
+
   renv::use_python(python = python, type = type, ...)
 
   ## NOTE: use_python() deactivates the default profile, see https://github.com/rstudio/renv/issues/1217
