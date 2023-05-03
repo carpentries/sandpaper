@@ -2,7 +2,8 @@
 % Please edit documentation in R/use_python.R
 \name{use_python}
 \alias{use_python}
-\title{Use Python}
+\alias{py_install}
+\title{Add Python as a lesson dependency}
 \usage{
 use_python(
   path = ".",
@@ -10,9 +11,11 @@ use_python(
   type = c("auto", "virtualenv", "conda", "system"),
   ...
 )
+
+py_install(packages, path = ".", ...)
 }
 \arguments{
-\item{path}{path to the current project}
+\item{path}{path to your lesson. Defaults to the current working directory.}
 
 \item{python}{The path to the version of Python to be used with this project. See
 \strong{Finding Python} for more details.}
@@ -20,7 +23,9 @@ use_python(
 \item{type}{The type of Python environment to use. When \code{"auto"} (the default),
 virtual environments will be used.}
 
-\item{...}{Further arguments to be passed on to \code{\link[renv:use_python]{renv::use_python()}}}
+\item{...}{Further arguments to be passed to \code{\link[reticulate:py_install]{reticulate::py_install()}}}
+
+\item{packages}{Python packages to be installed as a character vecto.}
 }
 \value{
 The path to the Python executable. Note that this function is mainly
@@ -28,8 +33,27 @@ called for its side effects.
 }
 \description{
 Associate a version of Python with your lesson. This is essentially a wrapper
-around \code{\link[renv:use_python]{renv::use_python()}}. To add Python packages, use \code{\link[=py_install]{py_install()}}.
+around \code{\link[renv:use_python]{renv::use_python()}}.
+
+To add Python packages, \code{py_install()} is provided, which installs Python
+packages with \code{\link[reticulate:py_install]{reticulate::py_install()}} and then records them in the renv
+environment. This ensures \code{\link[=manage_deps]{manage_deps()}} keeps track of the Python packages
+as well.
+}
+\details{
+This helper function adds Python as a dependency to the \pkg{renv} lockfile
+and installs a Python environment of the specified \code{type}. This ensures any
+Python packages used for this lesson are installed separately from the user's
+main library, much like the R packages (see \code{\link[=manage_deps]{manage_deps()}}).
+
+Note that \pkg{renv} is not (yet) able to automatically detect Python package
+dependencies (e.g. from \code{import} statements). So any required Python packages
+still need to be installed manually. To facilitate this, the \code{\link[=py_install]{py_install()}}
+helper is provided. This will install Python packages in the correct
+environment and record them in a \code{requirements.txt} file, which will be
+tracked by \pkg{renv}. Subsequent calls of \code{\link[=manage_deps]{manage_deps()}} will then
+correctly restore the required Python packages if needed.
 }
 \seealso{
-\code{\link[renv:use_python]{renv::use_python()}}
+\code{\link[renv:use_python]{renv::use_python()}}, \code{\link[=py_install]{py_install()}}
 }

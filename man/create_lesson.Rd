@@ -9,7 +9,10 @@ create_lesson(
   name = fs::path_file(path),
   rmd = TRUE,
   rstudio = rstudioapi::isAvailable(),
-  open = rlang::is_interactive()
+  open = rlang::is_interactive(),
+  add_python = FALSE,
+  python = NULL,
+  type = c("auto", "virtualenv", "conda", "system")
 )
 }
 \arguments{
@@ -25,6 +28,19 @@ file extension in the lesson.}
 \item{rstudio}{create an RStudio project (defaults to if RStudio exits)}
 
 \item{open}{if interactive, the lesson will open in a new editor window.}
+
+\item{add_python}{if set to \code{TRUE}, will add Python as a dependency for the
+lesson. See \code{\link[=use_python]{use_python()}} for details. Defaults to \code{FALSE}.}
+
+\item{python}{the path to the version of Python to be used. The default,
+\code{NULL}, will prompt the user to select an appropriate version of Python in
+interactive sessions. In non-interactive sessions, \pkg{renv} will attempt
+to automatically select an appropriate version. See \code{\link[renv:use_python]{renv::use_python()}}
+for more details.}
+
+\item{type}{the type of Python environment to use. When \code{"auto"}, the
+default, virtual environments will be used. See \code{\link[renv:use_python]{renv::use_python()}} for
+more details.}
 }
 \value{
 the path to the new lesson
