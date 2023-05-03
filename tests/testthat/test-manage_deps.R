@@ -207,3 +207,31 @@ test_that("update_cache() will update old package versions", {
 
 })
 
+
+test_that("manage_deps() does not overwrite requirements.txt", {
+  old_wd <- setwd(lsn)
+  withr::defer(setwd(old_wd))
+
+  ## Set up Python and manually add requirements.txt without actually installing
+  ## the Python package, mimicking the scenario where a Python dependency is missing
+  use_python(lsn, type = "virtualenv")
+  req_file <- fs::path(lsn, "requirements.txt")
+  writeLines("numpy", req_file)
+
+  res <- manage_deps(lsn, quiet = TRUE)
+  expect_true(grepl("^numpy", readLines(req_file)))
+})
+
+
+test_that("manage_deps() restores Python dependencies", {
+  old_wd <- setwd(lsn)
+  withr::defer(setwd(old_wd))
+  use_python(lsn, type = "virtualenv")
+
+  req_file <- fs::path(lsn, "requirements.txt")
+  writeLines("numpy", req_file)
+  res <- manage_deps(lsn, quiet = TRUE)
+
+  expect_no_error({numpy <- reticulate::import("numpy")})
+  expect_s3_class(numpy, "python.builtin.module")
+})
