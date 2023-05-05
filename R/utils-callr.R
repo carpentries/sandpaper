@@ -1,17 +1,7 @@
 callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, quiet, error = TRUE) {
-  # Shortcut if the source is a markdown file
-  # Taken directly from tools::file_ext
-  file_ext <- function (x) {
-    pos <- regexpr("\\.([[:alnum:]]+)$", x)
-    ifelse(pos > -1L, substring(x, pos + 1L), "")
-  }
   # Also taken directly from tools::file_path_sans_ext
   file_path_sans_ext <- function (x) {
     sub("([^.]+)\\.[[:alnum:]]+$", "\\1", x)
-  }
-  if (file_ext(path) == "md") {
-    file.copy(path, outpath, overwrite = TRUE)
-    return(NULL)
   }
   # Load required packages if it's an RMarkdown file and we know the root
   # directory.

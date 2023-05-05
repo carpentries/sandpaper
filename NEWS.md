@@ -5,6 +5,11 @@
 * A failure to incrementally build the lesson with `sandpaper::serve()` has been
   fixed (reported: @zkamvar, #450; fixed: @zkamvar, #451)
 
+## MISC
+
+* Lessons with markdown documents no longer use `callr::r()` as an intermediary
+  (reported: @zkamvar, #442, fixed: @zkamvar, #452)
+
 # sandpaper 0.11.15 (2023-04-05)
 
 ## BUG FIX
