@@ -36,29 +36,32 @@
 # Note: we can not test this in covr because I'm not entirely sure of how to get
 #       it going
 serve <- function(path = ".") {
-  path <- root_path(path)
-  rend <- function(file_list = path) {
+  this_path <- root_path(path)
+  rend <- function(file_list = this_path) {
     for (f in file_list) {
       build_lesson(f, preview = FALSE)
     }
   }
   # path to the production folder that {servr} needs to render
-  prod <- fs::path(path_site(path), "docs")
+  prod <- fs::path(path_site(this_path), "docs")
   # filter function generator for {servr} to exclude the site folder
   #
   # This assumes that the input to the function will be whole file names
-  # which is the output of list.files() with recurse = TRUE and
+  # which is the output of list.files() with recurse = TRUE an
   # full.names = TRUE
   #
   # @param base the base path
-  make_filter <- function(base = path) {
+  make_filter <- function(base = this_path) {
     no_site <- file.path(base, "site")
     no_git  <- file.path(base, ".git")
     # return a filter function for the files
-    function(x) x[!startsWith(x, no_site) | !startsWith(x, no_git)]
+    function(x) {
+      x[!startsWith(x, no_site) | !startsWith(x, no_git)]
+    }
   }
+  this_filter <- make_filter(this_path)
   # to start, build the site and then watch things:
-  rend()
-  servr::httw(prod, watch = path, filter = make_filter(path), handler = rend)
+  rend(this_path)
+  servr::httw(prod, watch = this_path, filter = this_filter, handler = rend)
 }
 #nocov end
