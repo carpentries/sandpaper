@@ -1,3 +1,10 @@
+# sandpaper 0.11.16 (2023-05-05)
+
+## BUG FIX
+
+* A failure to incrementally build the lesson with `sandpaper::serve()` has been
+  fixed (reported: @zkamvar, #450; fixed: @zkamvar, #451)
+
 # sandpaper 0.11.15 (2023-04-05)
 
 ## BUG FIX
