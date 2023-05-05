@@ -144,7 +144,7 @@ they are doing.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># 2022-04-15: this suddenly started throwing a check error</span></span></span>
 <span class="r-in"><span><span class="co"># that says "connections left open: (file) and I can't figure out where the</span></span></span>
-<span class="r-in"><span><span class="co"># hell its coming from, so I'm just going to not run this :( </span></span></span>
+<span class="r-in"><span><span class="co"># hell its coming from, so I'm just going to not run this :(</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">.Platform</span><span class="op">$</span><span class="va">OS.type</span> <span class="op">==</span> <span class="st">"windows"</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"sandpaper.use_renv"</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
@@ -165,7 +165,7 @@ they are doing.</p>
 <span class="r-in"><span><span class="va">fun_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"episodes"</span>, <span class="st">"files"</span>, <span class="st">"fun.Rmd"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span> <span class="st">"---\ntitle: Fun times\n---\n\n"</span>,</span></span>
-<span class="r-in"><span> <span class="st">"# new page\n"</span>, </span></span>
+<span class="r-in"><span> <span class="st">"# new page\n"</span>,</span></span>
 <span class="r-in"><span> <span class="st">"This is coming from `r R.version.string`\n"</span>,</span></span>
 <span class="r-in"><span> <span class="st">"::: testimonial\n\n#### testimony!\n\nwhat\n:::\n"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -179,7 +179,7 @@ they are doing.</p>
 <span class="r-in"><span>  <span class="fu">sandpaper</span><span class="fu">:::</span><span class="fu"><a href="set_globals.html">set_globals</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit</a></span><span class="op">(</span><span class="fu">clear_globals</span><span class="op">(</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="co"># we can only build this if we have pandoc</span></span></span>
-<span class="r-in"><span>  <span class="fu">build_episode_html</span><span class="op">(</span><span class="va">res</span>, path_src <span class="op">=</span> <span class="va">fun_file</span>, </span></span>
+<span class="r-in"><span>  <span class="fu">build_episode_html</span><span class="op">(</span><span class="va">res</span>, path_src <span class="op">=</span> <span class="va">fun_file</span>,</span></span>
 <span class="r-in"><span>    pkg <span class="op">=</span> <span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgdown.r-lib.org/reference/as_pkgdown.html" class="external-link">as_pkgdown</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"site"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
