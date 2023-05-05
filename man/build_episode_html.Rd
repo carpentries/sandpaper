@@ -57,7 +57,7 @@ they are doing.
 if (FALSE) {
 # 2022-04-15: this suddenly started throwing a check error
 # that says "connections left open: (file) and I can't figure out where the
-# hell its coming from, so I'm just going to not run this :( 
+# hell its coming from, so I'm just going to not run this :(
 if (.Platform$OS.type == "windows") {
   options("sandpaper.use_renv" = FALSE)
 }
@@ -78,7 +78,7 @@ if (rmarkdown::pandoc_available("2.11")) {
 fun_file <- file.path(tmp, "episodes", "files", "fun.Rmd")
 txt <- c(
  "---\ntitle: Fun times\n---\n\n",
- "# new page\n", 
+ "# new page\n",
  "This is coming from `r R.version.string`\n",
  "::: testimonial\n\n#### testimony!\n\nwhat\n:::\n"
 )
@@ -92,7 +92,7 @@ if (rmarkdown::pandoc_available("2.11")) {
   sandpaper:::set_globals(res)
   on.exit(clear_globals(), add = TRUE)
   # we can only build this if we have pandoc
-  build_episode_html(res, path_src = fun_file, 
+  build_episode_html(res, path_src = fun_file,
     pkg = pkgdown::as_pkgdown(file.path(tmp, "site"))
   )
 }
