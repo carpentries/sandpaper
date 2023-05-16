@@ -43,6 +43,7 @@ test_that("manage_deps() will create a renv folder", {
 
   skip_on_cran()
   skip_on_os("windows")
+  withr::local_options(list("renv.verbose" = TRUE))
   rnv <- fs::path(lsn, "renv")
   # need to move renv folder outside of the lesson or it will detect the
   # suggested packages within the package and chaos will ensue
@@ -59,7 +60,7 @@ test_that("manage_deps() will create a renv folder", {
   suppressMessages({
     build_markdown(lsn, quiet = FALSE) %>%
       expect_message("Consent to use package cache provided") %>%
-      expect_output("Lockfile written to")
+      expect_output("knitr")
   })
 
   expect_true(fs::dir_exists(rnv))
@@ -76,6 +77,7 @@ test_that("manage_deps() will run without callr", {
 
   skip_on_cran()
   skip_on_os("windows")
+  withr::local_options(list("renv.verbose" = TRUE))
   withr::local_envvar(list(
     "RENV_PROFILE" = "lesson-requirements",
     "R_PROFILE_USER" = fs::path(tempfile(), "nada"),
@@ -128,6 +130,7 @@ test_that("pin_version() will use_specific versions", {
   skip_on_os("windows")
   skip_if_offline()
 
+  withr::local_options(list("renv.verbose" = TRUE))
   withr::local_envvar(list(
     "RENV_PROFILE" = "lesson-requirements",
     "R_PROFILE_USER" = fs::path(tempfile(), "nada"),
@@ -196,6 +199,8 @@ test_that("update_cache() will update old package versions", {
   skip_on_os("windows")
   skip_if_offline()
   skip_if(covr::in_covr())
+
+  withr::local_options(list("renv.verbose" = TRUE))
 
   suppressMessages({
     res <- update_cache(path = fs::path(lsn, "episodes"), prompt = FALSE, quiet = FALSE) %>%
