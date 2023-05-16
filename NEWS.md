@@ -1,5 +1,10 @@
 # sandpaper 0.11.17 (unreleased)
 
+## BUG FIX
+
+* Break timing is now included in the overall schedule. (reported: @karenword,
+  #437; fixed: @bencomp, #455).
+
 ## TEST SUITE
 
 * An upstream feature in {renv}, forcing it to be silent when testing caused
