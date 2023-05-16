@@ -20,6 +20,10 @@ example_can_run <- function(need_git = FALSE, skip_cran = TRUE) {
   run_ok
 }
 
+is_testing <- function() {
+  identical(Sys.getenv("TESTTHAT"), "true")
+}
+
 # Search parent calls for a specific set of function signatures and return TRUE
 # if any one of them match.
 parent_calls_contain <- function(search = NULL, calls = sys.calls()) {
