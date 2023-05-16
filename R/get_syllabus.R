@@ -87,7 +87,7 @@ get_timings <- function(ep) {
     }
     return(as.integer(i))
   }
-  times <- c(coerce_integer(yaml$teaching), coerce_integer(yaml$exercises), coerce_integer(yaml$break))
+  times <- c(coerce_integer(yaml$teaching), coerce_integer(yaml$exercises), coerce_integer(yaml$break, 0L))
   signs <- any(times < 0)
   res <- as.integer(sum(abs(times), na.rm = TRUE))
   if (signs) {
