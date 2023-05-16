@@ -1,9 +1,19 @@
 # sandpaper 0.11.17 (unreleased)
 
+## NEW FEATURES
+
+* `sandpaper::serve()` gains the `quiet` argument, defaulting to `TRUE` for
+  interactive sessions and `FALSE` for command line sessions 
+* `sandpaper::serve()` gains the `...` argument to pass options to 
+  `servr::server_config()` for setting ports and hosts (reported:
+  @twrightsman, https://github.com/carpentries/workbench/issues/50 and #459;
+  fixed: @zkamvar, #461).
+
 ## BUG FIX
 
 * Break timing is now included in the overall schedule. (reported: @karenword,
   #437; fixed: @bencomp, #455).
+
 
 ## TEST SUITE
 

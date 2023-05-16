@@ -4,13 +4,20 @@
 \alias{serve}
 \title{Build your lesson and work on it at the same time}
 \usage{
-serve(path = ".")
+serve(path = ".", quiet = !interactive(), ...)
 }
 \arguments{
 \item{path}{the path to your lesson. Defaults to the current path.}
+
+\item{quiet}{if \code{TRUE}, then no messages are printed to the output. Defaults
+to \code{FALSE} in non-interactive sessions, which allows messages to be
+printed.}
+
+\item{...}{options passed on to \code{\link[servr:server_config]{servr::server_config()}} by way of
+\code{\link[servr:httd]{servr::httw()}}. These can include \strong{port} and \strong{host} configuration.}
 }
 \value{
-the output of \code{servr::httw()}, invisibly. This is mainly used for its
+the output of \code{\link[servr:httd]{servr::httw()}}, invisibly. This is mainly used for its
 side-effect
 }
 \description{
@@ -19,12 +26,29 @@ save a file.
 }
 \details{
 \code{sandpaper::serve()} is an entry point to working on any lesson using The
-Carpentries Workbench. When you run this function, a preview window will
-open either in RStudio or your browser with an address like \code{localhost:4213}
-(note the number will likely be different). When you make changes to files
-in your lesson, this preview will update automatically.
+Carpentries Workbench. When you run this function interactively, a preview
+window will open either in RStudio or your browser with an address like
+\code{localhost:4321} (note the number will likely be different). When you make
+changes to files in your lesson, this preview will update automatically.
 
 When you are done with the preview, you can run \code{servr::daemon_stop()}.
+\subsection{Command line usage}{
+
+You can use this on the command line if you do not use RStudio or another
+IDE that acts as a web browser. To run this on the command line, use:
+
+\if{html}{\out{<div class="sourceCode bash">}}\preformatted{R -e 'sandpaper::serve()'
+}\if{html}{\out{</div>}}
+
+Note that unlike an interactive session, progress messages are not printed
+(except for the accessibility checks) and the browser window will not
+automatically launch. You can have these messages print to screen with the
+\code{quiet = FALSE} argument. In addition, If you want to specify a port and
+host for this function, you can do so using the port and host arguments:
+
+\if{html}{\out{<div class="sourceCode bash">}}\preformatted{R -e 'sandpaper::serve(quiet = FALSE, host = "127.0.0.1", port = "3435")'
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 if (FALSE) {
@@ -38,6 +62,12 @@ if (FALSE) {
  # serve the lesson and begin editing the file. Watch how the file will
  # auto-update whenever you save it.
  sandpaper::serve()
+ #
+ # to stop the server, run
+ servr::daemon_stop()
+ #
+ # If you want to use a different port, you can specify it directly
+ sandpaper::serve(host = "127.0.0.1", port = "3435")
 }
 }
 \seealso{
