@@ -63,13 +63,24 @@ save a file.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">serve</span><span class="op">(</span>path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">serve</span><span class="op">(</span>path <span class="op">=</span> <span class="st">"."</span>, quiet <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>path</dt>
 <dd><p>the path to your lesson. Defaults to the current path.</p></dd>
+
+
+<dt>quiet</dt>
+<dd><p>if <code>TRUE</code>, then no messages are printed to the output. Defaults
+to <code>FALSE</code> in non-interactive sessions, which allows messages to be
+printed.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>options passed on to <code><a href="https://rdrr.io/pkg/servr/man/server_config.html" class="external-link">servr::server_config()</a></code> by way of
+<code><a href="https://rdrr.io/pkg/servr/man/httd.html" class="external-link">servr::httw()</a></code>. These can include <strong>port</strong> and <strong>host</strong> configuration.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -82,11 +93,25 @@ side-effect</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>sandpaper::serve()</code> is an entry point to working on any lesson using The
-Carpentries Workbench. When you run this function, a preview window will
-open either in RStudio or your browser with an address like <code>localhost:4213</code>
-(note the number will likely be different). When you make changes to files
-in your lesson, this preview will update automatically.</p>
-<p>When you are done with the preview, you can run <code><a href="https://rdrr.io/pkg/servr/man/daemon_stop.html" class="external-link">servr::daemon_stop()</a></code>.</p>
+Carpentries Workbench. When you run this function interactively, a preview
+window will open either in RStudio or your browser with an address like
+<code>localhost:4321</code> (note the number will likely be different). When you make
+changes to files in your lesson, this preview will update automatically.</p>
+<p>When you are done with the preview, you can run <code><a href="https://rdrr.io/pkg/servr/man/daemon_stop.html" class="external-link">servr::daemon_stop()</a></code>.</p><div class="section">
+<h3 id="command-line-usage">Command line usage<a class="anchor" aria-label="anchor" href="#command-line-usage"></a></h3>
+
+
+<p>You can use this on the command line if you do not use RStudio or another
+IDE that acts as a web browser. To run this on the command line, use:</p>
+<p></p><div class="sourceCode bash"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> <span class="at">-e</span> <span class="st">'sandpaper::serve()'</span></span></code></pre><p></p></div>
+<p>Note that unlike an interactive session, progress messages are not printed
+(except for the accessibility checks) and the browser window will not
+automatically launch. You can have these messages print to screen with the
+<code>quiet = FALSE</code> argument. In addition, If you want to specify a port and
+host for this function, you can do so using the port and host arguments:</p>
+<p></p><div class="sourceCode bash"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> <span class="at">-e</span> <span class="st">'sandpaper::serve(quiet = FALSE, host = "127.0.0.1", port = "3435")'</span></span></code></pre><p></p></div>
+</div>
+
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -106,6 +131,12 @@ in your lesson, this preview will update automatically.</p>
 <span class="r-in"><span> <span class="co"># serve the lesson and begin editing the file. Watch how the file will</span></span></span>
 <span class="r-in"><span> <span class="co"># auto-update whenever you save it.</span></span></span>
 <span class="r-in"><span> <span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">serve</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="co">#</span></span></span>
+<span class="r-in"><span> <span class="co"># to stop the server, run</span></span></span>
+<span class="r-in"><span> <span class="fu">servr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/servr/man/daemon_stop.html" class="external-link">daemon_stop</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="co">#</span></span></span>
+<span class="r-in"><span> <span class="co"># If you want to use a different port, you can specify it directly</span></span></span>
+<span class="r-in"><span> <span class="fu">sandpaper</span><span class="fu">::</span><span class="fu">serve</span><span class="op">(</span>host <span class="op">=</span> <span class="st">"127.0.0.1"</span>, port <span class="op">=</span> <span class="st">"3435"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
