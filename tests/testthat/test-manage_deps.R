@@ -146,12 +146,14 @@ test_that("pin_version() will use_specific versions", {
   # that might make provisioning packages a tricky business.
   skip_if(covr::in_covr())
 
+  withr::local_options(list("renv.verbose" = FALSE))
   suppressMessages({
-    # sessioninfo 1.2.0 dropped withr and cli as dependencies, so we should
-    # expect them to appear here
-    expect_output(res <- manage_deps(lsn), "withr")
+    capture.output(res <- manage_deps(lsn))
   })
 
+  # sessioninfo 1.2.0 dropped withr as a dependency, so we should
+  # expect it to appear here
+  expect_false(is.null(res$Packages$withr))
   expect_equal(res$Packages$sessioninfo$Version, "1.1.0")
 
 })
