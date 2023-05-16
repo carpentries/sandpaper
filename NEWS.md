@@ -1,3 +1,11 @@
+# sandpaper 0.11.17 (unreleased)
+
+## TEST SUITE
+
+* An upstream feature in {renv}, forcing it to be silent when testing caused
+  some expectations to fail. This has been fixed in specific tests by turning
+  verbosity on in those tests (reported: @zkamvar, #457; fixed: @zkamvar, #458)
+
 # sandpaper 0.11.16 (2023-05-05)
 
 ## BUG FIX
