@@ -9,6 +9,7 @@
 #' @importFrom utils modifyList
 #' @importFrom utils tail
 #' @importFrom tools md5sum
+#' @importFrom tools file_ext
 #' @importFrom rlang is_interactive
 ## usethis namespace: end
 NULL

@@ -205,6 +205,12 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
   md <- fs::path_ext_set(fs::path_file(path), "md")
   outpath <- fs::path(outdir, md)
 
+  # shortcut if we have a markdown file
+  if (file_ext(path) == "md") {
+    file.copy(path, outpath, overwrite = TRUE)
+    return(invisible(outpath))
+  }
+
   # Set up the arguments
   root <- root_path(path)
   prof <- fs::path(root, "renv", "profiles", profile)

@@ -1,3 +1,38 @@
+# sandpaper 0.11.17 (unreleased)
+
+## NEW FEATURES
+
+* `sandpaper::serve()` gains the `quiet` argument, defaulting to `TRUE` for
+  interactive sessions and `FALSE` for command line sessions 
+* `sandpaper::serve()` gains the `...` argument to pass options to 
+  `servr::server_config()` for setting ports and hosts (reported:
+  @twrightsman, https://github.com/carpentries/workbench/issues/50 and #459;
+  fixed: @zkamvar, #461).
+
+## BUG FIX
+
+* Break timing is now included in the overall schedule. (reported: @karenword,
+  #437; fixed: @bencomp, #455).
+
+
+## TEST SUITE
+
+* An upstream feature in {renv}, forcing it to be silent when testing caused
+  some expectations to fail. This has been fixed in specific tests by turning
+  verbosity on in those tests (reported: @zkamvar, #457; fixed: @zkamvar, #458)
+
+# sandpaper 0.11.16 (2023-05-05)
+
+## BUG FIX
+
+* A failure to incrementally build the lesson with `sandpaper::serve()` has been
+  fixed (reported: @zkamvar, #450; fixed: @zkamvar, #451)
+
+## MISC
+
+* Lessons with markdown documents no longer use `callr::r()` as an intermediary
+  (reported: @zkamvar, #442, fixed: @zkamvar, #452)
+
 # sandpaper 0.11.15 (2023-04-05)
 
 ## BUG FIX
