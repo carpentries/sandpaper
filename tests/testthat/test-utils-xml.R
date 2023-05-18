@@ -24,6 +24,27 @@ test_that("paths in instructor view that are nested or not HTML get diverted", {
 })
 
 
+test_that("callout ids are processed correctly", {
+  html_test <- xml2::read_html(test_path("examples/callout-ids.html"))
+  fix_callouts(html_test)
+  anchors <- xml2::xml_find_all(html_test, ".//a")
+  headings <- xml2::xml_find_all(html_test, ".//h3")
+  callouts <- xml2::xml_find_all(html_test,
+    ".//div[starts-with(@class, 'callout ')]")
+  expect_length(anchors, 2)
+  expect_length(callouts, 2)
+  expect_length(headings, 2)
+  # headings should not have IDS
+  expect_equal(xml2::xml_has_attr(headings, "id"), c(FALSE, FALSE))
+  # callouts should have these IDS
+  expect_equal(xml2::xml_has_attr(callouts, "id"), c(TRUE, TRUE))
+  # The IDs should be what we expect
+  ids <- xml2::xml_attr(callouts, "id")
+  expect_equal(ids, c("discussion1", "wait-what"))
+  # The IDs should match the anchors
+  expect_equal(paste0("#", ids), xml2::xml_attr(anchors, "href"))
+})
+
 
 test_that("empty args result in nothing happening", {
   expect_null(fix_nodes())
