@@ -277,8 +277,6 @@ callout_block = function(el)
   -- Get the header and create the ID
   local header = get_header(el, 3)
 
-  print(make_id(header))
-
   block_counts[classes[1]] = block_counts[classes[1]] + 1
   callout_id = classes[1]..block_counts[classes[1]]
   classes:insert(1, "callout")
