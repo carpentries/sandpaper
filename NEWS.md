@@ -1,3 +1,12 @@
+# sandpaper 0.11.18 (unreleased)
+
+## MISC
+
+* The internal function `sandpaper:::render_html()` now explicitly sets the
+  pandoc version before running the subprocess. This allows lesson developers to
+  use the {pandoc} package to set their pandoc versions. (reported: @zkamvar,
+  #465; fixed: @zkamvar, #465)
+
 # sandpaper 0.11.17 (2023-05-16)
 
 ## NEW FEATURES
