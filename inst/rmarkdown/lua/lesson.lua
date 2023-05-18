@@ -9,16 +9,6 @@ function Set (list)
   return set
 end
 
--- Function to round trip with pandoc to make a heading ID
-function make_id (heading, via)
-  local via = via or 'html'
-  local heading = pandoc.Header(1, inlines)
-  local temp_doc = pandoc.Pandoc{heading}
-  local roundtripped_doc = pandoc.read(pandoc.write(temp_doc, via), via)
-  return roundtripped_doc.blocks[1].identifier
-end
-
-
 local blocks = {
   ["callout"] = "bell",
   ["objectives"] = "none",
