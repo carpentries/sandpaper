@@ -9,6 +9,15 @@ function Set (list)
   return set
 end
 
+-- Function to round trip with pandoc to make a heading ID
+function make_id (heading, via)
+  local via = via or 'html'
+  local heading = pandoc.Header(1, inlines)
+  local temp_doc = pandoc.Pandoc{heading}
+  local roundtripped_doc = pandoc.read(pandoc.write(temp_doc, via), via)
+  return roundtripped_doc.blocks[1].identifier
+end
+
 
 local blocks = {
   ["callout"] = "bell",
@@ -265,10 +274,14 @@ callout_block = function(el)
   if this_icon == nil then
     return el
   end
+  -- Get the header and create the ID
+  local header = get_header(el, 3)
+
+  print(make_id(header))
+
   block_counts[classes[1]] = block_counts[classes[1]] + 1
   callout_id = classes[1]..block_counts[classes[1]]
   classes:insert(1, "callout")
-  local header = get_header(el, 3)
 
   local icon = pandoc.RawBlock("html",
   "<i class='callout-icon' data-feather='"..this_icon.."'></i>")
