@@ -95,10 +95,33 @@ make_instructornotes_section <- function(name, contents, parent) {
   </section>"
   section <- xml2::read_xml(glue::glue(new_section))
   for (element in contents) {
+    is_heading  <- xml2::xml_name(element) == "h3" &
+      xml2::xml_attr(element, "class") == "accordion-header"
+    if (is_heading) {
+      # when we have an instructor note heading, we need to just add it and
+      # then skip to the next section, which is the body.
+      lnk <- make_instructor_note_linkback(element, name)
+      xml2::xml_add_child(section, lnk)
+      next
+    }
     for (child in xml2::xml_children(element)) {
       xml2::xml_add_child(section, child)
     }
     xml2::xml_add_child(section, "hr")
+    xml2::xml_add_child(section, "br")
   }
   xml2::xml_add_child(parent, section)
+}
+
+make_instructor_note_linkback <- function(node, name) {
+  # we need to just make a completely new node out of the heading because
+  # the accordion contains a bunch of junk.
+  title <- trimws(xml2::xml_text(node))
+  id <- xml2::xml_attr(node, "id")
+  newid <- glue::glue("{name}-{id}")
+  anchor <- glue::glue("<a class='anchor' aria-label='anchor' href='#{newid}'></a>")
+  new <- "<h3><a href='{name}.html#{id}'>{title}</a>{anchor}</h3>"
+  node <- xml2::read_xml(glue::glue(new))
+  xml2::xml_set_attr(node, "id", newid)
+  node
 }
