@@ -32,20 +32,20 @@ test_that("fix figures account for inline images and do not clobber them into fi
   html <- xml2::read_html(raw)
   fix_figures(html)
 
-  # there should be six images, but only one of them is a figure
+  # there should be six images, but only two of them are figures
   figgies <- xml2::xml_find_all(html, ".//figure")
   kitties <- xml2::xml_find_all(html, ".//img")
-  expect_length(figgies, 1L)
-  expect_length(kitties, 6L)
+  expect_length(figgies, 2L)
+  expect_length(kitties, 7L)
   expected_classes <- c("figure", "figure", "figure",
-    "figure mx-auto d-block", "figure", "figure")
+    "figure mx-auto d-block", "figure mx-auto d-block", "figure", "figure")
   expect_equal(xml2::xml_attr(kitties, "class"), expected_classes)
 
   # The immediate parents of the kitties should be a link, list, paragraph, and
-  # one figure and a paragraph.
+  # two figures and a paragraph.
   rents   <- xml2::xml_parent(kitties)
   expect_equal(xml2::xml_name(rents),
-    c("a", "li", "p", "figure", "p"))
+    c("a", "li", "p", "figure", "figure", "p"))
 })
 
 

@@ -8,5 +8,7 @@ an inline image ![hey](https://placekitten.com/30/30){alt="cutie too"}
 
 ![this is a normal image](https://placekitten.com/400/400){alt="test alt"}
 
+<img src="https://placekitten.com/404/404" alt='should also be a normal image'>
+
 ![this is a harder normal image pt 1](https://placekitten.com/500/500){alt="test alt again"}
 ![this is a harder normal image pt 2](https://placekitten.com/600/600){alt="test alt again"}
