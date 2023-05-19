@@ -35,11 +35,12 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
     build_html(template = "extra", pkg = pkg, nodes = html,
       global_data = page_globals, path_md = "instructor-notes.html", quiet = TRUE)
   }
+  agg <- "/div[contains(@class, 'instructor-note')]//*[@class='accordion-body' or @class='accordion-header']"
   build_agg_page(pkg = pkg,
     pages = pages,
     title = this_dat$pagetitle,
     slug = "instructor-notes",
-    aggregate = "/div[contains(@class, 'instructor-note')]//div[@class='accordion-body']",
+    aggregate = agg,
     append = "section[@id='aggregate-instructor-notes']",
     prefix = FALSE,
     quiet = quiet)
