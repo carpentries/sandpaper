@@ -1,5 +1,14 @@
 # sandpaper 0.11.18 (unreleased)
 
+## BUG FIX
+
+* Callout block anchor links now point to the correct ID of the block derived
+  from the title of the block (as opposed to the generic ID). 
+  (reported: @debpaul, 
+  https://github.com/datacarpentry/OpenRefine-ecology-lesson/issues/292 and
+  @bencomp, #454; fixed: @zkamvar, #467)
+
+
 ## MISC
 
 * The internal function `sandpaper:::render_html()` now explicitly sets the

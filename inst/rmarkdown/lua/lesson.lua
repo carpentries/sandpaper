@@ -9,7 +9,6 @@ function Set (list)
   return set
 end
 
-
 local blocks = {
   ["callout"] = "bell",
   ["objectives"] = "none",
@@ -265,10 +264,12 @@ callout_block = function(el)
   if this_icon == nil then
     return el
   end
+  -- Get the header and create the ID
+  local header = get_header(el, 3)
+
   block_counts[classes[1]] = block_counts[classes[1]] + 1
   callout_id = classes[1]..block_counts[classes[1]]
   classes:insert(1, "callout")
-  local header = get_header(el, 3)
 
   local icon = pandoc.RawBlock("html",
   "<i class='callout-icon' data-feather='"..this_icon.."'></i>")
