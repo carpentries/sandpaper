@@ -1,4 +1,13 @@
-# sandpaper 0.11.18 (unreleased)
+# sandpaper 0.12.0 (2023-05-19)
+
+## NEW FEATURES
+
+* Aggregate instructor notes now have headings that link back to the source
+  instructor note (reported: @tobyhodges, #463; fixed: @zkamvar, #468)
+* The internal function `sandpaper:::render_html()` now explicitly sets the
+  pandoc version before running the subprocess. This allows lesson developers to
+  use the {pandoc} package to set their pandoc versions. (reported: @zkamvar,
+  #465; fixed: @zkamvar, #465)
 
 ## BUG FIX
 
@@ -6,16 +15,12 @@
   from the title of the block (as opposed to the generic ID). 
   (reported: @debpaul, 
   https://github.com/datacarpentry/OpenRefine-ecology-lesson/issues/292 and
-  @bencomp, #454; fixed: @zkamvar, #467)
-* Inline images are no longer automatically transformed to figure blocks.
-  (reported: @ostephens, #445; fixed: @zkamvar, #446)
-
-## MISC
-
-* The internal function `sandpaper:::render_html()` now explicitly sets the
-  pandoc version before running the subprocess. This allows lesson developers to
-  use the {pandoc} package to set their pandoc versions. (reported: @zkamvar,
-  #465; fixed: @zkamvar, #465)
+  @bencomp, #454; fixed: @zkamvar, #467).
+* Inline images no longer automatically transform to figure blocks
+  (reported: @ostephens, #445; fixed: @zkamvar, #446). This bug was preventing
+  image links (e.g. MyBinder badges) from being rendered as links with images
+  in them. This fixes that issue. It also helps distinguish inline images
+  between figures in the DOM.
 
 # sandpaper 0.11.17 (2023-05-16)
 
