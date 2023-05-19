@@ -56,7 +56,16 @@ render_html <- function(path_in, ..., quiet = FALSE) {
   }
   args <- construct_pandoc_args(path_in, output = htm, to = "html", ...)
   sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
-  callr::r(function(...) rmarkdown::pandoc_convert(...), args = args,
+  # Ensure we use the _loaded version_ of pandoc in case folks are using
+  # the {pandoc} package: https://github.com/carpentries/sandpaper/issues/465
+  this_pandoc <- rmarkdown::find_pandoc()
+  callr::r(function(d, v, ...) {
+    rmarkdown::find_pandoc(dir = d, version = v)
+    rmarkdown::pandoc_convert(...)
+  },
+    args = c(d = as.character(this_pandoc$dir),
+      v = as.character(this_pandoc$version),
+      args),
     show = !quiet, spinner = sho)
   paste(readLines(htm), collapse = "\n")
 }
