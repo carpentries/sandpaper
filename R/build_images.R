@@ -1,11 +1,11 @@
 #' @rdname build_agg
 build_images <- function(pkg, pages = NULL, quiet = FALSE) {
-  build_agg_page(pkg = pkg, 
-    pages = pages, 
-    title = "All Images", 
-    slug = "images", 
-    aggregate = "/figure", 
-    prefix = FALSE, 
+  build_agg_page(pkg = pkg,
+    pages = pages,
+    title = "All Images",
+    slug = "images",
+    aggregate = "/img/..",
+    prefix = FALSE,
     quiet = quiet)
 }
 
@@ -16,7 +16,7 @@ build_images <- function(pkg, pages = NULL, quiet = FALSE) {
 #'
 #' @param name the name of the section, (may or may not be prefixed with `images-`)
 #' @param contents an `xml_nodeset` of figure elements from [get_content()]
-#' @param parent the parent div of the images page 
+#' @param parent the parent div of the images page
 #' @return the section that was added to the parent
 #'
 #' @keywords internal
@@ -25,7 +25,7 @@ build_images <- function(pkg, pages = NULL, quiet = FALSE) {
 #' if (FALSE) {
 #' lsn <- "/path/to/lesson"
 #' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
-#' 
+#'
 #' # read in the All in One page and extract its content
 #' img <- get_content("images", content = "self::*", pkg = pkg)
 #' fig_content <- get_content("01-introduction", content = "/figure", pkg = pkg)
@@ -44,7 +44,7 @@ make_images_section <- function(name, contents, parent) {
     content <- contents[[element]]
     alt     <- xml2::xml_text(xml2::xml_find_all(content, "./img/@alt"))
     n <- length(alt)
-    xml2::xml_add_child(section, "h3", glue::glue("Figure {element}"), 
+    xml2::xml_add_child(section, "h3", glue::glue("Figure {element}"),
       id = glue::glue("{name}-figure-{element}"))
     for (i in seq_along(alt)) {
       txt <- alt[[i]]
