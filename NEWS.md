@@ -7,7 +7,8 @@
   (reported: @debpaul, 
   https://github.com/datacarpentry/OpenRefine-ecology-lesson/issues/292 and
   @bencomp, #454; fixed: @zkamvar, #467)
-
+* Inline images are no longer automatically transformed to figure blocks.
+  (reported: @ostephens, #445; fixed: @zkamvar, #446)
 
 ## MISC
 
