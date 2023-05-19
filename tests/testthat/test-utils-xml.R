@@ -37,6 +37,9 @@ test_that("fix figures account for inline images and do not clobber them into fi
   kitties <- xml2::xml_find_all(html, ".//img")
   expect_length(figgies, 1L)
   expect_length(kitties, 6L)
+  expected_classes <- c("figure", "figure", "figure",
+    "figure mx-auto d-block", "figure", "figure")
+  expect_equal(xml2::xml_attr(kitties, "class"), expected_classes)
 
   # The immediate parents of the kitties should be a link, list, paragraph, and
   # one figure and a paragraph.
