@@ -89,8 +89,22 @@ fix_callouts <- function(nodes = NULL) {
   h3 <- xml2::xml_find_all(callouts, "./div/h3")
   xml2::xml_set_attr(h3, "class", "callout-title")
   inner_div <- xml2::xml_parent(h3)
+  # remove the "section level3 callout-title" attrs
   xml2::xml_set_attr(inner_div, "class", "callout-inner")
-  add_anchors(h3, xml2::xml_attr(callouts, "id"))
+  # Get the heading IDS (because we use section headings, the IDs are anchored
+  # to the section div and not the heading element)
+  # <div class="section level3 callout-title callout-inner">
+  #   <h3>Heading for this callout</h3>
+  # </div>
+  ids <- xml2::xml_attr(inner_div, "id")
+  # get the callout ID in the cases where they are missing
+  replacements <- xml2::xml_attr(callouts, "id")
+  ids <- ifelse(is.na(ids), replacements, ids)
+  # add the anchors and then set the attributes in the correct places.
+  add_anchors(h3, ids)
+  xml2::xml_set_attr(h3, "id", NULL)
+  # we replace the callout ID with the correct ID
+  xml2::xml_set_attr(callouts, "id", ids)
   invisible(nodes)
 }
 

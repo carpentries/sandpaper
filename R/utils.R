@@ -20,6 +20,10 @@ example_can_run <- function(need_git = FALSE, skip_cran = TRUE) {
   run_ok
 }
 
+is_testing <- function() {
+  identical(Sys.getenv("TESTTHAT"), "true")
+}
+
 # Search parent calls for a specific set of function signatures and return TRUE
 # if any one of them match.
 parent_calls_contain <- function(search = NULL, calls = sys.calls()) {
@@ -33,6 +37,13 @@ parent_calls_contain <- function(search = NULL, calls = sys.calls()) {
   # be the call that triggered the chain of command.
   for (call in calls) {
     # the first part of the call will be the function name
+    if (!inherits(call[[1]], "name")) {
+      # but sometimes it will be an anyonymous function, such as the
+      # onWSMessage function from httpuv:
+      # https://github.com/rstudio/httpuv/blob/faada3a19965af80289919308587836d22198a24/R/httpuv.R#L285-L293
+      # in these cases, we must skip
+      next
+    }
     fn <- as.character(call[[1L]])
     # pkg::function is parsed as the character c("::", "pkg", "function")
     # because "::" is a function, thus if we have 3, we take the function name

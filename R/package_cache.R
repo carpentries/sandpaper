@@ -13,11 +13,11 @@
 #'
 #' Once you have a package cache defined, you can use changes in the lockfile to
 #' trigger rebuilds of the lesson. To do this, you can use:
-#' 
+#'
 #'   - `package_cache_trigger(TRUE)`
 #'
 #' The above function is best used in conjunction with [update_cache()]
-#' 
+#'
 #'
 #' @details
 #'
@@ -31,7 +31,7 @@
 #'    lesson website, which may result in strange errors, warnings, or incorrect
 #'    output.
 #' 2. You might be very cautious about updating any components of your current
-#'    R infrastructure because your work depends on you having the correct 
+#'    R infrastructure because your work depends on you having the correct
 #'    package versions installed.
 #'
 #' To alleviate these concerns, \pkg{sandpaper} uses the \pkg{renv} package to
@@ -54,8 +54,8 @@
 #' ## I have used \pkg{renv} before; how do I turn it off before sandpaper loads?
 #'
 #' You can set `options(sandpaper.use_renv = FALSE)` before loading {sandpaper}.
-#' 
-#' @param prompt if `TRUE` (default when interactive), a prompt for consent 
+#'
+#' @param prompt if `TRUE` (default when interactive), a prompt for consent
 #'   giving information about the proposed modifications will appear on the
 #'   screen asking for the user to choose to apply the changes or not.
 #' @param quiet if `TRUE`, messages will not be issued unless `prompt = TRUE`.
@@ -92,7 +92,8 @@ use_package_cache <- function(prompt = interactive(), quiet = !prompt) {
   if (getOption("sandpaper.use_renv") || !prompt) {
     options(sandpaper.use_renv = TRUE)
     msg <- try_use_renv(force = TRUE)
-    if (grepl("nothing to do", msg))  {
+    consent_provided <- if (is_testing()) TRUE else grepl("nothing to do", msg)
+    if (consent_provided)  {
       info <- consent_ok
     } else {
       info <- "{consent_ok}\n{.emph {msg}}"

@@ -1,9 +1,56 @@
-# sandpaper 0.11.16 (unreleased)
+# sandpaper 0.11.18 (unreleased)
 
 ## BUG FIX
 
+* Callout block anchor links now point to the correct ID of the block derived
+  from the title of the block (as opposed to the generic ID). 
+  (reported: @debpaul, 
+  https://github.com/datacarpentry/OpenRefine-ecology-lesson/issues/292 and
+  @bencomp, #454; fixed: @zkamvar, #467)
 * Inline images are no longer automatically transformed to figure blocks.
   (reported: @ostephens, #445; fixed: @zkamvar, #446)
+
+## MISC
+
+* The internal function `sandpaper:::render_html()` now explicitly sets the
+  pandoc version before running the subprocess. This allows lesson developers to
+  use the {pandoc} package to set their pandoc versions. (reported: @zkamvar,
+  #465; fixed: @zkamvar, #465)
+
+# sandpaper 0.11.17 (2023-05-16)
+
+## NEW FEATURES
+
+* `sandpaper::serve()` gains the `quiet` argument, defaulting to `TRUE` for
+  interactive sessions and `FALSE` for command line sessions 
+* `sandpaper::serve()` gains the `...` argument to pass options to 
+  `servr::server_config()` for setting ports and hosts (reported:
+  @twrightsman, https://github.com/carpentries/workbench/issues/50 and #459;
+  fixed: @zkamvar, #461).
+
+## BUG FIX
+
+* Break timing is now included in the overall schedule. (reported: @karenword,
+  #437; fixed: @bencomp, #455).
+
+
+## TEST SUITE
+
+* An upstream feature in {renv}, forcing it to be silent when testing caused
+  some expectations to fail. This has been fixed in specific tests by turning
+  verbosity on in those tests (reported: @zkamvar, #457; fixed: @zkamvar, #458)
+
+# sandpaper 0.11.16 (2023-05-05)
+
+## BUG FIX
+
+* A failure to incrementally build the lesson with `sandpaper::serve()` has been
+  fixed (reported: @zkamvar, #450; fixed: @zkamvar, #451)
+
+## MISC
+
+* Lessons with markdown documents no longer use `callr::r()` as an intermediary
+  (reported: @zkamvar, #442, fixed: @zkamvar, #452)
 
 # sandpaper 0.11.15 (2023-04-05)
 
