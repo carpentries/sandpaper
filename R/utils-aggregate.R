@@ -214,6 +214,9 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
     remove_fix_node(agg$instructor, slug)
   }
 
+  # Get sectioning function definied in the `build_` file. For example,
+  # build_instructor_notes.R contains a function called
+  # `make_instructornotes_section`
   make_section <- section_fun(slug)
 
   learn_parent <- get_content(agg$learner, content = append)
