@@ -42,12 +42,12 @@ read_all_html <- function(path) {
 #' re-rendering of already rendered content.
 #'
 #' @param pkg an object created via [pkgdown::as_pkgdown()] of a lesson.
-#' @param title the new page title 
+#' @param title the new page title
 #' @param slug the slug for the page (e.g. "aio" will become "aio.html")
 #' @param new if `TRUE`, (default), the page will be generated
 #'   from a new template. If `FALSE`, the page is assumed to have been pre-built and
 #'   should be appended to.
-#' @return 
+#' @return
 #'  - `provision_agg_page()`: a list:
 #'    - `$learner`: an `xml_document` templated for the learner page
 #'    - `$instructor`: an `xml_document` templated for the instructor page
@@ -59,28 +59,28 @@ read_all_html <- function(path) {
 #'    - `.html$template$extra$learner`: the rendered learner template as a string
 #'    - `.html$template$extra$instructor`: the rendered instructor template as a string
 #' @details
-#' 
-#' Pkgdown provides a lot of services in its rendering: 
+#'
+#' Pkgdown provides a lot of services in its rendering:
 #'
 #'  - cross-linking
 #'  - syntax highlighting
-#'  - dynamic templating 
+#'  - dynamic templating
 #'  - etc.
 #'
 #' The problem is that all of this effort takes time and it scales with the size
 #' of the page being rendered such that in some cases it can take ~2 seconds for
 #' the All in One page of a small lesson. Creating aggregate pages after all of
 #' the markdown content has been rendered should not involve re-rendering
-#' content. 
+#' content.
 #'
 #' Luckily, reading in content with [xml2::read_html()] is very quick and using
 #' XPath queries, we can take the parts we need from the rendered content and
 #' insert it into a template, which we store as a character in the `.html`
 #' global object so it can be passed around to other functions without needing
 #' an argument.
-#' 
+#'
 #' `provision_agg_page()` makes a copy of this cache, replaces the FIXME
-#'  values with the appropriate elements, and returns an object created from 
+#'  values with the appropriate elements, and returns an object created from
 #'  [xml2::read_html()] for each of the instructor and learner veiws.
 #'
 #' @keywords internal
@@ -89,7 +89,7 @@ read_all_html <- function(path) {
 #' if (FALSE) { # only run if you have provisioned a pkgdown site
 #' lsn_site <- "/path/to/lesson/site"
 #' pkg <- pkgdown::as_pkgdown(lsn_site)
-#' 
+#'
 #' # create an AIO page
 #' provision_agg_page(pkg, title = "All In One", slug = "aio", quiet = FALSE)
 #'
@@ -111,7 +111,7 @@ provision_agg_page <- function(pkg, title = "Key Points", slug = "key-points", n
     instructor <- fs::path(pkg$dst_path, "instructor", uri)
   }
 
-  return(list(learner = xml2::read_html(learner), 
+  return(list(learner = xml2::read_html(learner),
     instructor = xml2::read_html(instructor),
     needs_episodes = new)
   )
@@ -121,7 +121,7 @@ provision_agg_page <- function(pkg, title = "Key Points", slug = "key-points", n
 #' @rdname provision
 provision_extra_template <- function(pkg, quiet = TRUE) {
   page_globals <- setup_page_globals()
-  needs_episodes <- TRUE 
+  needs_episodes <- TRUE
   html <- xml2::read_html("<section id='--FIXME'></section>")
   page <- "--FIXME.html"
   learner <- fs::path(pkg$dst_path, page)
@@ -145,10 +145,10 @@ provision_extra_template <- function(pkg, quiet = TRUE) {
     fs::file_delete(learner)
     fs::file_delete(instructor)
   })
-  .html$set(c("template", "extra", "learner"), 
-    as.character(xml2::read_html(learner))) 
-  .html$set(c("template", "extra", "instructor"), 
-    as.character(xml2::read_html(instructor))) 
+  .html$set(c("template", "extra", "learner"),
+    as.character(xml2::read_html(learner)))
+  .html$set(c("template", "extra", "instructor"),
+    as.character(xml2::read_html(instructor)))
 }
 
 section_fun <- function(slug) {
@@ -160,23 +160,23 @@ section_fun <- function(slug) {
 #' @inheritParams provision_agg_page
 #' @param pages output from the function [read_all_html()]: a nested list of
 #'   `xml_document` objects representing episodes in the lesson
-#' @param aggregate a selector for the lesson content you want to aggregate. 
+#' @param aggregate a selector for the lesson content you want to aggregate.
 #'   The default is "section", which will aggregate all sections, but nothing
 #'   outside of the sections. To grab everything in the page, use "*"
 #' @param append a selector for the section of the page where the aggregate data
-#'   should be placed. This defaults to "self::node()", which indicates that the 
+#'   should be placed. This defaults to "self::node()", which indicates that the
 #'   entire page should be appended.
-#' @param prefix flag to add a prefix for the aggregated sections. Defaults to 
-#'   `FALSE`. 
+#' @param prefix flag to add a prefix for the aggregated sections. Defaults to
+#'   `FALSE`.
 #' @param quiet if `TRUE`, no messages will be emitted. If FALSE, pkgdown will
 #'   report creation of the temporary file.
-#' @return NULL, invisibly. This is called for its side-effect 
-#' 
-#' @details 
+#' @return NULL, invisibly. This is called for its side-effect
+#'
+#' @details
 #'
 #' Building an aggregate page is very much akin to copy/paste---you take the
 #' same elements across several pages and paste them into one large page. We can
-#' do this programmatically by using XPath to extract nodes from pages and add 
+#' do this programmatically by using XPath to extract nodes from pages and add
 #' them into the document.
 #'
 #' To customise the page, we need a few things:
@@ -186,13 +186,13 @@ section_fun <- function(slug) {
 #' 3. a method to prepare and insert the extracted content (e.g. [make_aio_section()])
 #' @note
 #' This function assumes that you have already built all the episodes of your
-#' lesson. 
+#' lesson.
 #'
 #' @keywords internal
 #' @rdname build_agg
 #' @examples
 #' if (FALSE) {
-#'   # build_aio() assumes that your lesson has been built and takes in a 
+#'   # build_aio() assumes that your lesson has been built and takes in a
 #'   # pkgdown object, which can be created from the `site/` folder in your
 #'   # lesson.
 #'   lsn <- "/path/to/my/lesson"
@@ -223,11 +223,11 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
     # When the content requested does not exist, we append a new section with
     # the id of aggregate-{slug}
     sid <- paste0("aggregate-", slug)
-    learn_content <- get_content(agg$learner, content = "self::node()") 
+    learn_content <- get_content(agg$learner, content = "self::node()")
     xml2::xml_add_child(learn_content, "section", id = sid)
     learn_parent <- xml2::xml_child(learn_content, xml2::xml_length(learn_content))
 
-    instruct_content <- get_content(agg$instructor, content = "self::node()") 
+    instruct_content <- get_content(agg$instructor, content = "self::node()")
     xml2::xml_add_child(instruct_content, "section", id = sid)
     instruct_parent <- xml2::xml_child(instruct_content, xml2::xml_length(instruct_content))
   }
@@ -238,7 +238,7 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
   the_episodes <- .resources$get()[["episodes"]]
   the_slugs <- get_slug(the_episodes)
   the_slugs <- if (prefix) paste0(slug, "-", the_slugs) else the_slugs
-  
+
   for (episode in seq(the_episodes)) {
     ep_learn <- ep_instruct <- the_episodes[episode]
     ename    <- the_slugs[episode]
@@ -291,24 +291,24 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
 #' ```
 #'
 #' This function will extract the content from the episode without the templating.
-#' 
+#'
 #' @keywords internal
 #' @examples
 #' if (FALSE) {
 #' lsn <- "/path/to/lesson"
 #' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
-#' 
+#'
 #' # for AiO pages, this will return only the top-level sections:
 #' get_content("aio", content = "section", label = TRUE, pkg = pkg)
 #'
 #' # for episode pages, this will return everything that's not template
 #' get_content("01-introduction", pkg = pkg)
-#' 
+#'
 #' # for things that are within lessons but we don't know their exact location,
-#' # we can prefix a `/` to double up the slash, which will produce 
+#' # we can prefix a `/` to double up the slash, which will produce
 #'
 #' }
-get_content <- function(episode, content = "*", label = FALSE, pkg = NULL, 
+get_content <- function(episode, content = "*", label = FALSE, pkg = NULL,
   instructor = FALSE) {
   if (!inherits(episode, "xml_document")) {
     if (instructor) {

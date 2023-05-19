@@ -5,9 +5,9 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
   path <- root_path(pkg$src_path)
   this_lesson(path)
   outpath <- fs::path(pkg$dst_path, "instructor-notes.html")
-  already_built <- template_check$valid() && 
-    fs::file_exists(outpath) && 
-    !is.null(built) && 
+  already_built <- template_check$valid() &&
+    fs::file_exists(outpath) &&
+    !is.null(built) &&
     !"instructor-notes" %in% get_slug(built)
   if (!already_built) {
     page_globals <- setup_page_globals()
@@ -35,24 +35,24 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
     build_html(template = "extra", pkg = pkg, nodes = html,
       global_data = page_globals, path_md = "instructor-notes.html", quiet = TRUE)
   }
-  build_agg_page(pkg = pkg, 
-    pages = pages, 
-    title = this_dat$pagetitle, 
-    slug = "instructor-notes", 
-    aggregate = "/div[contains(@class, 'instructor-note')]//div[@class='accordion-body']", 
+  build_agg_page(pkg = pkg,
+    pages = pages,
+    title = this_dat$pagetitle,
+    slug = "instructor-notes",
+    aggregate = "/div[contains(@class, 'instructor-note')]//div[@class='accordion-body']",
     append = "section[@id='aggregate-instructor-notes']",
-    prefix = FALSE, 
+    prefix = FALSE,
     quiet = quiet)
 }
 
 #' Make a section of aggregated instructor notes
 #'
 #' This will append instructor notes from the inline sections of the lesson to
-#' the instructor-notes page, separated by section and `<hr>` elements. 
+#' the instructor-notes page, separated by section and `<hr>` elements.
 #'
 #' @param name the name of the section, (may or may not be prefixed with `images-`)
 #' @param contents an `xml_nodeset` of figure elements from [get_content()]
-#' @param parent the parent div of the images page 
+#' @param parent the parent div of the images page
 #' @return the section that was added to the parent
 #' @note On the learner view, instructor notes will not be present
 #'
@@ -62,19 +62,19 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
 #' if (FALSE) {
 #' lsn <- "/path/to/lesson"
 #' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
-#' 
+#'
 #' # read in the All in One page and extract its content
 #' notes <- get_content("instructor-notes", content =
 #'   "section[@id='aggregate-instructor-notes']", pkg = pkg, instructor = TRUE)
 #' agg <- "/div[contains(@class, 'instructor-note')]//div[@class='accordion-body']"
 #' note_content <- get_content("01-introduction", content = agg, pkg = pkg)
-#' make_instructornotes_section("01-introduction", contents = note_content, 
+#' make_instructornotes_section("01-introduction", contents = note_content,
 #'   parent = notes)
 #'
 #' # NOTE: if the object for "contents" ends with "_learn", no content will be
 #' # appended
 #' note_learn <- note_content
-#' make_instructornotes_section("01-introduction", contents = note_learn, 
+#' make_instructornotes_section("01-introduction", contents = note_learn,
 #'   parent = notes)
 #'
 #' }
