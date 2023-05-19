@@ -53,19 +53,25 @@ add_code_heading <- function(codes = NULL, labels = "OUTPUT") {
 
 fix_figures <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
+  imgs <- xml2::xml_find_all(nodes, ".//img")
+  add_class(imgs, "figure")
   # not all images are figs
   figs <- xml2::xml_find_all(nodes, ".//div[@class='figure' or @class='float']/img")
   caps <- xml2::xml_find_all(nodes, ".//p[@class='caption']")
   fig_element <- xml2::xml_parent(figs)
-  classes <- xml2::xml_attr(figs, "class")
-  classes <- ifelse(is.na(classes), "", classes)
-  classes <- paste(classes, "figure mx-auto d-block")
-  xml2::xml_set_attr(figs, "class", trimws(classes))
+  add_class(figs, "mx-auto d-block")
   xml2::xml_set_name(caps, "figcaption")
   xml2::xml_set_attr(caps, "class", NULL)
   xml2::xml_set_name(fig_element, "figure")
   xml2::xml_set_attr(fig_element, "class", NULL)
   invisible(nodes)
+}
+
+add_class <- function(nodes, new) {
+  classes <- xml2::xml_attr(nodes, "class")
+  classes <- ifelse(is.na(classes), "", classes)
+  classes <- paste(classes, new)
+  xml2::xml_set_attr(nodes, "class", trimws(classes))
 }
 
 add_anchors <- function(nodes, ids) {
