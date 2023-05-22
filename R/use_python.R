@@ -99,7 +99,7 @@ py_install <- function(packages, path = ".",  ...) {
 
 install_reticulate <- function(path) {
   renv_lib <- renv::paths$library(project = path)
-  has_reticulate <- require("reticulate", lib.loc = renv_lib, quietly = TRUE, character.only = TRUE)
+  has_reticulate <- requireNamespace("reticulate", lib.loc = renv_lib, quietly = TRUE)
   if (!has_reticulate) {
     cli::cli_alert("Adding `reticulate` as a dependency")
     ## Force reticulate to be recorded by renv
