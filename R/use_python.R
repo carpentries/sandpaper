@@ -51,18 +51,20 @@ use_python <- function(path = ".", python = NULL,
   on.exit({
     invisible(utils::capture.output(renv::deactivate(project = path), type = "message"))
     setwd(wd)
-  }, add = TRUE)
+  }, add = TRUE, after = FALSE)
 
   ## Set up working directory, avoids some renv side effects
   setwd(path)
   renv::load(project = path)
   prof <- Sys.getenv("RENV_PROFILE")
 
+  install_reticulate(path = path)
   renv::use_python(python = python, type = type, ...)
 
   ## NOTE: use_python() deactivates the default profile, see https://github.com/rstudio/renv/issues/1217
   ## Workaround: re-activate the profile
   renv::activate(project = path, profile = prof)
+  invisible(path)
 }
 
 
@@ -83,17 +85,27 @@ py_install <- function(packages, path = ".",  ...) {
 
   ## Load the renv profile, unloading it upon exit
   renv::load(project = path)
+
   on.exit({
     invisible(utils::capture.output(renv::deactivate(project = path), type = "message"))
-  }, add = TRUE)
+  }, add = TRUE, after = FALSE)
 
-  has_reticulate <- rlang::is_installed("reticulate")
-  if (!has_reticulate) {
-    cli::cli_alert("Adding `reticulate` as a dependency for Python package installation")
-    renv::install("reticulate")
-  }
+  install_reticulate(path = path)
   reticulate::py_install(packages = packages, ...)
 
   cli::cli_alert("Updating the package cache")
   renv::snapshot(lockfile = renv::paths$lockfile(project = path), prompt = FALSE)
+}
+
+install_reticulate <- function(path) {
+  renv_lib <- renv::paths$library(project = path)
+  has_reticulate <- require("reticulate", lib.loc = renv_lib, quietly = TRUE, character.only = TRUE)
+  if (!has_reticulate) {
+    cli::cli_alert("Adding `reticulate` as a dependency")
+    ## Force reticulate to be recorded by renv
+    dep_file <- fs::path(path, "dependencies.R")
+    write("library(reticulate)", file = dep_file, append = TRUE)
+    renv::install("reticulate", library = renv_lib)
+  }
+  invisible(NULL)
 }
