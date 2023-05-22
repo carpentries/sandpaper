@@ -53,18 +53,29 @@ add_code_heading <- function(codes = NULL, labels = "OUTPUT") {
 
 fix_figures <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
-  figs <- xml2::xml_find_all(nodes, ".//img")
+  imgs <- xml2::xml_find_all(nodes, ".//img")
+  add_class(imgs, "figure")
+  # make sure to grab the figures. These could be obvious
+  fig_XPath <- ".//div[@class='figure' or @class='float']/img"
+  # or they could be bare HTML image tags that were never converted
+  lone_img_XPath <- ".//p[count(descendant::*)=1 and count(text())=0]/img"
+  XPath <- glue::glue("{fig_XPath} | {lone_img_XPath}")
+  figs <- xml2::xml_find_all(nodes, XPath)
   caps <- xml2::xml_find_all(nodes, ".//p[@class='caption']")
   fig_element <- xml2::xml_parent(figs)
-  classes <- xml2::xml_attr(figs, "class")
-  classes <- ifelse(is.na(classes), "", classes)
-  classes <- paste(classes, "figure mx-auto d-block")
-  xml2::xml_set_attr(figs, "class", trimws(classes))
+  add_class(figs, "mx-auto d-block")
   xml2::xml_set_name(caps, "figcaption")
   xml2::xml_set_attr(caps, "class", NULL)
   xml2::xml_set_name(fig_element, "figure")
   xml2::xml_set_attr(fig_element, "class", NULL)
   invisible(nodes)
+}
+
+add_class <- function(nodes, new) {
+  classes <- xml2::xml_attr(nodes, "class")
+  classes <- ifelse(is.na(classes), "", classes)
+  classes <- paste(classes, new)
+  xml2::xml_set_attr(nodes, "class", trimws(classes))
 }
 
 add_anchors <- function(nodes, ids) {
@@ -88,8 +99,22 @@ fix_callouts <- function(nodes = NULL) {
   h3 <- xml2::xml_find_all(callouts, "./div/h3")
   xml2::xml_set_attr(h3, "class", "callout-title")
   inner_div <- xml2::xml_parent(h3)
+  # remove the "section level3 callout-title" attrs
   xml2::xml_set_attr(inner_div, "class", "callout-inner")
-  add_anchors(h3, xml2::xml_attr(callouts, "id"))
+  # Get the heading IDS (because we use section headings, the IDs are anchored
+  # to the section div and not the heading element)
+  # <div class="section level3 callout-title callout-inner">
+  #   <h3>Heading for this callout</h3>
+  # </div>
+  ids <- xml2::xml_attr(inner_div, "id")
+  # get the callout ID in the cases where they are missing
+  replacements <- xml2::xml_attr(callouts, "id")
+  ids <- ifelse(is.na(ids), replacements, ids)
+  # add the anchors and then set the attributes in the correct places.
+  add_anchors(h3, ids)
+  xml2::xml_set_attr(h3, "id", NULL)
+  # we replace the callout ID with the correct ID
+  xml2::xml_set_attr(callouts, "id", ids)
   invisible(nodes)
 }
 

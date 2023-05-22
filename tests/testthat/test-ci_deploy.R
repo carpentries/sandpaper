@@ -135,6 +135,10 @@ test_that("404 page root will be lesson URL", {
 
 test_that("ci_deploy() will do a full rebuild", {
 
+  skip_on_cran()
+  skip_if_not(has_git())
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+
 
   expect_true(gert::git_branch_exists("MD", local = TRUE, repo = res))
   expect_true(gert::git_branch_exists("SITE", local = TRUE, repo = res))
