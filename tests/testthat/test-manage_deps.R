@@ -216,6 +216,9 @@ test_that("update_cache() will update old package versions", {
 
 
 test_that("manage_deps() does not overwrite requirements.txt", {
+  skip_on_cran()
+  skip_on_os("windows")
+
   old_wd <- setwd(lsn)
   withr::defer(setwd(old_wd))
 
@@ -231,6 +234,9 @@ test_that("manage_deps() does not overwrite requirements.txt", {
 
 
 test_that("manage_deps() restores Python dependencies", {
+  skip_on_cran()
+  skip_on_os("windows")
+
   old_wd <- setwd(lsn)
   withr::defer(setwd(old_wd))
   use_python(lsn, type = "virtualenv")
