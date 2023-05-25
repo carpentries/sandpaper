@@ -28,12 +28,12 @@ Carpentries such as \code{markdown_in_html_blocks}, \code{tex_math_dollars}, and
 if (rmarkdown::pandoc_available("2.11")) {
 # first example---markdown to HTML
 tmp <- tempfile()
-ex <- c("# Markdown", 
-  "", 
-  "::: challenge", 
-  "", 
+ex <- c("# Markdown",
+  "",
+  "::: challenge",
+  "",
   "How do you write markdown divs?",
-  "", 
+  "",
   ":::"
 )
 writeLines(ex, tmp)
