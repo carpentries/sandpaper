@@ -76,6 +76,9 @@
     <loc>https://carpentries.github.io/sandpaper/reference/check_lesson.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/check_pandoc.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper/reference/ci_build.html</loc>
   </url>
   <url>
