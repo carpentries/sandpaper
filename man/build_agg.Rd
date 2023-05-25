@@ -80,7 +80,7 @@ lesson.
 }
 \examples{
 if (FALSE) {
-  # build_aio() assumes that your lesson has been built and takes in a 
+  # build_aio() assumes that your lesson has been built and takes in a
   # pkgdown object, which can be created from the `site/` folder in your
   # lesson.
   lsn <- "/path/to/my/lesson"
