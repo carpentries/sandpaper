@@ -1,3 +1,11 @@
+# sandpaper 0.12.1 (unreleased)
+
+MISC
+----
+
+* The internal function `sandpaper:::check_pandoc()` now points to the correct
+  URL to download RStudio, which moved after the migration to posit. 
+
 # sandpaper 0.12.0 (2023-05-19)
 
 ## NEW FEATURES
