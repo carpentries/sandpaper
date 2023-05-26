@@ -129,21 +129,34 @@ create_sidebar <- function(chapters, name = "", html = "<a href='https://carpent
   res
 }
 
-update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE) {
+update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE, item = NULL) {
   if (is.null(sidebar)) return(sidebar)
+  this_page <- as_html(path_md)
   # NOTE: this is the place we need to modify to address
   # https://github.com/carpentries/workbench/issues/42
   if (inherits(sidebar, "list-store")) {
+    this_sidebar <- sidebar$get()[["sidebar"]]
     # if it's a list store, then we need to get the sidebar and update itself
-    title <- if (is.null(title)) sidebar$get()[["pagetitle"]] else title
-    sb <- update_sidebar(sidebar$get()[["sidebar"]], nodes, path_md, title,
-      instructor)
+    if (is.null(title)) {
+      item <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"),
+        this_sidebar)
+      if (length(item) == 0) {
+        return(sidebar)
+      }
+      # The title should stay the same.
+      side_nodes <- xml2::xml_find_first(xml2::read_xml(this_sidebar[item]),
+        ".//a")
+      title <- as.character(xml2::xml_contents(side_nodes))
+    }
+    sb <- update_sidebar(this_sidebar, nodes, path_md, title, instructor,
+      item = item)
     sidebar$set("sidebar", paste(sb, collapse = "\n"))
   }
-  this_page <- as_html(path_md)
-  to_change <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), sidebar)
-  if (length(to_change)) {
-    sidebar[to_change] <- create_sidebar_item(nodes, title, "current")
+  if (is.null(item)) {
+    item <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), sidebar)
+  }
+  if (length(item)) {
+    sidebar[item] <- create_sidebar_item(nodes, title, "current")
   }
   sidebar
 }
