@@ -197,7 +197,7 @@ test_that("Lesson websites contains instructor metadata", {
 
 test_that("single files can be built", {
 
-  create_episode("Second Episode!", path = tmp)
+  create_episode("_Second_ Episode!", path = tmp)
   suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
 
@@ -283,6 +283,21 @@ test_that("HTML files are present and have the correct elements", {
         readLines(fs::path(sitepath, "index.html"))
   )))
 })
+
+
+test_that("Active episode contains sidebar number", {
+  ep <- readLines(fs::path(sitepath, "second-episode.html"))
+  xml <- xml2::read_html(paste(ep, collapse = ""))
+
+  # Instructor sidebar is formatted properly
+  sidebar <- xml2::xml_find_all(xml, ".//div[@class='sidebar']")
+  expect_length(sidebar, 1L)
+  this_ep <- xml2::xml_find_first(sidebar, ".//span[@class='current-chapter']")
+  this_title <- as.character(xml2::xml_contents(this_ep))
+  this_title <- trimws(paste(this_title, collapse = ""))
+  expect_equal(this_title, "2. <em>Second</em> Episode!")
+})
+
 
 test_that("files will not be rebuilt unless they change in content", {
 
