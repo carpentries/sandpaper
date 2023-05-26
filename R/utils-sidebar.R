@@ -146,7 +146,7 @@ update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title =
       # The title should stay the same.
       side_nodes <- xml2::xml_find_first(xml2::read_xml(this_sidebar[item]),
         ".//a")
-      title <- as.character(xml2::xml_contents(side_nodes))
+      title <- paste(as.character(xml2::xml_contents(side_nodes)), collapse = "")
     }
     sb <- update_sidebar(this_sidebar, nodes, path_md, title, instructor,
       item = item)
