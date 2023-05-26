@@ -15,7 +15,7 @@ test_that("sidebar headings can contain html within", {
   # The result is a list element with two items
   expect_length(li, 2)
   # one heading has a child node within
-  expect_equal(xml2::xml_length(xml2::xml_children(li)), 
+  expect_equal(xml2::xml_length(xml2::xml_children(li)),
     c(1, 0))
   # the anchors are the URIs
   expect_equal(xml2::xml_text(xml2::xml_find_all(li, ".//@href")),
@@ -24,7 +24,7 @@ test_that("sidebar headings can contain html within", {
 
 
 test_that("a sidebar can be and will have sequential numbers", {
-  
+
   mockr::local_mock(get_navbar_info = function(i) {
     list(pagetitle = toupper(i), text = paste("text", i), href = as_html(i))
   })
