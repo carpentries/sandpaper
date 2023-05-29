@@ -37,7 +37,8 @@ test_that("a sidebar can be and will have sequential numbers", {
   <p>This is how you build your plots iteratively</p>
   </section>"
   chapters <- c("index.md", "one.md", "two.md", "three.md")
-  expect_snapshot(writeLines(create_sidebar(chapters, name = "two.md", html = html)))
+  sb <- create_sidebar(chapters, name = "two.md", html = html)
+  expect_snapshot(writeLines(sb))
 })
 
 

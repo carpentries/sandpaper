@@ -1,7 +1,7 @@
 # a sidebar can be and will have sequential numbers
 
     Code
-      writeLines(create_sidebar(chapters, name = "two.md", html = html))
+      writeLines(sb)
     Output
       <div class="accordion accordion-flush" id="accordionFlush1">
         <div class="accordion-item">
