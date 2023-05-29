@@ -31,8 +31,8 @@ varnish_vars <- function() {
   )
 }
 
-#' Set the necessary common global variables for use in the {varnish} template. 
-#' 
+#' Set the necessary common global variables for use in the {varnish} template.
+#'
 #' This will enforce four global lists:
 #'
 #'  1. `.resources`, which is equivalent to the output of `get_source_list()`
@@ -45,7 +45,7 @@ varnish_vars <- function() {
 #'  - `sidebar` This is generated from [create_sidebar()] and is the same in the
 #'    learner and instructor globals with the exception of the first element.
 #'  - `more` This is the "More" dorpdown menu, which is created via [create_resources_dropdown()].
-#'  - `resources` The same as "More", but positioned on the mobile sidebar. 
+#'  - `resources` The same as "More", but positioned on the mobile sidebar.
 #'  - `{sandpaper,varnish,pegboard}_version` package versions of each package.
 #'
 #' @param path the path to the lesson
@@ -65,7 +65,7 @@ set_globals <- function(path) {
   idx <- these_resources[["."]]
   idx <- idx[as_html(idx) == "index.html"]
   instructor_sidebar <- create_sidebar(c(idx, these_resources[["episodes"]]))
-  # check if we have a title in the index sidebar and replace with 
+  # check if we have a title in the index sidebar and replace with
   # "summary and schedule" if it does not exist.
   idx_item <- xml2::read_html(instructor_sidebar[[1]])
   idx_link <- xml2::xml_find_first(idx_item, ".//a")
@@ -81,13 +81,13 @@ set_globals <- function(path) {
   learner_sidebar[[1]] <- sub("Schedule", "Setup", sindex)
 
   # Resources
-  learner <- create_resources_dropdown(these_resources[["learners"]], 
+  learner <- create_resources_dropdown(these_resources[["learners"]],
     "learners")
-  instructor <- create_resources_dropdown(these_resources[["instructors"]], 
+  instructor <- create_resources_dropdown(these_resources[["instructors"]],
     "instructors")
   pkg_versions <- varnish_vars()
 
-  learner_globals$set(key = NULL, 
+  learner_globals$set(key = NULL,
     c(list(
       aio = TRUE,
       instructor = FALSE,
@@ -96,7 +96,7 @@ set_globals <- function(path) {
       resources = paste(learner$resources, collapse = "")
     ), pkg_versions)
   )
-  instructor_globals$set(key = NULL, 
+  instructor_globals$set(key = NULL,
     c(list(
       aio = TRUE,
       instructor = TRUE,
