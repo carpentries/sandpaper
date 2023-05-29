@@ -141,6 +141,7 @@ update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title =
       item <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"),
         this_sidebar)
       if (length(item) == 0) {
+        sidebar$set("sidebar", paste(this_sidebar, collapse = "\n"))
         return(sidebar)
       }
       # The title should stay the same.
