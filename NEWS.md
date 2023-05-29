@@ -1,4 +1,11 @@
-# sandpaper 0.12.1 (unreleased)
+# sandpaper 0.12.2 (2023-05-29)
+
+## BUG FIX
+
+* A bug where the sidebar for non-episode pages had extra commas was fixed
+  (reported: @zkamvar, #473; fixed: @zkamvar, #474)
+
+# sandpaper 0.12.1 (2023-05-26)
 
 ## BUG FIX
 
