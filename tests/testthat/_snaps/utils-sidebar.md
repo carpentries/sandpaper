@@ -1,4 +1,4 @@
-# a sidebar can be and will have sequential numbers
+# a sidebar can be created with a specific episode and will have sequential numbers
 
     Code
       writeLines(sb)
