@@ -39,6 +39,39 @@ test_that("a sidebar can be and will have sequential numbers", {
   chapters <- c("index.md", "one.md", "two.md", "three.md")
   sb <- create_sidebar(chapters, name = "two.md", html = html)
   expect_snapshot(writeLines(sb))
+
+})
+
+
+test_that("updating a sidebar for non-episode page works", {
+
+  mockr::local_mock(get_navbar_info = function(i) {
+    list(pagetitle = toupper(i), text = paste("text", i), href = as_html(i))
+  })
+  html <- "<section id='plotting'>
+  <h2 class='section-heading'>Plotting with <strong><code>ggplot2</code></strong>
+  <p>This is how you plot with <code>ggplot2</code></p>
+  </section>
+  <section id='building'>
+  <h2 class='section-heading'>Building your plots iteratively</h2>
+  <p>This is how you build your plots iteratively</p>
+  </section>"
+  chapters <- c("index.md", "one.md", "two.md", "three.md")
+  sb <- create_sidebar(chapters, html = html)
+  extra_store <- .list_store()
+  extra_store$update(c(list(sidebar = sb), get_navbar_info("images.md")))
+  ep_store <- extra_store$copy()
+
+  xhtml <- xml2::read_html(html)
+  update_sidebar(extra_store, xhtml, "images.md")
+  expect_length(extra_store$get()[["sidebar"]], 1L)
+  expect_identical(extra_store$get()[["sidebar"]], paste(sb, collapse = ""))
+
+  ep_store$update(get_navbar_info("two.md"))
+  update_sidebar(ep_store, xhtml, "two.md")
+  expect_length(ep_store$get()[["sidebar"]], 1L)
+  expect_false(identical(ep_store$get()[["sidebar"]], paste(sb, collapse = "")))
+
 })
 
 
