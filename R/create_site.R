@@ -10,7 +10,6 @@ create_site <- function(path) {
 
   if (!isTRUE(chk$description)) {
     fs::file_create(fs::path(path_site(path), "DESCRIPTION"))
-    check_git_user(path)
     create_description(path)
   }
 
