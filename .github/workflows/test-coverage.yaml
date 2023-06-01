@@ -16,10 +16,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {pandoc: 2.11.4}
-          - {pandoc: 2.17}
-          - {pandoc: 2.19.2}
-          - {pandoc: latest}
+          - {pandoc: '2.11.4'}
+          - {pandoc: '2.17'}
+          - {pandoc: '2.19.2'}
+          - {pandoc: 'latest'}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       SANDPAPER_TEST_PANDOC: ${{ matrix.config.pandoc }}
@@ -86,13 +86,13 @@ jobs:
           system('git restore .')
 
       - name: Test package
-        if: ${{ matrix.config.pandoc }} != '2.19.2'
+        if: "${{ matrix.config.pandoc }} != 2.19.2"
         shell: Rscript {0}
         run: |
           testthat::test_local()
 
       - name: Test coverage
-        if: ${{ matrix.config.pandoc }} == '2.19.2'
+        if: "${{ matrix.config.pandoc }} == 2.19.2"
         shell: Rscript {0}
         run: |
           covr::codecov(
@@ -101,16 +101,39 @@ jobs:
             install_path = file.path(Sys.getenv("RUNNER_TEMP"), "package")
           )
 
-      - name: Show testthat output
-        if: always()
+      - name: Show coverage output
+        if: "${{ matrix.config.pandoc }} == 2.19.2"
         shell: bash
         run: |
           ## --------------------------------------------------------------------
           find ${{ runner.temp }}/package -name 'testthat.Rout*' -exec cat '{}' \; || true
 
-      - name: Upload test results
-        if: failure()
+      - name: Upload coverage results
+        if: "failure() && ${{ matrix.config.pandoc }} == 2.19.2"
+
         uses: actions/upload-artifact@v3
         with:
           name: coverage-test-failures
           path: ${{ runner.temp }}/package
+      - name: Show testthat output
+        if: always()
+        run: |
+          ## --------------------------------------------------------------------
+          echo ::group::Show testthat output
+          find check -name 'testthat.Rout*' -exec cat '{}' \; || true
+          echo ::endgroup::
+        shell: bash
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: pandoc-${{ matrix.config.pandoc }}-results
+          path: check
+
+      - name: Upload snapshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: pandoc-${{ matrix.config.pandoc }}-testthat-snapshots
+          path: check/**/tests*/testthat/_snaps
+          if-no-files-found: ignore

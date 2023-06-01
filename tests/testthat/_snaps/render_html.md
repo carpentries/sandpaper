@@ -166,9 +166,10 @@
       class="newclass">rmd is safe</a></p>
       <p>This <a href="Setup.html#windows-setup"
       title="windows setup">too</a></p>
-      <div class="float" id="fig-first">
-      <img src="fig/Setup.png" class="imgclass" alt="alt text" />
-      <div class="figcaption">link should be transformed</div>
+      <div class="figure">
+      <img src="fig/Setup.png" id="fig-first" class="imgclass"
+      alt="alt text" />
+      <p class="caption">link should be transformed</p>
       </div>
       </div>
       </div>
