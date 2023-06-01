@@ -1,3 +1,9 @@
+# sandpaper 0.12.3 (2023-06-01)
+
+* A bug where the git credentials are accidentally changed when a lesson is
+  built is fixed by no longer querying git author when the lesson is built.
+  (reported: @joelnitta, @velait, and @zkamvar, #449; fixed: @zkamvar, #476).
+
 # sandpaper 0.12.2 (2023-05-29)
 
 ## BUG FIX
