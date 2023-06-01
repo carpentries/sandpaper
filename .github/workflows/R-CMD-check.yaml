@@ -91,7 +91,7 @@ jobs:
 
       - name: "Restore {renv} cache"
         if: runner.os != 'Windows'
-        uses: actions/cache@v3.0.11
+        uses: actions/cache@v3
         with:
           path: ${{ env.RENV_PATHS_ROOT }}
           key: ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ runner.r }}-${{ hashFiles('.github/workflows/R-CMD-check.yaml') }}

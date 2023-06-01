@@ -63,7 +63,7 @@ test_that("footnotes are rendered", {
 })
 
 test_that("pandoc structure is rendered correctly", {
-  
+
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   out <- fs::file_temp()
   withr::local_file(out)
@@ -83,7 +83,7 @@ test_that("pandoc structure is rendered correctly", {
 })
 
 test_that("paragraphs after objectives block are parsed correctly", {
-  
+
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
   out <- fs::file_temp()
@@ -103,7 +103,7 @@ test_that("paragraphs after objectives block are parsed correctly", {
 
 })
 
-test_that("render_html applies the internal lua filter", {
+test_that_pandoc("render_html applies the internal lua filter", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   res <- as.character(render_html(example_markdown))
 
@@ -135,11 +135,15 @@ test_that("render_html applies the internal lua filter", {
   skip_on_os("windows")
   formation = function(x) {
     x <- sub("[<]div id[=]\"collapseSolution1\".+", "[solution collapse]", x)
-    sub("[<]div id[=]\"collapseInstructor1\".+", "[instructor collapse]", x)
-    
+    x <- sub("[<]div id[=]\"collapseInstructor1\".+", "[instructor collapse]", x)
+    x <- gsub("(data\\-bs\\-parent|aria\\-labelledby)[=].+$", "[data/aria-collapse]", x)
+    x
+
   }
-  expect_snapshot(cat(res), transform = formation)
-})
+  pv <- as.character(rmarkdown::find_pandoc()$version)
+
+  expect_snapshot(cat(res), transform = formation, variant = pv)
+}, getOption("sandpaper.test_pandoc_versions"))
 
 
 example_instructor <- fs::path_abs(test_path("examples", "instructor-note.md"))
@@ -194,5 +198,5 @@ test_that("render_html applies external lua filters", {
   writeLines(lu, lua)
   res <- render_html(example_markdown, paste0("--lua-filter=", lua))
   expect_match(res, "<em>mowdrank</em> divs", fixed = TRUE)
-  
+
 })

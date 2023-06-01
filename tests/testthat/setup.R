@@ -1,6 +1,7 @@
 {
   # We can not use the package cache on Windows
   options(sandpaper.use_renv = renv_is_allowed())
+  provision_pandoc_versions()
   restore_fixture <- create_test_lesson()
   res <- tmp <- getOption("sandpaper.test_fixture")
   rmt <- fs::file_temp(pattern = "REMOTE-")
@@ -8,6 +9,7 @@
 
   noise <- interactive() || Sys.getenv("CI") == "true"
   if (noise) {
+    cli::cli_alert_info("Current pandoc version {rmarkdown::pandoc_version()}")
     cli::cli_alert_info("Current RENV_PATHS_ROOT {Sys.getenv('RENV_PATHS_ROOT')}")
     cli::cli_alert_info("Current renv::paths$root() {renv::paths$root()}")
     cli::cli_alert_info(

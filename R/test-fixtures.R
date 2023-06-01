@@ -53,6 +53,34 @@ create_test_lesson <- function() {
 
 #' @details
 #'
+#' ## `provision_pandoc_versions()`
+#'
+#' This will provision four versions of pandoc for testing
+#'
+#' @return (`provision_pandoc_versions`) NULL
+#' @rdname fixtures
+provision_pandoc_versions <- function() {
+  if (!rlang::is_installed("pandoc")) {
+    return(invisible(NULL))
+  }
+  noise <- interactive() || Sys.getenv("CI") == "true"
+  if (noise) {
+    t1 <- Sys.time()
+    on.exit({
+      ts <- format(Sys.time() - t1)
+      cli::cli_alert_info("Pandoc bootstrapped in {ts}")
+    }, add = TRUE)
+    cli::cli_status("{cli::symbol$arrow_right} Bootstrapping pandoc")
+  }
+  pandoc::pandoc_install("2.11.4")
+  pandoc::pandoc_install("2.19.2")
+  pandoc::pandoc_install("3.1.2")
+  options("sandpaper.test_pandoc_versions" = c("2.11.4", "2.19.2", "3.1.2"))
+  return(NULL)
+}
+
+#' @details
+#'
 #' ## `generate_restore_fixture()`
 #'
 #' This creates a function that will restore a lesson to its previous commit.
