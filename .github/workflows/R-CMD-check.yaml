@@ -60,8 +60,6 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
         if: runner.os != 'Windows'
-        with:
-          pandoc-version: '2.11'
 
       - name: "Windows: setup TMPDIR"
         if: runner.os == 'Windows'
