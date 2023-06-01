@@ -5,6 +5,9 @@
   has_pandoc <- rlang::is_installed("pandoc")
   panver <- trimws(Sys.getenv("SANDPAPER_TEST_PANDOC", unset = ""))
   if (has_pandoc && panver != "") {
+    if (!pandoc::pandoc_is_installed(panver)) {
+      pandoc::pandoc_install(panver)
+    }
     pandoc::pandoc_activate(panver)
     options(sandpaper.pandoc_test_version = panver)
     cli::cli_alert_info("TESTING PANDOC {panver}")
