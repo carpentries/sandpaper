@@ -36,7 +36,7 @@ pkg <- pkgdown::as_pkgdown(fs::path_dir(sitepath))
 
 test_that("The lesson contact is always team@carpentries.org", {
   dsc <- desc::description$new(sub("docs[/]?", "DESCRIPTION", sitepath))
-  auth <- eval(parse(text = x$get_field("Authors@R")))
+  auth <- eval(parse(text = dsc$get_field("Authors@R")))
   expect_equal(as.character(auth),
     "Jo Carpenter <team@carpentries.org> [aut, cre]")
 })
