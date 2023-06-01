@@ -60,7 +60,7 @@
         </h4>
       </button>
       [solution collapse]
-      data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+      [data/aria-collapse]
       <div class="accordion-body">
       <p>just write it, silly.</p>
       </div>
@@ -77,8 +77,8 @@
         </h3>
       </button>
       [instructor collapse]
-      data-bs-parent="#accordionInstructor1"
-      aria-labelledby="headingInstructor1">
+      [data/aria-collapse]
+      [data/aria-collapse]
       <div class="accordion-body">
       <p>This should be aside</p>
       </div>
