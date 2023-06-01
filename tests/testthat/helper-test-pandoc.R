@@ -1,3 +1,15 @@
+# This function will mask pandoc patterns that are commonly swapped, causing
+# the checks to fail.
+pandoc_masker <- function(x) {
+  x <- sub("[,]Div [(]\"collapseInstructor1\".+", "[instructor collapse]", x)
+  x <- sub("[,]Div [(]\"collapseSolution1\".+", "[solution collapse]", x)
+  x <- sub("[<]div id[=]\"collapseSolution1\".+", "[solution collapse]", x)
+  x <- sub("[<]div id[=]\"collapseInstructor1\".+", "[instructor collapse]", x)
+  x <- sub("(data\\-bs\\-parent|aria\\-labelledby)[=].+$", "[data/aria-collapse]", x)
+  x
+}
+
+
 test_that_pandoc <- function(desc, code, versions = "latest") {
   code <- substitute(code)
   parent <- parent.frame()

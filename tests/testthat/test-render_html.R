@@ -1,3 +1,30 @@
+# NOTE: We have set the minimum version of pandoc for sandpaper to be 2.11.4,
+# but our users will have different versions of pandoc and the infrastructure
+# will update as time goes on, depending on the version of RStudio or pandoc
+# they have installed.
+#
+# The default version of pandoc that we test as of 2023-06-01 is 2.19.2, which
+# is the version that the lesson r-lib/actions uses.
+#
+# We test for different pandoc versions on continuous integration. The only
+# catch is that these pandoc versions manage whitespace in the output in
+# different ways. Thus, we are testing different versions of pandoc in the
+# test-coverage.yaml workflow. When we test these versions of pandoc, the
+# snapshot test results will be compared against the versions we have stored.
+#
+# If you need to update a result (likely this will be the 'latest' version),
+# you need to have the {pandoc} package installed and run the following:
+#
+# ```
+# Sys.setenv("SANDPAPER_TEST_PANDOC" = "latest")
+# testthat::test_local(filter = "render_html")
+#
+# # once it's done, inspect the changes, commit, and turn remove the
+# # environment variable
+# Sys.unsetenv("SANDPAPER_TEST_PANDOC")
+# ```
+
+
 example_markdown <- fs::path_abs(test_path("examples", "ex.md"))
 
 
@@ -80,6 +107,9 @@ test_that("pandoc structure is rendered correctly", {
     sub("[,]Div [(]\"collapseSolution1\".+", "[solution collapse]", x)
   }
   expect_snapshot(cat(readLines(out), sep = "\n"), transform = formation)
+  pv <- getOption("sandpaper.pandoc_test_version")
+  expect_snapshot(cat(readLines(out), sep = "\n"), transform = pandoc_masker,
+    variant = pv)
 })
 
 test_that("paragraphs after objectives block are parsed correctly", {
@@ -99,11 +129,12 @@ test_that("paragraphs after objectives block are parsed correctly", {
     message(cat(readLines(out), sep = "\n"))
   }
   skip_on_os("windows")
-  expect_snapshot(cat(readLines(out), sep = "\n"))
+  pv <- getOption("sandpaper.pandoc_test_version")
+  expect_snapshot(cat(readLines(out), sep = "\n"), variant = pv)
 
 })
 
-test_that_pandoc("render_html applies the internal lua filter", {
+test_that("render_html applies the internal lua filter", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   res <- as.character(render_html(example_markdown))
 
@@ -133,17 +164,10 @@ test_that_pandoc("render_html applies the internal lua filter", {
     message(res)
   }
   skip_on_os("windows")
-  formation = function(x) {
-    x <- sub("[<]div id[=]\"collapseSolution1\".+", "[solution collapse]", x)
-    x <- sub("[<]div id[=]\"collapseInstructor1\".+", "[instructor collapse]", x)
-    x <- gsub("(data\\-bs\\-parent|aria\\-labelledby)[=].+$", "[data/aria-collapse]", x)
-    x
 
-  }
-  pv <- as.character(rmarkdown::find_pandoc()$version)
-
-  expect_snapshot(cat(res), transform = formation, variant = pv)
-}, getOption("sandpaper.test_pandoc_versions"))
+  pv <- getOption("sandpaper.pandoc_test_version")
+  expect_snapshot(cat(res), transform = pandoc_masker, variant = pv)
+})
 
 
 example_instructor <- fs::path_abs(test_path("examples", "instructor-note.md"))

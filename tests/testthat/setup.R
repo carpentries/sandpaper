@@ -1,8 +1,14 @@
 {
   # We can not use the package cache on Windows
   options(sandpaper.use_renv = renv_is_allowed())
-  provision_pandoc_versions()
   restore_fixture <- create_test_lesson()
+  has_pandoc <- rlang::is_installed("pandoc")
+  panver <- trimws(Sys.getenv("SANDPAPER_TEST_PANDOC", unset = ""))
+  if (has_pandoc && panver != "") {
+    pandoc::pandoc_activate(panver)
+    options(sandpaper.pandoc_test_version = panver)
+    cli::cli_alert_info("TESTING PANDOC {panver}")
+  }
   res <- tmp <- getOption("sandpaper.test_fixture")
   rmt <- fs::file_temp(pattern = "REMOTE-")
   setup_local_remote(repo = tmp, remote = rmt, verbose = FALSE)
@@ -22,7 +28,7 @@
 # Run after all tests
 withr::defer({
   tf <- getOption("sandpaper.test_fixture")
-  options(sandpaper.test_fixture = NULL)
+  options(sandpaper.test_fixture = NULL, sandpaper.pandoc_test_version = NULL)
   rem <- remove_local_remote(repo = tf)
   # remove the test fixture and report
   res <- tryCatch(fs::dir_delete(tf), error = function() FALSE)
