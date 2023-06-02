@@ -33,6 +33,15 @@ if (rmarkdown::pandoc_available("2.11")) {
 
 pkg <- pkgdown::as_pkgdown(fs::path_dir(sitepath))
 
+
+test_that("The lesson contact is always team@carpentries.org", {
+  dsc <- desc::description$new(sub("docs[/]?", "DESCRIPTION", sitepath))
+  auth <- eval(parse(text = dsc$get_field("Authors@R")))
+  expect_equal(as.character(auth),
+    "Jo Carpenter <team@carpentries.org> [aut, cre]")
+})
+
+
 test_that("build_lesson() also builds the extra pages", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   expect_true(fs::dir_exists(sitepath))
