@@ -3,6 +3,7 @@ lsn <- restore_fixture()
 lsn <- use_python(lsn)
 
 test_that("use_python() adds Python environment", {
+  skip_on_os("windows")
   py_path <- fs::path(lsn, "renv/profiles/lesson-requirements/renv/python")
   expect_true(fs::dir_exists(py_path))
 })
@@ -13,6 +14,7 @@ test_that("reticulate is installed", {
 })
 
 test_that("use_python() sets reticulate configuration", {
+  skip_on_os("windows")
   reticulate_python_env <- get_renv_env(lsn, "RETICULATE_PYTHON")
   py_config <- check_reticulate_config(lsn)
 
@@ -24,10 +26,12 @@ test_that("use_python() sets reticulate configuration", {
 
 ## This relates to a bug in renv, see https://github.com/rstudio/renv/issues/1217
 test_that("use_python() does not remove renv/profile", {
+  skip_on_os("windows")
   expect_true(fs::file_exists(fs::path(lsn, "renv/profile")))
 })
 
 test_that("py_install() installs Python packages", {
+  skip_on_os("windows")
   py_install("numpy", path = lsn)
   numpy <- local_load_py_pkg(lsn, "numpy")
 
