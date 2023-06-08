@@ -214,8 +214,10 @@ test_that("update_cache() will update old package versions", {
 
 })
 
+reticulate_installable <- check_reticulate_installable()
 
 test_that("manage_deps() does not overwrite requirements.txt", {
+  skip_if_not(reticulate_installable, "reticulate is not installable")
   skip_on_cran()
   skip_on_os("windows")
 
@@ -234,6 +236,7 @@ test_that("manage_deps() does not overwrite requirements.txt", {
 
 
 test_that("manage_deps() restores Python dependencies", {
+  skip_if_not(reticulate_installable, "reticulate is not installable")
   skip_on_cran()
   skip_on_os("windows")
 
