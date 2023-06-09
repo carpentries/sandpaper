@@ -2,20 +2,30 @@
 #'
 #' This function adds context to [rmarkdown::pandoc_available()] and provides
 #' an error message directing the user to download the latest version of pandoc
-#' or RStudio Desktop. 
-#' 
+#' or RStudio Desktop.
+#'
 #' @param quiet if `TRUE`, no message will be emitted, otherwise the pandoc
 #'    version and path will be sent as a message (stderr) to the screen.
 #' @param pv the minimum pandoc version
 #' @param rv the minimum rstudio version (if available)
-#' @noRd
+#' @keywords internal
+#' @examples
+#' # NOTE: this is an internal function, so there is no guarantee that the usage
+#' # will remain the same across time. This is merely for demonstration purposes
+#' # only.
+#'
+#' # Check for pandoc ----------------------
+#' asNamespace("sandpaper")$check_pandoc(quiet = FALSE)
+#'
+#' # Message emitted when pandoc cannot be found --------
+#' try(asNamespace("sandpaper")$check_pandoc(quiet = FALSE, pv = "999"))
 check_pandoc <- function(quiet = TRUE, pv = "2.11", rv = "1.4") {
   # Does pandoc exist?
   pan <- rmarkdown::find_pandoc()
   is_test <- identical(Sys.getenv("TESTTHAT"), "true")
   pandir <- if (!is_test) pan$dir else "[path masked for testing]"
   panver <- if (!is_test) pan$version else "[version masked for testing]"
-  rs_url <- "https://www.rstudio.com/products/rstudio/download/#download"
+  rs_url <- "https://posit.co/download/rstudio-desktop/#download"
   pd_url <- "https://pandoc.org/installing.html"
   if (rmarkdown::pandoc_available(pv)) {
     if (!quiet) {
@@ -38,7 +48,7 @@ check_pandoc <- function(quiet = TRUE, pv = "2.11", rv = "1.4") {
       rs_ver <- tryCatch(rstudioapi::getVersion(), error = function(e) "0.99")
       if (rs_ver < rv) {
         install_msg <- paste(
-          "Please update your version of RStudio Desktop to version", 
+          "Please update your version of RStudio Desktop to version",
           "{.field {rv}} or higher: {.url {rs_url}}"
         )
       } else {

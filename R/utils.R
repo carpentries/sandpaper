@@ -166,7 +166,7 @@ create_site_readme <- function(path) {
 
 create_description <- function(path) {
   yaml <- yaml::read_yaml(path_config(path), eval.expr = FALSE)
-  the_author <- paste(gert::git_signature_default(path), "[aut, cre]")
+  the_author <- paste("Jo Carpenter <team@carpentries.org> [aut, cre]")
   the_author <- utils::as.person(the_author)
   desc <- desc::description$new("!new")
   desc$del(c("BugReports", "LazyData"))

@@ -15,7 +15,7 @@ test_that("sidebar headings can contain html within", {
   # The result is a list element with two items
   expect_length(li, 2)
   # one heading has a child node within
-  expect_equal(xml2::xml_length(xml2::xml_children(li)), 
+  expect_equal(xml2::xml_length(xml2::xml_children(li)),
     c(1, 0))
   # the anchors are the URIs
   expect_equal(xml2::xml_text(xml2::xml_find_all(li, ".//@href")),
@@ -23,8 +23,12 @@ test_that("sidebar headings can contain html within", {
 })
 
 
-test_that("a sidebar can be and will have sequential numbers", {
-  
+test_that("a sidebar can be created with a specific episode and will have sequential numbers", {
+
+  # NOTE: 2023-05-29 I believe this test is sort of defunct because we are
+  # testing here how to create a sidebar given a specific episode, but we no
+  # longer use this pattern in the lesson, so this test and the `name` option
+  # for `create_sidebar()` should be removed.
   mockr::local_mock(get_navbar_info = function(i) {
     list(pagetitle = toupper(i), text = paste("text", i), href = as_html(i))
   })
@@ -37,7 +41,50 @@ test_that("a sidebar can be and will have sequential numbers", {
   <p>This is how you build your plots iteratively</p>
   </section>"
   chapters <- c("index.md", "one.md", "two.md", "three.md")
-  expect_snapshot(writeLines(create_sidebar(chapters, name = "two.md", html = html)))
+  sb <- create_sidebar(chapters, name = "two.md", html = html)
+  expect_snapshot(writeLines(sb))
+
+})
+
+
+test_that("updating a sidebar for all pages modifies appropriately", {
+
+  mockr::local_mock(get_navbar_info = function(i) {
+    list(pagetitle = toupper(i), text = paste("text", i), href = as_html(i))
+  })
+  html <- "<section id='plotting'>
+  <h2 class='section-heading'>Plotting with <strong><code>ggplot2</code></strong>
+  <p>This is how you plot with <code>ggplot2</code></p>
+  </section>
+  <section id='building'>
+  <h2 class='section-heading'>Building your plots iteratively</h2>
+  <p>This is how you build your plots iteratively</p>
+  </section>"
+  chapters <- c("index.md", "one.md", "two.md", "three.md")
+  sb <- create_sidebar(chapters, html = html)
+  extra_store <- .list_store()
+  extra_store$update(c(list(sidebar = sb), get_navbar_info("images.md")))
+  ep_store <- extra_store$copy()
+
+  xhtml <- xml2::read_html(html)
+
+  # sidebar update of _extra_ content will _not_ update the sidebar -----------
+  update_sidebar(extra_store, xhtml, "images.md")
+  expect_length(extra_store$get()[["sidebar"]], 1L)
+  expect_identical(extra_store$get()[["sidebar"]], paste(sb, collapse = "\n"))
+  extra_nodes <- xml2::read_html(extra_store$get()[["sidebar"]])
+  extra_current <- xml2::xml_find_all(extra_nodes, ".//span[@class='current-chapter']")
+  expect_length(extra_current, 0L)
+
+  # sidebar update of episode content will update the sidebar -----------------
+  ep_store$update(get_navbar_info("two.md"))
+  update_sidebar(ep_store, xhtml, "two.md")
+  expect_length(ep_store$get()[["sidebar"]], 1L)
+  expect_false(identical(ep_store$get()[["sidebar"]], paste(sb, collapse = "\n")))
+  ep_nodes <- xml2::read_html(ep_store$get()[["sidebar"]])
+  ep_current <- xml2::xml_find_all(ep_nodes, ".//span[@class='current-chapter']")
+  expect_length(ep_current, 1L)
+
 })
 
 

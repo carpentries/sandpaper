@@ -55,7 +55,7 @@ get_content("aio", content = "section", label = TRUE, pkg = pkg)
 get_content("01-introduction", pkg = pkg)
 
 # for things that are within lessons but we don't know their exact location,
-# we can prefix a `/` to double up the slash, which will produce 
+# we can prefix a `/` to double up the slash, which will produce
 
 }
 }

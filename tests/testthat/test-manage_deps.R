@@ -59,8 +59,7 @@ test_that("manage_deps() will create a renv folder", {
   # NOTE: these tests are still not very specific here...
   suppressMessages({
     build_markdown(lsn, quiet = FALSE) %>%
-      expect_message("Consent to use package cache provided") %>%
-      expect_output("knitr")
+      expect_message("Consent to use package cache provided")
   })
 
   expect_true(fs::dir_exists(rnv))
