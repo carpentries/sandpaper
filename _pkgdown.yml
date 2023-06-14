@@ -18,7 +18,7 @@ code:
 reference:
  - title: "Lesson Creation"
    desc: >
-     Provision new lessons and/or episodes. These functions will likely only 
+     Provision new lessons and/or episodes. These functions will likely only
      be used once.
  - contents:
    - create_lesson
@@ -35,7 +35,7 @@ reference:
  - title: "Lesson Development Helpers"
    desc: >
      Functions to programmatically assess and modify configuration and source
-     elements of a lesson. These are often used when developing a lesson. 
+     elements of a lesson. These are often used when developing a lesson.
  - contents:
    - get_drafts
    - get_config
@@ -50,7 +50,7 @@ reference:
    - strip_prefix
  - title: "The Pacakge Cache"
    desc: >
-     Lessons with generated content (R Markdown lessons) have an extra file 
+     Lessons with generated content (R Markdown lessons) have an extra file
      called `renv/profiles/lesson-requirments/renv.lock` that records the
      package versions used to build the lesson. These functions provide ways for
      you to manage these packages and turn it on or off while previewing the
@@ -58,6 +58,7 @@ reference:
  - contents:
    - use_package_cache
    - manage_deps
+   - use_python
  - title: "Updating Lesson Tools"
    desc: >
      Lesson updates will happen automatically on a regular schedule on GitHub.
@@ -78,7 +79,7 @@ reference:
    - ci_session_info
    - git_worktree_setup
  - title: "[Internal] Build Components"
-   desc: > 
+   desc: >
      Individual components to provision files and build a lesson locally
  - contents:
    - this_lesson
@@ -131,4 +132,3 @@ articles:
  - title: "In Progress"
    contents:
    - articles/internationalisation
-
