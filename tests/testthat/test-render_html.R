@@ -11,7 +11,7 @@ test_that("sandpaper.links can be included", {
   expect_no_match(render_html(tmp), "\\[link at the end\\]")
 })
 
-test_that("sandpaper.links can be included even with read-only template", {
+test_that("sandpaper.links can be included even with read-only template file", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- withr::local_tempfile()
   tnk <- withr::local_tempfile()
