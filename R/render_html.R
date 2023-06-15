@@ -49,7 +49,7 @@ render_html <- function(path_in, ..., quiet = FALSE) {
     # if we have links, we concatenate our input files
     tmpin <- tempfile(fileext = ".md")
     fs::file_copy(path_in, tmpin)
-    # if the file is not readable by the user, then we need to make it readable
+    # if the file is not writable by the user, then we need to make it writable
     # https://github.com/carpentries/sandpaper/issues/479
     fs::file_chmod(tmpin, "u+w")
     cat("\n", file = tmpin, append = TRUE)
