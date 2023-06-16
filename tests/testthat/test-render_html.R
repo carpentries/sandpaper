@@ -11,6 +11,19 @@ test_that("sandpaper.links can be included", {
   expect_no_match(render_html(tmp), "\\[link at the end\\]")
 })
 
+test_that("sandpaper.links can be included even with read-only template file", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  tmp <- withr::local_tempfile()
+  tnk <- withr::local_tempfile()
+  writeLines("This has a [link at the end] in a separate file[^1]\n\n[^1]: :)", tmp)
+
+  perm <- fs::file_info(tmp)$permissions
+  withr::defer(fs::file_chmod(tmp, perm), priority = "first")
+  fs::file_chmod(tmp, "a-w")
+  writeLines("[link at the end]: https://example.com/link", tnk)
+  withr::local_options(list("sandpaper.links" = tnk))
+  expect_no_match(render_html(tmp), "\\[link at the end\\]")
+})
 
 test_that("tabs are preserved", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
@@ -63,7 +76,7 @@ test_that("footnotes are rendered", {
 })
 
 test_that("pandoc structure is rendered correctly", {
-  
+
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   out <- fs::file_temp()
   withr::local_file(out)
@@ -83,7 +96,7 @@ test_that("pandoc structure is rendered correctly", {
 })
 
 test_that("paragraphs after objectives block are parsed correctly", {
-  
+
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   tmp <- fs::file_temp()
   out <- fs::file_temp()
@@ -136,7 +149,7 @@ test_that("render_html applies the internal lua filter", {
   formation = function(x) {
     x <- sub("[<]div id[=]\"collapseSolution1\".+", "[solution collapse]", x)
     sub("[<]div id[=]\"collapseInstructor1\".+", "[instructor collapse]", x)
-    
+
   }
   expect_snapshot(cat(res), transform = formation)
 })
@@ -194,5 +207,5 @@ test_that("render_html applies external lua filters", {
   writeLines(lu, lua)
   res <- render_html(example_markdown, paste0("--lua-filter=", lua))
   expect_match(res, "<em>mowdrank</em> divs", fixed = TRUE)
-  
+
 })

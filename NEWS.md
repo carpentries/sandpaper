@@ -1,3 +1,9 @@
+# sandpaper 0.12.4 (unreleased)
+
+* A bug in walled systems where templated pages (e.g. 404) could not be written
+  due to permissions issues has been fixed (reported: @ocaisa, #479; fixed:
+  @zkamvar, #482).
+
 # sandpaper 0.12.3 (2023-06-01)
 
 * A bug where the git credentials are accidentally changed when a lesson is
