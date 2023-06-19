@@ -27,6 +27,7 @@ test_that("A warning is generated when reticulate is not installable", {
 
 test_that("use_python() sets reticulate configuration", {
   skip_on_os("windows")
+  skip_if_not(reticulate_installable, "reticulate is not installable")
   reticulate_python_env <- get_renv_env(lsn, "RETICULATE_PYTHON")
   py_config <- check_reticulate_config(lsn)
 
