@@ -174,7 +174,7 @@ test_that("sitemap exists", {
 
 
 test_that("Metadata is recorded as the correct type", {
-  expect_match(metadata_json, "\"@type\": \"TrainingMaterial\"", fixed = TRUE)
+  expect_match(metadata_json, "\"@type\": \"LearningResource\"", fixed = TRUE)
 })
 
 test_that("Lesson websites contains metadata", {
