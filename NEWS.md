@@ -5,6 +5,10 @@
 * A broken test from the development version of {renv} fixed. This was a change
   in output and not functionality, so there will be no user-visible changes
   (reported: @zkamvar, #484; fixed: @zkamvar, #487).
+* Broken snapshot tests from upstream R-devel have been fixed by ensuring that
+  version comparisons always use characters and not numbers (which is
+  ergonomically weird, but whatever) (reported: @zkamvar #487; fixed: @zkamvar
+  #487)
 
 # sandpaper 0.12.4 (2023-06-16)
 

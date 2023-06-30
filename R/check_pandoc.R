@@ -38,7 +38,8 @@ check_pandoc <- function(quiet = TRUE, pv = "2.11", rv = "1.4") {
   } else {
     # Are we in an RStudio session?
     msg <- "{.pkg sandpaper} requires pandoc version {.field {pv}} or higher."
-    if (pan$version > 0) {
+    #
+    if (pan$version > "0") {
       pan_msg <- "You have pandoc version {.field {panver}} in {.file {pandir}}"
     } else {
       pan_msg <- "You do not have pandoc installed on your PATH"
