@@ -1,4 +1,4 @@
-# pacakge cache message appears correct [plain]
+# package cache message appears correct [plain]
 
     Code
       cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")
@@ -29,7 +29,7 @@
       1: Yes, please use the package cache (recommended)
       2: No, I want to use my default library
 
-# pacakge cache message appears correct [ansi]
+# package cache message appears correct [ansi]
 
     Code
       cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")
