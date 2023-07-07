@@ -1,10 +1,26 @@
-# sandpaper 0.12.4 (unreleased)
+# sandpaper 0.12.5 (unreleased)
+
+## BUG FIX
+
+* A broken test from the development version of {renv} fixed. This was a change
+  in output and not functionality, so there will be no user-visible changes
+  (reported: @zkamvar, #484; fixed: @zkamvar, #487).
+* Broken snapshot tests from upstream R-devel have been fixed by ensuring that
+  version comparisons always use characters and not numbers (which is
+  ergonomically weird, but whatever) (reported: @zkamvar #487; fixed: @zkamvar
+  #487)
+
+# sandpaper 0.12.4 (2023-06-16)
+
+## BUG FIX
 
 * A bug in walled systems where templated pages (e.g. 404) could not be written
   due to permissions issues has been fixed (reported: @ocaisa, #479; fixed:
   @zkamvar, #482).
 
 # sandpaper 0.12.3 (2023-06-01)
+
+## BUG FIX
 
 * A bug where the git credentials are accidentally changed when a lesson is
   built is fixed by no longer querying git author when the lesson is built.
