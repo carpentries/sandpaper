@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,13 +54,27 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.12.4" id="sandpaper-0124-unreleased">sandpaper 0.12.4 (unreleased)<a class="anchor" aria-label="anchor" href="#sandpaper-0124-unreleased"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.12.5" id="sandpaper-0125-unreleased">sandpaper 0.12.5 (unreleased)<a class="anchor" aria-label="anchor" href="#sandpaper-0125-unreleased"></a></h2>
+<div class="section level3">
+<h3 id="bug-fix-0-12-5">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-12-5"></a></h3>
+<ul><li>A broken test from the development version of {renv} fixed. This was a change in output and not functionality, so there will be no user-visible changes (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/484" class="external-link">#484</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/487" class="external-link">#487</a>).</li>
+<li>Broken snapshot tests from upstream R-devel have been fixed by ensuring that version comparisons always use characters and not numbers (which is ergonomically weird, but whatever) (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a> <a href="https://github.com/carpentries/sandpaper/issues/487" class="external-link">#487</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a> <a href="https://github.com/carpentries/sandpaper/issues/487" class="external-link">#487</a>)</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.12.4" id="sandpaper-0124-2023-06-16">sandpaper 0.12.4 (2023-06-16)<a class="anchor" aria-label="anchor" href="#sandpaper-0124-2023-06-16"></a></h2>
+<div class="section level3">
+<h3 id="bug-fix-0-12-4">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-12-4"></a></h3>
 <ul><li>A bug in walled systems where templated pages (e.g. 404) could not be written due to permissions issues has been fixed (reported: <a href="https://github.com/ocaisa" class="external-link">@ocaisa</a>, <a href="https://github.com/carpentries/sandpaper/issues/479" class="external-link">#479</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/482" class="external-link">#482</a>).</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.12.3" id="sandpaper-0123-2023-06-01">sandpaper 0.12.3 (2023-06-01)<a class="anchor" aria-label="anchor" href="#sandpaper-0123-2023-06-01"></a></h2>
+<div class="section level3">
+<h3 id="bug-fix-0-12-3">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-12-3"></a></h3>
 <ul><li>A bug where the git credentials are accidentally changed when a lesson is built is fixed by no longer querying git author when the lesson is built. (reported: <a href="https://github.com/joelnitta" class="external-link">@joelnitta</a>, <a href="https://github.com/velait" class="external-link">@velait</a>, and <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/449" class="external-link">#449</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/476" class="external-link">#476</a>).</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.12.2" id="sandpaper-0122-2023-05-29">sandpaper 0.12.2 (2023-05-29)<a class="anchor" aria-label="anchor" href="#sandpaper-0122-2023-05-29"></a></h2>
 <div class="section level3">
