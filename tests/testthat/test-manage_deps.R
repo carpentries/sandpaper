@@ -1,6 +1,6 @@
 lsn <- restore_fixture()
 
-cli::test_that_cli("pacakge cache message appears correct", {
+cli::test_that_cli("package cache message appears correct", {
 
   msg <- readLines(system.file("resources/WELCOME", package = "renv"))
   msg <- gsub("${RENV_PATHS_ROOT}", dQuote("/path/to/cache"), msg, fixed = TRUE)

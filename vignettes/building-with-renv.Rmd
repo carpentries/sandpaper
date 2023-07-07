@@ -294,7 +294,7 @@ package_cache_trigger(FALSE) # prevent package cache from triggering rebuilds
 
 You might want to set this to `TRUE` when you pull changes from upstream.
 
-## Adding New Pacakges to the Cache
+## Adding New Packages to the Cache
 
 The {sandpaper} cache records ONLY the packages needed for the repository itself.
 This means that if you want to use a package, you _must_ have it declared 

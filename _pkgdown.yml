@@ -48,7 +48,7 @@ reference:
    - reset_episodes
    - reset_site
    - strip_prefix
- - title: "The Pacakge Cache"
+ - title: "The Package Cache"
    desc: >
      Lessons with generated content (R Markdown lessons) have an extra file 
      called `renv/profiles/lesson-requirments/renv.lock` that records the
