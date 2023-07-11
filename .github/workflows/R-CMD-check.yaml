@@ -11,6 +11,7 @@ on:
     branches: [main, master]
   schedule:
     - cron: '0 0 * * 2'
+  workflow_dispatch:
 
 name: R-CMD-check
 
@@ -101,6 +102,7 @@ jobs:
       - name: "Prime {renv} Cache"
         if: runner.os != 'Windows'
         run: |
+          renv::settings$snapshot.type("explicit")
           renv::init()
           system('sudo rm -rf renv.lock renv .Rprofile')
           system('git clean -fd -e .github')

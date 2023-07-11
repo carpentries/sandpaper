@@ -5,6 +5,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  workflow_dispatch:
 
 name: test-coverage
 
@@ -68,6 +69,7 @@ jobs:
 
       - name: Prime {renv} Cache
         run: |
+          renv::settings$snapshot.type("explicit")
           renv::init()
           system('rm -rf renv .Rprofile')
           system('git clean -fd -e .github')
