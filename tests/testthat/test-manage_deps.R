@@ -201,12 +201,8 @@ test_that("update_cache() will update old package versions", {
   skip_if_offline()
   skip_if(covr::in_covr())
 
-  withr::local_options(list("renv.verbose" = TRUE))
 
-  suppressMessages({
-    res <- update_cache(path = fs::path(lsn, "episodes"), prompt = FALSE, quiet = FALSE) %>%
-      expect_output("sessioninfo")
-  })
+  res <- update_cache(path = fs::path(lsn, "episodes"), prompt = FALSE, quiet = FALSE)
   expect_true(
     package_version(res$sessioninfo$Version) > package_version("1.1.0")
   )
