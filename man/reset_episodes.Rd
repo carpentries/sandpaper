@@ -17,7 +17,7 @@ Clear the schedule in the lesson
 }
 \examples{
 tmp <- tempfile()
-create_lesson(tmp)
+create_lesson(tmp, open = FALSE, rmd = FALSE)
 get_episodes(tmp) # produces warning
 set_episodes(tmp, get_episodes(tmp), write = TRUE)
 get_episodes(tmp) # no warning

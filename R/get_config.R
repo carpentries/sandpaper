@@ -5,7 +5,7 @@
 #' @export
 #' @examples
 #' tmp <- tempfile()
-#' create_lesson(tmp)
+#' create_lesson(tmp, open = FALSE, rmd = FALSE)
 #' get_config(tmp)
 get_config <- function(path = ".") {
   cfg <- path_config(path)
