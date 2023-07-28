@@ -89,8 +89,8 @@ test_that("pandoc structure is rendered correctly", {
   }
   skip_on_os("windows")
   formation = function(x) {
-    x <- sub("[,]Div [(]\"collapseInstructor1\".+", "[instructor collapse]", x)
-    sub("[,]Div [(]\"collapseSolution1\".+", "[solution collapse]", x)
+    x <- sub("(data-bs-parent|aria-labelledby).+?Instructor1", "[instructor collapse]", x)
+    sub("(data-bs-parent|aria-labelledby).+?Solution1", "[solution collapse]", x)
   }
   expect_snapshot(cat(readLines(out), sep = "\n"), transform = formation)
 })
@@ -148,7 +148,9 @@ test_that("render_html applies the internal lua filter", {
   skip_on_os("windows")
   formation = function(x) {
     x <- sub("[<]div id[=]\"collapseSolution1\".+", "[solution collapse]", x)
-    sub("[<]div id[=]\"collapseInstructor1\".+", "[instructor collapse]", x)
+    x <- sub("[<]div id[=]\"collapseInstructor1\".+", "[instructor collapse]", x)
+    x <- sub("(data-bs-parent|aria-labelledby).+?Instructor1.+$", "[instructor collapse]", x)
+    sub("(data-bs-parent|aria-labelledby).+?Solution1.+$", "[solution collapse]", x)
 
   }
   expect_snapshot(cat(res), transform = formation)

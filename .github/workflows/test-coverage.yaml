@@ -26,8 +26,6 @@ jobs:
 
       - name: "Set up pandoc"
         uses: r-lib/actions/setup-pandoc@v2
-        with:
-          pandoc-version: '2.11'
 
       - name: "Install sysreqs"
         id: run-apt
