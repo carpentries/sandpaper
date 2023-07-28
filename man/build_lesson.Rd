@@ -70,7 +70,7 @@ folders:
 \dontshow{if (sandpaper:::example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 tmp <- tempfile()
-create_lesson(tmp, open = FALSE)
+create_lesson(tmp, open = FALSE, rmd = FALSE)
 create_episode("first-script", path = tmp)
 check_lesson(tmp)
 build_lesson(tmp)

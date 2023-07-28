@@ -35,7 +35,7 @@ Set the order of items in a dropdown menu
 \examples{
 
 tmp <- tempfile()
-create_lesson(tmp, "test lesson")
+create_lesson(tmp, "test lesson", open = FALSE, rmd = FALSE)
 # Change the title and License
 set_config(c(title = "Absolutely Free Lesson", license = "CC0"),
   path = tmp,

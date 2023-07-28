@@ -8,6 +8,7 @@
 #' @importFrom utils write.table
 #' @importFrom utils modifyList
 #' @importFrom utils tail
+#' @importFrom utils packageVersion
 #' @importFrom tools md5sum
 #' @importFrom tools file_ext
 #' @importFrom rlang is_interactive

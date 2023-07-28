@@ -60,7 +60,7 @@
       1: [1mYes[22m, please use the package cache (recommended)
       2: [1mNo[22m, I want to use my default library
 
-# pacakge cache message appears correct [unicode]
+# package cache message appears correct [unicode]
 
     Code
       cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")
@@ -91,7 +91,7 @@
       1: Yes, please use the package cache (recommended)
       2: No, I want to use my default library
 
-# pacakge cache message appears correct [fancy]
+# package cache message appears correct [fancy]
 
     Code
       cat(paste(c("1:", "2:"), sandpaper:::message_package_cache(msg)), sep = "\n")

@@ -3,7 +3,7 @@
 #' @param path path to the lesson. Defaults to the current directory.
 #' @param order the files in the order presented (with extension)
 #' @param write if `TRUE`, the schedule will overwrite the schedule in the
-#'   current file. 
+#'   current file.
 #' @param folder one of four folders that sandpaper recognises where the files
 #'   listed in `order` are located: episodes, learners, instructors, profiles.
 #'
@@ -12,7 +12,7 @@
 #' @examples
 #'
 #' tmp <- tempfile()
-#' create_lesson(tmp, "test lesson")
+#' create_lesson(tmp, "test lesson", open = FALSE, rmd = FALSE)
 #' # Change the title and License
 #' set_config(c(title = "Absolutely Free Lesson", license = "CC0"),
 #'   path = tmp,
@@ -20,7 +20,7 @@
 #' )
 #' create_episode("using-R", path = tmp)
 #' print(sched <- get_episodes(tmp))
-#' 
+#'
 #' # reverse the schedule
 #' set_episodes(tmp, order = rev(sched))
 #' # write it
@@ -32,8 +32,8 @@
 set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
   check_order(order, folder)
   real_files <- fs::path_file(fs::dir_ls(
-    fs::path(path, folder), 
-    type = "file", 
+    fs::path(path, folder),
+    type = "file",
     regexp = "[.]R?md"
   ))
   if (any(!order %in% real_files)) {
@@ -65,10 +65,10 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 
 #' Set individual keys in a configuration file
 #'
-#' @param pairs a named character vector with keys as the names and the new 
+#' @param pairs a named character vector with keys as the names and the new
 #'  values as the contents
 #' @param create if `TRUE`, any new values in `pairs` will be created and
-#'   appended; defaults to `FALSE`, which prevents typos from sneaking in. 
+#'   appended; defaults to `FALSE`, which prevents typos from sneaking in.
 #'   single key-pair values currently supported.
 #' @inheritParams set_dropdown
 #'
@@ -76,12 +76,12 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #'
 #' This function deals strictly with keypairs in the yaml. For lists, see
 #' [set_dropdown()].
-#' 
+#'
 #' ### Default Keypairs Known by Sandpaper
 #'
 #' When you create a new lesson in sandpaper, there are a set of default
 #' keypairs that are pre-filled. To make sure contact information and links in
-#' the footer are accurate, please modify these values. 
+#' the footer are accurate, please modify these values.
 #'
 #' - **carpentry** `[character]` one of cp, dc, swc, lab, incubator
 #' - **title** `[character]` the lesson title (e.g. `'Introduction to R for
@@ -92,36 +92,36 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #' - **license** `[character]` a license for the lesson (e.g. `'CC-BY 4.0'`)
 #' - **source** `[character]` the source repository URL
 #' - **branch** `[character]` the default branch (e.g. `'main'`)
-#' - **contact** `[character]` an email address of who to contact for more 
-#'   information about the lesson 
+#' - **contact** `[character]` an email address of who to contact for more
+#'   information about the lesson
 #'
 #' ### Optional Keypairs Known by Sandpaper
 #'
 #' The following keypairs are known by sandpaper, but are optional:
 #'
 #' - **url** `[character]` custom URL if you are deploying to a URL that is not
-#'   the default github pages io domain. 
+#'   the default github pages io domain.
 #' - **fail_on_error** `[boolean]` for R Markdown lessons; fail the build if any
-#'   chunks produce an error. Use `#| error: true` in chunk options to allow the 
+#'   chunks produce an error. Use `#| error: true` in chunk options to allow the
 #'   error to be displayed
 #' - **workbench-beta** yes `[boolean]` if truthy, this displays a banner on the
 #'   site that indicates the site is in the workbench beta phase.
 #'
-#' As the workbench becomes more developed, some of these optional keys may 
-#' disappear. 
+#' As the workbench becomes more developed, some of these optional keys may
+#' disappear.
 #'
 #' #### Custom Engines
 #'
 #' To use a specific version of sandpaper or varnish locally, you would install
 #' them using `remotes::install_github("carpentries/sandpaper@VERSION")` syntax,
-#' but to provision these versions on GitHub, you can provision these in the 
+#' but to provision these versions on GitHub, you can provision these in the
 #' `config.yaml` file:
 #'
 #'  - **sandpaper** `[character]` github string or version number of sandpaper
 #'    version to use
 #'  - **varnish** `[character]` github string or version number of varnish
 #'    version to use
-#' 
+#'
 #' For example, if you had forked your own version of varnish to modify the
 #' colourscheme, you could use:
 #'
@@ -137,15 +137,15 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #' sandpaper: carpentries/sandpaper@BRANCH-NAME
 #' varnish: carpentries/varnish@BRANCH-name
 #' ```
-#' 
+#'
 #'
 #' @export
 #' @examples
 #' if (FALSE) {
 #' tmp <- tempfile()
-#' create_lesson(tmp, "test lesson")
+#' create_lesson(tmp, "test lesson", open = FALSE, rmd = FALSE)
 #' # Change the title and License
-#' set_config(c(title = "Absolutely Free Lesson", license = "CC0"), 
+#' set_config(c(title = "Absolutely Free Lesson", license = "CC0"),
 #'   path = tmp,
 #'   write = TRUE
 #' )

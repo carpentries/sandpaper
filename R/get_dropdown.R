@@ -13,7 +13,7 @@
 #' @rdname get_dropdown
 #' @examples
 #' tmp <- tempfile()
-#' create_lesson(tmp)
+#' create_lesson(tmp, open = FALSE, rmd = FALSE)
 #' get_episodes(tmp)
 #' get_learners(tmp) # information for learners
 get_dropdown <- function(path = ".", folder, trim = TRUE) {

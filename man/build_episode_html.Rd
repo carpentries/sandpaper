@@ -67,7 +67,7 @@ if (!interactive() && getOption("sandpaper.use_renv")) {
   on.exit(options(renv.config.cache.symlinks = old), add = TRUE)
 }
 tmp <- tempfile()
-create_lesson(tmp, open = FALSE)
+create_lesson(tmp, open = FALSE, rmd = TRUE)
 suppressMessages(set_episodes(tmp, get_episodes(tmp), write = TRUE))
 if (rmarkdown::pandoc_available("2.11")) {
   # we can only build this if we have pandoc

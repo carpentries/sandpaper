@@ -70,16 +70,16 @@ initialised in \code{set_globals()}
 
 \examples{
 tmp <- tempfile()
-create_lesson(tmp, open = FALSE)
+create_lesson(tmp, open = FALSE, rmd = FALSE)
 # Read the lesson into cache
-system.time(sandpaper:::this_lesson(tmp)) 
+system.time(sandpaper:::this_lesson(tmp))
 system.time(sandpaper:::this_lesson(tmp)) # less time to read in once cached
 l <- sandpaper:::this_lesson(tmp)
 l
 # clear the cache
 sandpaper:::clear_this_lesson()
 system.time(sandpaper:::this_lesson(tmp)) # have to re-read the lesson
-system.time(sandpaper:::this_lesson(tmp)) 
+system.time(sandpaper:::this_lesson(tmp))
 unlink(tmp)
 }
 \keyword{internal}

@@ -7,7 +7,7 @@
 #' @export
 #' @examplesIf sandpaper:::example_can_run()
 #' tmp <- tempfile()
-#' create_lesson(tmp)
+#' create_lesson(tmp, open = FALSE, rmd = FALSE)
 #' build_lesson(tmp, preview = FALSE)
 #' dir(file.path(tmp, "site"))
 #' reset_site(tmp)
