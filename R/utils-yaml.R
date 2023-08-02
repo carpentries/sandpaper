@@ -159,9 +159,12 @@ create_pkgdown_yaml <- function(path) {
   # can be super-verbose here and create any logic we need on the R-side.
   usr <- yaml::read_yaml(path_config(path), eval.expr = FALSE)
   yaml <- get_yaml_text(template_pkgdown())
+  calls <- sys.calls()
+  is_prod <- in_production(calls)
   yaml <- whisker::whisker.render(yaml,
     data = list(
       # Basic information
+      url     = if (is_prod) metadata_url(usr) else "~",
       version = siQuote(utils::packageVersion("sandpaper")),
       config  = siQuote(path_config(path)),
       title   = siQuote(usr$title),
