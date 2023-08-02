@@ -8,7 +8,6 @@ home:
   strip_header: true
   description: ~
 template:
-  bootstrap: 5
   package: varnish
   params:
     time: {{ time }}
