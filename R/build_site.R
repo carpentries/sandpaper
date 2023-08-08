@@ -17,7 +17,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   # that pandoc exists and to provision the global lesson components if they do
   # not yet exist.
   check_pandoc(quiet)
-  this_lesson(path)
+  lsn <- this_lesson(path)
+  not_overview <- !(lsn$overview && length(lsn$episodes) == 0L)
   # One feature of The Workbench is a global common links file that will be
   # appended to the markdown files before they are sent to be rendered into
   # HTML so that they will render the links correctly.
@@ -54,12 +55,21 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   db <- get_built_db(fs::path(built_path, "md5sum.txt"))
   # filter out files that we will combine to generate
   db <- reserved_db(db)
-  # Find all the episodes and get their range
-  er <- range(grep("episodes/", db$file, fixed = TRUE))
+  if (not_overview) {
+    # Find all the episodes and get their range
+    er <- range(grep("episodes/", db$file, fixed = TRUE))
+  } else {
+    # otherwise, just give us the index for all files
+    er <- seq_along(db$file)
+  }
   # Get absolute paths for pandoc to understand
   abs_md <- fs::path(path, db$built)
   abs_src <- fs::path(path, db$file)
-  chapters <- abs_md[seq(er[1], er[2])]
+  if (not_overview) {
+    chapters <- abs_md[seq(er[1], er[2])]
+  } else {
+    chapters <- character(0)
+  }
   # If we are only processing one file, then the output should be that one file
   if (is.null(slug)) {
     out <- "index.html"
@@ -71,8 +81,12 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   # Rebuilding Episodes and generated files ------------------------------------
   # Get percentages from the syllabus table
-  pct <- get_syllabus(path, questions = TRUE)$percents
-  names(pct) <- db$file[er[1]:er[2]]
+  if (not_overview) {
+    pct <- get_syllabus(path, questions = TRUE)$percents
+    names(pct) <- db$file[er[1]:er[2]]
+  } else {
+    pct <- character(0)
+  }
   # ------------------------ shim for downlit ----------------------------
   # Bypass certain downlit functions that produce unintented effects such
   # as linking function documentation.
@@ -140,12 +154,16 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   # Once we have the pre-processed templates and HTML content, we can pass these
   # to our aggregator functions:
-  describe_progress("Creating keypoints summary", quiet = quiet)
-  build_keypoints(pkg, pages = html_pages, quiet = quiet)
-  describe_progress("Creating All-in-one page", quiet = quiet)
-  build_aio(pkg, pages = html_pages, quiet = quiet)
-  describe_progress("Creating Images page", quiet = quiet)
-  build_images(pkg, pages = html_pages, quiet = quiet)
+  if (not_overview) {
+    describe_progress("Creating keypoints summary", quiet = quiet)
+    build_keypoints(pkg, pages = html_pages, quiet = quiet)
+
+    describe_progress("Creating All-in-one page", quiet = quiet)
+    build_aio(pkg, pages = html_pages, quiet = quiet)
+
+    describe_progress("Creating Images page", quiet = quiet)
+    build_images(pkg, pages = html_pages, quiet = quiet)
+  }
   describe_progress("Creating Instructor Notes", quiet = quiet)
   build_instructor_notes(pkg, pages = html_pages, built = built, quiet = quiet)
 
