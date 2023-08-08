@@ -1,5 +1,5 @@
 root_path <- function(path) {
-  rprojroot::find_root(rprojroot::has_dir("episodes"), path)
+  rprojroot::find_root(rprojroot::has_file("config.yaml", contents = "carpentry:"), path)
 }
 
 no_readme <- function() "(?<![/]README)([.]md)$"
@@ -43,9 +43,9 @@ path_built <- function(inpath = NULL) {
 
 get_markdown_files <- function(path = NULL) {
   fs::dir_ls(
-    path_built(path), 
-    regexp = no_readme(), 
-    perl = TRUE, 
+    path_built(path),
+    regexp = no_readme(),
+    perl = TRUE,
     recurse = TRUE
   )
 }
