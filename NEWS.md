@@ -1,3 +1,17 @@
+# sandpaper 0.13.0 (unreleased)
+
+## NEW FEATURES
+
+* Overview style lessons that do not have episodic content can now be processed,
+  analysed, and built by {sandpaper}. To make your lesson an overview lesson,
+  you can add `overview: true` to your `config.yaml`
+
+## BUG FIX
+
+- Internal function `root_path()` will no longer fail if the `episodes/` folder
+  does not exist as long as one of the other four folders (`site/`, `learners/`,
+  `instructors/`, `profiles/`) exists.
+
 # sandpaper 0.12.5 (unreleased)
 
 ## BUG FIX
