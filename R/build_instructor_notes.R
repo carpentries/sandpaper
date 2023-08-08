@@ -3,7 +3,7 @@
 #'   (for future use)
 build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
   path <- root_path(pkg$src_path)
-  this_lesson(path)
+  lsn <- this_lesson(path)
   outpath <- fs::path(pkg$dst_path, "instructor-notes.html")
   already_built <- template_check$valid() &&
     fs::file_exists(outpath) &&
@@ -34,6 +34,11 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
 
     build_html(template = "extra", pkg = pkg, nodes = html,
       global_data = page_globals, path_md = "instructor-notes.html", quiet = TRUE)
+  }
+  # shortcut if we don't have any episodes
+  is_overview <- lsn$overview && length(lsn$episodes) == 0
+  if (is_overview) {
+    return(invisible(NULL))
   }
   agg <- "/div[contains(@class, 'instructor-note')]//*[@class='accordion-body' or @class='accordion-header']"
   build_agg_page(pkg = pkg,
