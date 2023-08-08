@@ -1,5 +1,11 @@
 root_path <- function(path) {
-  rprojroot::find_root(rprojroot::has_file("config.yaml", contents = "carpentry:"), path)
+  criteria <- rprojroot::has_dir("episodes") |
+    rprojroot::has_dir("site") |
+    rprojroot::has_dir("learners") |
+    rprojroot::has_dir("instructors") |
+    rprojroot::has_dir("profiles")
+
+  rprojroot::find_root(criteria, path)
 }
 
 no_readme <- function() "(?<![/]README)([.]md)$"
