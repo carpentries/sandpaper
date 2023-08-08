@@ -1,7 +1,8 @@
 build_home <- function(pkg, quiet, next_page = NULL) {
   page_globals <- setup_page_globals()
   path  <- root_path(pkg$src_path)
-  syl   <- format_syllabus(get_syllabus(path, questions = TRUE), use_col = FALSE)
+  syl   <- format_syllabus(get_syllabus(path, questions = TRUE),
+    use_col = FALSE)
   idx      <- fs::path(pkg$src_path, "built", "index.md")
   readme   <- fs::path(pkg$src_path, "built", "README.md")
   idx_file <- if (fs::file_exists(idx)) idx else readme
@@ -44,17 +45,20 @@ build_home <- function(pkg, quiet, next_page = NULL) {
   nav$pagetitle <- NULL
   page_globals$metadata$update(nav)
 
-  build_html(template = "syllabus", pkg = pkg, nodes = list(html, setup), 
+  build_html(template = "syllabus", pkg = pkg, nodes = list(html, setup),
     global_data = page_globals, path_md = "index.html", quiet = quiet)
 
 }
 
 
 format_syllabus <- function(syl, use_col = TRUE) {
+  if (nrow(syl) == 0L) {
+    return("<p></p>")
+  }
   syl$questions <- gsub("\n", "<br/>", syl$questions)
   syl$number <- sprintf("%2d\\. ", seq(nrow(syl)))
   links <- glue::glue_data(
-    syl[-nrow(syl), c("number", "episode", "path")], 
+    syl[-nrow(syl), c("number", "episode", "path")],
     "{gsub('^[ ]', '&nbsp;', number)}<a href='{fs::path_file(path)}'>{episode}</a>"
   )
   if (use_col) {
@@ -73,5 +77,5 @@ format_syllabus <- function(syl, use_col = TRUE) {
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp), add = TRUE)
   writeLines(out, tmp)
-  render_html(tmp)
+  return(render_html(tmp))
 }
