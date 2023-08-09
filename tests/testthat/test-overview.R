@@ -24,3 +24,23 @@ test_that("Lessons without episodes can be built", {
 })
 
 
+
+test_that("top level fig, files, and data directories are copied over", {
+
+  fs::dir_create(fs::path(lsn, c("fig", "files", "data")))
+  fs::file_touch(fs::path(lsn, c("fig", "files", "data"), "hello.png"))
+
+  withr::local_options(list("sandpaper.use_renv" = FALSE))
+  sandpaper::build_lesson(lsn, quiet = TRUE, preview = FALSE)
+
+  expect_true(fs::dir_exists(fs::path(lsn, "site", "docs", "fig")))
+  expect_true(fs::dir_exists(fs::path(lsn, "site", "docs", "files")))
+  expect_true(fs::dir_exists(fs::path(lsn, "site", "docs", "data")))
+
+  expect_true(fs::file_exists(fs::path(lsn, "site", "docs", "fig", "hello.png")))
+  expect_true(fs::file_exists(fs::path(lsn, "site", "docs", "files", "hello.png")))
+  expect_true(fs::file_exists(fs::path(lsn, "site", "docs", "data", "hello.png")))
+})
+
+
+
