@@ -7,9 +7,6 @@ test_that("Lessons without episodes can be built", {
   cat("\noverview: true\n", file = fs::path(lsn, "config.yaml"), append = TRUE)
   # delete episodes folder
   fs::dir_delete(fs::path(lsn, "episodes"))
-  if (renv_is_allowed()) {
-    fs::dir_delete(fs::path(lsn, "renv"))
-  }
 
   expect_false(fs::dir_exists(fs::path(lsn, "episodes")))
   expect_false(fs::dir_exists(fs::path(lsn, "site", "docs")))
