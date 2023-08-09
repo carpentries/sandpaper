@@ -55,20 +55,19 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   db <- get_built_db(fs::path(built_path, "md5sum.txt"))
   # filter out files that we will combine to generate
   db <- reserved_db(db)
-  if (not_overview) {
-    # Find all the episodes and get their range
-    er <- range(grep("episodes/", db$file, fixed = TRUE))
-  } else {
-    # otherwise, just give us the index for all files
-    er <- seq_along(db$file)
-  }
   # Get absolute paths for pandoc to understand
   abs_md <- fs::path(path, db$built)
   abs_src <- fs::path(path, db$file)
   if (not_overview) {
-    chapters <- abs_md[seq(er[1], er[2])]
+    # Find all the episodes and get their range
+    er <- range(grep("episodes/", db$file, fixed = TRUE))
+    # get percentages from the syllabus table
+    pct <- get_syllabus(path, questions = TRUE)$percents
+    names(pct) <- db$file[er[1]:er[2]]
   } else {
-    chapters <- character(0)
+    # otherwise, the expected range for episodes is zero
+    er <- c(0, 0)
+    pct <- NULL
   }
   # If we are only processing one file, then the output should be that one file
   if (is.null(slug)) {
@@ -80,13 +79,6 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   }
 
   # Rebuilding Episodes and generated files ------------------------------------
-  # Get percentages from the syllabus table
-  if (not_overview) {
-    pct <- get_syllabus(path, questions = TRUE)$percents
-    names(pct) <- db$file[er[1]:er[2]]
-  } else {
-    pct <- character(0)
-  }
   # ------------------------ shim for downlit ----------------------------
   # Bypass certain downlit functions that produce unintented effects such
   # as linking function documentation.
@@ -102,12 +94,13 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   # ------------------------ end downlit shim ----------------------------
   for (i in files_to_render) {
     location <- page_location(i, abs_md, er)
+    progress <- if (not_overview) pct[db$file[i]] else pct
     build_episode_html(
       path_md       = abs_md[i],
       path_src      = abs_src[i],
       page_back     = location["back"],
       page_forward  = location["forward"],
-      page_progress = pct[db$file[i]],
+      page_progress = progress,
       date          = db$date[i],
       pkg           = pkg,
       quiet         = quiet
@@ -130,7 +123,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   #
   # 2. home page which concatenates index.md and learners/setup.md
   describe_progress("Creating homepage", quiet = quiet)
-  build_home(pkg, quiet = quiet, next_page = abs_md[er[1]])
+  home_next <- if (not_overview) abs_md[er[1]] else NULL
+  build_home(pkg, quiet = quiet, next_page = home_next)
 
   # Generated content ----------------------------------------------------------
   #
