@@ -22,7 +22,7 @@ build_home <- function(pkg, quiet, next_page = NULL) {
   setup <- xml2::read_html(setup)
   fix_nodes(setup)
 
-  nav <- get_nav_data(idx_file, fs::path_file(idx_file), page_forward = next_page)
+  nav <- get_nav_data(idx_file, page_forward = next_page)
   needs_title <- nav$pagetitle == ""
 
   if (needs_title) {
@@ -44,8 +44,17 @@ build_home <- function(pkg, quiet, next_page = NULL) {
 
   nav$pagetitle <- NULL
   page_globals$metadata$update(nav)
+  is_overview <- identical(page_globals$metadata$get()$overview, TRUE)
+  if (is_overview) {
+    page_globals$instructor$set("overview", is_overview)
+    page_globals$learner$set("overview", is_overview)
+    template <- "overview"
+  } else {
+    template <- "syllabus"
+  }
+  cli::cli_alert("IS OVERVIEW? {page_globals$metadata$get()$overview}")
 
-  build_html(template = "syllabus", pkg = pkg, nodes = list(html, setup),
+  build_html(template = template, pkg = pkg, nodes = list(html, setup),
     global_data = page_globals, path_md = "index.html", quiet = quiet)
 
 }
