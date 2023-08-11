@@ -193,6 +193,8 @@ clear_resource_list <- function(path) {
       # set the global storage for {varnish} so that we do not have to recompute
       # things like the sidebar
       set_globals(path)
+      # kludge to make sure overview status is accurate
+      this_metadata$set("overview", .this_lesson$overview)
       # resource list of files for the lesson via `get_resource_list()`
       set_resource_list(path)
       instructor_globals$set("syllabus",
