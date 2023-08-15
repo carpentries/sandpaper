@@ -152,7 +152,6 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     root_path <- fs::path_common(sources)
   }
   sources    <- fs::path_rel(sources, start = root_path)
-  children   <- get_child_files(this_lesson(root_path))
 
   built_path <- fs::path_rel(fs::path_dir(db), root_path)
   # built files are flattened here
@@ -221,8 +220,11 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     files = one[['file']]
     to_remove <- old[['built']]
   } else {
+    children  <- get_child_files(this_lesson(root_path))
     # exclude files from the build order if checksums are not changed
     unchanged <- one[[newsum]] == one[[oldsum]]
+    child_exists <- fs::path_file(one[['file']]) %in% names(children)
+    unchanged <- unchanged & !child_exists
     # do not overwrite the dates
     one[["date"]][which(unchanged)] <- one[["date.old"]][which(unchanged)]
     files = setdiff(sources, one[['file']][unchanged])
