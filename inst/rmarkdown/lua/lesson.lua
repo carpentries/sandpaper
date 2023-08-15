@@ -17,6 +17,7 @@ local blocks = {
   ["checklist"] = "check-square",
   ["solution"] = "none",
   ["hint"] = "none",
+  ["spoiler"] = "none",
   ["discussion"] = "message-circle",
   ["testimonial"] = "heart",
   ["keypoints"] = "key",
@@ -31,6 +32,7 @@ local block_counts = {
   ["checklist"] = 0,
   ["solution"] = 0,
   ["hint"] = 0,
+  ["spoiler"] = 0,
   ["discussion"] = 0,
   ["testimonial"] = 0,
   ["keypoints"] = 0,
@@ -185,12 +187,17 @@ local button_headings = {
   <h4 class="accordion-header" id="heading{{id}}">
   {{title}}
   </h4>]],
+  ["spoiler"] = [[
+  <h4 class="accordion-header" id="heading{{id}}">
+  {{title}}
+  </h4>]],
 }
 
 local accordion_titles = {
   ["instructor"] = "Instructor Note",
   ["hint"] = "Give me a hint",
-  ["solution"] = "Show me the solution"
+  ["solution"] = "Show me the solution",
+  ["spoiler"] = "Show details"
 }
 
 local accordion_button = [[
@@ -250,7 +257,9 @@ accordion = function(el, class)
   -- the whole package
   local main_div = pandoc.Div({accordion_item})
   local main_class = {"accordion", "instructor-note", "accordion-flush"}
-  if class ~= "instructor" then
+  if class == "spoiler" then
+    main_class[2] = "spoiler-accordion"
+  elseif class ~= "instructor" then
     main_class[2] = "challenge-accordion"
   end
   main_div.identifier = div_id
@@ -357,14 +366,20 @@ handle_our_divs = function(el)
 
   -- Accordion blocks:
   --
-  -- Instructor Notes, Solutions, and Hints are all blocks that are contained in
-  -- accordion blocks. For historical reasons, solutions are normally embedded
-  -- in challenge blocks, but because of the way pandoc traverses the AST, we
-  -- need to process these FIRST and then handle their positioning in the
+  -- Instructor Notes, Solutions, Hints, and Spoilers are all blocks
+  -- that are contained in accordion blocks.
+  -- For historical reasons, solutions are normally embedded
+  -- in challenge blocks, but because of the way pandoc traverses the AST,
+  -- we need to process these FIRST and then handle their positioning in the
   -- challenge block phase.
   v,i = el.classes:find("instructor")
   if i ~= nil then
     return(accordion(el, "instructor"))
+  end
+
+  v,i = el.classes:find("spoiler")
+  if i ~= nil then
+    return(accordion(el, "spoiler"))
   end
 
   v,i = el.classes:find("solution")
