@@ -10,7 +10,7 @@ test_that("get_child_files() will return an empty list for lessons with no child
 })
 
 
-test_that("the build database will record new entries", {
+test_that("build_status() will record new entries", {
 
   outdir <- path_built(res)
   db_path <- fs::path(outdir, "md5sum.txt")
@@ -60,7 +60,7 @@ test_that("the build database will record new entries", {
 })
 
 
-test_that("the build database will return no differences if no files change", {
+test_that("build_status() will return no differences if no files change", {
 
   outdir <- path_built(res)
   db_path <- fs::path(outdir, "md5sum.txt")
@@ -123,7 +123,7 @@ test_that("get_child_files() will return a list of files that have child documen
 
 
 
-test_that("build_status() _always_ requires parent documents to rebuild", {
+test_that("build_status() takes into account child document modifications", {
 
   # setup our test and then burn it down
   files <- setup_child_test(res)
@@ -156,8 +156,7 @@ test_that("build_status() _always_ requires parent documents to rebuild", {
   expect_s3_class(stat$new, "data.frame")
   expect_named(stat$new, c("file", "checksum", "built", "date"))
 
-  # a rerun returns a status where the source with a child document requires
-  # a rebuild
+  # A rerun is the same as above: no files need to be rebuilt ------------------
   restat <- build_status(sources, db_path, rebuild = FALSE, write = TRUE)
 
   expect_type(restat, "list")
@@ -195,6 +194,26 @@ test_that("build_status() _always_ requires parent documents to rebuild", {
   expect_type(restat$build, "character")
   expect_length(restat$build, 1L)
   expect_equal(fs::path_file(restat$build), "child-haver.Rmd")
+
+  # A rerun is the same as above: no files need to be rebuilt ------------------
+  restat <- build_status(sources, db_path, rebuild = FALSE, write = TRUE)
+
+  expect_type(restat, "list")
+  expect_named(restat, c("build", "remove", "new", "old"))
+
+  # no source files are changed so nothing is flagged for rebuilding
+  expect_type(restat$build, "character")
+  expect_length(restat$build, 0L)
+
+  # The hash of our child-haver file is not the md5 sum because we use the hash
+  # of the sums of the dependent files.
+  haver_hash <- unname(tools::md5sum(fs::path(res, "episodes", "child-haver.Rmd")))
+  haver_check <- restat$old$checksum[endsWith(restat$old$file, "child-haver.Rmd")]
+  expect_failure(expect_equal(haver_hash, haver_check))
+
+  # no files are to be removed
+  expect_type(restat$remove, "character")
+  expect_length(restat$remove, 0L)
 
 })
 
