@@ -80,6 +80,24 @@ reserved_db <- function(db) {
 
 write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 
+#' Return list of child nodes used in each file
+get_child_files <- function(lsn) {
+  blocks <- lsn$get("code")
+  children <- purrr::map(blocks, child_file_from_code_blocks)
+  children <- children[lengths(children) > 0]
+  return(children)
+}
+
+child_file_from_code_blocks <- function(nodes) {
+  use_children <- xml2::xml_has_attr(nodes, "child")
+  if (any(use_children)) {
+    nodes <- nodes[use_children]
+    res <- gsub("[\"']", "", xml2::xml_attr(nodes, "child"))
+  } else {
+    character(0)
+  }
+}
+
 #' Identify what files need to be rebuilt and what need to be removed
 #'
 #' This takes in a vector of files and compares them against a text database of
@@ -134,6 +152,8 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     root_path <- fs::path_common(sources)
   }
   sources    <- fs::path_rel(sources, start = root_path)
+  children   <- get_child_files(this_lesson(root_path))
+
   built_path <- fs::path_rel(fs::path_dir(db), root_path)
   # built files are flattened here
   built <- fs::path(built_path, fs::path_file(sources))
