@@ -98,7 +98,7 @@ hash_with_children <- function(checksums, files, children, root_path) {
 # Return list of child nodes used in each file
 get_child_files <- function(lsn) {
   blocks <- lsn$get("code")
-  children <- purrr::map(blocks, child_file_from_code_blocks)
+  children <- lapply(blocks, child_file_from_code_blocks)
   children <- children[lengths(children) > 0]
   return(children)
 }
