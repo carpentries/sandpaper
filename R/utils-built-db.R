@@ -86,8 +86,15 @@ hash_with_children <- function(checksums, files, children, root_path) {
   names(res) <- files
   for (i in seq_along(files)) {
     this_file <- fs::path_file(files[[i]])
-    this_context <- fs::path_dir(files[[i]])
     this_hash <- checksums[[i]]
+    the_children <- children[[this_file]]
+    # if we have no child files for a given RMD, then we record the hash and
+    # move on
+    if (is.null(the_children)) {
+      res[[i]] <- this_hash
+      next
+    }
+    this_context <- fs::path_dir(files[[i]])
     these_children <- fs::path(root_path, this_context, children[[this_file]])
     hashes <- unname(c(this_hash, tools::md5sum(these_children)))
     res[[i]] <- rlang::hash(hashes)
