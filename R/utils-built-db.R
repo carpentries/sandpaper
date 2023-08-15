@@ -80,7 +80,22 @@ reserved_db <- function(db) {
 
 write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 
-#' Return list of child nodes used in each file
+
+hash_with_children <- function(checksums, files, children, root_path) {
+  res <- character(length(files))
+  names(res) <- files
+  for (i in seq_along(files)) {
+    this_file <- fs::path_file(files[[i]])
+    this_context <- fs::path_dir(files[[i]])
+    this_hash <- checksums[[i]]
+    these_children <- fs::path(root_path, this_context, children[[this_file]])
+    hashes <- unname(c(this_hash, tools::md5sum(these_children)))
+    res[[i]] <- rlang::hash(hashes)
+  }
+  return(res)
+}
+
+# Return list of child nodes used in each file
 get_child_files <- function(lsn) {
   blocks <- lsn$get("code")
   children <- purrr::map(blocks, child_file_from_code_blocks)
@@ -88,6 +103,7 @@ get_child_files <- function(lsn) {
   return(children)
 }
 
+# get the child file from code block if it exists
 child_file_from_code_blocks <- function(nodes) {
   use_children <- xml2::xml_has_attr(nodes, "child")
   if (any(use_children)) {
@@ -161,9 +177,23 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     fs::path_ext_set(built, "md"), built
   )
   date <- format(Sys.Date(), "%F")
+  # calculate checksums -------------------------------------------------------
+  checksums <- tools::md5sum(fs::path(root_path, sources))
+  # if there are any RMD documents, we check for child documents
+  is_rmd <- tolower(fs::path_ext(sources)) == "rmd"
+  if (any(is_rmd)) {
+    children <- get_child_files(this_lesson(root_path))
+  } else {
+    children <- list()
+  }
+  if (length(children) > 0L) {
+    # update the checksums of the parent using rlang::hash(sumparent, sumchild, ...)
+    checksums[is_rmd] <- hash_with_children(checksums[is_rmd], sources[is_rmd],
+      children, root_path)
+  }
   md5 = data.frame(
     file     = sources,
-    checksum = tools::md5sum(fs::path(root_path, sources)),
+    checksum = checksums,
     built    = built,
     date     = date,
     stringsAsFactors = FALSE
@@ -222,11 +252,8 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     files = one[['file']]
     to_remove <- old[['built']]
   } else {
-    children  <- get_child_files(this_lesson(root_path))
     # exclude files from the build order if checksums are not changed
     unchanged <- one[[newsum]] == one[[oldsum]]
-    child_exists <- fs::path_file(one[['file']]) %in% names(children)
-    unchanged <- unchanged & !child_exists
     # do not overwrite the dates
     one[["date"]][which(unchanged)] <- one[["date.old"]][which(unchanged)]
     files = setdiff(sources, one[['file']][unchanged])
