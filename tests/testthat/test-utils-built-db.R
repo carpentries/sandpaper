@@ -163,20 +163,39 @@ test_that("build_status() _always_ requires parent documents to rebuild", {
   expect_type(restat, "list")
   expect_named(restat, c("build", "remove", "new", "old"))
 
-  # the child-haver.Rmd file is flagged for rebuilding
+  # no source files are changed so nothing is flagged for rebuilding
   expect_type(restat$build, "character")
-  expect_length(restat$build, 1L)
-  expect_equal(fs::path_file(restat$build), "child-haver.Rmd")
+  expect_length(restat$build, 0L)
+
+  # The hash of our child-haver file is not the md5 sum because we use the hash
+  # of the sums of the dependent files.
+  haver_hash <- unname(tools::md5sum(fs::path(res, "episodes", "child-haver.Rmd")))
+  haver_check <- restat$old$checksum[endsWith(restat$old$file, "child-haver.Rmd")]
+  expect_failure(expect_equal(haver_hash, haver_check))
 
   # no files are to be removed
   expect_type(restat$remove, "character")
   expect_length(restat$remove, 0L)
 
-  # despite this the checksums are identical
+  # the checksums are identical
   expect_s3_class(restat$new, "data.frame")
   expect_named(restat$new, c("file", "checksum", "built", "date"))
   expect_named(restat$old, c("file", "checksum", "built", "date"))
   expect_equal(restat$checksum, restat$checksum)
+
+  # when the child file is modified, the parent file needs to be rebuilt
+  child_file <- fs::path(res, "episodes", "files", "figures.md")
+  cat("\nthis is just to say\n\ttest\n", file = child_file, append = TRUE)
+
+  restat <- build_status(sources, db_path, rebuild = FALSE, write = TRUE)
+  expect_type(restat, "list")
+  expect_named(restat, c("build", "remove", "new", "old"))
+
+  # no source files are changed so nothing is flagged for rebuilding
+  expect_type(restat$build, "character")
+  expect_length(restat$build, 1L)
+  expect_equal(fs::path_file(restat$build), "child-haver.Rmd")
+
 })
 
 
