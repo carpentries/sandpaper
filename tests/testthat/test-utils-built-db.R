@@ -16,6 +16,11 @@ test_that("the build database will record new entries", {
   db_path <- fs::path(outdir, "md5sum.txt")
   # database should not exist
   expect_false(fs::file_exists(db_path))
+  withr::defer({
+    if (fs::file_exists(db_path)) {
+      fs::file_delete(db_path)
+    }
+  })
 
   # the table starts out empty
   db <- get_built_db(db_path)
@@ -38,7 +43,7 @@ test_that("the build database will record new entries", {
   expect_named(stat$new, c("file", "checksum", "built", "date"))
 
 
-  # get the episode from the sources
+  # the resulting data is what we expect
   db <- get_built_db(db_path, "Rmd")
   expect_s3_class(db, "data.frame")
   expect_equal(nrow(db), 1L)
@@ -46,25 +51,133 @@ test_that("the build database will record new entries", {
   md5 <- unname(tools::md5sum(fs::path(res, db$file)))
   expect_equal(md5, db$checksum)
   expect_true(md5 %in% stat$new$checksum)
+  expect_named(stat, c("build", "new"))
+  expect_type(stat$build, "character")
+  expect_s3_class(stat$new, "data.frame")
+  expect_named(stat$new, c("file", "checksum", "built", "date"))
+
 
 })
 
 
+test_that("the build database will return no differences if no files change", {
+
+  outdir <- path_built(res)
+  db_path <- fs::path(outdir, "md5sum.txt")
+  # database should not exist
+  expect_false(fs::file_exists(db_path))
+  withr::defer({
+    if (fs::file_exists(db_path)) {
+      fs::file_delete(db_path)
+    }
+  })
+
+  # the table starts out empty
+  db <- get_built_db(db_path)
+  expect_s3_class(db, "data.frame")
+  expect_equal(nrow(db), 0L)
+  expect_named(db, c("file", "checksum", "built"))
+
+  sources <- get_build_sources(res, outdir, slug = NULL, quiet = TRUE)
+  stat <- build_status(sources, db_path, rebuild = FALSE, write = TRUE)
+
+  expect_type(stat, "list")
+  expect_named(stat, c("build", "new"))
+  # the build stat will be all of the source files
+  expect_type(stat$build, "character")
+  expect_equal(fs::path_file(stat$build), fs::path_file(sources))
+  expect_s3_class(stat$new, "data.frame")
+  expect_named(stat$new, c("file", "checksum", "built", "date"))
+
+  # a rerun returns a status where no files have changed.
+  restat <- build_status(sources, db_path, rebuild = FALSE, write = TRUE)
+
+  expect_type(restat, "list")
+  expect_named(restat, c("build", "remove", "new", "old"))
+  # no files are flagged for build or removal
+  expect_type(restat$build, "character")
+  expect_length(restat$build, 0L)
+  expect_type(restat$remove, "character")
+  expect_length(restat$remove, 0L)
+  expect_s3_class(restat$new, "data.frame")
+  expect_named(restat$new, c("file", "checksum", "built", "date"))
+  expect_named(restat$old, c("file", "checksum", "built", "date"))
+  expect_equal(restat$checksum, restat$checksum)
+
+})
+
+
+
 test_that("get_child_files() will return a list of files that have child documents in lessons", {
-  # we will copy over an episode "child-haver.Rmd", that will have a child
-  # called "files/figures.md"
-  fs::file_copy(test_path("examples", "child-haver.Rmd"),
-    fs::path(res, "episodes", "child-haver.Rmd"))
-  fs::file_copy(test_path("examples", "figures.md"),
-    fs::path(res, "episodes", "files", "figures.md"))
-  move_episode("child-haver.Rmd", 2, path = res, write = TRUE)
+
+  # setup our test and then burn it down
+  files <- setup_child_test(res)
+  withr::defer(fs::file_delete(files))
 
   lsn <- this_lesson(res)
   expected <- list("child-haver.Rmd" = c("files/figures.md"))
   expect_type(get_child_files(lsn), "list")
   expect_equal(get_child_files(lsn), expected)
+
 })
 
+
+
+test_that("build_status() _always_ requires parent documents to rebuild", {
+
+  # setup our test and then burn it down
+  files <- setup_child_test(res)
+  withr::defer(fs::file_delete(files))
+
+  outdir <- path_built(res)
+  db_path <- fs::path(outdir, "md5sum.txt")
+  # database should not exist
+  expect_false(fs::file_exists(db_path))
+  withr::defer({
+    if (fs::file_exists(db_path)) {
+      fs::file_delete(db_path)
+    }
+  })
+
+  # the table starts out empty
+  db <- get_built_db(db_path)
+  expect_s3_class(db, "data.frame")
+  expect_equal(nrow(db), 0L)
+  expect_named(db, c("file", "checksum", "built"))
+
+  sources <- get_build_sources(res, outdir, slug = NULL, quiet = TRUE)
+  stat <- build_status(sources, db_path, rebuild = FALSE, write = TRUE)
+
+  expect_type(stat, "list")
+  expect_named(stat, c("build", "new"))
+  # the build stat will be all of the source files
+  expect_type(stat$build, "character")
+  expect_equal(fs::path_file(stat$build), fs::path_file(sources))
+  expect_s3_class(stat$new, "data.frame")
+  expect_named(stat$new, c("file", "checksum", "built", "date"))
+
+  # a rerun returns a status where the source with a child document requires
+  # a rebuild
+  restat <- build_status(sources, db_path, rebuild = FALSE, write = TRUE)
+
+  expect_type(restat, "list")
+  expect_named(restat, c("build", "remove", "new", "old"))
+
+  # the child-haver.Rmd file is flagged for rebuilding
+  expect_type(restat$build, "character")
+  expect_length(restat$build, 1L)
+  expect_equal(fs::path_file(restat$build), "child-haver.Rmd")
+
+  # no files are to be removed
+  expect_type(restat$remove, "character")
+  expect_length(restat$remove, 0L)
+
+  # despite this the checksums are identical
+  expect_s3_class(restat$new, "data.frame")
+  expect_named(restat$new, c("file", "checksum", "built", "date"))
+  expect_named(restat$old, c("file", "checksum", "built", "date"))
+  expect_equal(restat$checksum, restat$checksum)
+})
 
 
 
