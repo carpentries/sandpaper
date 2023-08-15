@@ -168,7 +168,9 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     date     = date,
     stringsAsFactors = FALSE
   )
-  if (!file.exists(db)) {
+
+  no_db_yet <- !file.exists(db)
+  if (no_db_yet) {
     fs::dir_create(dirname(db))
     md5$date <- date
     if (write)
