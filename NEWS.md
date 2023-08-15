@@ -5,7 +5,8 @@
 * R Markdown documents with modificiations to child documents will now take into
   account changes to the child documents (reported @jcolomb, #497; fixed
   @zkamvar, #498). 
-* A broken test from the development version of {renv} fixed. This was a change in output and not functionality, so there will be no user-visible changes
+* A broken test from the development version of {renv} fixed. This was a change
+  in output and not functionality, so there will be no user-visible changes
   (reported: @zkamvar, #484; fixed: @zkamvar, #487).
 * Broken snapshot tests from upstream R-devel have been fixed by ensuring that
   version comparisons always use characters and not numbers (which is
@@ -181,7 +182,7 @@
   fixed: @zkamvar, #416 and 
   https://github.com/zkamvar/vise/commit/ee4798701a958ee48429980eb970266885f8265b
 
-# MISC
+## MISC
 
 * @jcolomb has been added as a contributor in the DESCRIPTION.
 
