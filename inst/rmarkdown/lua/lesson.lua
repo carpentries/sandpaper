@@ -305,12 +305,12 @@ end
 
 challenge_block = function(el)
   -- The challenge blocks no longer contain solutions nested inside. Instead,
-  -- the soltuions (and hints) are piled at the end of the block, so series of
+  -- the solutions (and hints) are piled at the end of the block, so series of
   -- challenge/solutions need to be separated.
 
   -- The challenge train is a list to contain all the divs
   local challenge_train = pandoc.List:new()
-  -- If the challenge contains multipl solutions or hints, we need to indicate
+  -- If the challenge contains multiple solutions or hints, we need to indicate
   -- that the following challenges/solutions are continuations.
   local this_head = get_header(el, 3)
   local next_head = this_head:clone()
