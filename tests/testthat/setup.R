@@ -6,6 +6,11 @@
   rmt <- fs::file_temp(pattern = "REMOTE-")
   setup_local_remote(repo = tmp, remote = rmt, verbose = FALSE)
 
+  no_gh_token <- !nzchar(Sys.getenv("GITHUB_PAT"))
+  if (no_gh_token && requireNamespace("gh", quietly = TRUE)) {
+    Sys.setenv("GITHUB_PAT" = gh::gh_token())
+    withr::defer(Sys.unsetenv("GITHUB_PAT"), teardown_env())
+  }
   noise <- interactive() || Sys.getenv("CI") == "true"
   if (noise) {
     cli::cli_alert_info("Current RENV_PATHS_ROOT {Sys.getenv('RENV_PATHS_ROOT')}")

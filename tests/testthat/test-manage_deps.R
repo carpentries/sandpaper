@@ -16,14 +16,16 @@ test_that("use_package_cache() will report consent implied if renv cache is pres
   withr::local_options(list(sandpaper.use_renv = FALSE))
   expect_false(getOption("sandpaper.use_renv"))
 
-  expect_message(
-    use_package_cache(prompt = TRUE, quiet = FALSE),
-    "Consent for renv provided---consent for package cache implied."
-  )
-  expect_message(
-    use_package_cache(prompt = TRUE, quiet = FALSE),
-    "Consent to use package cache provided"
-  )
+  use_package_cache(prompt = FALSE, quiet = TRUE)
+  expect_true(getOption("sandpaper.use_renv"))
+
+  # a consent message is printed
+  suppressMessages({
+    expect_message(
+      use_package_cache(prompt = TRUE, quiet = FALSE),
+      "Consent to use package cache provided"
+    )
+  })
   expect_true(getOption("sandpaper.use_renv"))
 
 })
@@ -58,7 +60,7 @@ test_that("manage_deps() will create a renv folder", {
 
   # NOTE: these tests are still not very specific here...
   suppressMessages({
-    build_markdown(lsn, quiet = FALSE) %>%
+    capture.output(build_markdown(lsn, quiet = FALSE)) %>%
       expect_message("Consent to use package cache provided")
   })
 
@@ -83,6 +85,9 @@ test_that("manage_deps() will run without callr", {
     "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available()
   ))
 
+  # 2023-08-21
+  # I found a slowdown here when running this interactively, which was
+  # fixed by setting `prompt = FALSE` when we were testing in `renv::hydrate`
   suppressMessages({
   callr_manage_deps(lsn,
     repos = renv_carpentries_repos(),
