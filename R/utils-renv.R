@@ -79,7 +79,10 @@ try_use_renv <- function(force = FALSE) {
     callr::r(function(ok) {
       options("renv.consent" = ok)
       renv::consent(provided = ok)
-    }, args = list(ok = force), stdout = tmp)
+    }, args = list(ok = force),
+      stdout = tmp,
+    env = c(callr::rcmd_safe_env(),
+      "RENV_VERBOSE" = "TRUE"))
   }, error = function(e) FALSE)
   options(sandpaper.use_renv = x)
   lines <- readLines(tmp)

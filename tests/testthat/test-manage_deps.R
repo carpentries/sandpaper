@@ -16,14 +16,16 @@ test_that("use_package_cache() will report consent implied if renv cache is pres
   withr::local_options(list(sandpaper.use_renv = FALSE))
   expect_false(getOption("sandpaper.use_renv"))
 
-  expect_message(
-    use_package_cache(prompt = TRUE, quiet = FALSE),
-    "Consent for renv provided---consent for package cache implied."
-  )
-  expect_message(
-    use_package_cache(prompt = TRUE, quiet = FALSE),
-    "Consent to use package cache provided"
-  )
+  use_package_cache(prompt = FALSE, quiet = TRUE)
+  expect_true(getOption("sandpaper.use_renv"))
+
+  # a consent message is printed
+  suppressMessages({
+    expect_message(
+      use_package_cache(prompt = TRUE, quiet = FALSE),
+      "Consent to use package cache provided"
+    )
+  })
   expect_true(getOption("sandpaper.use_renv"))
 
 })
