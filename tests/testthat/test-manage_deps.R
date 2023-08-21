@@ -83,6 +83,9 @@ test_that("manage_deps() will run without callr", {
     "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available()
   ))
 
+  # 2023-08-21
+  # I found a slowdown here when running this interactively, which was
+  # fixed by setting `prompt = FALSE` when we were testing in `renv::hydrate`
   suppressMessages({
   callr_manage_deps(lsn,
     repos = renv_carpentries_repos(),
