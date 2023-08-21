@@ -58,7 +58,7 @@ test_that("manage_deps() will create a renv folder", {
 
   # NOTE: these tests are still not very specific here...
   suppressMessages({
-    build_markdown(lsn, quiet = FALSE) %>%
+    capture.output(build_markdown(lsn, quiet = FALSE)) %>%
       expect_message("Consent to use package cache provided")
   })
 
