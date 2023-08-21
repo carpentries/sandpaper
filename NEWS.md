@@ -12,6 +12,8 @@
   version comparisons always use characters and not numbers (which is
   ergonomically weird, but whatever) (reported: @zkamvar #487; fixed: @zkamvar
   #487)
+* Tests for {renv} post 1.0.0 fixed so that they no longer run forever
+  interactively (reported: @zkamvar #500; fixed: @zkamvar, #501)
 
 ## MISC
 
