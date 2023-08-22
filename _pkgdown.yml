@@ -117,6 +117,7 @@ reference:
    - get_built_db
    - get_hash
    - get_resource_list
+   - parse_file_matches
    - template_episode
    - yaml_list
  - title: "[Developer] Lesson Test Fixture"

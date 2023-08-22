@@ -12,6 +12,10 @@ test_that("We can switch between overview and regular lesson metadata", {
   fs::dir_copy(lsn, tmp)
   this_metadata$clear()
   clear_this_lesson()
+  withr::defer({
+    this_metadata$clear()
+    clear_this_lesson()
+  })
 
   # check lesson defaults and norms ---------------------------
   lcfg <- get_config(lsn)
