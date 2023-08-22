@@ -144,7 +144,7 @@ get_sources <- function(path, subfolder = "episodes") {
   fs::path_abs(fs::dir_ls(pe, regexp = "*R?md"))
 }
 
-get_artifacts <- function(path, subfolder = "episodes") {
+get_source_artifacts <- function(path, subfolder = "episodes") {
   pe <- enforce_dir(fs::path(root_path(path), subfolder))
   fs::dir_ls(pe, regexp = "*R?md",
     invert = TRUE,
