@@ -1,6 +1,6 @@
-lsn <- restore_fixture()
 
 test_that("We can switch between overview and regular lesson metadata", {
+  lsn <- restore_fixture()
   # CONTEXT ---------------------------------------------------
   # I discovered that if I had built a _regular_ lesson after an overview lesson
   # then the regular lesson accidentally inherited some metadata from the
@@ -31,7 +31,10 @@ test_that("We can switch between overview and regular lesson metadata", {
   # remove first episode
   reset_episodes(tmp)
   # add overview to config
-  cat("\noverview: true\nurl: https://example.com/\n", file = fs::path(tmp, "config.yaml"), append = TRUE)
+  suppressMessages({
+    set_config(list(overview = TRUE, url = "https://example.com/"),
+      path = tmp, create = TRUE, write = TRUE)
+  })
   # delete episodes folder
   fs::dir_delete(fs::path(tmp, "episodes"))
 
@@ -62,11 +65,15 @@ test_that("We can switch between overview and regular lesson metadata", {
 })
 
 test_that("Lessons without episodes can be built", {
+  lsn <- restore_fixture()
 
   # remove first episode
   sandpaper::reset_episodes(lsn)
   # add overview to config
-  cat("\noverview: true\n", file = fs::path(lsn, "config.yaml"), append = TRUE)
+  suppressMessages({
+    set_config(list(overview = TRUE, url = "https://example.com/"),
+      path = tmp, create = TRUE, write = TRUE)
+  })
   # delete episodes folder
   fs::dir_delete(fs::path(lsn, "episodes"))
 
@@ -92,6 +99,23 @@ test_that("Lessons without episodes can be built", {
 
 
 test_that("top level fig, files, and data directories are copied over", {
+
+  lsn <- restore_fixture()
+
+  # remove first episode
+  sandpaper::reset_episodes(lsn)
+  # add overview to config
+  suppressMessages({
+    set_config(list(overview = TRUE, url = "https://example.com/"),
+      path = tmp, create = TRUE, write = TRUE)
+  })
+  # delete episodes folder
+  fs::dir_delete(fs::path(lsn, "episodes"))
+
+  expect_false(fs::dir_exists(fs::path(lsn, "episodes")))
+  expect_false(fs::dir_exists(fs::path(lsn, "site", "docs")))
+  expect_true(get_config(lsn)$overview)
+
 
   fs::dir_create(fs::path(lsn, c("fig", "files", "data")))
   fs::file_touch(fs::path(lsn, c("fig", "files", "data"), "hello.png"))
