@@ -1,3 +1,22 @@
+#' Build a home page for a lesson
+#'
+#' @param pkg a list generated from [pkgdown::as_pkgdown()] from the `site/`
+#'   folder of a lesson.
+#' @param quiet a boolean passed to [build_html()]. if `TRUE`, this will have
+#'   pkgdown report what files are being built
+#' @param next_page the next page file name. This will allow the navigation
+#'   element to be set up correctly on the navigation bar
+#' @return nothing. This is used for its side-effect
+#'
+#' @keywords internal
+#' @details The index page of the lesson is a combination of two pages:
+#'
+#'   1. index.md (or README if the index does not exist)
+#'   2. learners/setup.md
+#'
+#' This function uses [render_html()] to convert the page into HTML, which gets
+#' passed on to the "syllabus" or "overview" templates in {varnish} (via the
+#' [build_html()] function as the `{{{ readme }}}` and `{{{ setup }}}` keys.
 build_home <- function(pkg, quiet, next_page = NULL) {
   page_globals <- setup_page_globals()
   path  <- root_path(pkg$src_path)
@@ -52,7 +71,6 @@ build_home <- function(pkg, quiet, next_page = NULL) {
   } else {
     template <- "syllabus"
   }
-  cli::cli_alert("IS OVERVIEW? {page_globals$metadata$get()$overview}")
 
   build_html(template = template, pkg = pkg, nodes = list(html, setup),
     global_data = page_globals, path_md = "index.html", quiet = quiet)
