@@ -11,6 +11,7 @@
 - Internal function `root_path()` will no longer fail if the `episodes/` folder
   does not exist as long as one of the other four folders (`site/`, `learners/`,
   `instructors/`, `profiles/`) exists.
+- `set_config()` can now properly process logical values into `true` and `false`
 
 # sandpaper 0.12.5 (unreleased)
 
