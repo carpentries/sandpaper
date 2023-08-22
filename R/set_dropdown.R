@@ -173,7 +173,13 @@ set_config <- function(pairs = NULL, create = FALSE, path = ".", write = FALSE) 
   # creates a character vector for the number of keys we need
   line <- character(length(keys))
   for (i in seq(keys)) {
-    line[i] <- glue::glue("{keys[[i]]}: {siQuote(values[[i]])}")
+    vali <- values[[i]]
+    if (is.logical(vali)) {
+      vali <- if (vali) "true" else "false"
+    } else {
+      vali <- siQuote(vali)
+    }
+    line[i] <- glue::glue("{keys[[i]]}: {vali}")
   }
   if (create) {
     appends <- what == -9L
