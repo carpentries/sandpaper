@@ -188,9 +188,10 @@ local button_headings = {
   {{title}}
   </h4>]],
   ["spoiler"] = [[
-  <h4 class="accordion-header" id="heading{{id}}">
+  <h3 class="accordion-header" id="heading{{id}}">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
   {{title}}
-  </h4>]],
+  </h3>]],
 }
 
 local accordion_titles = {
@@ -225,18 +226,10 @@ accordion = function(el, class)
   if title == CLASS or title == nil or title == "" then
     title = accordion_titles[class]
   end
-  -- insert icon before heading if this is a spoiler accordion --
-  if class ~= "spoiler" then
-    heading = button_headings[class]
-  else
-    local this_icon = blocks["spoiler"]
-    heading = button_headings[class]
-    heading = "<i class='spoiler-icon' data-feather='"..this_icon.."'></i>"..heading
-  end
 
   -- constructing the button that contains a heading
   local this_button = accordion_button
-  this_button = this_button:gsub("{{heading}}", heading)
+  this_button = this_button:gsub("{{heading}}", button_headings[class])
   this_button = this_button:gsub("{{title}}", title)
   this_button = this_button:gsub("{{class}}", class)
   this_button = this_button:gsub("{{id}}", label)
