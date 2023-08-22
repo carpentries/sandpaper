@@ -41,7 +41,8 @@ build_home <- function(pkg, quiet, next_page = NULL) {
   setup <- xml2::read_html(setup)
   fix_nodes(setup)
 
-  nav <- get_nav_data(idx_file, page_forward = next_page)
+  idx_src <- fs::path(path, fs::path_file(idx_file))
+  nav <- get_nav_data(idx_file, idx_src, page_forward = next_page)
   needs_title <- nav$pagetitle == ""
 
   if (needs_title) {

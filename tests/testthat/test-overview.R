@@ -81,6 +81,13 @@ test_that("Lessons without episodes can be built", {
   expect_true(fs::dir_exists(fs::path(lsn, "site", "built")))
   expect_true(fs::dir_exists(fs::path(lsn, "site", "docs")))
 
+  # read in index and make sure the destinations are correct
+  idx_file <- fs::path(lsn, "site", "docs", "index.html")
+  expect_true(fs::file_exists(idx_file))
+  idx <- xml2::read_html(idx_file)
+  edit_link <- xml2::xml_find_first(idx, ".//a[text()='Edit on GitHub']")
+  expect_match(xml2::xml_attr(edit_link, "href"), "edit/main/index.md")
+
 })
 
 
