@@ -24,11 +24,12 @@ make_here <- function(ROOT) {
 }
 
 # creates a directory if it doesn't exist
-enforce_dir <- function(path) {
-  if (!fs::dir_exists(path)) {
-    fs::dir_create(path)
+enforce_dir <- function(paths) {
+  to_create <- !fs::dir_exists(paths)
+  if (any(to_create)) {
+    fs::dir_create(paths[to_create])
   }
-  invisible(path)
+  invisible(paths)
 }
 
 path_site <- function(path = NULL) {
