@@ -66,8 +66,6 @@ build_home <- function(pkg, quiet, next_page = NULL) {
   page_globals$metadata$update(nav)
   is_overview <- identical(page_globals$metadata$get()$overview, TRUE)
   if (is_overview) {
-    page_globals$instructor$set("overview", is_overview)
-    page_globals$learner$set("overview", is_overview)
     template <- "overview"
   } else {
     template <- "syllabus"

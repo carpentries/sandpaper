@@ -200,6 +200,8 @@ clear_resource_list <- function(path) {
       instructor_globals$set("syllabus",
         create_syllabus(.resources$get()[["episodes"]], .this_lesson, path)
       )
+      learner_globals$set("overview", .this_lesson$overview)
+      instructor_globals$set("overview", .this_lesson$overview)
       invisible(.this_lesson)
     },
     clear = function() {
