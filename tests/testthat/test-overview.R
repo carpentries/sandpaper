@@ -92,12 +92,48 @@ test_that("Lessons without episodes can be built", {
   expect_true(fs::dir_exists(fs::path(lsn, "site", "built")))
   expect_true(fs::dir_exists(fs::path(lsn, "site", "docs")))
 
+  # CONTENT TESTING -----------------------------------------------------
   # read in index and make sure the destinations are correct
   idx_file <- fs::path(lsn, "site", "docs", "index.html")
   expect_true(fs::file_exists(idx_file))
   idx <- xml2::read_html(idx_file)
+
+  # we should have an edit link in the main page
   edit_link <- xml2::xml_find_first(idx, ".//a[text()='Edit on GitHub']")
   expect_match(xml2::xml_attr(edit_link, "href"), "edit/main/index.md")
+
+  # links to home and setup should appear in the navigation
+  xpath_home_link_mobi  <- ".//nav//div[starts-with(@class,'accordion ')]/a"
+  xpath_setup_link_desk <- ".//nav//a[@class='nav-link']"
+  xpath_setup_link_mobi <- ".//nav//div[@class='accordion-body']/ul/li/a"
+
+  # the home link exists on mobile view
+  home_link_mobi <- xml2::xml_find_first(idx, xpath_home_link_mobi)
+
+  # the setup link should be prominent in both desktop and mobile view
+  setup_link_desk <- xml2::xml_find_first(idx, xpath_setup_link_desk)
+  setup_link_mobi <- xml2::xml_find_first(idx, xpath_setup_link_desk)
+
+  expect_match(xml2::xml_attr(home_link_mobi, "href"), "index.html")
+  expect_match(xml2::xml_attr(setup_link_desk, "href"), "index.html#setup")
+  expect_match(xml2::xml_attr(setup_link_mobi, "href"), "index.html#setup")
+
+
+  # Instructor notes should have above properties -----------------------------
+  ins_file <- fs::path(lsn, "site", "docs", "instructor", "instructor-notes.html")
+  expect_true(fs::file_exists(ins_file))
+  ins <- xml2::read_html(ins_file)
+
+  # the home link exists on mobile view
+  home_link_mobi <- xml2::xml_find_first(ins, xpath_home_link_mobi)
+
+  # the setup link should be prominent in both desktop and mobile view
+  setup_link_desk <- xml2::xml_find_first(ins, xpath_setup_link_desk)
+  setup_link_mobi <- xml2::xml_find_first(ins, xpath_setup_link_mobi)
+
+  expect_match(xml2::xml_attr(home_link_mobi, "href"), "index.html")
+  expect_match(xml2::xml_attr(setup_link_desk, "href"), "index.html#setup")
+  expect_match(xml2::xml_attr(setup_link_mobi, "href"), "index.html#setup")
 
 })
 
