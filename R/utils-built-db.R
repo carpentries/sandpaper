@@ -124,14 +124,14 @@ write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 #' # we can get the child files by scanning the Lesson object
 #' lsn <- sp$this_lesson(tmp)
 #' class(lsn)
-#' children <- get_child_files(lsn)
+#' children <- sp$get_child_files(lsn)
 #' print(children)
 #'
 #' # hash_with_children ---------------------------------------------------
 #' # get hash of parent
 #' phash <- tools::md5sum(resources[[1]])
 #' rel_parent <- fs::path_rel(resources[[1]], start = tmp)
-#' hash_with_children(phash, rel_parent, children, tmp)
+#' sp$hash_with_children(phash, rel_parent, children, tmp)
 #' # demonstrate how this works ----------------
 #' # the combined hashes have their names removed and then `rlang::hash()`
 #' # creates the hash of the unnamed hashes.
