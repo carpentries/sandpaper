@@ -68,6 +68,7 @@ Suggests:
 Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   ropensci/tinkr,
+  carpentries/pegboard,
   carpentries/varnish@allow-overview-pages
 SystemRequirements: pandoc (>= 2.11.4) - https://pandoc.org
 Encoding: UTF-8
