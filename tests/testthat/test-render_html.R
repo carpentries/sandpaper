@@ -89,8 +89,8 @@ test_that("pandoc structure is rendered correctly", {
   }
   skip_on_os("windows")
   formation = function(x) {
-    x <- sub("(data-bs-parent|aria-labelledby).+?Instructor1", "[instructor collapse]", x)
-    sub("(data-bs-parent|aria-labelledby).+?Solution1", "[solution collapse]", x)
+    rgx <- "(data-bs-parent|aria-labelledby).+?(Instructor|Solution|Spoiler)1"
+    return(sub(rgx, "[\\2 hidden]", x))
   }
   expect_snapshot(cat(readLines(out), sep = "\n"), transform = formation)
 })
@@ -147,11 +147,13 @@ test_that("render_html applies the internal lua filter", {
   }
   skip_on_os("windows")
   formation = function(x) {
-    x <- sub("[<]div id[=]\"collapseSolution1\".+", "[solution collapse]", x)
-    x <- sub("[<]div id[=]\"collapseInstructor1\".+", "[instructor collapse]", x)
-    x <- sub("(data-bs-parent|aria-labelledby).+?Instructor1.+$", "[instructor collapse]", x)
-    sub("(data-bs-parent|aria-labelledby).+?Solution1.+$", "[solution collapse]", x)
-
+    open <- "[<]div id[=]\"collapse(Instructor|Solution|Spoiler)\\d\".+"
+    mid  <- "(data-bs-parent|aria-labelledby).+?(Instructor|Solution|Spoiler)\\d[\"]$"
+    close <- "(data-bs-parent|aria-labelledby).+?(Instructor|Solution|Spoiler)\\d.+[>]$"
+    x <- sub(open, "<div id=\"\\1-[hidden...\"", x)
+    x <- sub(mid, "...still hiding...", x)
+    x <- sub(close, "...done]>", x)
+    return(x)
   }
   expect_snapshot(cat(res), transform = formation)
 })
