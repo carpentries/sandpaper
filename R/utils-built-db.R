@@ -155,7 +155,6 @@ hash_with_children <- function(checksums, files, children, root_path) {
     this_context <- fs::path_dir(files[[i]])
     these_children <- fs::path(root_path, this_context, children[[this_file]])
     hashes <- unname(c(this_hash, tools::md5sum(these_children)))
-    print(hashes)
     res[[i]] <- rlang::hash(hashes)
   }
   return(res)
