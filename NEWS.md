@@ -5,15 +5,17 @@
 * Overview style lessons that do not have episodic content can now be processed,
   analysed, and built by {sandpaper}. To make your lesson an overview lesson,
   you can add `overview: true` to your `config.yaml`
+* The new `spoiler` class of fenced div will allow authors to specify an
+  expandable section of content that is collapsed by default. This replaces the
+  former paradigm of using "floating solution" blocks to present options for
+  installation on different platforms. (implemented: @tobyhodges, #502)
 
 ## BUG FIX
 
-- Internal function `root_path()` will no longer fail if the `episodes/` folder
+* Internal function `root_path()` will no longer fail if the `episodes/` folder
   does not exist as long as one of the other four folders (`site/`, `learners/`,
   `instructors/`, `profiles/`) exists.
-- `set_config()` can now properly process logical values into `true` and `false`
-
-# sandpaper 0.12.5 (unreleased)
+* `set_config()` can now properly process logical values into `true` and `false`
 
 ## BUG FIX
 
