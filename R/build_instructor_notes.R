@@ -17,9 +17,9 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
     if (html != '') {
       html  <- xml2::read_html(html)
       fix_nodes(html)
-      } else {
-        html <- xml2::read_html("<p></p>")
-      }
+    } else {
+      html <- xml2::read_html("<p></p>")
+    }
 
     this_dat <- list(
       this_page = "instructor-notes.html",
