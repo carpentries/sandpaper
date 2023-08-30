@@ -1,4 +1,11 @@
-# sandpaper 0.12.5 (unreleased)
+# sandpaper 0.13.0 (unreleased)
+
+## NEW FEATURES
+
+* The new `spoiler` class of fenced div will allow authors to specify an
+  expandable section of content that is collapsed by default. This replaces the
+  former paradigm of using "floating solution" blocks to present options for
+  installation on different platforms. (implemented: @tobyhodges, #502)
 
 ## BUG FIX
 
