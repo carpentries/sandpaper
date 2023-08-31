@@ -67,12 +67,13 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   check_pandoc()
   # 2. check if we are only building one file and get its slug to pass to the
   #    markdown and site functions.
-  slug <- if (fs::is_file(path)) get_slug(path) else NULL
+  slugpath <- get_build_slug(path)
+  slug <- slugpath$slug
   # 3. set the source path global variable so that it can be used throughout the
   #    build process without explicitly needing to pass a variable from function
   #    to function, resetting the build path when the function exits (gracefully
   #    or ungracefully)
-  path <- set_source_path(path)
+  path <- slugpath$path
   on.exit({
     reset_build_paths()
   })
@@ -101,3 +102,65 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
 
 }
 
+# Determine the build slug for lessons with child documents.
+#
+# The slug is the name of the file without the path or extension for the
+# purposes of building a single file during the `serve()` and `knit` function
+# operations. 
+#
+# For child files, we need to take into account _where_ the child files exist.
+#
+# This function loops through the four possibilities of paths that can be passed
+# to `build_lesson()`
+#
+# 1. a path to a lesson
+# 2. the path to an existing source file
+# 3. the path to a new source file
+# 4. the path to a child file
+#
+# This function returns a list with the slug and the cleaned path to the lesson.
+get_build_slug <- function(path) {
+  original_path <- path
+  not_file <- !fs::is_file(path)
+  # set the source path and return it
+  path <- set_source_path(path) 
+
+  # CASE 1: path is a directory ---------------------------------------------
+  # The base case: if we are building a directory, we don't need a slug and
+  # we return early
+  if (not_file) {
+    return(list(slug = NULL, path = path))
+  }
+
+  # CASE 2: path is a source file -------------------------------------------
+  # get the resource list and make it one big vector (use the stored resource
+  # list to reduce lookup time)
+  sources <- unlist(.resources$get() %||% get_resource_list(path), use.names = FALSE)
+  # if we find the file in the sources, we can return the original path
+  if (all(fs::path_file(original_path) %in% fs::path_file(sources))) {
+    return(list(slug = get_slug(original_path), path = path))
+  }
+
+  # CASE 3: this is a new source file ---------------------------------------
+  # load the lesson object and find the children
+  children <- get_child_files(this_lesson(path))
+  if (length(children) == 0L) {
+    # no children anywhere so we return the slug of that file
+    return(list(slug = get_slug(original_path), path = path))
+  }
+
+  # CASE 4: we have a child file (maybe) ------------------------------------
+  # get the names of all possible parents
+  parents <- names(children)
+  # loop over the children and see if the child is part of the family
+  # this returns a single logical value that indicates _which parent_
+  # the child file belongs to 
+  the_file <- vapply(children, function(possible, actual) {
+    any(fs::path_file(possible) == actual)
+  }, FUN.VALUE = logical(1), 
+     actual = fs::path_file(original_path))
+  # get the parent file, but if it is a new file, return original
+  parent <- parents[the_file]
+  parent <- if (length(parent) == 0L) original_path else parent
+  return(list(slug = get_slug(parent), path = path))
+}
