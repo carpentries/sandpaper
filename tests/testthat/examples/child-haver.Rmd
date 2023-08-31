@@ -1,0 +1,31 @@
+---
+title: "has child"
+teaching: 0
+exercises: 0
+---
+
+::: questions
+
+ - test
+
+:::
+
+::: objectives
+
+ - test
+
+:::
+
+
+## This is a regular code chunk
+
+```{r}
+1 + 1
+```
+
+
+## This is the child
+
+```{r child = "files/figures.md"}
+```
+

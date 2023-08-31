@@ -9,6 +9,9 @@
 
 ## BUG FIX
 
+* R Markdown documents with modificiations to child documents will now take into
+  account changes to the child documents (reported @jcolomb, #497; fixed
+  @zkamvar, #498). 
 * A broken test from the development version of {renv} fixed. This was a change
   in output and not functionality, so there will be no user-visible changes
   (reported: @zkamvar, #484; fixed: @zkamvar, #487).
@@ -20,6 +23,14 @@
   (reported: @apirogov, #505; fixed: @klbarnes20, #509)
 * Tests for {renv} post 1.0.0 fixed so that they no longer run forever
   interactively (reported: @zkamvar #500; fixed: @zkamvar, #501)
+
+## MISC
+
+* We are now testing against pandoc 2.19.2 in continuous integration.
+* The discussion list link for the new lesson contributing template has been
+  fixed.
+* examples have been modified to not use R Markdown lessons unless necessary,
+  reducing output and time needed to build the examples.
 
 # sandpaper 0.12.4 (2023-06-16)
 
@@ -182,7 +193,7 @@
   fixed: @zkamvar, #416 and 
   https://github.com/zkamvar/vise/commit/ee4798701a958ee48429980eb970266885f8265b
 
-# MISC
+## MISC
 
 * @jcolomb has been added as a contributor in the DESCRIPTION.
 

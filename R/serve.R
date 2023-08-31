@@ -68,7 +68,16 @@
 serve <- function(path = ".", quiet = !interactive(), ...) {
   this_path <- root_path(path)
   rend <- function(file_list = this_path) {
+    if (any(fs::is_file(file_list))) {
+      file_list <- file_list[endsWith(file_list, "md")]
+      if (length(file_list) == 0L) {
+        file_list <- this_path
+      }
+    }
     for (f in file_list) {
+      if (!quiet) {
+        cli::cli_alert_info("Rebuilding {.path f}")
+      }
       build_lesson(f, preview = FALSE, quiet = quiet)
     }
   }
@@ -86,7 +95,7 @@ serve <- function(path = ".", quiet = !interactive(), ...) {
     no_git  <- file.path(base, ".git")
     # return a filter function for the files
     function(x) {
-      x[!startsWith(x, no_site) | !startsWith(x, no_git)]
+      return(x[(!startsWith(x, no_site) | !startsWith(x, no_git))])
     }
   }
   this_filter <- make_filter(this_path)
