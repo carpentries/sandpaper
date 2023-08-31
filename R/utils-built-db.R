@@ -74,7 +74,7 @@ write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 #' Create combined checksum of files
 #'
 #' When handling child files for lessons, it is important that changes in child
-#' files will cause the source file to change as well. 
+#' files will cause the source file to change as well.
 #'
 #'  - The `get_child_files()` function finds the child files from a
 #'    [pegboard::Lesson] object.
@@ -88,9 +88,9 @@ write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 #' @param files the relative path of the parent files to the `root_path`
 #' @param children a named list of character vectors specifying the child files
 #'   for each parent file in order of appearance. These paths are relative to
-#'   the folder of the parent file. 
+#'   the folder of the parent file.
 #' @param root_path the root path to the lesson.
-#' @return 
+#' @return
 #'   - `get_child_files()` a named list of charcter vectors specifying the
 #'      child files within files in a lesson.
 #'   - `hash_with_children()` a character vector of hashes of the same length
@@ -101,7 +101,7 @@ write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 #' # This demonstration will show how a temporary database can be set up. It
 #' # will only work with a sandpaper lesson
 #' # setup -----------------------------------------------------------------
-#' # The setup needs to include an R Markdown file with a child file. 
+#' # The setup needs to include an R Markdown file with a child file.
 #' tmp <- tempfile()
 #' on.exit(fs::dir_delete(tmp), add = TRUE)
 #' create_lesson(tmp, rmd = FALSE, open = FALSE)
@@ -110,10 +110,10 @@ write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 #' db <- fs::path(tmp, "site/built/md5sum.txt")
 #' resources <- fs::path(tmp, c("episodes/introduction.md", "index.md"))
 #' # create child file
-#' writeLines("Hello from another file!\n", 
+#' writeLines("Hello from another file!\n",
 #'   fs::path(tmp, "episodes", "files", "hi.md"))
 #' # use child file
-#' cat("\n\n```{r child='files/hi.md'}\n```\n", 
+#' cat("\n\n```{r child='files/hi.md'}\n```\n",
 #'   file = resources[[1]], append = TRUE)
 #' # convert to Rmd
 #' fs::file_move(resources[[1]], fs::path_ext_set(resources[[1]], "Rmd"))
@@ -164,7 +164,7 @@ hash_with_children <- function(checksums, files, children, root_path) {
 #' @rdname hash_with_children
 #' @param lsn a [pegboard::Lesson] object
 get_child_files <- function(lsn) {
-  blocks <- lsn$get("code")
+  blocks <- c(lsn$get("code", "episodes"), lsn$get("code", "extra"))
   children <- lapply(blocks, child_file_from_code_blocks)
   children <- children[lengths(children) > 0]
   return(children)
@@ -186,9 +186,9 @@ child_file_from_code_blocks <- function(nodes) {
 #' `build_status()` takes in a vector of files and compares them against a text
 #' database of files with checksums. It's been heavily adapted from blogdown to
 #' provide utilities for removal and updating of the old database.
-#' 
+#'
 #' `get_built_db()` returns the text database, which you can filter on
-#' 
+#'
 #' `get_hash()` should probably be named `get_expected_hash()` because it will
 #' return the expected hash of a given file from the database
 #'
@@ -264,9 +264,9 @@ child_file_from_code_blocks <- function(nodes) {
 #' sp$build_status(resources, db, write = TRUE)
 #'
 #' # child files require rebuilding ----------------------------------------
-#' writeLines("Hello from another file!\n", 
+#' writeLines("Hello from another file!\n",
 #'   fs::path(tmp, "episodes", "files", "hi.md"))
-#' cat("\n\n```{r child='files/hi.md'}\n```\n", 
+#' cat("\n\n```{r child='files/hi.md'}\n```\n",
 #'   file = resources[[1]], append = TRUE)
 #' sp$build_status(resources, db, write = TRUE)
 #' # NOTE: for child files, the checksums are the checksum of the checksums
