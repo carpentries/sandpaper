@@ -75,7 +75,9 @@ serve <- function(path = ".", quiet = !interactive(), ...) {
       }
     }
     for (f in file_list) {
-      message("BUILDING", f, "-----------------------------------")
+      if (!quiet) {
+        cli::cli_alert_info("Rebuilding {.path f}")
+      }
       build_lesson(f, preview = FALSE, quiet = quiet)
     }
   }
