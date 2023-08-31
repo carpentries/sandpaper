@@ -30,15 +30,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
   outdir <- path_built(path)
 
   # Determine build status for the episodes ------------------------------------
-  source_list    <- .resources$get() %||% get_resource_list(path, warn = !quiet)
-  sources        <- unlist(source_list, use.names = FALSE)
-  names(sources) <- get_slug(sources)
-  if (is.null(slug)) {
-    copy_maybe(sources[["config"]], fs::path(outdir, "config.yaml"))
-    copy_lockfile(sources, fs::path(outdir, "renv.lock"))
-  } else {
-    sources <- sources[slug]
-  }
+  sources <- get_build_sources(path, outdir, slug, quiet)
 
   no_renv_needed <- !any(fs::path_ext(sources) %in% c("Rmd", "rmd"))
 
@@ -174,4 +166,16 @@ remove_rendered_html <- function(episodes) {
 }
 
 
-
+# Get a vector of markdown files to build with names.
+get_build_sources <- function(path, outdir, slug = NULL, quiet) {
+  source_list    <- .resources$get() %||% get_resource_list(path, warn = !quiet)
+  sources        <- unlist(source_list, use.names = FALSE)
+  names(sources) <- get_slug(sources)
+  if (is.null(slug)) {
+    copy_maybe(sources[["config"]], fs::path(outdir, "config.yaml"))
+    copy_lockfile(sources, fs::path(outdir, "renv.lock"))
+  } else {
+    sources <- sources[slug]
+  }
+  return(sources)
+}

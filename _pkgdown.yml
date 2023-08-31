@@ -113,11 +113,10 @@ reference:
      Tools for discovering resources and managing their hashes in a text file
      database.
  - contents:
-   - build_status
-   - get_built_db
-   - get_hash
    - get_resource_list
    - parse_file_matches
+   - build_status
+   - hash_with_children
    - template_episode
    - yaml_list
  - title: "[Developer] Lesson Test Fixture"

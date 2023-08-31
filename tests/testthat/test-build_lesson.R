@@ -165,6 +165,36 @@ test_that("instructor-notes page can be rebuilt", {
 
 })
 
+test_that("empty instructor notes build", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  # 0. Test that the placeholder text exists in the rendered instructor notes
+  build_instructor_notes(pkg, pages = htmls, quiet = TRUE)
+  expect_true(any(grepl(
+    "This is a placeholder file.",
+    readLines(fs::path(sitepath, "instructor-notes.html"))
+  )))
+  # 1. make a copy of the instructor-notes.md to a local tempfile (use tmp <-
+  # withr::local_tempfile() and fs::file_copy()
+  tmp <- withr::local_tempfile()
+  fs::file_copy(fs::path(res, "instructors/instructor-notes.md"), tmp)
+  # 2. use withr::defer() to do the opposite, copying over the saved file back
+  # when the test finishes)
+  withr::defer({
+    fs::file_copy(tmp, fs::path(res, "instructors/instructor-notes.md"), overwrite = TRUE)
+  }, priority = "first")
+  # 3. replace the instructor-notes.md with "---\ntitle: test\n---\n" using the
+  # writeLines() function
+  writeLines("---\ntitle: test\n---\n", fs::path(res, "instructors/instructor-notes.md"))
+  # 4. test that build_instructor_notes() builds the notes and doesn't throw an
+  # error.
+  expect_no_error(build_instructor_notes(pkg, pages = htmls, quiet = TRUE))
+  # 5. test for the absence of placeholder text
+  expect_false(any(grepl(
+    "This is a placeholder file.",
+    readLines(fs::path(sitepath, "instructor-notes.html"))
+  )))
+})
+
 test_that("sitemap exists", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   sitemap <- fs::path(sitepath, "sitemap.xml")
