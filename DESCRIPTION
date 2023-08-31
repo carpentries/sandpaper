@@ -23,6 +23,10 @@ Authors@R: c(
            family = "Michonneau",
            role = c("ctb"),
            email = "francois@carpentries.org"),
+    person(given = "Kelly",
+           family = "Barnes",
+           role = c("ctb"),
+           email = "kbarnes@carpentries.org"),
     person())
 Description: We provide tools to build a Carpentries-themed lesson repository
   into an accessible standalone static website. These include local tools and
