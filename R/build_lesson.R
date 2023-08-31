@@ -159,8 +159,12 @@ get_build_slug <- function(path) {
     any(fs::path_file(possible) == actual)
   }, FUN.VALUE = logical(1), 
      actual = fs::path_file(original_path))
-  # get the parent file, but if it is a new file, return original
+  # select the parent file from the list
   parent <- parents[the_file]
+  # if the parent does not exist, it's a new file that we somehow missed
   parent <- if (length(parent) == 0L) original_path else parent
-  return(list(slug = get_slug(parent), path = path))
+  # if there are MULTIPLE parents, then just rebuild the whole thing (slug = NULL)
+  # otherwise return the slug
+  parent <- if (length(parent) > 1L) NULL else get_slug(parent)
+  return(list(slug = parent, path = path))
 }
