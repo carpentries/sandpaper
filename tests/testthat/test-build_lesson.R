@@ -180,7 +180,7 @@ test_that("empty instructor notes build", {
   # 2. use withr::defer() to do the opposite, copying over the saved file back
   # when the test finishes)
   withr::defer({
-    fs::file_copy(tmp, fs::path(res, "instructors/instructor-notes.md"))
+    fs::file_copy(tmp, fs::path(res, "instructors/instructor-notes.md"), overwrite = TRUE)
   }, priority = "first")
   # 3. replace the instructor-notes.md with "---\ntitle: test\n---\n" using the
   # writeLines() function
