@@ -1,4 +1,11 @@
-# sandpaper 0.12.5 (unreleased)
+# sandpaper 0.13.0 (unreleased)
+
+## NEW FEATURES
+
+* The new `spoiler` class of fenced div will allow authors to specify an
+  expandable section of content that is collapsed by default. This replaces the
+  former paradigm of using "floating solution" blocks to present options for
+  installation on different platforms. (implemented: @tobyhodges, #502)
 
 ## BUG FIX
 
@@ -11,6 +18,8 @@
   #487)
 * Blank instructor notes pages no longer fail to build 
   (reported: @apirogov, #505; fixed: @klbarnes20, #509)
+* Tests for {renv} post 1.0.0 fixed so that they no longer run forever
+  interactively (reported: @zkamvar #500; fixed: @zkamvar, #501)
 
 # sandpaper 0.12.4 (2023-06-16)
 
