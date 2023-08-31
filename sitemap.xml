@@ -118,9 +118,6 @@
     <loc>https://carpentries.github.io/sandpaper/reference/fixtures.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/sandpaper/reference/get_built_db.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries.github.io/sandpaper/reference/get_config.html</loc>
   </url>
   <url>
@@ -133,9 +130,6 @@
     <loc>https://carpentries.github.io/sandpaper/reference/get_dropdown.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/sandpaper/reference/get_hash.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries.github.io/sandpaper/reference/get_nav_data.html</loc>
   </url>
   <url>
@@ -146,6 +140,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/git_worktree.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/hash_with_children.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/index.html</loc>

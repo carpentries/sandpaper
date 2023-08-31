@@ -61,10 +61,17 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fix-0-13-0">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-13-0"></a></h3>
-<ul><li>A broken test from the development version of {renv} fixed. This was a change in output and not functionality, so there will be no user-visible changes (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/484" class="external-link">#484</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/487" class="external-link">#487</a>).</li>
+<ul><li>R Markdown documents with modificiations to child documents will now take into account changes to the child documents (reported <a href="https://github.com/jcolomb" class="external-link">@jcolomb</a>, <a href="https://github.com/carpentries/sandpaper/issues/497" class="external-link">#497</a>; fixed <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/498" class="external-link">#498</a>).</li>
+<li>A broken test from the development version of {renv} fixed. This was a change in output and not functionality, so there will be no user-visible changes (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/484" class="external-link">#484</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/487" class="external-link">#487</a>).</li>
 <li>Broken snapshot tests from upstream R-devel have been fixed by ensuring that version comparisons always use characters and not numbers (which is ergonomically weird, but whatever) (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a> <a href="https://github.com/carpentries/sandpaper/issues/487" class="external-link">#487</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a> <a href="https://github.com/carpentries/sandpaper/issues/487" class="external-link">#487</a>)</li>
 <li>Blank instructor notes pages no longer fail to build (reported: <a href="https://github.com/apirogov" class="external-link">@apirogov</a>, <a href="https://github.com/carpentries/sandpaper/issues/505" class="external-link">#505</a>; fixed: <a href="https://github.com/klbarnes20" class="external-link">@klbarnes20</a>, <a href="https://github.com/carpentries/sandpaper/issues/509" class="external-link">#509</a>)</li>
 <li>Tests for {renv} post 1.0.0 fixed so that they no longer run forever interactively (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a> <a href="https://github.com/carpentries/sandpaper/issues/500" class="external-link">#500</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/501" class="external-link">#501</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="misc-0-13-0">MISC<a class="anchor" aria-label="anchor" href="#misc-0-13-0"></a></h3>
+<ul><li>We are now testing against pandoc 2.19.2 in continuous integration.</li>
+<li>The discussion list link for the new lesson contributing template has been fixed.</li>
+<li>examples have been modified to not use R Markdown lessons unless necessary, reducing output and time needed to build the examples.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -194,6 +201,10 @@
 <ul><li>
 <code><a href="../reference/dependency_management.html">update_cache()</a></code> will now work with {renv} version 0.17.1, which lost a print method for the <code>renv_updates</code> class (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/415" class="external-link">#415</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/416" class="external-link">#416</a> and <a href="https://github.com/zkamvar/vise/commit/ee4798701a958ee48429980eb970266885f8265b" class="external-link uri">https://github.com/zkamvar/vise/commit/ee4798701a958ee48429980eb970266885f8265b</a>
 </li>
+</ul></div>
+<div class="section level3">
+<h3 id="misc-0-11-11">MISC<a class="anchor" aria-label="anchor" href="#misc-0-11-11"></a></h3>
+<ul><li>@jcolomb has been added as a contributor in the DESCRIPTION.</li>
 </ul></div>
 </div>
     <div class="section level2">
