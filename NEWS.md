@@ -4,7 +4,9 @@
 
 * Overview style lessons that do not have episodic content can now be processed,
   analysed, and built by {sandpaper}. To make your lesson an overview lesson,
-  you can add `overview: true` to your `config.yaml`
+  you can add `overview: true` to your `config.yaml` (reported: @zkamvar,
+  https://github.com/carpentries/workbench/issues/65; 
+  implemented: @zkamvar, #496)
 * The new `spoiler` class of fenced div will allow authors to specify an
   expandable section of content that is collapsed by default. This replaces the
   former paradigm of using "floating solution" blocks to present options for
@@ -14,7 +16,7 @@
 
 * Internal function `root_path()` will no longer fail if the `episodes/` folder
   does not exist as long as one of the other four folders (`site/`, `learners/`,
-  `instructors/`, `profiles/`) exists.
+  `instructors/`, `profiles/`) exists (fixed: @zkamvar, #496)
 * `set_config()` can now properly process logical values into `true` and `false`
 * R Markdown documents with modificiations to child documents will now take into
   account changes to the child documents (reported @jcolomb, #497; fixed
