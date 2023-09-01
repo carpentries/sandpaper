@@ -66,8 +66,8 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>pairs</dt>
-<dd><p>a named character vector with keys as the names and the new
-values as the contents</p></dd>
+<dd><p>a named list or character vector with keys as the names and the
+new values as the contents</p></dd>
 
 
 <dt>create</dt>
@@ -115,8 +115,11 @@ the default github pages io domain.</p></li>
 <li><p><strong>fail_on_error</strong> <code>[boolean]</code> for R Markdown lessons; fail the build if any
 chunks produce an error. Use <code>#| error: true</code> in chunk options to allow the
 error to be displayed</p></li>
-<li><p><strong>workbench-beta</strong> yes <code>[boolean]</code> if truthy, this displays a banner on the
+<li><p><strong>workbench-beta</strong> <code>[boolean]</code> if truthy, this displays a banner on the
 site that indicates the site is in the workbench beta phase.</p></li>
+<li><p><strong>overview</strong> <code>[boolean]</code> All lessons must have episodes with the exception
+of overview lessons. To indicate that your lesson serves as an overview for
+other lessons, use <code>overview: true</code></p></li>
 </ul><p>As the workbench becomes more developed, some of these optional keys may
 disappear.</p><div class="section">
 <h4 id="custom-engines">Custom Engines<a class="anchor" aria-label="anchor" href="#custom-engines"></a></h4>
@@ -128,6 +131,8 @@ but to provision these versions on GitHub, you can provision these in the
 <code>config.yaml</code> file:</p><ul><li><p><strong>sandpaper</strong> <code>[character]</code> github string or version number of sandpaper
 version to use</p></li>
 <li><p><strong>varnish</strong> <code>[character]</code> github string or version number of varnish
+version to use</p></li>
+<li><p><strong>pegboard</strong> <code>[character]</code> github string or version number of pegboard
 version to use</p></li>
 </ul><p>For example, if you had forked your own version of varnish to modify the
 colourscheme, you could use:</p>
@@ -149,9 +154,16 @@ symbol to refer to the specific branch or commit to use:</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"test lesson"</span>, open <span class="op">=</span> <span class="cn">FALSE</span>, rmd <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># Change the title and License</span></span></span>
+<span class="r-in"><span><span class="co"># Change the title and License (default vars)</span></span></span>
 <span class="r-in"><span><span class="fu">set_config</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Absolutely Free Lesson"</span>, license <span class="op">=</span> <span class="st">"CC0"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  path <span class="op">=</span> <span class="va">tmp</span>,</span></span>
+<span class="r-in"><span>  write <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add the URL and workbench-beta indicator</span></span></span>
+<span class="r-in"><span><span class="fu">set_config</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"workbench-beta"</span> <span class="op">=</span> <span class="cn">TRUE</span>, url <span class="op">=</span> <span class="st">"https://example.com/"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  path <span class="op">=</span> <span class="va">tmp</span>,</span></span>
+<span class="r-in"><span>  create <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  write <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>

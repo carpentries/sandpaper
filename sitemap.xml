@@ -61,6 +61,12 @@
     <loc>https://carpentries.github.io/sandpaper/reference/build_handout.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/build_home.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/build_html.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper/reference/build_lesson.html</loc>
   </url>
   <url>
@@ -164,6 +170,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/package_cache.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/parse_file_matches.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/provision.html</loc>

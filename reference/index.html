@@ -244,9 +244,9 @@
         </dt>
         <dd>Setup a git worktree for concurrent manipulation of a separate branch</dd>
       </dl></div><div class="section level2">
-      <h2 id="-internal-build-components">[Internal] Build Components<a class="anchor" aria-label="anchor" href="#-internal-build-components"></a></h2>
+      <h2 id="-internal-markdown-build-components">[Internal] Markdown Build Components<a class="anchor" aria-label="anchor" href="#-internal-markdown-build-components"></a></h2>
       
-      <p class="section-desc"></p><p>Individual components to provision files and build a lesson locally</p>
+      <p class="section-desc"></p><p>Internal functions used to provision and build the markdown components of a lesson.</p>
 
       
     </div><div id="" class="section level2">
@@ -271,14 +271,35 @@
         <dd>Build plain markdown from the RMarkdown episodes</dd>
       </dl><dl><dt>
           
-          <code><a href="build_site.html">build_site()</a></code> 
-        </dt>
-        <dd>Wrapper for site builder</dd>
-      </dl><dl><dt>
-          
           <code><a href="build_episode_md.html">build_episode_md()</a></code> 
         </dt>
         <dd>Build an episode to markdown</dd>
+      </dl><dl><dt>
+          
+          <code><a href="sandpaper.options.html">sandpaper.options</a></code> 
+        </dt>
+        <dd>Global Options</dd>
+      </dl></div><div class="section level2">
+      <h2 id="-internal-html-build-components">[Internal] HTML Build Components<a class="anchor" aria-label="anchor" href="#-internal-html-build-components"></a></h2>
+      
+      <p class="section-desc"></p><p>Internal functions used to provision and build the HTML components of a lesson assuming that the markdown components have been built. (this is non-exhaustive)</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="render_html.html">render_html()</a></code> 
+        </dt>
+        <dd>Render html from a markdown file</dd>
+      </dl><dl><dt>
+          
+          <code><a href="build_site.html">build_site()</a></code> 
+        </dt>
+        <dd>Wrapper for site builder</dd>
       </dl><dl><dt>
           
           <code><a href="build_episode_html.html">build_episode_html()</a></code> 
@@ -286,14 +307,14 @@
         <dd>Build a single episode html file</dd>
       </dl><dl><dt>
           
-          <code><a href="render_html.html">render_html()</a></code> 
+          <code><a href="build_home.html">build_home()</a></code> 
         </dt>
-        <dd>Render html from a markdown file</dd>
+        <dd>Build a home page for a lesson</dd>
       </dl><dl><dt>
           
-          <code><a href="sandpaper.options.html">sandpaper.options</a></code> 
+          <code><a href="build_html.html">build_html()</a></code> 
         </dt>
-        <dd>Global Options</dd>
+        <dd>Build instructor and learner HTML page</dd>
       </dl></div><div class="section level2">
       <h2 id="-internal-post-build-aggregation-components">[Internal] Post-build Aggregation Components<a class="anchor" aria-label="anchor" href="#-internal-post-build-aggregation-components"></a></h2>
       
@@ -351,6 +372,11 @@
           <code><a href="get_resource_list.html">get_resource_list()</a></code> 
         </dt>
         <dd>Get the full resource list of markdown files</dd>
+      </dl><dl><dt>
+          
+          <code><a href="parse_file_matches.html">parse_file_matches()</a></code> 
+        </dt>
+        <dd>Subset file matches to the order they appear in the config file</dd>
       </dl><dl><dt>
           
           <code><a href="build_status.html">get_hash()</a></code> <code><a href="build_status.html">get_built_db()</a></code> <code><a href="build_status.html">build_status()</a></code> 
