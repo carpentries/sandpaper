@@ -77,18 +77,27 @@ reference:
    - ci_build_site
    - ci_session_info
    - git_worktree_setup
- - title: "[Internal] Build Components"
+ - title: "[Internal] Markdown Build Components"
    desc: >
-     Individual components to provision files and build a lesson locally
+     Internal functions used to provision and build the markdown components
+     of a lesson.
  - contents:
    - this_lesson
    - build_handout
    - build_markdown
-   - build_site
    - build_episode_md
-   - build_episode_html
-   - render_html
    - sandpaper.options
+ - title: "[Internal] HTML Build Components"
+   desc: >
+     Internal functions used to provision and build the HTML components
+     of a lesson assuming that the markdown components have been built.
+     (this is non-exhaustive)
+ - contents:
+   - render_html
+   - build_site
+   - build_episode_html
+   - build_home
+   - build_html
  - title: "[Internal] Post-build Aggregation Components"
    desc: >
      Components to build aggregate pages such as All in One and Keypoints
@@ -105,6 +114,7 @@ reference:
      database.
  - contents:
    - get_resource_list
+   - parse_file_matches
    - build_status
    - hash_with_children
    - template_episode

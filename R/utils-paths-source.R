@@ -134,7 +134,8 @@ get_resource_list <- function(path, trim = FALSE, subfolder = NULL, warn = FALSE
   # These are the only four items that we need to consider order for.
   for (i in subfolder) {
     # If the configuration is not missing, then we have to rearrange the order.
-    res[[i]] <- parse_file_matches(res[[i]], cfg[[i]], warn = warn, i)
+    res[[i]] <- parse_file_matches(reality = res[[i]], hopes = cfg[[i]],
+      warn = warn, subfolder = i)
   }
   if (use_subfolder) res[[subfolder]] else res[names(res) != "site"]
 }
@@ -144,7 +145,7 @@ get_sources <- function(path, subfolder = "episodes") {
   fs::path_abs(fs::dir_ls(pe, regexp = "*R?md"))
 }
 
-get_artifacts <- function(path, subfolder = "episodes") {
+get_source_artifacts <- function(path, subfolder = "episodes") {
   pe <- enforce_dir(fs::path(root_path(path), subfolder))
   fs::dir_ls(pe, regexp = "*R?md",
     invert = TRUE,
@@ -153,8 +154,46 @@ get_artifacts <- function(path, subfolder = "episodes") {
   )
 }
 
+#' Subset file matches to the order they appear in the config file
+#'
+#' @param reality a list of paths that exist in the lesson
+#' @param hopes a list of files in the order they should appear in the lesson
+#' @param warn a boolean. If `TRUE` and the `sandpaper.show_draft` option is
+#'   set to TRUE, then the files that are not in `hopes` are shown to the
+#'   screen as drafts
+#' @param subfolder a character. The folder where we should find the files in
+#'   `hopes`. This is only used for creating an error message.
+#' @return a character vector of `reality` subset in the order of `hopes`
+#' @keywords internal
+#' @examples
+#' # setup ----------------------------------------------------
+#' #
+#' # NOTE: we need to define our namespace here because using `:::`
+#' # in example calls is illegal.
+#' snd <- asNamespace("sandpaper")
+#' print(need <- c("a", "bunch", "of", "silly", "files"))
+#' print(exists <- fs::path("path", "to", sample(need)))
+#'
+#' # Rearrange files ------------------------------------------
+#' snd$parse_file_matches(reality = exists, hopes = need,
+#'   subfolder = "episodes")
+#'
+#' # a subset of files ----------------------------------------
+#' snd$parse_file_matches(reality = exists,
+#'   hopes = need[4:5], subfolder = "episodes")
+#'
+#' # a subset of files with a warning -------------------------
+#' op <- getOption("sandpaper.show_draft")
+#' options(sandpaper.show_draft = TRUE)
+#' on.exit(options(sandpaper.show_draft = op))
+#' snd$parse_file_matches(reality = exists,
+#'   hopes = need[-(4:5)], warn = TRUE, subfolder = "episodes")
+#'
+#' # files that do not exist give an error --------------------
+#' try(snd$parse_file_matches(reality = exists,
+#'   hopes = c("these", need[4:5]), subfolder = "episodes"))
 parse_file_matches <- function(reality, hopes = NULL, warn = FALSE, subfolder) {
-  if (is.null(hopes)) {
+  if (is.null(hopes) || is.null(reality)) {
     return(reality)
   }
   real_files <- fs::path_file(reality)
