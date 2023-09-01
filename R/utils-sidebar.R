@@ -3,14 +3,17 @@
 
 # return the surrounding pages for the navbar links
 page_location <- function(i, abs_md, er) {
-  idx <- fs::path(fs::path_dir(abs_md[er[1]]), "index.md")
+  if (sum(er) == 0L) {
+    idx <- fs::path(fs::path_dir(abs_md[[1]]), "index.md")
+  } else {
+    idx <- fs::path(fs::path_dir(abs_md[er[1]]), "index.md")
+  }
   if (!i %w% er) {
-    return(c(back = idx, forward = idx, progress = ""))
+    return(c(back = idx, forward = idx))
   }
   back <- if (i > er[1]) abs_md[i - 1] else idx
   fwd  <- if (i < er[2]) abs_md[i + 1] else idx
-  pct  <- sprintf("%1.0f", (i - er[1])/(er[2] - er[1]) * 100)
-  c(back = back, forward = fwd, progress = pct, index = i - er[1])
+  c(back = back, forward = fwd, index = i - er[1])
 }
 
 
