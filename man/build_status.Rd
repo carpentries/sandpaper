@@ -110,9 +110,9 @@ cat("We are using `r R.version.string`\n",
 sp$build_status(resources, db, write = TRUE)
 
 # child files require rebuilding ----------------------------------------
-writeLines("Hello from another file!\n", 
+writeLines("Hello from another file!\n",
   fs::path(tmp, "episodes", "files", "hi.md"))
-cat("\n\n```{r child='files/hi.md'}\n```\n", 
+cat("\n\n```{r child='files/hi.md'}\n```\n",
   file = resources[[1]], append = TRUE)
 sp$build_status(resources, db, write = TRUE)
 # NOTE: for child files, the checksums are the checksum of the checksums

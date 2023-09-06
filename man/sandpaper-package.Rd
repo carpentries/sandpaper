@@ -29,6 +29,7 @@ Other contributors:
   \item Ben Companjen (\href{https://orcid.org/0000-0002-7023-9047}{ORCID}) [contributor]
   \item Toby Hodges \email{tobyhodges@carpentries.org} [contributor]
   \item François Michonneau \email{francois@carpentries.org} [contributor]
+  \item Kelly Barnes \email{kbarnes@carpentries.org} [contributor]
 }
 
 }
