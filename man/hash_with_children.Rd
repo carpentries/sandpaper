@@ -49,7 +49,7 @@ of hashes is created with \code{rlang::hash()}.
 # This demonstration will show how a temporary database can be set up. It
 # will only work with a sandpaper lesson
 # setup -----------------------------------------------------------------
-# The setup needs to include an R Markdown file with a child file. 
+# The setup needs to include an R Markdown file with a child file.
 tmp <- tempfile()
 on.exit(fs::dir_delete(tmp), add = TRUE)
 create_lesson(tmp, rmd = FALSE, open = FALSE)
@@ -58,10 +58,10 @@ sp <- asNamespace("sandpaper")
 db <- fs::path(tmp, "site/built/md5sum.txt")
 resources <- fs::path(tmp, c("episodes/introduction.md", "index.md"))
 # create child file
-writeLines("Hello from another file!\n", 
+writeLines("Hello from another file!\n",
   fs::path(tmp, "episodes", "files", "hi.md"))
 # use child file
-cat("\n\n```{r child='files/hi.md'}\n```\n", 
+cat("\n\n```{r child='files/hi.md'}\n```\n",
   file = resources[[1]], append = TRUE)
 # convert to Rmd
 fs::file_move(resources[[1]], fs::path_ext_set(resources[[1]], "Rmd"))
