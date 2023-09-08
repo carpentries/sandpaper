@@ -25,21 +25,12 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
     create_site(path)
   }
   # check if the lesson needs to be reset
-  this_lesson(path)
+  lsn <- this_lesson(path)
 
-  episode_path <- path_episodes(path)
-  outdir       <- path_built(path)
+  outdir <- path_built(path)
 
   # Determine build status for the episodes ------------------------------------
-  source_list    <- .resources$get() %||% get_resource_list(path, warn = !quiet)
-  sources        <- unlist(source_list, use.names = FALSE)
-  names(sources) <- get_slug(sources)
-  if (is.null(slug)) {
-    copy_maybe(sources[["config"]], fs::path(outdir, "config.yaml"))
-    copy_lockfile(sources, fs::path(outdir, "renv.lock"))
-  } else {
-    sources <- sources[slug]
-  }
+  sources <- get_build_sources(path, outdir, slug, quiet)
 
   no_renv_needed <- !any(fs::path_ext(sources) %in% c("Rmd", "rmd"))
 
@@ -64,16 +55,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
   }, add = TRUE)
 
   # Copy the files to the assets directory -------------------------------------
-  artifacts <- get_artifacts(path, "episodes")
-  to_copy <- vapply(
-    c("data", "files", "fig"),
-    FUN = function(i) enforce_dir(fs::path(episode_path, i)),
-    FUN.VALUE = character(1)
-  )
-  to_copy <- c(to_copy, artifacts)
-  for (f in to_copy) {
-    copy_assets(f, outdir)
-  }
+  copy_build_assets(path, outdir, overview = lsn$overview)
 
   # Remove detritus ------------------------------------------------------------
   remove <- db$remove
@@ -154,6 +136,27 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
   invisible(db$build)
 }
 
+copy_build_assets <- function(path, outdir, overview = FALSE) {
+  path <- root_path(path)
+  # get all the non-markdown files
+  artifacts <- get_source_artifacts(path, "episodes")
+  resource_folders <- c("data", "files", "fig")
+  # enforce dir will create a directory if it doesn't exist, so that it's
+  # always available for the user, even if git is not tracking it.
+  to_copy <- enforce_dir(fs::path(path, "episodes", resource_folders))
+  to_copy <- c(to_copy, artifacts)
+  if (overview) {
+    # overview lessons are special, so we are going to explicitly search the top
+    # directory for the resource folders and then copy them only if they exist
+    needed  <- fs::dir_ls(path, type = "directory")
+    needed  <- needed[fs::path_file(needed) %in% resource_folders]
+    to_copy <- c(needed, to_copy)
+  }
+  for (f in to_copy) {
+    copy_assets(f, outdir)
+  }
+}
+
 remove_rendered_html <- function(episodes) {
   htmls <- fs::path_ext_set(episodes, "html")
   exists <- fs::file_exists(htmls)
@@ -163,4 +166,16 @@ remove_rendered_html <- function(episodes) {
 }
 
 
-
+# Get a vector of markdown files to build with names.
+get_build_sources <- function(path, outdir, slug = NULL, quiet) {
+  source_list    <- .resources$get() %||% get_resource_list(path, warn = !quiet)
+  sources        <- unlist(source_list, use.names = FALSE)
+  names(sources) <- get_slug(sources)
+  if (is.null(slug)) {
+    copy_maybe(sources[["config"]], fs::path(outdir, "config.yaml"))
+    copy_lockfile(sources, fs::path(outdir, "renv.lock"))
+  } else {
+    sources <- sources[slug]
+  }
+  return(sources)
+}

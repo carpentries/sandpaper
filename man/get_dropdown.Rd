@@ -35,7 +35,7 @@ config file.
 }
 \examples{
 tmp <- tempfile()
-create_lesson(tmp)
+create_lesson(tmp, open = FALSE, rmd = FALSE)
 get_episodes(tmp)
 get_learners(tmp) # information for learners
 }

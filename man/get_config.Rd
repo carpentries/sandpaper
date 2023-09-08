@@ -17,6 +17,6 @@ Get the configuration parameters for the lesson
 }
 \examples{
 tmp <- tempfile()
-create_lesson(tmp)
+create_lesson(tmp, open = FALSE, rmd = FALSE)
 get_config(tmp)
 }

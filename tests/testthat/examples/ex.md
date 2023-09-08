@@ -45,6 +45,12 @@ This should be aside
 
 :::
 
+::: spoiler
+
+That fin on the rear end of a car
+
+:::
+
 ::: nothing
 
 This should be

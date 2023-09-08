@@ -8,7 +8,7 @@
 #'
 #'  `this_lesson()` will return a [pegboard::Lesson] object if it has
 #'   previously been stored. There are three values that are cached:
-#'   
+#'
 #'   - `.this_lesson` a [pegboard::Lesson] object
 #'   - `.this_diff` a charcter vector from [gert::git_diff_patch()]
 #'   - `.this_status` a data frame from [gert::git_status()]
@@ -25,14 +25,14 @@
 #'   initialised when {sandpaper} is loaded via `.lesson_store()`
 #'
 #'   If there have been no changes git is aware of, the lesson remains the same.
-#' 
+#'
 #' @section Pre-Computed Object Storage:
-#' 
+#'
 #'  A side-effect of `this_lesson()` is that it will also initialise
 #'  pre-computed objects that pertain to the lesson itself. These are
 #'  initialised via `set_globals()`. These storage objects are:
 #'
-#'    - `.resources`: a list of markdown resources for the lesson derived from 
+#'    - `.resources`: a list of markdown resources for the lesson derived from
 #'        `get_resource_list()` via `set_resource_list()`
 #'    - `this_metadata`: metadata with template for including in the pages.
 #'        initialised in `initialise_metadata()` via `set_globals()`
@@ -41,21 +41,21 @@
 #'    - `instructor_globals`: variables for the instructor version of the pages
 #'        initialised in `set_globals()`
 #'
-#' @param path a path to the current lesson 
+#' @param path a path to the current lesson
 #' @rdname lesson_storage
 #' @keywords internal
 #' @examples
 #' tmp <- tempfile()
-#' create_lesson(tmp, open = FALSE)
+#' create_lesson(tmp, open = FALSE, rmd = FALSE)
 #' # Read the lesson into cache
-#' system.time(sandpaper:::this_lesson(tmp)) 
+#' system.time(sandpaper:::this_lesson(tmp))
 #' system.time(sandpaper:::this_lesson(tmp)) # less time to read in once cached
 #' l <- sandpaper:::this_lesson(tmp)
 #' l
 #' # clear the cache
 #' sandpaper:::clear_this_lesson()
 #' system.time(sandpaper:::this_lesson(tmp)) # have to re-read the lesson
-#' system.time(sandpaper:::this_lesson(tmp)) 
+#' system.time(sandpaper:::this_lesson(tmp))
 #' unlink(tmp)
 this_lesson <- function(path) {
   if (.store$valid(path)) .store$get() else .store$set(path)
@@ -83,10 +83,10 @@ clear_resource_list <- function(path) {
 #'
 #' This is a function that will generate an object that can serve as persistant
 #' storage for pre-computed values. Each object contains a list called
-#' `.this_list` embedded within the enviroment it was created in. 
+#' `.this_list` embedded within the enviroment it was created in.
 #'
-#' @return a list with five functions the all operate on the internal 
-#'  `.this_list` list object: 
+#' @return a list with five functions the all operate on the internal
+#'  `.this_list` list object:
 #'  - `get()` returns the value of `.this_list`
 #'  - `update(value)` updates `.this_list` with a modified list `value`. Useful
 #'    for adding several pieces of information at once.
@@ -151,7 +151,7 @@ clear_resource_list <- function(path) {
 }
 
 #' Internal Global Lesson Storage Generator
-#' 
+#'
 #' This function will generate an object store that will contain and update a
 #' lesson object based on the status of the git repository
 #'
@@ -159,12 +159,12 @@ clear_resource_list <- function(path) {
 #'
 #'  - `get()` returns `.this_lesson` (as described in [this_lesson()])
 #'  - `set(path)` sets `.this_lesson` and its git statuses from the lesson in
-#'    `path`. This also sets `set_globals()` and `set_resource_list()`. 
+#'    `path`. This also sets `set_globals()` and `set_resource_list()`.
 #'  - `valid(path)` uses `path` to validate if a lesson is identical to the
 #'    stored lesson from its git status. Returns `TRUE` if it is identical and
 #'    `FALSE` if it is not
 #'  - `clear()` resets all global variables.
-#' 
+#'
 #' @keywords internal
 #' @seealso [.list_store()] for a generic list implementation and
 #' [this_lesson()] for details of the implementation of this generator in
@@ -193,11 +193,15 @@ clear_resource_list <- function(path) {
       # set the global storage for {varnish} so that we do not have to recompute
       # things like the sidebar
       set_globals(path)
+      # kludge to make sure overview status is accurate
+      this_metadata$set("overview", .this_lesson$overview)
       # resource list of files for the lesson via `get_resource_list()`
       set_resource_list(path)
-      instructor_globals$set("syllabus", 
+      instructor_globals$set("syllabus",
         create_syllabus(.resources$get()[["episodes"]], .this_lesson, path)
       )
+      learner_globals$set("overview", .this_lesson$overview)
+      instructor_globals$set("overview", .this_lesson$overview)
       invisible(.this_lesson)
     },
     clear = function() {

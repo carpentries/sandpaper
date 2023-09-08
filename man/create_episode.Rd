@@ -41,6 +41,6 @@ schedule.
 }
 \examples{
 tmp <- tempfile()
-create_lesson(tmp)
+create_lesson(tmp, open = FALSE, rmd = FALSE)
 create_episode_md("getting-started", path = tmp)
 }

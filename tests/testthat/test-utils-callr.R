@@ -46,10 +46,12 @@ test_that("callr_build_episode_md() works with Rmarkdown using renv", {
     path = t2, hash = NULL, workenv = new.env(),
     outpath = o2, workdir = fs::path_dir(o2), root = lsn, quiet = TRUE
   ) %>%
-    expect_output("\\(lesson-requirements\\)")
+    expect_output("lesson-requirements") # Looking for a report of the lesson-requirements profile from {renv}
   })
   expect_true(fs::file_exists(o2))
+  # our R expression was evaluated
   expect_match(grep("Hello", readLines(o2), value = TRUE), "Hello from R (version|Under)")
+  # The CSS code is evaluated
   expect_match(grep("css", readLines(o2), value = TRUE), "style type=.text/css.")
 
 })

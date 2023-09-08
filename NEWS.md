@@ -1,4 +1,57 @@
+# sandpaper 0.13.0 (2023-09-06)
+
+## NEW FEATURES
+
+* Overview style lessons that do not have episodic content can now be processed,
+  analysed, and built by {sandpaper}. To make your lesson an overview lesson,
+  you can add `overview: true` to your `config.yaml` (reported: @zkamvar,
+  https://github.com/carpentries/workbench/issues/65; 
+  implemented: @zkamvar, #496)
+* The new `spoiler` class of fenced div will allow authors to specify an
+  expandable section of content that is collapsed by default. This replaces the
+  former paradigm of using "floating solution" blocks to present options for
+  installation on different platforms. (implemented: @tobyhodges, #502)
+
+## BUG FIX
+
+* Internal function `root_path()` will no longer fail if the `episodes/` folder
+  does not exist as long as one of the other four folders (`site/`, `learners/`,
+  `instructors/`, `profiles/`) exists (fixed: @zkamvar, #496)
+* `set_config()` can now properly process logical values into `true` and `false`
+* R Markdown documents with modificiations to child documents will now take into
+  account changes to the child documents (reported @jcolomb, #497; fixed
+  @zkamvar, #498). 
+* A broken test from the development version of {renv} fixed. This was a change
+  in output and not functionality, so there will be no user-visible changes
+  (reported: @zkamvar, #484; fixed: @zkamvar, #487).
+* Broken snapshot tests from upstream R-devel have been fixed by ensuring that
+  version comparisons always use characters and not numbers (which is
+  ergonomically weird, but whatever) (reported: @zkamvar #487; fixed: @zkamvar
+  #487)
+* Blank instructor notes pages no longer fail to build 
+  (reported: @apirogov, #505; fixed: @klbarnes20, #509)
+* Tests for {renv} post 1.0.0 fixed so that they no longer run forever
+  interactively (reported: @zkamvar #500; fixed: @zkamvar, #501)
+
+## MISC
+
+* We are now testing against pandoc 2.19.2 in continuous integration.
+* The discussion list link for the new lesson contributing template has been
+  fixed.
+* examples have been modified to not use R Markdown lessons unless necessary,
+  reducing output and time needed to build the examples.
+
+# sandpaper 0.12.4 (2023-06-16)
+
+## BUG FIX
+
+* A bug in walled systems where templated pages (e.g. 404) could not be written
+  due to permissions issues has been fixed (reported: @ocaisa, #479; fixed:
+  @zkamvar, #482).
+
 # sandpaper 0.12.3 (2023-06-01)
+
+## BUG FIX
 
 * A bug where the git credentials are accidentally changed when a lesson is
   built is fixed by no longer querying git author when the lesson is built.
@@ -149,7 +202,7 @@
   fixed: @zkamvar, #416 and 
   https://github.com/zkamvar/vise/commit/ee4798701a958ee48429980eb970266885f8265b
 
-# MISC
+## MISC
 
 * @jcolomb has been added as a contributor in the DESCRIPTION.
 

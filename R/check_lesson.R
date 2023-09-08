@@ -12,15 +12,15 @@
 #'
 #' # Everything should work out of the box
 #' tmp <- tempfile()
-#' create_lesson(tmp, open = FALSE)
+#' create_lesson(tmp, open = FALSE, rmd = FALSE)
 #' check_lesson(tmp)
 #'
-#' # if things do not work, then an error is thrown with information about 
+#' # if things do not work, then an error is thrown with information about
 #' # what has failed you
 #' unlink(file.path(tmp, ".gitignore"))
 #' unlink(file.path(tmp, "site"), recursive = TRUE)
 #' try(check_lesson(tmp))
-#' 
+#'
 #' unlink(tmp)
 #' @importFrom assertthat validate_that
 #' @keywords internal

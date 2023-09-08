@@ -7,8 +7,8 @@
 set_config(pairs = NULL, create = FALSE, path = ".", write = FALSE)
 }
 \arguments{
-\item{pairs}{a named character vector with keys as the names and the new
-values as the contents}
+\item{pairs}{a named list or character vector with keys as the names and the
+new values as the contents}
 
 \item{create}{if \code{TRUE}, any new values in \code{pairs} will be created and
 appended; defaults to \code{FALSE}, which prevents typos from sneaking in.
@@ -53,8 +53,11 @@ the default github pages io domain.
 \item \strong{fail_on_error} \verb{[boolean]} for R Markdown lessons; fail the build if any
 chunks produce an error. Use \verb{#| error: true} in chunk options to allow the
 error to be displayed
-\item \strong{workbench-beta} yes \verb{[boolean]} if truthy, this displays a banner on the
+\item \strong{workbench-beta} \verb{[boolean]} if truthy, this displays a banner on the
 site that indicates the site is in the workbench beta phase.
+\item \strong{overview} \verb{[boolean]} All lessons must have episodes with the exception
+of overview lessons. To indicate that your lesson serves as an overview for
+other lessons, use \code{overview: true}
 }
 
 As the workbench becomes more developed, some of these optional keys may
@@ -69,6 +72,8 @@ but to provision these versions on GitHub, you can provision these in the
 \item \strong{sandpaper} \verb{[character]} github string or version number of sandpaper
 version to use
 \item \strong{varnish} \verb{[character]} github string or version number of varnish
+version to use
+\item \strong{pegboard} \verb{[character]} github string or version number of pegboard
 version to use
 }
 
@@ -92,10 +97,17 @@ varnish: carpentries/varnish@BRANCH-name
 \examples{
 if (FALSE) {
 tmp <- tempfile()
-create_lesson(tmp, "test lesson")
-# Change the title and License
-set_config(c(title = "Absolutely Free Lesson", license = "CC0"), 
+create_lesson(tmp, "test lesson", open = FALSE, rmd = FALSE)
+# Change the title and License (default vars)
+set_config(c(title = "Absolutely Free Lesson", license = "CC0"),
   path = tmp,
+  write = TRUE
+)
+
+# add the URL and workbench-beta indicator
+set_config(list("workbench-beta" = TRUE, url = "https://example.com/"),
+  path = tmp,
+  create = TRUE,
   write = TRUE
 )
 }

@@ -13,12 +13,12 @@
 #'   (default), it assumes no prefix is needed.
 #' @param path the path to the {sandpaper} lesson.
 #' @param add (logical or numeric) If numeric, it represents the position the
-#'   episode should be added. If `TRUE`, the episode is added to the end of the 
+#'   episode should be added. If `TRUE`, the episode is added to the end of the
 #'   schedule. If `FALSE`, the episode is added as a draft episode.
 #' @export
 #' @examples
 #' tmp <- tempfile()
-#' create_lesson(tmp)
+#' create_lesson(tmp, open = FALSE, rmd = FALSE)
 #' create_episode_md("getting-started", path = tmp)
 create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = TRUE, path = ".") {
   check_lesson(path)
@@ -32,7 +32,7 @@ create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = TRUE, 
   }
   slug <- slugify(title)
   ename <- paste0(prefix, slug, ext)
-  copy_template("episode", fs::path(path, "episodes"), ename, 
+  copy_template("episode", fs::path(path, "episodes"), ename,
     values = list(title = siQuote(title), md = ext == ".md"))
   if (add) {
     move_episode(ename, position = add, write = TRUE, path = path)

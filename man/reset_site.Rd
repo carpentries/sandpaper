@@ -15,7 +15,7 @@ Use this if you want to rebuild your site from scratch.
 \examples{
 \dontshow{if (sandpaper:::example_can_run()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 tmp <- tempfile()
-create_lesson(tmp)
+create_lesson(tmp, open = FALSE, rmd = FALSE)
 build_lesson(tmp, preview = FALSE)
 dir(file.path(tmp, "site"))
 reset_site(tmp)
