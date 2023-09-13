@@ -1,8 +1,13 @@
 #' @rdname build_agg
 build_aio <- function(pkg, pages = NULL, quiet = FALSE) {
   build_agg_page(
-    pkg = pkg, pages = pages, title = "All in One View",
-    slug = "aio", aggregate = "*", prefix = TRUE, quiet = quiet
+    pkg = pkg,
+    pages = pages,
+    title = "All in One View",
+    slug = "aio",
+    aggregate = "*",
+    prefix = TRUE,
+    quiet = quiet
   )
 }
 
@@ -32,7 +37,7 @@ build_aio <- function(pkg, pages = NULL, quiet = FALSE) {
 #'   )
 #' }
 make_aio_section <- function(name, contents, parent) {
-  # trimm off the aio because we know it's a prefix
+  # trim off the aio because we know it's a prefix
   uri <- sub("^aio-", "", name)
   title <- escape_ampersand(xml2::xml_text(contents[[1]]))
   new_section <- "<section id='{name}'><p>Content from <a href='{uri}.html'>{title}</a></p><hr/></section>"

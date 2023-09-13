@@ -13,7 +13,7 @@ build_keypoints <- function(pkg, pages = NULL, quiet = FALSE) {
 
 make_keypoints_section <- function(name, contents, parent) {
   title <- escape_ampersand(names(name))
-  uri <- name # sub("^keypoints-", "", name)
+  uri <- name
   new_section <- "<section id='{name}'>
   <h2 class='section-heading'><a href='{uri}.html'>{title}</a></h2>
   <hr class='half-width'/>
