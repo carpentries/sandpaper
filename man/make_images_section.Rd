@@ -22,13 +22,13 @@ descriptions for users who are not using screen readers.
 }
 \examples{
 if (FALSE) {
-lsn <- "/path/to/lesson"
-pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
+  lsn <- "/path/to/lesson"
+  pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
 
-# read in the All in One page and extract its content
-img <- get_content("images", content = "self::*", pkg = pkg)
-fig_content <- get_content("01-introduction", content = "/figure", pkg = pkg)
-make_images_section("01-introduction", contents = fig_content, parent = img)
+  # read in the All in One page and extract its content
+  img <- get_content("images", content = "self::*", pkg = pkg)
+  fig_content <- get_content("01-introduction", content = "/figure", pkg = pkg)
+  make_images_section("01-introduction", contents = fig_content, parent = img)
 }
 }
 \seealso{
