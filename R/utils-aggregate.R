@@ -246,7 +246,7 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
     ep_learn <- ep_instruct <- the_episodes[episode]
     ename    <- the_slugs[episode]
     if (!is.null(pages)) {
-      name <- sub(paste0("^", slug, "-"), "", ename)
+      name <- if (prefix) sub(paste0("^", slug, "-"), "", ename) else ename
       ep_learn <- pages$learner[[name]]
       ep_instruct <- pages$instructor[[name]]
     }
