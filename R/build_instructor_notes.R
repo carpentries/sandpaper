@@ -95,7 +95,7 @@ make_instructornotes_section <- function(name, contents, parent) {
     return(invisible(NULL))
   }
   title <- names(name)
-  uri <- sub("^instructor-notes-", "", name)
+  uri <- name #sub("^instructor-notes-", "", name)
   new_section <- "<section id='{name}'>
   <h2 class='section-heading'><a href='{uri}.html'>{title}</a></h2>
   <hr class='half-width'/>

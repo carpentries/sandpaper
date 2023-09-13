@@ -12,7 +12,7 @@ build_aio <- function(pkg, pages = NULL, quiet = FALSE) {
 #'
 #' @param name the name of the section, prefixed with `episode-`
 #' @param contents the episode contents from [get_content()]
-#' @param parent the parent div of the AiO page. 
+#' @param parent the parent div of the AiO page.
 #' @return the section that was added to the parent
 #'
 #' @keywords internal
@@ -21,15 +21,16 @@ build_aio <- function(pkg, pages = NULL, quiet = FALSE) {
 #' if (FALSE) {
 #' lsn <- "/path/to/lesson"
 #' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
-#' 
+#'
 #' # read in the All in One page and extract its content
 #' aio <- get_content("aio", content = "self::*", pkg = pkg)
 #' episode_content <- get_content("01-introduction", pkg = pkg)
-#' make_aio_section("aio-01-introduction", 
+#' make_aio_section("aio-01-introduction",
 #'   contents = episode_content, parent = aio)
 #' }
 make_aio_section <- function(name, contents, parent) {
-  uri <- sub("aio-", "", name)
+  # trimm off the aio because we know it's a prefix
+  uri <- sub("^aio-", "", name)
   title <- escape_ampersand(xml2::xml_text(contents[[1]]))
   new_section <- "<section id='{name}'><p>Content from <a href='{uri}.html'>{title}</a></p><hr/></section>"
   section <- xml2::read_xml(glue::glue(new_section))
