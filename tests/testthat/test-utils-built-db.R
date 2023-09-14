@@ -1,9 +1,11 @@
 res <- restore_fixture()
 
 
-test_that("get_child_files() will return an empty list for lessons with no child files", {
+test_that("get_child_files() will return a list equal to the files in the lesson", {
   lsn <- this_lesson(res)
-  expected <- list(a = NULL)
+  expected <- lapply(c(lsn$get("path", c("episodes", "extra"))),
+    function(p) fs::path_abs(p, start = res)
+  )
   expected <- expected[lengths(expected) > 0]
   expect_type(get_child_files(lsn), "list")
   expect_equal(get_child_files(lsn), expected)
@@ -115,7 +117,13 @@ test_that("get_child_files() will return a list of files that have child documen
   withr::defer(fs::file_delete(files))
 
   lsn <- this_lesson(res)
-  expected <- list("child-haver.Rmd" = c("files/figures.md"))
+  expected <- lapply(c(lsn$get("path", c("episodes", "extra"))),
+    function(p) fs::path_abs(p, start = res)
+  )
+  expected[["child-haver.Rmd"]] <- c(
+    expected[["child-haver.Rmd"]],
+    fs::path(res, c("episodes/files/figures.md"))
+  )
   expect_type(get_child_files(lsn), "list")
   expect_equal(get_child_files(lsn), expected)
 

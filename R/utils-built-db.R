@@ -160,14 +160,33 @@ hash_with_children <- function(checksums, files, children, root_path) {
   return(res)
 }
 
+hash_children <- function(checksums, files, lineage) {
+  res <- checksums
+  names(res) <- files
+  for (i in seq_along(files)) {
+    this_lineage <- lineage[[i]]
+    no_children <- length(this_lineage) == 1L
+    if (no_children) {
+      next
+    }
+    hashes <- unname(c(checksums[[i]], tools::md5sum(this_lineage[-1L])))
+    res[[i]] <- rlang::hash(hashes)
+  }
+  return(res)
+}
+
 # Return list of child nodes used in each file
 #' @rdname hash_with_children
 #' @param lsn a [pegboard::Lesson] object
 get_child_files <- function(lsn) {
-  blocks <- c(lsn$get("code", "episodes"), lsn$get("code", "extra"))
-  children <- lapply(blocks, child_file_from_code_blocks)
-  children <- children[lengths(children) > 0]
-  return(children)
+  lapply(c(lsn$episodes, lsn$extra), function(ep) {
+      lsn$trace_lineage(ep$path)
+    }
+  )
+  # blocks <- c(lsn$get("code", "episodes"), lsn$get("code", "extra"))
+  # children <- lapply(blocks, child_file_from_code_blocks)
+  # children <- children[lengths(children) > 0]
+  # return(children)
 }
 
 # get the child file from code block if it exists
@@ -314,9 +333,10 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     children <- list()
   }
   if (length(children) > 0L) {
+    checksums <- hash_children(checksums, sources, children)
     # update the checksums of the parent using rlang::hash(sumparent, sumchild, ...)
-    checksums[is_rmd] <- hash_with_children(checksums[is_rmd], sources[is_rmd],
-      children, root_path)
+    # checksums[is_rmd] <- hash_with_children(checksums[is_rmd], sources[is_rmd],
+      # children, root_path)
   }
   md5 = data.frame(
     file     = sources,
