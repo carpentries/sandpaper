@@ -139,11 +139,16 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
 copy_build_assets <- function(path, outdir, overview = FALSE) {
   path <- root_path(path)
   # get all the non-markdown files
-  artifacts <- get_source_artifacts(path, "episodes")
+  known_folders <- c("episodes", "learners", "instructors", "profiles")
+  artifacts <- get_source_artifacts(path, known_folders)
   resource_folders <- c("data", "files", "fig")
   # enforce dir will create a directory if it doesn't exist, so that it's
   # always available for the user, even if git is not tracking it.
-  to_copy <- enforce_dir(fs::path(path, "episodes", resource_folders))
+  to_copy <- purrr::list_c(purrr::map(known_folders, function(f) {
+        enforce_dir(fs::path(path, f, resource_folders))
+      }
+    )
+  )
   to_copy <- c(to_copy, artifacts)
   if (overview) {
     # overview lessons are special, so we are going to explicitly search the top
