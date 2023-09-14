@@ -1,3 +1,9 @@
+# sandpaper 0.13.1 (unreleased)
+
+## BUG FIX
+
+* overview child files are no longer built as if they are top-level files.
+
 # sandpaper 0.13.0 (2023-09-06)
 
 ## NEW FEATURES
@@ -40,6 +46,10 @@
   fixed.
 * examples have been modified to not use R Markdown lessons unless necessary,
   reducing output and time needed to build the examples.
+
+## CONTINUOUS INTEGRATION
+
+* The README file has been updated to fix a typo.
 
 # sandpaper 0.12.4 (2023-06-16)
 
