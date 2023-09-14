@@ -144,12 +144,13 @@ copy_build_assets <- function(path, outdir, overview = FALSE) {
   resource_folders <- c("data", "files", "fig")
   # enforce dir will create a directory if it doesn't exist, so that it's
   # always available for the user, even if git is not tracking it.
-  to_copy <- purrr::list_c(purrr::map(known_folders, function(f) {
-        enforce_dir(fs::path(path, f, resource_folders))
-      }
-    )
+  to_copy <- vapply(known_folders,
+    FUN = function(f) {
+      enforce_dir(fs::path(path, f, resource_folders))
+    },
+    FUN.VALUE = character(3)
   )
-  to_copy <- c(to_copy, artifacts)
+  to_copy <- c(as.vector(to_copy), artifacts)
   if (overview) {
     # overview lessons are special, so we are going to explicitly search the top
     # directory for the resource folders and then copy them only if they exist
