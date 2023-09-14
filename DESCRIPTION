@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.13.0
+Version: 0.13.1
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -35,7 +35,7 @@ Description: We provide tools to build a Carpentries-themed lesson repository
 License: MIT + file LICENSE
 Imports:
     pkgdown (>= 1.6.0),
-    pegboard (>= 0.6.0),
+    pegboard (>= 0.7.0),
     cli (>= 3.4.0),
     commonmark,
     fs (>= 1.5.0),
@@ -72,7 +72,7 @@ Suggests:
 Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   ropensci/tinkr,
-  carpentries/pegboard,
+  carpentries/pegboard@validate-children-135,
   carpentries/varnish
 SystemRequirements: pandoc (>= 2.11.4) - https://pandoc.org
 Encoding: UTF-8
