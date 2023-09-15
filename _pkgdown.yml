@@ -116,7 +116,7 @@ reference:
    - get_resource_list
    - parse_file_matches
    - build_status
-   - hash_with_children
+   - hash_children
    - template_episode
    - yaml_list
  - title: "[Developer] Lesson Test Fixture"
