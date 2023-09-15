@@ -1,7 +1,7 @@
 res <- restore_fixture()
 
 
-test_that("get_child_files() will return a list equal to the files in the lesson", {
+test_that("get_lineages() will return a list equal to the files in the lesson", {
   lsn <- this_lesson(res)
   expected <- lapply(
     c(lsn$get("path", c("episodes", "extra"))),
@@ -16,8 +16,8 @@ test_that("get_child_files() will return a list equal to the files in the lesson
   )
 
   expected <- expected[lengths(expected) > 0]
-  expect_type(get_child_files(lsn), "list")
-  expect_equal(get_child_files(lsn), expected)
+  expect_type(get_lineages(lsn), "list")
+  expect_equal(get_lineages(lsn), expected)
 })
 
 
@@ -114,7 +114,7 @@ test_that("build_status() will return no differences if no files change", {
 
 
 
-test_that("get_child_files() will return a list of files that have child documents in lessons", {
+test_that("get_lineages() will return a list of files that have child documents in lessons", {
   # setup our test and then burn it down
   files <- setup_child_test(res)
   withr::defer(fs::file_delete(files))
@@ -135,8 +135,8 @@ test_that("get_child_files() will return a list of files that have child documen
     FUN.VALUE = character(1),
     p = res
   )
-  expect_type(get_child_files(lsn), "list")
-  expect_equal(get_child_files(lsn), expected)
+  expect_type(get_lineages(lsn), "list")
+  expect_equal(get_lineages(lsn), expected)
 })
 
 
