@@ -67,7 +67,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
   check_pandoc()
   # 2. check if we are only building one file and get its slug to pass to the
   #    markdown and site functions.
-  slugpath <- get_build_slug(path)
+  slugpath <- get_build_slug(path, quiet = quiet)
   slug <- slugpath$slug
   # 3. set the source path global variable so that it can be used throughout the
   #    build process without explicitly needing to pass a variable from function
@@ -119,7 +119,7 @@ build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), pr
 # 4. the path to a child file
 #
 # This function returns a list with the slug and the cleaned path to the lesson.
-get_build_slug <- function(path) {
+get_build_slug <- function(path, quiet = TRUE) {
   original_path <- path
   not_file <- !fs::is_file(path)
   # set the source path and return it
@@ -156,7 +156,9 @@ get_build_slug <- function(path) {
   this_file <- fs::path_abs(original_path, start = path)
   if (this_file %in% children) {
     # the child exists and we rejoice!
-    parent <- lsn$children[[this_file]]$build_parent
+    if (!quiet) cli::cli_alert_info("Found child document: {.path {this_file}}")
+    parent <- lsn$children[[this_file]]$build_parents
+    if (!quiet) cli::cli_alert("Building parent{?s}: {.path {parent}}")
   } else {
     # it's a new file that we missed.
     parent <- original_path
@@ -164,5 +166,5 @@ get_build_slug <- function(path) {
   # if there are MULTIPLE parents, then just rebuild the whole thing
   # (slug = NULL) otherwise return the slug
   parent <- if (length(parent) > 1L) NULL else get_slug(parent)
-  return(list(slug = get_slug(the_parent), path = path))
+  return(list(slug = parent, path = path))
 }

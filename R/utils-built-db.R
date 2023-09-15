@@ -82,7 +82,7 @@ write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 #' @details
 #'
 #' When handling child files for lessons, it is important that changes in child
-#' files will cause the source file to change as well. 
+#' files will cause the source file to change as well.
 #'
 #'  - The `get_lineages()` function finds the child files from a
 #'    [pegboard::Lesson] object.
@@ -96,7 +96,7 @@ write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 #' @param files the relative path of the parent files to the `root_path`
 #' @param lineage a named list of character vectors specifying absolute paths
 #'   for the full lineage of parent Markdown or R Markdown files (inclusive).
-#'   The names will be the relative path of the parent. 
+#'   The names will be the relative path of the parent.
 #' @return
 #'   - `get_lineages()` a named list of charcter vectors specifying the
 #'      lineage of parent files. The names are the relative paths of the
