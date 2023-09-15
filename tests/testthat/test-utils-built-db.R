@@ -6,6 +6,14 @@ test_that("get_child_files() will return a list equal to the files in the lesson
   expected <- lapply(c(lsn$get("path", c("episodes", "extra"))),
     function(p) fs::path_abs(p, start = res)
   )
+  names(expected) <- vapply(expected,
+    FUN = function(l, p) {
+      fs::path_rel(l[1], start = p)
+    },
+    FUN.VALUE = character(1),
+    p = res
+  )
+
   expected <- expected[lengths(expected) > 0]
   expect_type(get_child_files(lsn), "list")
   expect_equal(get_child_files(lsn), expected)
@@ -123,6 +131,13 @@ test_that("get_child_files() will return a list of files that have child documen
   expected[["child-haver.Rmd"]] <- c(
     expected[["child-haver.Rmd"]],
     fs::path(res, c("episodes/files/figures.md"))
+  )
+  names(expected) <- vapply(expected,
+    FUN = function(l, p) {
+      fs::path_rel(l[1], start = p)
+    },
+    FUN.VALUE = character(1),
+    p = res
   )
   expect_type(get_child_files(lsn), "list")
   expect_equal(get_child_files(lsn), expected)

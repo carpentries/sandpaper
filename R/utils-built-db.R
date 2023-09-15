@@ -163,13 +163,16 @@ hash_with_children <- function(checksums, files, children, root_path) {
 hash_children <- function(checksums, files, lineage) {
   res <- checksums
   names(res) <- files
-  for (i in seq_along(files)) {
+  for (i in files) {
     this_lineage <- lineage[[i]]
-    no_children <- length(this_lineage) == 1L
+    # No children exist under the following conditions
+    #   0: the file is not a markdown file, so it is NULL from the above
+    #   1: the file really has no children
+    no_children <- length(this_lineage) <= 1L
     if (no_children) {
       next
     }
-    hashes <- unname(c(checksums[[i]], tools::md5sum(this_lineage[-1L])))
+    hashes <- unname(c(res[[i]], tools::md5sum(this_lineage[-1L])))
     res[[i]] <- rlang::hash(hashes)
   }
   return(res)
@@ -179,10 +182,18 @@ hash_children <- function(checksums, files, lineage) {
 #' @rdname hash_with_children
 #' @param lsn a [pegboard::Lesson] object
 get_child_files <- function(lsn) {
-  lapply(c(lsn$episodes, lsn$extra), function(ep) {
+  lineages <- lapply(c(lsn$episodes, lsn$extra), function(ep) {
       lsn$trace_lineage(ep$path)
     }
   )
+  names(lineages) <- vapply(lineages,
+    FUN = function(l, p) {
+      fs::path_rel(l[1], start = p)
+    },
+    FUN.VALUE = character(1),
+    p = lsn$path
+  )
+  lineages
   # blocks <- c(lsn$get("code", "episodes"), lsn$get("code", "extra"))
   # children <- lapply(blocks, child_file_from_code_blocks)
   # children <- children[lengths(children) > 0]
