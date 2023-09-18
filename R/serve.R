@@ -45,24 +45,24 @@
 #' @seealso [build_lesson()], render the lesson once, locally.
 #' @examples
 #' if (FALSE) {
-#'  # create an example lesson
-#'  tmp <- tempfile()
-#'  create_lesson(tmp, open = FALSE)
+#'   # create an example lesson
+#'   tmp <- tempfile()
+#'   create_lesson(tmp, open = FALSE)
 #'
-#'  # open the episode for editing
-#'  file.edit(fs::path(tmp, "episodes", "01-introduction.Rmd"))
+#'   # open the episode for editing
+#'   file.edit(fs::path(tmp, "episodes", "01-introduction.Rmd"))
 #'
-#'  # serve the lesson and begin editing the file. Watch how the file will
-#'  # auto-update whenever you save it.
-#'  sandpaper::serve()
-#'  #
-#'  # to stop the server, run
-#'  servr::daemon_stop()
-#'  #
-#'  # If you want to use a different port, you can specify it directly
-#'  sandpaper::serve(host = "127.0.0.1", port = "3435")
+#'   # serve the lesson and begin editing the file. Watch how the file will
+#'   # auto-update whenever you save it.
+#'   sandpaper::serve()
+#'   #
+#'   # to stop the server, run
+#'   servr::daemon_stop()
+#'   #
+#'   # If you want to use a different port, you can specify it directly
+#'   sandpaper::serve(host = "127.0.0.1", port = "3435")
 #' }
-#nocov start
+# nocov start
 # Note: we can not test this in covr because I'm not entirely sure of how to get
 #       it going
 serve <- function(path = ".", quiet = !interactive(), ...) {
@@ -76,7 +76,7 @@ serve <- function(path = ".", quiet = !interactive(), ...) {
     }
     for (f in file_list) {
       if (!quiet) {
-        cli::cli_alert_info("Rebuilding {.path f}")
+        cli::cli_alert_info("Rebuilding {.path {f}}")
       }
       build_lesson(f, preview = FALSE, quiet = quiet)
     }
@@ -92,7 +92,7 @@ serve <- function(path = ".", quiet = !interactive(), ...) {
   # @param base the base path
   make_filter <- function(base = this_path) {
     no_site <- file.path(base, "site")
-    no_git  <- file.path(base, ".git")
+    no_git <- file.path(base, ".git")
     # return a filter function for the files
     function(x) {
       return(x[(!startsWith(x, no_site) | !startsWith(x, no_git))])
@@ -101,7 +101,10 @@ serve <- function(path = ".", quiet = !interactive(), ...) {
   this_filter <- make_filter(this_path)
   # to start, build the site and then watch things:
   rend(this_path)
-  servr::httw(prod, watch = this_path, filter = this_filter, handler = rend,
-    ...)
+  servr::httw(prod,
+    watch = this_path, filter = this_filter, handler = rend,
+    ...
+  )
 }
-#nocov end
+# nocov end
+

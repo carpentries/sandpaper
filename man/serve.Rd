@@ -52,22 +52,22 @@ host for this function, you can do so using the port and host arguments:
 }
 \examples{
 if (FALSE) {
- # create an example lesson
- tmp <- tempfile()
- create_lesson(tmp, open = FALSE)
+  # create an example lesson
+  tmp <- tempfile()
+  create_lesson(tmp, open = FALSE)
 
- # open the episode for editing
- file.edit(fs::path(tmp, "episodes", "01-introduction.Rmd"))
+  # open the episode for editing
+  file.edit(fs::path(tmp, "episodes", "01-introduction.Rmd"))
 
- # serve the lesson and begin editing the file. Watch how the file will
- # auto-update whenever you save it.
- sandpaper::serve()
- #
- # to stop the server, run
- servr::daemon_stop()
- #
- # If you want to use a different port, you can specify it directly
- sandpaper::serve(host = "127.0.0.1", port = "3435")
+  # serve the lesson and begin editing the file. Watch how the file will
+  # auto-update whenever you save it.
+  sandpaper::serve()
+  #
+  # to stop the server, run
+  servr::daemon_stop()
+  #
+  # If you want to use a different port, you can specify it directly
+  sandpaper::serve(host = "127.0.0.1", port = "3435")
 }
 }
 \seealso{

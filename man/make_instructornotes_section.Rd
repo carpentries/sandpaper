@@ -25,23 +25,28 @@ On the learner view, instructor notes will not be present
 }
 \examples{
 if (FALSE) {
-lsn <- "/path/to/lesson"
-pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
+  lsn <- "/path/to/lesson"
+  pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
 
-# read in the All in One page and extract its content
-notes <- get_content("instructor-notes", content =
-  "section[@id='aggregate-instructor-notes']", pkg = pkg, instructor = TRUE)
-agg <- "/div[contains(@class, 'instructor-note')]//div[@class='accordion-body']"
-note_content <- get_content("01-introduction", content = agg, pkg = pkg)
-make_instructornotes_section("01-introduction", contents = note_content,
-  parent = notes)
+  # read in the All in One page and extract its content
+  notes <- get_content("instructor-notes",
+    content =
+      "section[@id='aggregate-instructor-notes']", pkg = pkg, instructor = TRUE
+  )
+  agg <- "/div[contains(@class, 'instructor-note')]//div[@class='accordion-body']"
+  note_content <- get_content("01-introduction", content = agg, pkg = pkg)
+  make_instructornotes_section("01-introduction",
+    contents = note_content,
+    parent = notes
+  )
 
-# NOTE: if the object for "contents" ends with "_learn", no content will be
-# appended
-note_learn <- note_content
-make_instructornotes_section("01-introduction", contents = note_learn,
-  parent = notes)
-
+  # NOTE: if the object for "contents" ends with "_learn", no content will be
+  # appended
+  note_learn <- note_content
+  make_instructornotes_section("01-introduction",
+    contents = note_learn,
+    parent = notes
+  )
 }
 }
 \seealso{
