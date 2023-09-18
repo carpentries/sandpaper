@@ -137,7 +137,8 @@ create_sidebar <- function(chapters, name = "", html = "<a href='https://carpent
   res
 }
 
-update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE, item = NULL) {
+update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL,
+    title = NULL, instructor = TRUE, item = NULL) {
   if (is.null(sidebar)) {
     return(sidebar)
   }
@@ -175,4 +176,51 @@ update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title =
     sidebar[item] <- create_sidebar_item(nodes, title, "current")
   }
   sidebar
+}
+
+#' Fix the refs for a vector of sidebar nodes
+#'
+#' @description update links 
+#'
+#' @param item a text representation of HTML nodes that contain `<a>` elements.
+#' @param path,scheme,server,query,fragment character vectors of elements to
+#'   replace. This can be a single element vector, which will be recycled or
+#'   a vector with the same length as `item`.
+#' @noRd
+fix_sidebar_href <- function(item, path = NULL, scheme = NULL, 
+    server = NULL, query = NULL, fragment = NULL) {
+  html <- xml2::read_html(paste(item, collapse = "\n"))
+  link <- xml2::xml_find_all(html, ".//a")
+  href <- xml2::xml_attr(link, "href")
+  url  <- xml2::url_parse(href)
+  args <- list(path = path, scheme = scheme, server = server, query = query,
+    fragment = fragment)
+  args <- args[lengths(args) > 0]
+  xml2::xml_set_attr(link, "href", make_url(modifyList(url, args)))
+  return(as.character(xml2::xml_find_all(html, "/html/body/*")))
+}
+
+make_url <- function(parsed) {
+  urls <- parsed$path
+  urls <- append(urls, "?", parsed$query)
+  urls <- append(urls, "#", parsed$fragment)
+  urls <- prepend(parsed$server, "/", urls)
+  urls <- prepend(parsed$scheme, "://", urls, trim = FALSE)
+  return(urls)
+}
+
+append <- function(first, sep = "#", last, trim = TRUE) {
+  if (trim) {
+    first <- sub(paste0("[", sep, "]$"), "", first)
+    last <- sub(paste0("^[", sep, "]"), "", last)
+  }
+  ifelse(last == "", first, paste0(first, sep, last)) 
+}
+
+prepend <- function(first, sep = "#", last, trim = TRUE) {
+  if (trim) {
+    first <- sub(paste0("[", sep, "]$"), "", first)
+    last <- sub(paste0("^[", sep, "]"), "", last)
+  }
+  ifelse(first == "", last, paste0(first, sep, last)) 
 }
