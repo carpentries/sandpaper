@@ -12,7 +12,7 @@ page_location <- function(i, abs_md, er) {
     return(c(back = idx, forward = idx))
   }
   back <- if (i > er[1]) abs_md[i - 1] else idx
-  fwd  <- if (i < er[2]) abs_md[i + 1] else idx
+  fwd <- if (i < er[2]) abs_md[i + 1] else idx
   c(back = back, forward = fwd, index = i - er[1])
 }
 
@@ -45,7 +45,9 @@ create_resources_dropdown <- function(files, type = "learners") {
   }
   if (length(files) || type == "instructors") {
     res <- vapply(files, function(f) {
-      if (length(f) == 0) return(f)
+      if (length(f) == 0) {
+        return(f)
+      }
       info <- get_navbar_info(f)
       make_links(info$href, parse_title(info$text))
     }, character(2))
@@ -77,7 +79,8 @@ create_sidebar_item <- function(nodes, name, position) {
     current = current
   )
   whisker::whisker.render(readLines(template_sidebar_item()),
-    data = sidebar_data)
+    data = sidebar_data
+  )
 }
 
 create_sidebar_headings <- function(nodes) {
@@ -93,7 +96,7 @@ create_sidebar_headings <- function(nodes) {
     for (child in which(have_children)) {
       # Headings that have embedded HTML will need this
       child_html <- xml2::xml_contents(h2[[child]])
-      no_anchor  <- !xml2::xml_attr(child_html, "class") %in% "anchor"
+      no_anchor <- !xml2::xml_attr(child_html, "class") %in% "anchor"
       txt[child] <- paste(child_html[no_anchor], collapse = "")
     }
   }
@@ -124,16 +127,20 @@ create_sidebar <- function(chapters, name = "", html = "<a href='https://carpent
   for (i in seq(chapters)) {
     position <- if (name == chapters[i]) "current" else i
     info <- get_navbar_info(chapters[i])
-    page_link <- paste0("<a href='", info$href, "'>",
+    page_link <- paste0(
+      "<a href='", info$href, "'>",
       i - 1, ". ", parse_title(info$pagetitle),
-      "</a>")
+      "</a>"
+    )
     res[i] <- create_sidebar_item(html, page_link, position)
   }
   res
 }
 
 update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title = NULL, instructor = TRUE, item = NULL) {
-  if (is.null(sidebar)) return(sidebar)
+  if (is.null(sidebar)) {
+    return(sidebar)
+  }
   this_page <- as_html(path_md)
   # NOTE: this is the place we need to modify to address
   # https://github.com/carpentries/workbench/issues/42
@@ -141,19 +148,24 @@ update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title =
     this_sidebar <- sidebar$get()[["sidebar"]]
     # if it's a list store, then we need to get the sidebar and update itself
     if (is.null(title)) {
-      item <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"),
-        this_sidebar)
+      item <- grep(
+        paste0("[<]a href=['\"]", this_page, "['\"]"),
+        this_sidebar
+      )
       if (length(item) == 0) {
         sidebar$set("sidebar", paste(this_sidebar, collapse = "\n"))
         return(sidebar)
       }
       # The title should stay the same.
-      side_nodes <- xml2::xml_find_first(xml2::read_xml(this_sidebar[item]),
-        ".//a")
+      side_nodes <- xml2::xml_find_first(
+        xml2::read_xml(this_sidebar[item]),
+        ".//a"
+      )
       title <- paste(as.character(xml2::xml_contents(side_nodes)), collapse = "")
     }
     sb <- update_sidebar(this_sidebar, nodes, path_md, title, instructor,
-      item = item)
+      item = item
+    )
     sidebar$set("sidebar", paste(sb, collapse = "\n"))
   }
   if (is.null(item)) {
@@ -164,4 +176,3 @@ update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL, title =
   }
   sidebar
 }
-
