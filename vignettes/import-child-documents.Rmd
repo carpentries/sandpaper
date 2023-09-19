@@ -10,6 +10,7 @@ vignette: >
 ```{r, setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  compact = TRUE, # https://github.com/r-lib/pkgdown/issues/1843
   comment = "#>"
 )
 
@@ -41,6 +42,12 @@ which would be frustrating to update down the line. This is where [child
 documents][child-doc] come in. You can save a repeated snippet of markdown
 inside of a separate file and have R Markdown render the parent as if it had
 that snippet embedded the whole time.
+
+The only difference between child documents and the regular episodic content is
+that these documents are not independent episodes in their own right. They do
+not need to have a title, they do not need to be listed in the `config.yaml`,
+they do not need any callout blocks. They only exist to be used by other
+markdown documents. 
 
 [child-doc]: https://bookdown.org/yihui/rmarkdown-cookbook/child-document.html
 
@@ -89,10 +96,10 @@ document will look like this:
 
 ```{r echo-built, echo = FALSE, results = 'asis'}
 snd$build_markdown(lsn, rebuild = FALSE, quiet = TRUE, slug = "introduction")
-lsn_obj$load_built()
 # not sure why this is not working
+# lsn_obj$load_built()
 # lsn_obj$built[[1]]$tail(50)
-writeLines(tail(readLines(lsn_obj$built[[1]]$path), 50))
+writeLines(tail(readLines(fs::path(lsn, "site", "built", "introduction.md")), 50))
 ```
 
 ````
