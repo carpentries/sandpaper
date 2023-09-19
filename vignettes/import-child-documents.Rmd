@@ -1,0 +1,93 @@
+---
+title: "Including Child Documents"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Including Child Documents}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library("sandpaper")
+library("pegboard")
+snd <- asNamespace("sandpaper")
+no_package_cache()
+suppressMessages(lsn <- create_lesson(tempfile(), open = FALSE))
+txt <- c("## Session Information\n",
+  "The following is the session information of this R session",
+  "\n```{r sessioninfo}", "sessioninfo::session_info()", "```\n")
+writeLines(txt, fs::path(lsn, "episodes", "files", "child.Rmd"))
+ep <- Episode$new(fs::path(lsn, "episodes", "introduction.Rmd"))
+n <- length(xml2::xml_children(ep$body))
+ep$add_md("```{r si, child = 'files/child.Rmd'}\n```\n", where = n - 3)
+ep$write(fs::path(lsn, "episodes"), "Rmd")
+lsn_obj <- snd$this_lesson(lsn)
+```
+
+
+## Introduction
+
+Writing a lesson using The Workbench consists of writing your lesson in markdown
+or R Markdown files, placing them in the `episodes/` directory and defining the
+order of those files in the `config.yaml` file. If you want to author a lesson
+that contains content that is repeated across episodes, before {sandpaper}
+version 0.14, you had to copy and paste the content across these documents,
+which would be frustrating to update down the line. This is where [child
+documents][child-doc] come in. You can save a repeated snippet of markdown
+inside of a separate file and have R Markdown render the parent as if it had
+that snippet embedded the whole time.
+
+[child-doc]: https://bookdown.org/yihui/rmarkdown-cookbook/child-document.html
+
+## A small example
+
+You can define these using the `child` attribute in code chunks in R Markdown
+files (note: this requires R Markdown). For example, you have a file structure
+like this:
+
+```{r first-tree, echo = FALSE}
+withr::with_dir(lsn, fs::dir_tree("episodes", recurse = 1))
+```
+
+The last few lines of `episodes/introduction.Rmd` looks like this:
+
+````markdown
+
+```{r echo-parent, echo = FALSE, results = 'asis'}
+lsn_obj$episodes[[1]]$tail(15)
+```
+
+````
+
+and the entire child document looks like this:
+
+````markdown
+
+```{r echo-child, echo = FALSE, results = 'asis'}
+lsn_obj$children[[1]]$show()
+```
+
+````
+
+
+This means that when `episodes/introduction.Rmd` is built, 
+`episodes/files/child.Rmd` will also be built. So the resulting markdown
+document will look like this:
+
+````markdown
+
+```{r echo-built, echo = FALSE, results = 'asis'}
+snd$build_markdown(lsn, rebuild = FALSE, quiet = TRUE, slug = "introduction")
+lsn_obj$load_built()
+lsn_obj$built[[1]]$tail(50)
+```
+
+````
+
+
+

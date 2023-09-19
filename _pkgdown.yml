@@ -12,6 +12,9 @@ template:
       site: "@thecarpentries"
       card: summary
 
+development:
+  mode: auto
+
 code:
   width: 72
 
@@ -135,6 +138,7 @@ articles:
    contents:
     - building-with-renv
     - automated-pull-requests
+    - import-child-documents
  - title: "Developer Guides"
    contents:
     - articles/landscape
