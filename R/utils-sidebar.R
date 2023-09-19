@@ -17,15 +17,13 @@ page_location <- function(i, abs_md, er) {
 }
 
 
-#' Create dropdown menus for extra content
-#'
 #' @param files a vector of markdown file names
 #' @param type one of "learners" (default) or "instructors". If it is learners,
 #'   the setup page will be excluded since it is included in the index. For
 #'   "instructors", the instructor notes are included and the learner profiles
 #'   are included.
-#' @return a list with character vectors of HTML list elements.
 #' @keywords internal
+#' @rdname sidebar
 create_resources_dropdown <- function(files, type = "learners") {
   if (type == "learners") {
     files <- files[!grepl("setup[.]R?md$", fs::path_file(files))]
@@ -82,12 +80,12 @@ create_resources_dropdown <- function(files, type = "learners") {
 #'   "<section id='two'><h2 class='section-heading'>Section 2</h2><p>section 2</p></section>"
 #' )
 #' nodes <- xml2::read_html(paste(html, collapse = "\n"))
-#' 
+#'
 #' # The sidebar headings are extracted from the nodes
 #' writeLines(snd$create_sidebar_headings(nodes))
 #'
 #' link <- "<a href='https://example.com/this-page.html'><em>This Page</em></a>"
-#' 
+#'
 #' # the sidebar item will contain the headings if it is the current chapter
 #' writeLines(snd$create_sidebar_item(nodes, link, position = "current"))
 #'
@@ -148,7 +146,9 @@ create_sidebar_headings <- function(nodes) {
 #' @return a character vector of HTML divs that can be appended to display the
 #'   sidebar.
 #' @keywords internal
-#' @seealso [sidebar_item()] for creation of individual sidebar items
+#' @seealso [sidebar_item()] for creation of individual sidebar items,
+#'   [set_globals()] for where `create_sidebar()` is called and
+#'   [build_html()] for where `update_sidebar()` is called.
 #' @rdname sidebar
 create_sidebar <- function(chapters, name = "", html = "<a href='https://carpentries.org'/>") {
   res <- character(length(chapters))
@@ -166,24 +166,33 @@ create_sidebar <- function(chapters, name = "", html = "<a href='https://carpent
   res
 }
 
+#' @param sidebar an object of class "list-store" which has a `"sidebar"`
+#'   element in the stored list. See [set_globals()].
+#' @param nodes the HTML nodes of an HTML page
+#' @param this_page the path to the current HTML page
+#' @param title the current title
+#' @param item the index of the sidebar item to update
 #' @rdname sidebar
-update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL,
-    title = NULL, instructor = TRUE, item = NULL) {
+update_sidebar <- function(
+    sidebar = NULL, nodes = NULL, this_page = NULL,
+    title = NULL, item = NULL) {
   if (is.null(sidebar)) {
     return(sidebar)
   }
-  this_page <- as_html(path_md)
   this_sidebar <- sidebar$get()[["sidebar"]]
+  # When there is no title defined, we extract it from the links. 
   if (is.null(title)) {
     item <- grep(
       paste0("[<]a href=['\"]", this_page, "['\"]"),
       this_sidebar
     )
+    # if we cannot find it from the links, then we do not need to edit the
+    # sidebar.
     if (length(item) == 0) {
       sidebar$set("sidebar", paste(this_sidebar, collapse = "\n"))
       return(sidebar)
     }
-    # The title should stay the same.
+    # extract the title from the node, making sure to preserve the HTML content
     side_nodes <- xml2::xml_find_first(
       xml2::read_xml(this_sidebar[item]),
       ".//a"
@@ -193,7 +202,7 @@ update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL,
   if (is.null(item)) {
     item <- grep(paste0("[<]a href=['\"]", this_page, "['\"]"), this_sidebar)
   }
-  if (length(item)) {
+  if (length(item) > 0) {
     this_sidebar[item] <- create_sidebar_item(nodes, title, "current")
   }
   sidebar$set("sidebar", paste(this_sidebar, collapse = "\n"))
@@ -211,16 +220,16 @@ update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL,
 #'   modified.
 #'
 #' @details Repeat after me: parsing HTML with regular expressions is bad.
-#'   This function uses [xml2::read_html()] to parse incoming HTML content to 
+#'   This function uses [xml2::read_html()] to parse incoming HTML content to
 #'   convert the HTML string into an XML document where we can extract all of
 #'   the anchor links, parse them and replace their contents without regex. This
 #'   is acheived via [xml2::url_parse()] separating the URL into pieces and
-#'   updating those pieces for each node. 
+#'   updating those pieces for each node.
 #'
 #'   `fix_sidebar_href()` is useful because The sidebar nodes needs to be
-#'   updated for the 404 page so that all links use the published URL. 
+#'   updated for the 404 page so that all links use the published URL.
 #'   NOTE: this does not take into account `port` or `user`.
-#'   
+#'
 #'   The auxilary functions `make_url()`, `append()` and `prepend()` are used to
 #'   convert the output of [xml2::url_parse()] back to a URL.
 #'
@@ -234,23 +243,29 @@ update_sidebar <- function(sidebar = NULL, nodes = NULL, path_md = NULL,
 #'   "<div id='four'><div id='four-four'><a href='four.html'>Four</a></div></div>",
 #'   "<div id='five'><div id='five-five'><a href='five.html'>Five</a></div></div>"
 #' )
-#' 
+#'
 #' snd <- asNamespace("sandpaper")
 #' # Prepend a server to the links
 #' snd$fix_sidebar_href(my_links, scheme = "https", server = "example.com")
 #' snd$fix_sidebar_href(my_links, server = "https://example.com")
 #'
-#' 
+#'
 #' # Add an anchor to the links
 #' fix_sidebar_href(my_links, scheme = "https", server = "example.com")
-fix_sidebar_href <- function(item, path = NULL, scheme = NULL, 
+fix_sidebar_href <- function(
+    item, path = NULL, scheme = NULL,
     server = NULL, query = NULL, fragment = NULL) {
   html <- xml2::read_html(paste(item, collapse = "\n"))
   link <- xml2::xml_find_all(html, ".//a")
   href <- xml2::xml_attr(link, "href")
-  url  <- xml2::url_parse(href)
-  args <- list(path = path, scheme = scheme, server = server, query = query,
-    fragment = fragment)
+  url <- xml2::url_parse(href)
+  args <- list(
+    path = path,
+    scheme = scheme,
+    server = server,
+    query = query,
+    fragment = fragment
+  )
   args <- args[lengths(args) > 0]
   xml2::xml_set_attr(link, "href", make_url(modifyList(url, args)))
   return(as.character(xml2::xml_find_all(html, "/html/body/*")))
@@ -278,7 +293,7 @@ append <- function(first, sep = "#", last, trim = TRUE) {
     first <- sub(paste0("[", sep, "]$"), "", first)
     last <- sub(paste0("^[", sep, "]"), "", last)
   }
-  ifelse(last == "", first, paste0(first, sep, last)) 
+  return(ifelse(last == "", first, paste0(first, sep, last)))
 }
 
 prepend <- function(first, sep = "#", last, trim = TRUE) {
@@ -286,6 +301,6 @@ prepend <- function(first, sep = "#", last, trim = TRUE) {
     first <- sub(paste0("[", sep, "]$"), "", first)
     last <- sub(paste0("^[", sep, "]"), "", last)
   }
-  ifelse(first == "", last, paste0(first, sep, last)) 
+  return(ifelse(first == "", last, paste0(first, sep, last)))
 }
 
