@@ -97,7 +97,10 @@ reference:
    - build_site
    - build_episode_html
    - build_home
+   - build_404
    - build_html
+   - create_sidebar
+   - create_sidebar_item
  - title: "[Internal] Post-build Aggregation Components"
    desc: >
      Components to build aggregate pages such as All in One and Keypoints

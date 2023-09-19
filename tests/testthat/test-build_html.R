@@ -1,13 +1,13 @@
 res <- restore_fixture()
 withr::defer(clear_globals())
 idx <- readLines(fs::path(res, "index.md"))
-writeLines(c(idx[1], "title: '**TEST** title'", idx[-1]), 
+writeLines(c(idx[1], "title: '**TEST** title'", idx[-1]),
   fs::path(res, "index.md"))
 set_globals(res)
 pkg <- pkgdown::as_pkgdown(path_site(res))
 # shim for downlit ----------------------------------------------------------
 shimstem_file <- system.file("pkgdown", "shim.R", package = "sandpaper")
-expected <- "230853fec984d1a0e5766d3da79f1cea" 
+expected <- "230853fec984d1a0e5766d3da79f1cea"
 actual   <- tools::md5sum(shimstem_file)
 M1 <- sprintf("SHIM FILE: %s", shimstem_file)
 M2 <- sprintf("--------- CONTENTS ----------\n%s\n-----------------------------",
@@ -17,7 +17,7 @@ if (expected == actual) {
   when_done <- source(shimstem_file, local = TRUE)$value
   withr::defer(eval(when_done))
 } else {
-  stop(sprintf("shim broken\nexpected: %s\nactual:   %s\n%s\n%s", 
+  stop(sprintf("shim broken\nexpected: %s\nactual:   %s\n%s\n%s",
       expected, actual, M1, M2))
 }
 # end downlit shim ----------------------------------------------------------
@@ -34,7 +34,7 @@ test_that("[build_home()] works independently", {
   fs::dir_create(built_dir)
   fs::file_copy(fs::path(res, "index.md"), built_dir)
   fs::file_copy(fs::path(res, "learners", "setup.md"), built_dir)
-  build_home(pkg, quiet = TRUE, 
+  build_home(pkg, quiet = TRUE,
     next_page = fs::path(res, "episodes", "introduction.Rmd")
   )
   learn_index <- fs::path(pkg$dst_path, "index.html")
@@ -128,7 +128,7 @@ test_that("[build_profiles()] learner and instructor views are identical", {
 
   learn <- fs::path(pkg$dst_path, "profiles.html")
   learn <- xml2::read_html(learn)
-  
+
   # Learner sidebar is formatted properly
   sidebar <- xml2::xml_find_all(learn, ".//div[@class='sidebar']")
   expect_length(sidebar, 1L)
