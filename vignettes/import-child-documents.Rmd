@@ -47,8 +47,14 @@ that snippet embedded the whole time.
 ## A small example
 
 You can define these using the `child` attribute in code chunks in R Markdown
-files (note: this requires R Markdown). For example, you have a file structure
-like this:
+files (note: this requires R Markdown). You can use as many child documents
+as you wish, but when you create child files, be sure the following two rules
+apply:
+
+1. The child documents live in the `files/` folder under their parent folders
+2. The reference to child files is _relative_ to the parent file. 
+
+For example, you have a file structure like this:
 
 ```{r first-tree, echo = FALSE}
 withr::with_dir(lsn, fs::dir_tree("episodes", recurse = 1))
@@ -64,7 +70,7 @@ lsn_obj$episodes[[1]]$tail(15)
 
 ````
 
-and the entire child document looks like this:
+and the entire document of `episodes/files/child.Rmd` looks like this:
 
 ````markdown
 
@@ -84,7 +90,9 @@ document will look like this:
 ```{r echo-built, echo = FALSE, results = 'asis'}
 snd$build_markdown(lsn, rebuild = FALSE, quiet = TRUE, slug = "introduction")
 lsn_obj$load_built()
-lsn_obj$built[[1]]$tail(50)
+# not sure why this is not working
+# lsn_obj$built[[1]]$tail(50)
+writeLines(tail(readLines(lsn_obj$built[[1]]$path), 50))
 ```
 
 ````
