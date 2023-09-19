@@ -97,6 +97,7 @@ reference:
    - build_site
    - build_episode_html
    - build_home
+   - build_404
    - build_html
    - create_sidebar
    - create_sidebar_item

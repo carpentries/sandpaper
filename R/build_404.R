@@ -1,6 +1,29 @@
-build_404 <- function(pkg, quiet) {
+#' Build the 404 page for a lesson
+#'
+#' @details
+#'
+#' During the lesson build process, a 404 page with absolute links back to the
+#' source pages must be generated otherwise, subsequent attempts to escape the
+#' 404 page will be futile. 
+#' 
+#' This function is intended to be run on a lesson website that has already
+#' been built and is called for its side-effect of creating a 404 page. 
+#'
+#'
+#' @param pkg a list object generated from [pkgdown::as_pkgdown()]
+#' @param quiet passed to [build_html()]. When `FALSE` (default), a message
+#'   will be printed to the screen about the build progress. When `TRUE`, no
+#'   messages are generated.
+#' @return `TRUE` if the page was successfully generated
+#' @seealso [build_site()] which calls this function and [build_html()], which
+#'   this function calls.
+#'
+#' @keywords internal
+build_404 <- function(pkg, quiet = FALSE) {
   page_globals <- setup_page_globals()
   calls <- sys.calls()
+  # When the page is in production (e.g. built with one of the `ci_` functions,
+  # then we need to set the absolute paths to the site
   is_prod <- in_production(calls)
   if (is_prod) {
     url  <- page_globals$metadata$get()$url
