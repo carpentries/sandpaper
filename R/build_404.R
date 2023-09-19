@@ -18,10 +18,8 @@ build_404 <- function(pkg, quiet) {
     # update navigation so that we have full URL
     nav <- page_globals$learner$get()[c("sidebar", "more", "resources")]
     for (item in names(nav)) {
-      # replace the relative index with 
+      # replace the relative index with
       new <- fix_sidebar_href(nav[[item]], server = url)
-      # new <- gsub("href='index.html", paste0("href='", url), nav[[item]])
-      # new <- gsub("href='", paste0("href='", url), new)
       page_globals$learner$set(item, new)
       page_globals$instructor$set(item, new)
     }

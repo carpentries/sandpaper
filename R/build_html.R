@@ -23,7 +23,7 @@
 #' engine: {pkgdown}. It will perform the global operations that includes
 #' setting up the navigation (via [update_sidebar()]), adding metadata, and
 #' building both the instructor and learner versions of the page (via
-#' [pkgdown::render_page]).
+#' [pkgdown::render_page()]).
 #'
 #' In the Workbench, there are three types of pages:
 #'

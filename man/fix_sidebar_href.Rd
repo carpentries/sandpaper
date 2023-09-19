@@ -75,6 +75,6 @@ snd$fix_sidebar_href(my_links, server = "https://example.com")
 
 
 # Add an anchor to the links
-fix_sidebar_href(my_links, scheme = "https", server = "example.com")
+snd$fix_sidebar_href(my_links, scheme = "https", server = "example.com")
 }
 \keyword{internal}

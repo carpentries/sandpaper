@@ -4,6 +4,9 @@
   same as that aggregate page (e.g. `images.html` will no longer fail if there
   is an episode that starts with `images-`) (reported: @mwhamgenomics, #511;
   fixed: @zkamvar, #512)
+* 404 page index link will point to the default index page of the site instead
+  of the relative index page, which would result in a 404 for nested links that
+  did not exist (reported: @kaijagahm and @zkamvar, #498; fixed @zkamvar, #514)
 
 # sandpaper 0.13.0 (2023-09-06)
 

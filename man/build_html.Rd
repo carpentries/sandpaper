@@ -47,7 +47,7 @@ lesson metadata and the global variables for each page to the rendering
 engine: {pkgdown}. It will perform the global operations that includes
 setting up the navigation (via \code{\link[=update_sidebar]{update_sidebar()}}), adding metadata, and
 building both the instructor and learner versions of the page (via
-\link[pkgdown:render_page]{pkgdown::render_page}).
+\code{\link[pkgdown:render_page]{pkgdown::render_page()}}).
 
 In the Workbench, there are three types of pages:
 \enumerate{

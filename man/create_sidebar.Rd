@@ -2,6 +2,7 @@
 % Please edit documentation in R/utils-sidebar.R
 \name{create_resources_dropdown}
 \alias{create_resources_dropdown}
+\alias{sidebar}
 \alias{create_sidebar}
 \alias{update_sidebar}
 \title{Create the sidebar for varnish}
@@ -61,7 +62,7 @@ which episode is the current one within the sidebar.
 This function creates that sidebar.
 }
 \seealso{
-\code{\link[=sidebar_item]{sidebar_item()}} for creation of individual sidebar items,
+\code{\link[=create_sidebar_item]{create_sidebar_item()}} for creation of individual sidebar items,
 \code{\link[=set_globals]{set_globals()}} for where \code{create_sidebar()} is called and
 \code{\link[=build_html]{build_html()}} for where \code{update_sidebar()} is called.
 }

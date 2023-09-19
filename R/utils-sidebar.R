@@ -23,7 +23,8 @@ page_location <- function(i, abs_md, er) {
 #'   "instructors", the instructor notes are included and the learner profiles
 #'   are included.
 #' @keywords internal
-#' @rdname sidebar
+#' @aliases sidebar
+#' @rdname create_sidebar
 create_resources_dropdown <- function(files, type = "learners") {
   if (type == "learners") {
     files <- files[!grepl("setup[.]R?md$", fs::path_file(files))]
@@ -72,7 +73,7 @@ create_resources_dropdown <- function(files, type = "learners") {
 #' @return a character vector with a div item to insert into the sidebar
 #'   navigation
 #' @keywords internal
-#' @rdname sidebar_item
+#' @rdname create_sidebar_item
 #' @examples
 #' snd <- asNamespace("sandpaper")
 #' html <- c(
@@ -104,7 +105,7 @@ create_sidebar_item <- function(nodes, link, position) {
   )
 }
 
-#' @rdname sidebar_item
+#' @rdname create_sidebar_item
 create_sidebar_headings <- function(nodes) {
   if (inherits(nodes, "character")) {
     nodes <- xml2::read_html(nodes)
@@ -146,10 +147,10 @@ create_sidebar_headings <- function(nodes) {
 #' @return a character vector of HTML divs that can be appended to display the
 #'   sidebar.
 #' @keywords internal
-#' @seealso [sidebar_item()] for creation of individual sidebar items,
+#' @seealso [create_sidebar_item()] for creation of individual sidebar items,
 #'   [set_globals()] for where `create_sidebar()` is called and
 #'   [build_html()] for where `update_sidebar()` is called.
-#' @rdname sidebar
+#' @rdname create_sidebar
 create_sidebar <- function(chapters, name = "", html = "<a href='https://carpentries.org'/>") {
   res <- character(length(chapters))
   for (i in seq(chapters)) {
@@ -172,7 +173,7 @@ create_sidebar <- function(chapters, name = "", html = "<a href='https://carpent
 #' @param this_page the path to the current HTML page
 #' @param title the current title
 #' @param item the index of the sidebar item to update
-#' @rdname sidebar
+#' @rdname create_sidebar
 update_sidebar <- function(
     sidebar = NULL, nodes = NULL, this_page = NULL,
     title = NULL, item = NULL) {
@@ -251,7 +252,7 @@ update_sidebar <- function(
 #'
 #'
 #' # Add an anchor to the links
-#' fix_sidebar_href(my_links, scheme = "https", server = "example.com")
+#' snd$fix_sidebar_href(my_links, scheme = "https", server = "example.com")
 fix_sidebar_href <- function(
     item, path = NULL, scheme = NULL,
     server = NULL, query = NULL, fragment = NULL) {
