@@ -20,6 +20,9 @@ build_404 <- function(pkg, quiet) {
     for (item in names(nav)) {
       # replace the relative index with
       new <- fix_sidebar_href(nav[[item]], server = url)
+      if (length(nav[[item]]) == 1L) {
+        new <- paste(new, collapse = "")
+      }
       page_globals$learner$set(item, new)
       page_globals$instructor$set(item, new)
     }

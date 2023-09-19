@@ -12,6 +12,12 @@ mask_output <- function(output, repo, remote) {
   output[!no]
 }
 
+# create two learner episodes to ensure that we do not mess up the dropdown
+learn_paths <- fs::path(res, "learners", c("test-1.md", "test-2.md"))
+writeLines(c("---", "title: test", "---", "\ntest file\n"), learn_paths[1])
+writeLines(c("---", "title: test", "---", "\ntest file\n"), learn_paths[2])
+sandpaper::set_learners(path = res, fs::path_file(learn_paths), write = TRUE)
+
 test_that("ci_deploy() will deploy once", {
 
   skip_on_cran()
@@ -119,6 +125,14 @@ test_that("404 page root will be lesson URL", {
   expect_equal(parsed[["scheme"]], "https")
   expect_false(parsed[["server"]] == "")
   expect_true(startsWith(parsed[["path"]], "/lesson-example"))
+
+  # test to ensure that we didn't accidentally duplicate the "more" dropdown
+  more <- xml2::xml_find_all(html, "//nav//button[@id='navbarDropdown']")
+  expect_length(more, 1L)
+
+  # test to ensure the sidebar content is not accidentally duplicated
+  moresb <- xml2::xml_find_all(html, "//div[contains(@class, 'resources')]")
+  expect_length(more, 1L)
 
   # test that the menu items all have same form
   navbar <- xml2::xml_find_all(html, "//nav//li/a")
