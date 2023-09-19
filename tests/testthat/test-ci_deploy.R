@@ -111,7 +111,7 @@ test_that("404 page root will be lesson URL", {
   html <- xml2::read_html(file.path(res, "404.html"))
 
   # find the stylesheet node: expect that it has https link
-  stysh <- xml2::xml_find_first(html, ".//head/link[@rel='stylesheet']")
+  stysh <- xml2::xml_find_first(html, "//head/link[@rel='stylesheet']")
   url <- xml2::xml_attr(stysh, "href")
   parsed <- xml2::url_parse(url)
 
@@ -121,8 +121,18 @@ test_that("404 page root will be lesson URL", {
   expect_true(startsWith(parsed[["path"]], "/lesson-example"))
 
   # test that the menu items all have same form
-  resources <- xml2::xml_find_all(html, ".//li/a[not(starts-with(@href, 'java'))] | .//div[@accordion-header]/a")
-  hrefs <- xml2::xml_attr(resources, "href")
+  navbar <- xml2::xml_find_all(html, "//nav//li/a")
+  hrefs <- xml2::xml_attr(navbar, "href")
+  parsed <- xml2::url_parse(hrefs)
+  expect_equal(unique(parsed[["scheme"]]), "https")
+  expect_false(unique(parsed[["server"]]) == "")
+  expect_true(all(startsWith(parsed[["path"]], "/lesson-example")))
+
+  # test that the sidebar items are all appopriate
+  # (with exception of the instructor view toggle)
+  sidebar_links <- "//div[@class='accordion-body']//a[not(text()='Instructor View')]"
+  sidebar <- xml2::xml_find_all(html, sidebar_links)
+  hrefs <- xml2::xml_attr(sidebar, "href")
   parsed <- xml2::url_parse(hrefs)
 
   expect_equal(unique(parsed[["scheme"]]), "https")
