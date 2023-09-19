@@ -14,19 +14,29 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+# setup the lesson to include a child document
 library("sandpaper")
 library("pegboard")
 snd <- asNamespace("sandpaper")
+# do not use the package cache because it will slow us down
 no_package_cache()
 suppressMessages(lsn <- create_lesson(tempfile(), open = FALSE))
+
+# Create the child file -----------------------------------------
 txt <- c("## Session Information\n",
   "The following is the session information of this R session",
   "\n```{r sessioninfo}", "sessionInfo()", "```\n")
 writeLines(txt, fs::path(lsn, "episodes", "files", "child.Rmd"))
+
+# Append the episode --------------------------------------------
 ep <- Episode$new(fs::path(lsn, "episodes", "introduction.Rmd"))
 n <- length(xml2::xml_children(ep$body))
+# we want to add the child just before the keypoints, which consist of the
+# last three paragraphs
 ep$add_md("```{r si, child = 'files/child.Rmd'}\n```\n", where = n - 3)
 ep$write(fs::path(lsn, "episodes"), "Rmd")
+
+# Load the lesson object ----------------------------------------
 lsn_obj <- snd$this_lesson(lsn)
 ```
 
@@ -51,7 +61,7 @@ markdown documents.
 
 [child-doc]: https://bookdown.org/yihui/rmarkdown-cookbook/child-document.html
 
-## A small example
+## An Example: One Child Document
 
 You can define these using the `child` attribute in code chunks in R Markdown
 files (note: this requires R Markdown). You can use as many child documents
@@ -77,7 +87,22 @@ lsn_obj$episodes[[1]]$tail(15)
 
 ````
 
-and the entire document of `episodes/files/child.Rmd` looks like this:
+
+You can see there the declaration of the child document is an empty code
+chunk:
+
+````{verbatim}
+
+```{r si, child = "files/child.Rmd"}
+```
+
+````
+
+
+This tells {knitr} to take a detour and render the contents of
+`files/child.Rmd`(relative to the current working directory, which is the
+episodes folder). The entire document of `episodes/files/child.Rmd` looks like
+this:
 
 ````markdown
 
@@ -87,23 +112,20 @@ lsn_obj$children[[1]]$show()
 
 ````
 
-
 This means that when `episodes/introduction.Rmd` is built, 
-`episodes/files/child.Rmd` will also be built. So the resulting markdown
-document will look like this:
+`episodes/files/child.Rmd` will also be built, evaulating the `sessionInfo()`. 
+So the resulting markdown document will look like this:
 
 ````markdown
 
 ```{r echo-built, echo = FALSE, results = 'asis'}
 snd$build_markdown(lsn, rebuild = FALSE, quiet = TRUE, slug = "introduction")
 # not sure why this is not working
-# lsn_obj$load_built()
-# lsn_obj$built[[1]]$tail(50)
-writeLines(tail(readLines(fs::path(lsn, "site", "built", "introduction.md")), 50))
+lsn_obj$load_built()
+lsn_obj$built[[1]]$tail(47)
+# writeLines(tail(readLines(fs::path(lsn, "site", "built", "introduction.md")), 50))
 ```
 
 ````
-
-
 
 
