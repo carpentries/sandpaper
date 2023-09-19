@@ -1,4 +1,4 @@
-# sandpaper 0.13.1 (unreleased)
+# sandpaper 0.13.1 (2023-09-19)
 
 * Aggregate pages will no longer fail if an episode has a prefix that is the
   same as that aggregate page (e.g. `images.html` will no longer fail if there
