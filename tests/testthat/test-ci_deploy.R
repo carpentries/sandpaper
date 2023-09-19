@@ -138,6 +138,9 @@ test_that("404 page root will be lesson URL", {
   expect_equal(unique(parsed[["scheme"]]), "https")
   expect_false(unique(parsed[["server"]]) == "")
   expect_true(all(startsWith(parsed[["path"]], "/lesson-example")))
+  # The index page should be one of the pages that we are inspecting here
+  # This directly addresses https://github.com/carpentries/sandpaper/issues/498
+  expect_true(any(parsed[["path"]] == "/lesson-example/index.html"))
 
 
 })
