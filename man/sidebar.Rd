@@ -2,12 +2,22 @@
 % Please edit documentation in R/utils-sidebar.R
 \name{create_sidebar}
 \alias{create_sidebar}
+\alias{update_sidebar}
 \title{Create the sidebar for varnish}
 \usage{
 create_sidebar(
   chapters,
   name = "",
   html = "<a href='https://carpentries.org'/>"
+)
+
+update_sidebar(
+  sidebar = NULL,
+  nodes = NULL,
+  path_md = NULL,
+  title = NULL,
+  instructor = TRUE,
+  item = NULL
 )
 }
 \arguments{
@@ -18,6 +28,10 @@ create_sidebar(
 \item{html}{the html of the current chapter. defaults to a link that will
 produce a sidebar with no links to headings.}
 }
+\value{
+a character vector of HTML divs that can be appended to display the
+sidebar.
+}
 \description{
 Varnish uses a sidebar for navigation across and within an episode. Each
 episode's sidebar is different because there needs to be a clear indicator
@@ -25,5 +39,8 @@ which episode is the current one within the sidebar.
 }
 \details{
 This function creates that sidebar.
+}
+\seealso{
+\code{\link[=sidebar_item]{sidebar_item()}} for creation of individual sidebar items
 }
 \keyword{internal}
