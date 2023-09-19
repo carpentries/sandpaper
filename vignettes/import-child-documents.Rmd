@@ -21,7 +21,7 @@ no_package_cache()
 suppressMessages(lsn <- create_lesson(tempfile(), open = FALSE))
 txt <- c("## Session Information\n",
   "The following is the session information of this R session",
-  "\n```{r sessioninfo}", "sessioninfo::session_info()", "```\n")
+  "\n```{r sessioninfo}", "sessionInfo()", "```\n")
 writeLines(txt, fs::path(lsn, "episodes", "files", "child.Rmd"))
 ep <- Episode$new(fs::path(lsn, "episodes", "introduction.Rmd"))
 n <- length(xml2::xml_children(ep$body))
@@ -103,6 +103,7 @@ writeLines(tail(readLines(fs::path(lsn, "site", "built", "introduction.md")), 50
 ```
 
 ````
+
 
 
 
