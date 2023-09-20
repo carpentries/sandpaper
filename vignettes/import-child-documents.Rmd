@@ -57,7 +57,8 @@ The only difference between child documents and the regular episodic content is
 that these documents are not independent episodes in their own right. They do
 not need to have a title, they do not need to be listed in the `config.yaml`,
 they do not need any callout blocks. They only exist to be used by other
-markdown documents. 
+markdown documents. Because of this, it is NOT recommended to make these
+documents overly complex.
 
 [child-doc]: https://bookdown.org/yihui/rmarkdown-cookbook/child-document.html
 
@@ -73,8 +74,8 @@ apply:
 
 For example, you have a file structure like this:
 
-```{r first-tree, echo = FALSE}
-withr::with_dir(lsn, fs::dir_tree("episodes", recurse = 1))
+```{r first-tree, echo = FALSE, comment = "#"}
+withr::with_dir(lsn, fs::dir_tree("./episodes/"))
 ```
 
 The last few lines of `episodes/introduction.Rmd` looks like this:
@@ -120,10 +121,167 @@ So the resulting markdown document will look like this:
 
 ```{r echo-built, echo = FALSE, results = 'asis'}
 snd$build_markdown(lsn, rebuild = FALSE, quiet = TRUE, slug = "introduction")
-# not sure why this is not working
 lsn_obj$load_built()
 lsn_obj$built[[1]]$tail(47)
-# writeLines(tail(readLines(fs::path(lsn, "site", "built", "introduction.md")), 50))
+```
+
+````
+
+## Workspace consideration
+
+The {sandpaper} machinery aims to keep the working space as clean as possible
+while still allowing authors to write in a way that feels natural. During
+processing, assets (all `.R` files, everything in `files/`, `fig/`,
+and `data/`) are copied over from their source folders to `site/built/`. This
+allows us to build the R Markdown files using `site/built/` as the working
+directory which accomplishes two things:
+
+1. The default sandpaper folder structure is flattened for the website. 
+2. any files the R Markdown document creates or deletes will not affect the
+   source files of the project
+
+For example, let's say we added a chunk to our source R Markdown folder that
+will create a file in the `data/` directory called "time.txt" and then reads in
+the contents of that file. 
+
+
+````markdown
+
+```{r add-writer, echo = FALSE, results = 'asis'}
+ep <- lsn_obj$episodes[[1]]
+txt <- c(
+  "```{r setup, echo = FALSE}",
+  "writeLines(format(Sys.time()), 'data/time.txt')", 
+  "cat(paste0('The time is: ', readLines('data/time.txt')))",
+  "```"
+)
+ep$add_md(txt, 1)
+ep$write(fs::path(lsn, "episodes"), format = "Rmd")
+ep$head(10)
+```
+
+````
+
+When the lesson gets built, the `episodes/` directory will continue to like
+this:
+
+
+```{r echo-episodes, echo = FALSE, comment = "#"}
+snd$build_markdown(lsn, rebuild = FALSE, quiet = TRUE)
+withr::with_dir(lsn, fs::dir_tree("./episodes/"))
+```
+
+Notice that there is no file called `data/time.txt`. This is because that file
+was built inside the `site/built` directory. The contents of this directory
+contains the output _along with all of the other files in the lesson_:
+
+```{r echo-built-too, echo = FALSE, comment = "#"}
+withr::with_dir(lsn, fs::dir_tree("./site/built/"))
+```
+
+You can see in `data/`, it now contains `time.txt`. The rendered Markdown file
+`site/built/introduction.md` reflects the updates:
+
+````markdown
+
+```{r echo-time, echo = FALSE, results = 'asis'}
+lsn_obj$load_built()
+lsn_obj$built[["site/built/introduction.md"]]$head(10)
+```
+
+````
+
+### Child document assets
+
+When you use a child file, it is best to avoid relying on assets external to the
+child document itself. If you do decide to reference other assets, **child
+documents need to have assets written as if they were already embedded in the
+_build parent_**. In this case, when I say _build parent_, I am refering to the
+final parent of the child document where the output will eventually end up.
+
+Let's say you wanted to refererence a figure `episodes/fig/one.png` from
+the child document, but instead it's located at
+`episodes/files/children/child.Rmd`, which is built by
+`episodes/introduction.Rmd`.
+
+```{r setup-new-child, echo = FALSE, comment = "#"}
+lsn_obj <- snd$this_lesson(lsn)
+withr::with_dir(fs::path(lsn, "episodes", "files"), {
+  fs::dir_create("children")
+  fs::file_touch("../fig/one.png")
+  fs::file_move("child.Rmd", "children/child.Rmd")
+})
+withr::with_dir(lsn, fs::dir_tree("./episodes/"))
+ep <- lsn_obj$episodes[[1]]
+code <- ep$code
+xml2::xml_set_attr(code[[5]], "child", 
+  sQuote("files/children/child.Rmd", q = 2)
+)
+ep$write(fs::path(lsn, "episodes"), format = "Rmd")
+lsn_obj <- snd$this_lesson(lsn)
+lsn_obj$children[[1]]$add_md("![example](fig/one.png){alt='example figure'}")
+lsn_obj$children[[1]]$write(fs::path(lsn, "episodes/files/children"), 
+  format = "Rmd"
+)
+```
+
+The parent document (`episodes/introduction.Rmd`) referencing the child document
+would look like this:
+
+````markdown
+
+```{r echo-parent-assets, echo = FALSE, results = 'asis'}
+lsn_obj$episodes[[1]]$tail(15)
+```
+
+````
+
+and `episodes/files/children/child.Rmd` would look like this, where the figure
+is referenced _in the context of the build parent directory_):
+
+````markdown
+
+```{r echo-child-assets, echo = FALSE, results = 'asis'}
+lsn_obj$children[[1]]$show()
+```
+
+````
+
+Again, the reason for this is because when the document gets built, the result
+is all in the context of the parent document in the `site/built` directory:
+
+```{r show-built-assets, echo = FALSE, comment = "#"}
+snd$build_markdown(lsn, rebuild = TRUE, quiet = TRUE)
+withr::with_dir(lsn, fs::dir_tree("./site/built/"))
+```
+
+Which makes sense in `site/built/introduction.md`:
+
+````markdown
+
+```{r echo-built-assets, echo = FALSE, results = 'asis'}
+lsn_obj$load_built()
+lsn_obj$built[["site/built/introduction.md"]]$tail(47)
+```
+
+````
+
+
+### Child documents of child documents
+
+It is also possible to reference _other child documents_ within the child
+document, but again, these **child documents paths must be relative to the
+build parent path**
+
+
+Thus, if you have a child document calling a second child document, you must
+write the relative path from the build parent. This means that if you want to
+reference `episodes/files/child-two.md` from `episodes/files/child-one.Rmd`,
+you must write it this way: in `episodes/files/child-one.Rmd`:
+
+````{verbatim}
+
+```{r child='files/child-two.md'}
 ```
 
 ````
