@@ -1,4 +1,14 @@
+# sandpaper 0.13.1.90000 (unreleased)
+
+## BUG FIX
+
+* Users with duplicated `init.defaultBranch` declarations in their git config
+  will no longer fail the default branch check (reported: @tesaunders, #516;
+  fixed: @zkamvar, #517)
+
 # sandpaper 0.13.1 (2023-09-19)
+
+## BUG FIX
 
 * Aggregate pages will no longer fail if an episode has a prefix that is the
   same as that aggregate page (e.g. `images.html` will no longer fail if there
