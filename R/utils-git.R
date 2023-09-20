@@ -337,14 +337,14 @@ get_default_branch <- function() {
   # The reason why we choose the _last_ defined branch is because this is what
   # the command line git does (see https://github.com/r-lib/gert/issues/196),
   # even if it's not what libgit2 does.
-  # 
+  #
   # NOTE: because this deals with global git configs, I do not really have the
   # capability to run a test here because this test would necessarily need to
   # modify the user's global git config, which I do _not_ want to do.
   n_defaults <- length(default)
   # no default branches can indicate an earlier version of git
-  invalid <- n_defaults == 0 || default[n_default] == "master"
-  if (invalid) "main" else default[n_default]
+  invalid <- n_defaults == 0 || default[n_defaults] == "master"
+  if (invalid) "main" else default[n_defaults]
 }
 
 # This checks if we have set a temporary git user and then unsets it. It will
