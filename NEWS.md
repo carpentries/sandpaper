@@ -1,4 +1,4 @@
-# sandpaper 0.13.1.90000 (unreleased)
+# sandpaper 0.13.2 (2023-09-20)
 
 ## BUG FIX
 
