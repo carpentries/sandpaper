@@ -1,10 +1,13 @@
-# sandpaper 0.13.1.9000 (unreleased)
+# sandpaper 0.13.2.9000 (unreleased)
 
 ## NEW FEATURES
 
 * all internal folders can contain the standard `files`, `fig`, and `data`
   folders with the cautionary note that duplicate file names to other folders
   will cause an error. 
+- `validate_lesson()` now reports invalid elements of child documents
+- A new vignette `vignette("import-child-documents", package = "sandpaper")`
+  demonstrates and describes the caveats about using child documents.
 
 ## BUG FIX
 
@@ -20,7 +23,17 @@
 
 * {pegboard} minimum version is now 0.7.0
 
+# sandpaper 0.13.2 (2023-09-20)
+
+## BUG FIX
+
+* Users with duplicated `init.defaultBranch` declarations in their git config
+  will no longer fail the default branch check (reported: @tesaunders, #516;
+  fixed: @zkamvar, #517)
+
 # sandpaper 0.13.1 (2023-09-19)
+
+## BUG FIX
 
 * Aggregate pages will no longer fail if an episode has a prefix that is the
   same as that aggregate page (e.g. `images.html` will no longer fail if there
