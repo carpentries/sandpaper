@@ -6,7 +6,7 @@
   folders with the cautionary note that duplicate file names to other folders
   will cause an error. 
 - `validate_lesson()` now reports invalid elements of child documents
-- A new vignette `vignette("import-child-documents", package = "sandpaper")`
+- A new vignette `vignette("include-child-documents", package = "sandpaper")`
   demonstrates and describes the caveats about using child documents.
 
 ## BUG FIX
