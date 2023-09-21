@@ -191,7 +191,7 @@ lsn_obj$built[["site/built/introduction.md"]]$head(10)
 
 ````
 
-### Child document assets
+## Child document assets
 
 When you use a child file, it is best to avoid relying on assets external to the
 child document itself. If you do decide to reference other assets, **child
@@ -199,18 +199,27 @@ documents need to have assets written as if they were already embedded in the
 _build parent_**. In this case, when I say _build parent_, I am refering to the
 final parent of the child document where the output will eventually end up.
 
-Let's say you wanted to refererence a figure `episodes/fig/one.png` from
-the child document, but instead it's located at
-`episodes/files/children/child.Rmd`, which is built by
-`episodes/introduction.Rmd`.
+Let's say you wanted to refererence a figure `episodes/fig/one.png` and a link
+to a document for learners `learners/info.md` from the child document, but
+instead it's located at `episodes/files/children/child.Rmd`, which is built by
+`episodes/introduction.Rmd`. 
 
 ```{r setup-new-child, echo = FALSE, comment = "#"}
 lsn_obj <- snd$this_lesson(lsn)
 withr::with_dir(fs::path(lsn, "episodes", "files"), {
   fs::dir_create("children")
   fs::file_touch("../fig/one.png")
+  writeLines(c(
+      "---", 
+      "title: info",
+      "---",
+      "\nthis is a test file\n"
+    ),
+    con = "../../learners/info.md"
+  )
   fs::file_move("child.Rmd", "children/child.Rmd")
 })
+# setup the child to use the correct code.
 withr::with_dir(lsn, fs::dir_tree("./episodes/"))
 ep <- lsn_obj$episodes[[1]]
 code <- ep$code
@@ -219,7 +228,11 @@ xml2::xml_set_attr(code[[5]], "child",
 )
 ep$write(fs::path(lsn, "episodes"), format = "Rmd")
 lsn_obj <- snd$this_lesson(lsn)
-lsn_obj$children[[1]]$add_md("![example](fig/one.png){alt='example figure'}")
+lsn_obj$children[[1]]$add_md("
+Here is a link to [the info document](../learners/info.md)
+
+![example](fig/one.png){alt='example figure'}
+")
 lsn_obj$children[[1]]$write(fs::path(lsn, "episodes/files/children"), 
   format = "Rmd"
 )
@@ -236,8 +249,14 @@ lsn_obj$episodes[[1]]$tail(15)
 
 ````
 
-and `episodes/files/children/child.Rmd` would look like this, where the figure
-is referenced _in the context of the build parent directory_):
+In `episodes/files/children/child.Rmd`, under [internal link
+rules][internal-link-ref], you you should reference these
+resources with `fig/one.png` and `../learners/info.md`, which are _in the
+context of the build parent directory (in this case, `episodes/`)_, as 
+demonstrated here: 
+
+[internal-link-ref]: https://carpentries.github.io/sandpaper-docs/episodes.html#internal-links)
+
 
 ````markdown
 
@@ -248,7 +267,12 @@ lsn_obj$children[[1]]$show()
 ````
 
 Again, the reason for this is because when the document gets built, the result
-is all in the context of the parent document in the `site/built` directory:
+is all in the context of the parent document in the `site/built` directory[^1]\:
+
+[^1]: there is a caveat to this paradigm, on translation to HTML, all links 
+  that begin with `../[folder]/` prefixes have those stripped in the final
+  version of the site. 
+
 
 ```{r show-built-assets, echo = FALSE, comment = "#"}
 snd$build_markdown(lsn, rebuild = TRUE, quiet = TRUE)
@@ -261,13 +285,32 @@ Which makes sense in `site/built/introduction.md`:
 
 ```{r echo-built-assets, echo = FALSE, results = 'asis'}
 lsn_obj$load_built()
-lsn_obj$built[["site/built/introduction.md"]]$tail(47)
+lsn_obj$built[["site/built/introduction.md"]]$tail(50)
 ```
 
 ````
 
+### What happens if we use relative links here?
 
-### Child documents of child documents
+If you use relative links in the child document, you will find warnings about
+missing files during validation:
+
+```{r, warn-missing, echo = FALSE}
+child <- lsn_obj$children[[1]]
+prepend_dest <- function(nodes, new = "../../") {
+  dst <- xml2::xml_attr(nodes, "destination")
+  xml2::xml_set_attr(nodes, "destination", paste0(new, dst))
+}
+prepend_dest(child$links)
+prepend_dest(child$images)
+child$write(fs::path(lsn, "episodes/files/children"), format = "Rmd")
+snd$clear_this_lesson()
+validate_lesson(lsn)
+```
+
+
+
+## Child documents of child documents
 
 It is also possible to reference _other child documents_ within the child
 document, but again, these **child documents paths must be relative to the
