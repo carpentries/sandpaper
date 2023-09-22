@@ -181,7 +181,7 @@ update_sidebar <- function(
     return(sidebar)
   }
   this_sidebar <- sidebar$get()[["sidebar"]]
-  # When there is no title defined, we extract it from the links. 
+  # When there is no title defined, we extract it from the links.
   if (is.null(title)) {
     item <- grep(
       paste0("[<]a href=['\"]", this_page, "['\"]"),
@@ -252,10 +252,22 @@ update_sidebar <- function(
 #'
 #'
 #' # Add an anchor to the links
-#' snd$fix_sidebar_href(my_links, scheme = "https", server = "example.com")
+#' snd$fix_sidebar_href(my_links, scheme = "https", fragment = "anchor")
+#' 
+#' # NOTE: this will _always_ return a character vector, even if the input is
+#' # incorrect
+#' snd$fix_sidebar_href(list(), server = "example.com")
 fix_sidebar_href <- function(
     item, path = NULL, scheme = NULL,
     server = NULL, query = NULL, fragment = NULL) {
+  # exit early if nothing exists
+  has_zero_length <- length(item) == 0L
+  is_not_string <- !is.character(item)
+  is_empty_string <- is.character(item) && length(item) == 1L && item == ""
+  is_not_correct <- has_zero_length || is_not_string || is_empty_string
+  if (is_not_correct) {
+    return("")
+  }
   html <- xml2::read_html(paste(item, collapse = "\n"))
   link <- xml2::xml_find_all(html, ".//a")
   href <- xml2::xml_attr(link, "href")

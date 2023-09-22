@@ -5,6 +5,9 @@
 * References to heading in `setup.md` will now be reflected in the website. 
   (reported: @tobyhodges, @fnattino, and @zkamvar, #521; fixed: @ErinBecker and
   @zkamvar, #522). 
+- A regression from #514 where empty menus would cause a failure in deployment
+  with the 404 page has been fixed (reported: @tobyhodges and @zkamvar, #519;
+  fixed: @zkamvar, #520).
 
 # sandpaper 0.13.2 (2023-09-20)
 
