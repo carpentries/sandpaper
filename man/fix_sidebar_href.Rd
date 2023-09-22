@@ -75,6 +75,10 @@ snd$fix_sidebar_href(my_links, server = "https://example.com")
 
 
 # Add an anchor to the links
-snd$fix_sidebar_href(my_links, scheme = "https", server = "example.com")
+snd$fix_sidebar_href(my_links, scheme = "https", fragment = "anchor")
+
+# NOTE: this will _always_ return a character vector, even if the input is
+# incorrect
+snd$fix_sidebar_href(list(), server = "example.com")
 }
 \keyword{internal}
