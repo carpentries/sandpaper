@@ -1,3 +1,11 @@
+# sandpaper 0.13.3 (2023-09-22)
+
+## BUG FIX
+
+* References to heading in `setup.md` will now be reflected in the website. 
+  (reported: @tobyhodges, @fnattino, and @zkamvar, #521; fixed: @ErinBecker and
+  @zkamvar, #522). 
+
 # sandpaper 0.13.2 (2023-09-20)
 
 ## BUG FIX
