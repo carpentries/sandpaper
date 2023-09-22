@@ -125,7 +125,9 @@ fix_setup_link <- function(nodes = NULL) {
   setup_links <- hrefs$scheme == "" &
     hrefs$server == "" &
     hrefs$path == "setup.html"
-  xml2::xml_set_attr(links[setup_links], "href", "index.html#setup")
+  fragment <- ifelse(hrefs$fragment == "", "setup", hrefs$fragment)
+  replacement <- paste0("index.html#", fragment)
+  xml2::xml_set_attr(links[setup_links], "href", replacement)
   invisible(nodes)
 }
 
