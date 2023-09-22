@@ -1,3 +1,9 @@
+# sandpaper 0.13.3 (2023-09-22)
+
+- A regression from #514 where empty menus would cause a failure in deployment
+  with the 404 page has been fixed (reported: @tobyhodges and @zkamvar, #519;
+  fixed: @zkamvar, #520).
+
 # sandpaper 0.13.2 (2023-09-20)
 
 ## BUG FIX
