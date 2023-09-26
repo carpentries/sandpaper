@@ -12,6 +12,9 @@ template:
       site: "@thecarpentries"
       card: summary
 
+development:
+  mode: auto
+
 code:
   width: 72
 
@@ -119,7 +122,7 @@ reference:
    - get_resource_list
    - parse_file_matches
    - build_status
-   - hash_with_children
+   - hash_children
    - template_episode
    - yaml_list
  - title: "[Developer] Lesson Test Fixture"
@@ -135,6 +138,7 @@ articles:
    contents:
     - building-with-renv
     - automated-pull-requests
+    - include-child-documents
  - title: "Developer Guides"
    contents:
     - articles/landscape

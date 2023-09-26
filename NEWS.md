@@ -1,3 +1,28 @@
+# sandpaper 0.13.3.9000 (unreleased)
+
+## NEW FEATURES
+
+* all internal folders can contain the standard `files`, `fig`, and `data`
+  folders with the cautionary note that duplicate file names to other folders
+  will cause an error. 
+- `validate_lesson()` now reports invalid elements of child documents
+- A new vignette `vignette("include-child-documents", package = "sandpaper")`
+  demonstrates and describes the caveats about using child documents.
+
+## BUG FIX
+
+* overview child files are no longer built as if they are top-level files.
+
+## MISC
+
+* R Markdown episodes with further nested child documents (grand children and
+  beyond) will now trigger an episode to rebuild (fixed: @zkamvar, #513)
+* Child file detection functionality has been moved to the {pegboard} package
+
+## DEPENDENCIES
+
+* {pegboard} minimum version is now 0.7.0
+
 # sandpaper 0.13.3 (2023-09-22)
 
 ## BUG FIX
@@ -71,6 +96,16 @@
   fixed.
 * examples have been modified to not use R Markdown lessons unless necessary,
   reducing output and time needed to build the examples.
+
+## CONTINUOUS INTEGRATION
+
+* The README file has been updated to fix a typo.
+
+
+## DEPENDENCIES
+
+* {pegboard} minimum version is now 0.6.0
+* {varnish} minimum version is now 0.3.0
 
 # sandpaper 0.12.4 (2023-06-16)
 

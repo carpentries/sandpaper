@@ -50,7 +50,7 @@ test_that("get_episodes() works in the right order", {
 
 test_that("get_learners() returns contents of the learners directory", {
 
-  expected <- basename(as.character(fs::dir_ls(fs::path(tmp, "learners"))))
+  expected <- basename(as.character(fs::dir_ls(fs::path(tmp, "learners"), type = "file")))
   expect_setequal(expected, c("setup.md", "reference.md", basename(lt)))
 
   expect_silent(l <- get_learners(res))
@@ -66,7 +66,7 @@ test_that("get_learners() returns contents of the learners directory", {
 
 test_that("get_instructors() returns the contents of the instructors directory", {
 
-  expected <- basename(as.character(fs::dir_ls(fs::path(tmp, "instructors"))))
+  expected <- basename(as.character(fs::dir_ls(fs::path(tmp, "instructors"), type = "file")))
   expect_equal(c("instructor-notes.md", basename(it)), expected)
 
   expect_silent(i <- get_instructors(res))
@@ -82,7 +82,7 @@ test_that("get_instructors() returns the contents of the instructors directory",
 
 test_that("get_profiles() returns the contents of the profiles directory", {
 
-  expected <- basename(as.character(fs::dir_ls(fs::path(tmp, "profiles"))))
+  expected <- basename(as.character(fs::dir_ls(fs::path(tmp, "profiles"), type = "file")))
   expect_equal(c("learner-profiles.md", basename(pt)), expected)
 
   expect_silent(p <- get_profiles(res))
