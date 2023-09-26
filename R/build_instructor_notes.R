@@ -32,7 +32,7 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
     this_dat$body <- use_learner(html)
     page_globals$learner$update(this_dat)
 
-    page_globals$meta$update(this_dat)
+    page_globals$metadata$update(this_dat)
 
     build_html(
       template = "extra", pkg = pkg, nodes = html,
