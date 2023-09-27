@@ -33,7 +33,16 @@ test_that("markdown sources can be built without fail", {
   rmarkdown::render(instruct, quiet = TRUE)
   expect_true(fs::file_exists(fs::path_ext_set(instruct, "html")))
 
-  withr::local_options(list(sandpaper.handout = TRUE))
+  # keep original config in a tmp file
+  tmp_config <- withr::local_tempfile()
+  fs::file_copy(fs::path(res, "config.yaml"), tmp_config)
+  # clean up by replacing config with original
+  withr::defer({
+    fs::file_copy(tmp_config, fs::path(res, "config.yaml"))
+  }, priority = "first"
+  )
+  writeLines("handout: true\n", fs::path(res, "config.yaml"))
+
   # It's noisy at first
   suppressMessages({
     build_markdown(res, quiet = FALSE) %>%
