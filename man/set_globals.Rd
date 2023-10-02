@@ -14,7 +14,7 @@ This will enforce four global lists:
 }
 \details{
 \enumerate{
-\item \code{.resources}, which is equivalent to the output of \code{get_source_list()}
+\item \code{.resources}, which is equivalent to the output of \code{get_resource_list()}
 \item \code{this_metadata}, which contains the metadata common for the lesson
 \item \code{learner_globals} the navigation items for the learners
 \item \code{instructor_globals} the namvigation items for the instructors
