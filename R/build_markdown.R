@@ -102,7 +102,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
     # produces the default headings, challenges, code, etc
     # TODO: this needs improving to allow users to choose what to include based
     # on a yaml list
-    handout <- !is.null(handout) || handout
+    handout <- if (is.null(handout)) FALSE else handout
     should_build_handout <- !isFALSE(handout)
     if (should_build_handout) {
       build_handout(path, out = handout)
