@@ -28,6 +28,9 @@
     <loc>https://carpentries.github.io/sandpaper/articles/deployment.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper/articles/include-child-documents.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper/articles/index.html</loc>
   </url>
   <url>
@@ -151,7 +154,7 @@
     <loc>https://carpentries.github.io/sandpaper/reference/git_worktree.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/sandpaper/reference/hash_with_children.html</loc>
+    <loc>https://carpentries.github.io/sandpaper/reference/hash_children.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/index.html</loc>

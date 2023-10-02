@@ -12,7 +12,7 @@ config file."><meta property="og:image" content="https://carpentries.github.io/s
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.13.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.14.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +28,7 @@ config file."><meta property="og:image" content="https://carpentries.github.io/s
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/building-with-renv.html">Building Lessons With A Package Cache</a>
     <a class="dropdown-item" href="../articles/automated-pull-requests.html">Working with Automated Pull Requests</a>
+    <a class="dropdown-item" href="../articles/include-child-documents.html">Including Child Documents</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
@@ -100,24 +101,24 @@ config file.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="va">tmp</span>, open <span class="op">=</span> <span class="cn">FALSE</span>, rmd <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUWqX2P/file1880616f17cf</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpf87YV6/file18a242e98aca</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No schedule set, using Rmd files in <span style="color: #0000BB;">episodes/</span> directory.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUWqX2P/file1880616f17cf</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpf87YV6/file18a242e98aca</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">→ </span><span style="font-weight: 100; font-style: italic;">To remove this message, define your schedule in </span><span style="color: #0000BB; font-weight: 100; font-style: italic;">config.yaml</span><span style="font-weight: 100; font-style: italic;"> or use `set_episodes()` to generate it.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUWqX2P/file1880616f17cf</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpf87YV6/file18a242e98aca</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUWqX2P/file1880616f17cf</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpf87YV6/file18a242e98aca</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> To save this configuration, use</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> set_episodes(path = path, order = ep, write = TRUE)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUWqX2P/file1880616f17cf</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/RtmpUWqX2P/file1880616f17cf/episodes/introduction.md</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUWqX2P/file1880616f17cf</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpf87YV6/file18a242e98aca</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/Rtmpf87YV6/file18a242e98aca/episodes/introduction.md</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpf87YV6/file18a242e98aca</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Workflows up-to-date!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUWqX2P/file1880616f17cf</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/RtmpUWqX2P/file1880616f17cf</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUWqX2P/file1880616f17cf</span>...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpUWqX2P/file1880616f17cf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpf87YV6/file18a242e98aca</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/Rtmpf87YV6/file18a242e98aca</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpf87YV6/file18a242e98aca</span>...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/Rtmpf87YV6/file18a242e98aca</span></span>
 <span class="r-in"><span><span class="fu">get_episodes</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "introduction.md"</span>
 <span class="r-in"><span><span class="fu">get_learners</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span> <span class="co"># information for learners</span></span></span>
