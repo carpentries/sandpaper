@@ -44,7 +44,7 @@ varnish_vars <- function() {
 #'
 #'  - `sidebar` This is generated from [create_sidebar()] and is the same in the
 #'    learner and instructor globals with the exception of the first element.
-#'  - `more` This is the "More" dorpdown menu, which is created via [create_resources_dropdown()].
+#'  - `more` This is the "More" dropdown menu, which is created via [create_resources_dropdown()].
 #'  - `resources` The same as "More", but positioned on the mobile sidebar.
 #'  - `{sandpaper,varnish,pegboard}_version` package versions of each package.
 #'
@@ -83,8 +83,8 @@ set_globals <- function(path) {
   # Resources
   learner <- create_resources_dropdown(these_resources[["learners"]],
     "learners")
-  instructor <- create_resources_dropdown(these_resources[["instructors"]],
-    "instructors")
+  instructor_all <- c(these_resources$instructors, these_resources$learners)
+  instructor <- create_resources_dropdown(instructor_all, "instructors")
   pkg_versions <- varnish_vars()
 
   learner_globals$set(key = NULL,
@@ -124,4 +124,3 @@ clear_globals <- function() {
   instructor_globals$clear()
   this_metadata$clear()
 }
-
