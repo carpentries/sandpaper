@@ -38,10 +38,10 @@ test_that("markdown sources can be built without fail", {
   fs::file_copy(fs::path(res, "config.yaml"), tmp_config)
   # clean up by replacing config with original
   withr::defer({
-    fs::file_copy(tmp_config, fs::path(res, "config.yaml"))
+    fs::file_copy(tmp_config, fs::path(res, "config.yaml"), overwrite = TRUE)
   }, priority = "first"
   )
-  writeLines("handout: true\n", fs::path(res, "config.yaml"))
+  cat("handout: true\n", file = fs::path(res, "config.yaml"), append = TRUE)
 
   # It's noisy at first
   suppressMessages({
