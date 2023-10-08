@@ -170,7 +170,7 @@ test_that("Artifacts are accounted for", {
   # Testing for generated figures included ------------------------
   figs <- paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png")
   a <- fs::dir_ls(fs::path(tmp, "site", "built"), recurse = TRUE, type = "file")
-  expect_setequal(fs::path_file(a), c(figs, b))
+  expect_setequal(fs::path_file(a), c(figs, b, "code-handout.R"))
 
 })
 
