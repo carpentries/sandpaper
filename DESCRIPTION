@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.13.3.9000
+Version: 0.14.0
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -47,7 +47,7 @@ Description: We provide tools to build a Carpentries-themed lesson repository
 License: MIT + file LICENSE
 Imports:
     pkgdown (>= 1.6.0),
-    pegboard (>= 0.6.1.9000),
+    pegboard (>= 0.7.0),
     cli (>= 3.4.0),
     commonmark,
     fs (>= 1.5.0),

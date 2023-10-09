@@ -35,7 +35,7 @@ varnish_vars <- function() {
 #'
 #' This will enforce four global lists:
 #'
-#'  1. `.resources`, which is equivalent to the output of `get_source_list()`
+#'  1. `.resources`, which is equivalent to the output of `get_resource_list()`
 #'  2. `this_metadata`, which contains the metadata common for the lesson
 #'  2. `learner_globals` the navigation items for the learners
 #'  3. `instructor_globals` the namvigation items for the instructors

@@ -1,10 +1,10 @@
-# sandpaper 0.13.3.9000 (unreleased)
+# sandpaper 0.14.0 (2023-10-02)
 
 ## NEW FEATURES
 
 * all internal folders can contain the standard `files`, `fig`, and `data`
   folders with the cautionary note that duplicate file names to other folders
-  will cause an error. 
+  will cause an error.
 - `validate_lesson()` now reports invalid elements of child documents
 - A new vignette `vignette("include-child-documents", package = "sandpaper")`
   demonstrates and describes the caveats about using child documents.
