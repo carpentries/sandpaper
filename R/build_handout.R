@@ -1,5 +1,5 @@
 #' Create a code handout of challenges without solutions
-#' 
+#'
 #' This function will build a handout and save it to `files/code-handout.R`
 #' in your lesson website. This will build with your website if you enable it
 #' with `options(sandpaper.handout = TRUE)` or if you want to specify a path,

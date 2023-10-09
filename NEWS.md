@@ -1,3 +1,12 @@
+# sandpaper 0.14.0.9000 (unreleased)
+
+## NEW FEATURES
+
+* Using `handout: true` in `config.yaml` will cause a handout to be generated
+  for the lesson website under `/files/code-handout.R`. At the moment, this is
+  only relevant for R-based lessons (implemented: @froggleston, #527) and
+  supersedes the need for specifying `options(sandpaper.handout = TRUE)`
+
 # sandpaper 0.14.0 (2023-10-02)
 
 ## NEW FEATURES
