@@ -158,6 +158,8 @@ create_pkgdown_yaml <- function(path) {
   # The user does not interact with this and {{mustache}} is logic-less, so we
   # can be super-verbose here and create any logic we need on the R-side.
   usr <- yaml::read_yaml(path_config(path), eval.expr = FALSE)
+  handout <- if (is.null(usr$handout)) "~" else handout
+  handout <- if (isTRUE(handout)) "files/code-handout.R" else handout
   yaml <- get_yaml_text(template_pkgdown())
   yaml <- whisker::whisker.render(yaml,
     data = list(
@@ -174,7 +176,7 @@ create_pkgdown_yaml <- function(path) {
       carpentry      = siQuote(usr$carpentry),
       carpentry_icon = siQuote(which_icon_carpentry(usr$carpentry)),
       license        = siQuote(usr$license),
-      handout        = if (getOption("sandpaper.handout", default = FALSE)) "'files/code-handout.R'" else "~",
+      handout        = siQuote(handout),
       cp             = usr$carpentry == 'cp',
       lc             = usr$carpentry == 'lc',
       dc             = usr$carpentry == 'dc',
