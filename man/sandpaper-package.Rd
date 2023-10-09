@@ -32,6 +32,7 @@ Other contributors:
   \item Kelly Barnes \email{kbarnes@carpentries.org} [contributor]
   \item Erin Becker \email{ebecker@carpentries.org} [contributor]
   \item Hugo Gruson \email{hugo.gruson+R@normalesup.org} [contributor]
+  \item Rob Davey \email{robertdavey@carpentries.org} [contributor]
 }
 
 }
