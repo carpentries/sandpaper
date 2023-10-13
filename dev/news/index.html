@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.13.3.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.14.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,25 +55,29 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.13.3.9000" id="sandpaper-01339000-unreleased">sandpaper 0.13.3.9000 (unreleased)<a class="anchor" aria-label="anchor" href="#sandpaper-01339000-unreleased"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.14.0.9000" id="sandpaper-01409000-unreleased">sandpaper 0.14.0.9000 (unreleased)<a class="anchor" aria-label="anchor" href="#sandpaper-01409000-unreleased"></a></h2>
+<ul><li>Content for learners now accessible through instructor view. The instructor view “More” dropdown menu item will now have links to learner view items appended. Note that when clicking these links, the user will remain in instructor view. This behaviour may change in future iterations (reported: <a href="https://github.com/karenword" class="external-link">@karenword</a>, <a href="https://github.com/carpentries/sandpaper/issues/394" class="external-link">#394</a>; fixed: <a href="https://github.com/ErinBecker" class="external-link">@ErinBecker</a>, <a href="https://github.com/carpentries/sandpaper/issues/530" class="external-link">#530</a>, reviewed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>)</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.14.0" id="sandpaper-0140-2023-10-02">sandpaper 0.14.0 (2023-10-02)<a class="anchor" aria-label="anchor" href="#sandpaper-0140-2023-10-02"></a></h2>
 <div class="section level3">
-<h3 id="new-features-0-13-3-9000">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-13-3-9000"></a></h3>
+<h3 id="new-features-0-14-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-14-0"></a></h3>
 <ul><li>all internal folders can contain the standard <code>files</code>, <code>fig</code>, and <code>data</code> folders with the cautionary note that duplicate file names to other folders will cause an error.</li>
 <li>
 <code><a href="../reference/validate_lesson.html">validate_lesson()</a></code> now reports invalid elements of child documents</li>
 <li>A new vignette <code><a href="../articles/include-child-documents.html">vignette("include-child-documents", package = "sandpaper")</a></code> demonstrates and describes the caveats about using child documents.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fix-0-13-3-9000">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-13-3-9000"></a></h3>
+<h3 id="bug-fix-0-14-0">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-14-0"></a></h3>
 <ul><li>overview child files are no longer built as if they are top-level files.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="misc-0-13-3-9000">MISC<a class="anchor" aria-label="anchor" href="#misc-0-13-3-9000"></a></h3>
+<h3 id="misc-0-14-0">MISC<a class="anchor" aria-label="anchor" href="#misc-0-14-0"></a></h3>
 <ul><li>R Markdown episodes with further nested child documents (grand children and beyond) will now trigger an episode to rebuild (fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/513" class="external-link">#513</a>)</li>
 <li>Child file detection functionality has been moved to the {pegboard} package</li>
 </ul></div>
 <div class="section level3">
-<h3 id="dependencies-0-13-3-9000">DEPENDENCIES<a class="anchor" aria-label="anchor" href="#dependencies-0-13-3-9000"></a></h3>
+<h3 id="dependencies-0-14-0">DEPENDENCIES<a class="anchor" aria-label="anchor" href="#dependencies-0-14-0"></a></h3>
 <ul><li>{pegboard} minimum version is now 0.7.0</li>
 </ul></div>
 </div>
