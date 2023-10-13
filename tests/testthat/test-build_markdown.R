@@ -1,24 +1,24 @@
 # setup test fixture
 {
-tmp <- res <- restore_fixture()
-create_episode("second-episode", path = tmp)
-instruct <- fs::path(tmp, "instructors", "pyramid.md")
-writeLines(c(
-  "---",
-  "title: Pyramid",
-  "---\n",
-  "One of the best albums by MJQ"
- ),
-  con = instruct
-)
-fs::file_copy(instruct, fs::path(tmp, "learners", "dimaryp.md"))
-set_globals(res)
-withr::defer(clear_globals())
+  tmp <- res <- restore_fixture()
+  create_episode("second-episode", path = tmp)
+  instruct <- fs::path(tmp, "instructors", "pyramid.md")
+  writeLines(
+    c(
+      "---",
+      "title: Pyramid",
+      "---\n",
+      "One of the best albums by MJQ"
+    ),
+    con = instruct
+  )
+  fs::file_copy(instruct, fs::path(tmp, "learners", "dimaryp.md"))
+  set_globals(res)
+  withr::defer(clear_globals())
 }
 
 
 test_that("markdown sources can be built without fail", {
-
   suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
   set_learners(tmp, "dimaryp.md", write = TRUE)
@@ -84,15 +84,12 @@ test_that("changes in config.yaml triggers a rebuild of the site yaml", {
   })
 
   expect_identical(get_path_site_yaml(res)$title, "NEW: Lesson Title")
-
-
 })
 
 
 
 
 test_that("markdown sources can be rebuilt without renv", {
-
   # no building needed
   skip_on_os("windows")
   suppressMessages({
@@ -115,7 +112,6 @@ test_that("markdown sources can be rebuilt without renv", {
 })
 
 test_that("modifying a file suffix will force the file to be rebuilt", {
-
   instruct <- fs::path(tmp, "instructors", "pyramid.md")
   instruct_rmd <- fs::path_ext_set(instruct, "Rmd")
   expect_true(fs::file_exists(instruct))
@@ -144,7 +140,6 @@ test_that("modifying a file suffix will force the file to be rebuilt", {
 })
 
 test_that("Artifacts are accounted for", {
-
   s <- get_episodes(tmp)
   # The artifacts are present in the built directory
   b <- c(
@@ -169,15 +164,14 @@ test_that("Artifacts are accounted for", {
   expect_equal(fs::path_file(e), s, ignore_attr = TRUE)
 
   # Testing for top-level artifacts -------------------------------
-  folders <- c( "data", "fig", "files")
+  folders <- c("data", "fig", "files")
   a <- fs::dir_ls(fs::path(tmp, "site", "built"))
   expect_setequal(fs::path_file(a), c(folders, b))
 
   # Testing for generated figures included ------------------------
   figs <- paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png")
   a <- fs::dir_ls(fs::path(tmp, "site", "built"), recurse = TRUE, type = "file")
-  expect_setequal(fs::path_file(a), c(figs, b, "code-handout.R"))
-
+  expect_setequal(fs::path_file(a), c(figs, b))
 })
 
 test_that("Hashes are correct", {
@@ -186,28 +180,25 @@ test_that("Hashes are correct", {
   h2 <- expect_hashed(res, "second-episode.Rmd")
   # the hashes will no longer be equal because the titles are now different
   expect_failure(expect_equal(h1, h2, ignore_attr = TRUE))
-
 })
 
 test_that("Output is not commented", {
   # Output is not commented
-  built  <- get_markdown_files(res)
+  built <- get_markdown_files(res)
   built_file <- grep("introduction.md$", built)
-  ep     <- trimws(readLines(built[[built_file]]))
-  ep     <- ep[ep != ""]
-  outid  <- grep("[1]", ep, fixed = TRUE)
+  ep <- trimws(readLines(built[[built_file]]))
+  ep <- ep[ep != ""]
+  outid <- grep("[1]", ep, fixed = TRUE)
   output <- ep[outid[1]]
-  fence  <- ep[outid[1] - 1]
+  fence <- ep[outid[1] - 1]
 
   # code output lines start with normal R indexing ---------------
   expect_match(output, "^\\[1\\]")
   # code output fences have the output class ---------------------
   expect_match(fence, "^[`]{3}[{]?\\.?output[}]?")
-
 })
 
 test_that("Markdown rendering does not happen if content is not changed", {
-
   skip_on_os("windows")
 
   suppressMessages({
@@ -231,7 +222,6 @@ test_that("Removing source removes built", {
   reset_episodes(res)
   set_episodes(res, "introduction.Rmd", write = TRUE)
   build_markdown(res, quiet = TRUE)
-#  h1 <- expect_hashed(res, "introduction.Rmd")
   expect_length(get_figs(res, "introduction"), 1)
 
   # The second episode should not exist
@@ -268,7 +258,6 @@ test_that("old md5sum.txt db will work", {
 
   # The new database format is restored
   expect_identical(olddb$file, as.character(newdb$new$file))
-
 })
 
 test_that("dates are preserved in md5sum.txt", {
@@ -283,7 +272,6 @@ test_that("dates are preserved in md5sum.txt", {
   newdb <- build_status(sources, db_path, rebuild = FALSE, write = FALSE)
 
   expect_equal(newdb$new$date, db$date)
-
 })
 
 test_that("Removing partially matching slugs will not have side-effects", {
@@ -300,7 +288,6 @@ test_that("Removing partially matching slugs will not have side-effects", {
   # The image should still exist
   pyramid_fig <- fs::path(built_path, "fig", "introduction-rendered-pyramid-1.png")
   expect_true(fs::file_exists(pyramid_fig))
-
 })
 
 test_that("setting `fail_on_error: true` in config will cause build to fail", {
@@ -345,3 +332,4 @@ test_that("setting `fail_on_error: true` in config will cause build to fail", {
   # fail on error is true
   expect_true(this_metadata$get()[["fail_on_error"]])
 })
+
