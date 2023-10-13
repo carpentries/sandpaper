@@ -37,9 +37,16 @@ test_that("markdown sources can be built without fail", {
   tmp_config <- withr::local_tempfile()
   fs::file_copy(fs::path(res, "config.yaml"), tmp_config)
   # clean up by replacing config with original
-  withr::defer({
-    fs::file_copy(tmp_config, fs::path(res, "config.yaml"), overwrite = TRUE)
-  }, priority = "first"
+  withr::defer(
+    {
+      fs::file_copy(tmp_config, fs::path(res, "config.yaml"), overwrite = TRUE)
+      ch <- fs::path(res, "site", "built", "files", "code-handout.R")
+      if (fs::file_exists(ch)) {
+        fs::file_delete(ch)
+      }
+      this_metadata$set("handout", NULL)
+    },
+    priority = "first"
   )
   cat("handout: true\n", file = fs::path(res, "config.yaml"), append = TRUE)
 
@@ -57,17 +64,16 @@ test_that("markdown sources can be built without fail", {
   expect_true(fs::file_exists(build_path("pyramid.md")))
   expect_true(fs::file_exists(build_path("dimaryp.md")))
   expect_true(fs::file_exists(build_path("setup.md")))
-  fs::file_delete(fs::path(res, "site", "built", "files", "code-handout.R"))
-
 })
 
 test_that("changes in config.yaml triggers a rebuild of the site yaml", {
-
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   yml <- get_path_site_yaml(res)$title
   expect_identical(yml, "Lesson Title")
-  cfg <- gsub("Lesson Title", "NEW: Lesson Title",
-    readLines(fs::path(res, "config.yaml")))
+  cfg <- gsub(
+    "Lesson Title", "NEW: Lesson Title",
+    readLines(fs::path(res, "config.yaml"))
+  )
   writeLines(cfg, fs::path(res, "config.yaml"))
 
   suppressMessages({
