@@ -83,8 +83,9 @@ set_globals <- function(path) {
   # Resources
   learner <- create_resources_dropdown(these_resources[["learners"]],
     "learners")
-  instructor_all <- c(these_resources$instructors, these_resources$learners)
-  instructor <- create_resources_dropdown(instructor_all, "instructors")
+  instructor <- create_resources_dropdown(these_resources[["instructors"]], "instructors")
+  instructor$extras <- c(instructor$extras, "<hr>", learner$extras)
+  instructor$resources <- c(instructor$resources, "<hr>", learner$extras)
   pkg_versions <- varnish_vars()
 
   learner_globals$set(key = NULL,
