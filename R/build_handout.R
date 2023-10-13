@@ -11,7 +11,7 @@
 #' @param out the path to the handout document. When this is `NULL` (default)
 #'   or `TRUE`, the output will be `site/built/files/code-handout.R`.
 #' @return NULL
-build_handout <- function(path = ".", out = getOption("sandpaper.handout", NULL)) {
+build_handout <- function(path = ".", out = NULL) {
   path <- root_path(path)
   lesson <- this_lesson(path)
   tmp <- fs::file_temp(ext = "R")
