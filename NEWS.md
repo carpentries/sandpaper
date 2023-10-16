@@ -1,3 +1,13 @@
+# sandpaper (development version)
+
+## BUG FIX
+
+* Make sure `root_path()` always points to lesson root (#532)
+
+## MISC
+
+* Added @milanmlft as contributor
+
 # sandpaper 0.14.0 (2023-10-02)
 
 ## NEW FEATURES
