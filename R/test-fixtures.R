@@ -186,7 +186,7 @@ remove_local_remote <- function(repo, name = "sandpaper-local") {
   if (any(the_remote <- remotes$name %in% name)) {
     gert::git_remote_remove(name, repo)
     to_remove <- remotes$url[the_remote]
-    cli::cli_alert_info("removing '{name}' ({.file {to_remove}})"
+    cli::cli_alert_info("removing '{name}' ({.file {to_remove}})")
     # don't error if we can not delete this.
     res <- tryCatch(fs::dir_delete(to_remove),
       error = function(e) {
