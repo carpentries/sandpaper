@@ -1,10 +1,21 @@
 # sandpaper 0.14.0.9000 (unreleased)
 
+## NEW FEATURES
+
 * Content for learners now accessible through instructor view. The instructor
   view "More" dropdown menu item will now have links to learner view items
   appended. Note that when clicking these links, the user will remain in
   instructor view. This behaviour may change in future iterations (reported:
   @karenword, #394; fixed: @ErinBecker, #530, reviewed: @zkamvar)
+
+## BUG FIX
+
+* Internal `build_status()` function: make sure `root_path()` always points 
+  to lesson root (reported: @milanmlft, #531; fixed: @milanmlft, #532)
+
+## MISC
+
+* Added @milanmlft as contributor
 
 # sandpaper 0.14.0 (2023-10-02)
 
