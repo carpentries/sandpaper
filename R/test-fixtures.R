@@ -177,7 +177,7 @@ remove_local_remote <- function(repo, name = "sandpaper-local") {
   }
   remotes <- tryCatch(gert::git_remote_list(repo = repo),
     error = function(e) {
-      cli::cli_alert_danger(paste0("error from {.code {capture.output(e$call)}}"))
+      cli::cli_alert_danger("Error listing remotes")
       cli::cli_text(e$message)
       d <- data.frame(name = character(0))
       return(d)
@@ -186,11 +186,11 @@ remove_local_remote <- function(repo, name = "sandpaper-local") {
   if (any(the_remote <- remotes$name %in% name)) {
     gert::git_remote_remove(name, repo)
     to_remove <- remotes$url[the_remote]
+    cli::cli_alert_info("removing '{name}' ({.file {to_remove}})"
     # don't error if we can not delete this.
     res <- tryCatch(fs::dir_delete(to_remove),
       error = function(e) {
-        e$message <- paste0("error from within: ", e$message)
-        cli::cli_alert_danger(paste0("error from {.code {capture.output(e$call)}}"))
+        cli::cli_alert_danger("Error trying to remove remote")
         cli::cli_text(e$message)
         return(FALSE)
       }
