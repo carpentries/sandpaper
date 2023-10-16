@@ -33,7 +33,10 @@ withr::defer({
   if (noise) {
     status <- if (identical(res, FALSE)) "could not be" else "successfully"
     cli::cli_alert_info("{.file {tf}} {status} removed")
-    status <- if (is.character(rem)) "successfully" else "could not be"
-    cli::cli_alert_info("local remote {.file {rem}} {status} removed")
+    if (is.character(rem)) {
+      cli::cli_alert_info("local remote {.file {rem}} successfully removed")
+    } else {
+      cli::cli_alert_info("local remote could not be removed")
+    }
   }
 }, teardown_env())
