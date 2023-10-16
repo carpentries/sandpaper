@@ -69,7 +69,7 @@ test_that("updating a sidebar for all pages modifies appropriately", {
   xhtml <- xml2::read_html(html)
 
   # sidebar update of _extra_ content will _not_ update the sidebar -----------
-  update_sidebar(extra_store, xhtml, "images.md")
+  update_sidebar(extra_store, xhtml, "images.html")
   expect_length(extra_store$get()[["sidebar"]], 1L)
   expect_identical(extra_store$get()[["sidebar"]], paste(sb, collapse = "\n"))
   extra_nodes <- xml2::read_html(extra_store$get()[["sidebar"]])
@@ -78,7 +78,7 @@ test_that("updating a sidebar for all pages modifies appropriately", {
 
   # sidebar update of episode content will update the sidebar -----------------
   ep_store$update(get_navbar_info("two.md"))
-  update_sidebar(ep_store, xhtml, "two.md")
+  update_sidebar(ep_store, xhtml, "two.html")
   expect_length(ep_store$get()[["sidebar"]], 1L)
   expect_false(identical(ep_store$get()[["sidebar"]], paste(sb, collapse = "\n")))
   ep_nodes <- xml2::read_html(ep_store$get()[["sidebar"]])
@@ -87,4 +87,16 @@ test_that("updating a sidebar for all pages modifies appropriately", {
 
 })
 
+
+
+test_that("fix_sidebar_href will return empty string if given empty string", {
+
+  expect_equal(fix_sidebar_href("", server = "exampe.com"), "")
+  expect_equal(fix_sidebar_href(character(0), server = "exampe.com"), "")
+  expect_equal(fix_sidebar_href(NULL, server = "exampe.com"), "")
+  expect_equal(fix_sidebar_href(1:3, server = "exampe.com"), "")
+  expect_equal(fix_sidebar_href(list(), server = "exampe.com"), "")
+
+
+})
 

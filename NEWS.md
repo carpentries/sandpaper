@@ -1,3 +1,67 @@
+# sandpaper 0.14.0.9000 (unreleased)
+
+* Content for learners now accessible through instructor view. The instructor
+  view "More" dropdown menu item will now have links to learner view items
+  appended. Note that when clicking these links, the user will remain in
+  instructor view. This behaviour may change in future iterations (reported:
+  @karenword, #394; fixed: @ErinBecker, #530, reviewed: @zkamvar)
+
+# sandpaper 0.14.0 (2023-10-02)
+
+## NEW FEATURES
+
+* all internal folders can contain the standard `files`, `fig`, and `data`
+  folders with the cautionary note that duplicate file names to other folders
+  will cause an error.
+- `validate_lesson()` now reports invalid elements of child documents
+- A new vignette `vignette("include-child-documents", package = "sandpaper")`
+  demonstrates and describes the caveats about using child documents.
+
+## BUG FIX
+
+* overview child files are no longer built as if they are top-level files.
+
+## MISC
+
+* R Markdown episodes with further nested child documents (grand children and
+  beyond) will now trigger an episode to rebuild (fixed: @zkamvar, #513)
+* Child file detection functionality has been moved to the {pegboard} package
+
+## DEPENDENCIES
+
+* {pegboard} minimum version is now 0.7.0
+
+# sandpaper 0.13.3 (2023-09-22)
+
+## BUG FIX
+
+* References to heading in `setup.md` will now be reflected in the website. 
+  (reported: @tobyhodges, @fnattino, and @zkamvar, #521; fixed: @ErinBecker and
+  @zkamvar, #522). 
+- A regression from #514 where empty menus would cause a failure in deployment
+  with the 404 page has been fixed (reported: @tobyhodges and @zkamvar, #519;
+  fixed: @zkamvar, #520).
+
+# sandpaper 0.13.2 (2023-09-20)
+
+## BUG FIX
+
+* Users with duplicated `init.defaultBranch` declarations in their git config
+  will no longer fail the default branch check (reported: @tesaunders, #516;
+  fixed: @zkamvar, #517)
+
+# sandpaper 0.13.1 (2023-09-19)
+
+## BUG FIX
+
+* Aggregate pages will no longer fail if an episode has a prefix that is the
+  same as that aggregate page (e.g. `images.html` will no longer fail if there
+  is an episode that starts with `images-`) (reported: @mwhamgenomics, #511;
+  fixed: @zkamvar, #512)
+* 404 page index link will point to the default index page of the site instead
+  of the relative index page, which would result in a 404 for nested links that
+  did not exist (reported: @kaijagahm and @zkamvar, #498; fixed @zkamvar, #514)
+
 # sandpaper 0.13.0 (2023-09-06)
 
 ## NEW FEATURES
@@ -40,6 +104,16 @@
   fixed.
 * examples have been modified to not use R Markdown lessons unless necessary,
   reducing output and time needed to build the examples.
+
+## CONTINUOUS INTEGRATION
+
+* The README file has been updated to fix a typo.
+
+
+## DEPENDENCIES
+
+* {pegboard} minimum version is now 0.6.0
+* {varnish} minimum version is now 0.3.0
 
 # sandpaper 0.12.4 (2023-06-16)
 

@@ -70,12 +70,11 @@ values with the appropriate elements, and returns an object created from
 }
 \examples{
 if (FALSE) { # only run if you have provisioned a pkgdown site
-lsn_site <- "/path/to/lesson/site"
-pkg <- pkgdown::as_pkgdown(lsn_site)
+  lsn_site <- "/path/to/lesson/site"
+  pkg <- pkgdown::as_pkgdown(lsn_site)
 
-# create an AIO page
-provision_agg_page(pkg, title = "All In One", slug = "aio", quiet = FALSE)
-
+  # create an AIO page
+  provision_agg_page(pkg, title = "All In One", slug = "aio", quiet = FALSE)
 }
 }
 \keyword{internal}

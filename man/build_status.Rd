@@ -88,7 +88,7 @@ sp$build_status(resources, db, write = TRUE)
 sp$build_status(resources, db, write = TRUE)
 # this is because the db exists on disk and you can query it
 sp$get_built_db(db, filter = "*")
-sp$get_built_db(db, filter = "*Rmd")
+sp$get_built_db(db, filter = "*R?md")
 # if you get the hash of the file, it's equal to the expected:
 print(actual <- tools::md5sum(resources[[1]]))
 print(expected <- sp$get_hash(resources[[1]], db))
@@ -124,6 +124,6 @@ cat("Goodbye!\n", append = TRUE,
 sp$build_status(resources, db, write = TRUE)
 }
 \seealso{
-\code{\link[=get_resource_list]{get_resource_list()}}, \code{\link[=reserved_db]{reserved_db()}}, \code{\link[=hash_with_children]{hash_with_children()}}
+\code{\link[=get_resource_list]{get_resource_list()}}, \code{\link[=reserved_db]{reserved_db()}}, \code{\link[=hash_children]{hash_children()}}
 }
 \keyword{internal}

@@ -20,7 +20,7 @@ cli::test_that_cli("set_config() will set individual items", {
   expect_snapshot(
     set_config(list("title" = "test: title", "license" = "CC0"), path = tmp)
   )
-}, config = c("plain"))
+}, configs = c("plain"))
 
 cli::test_that_cli("set_config() will write items", {
   fs::file_copy(tcfg, this_cfg, overwrite = TRUE)

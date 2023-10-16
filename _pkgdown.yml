@@ -12,6 +12,9 @@ template:
       site: "@thecarpentries"
       card: summary
 
+development:
+  mode: auto
+
 code:
   width: 72
 
@@ -98,7 +101,10 @@ reference:
    - build_site
    - build_episode_html
    - build_home
+   - build_404
    - build_html
+   - create_sidebar
+   - create_sidebar_item
  - title: "[Internal] Post-build Aggregation Components"
    desc: >
      Components to build aggregate pages such as All in One and Keypoints
@@ -117,7 +123,7 @@ reference:
    - get_resource_list
    - parse_file_matches
    - build_status
-   - hash_with_children
+   - hash_children
    - template_episode
    - yaml_list
  - title: "[Developer] Lesson Test Fixture"
@@ -133,6 +139,7 @@ articles:
    contents:
     - building-with-renv
     - automated-pull-requests
+    - include-child-documents
  - title: "Developer Guides"
    contents:
     - articles/landscape

@@ -10,6 +10,7 @@
       <a href="../instructor/key-points.html">Key Points</a>
       <a href="../instructor/instructor-notes.html">Instructor Notes</a>
       <a href="../instructor/images.html">Extract All Images</a>
+      <a class="dropdown-item" href="reference.html">Reference</a>
       <a href="../instructor/aio.html">See all in one page</a>
 
 ---
