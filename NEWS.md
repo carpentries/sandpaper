@@ -12,6 +12,15 @@
   instructor view. This behaviour may change in future iterations (reported:
   @karenword, #394; fixed: @ErinBecker, #530, reviewed: @zkamvar)
 
+## BUG FIX
+
+* Internal `build_status()` function: make sure `root_path()` always points 
+  to lesson root (reported: @milanmlft, #531; fixed: @milanmlft, #532)
+
+## MISC
+
+* Added @milanmlft as contributor
+
 # sandpaper 0.14.0 (2023-10-02)
 
 ## NEW FEATURES
