@@ -7,8 +7,7 @@
 this is some documentation about options
 }
 \details{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{option("sandpaper.handout" = TRUE)
-option("sandpaper.show_draft" = TRUE)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{option("sandpaper.show_draft" = TRUE)
 option("sandpaper.links" = NULL)
 option("sandpaper.use_renv" = FALSE)
 option("sandpaper.package_cache_trigger" = FALSE)
@@ -18,14 +17,6 @@ option("sandpaper.test_fixture" = NULL)
 As of 2022-02-22, there are several options that are used in sandpaper that
 may be manipulated by the user. This set may change in the future, but here
 are the description of these options and how they are set on startup:
-\subsection{sandpaper.handout}{
-
-\strong{Default: \code{FALSE}} This option instructs {sandpaper} to create a handout
-of all RMarkdown files via {pegboard}, which uses \code{\link[knitr:knit]{knitr::purl()}} in the
-background after removing everything but the challenges (without solutions)
-and any code blocks where \code{purl = TRUE}.
-}
-
 \subsection{sandpaper.show_draft}{
 
 \strong{Default: \code{TRUE}} This is for user messages. If \code{TRUE}, a message about

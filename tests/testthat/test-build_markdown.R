@@ -1,24 +1,24 @@
 # setup test fixture
 {
-tmp <- res <- restore_fixture()
-create_episode("second-episode", path = tmp)
-instruct <- fs::path(tmp, "instructors", "pyramid.md")
-writeLines(c(
-  "---",
-  "title: Pyramid",
-  "---\n",
-  "One of the best albums by MJQ"
- ),
-  con = instruct
-)
-fs::file_copy(instruct, fs::path(tmp, "learners", "dimaryp.md"))
-set_globals(res)
-withr::defer(clear_globals())
+  tmp <- res <- restore_fixture()
+  create_episode("second-episode", path = tmp)
+  instruct <- fs::path(tmp, "instructors", "pyramid.md")
+  writeLines(
+    c(
+      "---",
+      "title: Pyramid",
+      "---\n",
+      "One of the best albums by MJQ"
+    ),
+    con = instruct
+  )
+  fs::file_copy(instruct, fs::path(tmp, "learners", "dimaryp.md"))
+  set_globals(res)
+  withr::defer(clear_globals())
 }
 
 
 test_that("markdown sources can be built without fail", {
-
   suppressMessages(s <- get_episodes(tmp))
   set_episodes(tmp, s, write = TRUE)
   set_learners(tmp, "dimaryp.md", write = TRUE)
@@ -33,7 +33,23 @@ test_that("markdown sources can be built without fail", {
   rmarkdown::render(instruct, quiet = TRUE)
   expect_true(fs::file_exists(fs::path_ext_set(instruct, "html")))
 
-  withr::local_options(list(sandpaper.handout = TRUE))
+  # keep original config in a tmp file
+  tmp_config <- withr::local_tempfile()
+  fs::file_copy(fs::path(res, "config.yaml"), tmp_config)
+  # clean up by replacing config with original
+  withr::defer(
+    {
+      fs::file_copy(tmp_config, fs::path(res, "config.yaml"), overwrite = TRUE)
+      ch <- fs::path(res, "site", "built", "files", "code-handout.R")
+      if (fs::file_exists(ch)) {
+        fs::file_delete(ch)
+      }
+      this_metadata$set("handout", NULL)
+    },
+    priority = "first"
+  )
+  cat("handout: true\n", file = fs::path(res, "config.yaml"), append = TRUE)
+
   # It's noisy at first
   suppressMessages({
     build_markdown(res, quiet = FALSE) %>%
@@ -48,17 +64,16 @@ test_that("markdown sources can be built without fail", {
   expect_true(fs::file_exists(build_path("pyramid.md")))
   expect_true(fs::file_exists(build_path("dimaryp.md")))
   expect_true(fs::file_exists(build_path("setup.md")))
-  fs::file_delete(fs::path(res, "site", "built", "files", "code-handout.R"))
-
 })
 
 test_that("changes in config.yaml triggers a rebuild of the site yaml", {
-
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   yml <- get_path_site_yaml(res)$title
   expect_identical(yml, "Lesson Title")
-  cfg <- gsub("Lesson Title", "NEW: Lesson Title",
-    readLines(fs::path(res, "config.yaml")))
+  cfg <- gsub(
+    "Lesson Title", "NEW: Lesson Title",
+    readLines(fs::path(res, "config.yaml"))
+  )
   writeLines(cfg, fs::path(res, "config.yaml"))
 
   suppressMessages({
@@ -69,15 +84,12 @@ test_that("changes in config.yaml triggers a rebuild of the site yaml", {
   })
 
   expect_identical(get_path_site_yaml(res)$title, "NEW: Lesson Title")
-
-
 })
 
 
 
 
 test_that("markdown sources can be rebuilt without renv", {
-
   # no building needed
   skip_on_os("windows")
   suppressMessages({
@@ -100,7 +112,6 @@ test_that("markdown sources can be rebuilt without renv", {
 })
 
 test_that("modifying a file suffix will force the file to be rebuilt", {
-
   instruct <- fs::path(tmp, "instructors", "pyramid.md")
   instruct_rmd <- fs::path_ext_set(instruct, "Rmd")
   expect_true(fs::file_exists(instruct))
@@ -129,7 +140,6 @@ test_that("modifying a file suffix will force the file to be rebuilt", {
 })
 
 test_that("Artifacts are accounted for", {
-
   s <- get_episodes(tmp)
   # The artifacts are present in the built directory
   b <- c(
@@ -154,7 +164,7 @@ test_that("Artifacts are accounted for", {
   expect_equal(fs::path_file(e), s, ignore_attr = TRUE)
 
   # Testing for top-level artifacts -------------------------------
-  folders <- c( "data", "fig", "files")
+  folders <- c("data", "fig", "files")
   a <- fs::dir_ls(fs::path(tmp, "site", "built"))
   expect_setequal(fs::path_file(a), c(folders, b))
 
@@ -162,7 +172,6 @@ test_that("Artifacts are accounted for", {
   figs <- paste0(fs::path_ext_remove(s), "-rendered-pyramid-1.png")
   a <- fs::dir_ls(fs::path(tmp, "site", "built"), recurse = TRUE, type = "file")
   expect_setequal(fs::path_file(a), c(figs, b))
-
 })
 
 test_that("Hashes are correct", {
@@ -171,28 +180,25 @@ test_that("Hashes are correct", {
   h2 <- expect_hashed(res, "second-episode.Rmd")
   # the hashes will no longer be equal because the titles are now different
   expect_failure(expect_equal(h1, h2, ignore_attr = TRUE))
-
 })
 
 test_that("Output is not commented", {
   # Output is not commented
-  built  <- get_markdown_files(res)
+  built <- get_markdown_files(res)
   built_file <- grep("introduction.md$", built)
-  ep     <- trimws(readLines(built[[built_file]]))
-  ep     <- ep[ep != ""]
-  outid  <- grep("[1]", ep, fixed = TRUE)
+  ep <- trimws(readLines(built[[built_file]]))
+  ep <- ep[ep != ""]
+  outid <- grep("[1]", ep, fixed = TRUE)
   output <- ep[outid[1]]
-  fence  <- ep[outid[1] - 1]
+  fence <- ep[outid[1] - 1]
 
   # code output lines start with normal R indexing ---------------
   expect_match(output, "^\\[1\\]")
   # code output fences have the output class ---------------------
   expect_match(fence, "^[`]{3}[{]?\\.?output[}]?")
-
 })
 
 test_that("Markdown rendering does not happen if content is not changed", {
-
   skip_on_os("windows")
 
   suppressMessages({
@@ -216,7 +222,6 @@ test_that("Removing source removes built", {
   reset_episodes(res)
   set_episodes(res, "introduction.Rmd", write = TRUE)
   build_markdown(res, quiet = TRUE)
-#  h1 <- expect_hashed(res, "introduction.Rmd")
   expect_length(get_figs(res, "introduction"), 1)
 
   # The second episode should not exist
@@ -253,7 +258,6 @@ test_that("old md5sum.txt db will work", {
 
   # The new database format is restored
   expect_identical(olddb$file, as.character(newdb$new$file))
-
 })
 
 test_that("dates are preserved in md5sum.txt", {
@@ -268,7 +272,6 @@ test_that("dates are preserved in md5sum.txt", {
   newdb <- build_status(sources, db_path, rebuild = FALSE, write = FALSE)
 
   expect_equal(newdb$new$date, db$date)
-
 })
 
 test_that("Removing partially matching slugs will not have side-effects", {
@@ -285,7 +288,6 @@ test_that("Removing partially matching slugs will not have side-effects", {
   # The image should still exist
   pyramid_fig <- fs::path(built_path, "fig", "introduction-rendered-pyramid-1.png")
   expect_true(fs::file_exists(pyramid_fig))
-
 })
 
 test_that("setting `fail_on_error: true` in config will cause build to fail", {
@@ -330,3 +332,4 @@ test_that("setting `fail_on_error: true` in config will cause build to fail", {
   # fail on error is true
   expect_true(this_metadata$get()[["fail_on_error"]])
 })
+

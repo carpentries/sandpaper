@@ -35,6 +35,15 @@ Authors@R: c(
            family = "Gruson",
            role = c("ctb"),
            email = "hugo.gruson+R@normalesup.org"),
+    person(given = "Rob",
+           family = "Davey",
+           role = c("ctb"),
+           email = "robertdavey@carpentries.org"),
+    person(given = "Milan",
+           family = "Malfait",
+           role = c("ctb"),
+           email = "milan.malfait94@gmail.com",
+           comment = c(ORCID = "0000-0001-9144-3701")),
     person())
 Description: We provide tools to build a Carpentries-themed lesson repository
   into an accessible standalone static website. These include local tools and
