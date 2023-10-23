@@ -55,7 +55,7 @@ use_python <- function(path = ".", python = NULL,
 
   ## Set up working directory, avoids some renv side effects
   setwd(path)
-  renv::load(project = path)
+  renv::load(project = ".") # load the default renv profile from the working directory
   prof <- Sys.getenv("RENV_PROFILE")
 
   install_reticulate(path = path)
