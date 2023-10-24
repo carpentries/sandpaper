@@ -1,3 +1,11 @@
+# sandpaper 0.14.1 (2023-10-25)
+
+## BUG FIX
+
+* `manage_deps()` can now provision a GitHub package from the lockfile if it was
+  not previously installed on the system (reported: @pratikunterwegs,
+  carpentries/actions#32; fixed: @zkamvar, #533)
+
 # sandpaper 0.14.0 (2023-10-02)
 
 ## NEW FEATURES
