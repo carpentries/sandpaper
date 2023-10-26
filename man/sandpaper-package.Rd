@@ -33,6 +33,7 @@ Other contributors:
   \item Erin Becker \email{ebecker@carpentries.org} [contributor]
   \item Hugo Gruson \email{hugo.gruson+R@normalesup.org} [contributor]
   \item Rob Davey \email{robertdavey@carpentries.org} [contributor]
+  \item Milan Malfait \email{milan.malfait94@gmail.com} (\href{https://orcid.org/0000-0001-9144-3701}{ORCID}) [contributor]
 }
 
 }

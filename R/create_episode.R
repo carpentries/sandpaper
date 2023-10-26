@@ -15,12 +15,14 @@
 #' @param add (logical or numeric) If numeric, it represents the position the
 #'   episode should be added. If `TRUE`, the episode is added to the end of the
 #'   schedule. If `FALSE`, the episode is added as a draft episode.
+#' @param open if interactive, the episode will open in a new editor window.
 #' @export
 #' @examples
 #' tmp <- tempfile()
 #' create_lesson(tmp, open = FALSE, rmd = FALSE)
 #' create_episode_md("getting-started", path = tmp)
-create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = TRUE, path = ".") {
+create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = TRUE, path = ".",
+                           open = rlang::is_interactive()) {
   check_lesson(path)
   ext <- switch(match.arg(tolower(ext), c("rmd", "md")), rmd = ".Rmd", md = ".md")
   prefix <- ""
@@ -37,6 +39,7 @@ create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = TRUE, 
   if (add) {
     move_episode(ename, position = add, write = TRUE, path = path)
   }
+  usethis::edit_file(fs::path(path, "episodes", ename), open = open)
   invisible(fs::path(path, "episodes", ename))
 }
 
