@@ -31,6 +31,7 @@ check_reticulate_config <- function(lsn) {
 }
 
 local_load_py_pkg <- function(lsn, package) {
-  with_renv_profile(lsn, reticulate::import(package))
+  package <- rlang::enexpr(package)
+  with_renv_profile(lsn, reticulate::import(!!package))
 }
 
