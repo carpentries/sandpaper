@@ -71,32 +71,40 @@ reserved_db <- function(db) {
 
 write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 
-#' Create combined checksum of files
+#' Update file checksums to account for child documents
+#'
+#' @description
+#'
+#' If any R Markdown file contains a child document, its hash will be replaced
+#' with the hash of the combined and unnamed hashes of the parent and
+#' descendants (aka the lineage).
+#'
+#' @details
 #'
 #' When handling child files for lessons, it is important that changes in child
 #' files will cause the source file to change as well.
 #'
-#'  - The `get_child_files()` function finds the child files from a
+#'  - The `get_lineages()` function finds the child files from a
 #'    [pegboard::Lesson] object.
 #'  - Because we use a text database that relies on the hash of the file to
-#'    determine if a file should be rebuilt, `hash_with_children()` piggybacks
+#'    determine if a file should be rebuilt, `hash_children()` piggybacks
 #'    on this paradigm by assigning a unique hash to a parent file with
 #'    children that is the hash of the vector of hashes of the files. The hash
 #'    of hashes is created with `rlang::hash()`.
 #'
 #' @param checksums the hashes of the parent files
 #' @param files the relative path of the parent files to the `root_path`
-#' @param children a named list of character vectors specifying the child files
-#'   for each parent file in order of appearance. These paths are relative to
-#'   the folder of the parent file.
-#' @param root_path the root path to the lesson.
+#' @param lineage a named list of character vectors specifying absolute paths
+#'   for the full lineage of parent Markdown or R Markdown files (inclusive).
+#'   The names will be the relative path of the parent.
 #' @return
-#'   - `get_child_files()` a named list of charcter vectors specifying the
-#'      child files within files in a lesson.
-#'   - `hash_with_children()` a character vector of hashes of the same length
+#'   - `get_lineages()` a named list of charcter vectors specifying the
+#'      lineage of parent files. The names are the relative paths of the
+#'      parents.
+#'   - `hash_children()` a character vector of hashes of the same length
 #'      as the parent files.
 #' @keywords internal
-#' @rdname hash_with_children
+#' @rdname hash_children
 #' @examples
 #' # This demonstration will show how a temporary database can be set up. It
 #' # will only work with a sandpaper lesson
@@ -120,65 +128,61 @@ write_build_db <- function(md5, db) write.table(md5, db, row.names = FALSE)
 #' resources[[1]] <- fs::path_ext_set(resources[[1]], "Rmd")
 #' set_episodes(tmp, fs::path_file(resources[[1]]), write = TRUE)
 #'
-#' # get_child_files ------------------------------------------------------
+#' # get_lineages ------------------------------------------------------
 #' # we can get the child files by scanning the Lesson object
 #' lsn <- sp$this_lesson(tmp)
 #' class(lsn)
-#' children <- sp$get_child_files(lsn)
+#' children <- sp$get_lineages(lsn)
 #' print(children)
 #'
-#' # hash_with_children ---------------------------------------------------
+#' # hash_children ---------------------------------------------------
 #' # get hash of parent
 #' phash <- tools::md5sum(resources[[1]])
 #' rel_parent <- fs::path_rel(resources[[1]], start = tmp)
-#' sp$hash_with_children(phash, rel_parent, children, tmp)
+#' sp$hash_children(phash, rel_parent, children)
 #' # demonstrate how this works ----------------
 #' # the combined hashes have their names removed and then `rlang::hash()`
 #' # creates the hash of the unnamed hashes.
-#' chash <- tools::md5sum(fs::path(tmp, "episodes", children[[1]]))
-#' hashes <- unname(c(phash, chash))
+#' chash <- tools::md5sum(children[[1]])
+#' hashes <- unname(chash)
 #' print(hashes)
 #' rlang::hash(hashes)
-hash_with_children <- function(checksums, files, children, root_path) {
-  res <- character(length(files))
+hash_children <- function(checksums, files, lineage) {
+  res <- checksums
   names(res) <- files
-  for (i in seq_along(files)) {
-    this_file <- fs::path_file(files[[i]])
-    this_hash <- checksums[[i]]
-    the_children <- children[[this_file]]
-    # if we have no child files for a given RMD, then we record the hash and
-    # move on
-    if (is.null(the_children)) {
-      res[[i]] <- this_hash
+  for (i in files) {
+    this_lineage <- lineage[[i]]
+    # No children exist under the following conditions
+    #   0: the file is not a markdown file, so it is NULL from the above
+    #   1: the file really has no children
+    no_children <- length(this_lineage) <= 1L
+    if (no_children) {
       next
     }
-    this_context <- fs::path_dir(files[[i]])
-    these_children <- fs::path(root_path, this_context, children[[this_file]])
-    hashes <- unname(c(this_hash, tools::md5sum(these_children)))
+    hashes <- unname(c(res[[i]], tools::md5sum(this_lineage[-1L])))
     res[[i]] <- rlang::hash(hashes)
   }
   return(res)
 }
 
 # Return list of child nodes used in each file
-#' @rdname hash_with_children
+#' @rdname hash_children
 #' @param lsn a [pegboard::Lesson] object
-get_child_files <- function(lsn) {
-  blocks <- c(lsn$get("code", "episodes"), lsn$get("code", "extra"))
-  children <- lapply(blocks, child_file_from_code_blocks)
-  children <- children[lengths(children) > 0]
-  return(children)
-}
-
-# get the child file from code block if it exists
-child_file_from_code_blocks <- function(nodes) {
-  use_children <- xml2::xml_has_attr(nodes, "child")
-  if (any(use_children)) {
-    nodes <- nodes[use_children]
-    res <- gsub("[\"']", "", xml2::xml_attr(nodes, "child"))
-  } else {
-    character(0)
-  }
+get_lineages <- function(lsn) {
+  # lineages are the parent file followed by the subsequent children
+  lineages <- lapply(c(lsn$episodes, lsn$extra), function(ep) {
+      lsn$trace_lineage(ep$path)
+    }
+  )
+  # We need to set the names to the relative path to match our file inputs
+  names(lineages) <- vapply(lineages,
+    FUN = function(l, p) {
+      fs::path_rel(l[1], start = p)
+    },
+    FUN.VALUE = character(1),
+    p = lsn$path
+  )
+  return(lineages)
 }
 
 #' Identify what files need to be rebuilt and what need to be removed
@@ -222,7 +226,7 @@ child_file_from_code_blocks <- function(nodes) {
 #'     old database or if a single file was rebuilt.
 #' @keywords internal
 #' @rdname build_status
-#' @seealso [get_resource_list()], [reserved_db()], [hash_with_children()]
+#' @seealso [get_resource_list()], [reserved_db()], [hash_children()]
 #' @examples
 #' # This demonstration will show how a temporary database can be set up. It
 #' # will only work with a sandpaper lesson
@@ -242,7 +246,7 @@ child_file_from_code_blocks <- function(nodes) {
 #' sp$build_status(resources, db, write = TRUE)
 #' # this is because the db exists on disk and you can query it
 #' sp$get_built_db(db, filter = "*")
-#' sp$get_built_db(db, filter = "*Rmd")
+#' sp$get_built_db(db, filter = "*R?md")
 #' # if you get the hash of the file, it's equal to the expected:
 #' print(actual <- tools::md5sum(resources[[1]]))
 #' print(expected <- sp$get_hash(resources[[1]], db))
@@ -289,11 +293,7 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
 
   # If we have a single source passed in, this means that we want to update it
   # in the database and force it to rebuild
-  if (build_one) {
-    root_path <- root_path(sources)
-  } else {
-    root_path <- fs::path_common(sources)
-  }
+  root_path <- root_path(fs::path_common(sources)) # ensure we're at the actual lesson root path
   sources    <- fs::path_rel(sources, start = root_path)
 
   built_path <- fs::path_rel(fs::path_dir(db), root_path)
@@ -309,14 +309,15 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
   # if there are any RMD documents, we check for child documents
   is_rmd <- tolower(fs::path_ext(sources)) == "rmd"
   if (any(is_rmd)) {
-    children <- get_child_files(this_lesson(root_path))
+    children <- get_lineages(this_lesson(root_path))
   } else {
     children <- list()
   }
-  if (length(children) > 0L) {
-    # update the checksums of the parent using rlang::hash(sumparent, sumchild, ...)
-    checksums[is_rmd] <- hash_with_children(checksums[is_rmd], sources[is_rmd],
-      children, root_path)
+  children_exist <- length(children) > 0L && any(lengths(children) > 1L)
+  if (children_exist) {
+    # update the checksums of the parent
+    # using rlang::hash(sumparent, sumchild, ...)
+    checksums <- hash_children(checksums, sources, children)
   }
   md5 = data.frame(
     file     = sources,

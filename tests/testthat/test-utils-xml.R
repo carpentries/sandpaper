@@ -72,6 +72,40 @@ test_that("callout ids are processed correctly", {
 })
 
 
+test_that("setup links with anchors are respected", {
+
+  # See https://github.com/carpentries/sandpaper/issues/521
+  html_txt <- paste0(
+    "<a href='setup.html'>success</a>",
+    "<a href='setup.html#troubleshooting'>success</a>",
+    "<a href='index.html'>no change</a>",
+    "<a href='https://example.com/setup.html#troubleshooting'>no change</a>",
+    "<a href='example.com/setup.html#troubleshooting'>no change</a>",
+    "<a href='https://example.com/setup.html'>no change</a>",
+    "<a href='example.com/setup.html'>no change</a>"
+  )
+  html_expect <- paste0(
+    "<a href='index.html#setup'>success</a>",
+    "<a href='index.html#troubleshooting'>success</a>",
+    "<a href='index.html'>no change</a>",
+    "<a href='https://example.com/setup.html#troubleshooting'>no change</a>",
+    "<a href='example.com/setup.html#troubleshooting'>no change</a>",
+    "<a href='https://example.com/setup.html'>no change</a>",
+    "<a href='example.com/setup.html'>no change</a>"
+  )
+
+  html <- xml2::read_html(html_txt)
+  expect <- xml2::read_html(html_expect)
+
+  # call the function for its side effect
+  fix_setup_link(html)
+
+  # test that both of the things are identical
+  expect_equal(as.character(html), as.character(expect))
+
+})
+
+
 test_that("empty args result in nothing happening", {
   expect_null(fix_nodes())
   expect_null(fix_setup_link())

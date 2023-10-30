@@ -1,17 +1,27 @@
 res <- restore_fixture()
 
 
-test_that("get_child_files() will return an empty list for lessons with no child files", {
+test_that("get_lineages() will return a list equal to the files in the lesson", {
   lsn <- this_lesson(res)
-  expected <- list(a = NULL)
+  expected <- lapply(
+    c(lsn$get("path", c("episodes", "extra"))),
+    function(p) fs::path_abs(p, start = res)
+  )
+  names(expected) <- vapply(expected,
+    FUN = function(l, p) {
+      fs::path_rel(l[1], start = p)
+    },
+    FUN.VALUE = character(1),
+    p = res
+  )
+
   expected <- expected[lengths(expected) > 0]
-  expect_type(get_child_files(lsn), "list")
-  expect_equal(get_child_files(lsn), expected)
+  expect_type(get_lineages(lsn), "list")
+  expect_equal(get_lineages(lsn), expected)
 })
 
 
 test_that("build_status() will record new entries", {
-
   outdir <- path_built(res)
   db_path <- fs::path(outdir, "md5sum.txt")
   # database should not exist
@@ -55,13 +65,10 @@ test_that("build_status() will record new entries", {
   expect_type(stat$build, "character")
   expect_s3_class(stat$new, "data.frame")
   expect_named(stat$new, c("file", "checksum", "built", "date"))
-
-
 })
 
 
 test_that("build_status() will return no differences if no files change", {
-
   outdir <- path_built(res)
   db_path <- fs::path(outdir, "md5sum.txt")
   # database should not exist
@@ -103,28 +110,38 @@ test_that("build_status() will return no differences if no files change", {
   expect_named(restat$new, c("file", "checksum", "built", "date"))
   expect_named(restat$old, c("file", "checksum", "built", "date"))
   expect_equal(restat$checksum, restat$checksum)
-
 })
 
 
 
-test_that("get_child_files() will return a list of files that have child documents in lessons", {
-
+test_that("get_lineages() will return a list of files that have child documents in lessons", {
   # setup our test and then burn it down
   files <- setup_child_test(res)
   withr::defer(fs::file_delete(files))
 
   lsn <- this_lesson(res)
-  expected <- list("child-haver.Rmd" = c("files/figures.md"))
-  expect_type(get_child_files(lsn), "list")
-  expect_equal(get_child_files(lsn), expected)
-
+  expected <- lapply(
+    c(lsn$get("path", c("episodes", "extra"))),
+    function(p) fs::path_abs(p, start = res)
+  )
+  expected[["child-haver.Rmd"]] <- c(
+    expected[["child-haver.Rmd"]],
+    fs::path(res, c("episodes/files/figures.md"))
+  )
+  names(expected) <- vapply(expected,
+    FUN = function(l, p) {
+      fs::path_rel(l[1], start = p)
+    },
+    FUN.VALUE = character(1),
+    p = res
+  )
+  expect_type(get_lineages(lsn), "list")
+  expect_equal(get_lineages(lsn), expected)
 })
 
 
 
 test_that("build_status() takes into account child document modifications", {
-
   # setup our test and then burn it down
   files <- setup_child_test(res)
   withr::defer(fs::file_delete(files))
@@ -214,10 +231,5 @@ test_that("build_status() takes into account child document modifications", {
   # no files are to be removed
   expect_type(restat$remove, "character")
   expect_length(restat$remove, 0L)
-
 })
-
-
-
-
 

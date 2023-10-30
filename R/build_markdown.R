@@ -96,7 +96,13 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
         error   = error
       )
     }
-    handout <- getOption("sandpaper.handout", default = FALSE)
+
+    handout <- this_metadata$get()[["handout"]]
+
+    # produces the default headings, challenges, code, etc
+    # TODO: this needs improving to allow users to choose what to include based
+    # on a yaml list
+    handout <- if (is.null(handout)) FALSE else handout
     should_build_handout <- !isFALSE(handout)
     if (should_build_handout) {
       build_handout(path, out = handout)
@@ -139,12 +145,18 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
 copy_build_assets <- function(path, outdir, overview = FALSE) {
   path <- root_path(path)
   # get all the non-markdown files
-  artifacts <- get_source_artifacts(path, "episodes")
+  known_folders <- c("episodes", "learners", "instructors", "profiles")
+  artifacts <- get_source_artifacts(path, known_folders)
   resource_folders <- c("data", "files", "fig")
   # enforce dir will create a directory if it doesn't exist, so that it's
   # always available for the user, even if git is not tracking it.
-  to_copy <- enforce_dir(fs::path(path, "episodes", resource_folders))
-  to_copy <- c(to_copy, artifacts)
+  to_copy <- vapply(known_folders,
+    FUN = function(f) {
+      enforce_dir(fs::path(path, f, resource_folders))
+    },
+    FUN.VALUE = character(3)
+  )
+  to_copy <- c(as.vector(to_copy), artifacts)
   if (overview) {
     # overview lessons are special, so we are going to explicitly search the top
     # directory for the resource folders and then copy them only if they exist
@@ -168,8 +180,10 @@ remove_rendered_html <- function(episodes) {
 
 # Get a vector of markdown files to build with names.
 get_build_sources <- function(path, outdir, slug = NULL, quiet) {
-  source_list    <- .resources$get() %||% get_resource_list(path, warn = !quiet)
-  sources        <- unlist(source_list, use.names = FALSE)
+  source_list <- .resources$get() %||% get_resource_list(path, warn = !quiet)
+  # filter out the assets (e.g. child files) from the source list
+  no_asset <- names(source_list) %nin% c("files", "data", "fig")
+  sources <- unlist(source_list[no_asset], use.names = FALSE)
   names(sources) <- get_slug(sources)
   if (is.null(slug)) {
     copy_maybe(sources[["config"]], fs::path(outdir, "config.yaml"))

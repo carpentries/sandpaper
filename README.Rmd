@@ -54,7 +54,7 @@ install.packages("sandpaper", dep = TRUE)
 
 Note that this will also install development versions of the following packages:
 
-| package      | What it does | 
+| package      | What it does |
 | -------------| ------------ |
 | [{varnish}]  | html, css, and javascript templates for The Carpentries (in progress) |
 | [{tinkr}]    | manipulation of knitr markdown documents built on the commonmark xml library |

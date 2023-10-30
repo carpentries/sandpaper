@@ -19,11 +19,10 @@ build_html(
 
 \item{pkg}{an object created from  \code{\link[pkgdown:as_pkgdown]{pkgdown::as_pkgdown()}}}
 
-\item{nodes}{an \code{xml_document} object. In the case of using this for the
-index page (from \code{\link[=build_home]{build_home()}}), \code{nodes} will be a list of two
+\item{nodes}{an \code{xml_document} object. \code{nodes} will be a list of two
 \code{xml_documents}; one for instructors and one for learners so that the
-instructors have the schedule available to them (however, this might be a
-relic, Zhian needs to inspect it).}
+instructors have the schedule available to them. If both the instructor
+and learner page, it will be a single \code{xml_document} object.}
 
 \item{global_data}{a list store object that contains copies of the global
 variables for the page, including metadata, navigation, and variables for
@@ -46,8 +45,9 @@ Build instructor and learner HTML page
 This function is a central workhorse that connects the global
 lesson metadata and the global variables for each page to the rendering
 engine: {pkgdown}. It will perform the global operations that includes
-setting up the navigation, adding metadata, and building both the instructor
-and learner versions of the page.
+setting up the navigation (via \code{\link[=update_sidebar]{update_sidebar()}}), adding metadata, and
+building both the instructor and learner versions of the page (via
+\code{\link[pkgdown:render_page]{pkgdown::render_page()}}).
 
 In the Workbench, there are three types of pages:
 \enumerate{
@@ -63,5 +63,9 @@ notes pages.
 
 Each of these types of pages have their own process for setting up content,
 which gets processed before its passed here.
+}
+\seealso{
+\code{\link[=set_globals]{set_globals()}} for definitions of the global data,
+\code{\link[=update_sidebar]{update_sidebar()}} for context of how the sidebar is updated,
 }
 \keyword{internal}
