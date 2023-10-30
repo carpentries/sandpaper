@@ -313,3 +313,32 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   }
   return(NULL)
 }
+
+#' Generate a function to run in a renv profile
+#'
+#' This is a [Function operator](https://adv-r.hadley.nz/function-operators.html) which will
+#' generate a function that will run in a renv profile. This is useful for running code in a
+#' separate R subprocess with [`callr::r()`], to avoid *renv* side effects related to interactive
+#' sessions.
+#'
+#' @param func The function to be evaluated after loading the renv environment.
+#' @param renv_path The path to the renv environment to load. Usually a directory created by
+#'   [`create_lesson()`]
+#' @param renv_profile Optional profile to load. Defaults to "lesson-requirements".
+#' @param ... Additional arguments to be passed to `func`.
+#'
+#' @return The result of evaluating `func(...)` after loading the renv environment.
+#'
+#' @keywords internal
+with_renv_factory <- function(func, renv_path, renv_profile = "lesson-requirements") {
+  force(func); force(renv_path); force(renv_profile)
+
+  function(...) {
+    renv_path <- normalizePath(renv_path)
+    withr::local_dir(renv_path)
+    withr::local_envvar(c("RENV_PROFILE" = renv_profile))
+    renv::load(renv_path)
+
+    func(...)
+  }
+}
