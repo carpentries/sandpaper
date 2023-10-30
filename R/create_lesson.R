@@ -106,7 +106,7 @@ create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio 
 
     if (add_python) {
       cli::cli_status_update("{cli::symbol$arrow_right} Setting up Python ...")
-      use_python(path = path, python = python, type = type)
+      use_python(path = path, python = python, type = type, open = FALSE)
     }
   }
 

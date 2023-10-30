@@ -5,6 +5,7 @@
 #'
 #' @param path path to the current project
 #' @inheritParams renv::use_python
+#' @param open if interactive, the lesson will open in a new editor window.
 #' @param ... Further arguments to be passed on to [renv::use_python()]
 #'
 #' @details
@@ -43,7 +44,8 @@
 #' py_install("numpy")
 #' }
 use_python <- function(path = ".", python = NULL,
-                       type = c("auto", "virtualenv", "conda", "system"), ...) {
+                       type = c("auto", "virtualenv", "conda", "system"),
+                       open = rlang::is_interactive(), ...) {
 
   wd <- getwd()
 
@@ -64,6 +66,11 @@ use_python <- function(path = ".", python = NULL,
   ## NOTE: use_python() deactivates the default profile, see https://github.com/rstudio/renv/issues/1217
   ## Workaround: re-activate the profile
   renv::activate(project = path, profile = prof)
+  if (open) {
+    if (usethis::proj_activate(path)) {
+      on.exit()
+    }
+  }
   invisible(path)
 }
 

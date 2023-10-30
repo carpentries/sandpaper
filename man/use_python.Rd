@@ -9,6 +9,7 @@ use_python(
   path = ".",
   python = NULL,
   type = c("auto", "virtualenv", "conda", "system"),
+  open = rlang::is_interactive(),
   ...
 )
 
@@ -22,6 +23,8 @@ py_install(packages, path = ".", ...)
 
 \item{type}{The type of Python environment to use. When \code{"auto"} (the default),
 virtual environments will be used.}
+
+\item{open}{if interactive, the lesson will open in a new editor window.}
 
 \item{...}{Further arguments to be passed to \code{\link[reticulate:py_install]{reticulate::py_install()}}}
 
