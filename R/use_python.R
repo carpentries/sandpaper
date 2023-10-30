@@ -47,25 +47,30 @@ use_python <- function(path = ".", python = NULL,
                        type = c("auto", "virtualenv", "conda", "system"),
                        open = rlang::is_interactive(), ...) {
 
-  wd <- getwd()
-
-  ## Load the renv profile, unloading it upon exit
-  on.exit({
-    invisible(utils::capture.output(renv::deactivate(project = path), type = "message"))
-    setwd(wd)
-  }, add = TRUE, after = FALSE)
-
-  ## Set up working directory, avoids some renv side effects
-  setwd(path)
-  renv::load(project = ".") # load the default renv profile from the working directory
-  prof <- Sys.getenv("RENV_PROFILE")
-
+  ## Make sure reticulate is installed
   install_reticulate(path = path)
-  renv::use_python(python = python, type = type, ...)
 
-  ## NOTE: use_python() deactivates the default profile, see https://github.com/rstudio/renv/issues/1217
-  ## Workaround: re-activate the profile
-  renv::activate(project = path, profile = prof)
+  ## Generate function to run in separate R process
+  use_python_with_renv <- function(path, python, type, ...) {
+    prof <- Sys.getenv("RENV_PROFILE")
+    renv::use_python(project = path, python = python, type = type, ...)
+
+    ## NOTE: use_python() deactivates the default profile,
+    ## see https://github.com/rstudio/renv/issues/1217
+    ## Workaround: re-activate the profile
+    renv::activate(project = path, profile = prof)
+  }
+  callr_use_python <- with_renv_factory(use_python_with_renv,
+    renv_path = path, renv_profile = "lesson-requirements"
+  )
+
+  ## Run in separate R process
+  callr::r(
+    func = function(f, path, python, type,  ...) f(path = path, python = python , type = type, ...),
+    args = list(f = callr_use_python, path = path, python = python, type = type, ...),
+    show = TRUE
+  )
+
   if (open) {
     if (usethis::proj_activate(path)) {
       on.exit()
@@ -90,32 +95,45 @@ use_python <- function(path = ".", python = NULL,
 #' @rdname use_python
 py_install <- function(packages, path = ".",  ...) {
 
-  ## Load the renv profile, unloading it upon exit
-  renv::load(project = path)
-
-  on.exit({
-    invisible(utils::capture.output(renv::deactivate(project = path), type = "message"))
-  }, add = TRUE, after = FALSE)
-
+  ## Ensure reticulate is installed
   install_reticulate(path = path)
-  reticulate::py_install(packages = packages, ...)
 
-  cli::cli_alert("Updating the package cache")
-  renv::snapshot(lockfile = renv::paths$lockfile(project = path), prompt = FALSE)
+  py_install_with_renv <- function(packages, ...) {
+    reticulate::py_install(packages = packages, ...)
+    cli::cli_alert("Updating the package cache")
+    renv::snapshot(prompt = FALSE)
+  }
+  callr_py_install <- with_renv_factory(py_install_with_renv,
+    renv_path = path, renv_profile = "lesson-requirements"
+  )
+
+  ## Run in separate R process
+  callr::r(
+    func = function(f, packages) f(packages = packages),
+    args = list(f = callr_py_install, packages = packages),
+    show = TRUE
+  )
+
+  invisible(TRUE)
 }
 
-install_reticulate <- function(path) {
-  renv_lib <- renv::paths$library(project = path)
-  has_reticulate <- requireNamespace("reticulate", lib.loc = renv_lib, quietly = TRUE)
-  reticulate_installable <- check_reticulate_installable()
-  if (!has_reticulate && reticulate_installable) {
-    cli::cli_alert("Adding `reticulate` as a dependency")
-    ## Force reticulate to be recorded by renv
-    dep_file <- fs::path(path, "dependencies.R")
-    write("library(reticulate)", file = dep_file, append = TRUE)
-    renv::install("reticulate", library = renv_lib)
+
+## Helper to install reticulate in the lesson's renv environment and record it as a dependency
+install_reticulate <- function(path, quiet = FALSE) {
+
+  if (!check_reticulate_installable()) {
+    cli::cli_alert("`reticulate` can not be installed on this system. Skipping installation.")
+    return(invisible(FALSE))
   }
-  invisible(NULL)
+
+  ## Record reticulate as a dependency for renv
+  dep_file <- fs::path(path, "dependencies.R")
+  write("library(reticulate)", file = dep_file, append = TRUE)
+
+  ## Install reticulate through manage_deps()
+  manage_deps(path = path, quiet = quiet)
+
+  invisible(TRUE)
 }
 
 check_reticulate_installable <- function() {
