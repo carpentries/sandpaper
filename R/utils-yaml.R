@@ -180,10 +180,13 @@ create_pkgdown_yaml <- function(path) {
       dc             = usr$carpentry == 'dc',
       swc            = usr$carpentry == 'swc',
       # Should we display a lifecycle banner?
-      life_cycle = if (usr$life_cycle == "stable")    "~"  else siQuote(usr$life_cycle),
-      pre_alpha  = if (usr$life_cycle == "pre-alpha") TRUE else "~",
-      alpha      = if (usr$life_cycle == "alpha")     TRUE else "~",
-      beta       = if (usr$life_cycle == "beta")      TRUE else "~",
+      life_cycle = siQuote(usr$life_cycle),
+      pre_alpha  = usr$life_cycle == "pre-alpha",
+      alpha      = usr$life_cycle == "alpha",
+      beta       = usr$life_cycle == "beta",
+      stable     = usr$life_cycle == "stable",
+      # Should we display DOI info?
+      doi        = siQuote(usr$doi),
       NULL
     )
   )
@@ -236,4 +239,3 @@ quote_config_items <- function(yaml) {
   }
   yaml
 }
-
