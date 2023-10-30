@@ -50,7 +50,7 @@ test_that("py_install() installs Python packages", {
   py_install("numpy", path = lsn)
   numpy <- local_load_py_pkg(lsn, "numpy")
 
-  expect_no_error({numpy <- reticulate::import("numpy")})
+  expect_no_error({numpy <- local_load_py_pkg(lsn, "numpy")})
   expect_s3_class(numpy, "python.builtin.module")
 
   req_file <- fs::path(lsn, "requirements.txt")
