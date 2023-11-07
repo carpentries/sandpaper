@@ -96,7 +96,13 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
         error   = error
       )
     }
-    handout <- getOption("sandpaper.handout", default = FALSE)
+
+    handout <- this_metadata$get()[["handout"]]
+
+    # produces the default headings, challenges, code, etc
+    # TODO: this needs improving to allow users to choose what to include based
+    # on a yaml list
+    handout <- if (is.null(handout)) FALSE else handout
     should_build_handout <- !isFALSE(handout)
     if (should_build_handout) {
       build_handout(path, out = handout)

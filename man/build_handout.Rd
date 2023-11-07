@@ -4,7 +4,7 @@
 \alias{build_handout}
 \title{Create a code handout of challenges without solutions}
 \usage{
-build_handout(path = ".", out = getOption("sandpaper.handout", NULL))
+build_handout(path = ".", out = NULL)
 }
 \arguments{
 \item{path}{the path to the lesson. Defaults to current working directory}

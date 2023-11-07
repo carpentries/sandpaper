@@ -293,11 +293,7 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
 
   # If we have a single source passed in, this means that we want to update it
   # in the database and force it to rebuild
-  if (build_one) {
-    root_path <- root_path(sources)
-  } else {
-    root_path <- fs::path_common(sources)
-  }
+  root_path <- root_path(fs::path_common(sources)) # ensure we're at the actual lesson root path
   sources    <- fs::path_rel(sources, start = root_path)
 
   built_path <- fs::path_rel(fs::path_dir(db), root_path)
