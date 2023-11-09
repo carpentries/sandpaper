@@ -73,7 +73,7 @@ build_episode_html <- function(path_md, path_src = NULL,
                                page_back = "index.md", page_forward = "index.md",
                                pkg, quiet = FALSE, page_progress = NULL,
                                sidebar = NULL, date = NULL) {
-  home <- root_path(path_md)
+  home <- get_source_path() %||% root_path(path_md)
   this_lesson(home)
   page_globals <- setup_page_globals()
   slug <- get_slug(path_md)
@@ -118,7 +118,7 @@ build_episode_html <- function(path_md, path_src = NULL,
 get_nav_data <- function(path_md, path_src = NULL, home = NULL,
   this_page = NULL, page_back = NULL, page_forward = NULL) {
   if (is.null(home)) {
-    home <- root_path(path_md)
+    home <- get_source_path() %||% root_path(path_md)
   }
   if (is.null(this_page)) {
     this_page <- as_html(path_md)

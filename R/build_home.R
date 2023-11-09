@@ -19,7 +19,7 @@
 #' [build_html()] function as the `{{{ readme }}}` and `{{{ setup }}}` keys.
 build_home <- function(pkg, quiet, next_page = NULL) {
   page_globals <- setup_page_globals()
-  path  <- root_path(pkg$src_path)
+  path  <- get_source_path() %||% root_path(pkg$src_path)
   syl   <- format_syllabus(get_syllabus(path, questions = TRUE),
     use_col = FALSE)
   idx      <- fs::path(pkg$src_path, "built", "index.md")
