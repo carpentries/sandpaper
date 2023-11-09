@@ -1,3 +1,10 @@
+# sandpaper 0.14.1 (2023-11-09)
+
+## BUG FIX
+
+* `mailto:` links are no longer prepended with the URL (reported: @apirogov,
+  #538; fixed: @zkamvar, #539)
+
 # sandpaper 0.14.0 (2023-10-02)
 
 ## NEW FEATURES
