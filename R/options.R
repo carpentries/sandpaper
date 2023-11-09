@@ -7,7 +7,6 @@
 #'@details 
 #' 
 #' ```
-#' option("sandpaper.handout" = TRUE)
 #' option("sandpaper.show_draft" = TRUE)
 #' option("sandpaper.links" = NULL)
 #' option("sandpaper.use_renv" = FALSE)
@@ -18,13 +17,6 @@
 #' As of 2022-02-22, there are several options that are used in sandpaper that
 #' may be manipulated by the user. This set may change in the future, but here
 #' are the description of these options and how they are set on startup:
-#'
-#' ### sandpaper.handout
-#' 
-#' **Default: `FALSE`** This option instructs {sandpaper} to create a handout
-#' of all RMarkdown files via {pegboard}, which uses [knitr::purl()] in the
-#' background after removing everything but the challenges (without solutions)
-#' and any code blocks where `purl = TRUE`.
 #'
 #' ### sandpaper.show_draft
 #'
