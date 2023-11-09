@@ -12,13 +12,14 @@ test_that("paths in instructor view that are nested or not HTML get diverted", {
     "[g](files/confirmation.html)", # asset
     "[h](#what-the)",
     "[i](other-page.html#section)",
-    "[j](other-page)"
+    "[j](other-page)",
+    "[k](mailto:workbench@example.com?subject='no')"
   )))
   res <- xml2::read_html(use_instructor(html_test))
   # refs are transformed according to our rules
   refs <- xml2::xml_text(xml2::xml_find_all(res, ".//@href"))
   expect_equal(startsWith(refs, "../"),
-    c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE))
+    c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE))
   expect_snapshot(xml2::xml_find_all(html_test, ".//a[@href]"))
   expect_snapshot(xml2::xml_find_all(res, ".//a[@href]"))
 })
