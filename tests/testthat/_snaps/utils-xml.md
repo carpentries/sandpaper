@@ -3,7 +3,7 @@
     Code
       xml2::xml_find_all(html_test, ".//a[@href]")
     Output
-      {xml_nodeset (10)}
+      {xml_nodeset (11)}
        [1] <a href="index.html">a</a>
        [2] <a href="./index.html">b</a>
        [3] <a href="fig/thing.png">c</a>
@@ -14,13 +14,14 @@
        [8] <a href="#what-the">h</a>
        [9] <a href="other-page.html#section">i</a>
       [10] <a href="other-page">j</a>
+      [11] <a href="mailto:workbench@example.com?subject='no'">k</a>
 
 ---
 
     Code
       xml2::xml_find_all(res, ".//a[@href]")
     Output
-      {xml_nodeset (10)}
+      {xml_nodeset (11)}
        [1] <a href="index.html">a</a>
        [2] <a href="./index.html">b</a>
        [3] <a href="../fig/thing.png">c</a>
@@ -31,4 +32,5 @@
        [8] <a href="#what-the">h</a>
        [9] <a href="other-page.html#section">i</a>
       [10] <a href="other-page">j</a>
+      [11] <a href="mailto:workbench@example.com?subject='no'">k</a>
 
