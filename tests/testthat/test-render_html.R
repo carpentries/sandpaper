@@ -92,7 +92,12 @@ test_that("pandoc structure is rendered correctly", {
     rgx <- "(data-bs-parent|aria-labelledby).+?(Instructor|Solution|Spoiler)1"
     return(sub(rgx, "[\\2 hidden]", x))
   }
-  expect_snapshot(cat(readLines(out), sep = "\n"), transform = formation)
+  ver <- as.character(rmarkdown::pandoc_version())
+  expect_snapshot(
+    cat(readLines(out), sep = "\n"),
+    transform = formation,
+    variant = ver
+  )
 })
 
 test_that("paragraphs after objectives block are parsed correctly", {
@@ -112,7 +117,8 @@ test_that("paragraphs after objectives block are parsed correctly", {
     message(cat(readLines(out), sep = "\n"))
   }
   skip_on_os("windows")
-  expect_snapshot(cat(readLines(out), sep = "\n"))
+  ver <- as.character(rmarkdown::pandoc_version())
+  expect_snapshot(cat(readLines(out), sep = "\n"), variant = ver)
 
 })
 
@@ -155,7 +161,8 @@ test_that("render_html applies the internal lua filter", {
     x <- sub(close, "...done]>", x)
     return(x)
   }
-  expect_snapshot(cat(res), transform = formation)
+  ver <- as.character(rmarkdown::pandoc_version())
+  expect_snapshot(cat(res), transform = formation, variant = ver)
 })
 
 
