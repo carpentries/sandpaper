@@ -144,8 +144,6 @@ test_that("render_html applies the internal lua filter", {
     x <- sub(open, "<div id=\"\\1-[hidden...\"", x)
     x <- sub(mid, "...still hiding...", x)
     x <- sub(close, "...done]>", x)
-    # prevent non-UTF-8 recognising windows systems for being messed up
-    x <- sub("What.s", "What's", x)
     return(x)
   }
   ver <- as.character(rmarkdown::pandoc_version())
