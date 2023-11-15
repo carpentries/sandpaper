@@ -50,8 +50,14 @@ test_that("(#536) SANDPAPER_SITE envvar works as expected", {
 
   # the site path should be equal to our temporary path
   dst_path <- fs::path(path_site(res), "docs")
-  expect_equal(unclass(path_site(res)), Sys.getenv("SANDPAPER_SITE"))
-  expect_equal(fs::path(Sys.getenv("SANDPAPER_SITE"), "docs"), dst_path)
+  # NOTE: for Windows and Mac, the realised temp paths and the actual temp
+  # paths will differ, so we need to do this weird relative path comparison BS
+  # >:(
+  rel <- fs::path_dir(tmp)
+  site_rel <- fs::path_rel(path_site(res), start = rel)
+  env_rel  <- fs::path_rel(Sys.getenv("SANDPAPER_SITE"), start = rel)
+  expect_equal(site_rel, env_rel)
+  expect_equal(fs::path(env_rel, "docs"), fs::path_rel(dst_path, rel))
   # but it should not yet exist because we still need to initialise it
   expect_false(fs::dir_exists(dst_path))
 

@@ -26,9 +26,15 @@ test_that("(#536) SANDPAPER_SITE enviornment variable will move the database pat
   orig_outdir <- path_built(res)
   tmp <- withr::local_tempdir("site")
   withr::local_envvar(list("SANDPAPER_SITE" = tmp))
+  # NOTE: for Windows and Mac, the realised temp paths and the actual temp
+  # paths will differ, so we need to do this weird relative path comparison BS
+  # >:(
+  rel <- fs::path_dir(tmp)
   outdir <- path_built(res)
   expect_equal(fs::path_dir(outdir), unclass(path_site(res)))
-  expect_equal(fs::path_dir(outdir), Sys.getenv("SANDPAPER_SITE"))
+  rel_site <- fs::path_rel(fs::path_dir(outdir), start = rel)
+  rel_env  <- fs::path_rel(Sys.getenv("SANDPAPER_SITE"), start = rel)
+  expect_equal(rel_site, rel_env)
 
 
   # the original outdir should not exist
