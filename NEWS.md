@@ -11,6 +11,11 @@
   appended. Note that when clicking these links, the user will remain in
   instructor view. This behaviour may change in future iterations (reported:
   @karenword, #394; fixed: @ErinBecker, #530, reviewed: @zkamvar)
+* The `site/` folder is now customisable to any writable directory on your
+  system by setting the experimental `SANDPAPER_SITE` environment variable to
+  any valid and empty folder. This is most useful in the context of Docker
+  containers, where file permissions to mounted volumes are not always
+  guaranteed (reported: @fherreazcue #536; implemented: @zkamvar, #537)
 * DOI badges can now be displayed when paired with {varnish} version 0.4.0 by
   adding the `doi:` key to the `config.yaml` file with either the raw DOI or
   the URL to the DOI (reported: @tobyhodges, carpentries/workbench#67;

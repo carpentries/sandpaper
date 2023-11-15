@@ -2,7 +2,7 @@
 #' @param built a vector of markdown documents that have recently been rebuilt
 #'   (for future use)
 build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
-  path <- root_path(pkg$src_path)
+  path <- get_source_path() %||% root_path(pkg$src_path)
   lsn <- this_lesson(path)
   outpath <- fs::path(pkg$dst_path, "instructor-notes.html")
   already_built <- template_check$valid() &&
