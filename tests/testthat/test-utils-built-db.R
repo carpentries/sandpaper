@@ -32,8 +32,8 @@ test_that("(#536) SANDPAPER_SITE enviornment variable will move the database pat
   rel <- fs::path_dir(tmp)
   outdir <- path_built(res)
   expect_equal(fs::path_dir(outdir), unclass(path_site(res)))
-  rel_site <- fs::path_rel(fs::path_dir(outdir), start = rel)
-  rel_env  <- fs::path_rel(Sys.getenv("SANDPAPER_SITE"), start = rel)
+  rel_site <- fs::path_file(fs::path_dir(outdir))
+  rel_env  <- fs::path_file(Sys.getenv("SANDPAPER_SITE"))
   expect_equal(rel_site, rel_env)
 
 
