@@ -125,7 +125,10 @@ fix_setup_link <- function(nodes = NULL) {
   setup_links <- hrefs$scheme == "" &
     hrefs$server == "" &
     hrefs$path == "setup.html"
-  xml2::xml_set_attr(links[setup_links], "href", "index.html#setup")
+  fragment <- hrefs$fragment[setup_links]
+  fragment <- ifelse(fragment == "", "setup", fragment)
+  replacement <- paste0("index.html#", fragment)
+  xml2::xml_set_attr(links[setup_links], "href", replacement)
   invisible(nodes)
 }
 
@@ -141,9 +144,12 @@ use_instructor <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   copy <- xml2::read_html(as.character(nodes))
   # find all local links and transform non-html and nested links ---------
-  lnk <- xml2::xml_find_all(copy,
-    ".//a[@href][not(contains(@href, '://')) and not(starts-with(@href, '#'))]"
-  )
+  no_external <- "not(contains(@href, '://'))"
+  no_anchors  <- "not(starts-with(@href, '#'))"
+  no_mail     <- "not(starts-with(@href, 'mailto:'))"
+  predicate <- paste(c(no_external, no_anchors, no_mail), collapse = " and ")
+  XPath <- sprintf(".//a[@href][%s]", predicate)
+  lnk <- xml2::xml_find_all(copy, XPath)
   lnk_hrefs <- xml2::xml_attr(lnk, "href")
   lnk_paths <- xml2::url_parse(lnk_hrefs)$path
   # links without HTML extension

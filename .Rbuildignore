@@ -15,3 +15,5 @@
 ^renv/sandbox$
 ^.editorconfig
 
+^doc$
+^Meta$

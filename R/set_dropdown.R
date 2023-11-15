@@ -65,8 +65,8 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 
 #' Set individual keys in a configuration file
 #'
-#' @param pairs a named character vector with keys as the names and the new
-#'  values as the contents
+#' @param pairs a named list or character vector with keys as the names and the
+#'   new values as the contents
 #' @param create if `TRUE`, any new values in `pairs` will be created and
 #'   appended; defaults to `FALSE`, which prevents typos from sneaking in.
 #'   single key-pair values currently supported.
@@ -87,7 +87,8 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #' - **title** `[character]` the lesson title (e.g. `'Introduction to R for
 #'   Plant Pathologists'`
 #' - **created** `[character]` Date in ISO 8601 format (e.g. `'2021-02-09'`)
-#' - **keywords** `[character]` comma-separated list (e.g `'static site, R, tidyverse'`)
+#' - **keywords** `[character]` comma-separated list (e.g `'static site, R,
+#'   tidyverse'`)
 #' - **life_cycle** `[character]` one of pre-alpha, alpha, beta, stable
 #' - **license** `[character]` a license for the lesson (e.g. `'CC-BY 4.0'`)
 #' - **source** `[character]` the source repository URL
@@ -104,8 +105,17 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #' - **fail_on_error** `[boolean]` for R Markdown lessons; fail the build if any
 #'   chunks produce an error. Use `#| error: true` in chunk options to allow the
 #'   error to be displayed
-#' - **workbench-beta** yes `[boolean]` if truthy, this displays a banner on the
+#' - **workbench-beta** `[boolean]` if truthy, this displays a banner on the
 #'   site that indicates the site is in the workbench beta phase.
+#' - **overview** `[boolean]` All lessons must have episodes with the exception
+#'   of overview lessons. To indicate that your lesson serves as an overview for
+#'   other lessons, use `overview: true`
+#' - **handout** `[boolean]` or `[character]` This option instructs {sandpaper}
+#'   to create a handout of all RMarkdown files via {pegboard}, which uses
+#'   [knitr::purl()] in the background after removing everything but the
+#'   challenges (without solutions) and any code blocks where `purl = TRUE`. The
+#'   default path for the handout is `files/code-handout.R`
+#'
 #'
 #' As the workbench becomes more developed, some of these optional keys may
 #' disappear.
@@ -120,6 +130,8 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #'  - **sandpaper** `[character]` github string or version number of sandpaper
 #'    version to use
 #'  - **varnish** `[character]` github string or version number of varnish
+#'    version to use
+#'  - **pegboard** `[character]` github string or version number of pegboard
 #'    version to use
 #'
 #' For example, if you had forked your own version of varnish to modify the
@@ -144,9 +156,16 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #' if (FALSE) {
 #' tmp <- tempfile()
 #' create_lesson(tmp, "test lesson", open = FALSE, rmd = FALSE)
-#' # Change the title and License
+#' # Change the title and License (default vars)
 #' set_config(c(title = "Absolutely Free Lesson", license = "CC0"),
 #'   path = tmp,
+#'   write = TRUE
+#' )
+#'
+#' # add the URL and workbench-beta indicator
+#' set_config(list("workbench-beta" = TRUE, url = "https://example.com/"),
+#'   path = tmp,
+#'   create = TRUE,
 #'   write = TRUE
 #' )
 #' }
@@ -173,7 +192,13 @@ set_config <- function(pairs = NULL, create = FALSE, path = ".", write = FALSE) 
   # creates a character vector for the number of keys we need
   line <- character(length(keys))
   for (i in seq(keys)) {
-    line[i] <- glue::glue("{keys[[i]]}: {siQuote(values[[i]])}")
+    vali <- values[[i]]
+    if (is.logical(vali)) {
+      vali <- if (vali) "true" else "false"
+    } else {
+      vali <- siQuote(vali)
+    }
+    line[i] <- glue::glue("{keys[[i]]}: {vali}")
   }
   if (create) {
     appends <- what == -9L

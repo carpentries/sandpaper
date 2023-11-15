@@ -1,7 +1,121 @@
-# sandpaper 0.12.5 (unreleased)
+# sandpaper 0.14.0.9000 (unreleased)
+
+## NEW FEATURES
+
+* Using `handout: true` in `config.yaml` will cause a handout to be generated
+  for the lesson website under `/files/code-handout.R`. At the moment, this is
+  only relevant for R-based lessons (implemented: @froggleston, #527) and
+  supersedes the need for specifying `options(sandpaper.handout = TRUE)`
+* Content for learners now accessible through instructor view. The instructor
+  view "More" dropdown menu item will now have links to learner view items
+  appended. Note that when clicking these links, the user will remain in
+  instructor view. This behaviour may change in future iterations (reported:
+  @karenword, #394; fixed: @ErinBecker, #530, reviewed: @zkamvar)
+* The `site/` folder is now customisable to any writable directory on your
+  system by setting the experimental `SANDPAPER_SITE` environment variable to
+  any valid and empty folder. This is most useful in the context of Docker
+  containers, where file permissions to mounted volumes are not always
+  guaranteed (reported: @fherreazcue #536; implemented: @zkamvar, #537)
+* DOI badges can now be displayed when paired with {varnish} version 0.4.0 by
+  adding the `doi:` key to the `config.yaml` file with either the raw DOI or
+  the URL to the DOI (reported: @tobyhodges, carpentries/workbench#67;
+  fixed: @tobyhodges, #535).
 
 ## BUG FIX
 
+* Internal `build_status()` function: make sure `root_path()` always points 
+  to lesson root (reported: @milanmlft, #531; fixed: @milanmlft, #532)
+
+## MISC
+
+* Added @milanmlft as contributor
+
+# sandpaper 0.14.1 (2023-11-09)
+
+## BUG FIX
+
+* `mailto:` links are no longer prepended with the URL (reported: @apirogov,
+  #538; fixed: @zkamvar, #539)
+
+# sandpaper 0.14.0 (2023-10-02)
+
+## NEW FEATURES
+
+* all internal folders can contain the standard `files`, `fig`, and `data`
+  folders with the cautionary note that duplicate file names to other folders
+  will cause an error.
+- `validate_lesson()` now reports invalid elements of child documents
+- A new vignette `vignette("include-child-documents", package = "sandpaper")`
+  demonstrates and describes the caveats about using child documents.
+
+## BUG FIX
+
+* overview child files are no longer built as if they are top-level files.
+
+## MISC
+
+* R Markdown episodes with further nested child documents (grand children and
+  beyond) will now trigger an episode to rebuild (fixed: @zkamvar, #513)
+* Child file detection functionality has been moved to the {pegboard} package
+
+## DEPENDENCIES
+
+* {pegboard} minimum version is now 0.7.0
+
+# sandpaper 0.13.3 (2023-09-22)
+
+## BUG FIX
+
+* References to heading in `setup.md` will now be reflected in the website. 
+  (reported: @tobyhodges, @fnattino, and @zkamvar, #521; fixed: @ErinBecker and
+  @zkamvar, #522). 
+- A regression from #514 where empty menus would cause a failure in deployment
+  with the 404 page has been fixed (reported: @tobyhodges and @zkamvar, #519;
+  fixed: @zkamvar, #520).
+
+# sandpaper 0.13.2 (2023-09-20)
+
+## BUG FIX
+
+* Users with duplicated `init.defaultBranch` declarations in their git config
+  will no longer fail the default branch check (reported: @tesaunders, #516;
+  fixed: @zkamvar, #517)
+
+# sandpaper 0.13.1 (2023-09-19)
+
+## BUG FIX
+
+* Aggregate pages will no longer fail if an episode has a prefix that is the
+  same as that aggregate page (e.g. `images.html` will no longer fail if there
+  is an episode that starts with `images-`) (reported: @mwhamgenomics, #511;
+  fixed: @zkamvar, #512)
+* 404 page index link will point to the default index page of the site instead
+  of the relative index page, which would result in a 404 for nested links that
+  did not exist (reported: @kaijagahm and @zkamvar, #498; fixed @zkamvar, #514)
+
+# sandpaper 0.13.0 (2023-09-06)
+
+## NEW FEATURES
+
+* Overview style lessons that do not have episodic content can now be processed,
+  analysed, and built by {sandpaper}. To make your lesson an overview lesson,
+  you can add `overview: true` to your `config.yaml` (reported: @zkamvar,
+  https://github.com/carpentries/workbench/issues/65; 
+  implemented: @zkamvar, #496)
+* The new `spoiler` class of fenced div will allow authors to specify an
+  expandable section of content that is collapsed by default. This replaces the
+  former paradigm of using "floating solution" blocks to present options for
+  installation on different platforms. (implemented: @tobyhodges, #502)
+
+## BUG FIX
+
+* Internal function `root_path()` will no longer fail if the `episodes/` folder
+  does not exist as long as one of the other four folders (`site/`, `learners/`,
+  `instructors/`, `profiles/`) exists (fixed: @zkamvar, #496)
+* `set_config()` can now properly process logical values into `true` and `false`
+* R Markdown documents with modificiations to child documents will now take into
+  account changes to the child documents (reported @jcolomb, #497; fixed
+  @zkamvar, #498). 
 * A broken test from the development version of {renv} fixed. This was a change
   in output and not functionality, so there will be no user-visible changes
   (reported: @zkamvar, #484; fixed: @zkamvar, #487).
@@ -9,8 +123,28 @@
   version comparisons always use characters and not numbers (which is
   ergonomically weird, but whatever) (reported: @zkamvar #487; fixed: @zkamvar
   #487)
+* Blank instructor notes pages no longer fail to build 
+  (reported: @apirogov, #505; fixed: @klbarnes20, #509)
 * Tests for {renv} post 1.0.0 fixed so that they no longer run forever
   interactively (reported: @zkamvar #500; fixed: @zkamvar, #501)
+
+## MISC
+
+* We are now testing against pandoc 2.19.2 in continuous integration.
+* The discussion list link for the new lesson contributing template has been
+  fixed.
+* examples have been modified to not use R Markdown lessons unless necessary,
+  reducing output and time needed to build the examples.
+
+## CONTINUOUS INTEGRATION
+
+* The README file has been updated to fix a typo.
+
+
+## DEPENDENCIES
+
+* {pegboard} minimum version is now 0.6.0
+* {varnish} minimum version is now 0.3.0
 
 # sandpaper 0.12.4 (2023-06-16)
 
@@ -173,7 +307,7 @@
   fixed: @zkamvar, #416 and 
   https://github.com/zkamvar/vise/commit/ee4798701a958ee48429980eb970266885f8265b
 
-# MISC
+## MISC
 
 * @jcolomb has been added as a contributor in the DESCRIPTION.
 

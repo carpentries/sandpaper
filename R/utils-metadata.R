@@ -29,11 +29,11 @@ metadata_url <- function(cfg) {
 
 initialise_metadata <- function(path = ".") {
   cfg <- get_config(path)
-  if (length(this_metadata$get()) == 0) {
+  old <- this_metadata$get()
+  if (length(old) == 0L) {
     this_metadata$set(NULL, cfg)
     this_metadata$set("metadata_template", readLines(template_metadata()))
     this_metadata$set("pagetitle", cfg$title)
-    this_metadata$set("url", metadata_url(cfg))
     this_metadata$set("keywords", cfg$keywords)
     created <- cfg$created %||% tail(gert::git_log(max = 1e6, repo = path)$time, 1)
     this_metadata$set(c("date", "created"), format(as.Date(created), "%F"))
@@ -43,6 +43,7 @@ initialise_metadata <- function(path = ".") {
   } else {
     this_metadata$update(cfg)
   }
+  this_metadata$set("url", metadata_url(cfg))
   this_metadata$set(c("date", "modified"), format(Sys.Date(), "%F"))
   this_metadata$set(c("date", "published"), format(Sys.Date(), "%F"))
 }

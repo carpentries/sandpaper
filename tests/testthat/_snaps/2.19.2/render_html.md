@@ -170,8 +170,8 @@
               , Div
                   ( "collapseSolution1"
                   , [ "accordion-collapse" , "collapse" ]
-                  , [ ( "[solution collapse]" )
-                    , ( "[solution collapse]" )
+                  , [ ( "[Solution hidden]" )
+                    , ( "[Solution hidden]" )
                     ]
                   )
                   [ Div
@@ -202,8 +202,8 @@
               , Div
                   ( "collapseInstructor1"
                   , [ "accordion-collapse" , "collapse" ]
-                  , [ ( "[instructor collapse]" )
-                    , ( "[instructor collapse]" )
+                  , [ ( "[Instructor hidden]" )
+                    , ( "[Instructor hidden]" )
                     ]
                   )
                   [ Div
@@ -216,6 +216,48 @@
                           , Str "be"
                           , Space
                           , Str "aside"
+                          ]
+                      ]
+                  ]
+              ]
+          ]
+      , Div
+          ( "accordionSpoiler1"
+          , [ "accordion" , "spoiler-accordion" , "accordion-flush" ]
+          , []
+          )
+          [ Div
+              ( "" , [ "accordion-item" ] , [] )
+              [ RawBlock
+                  (Format "html")
+                  "<button class=\"accordion-button spoiler-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseSpoiler1\" aria-expanded=\"false\" aria-controls=\"collapseSpoiler1\">\n  <h3 class=\"accordion-header\" id=\"headingSpoiler1\">\n  <div class=\"note-square\"><i aria-hidden=\"true\" class=\"callout-icon\" data-feather=\"eye\"></i></div>\n  Show details\n  </h3>\n</button>"
+              , Div
+                  ( "collapseSpoiler1"
+                  , [ "accordion-collapse" , "collapse" ]
+                  , [ ( "[Spoiler hidden]" )
+                    , ( "[Spoiler hidden]" )
+                    ]
+                  )
+                  [ Div
+                      ( "" , [ "accordion-body" ] , [] )
+                      [ Para
+                          [ Str "That"
+                          , Space
+                          , Str "fin"
+                          , Space
+                          , Str "on"
+                          , Space
+                          , Str "the"
+                          , Space
+                          , Str "rear"
+                          , Space
+                          , Str "end"
+                          , Space
+                          , Str "of"
+                          , Space
+                          , Str "a"
+                          , Space
+                          , Str "car"
                           ]
                       ]
                   ]
@@ -364,8 +406,8 @@
         Write now
         </h4>
       </button>
-      [solution collapse]
-      [solution collapse]
+      <div id="Solution-[hidden..."
+      ...done]>
       <div class="accordion-body">
       <p>just write it, silly.</p>
       </div>
@@ -381,11 +423,28 @@
         Instructor Note
         </h3>
       </button>
-      [instructor collapse]
-      [instructor collapse]
-      [instructor collapse]
+      <div id="Instructor-[hidden..."
+      ...still hiding...
+      ...done]>
       <div class="accordion-body">
       <p>This should be aside</p>
+      </div>
+      </div>
+      </div>
+      </div>
+      <div id="accordionSpoiler1"
+      class="accordion spoiler-accordion accordion-flush">
+      <div class="accordion-item">
+      <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
+        <h3 class="accordion-header" id="headingSpoiler1">
+        <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
+        Show details
+        </h3>
+      </button>
+      <div id="Spoiler-[hidden..."
+      ...done]>
+      <div class="accordion-body">
+      <p>That fin on the rear end of a car</p>
       </div>
       </div>
       </div>

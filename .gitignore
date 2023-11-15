@@ -7,3 +7,5 @@ docs/
 testthat-problems.*
 renv/sandbox/*
 
+/doc/
+/Meta/

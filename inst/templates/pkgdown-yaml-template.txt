@@ -28,3 +28,5 @@ template:
     pre_alpha: {{ pre_alpha }}
     alpha: {{ alpha }}
     beta: {{ beta }}
+    stable: {{ stable }}
+    doi: {{ doi }}

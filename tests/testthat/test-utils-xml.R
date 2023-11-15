@@ -12,13 +12,14 @@ test_that("paths in instructor view that are nested or not HTML get diverted", {
     "[g](files/confirmation.html)", # asset
     "[h](#what-the)",
     "[i](other-page.html#section)",
-    "[j](other-page)"
+    "[j](other-page)",
+    "[k](mailto:workbench@example.com?subject='no')"
   )))
   res <- xml2::read_html(use_instructor(html_test))
   # refs are transformed according to our rules
   refs <- xml2::xml_text(xml2::xml_find_all(res, ".//@href"))
   expect_equal(startsWith(refs, "../"),
-    c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE))
+    c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE))
   expect_snapshot(xml2::xml_find_all(html_test, ".//a[@href]"))
   expect_snapshot(xml2::xml_find_all(res, ".//a[@href]"))
 })
@@ -69,6 +70,40 @@ test_that("callout ids are processed correctly", {
   expect_equal(ids, c("discussion1", "wait-what"))
   # The IDs should match the anchors
   expect_equal(paste0("#", ids), xml2::xml_attr(anchors, "href"))
+})
+
+
+test_that("setup links with anchors are respected", {
+
+  # See https://github.com/carpentries/sandpaper/issues/521
+  html_txt <- paste0(
+    "<a href='setup.html'>success</a>",
+    "<a href='setup.html#troubleshooting'>success</a>",
+    "<a href='index.html'>no change</a>",
+    "<a href='https://example.com/setup.html#troubleshooting'>no change</a>",
+    "<a href='example.com/setup.html#troubleshooting'>no change</a>",
+    "<a href='https://example.com/setup.html'>no change</a>",
+    "<a href='example.com/setup.html'>no change</a>"
+  )
+  html_expect <- paste0(
+    "<a href='index.html#setup'>success</a>",
+    "<a href='index.html#troubleshooting'>success</a>",
+    "<a href='index.html'>no change</a>",
+    "<a href='https://example.com/setup.html#troubleshooting'>no change</a>",
+    "<a href='example.com/setup.html#troubleshooting'>no change</a>",
+    "<a href='https://example.com/setup.html'>no change</a>",
+    "<a href='example.com/setup.html'>no change</a>"
+  )
+
+  html <- xml2::read_html(html_txt)
+  expect <- xml2::read_html(html_expect)
+
+  # call the function for its side effect
+  fix_setup_link(html)
+
+  # test that both of the things are identical
+  expect_equal(as.character(html), as.character(expect))
+
 })
 
 

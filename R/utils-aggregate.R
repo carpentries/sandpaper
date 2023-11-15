@@ -87,12 +87,11 @@ read_all_html <- function(path) {
 #' @rdname provision
 #' @examples
 #' if (FALSE) { # only run if you have provisioned a pkgdown site
-#' lsn_site <- "/path/to/lesson/site"
-#' pkg <- pkgdown::as_pkgdown(lsn_site)
+#'   lsn_site <- "/path/to/lesson/site"
+#'   pkg <- pkgdown::as_pkgdown(lsn_site)
 #'
-#' # create an AIO page
-#' provision_agg_page(pkg, title = "All In One", slug = "aio", quiet = FALSE)
-#'
+#'   # create an AIO page
+#'   provision_agg_page(pkg, title = "All In One", slug = "aio", quiet = FALSE)
 #' }
 provision_agg_page <- function(pkg, title = "Key Points", slug = "key-points", new = FALSE) {
   if (new) {
@@ -111,10 +110,11 @@ provision_agg_page <- function(pkg, title = "Key Points", slug = "key-points", n
     instructor <- fs::path(pkg$dst_path, "instructor", uri)
   }
 
-  return(list(learner = xml2::read_html(learner),
+  return(list(
+    learner = xml2::read_html(learner),
     instructor = xml2::read_html(instructor),
-    needs_episodes = new)
-  )
+    needs_episodes = new
+  ))
 }
 
 #' @keywords internal
@@ -139,16 +139,22 @@ provision_extra_template <- function(pkg, quiet = TRUE) {
   page_globals$learner$update(this_dat)
   page_globals$metadata$update(c(this_dat, list(date = list(modified = date))))
 
-  build_html(template = "extra", pkg = pkg, nodes = html,
-    global_data = page_globals, path_md = page, quiet = quiet)
+  build_html(
+    template = "extra", pkg = pkg, nodes = html,
+    global_data = page_globals, path_md = page, quiet = quiet
+  )
   on.exit({
     fs::file_delete(learner)
     fs::file_delete(instructor)
   })
-  .html$set(c("template", "extra", "learner"),
-    as.character(xml2::read_html(learner)))
-  .html$set(c("template", "extra", "instructor"),
-    as.character(xml2::read_html(instructor)))
+  .html$set(
+    c("template", "extra", "learner"),
+    as.character(xml2::read_html(learner))
+  )
+  .html$set(
+    c("template", "extra", "instructor"),
+    as.character(xml2::read_html(instructor))
+  )
 }
 
 section_fun <- function(slug) {
@@ -203,7 +209,7 @@ section_fun <- function(slug) {
 #'   build_keypoints(pkg, htmls, quiet = FALSE)
 #' }
 build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "section", append = "self::node()", prefix = FALSE, quiet = FALSE) {
-  path <- root_path(pkg$src_path)
+  path <- get_source_path() %||% root_path(pkg$src_path)
   out_path <- pkg$dst_path
   this_lesson(path)
 
@@ -244,9 +250,9 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
 
   for (episode in seq(the_episodes)) {
     ep_learn <- ep_instruct <- the_episodes[episode]
-    ename    <- the_slugs[episode]
+    ename <- the_slugs[episode]
     if (!is.null(pages)) {
-      name <- sub(paste0("^", slug, "-"), "", ename)
+      name <- if (prefix) sub(paste0("^", slug, "-"), "", ename) else ename
       ep_learn <- pages$learner[[name]]
       ep_instruct <- pages$instructor[[name]]
     }
@@ -298,26 +304,25 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
 #' @keywords internal
 #' @examples
 #' if (FALSE) {
-#' lsn <- "/path/to/lesson"
-#' pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
+#'   lsn <- "/path/to/lesson"
+#'   pkg <- pkgdown::as_pkgdown(fs::path(lsn, "site"))
 #'
-#' # for AiO pages, this will return only the top-level sections:
-#' get_content("aio", content = "section", label = TRUE, pkg = pkg)
+#'   # for AiO pages, this will return only the top-level sections:
+#'   get_content("aio", content = "section", label = TRUE, pkg = pkg)
 #'
-#' # for episode pages, this will return everything that's not template
-#' get_content("01-introduction", pkg = pkg)
+#'   # for episode pages, this will return everything that's not template
+#'   get_content("01-introduction", pkg = pkg)
 #'
-#' # for things that are within lessons but we don't know their exact location,
-#' # we can prefix a `/` to double up the slash, which will produce
-#'
+#'   # for things that are within lessons but we don't know their exact location,
+#'   # we can prefix a `/` to double up the slash, which will produce
 #' }
-get_content <- function(episode, content = "*", label = FALSE, pkg = NULL,
-  instructor = FALSE) {
+get_content <- function(
+    episode, content = "*", label = FALSE, pkg = NULL,
+    instructor = FALSE) {
   if (!inherits(episode, "xml_document")) {
     if (instructor) {
       path <- fs::path(pkg$dst_path, "instructor", as_html(episode))
-    }
-    else {
+    } else {
       path <- fs::path(pkg$dst_path, as_html(episode))
     }
     episode <- xml2::read_html(path)
@@ -335,7 +340,7 @@ escape_ampersand <- function(text) {
   gsub("[&](?![#]?[A-Za-z0-9]+?[;])", "&amp;", text, perl = TRUE)
 }
 
-remove_fix_node <- function(html, id='FIXME') {
+remove_fix_node <- function(html, id = "FIXME") {
   fix_node <- xml2::xml_find_first(html, paste0(".//section[@id='", id, "']"))
   xml2::xml_remove(fix_node)
   return(html)
@@ -360,3 +365,4 @@ urls_to_sitemap <- function(urls) {
   }
   doc
 }
+

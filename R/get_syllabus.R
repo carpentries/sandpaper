@@ -32,6 +32,16 @@ get_syllabus <- function(path = ".", questions = FALSE, use_built = TRUE) {
 }
 
 create_syllabus <- function(episodes, lesson, path, questions = TRUE) {
+  if (is.null(episodes)) {
+    out <- data.frame(
+      episode = character(0),
+      timings = character(0),
+      path = character(0),
+      percents = character(0),
+      stringsAsFactors = FALSE
+    )
+    return(out)
+  }
   sched <- fs::path_file(episodes)
   # We have to invalidate the cache if the syllabus is mis-matched
   cache_invalid <- !setequal(sched, names(lesson$episodes))

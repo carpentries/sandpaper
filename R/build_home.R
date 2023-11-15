@@ -1,7 +1,27 @@
+#' Build a home page for a lesson
+#'
+#' @param pkg a list generated from [pkgdown::as_pkgdown()] from the `site/`
+#'   folder of a lesson.
+#' @param quiet a boolean passed to [build_html()]. if `TRUE`, this will have
+#'   pkgdown report what files are being built
+#' @param next_page the next page file name. This will allow the navigation
+#'   element to be set up correctly on the navigation bar
+#' @return nothing. This is used for its side-effect
+#'
+#' @keywords internal
+#' @details The index page of the lesson is a combination of two pages:
+#'
+#'   1. index.md (or README if the index does not exist)
+#'   2. learners/setup.md
+#'
+#' This function uses [render_html()] to convert the page into HTML, which gets
+#' passed on to the "syllabus" or "overview" templates in {varnish} (via the
+#' [build_html()] function as the `{{{ readme }}}` and `{{{ setup }}}` keys.
 build_home <- function(pkg, quiet, next_page = NULL) {
   page_globals <- setup_page_globals()
-  path  <- root_path(pkg$src_path)
-  syl   <- format_syllabus(get_syllabus(path, questions = TRUE), use_col = FALSE)
+  path  <- get_source_path() %||% root_path(pkg$src_path)
+  syl   <- format_syllabus(get_syllabus(path, questions = TRUE),
+    use_col = FALSE)
   idx      <- fs::path(pkg$src_path, "built", "index.md")
   readme   <- fs::path(pkg$src_path, "built", "README.md")
   idx_file <- if (fs::file_exists(idx)) idx else readme
@@ -21,7 +41,8 @@ build_home <- function(pkg, quiet, next_page = NULL) {
   setup <- xml2::read_html(setup)
   fix_nodes(setup)
 
-  nav <- get_nav_data(idx_file, fs::path_file(idx_file), page_forward = next_page)
+  idx_src <- fs::path(path, fs::path_file(idx_file))
+  nav <- get_nav_data(idx_file, idx_src, page_forward = next_page)
   needs_title <- nav$pagetitle == ""
 
   if (needs_title) {
@@ -43,18 +64,27 @@ build_home <- function(pkg, quiet, next_page = NULL) {
 
   nav$pagetitle <- NULL
   page_globals$metadata$update(nav)
+  is_overview <- identical(page_globals$metadata$get()$overview, TRUE)
+  if (is_overview) {
+    template <- "overview"
+  } else {
+    template <- "syllabus"
+  }
 
-  build_html(template = "syllabus", pkg = pkg, nodes = list(html, setup), 
+  build_html(template = template, pkg = pkg, nodes = list(html, setup),
     global_data = page_globals, path_md = "index.html", quiet = quiet)
 
 }
 
 
 format_syllabus <- function(syl, use_col = TRUE) {
+  if (nrow(syl) == 0L) {
+    return("<p></p>")
+  }
   syl$questions <- gsub("\n", "<br/>", syl$questions)
   syl$number <- sprintf("%2d\\. ", seq(nrow(syl)))
   links <- glue::glue_data(
-    syl[-nrow(syl), c("number", "episode", "path")], 
+    syl[-nrow(syl), c("number", "episode", "path")],
     "{gsub('^[ ]', '&nbsp;', number)}<a href='{fs::path_file(path)}'>{episode}</a>"
   )
   if (use_col) {
@@ -73,5 +103,5 @@ format_syllabus <- function(syl, use_col = TRUE) {
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp), add = TRUE)
   writeLines(out, tmp)
-  render_html(tmp)
+  return(render_html(tmp))
 }

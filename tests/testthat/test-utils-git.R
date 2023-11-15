@@ -3,6 +3,8 @@ the_remote  <- gert::git_remote_list(repo = res)
 remote_name <- "sandpaper-local"
 nu_branch   <- "landpaper-socal"
 remote_ref  <- glue::glue("refs/remotes/sandpaper-local/{nu_branch}")
+# ensure the test repo has the git information set up
+check_git_user(res)
 # Create our new branch for testing
 make_branch(res, branch = nu_branch)
 temp_tree <- fs::file_temp(pattern = "worktree")

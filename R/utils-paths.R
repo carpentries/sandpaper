@@ -1,5 +1,11 @@
 root_path <- function(path) {
-  rprojroot::find_root(rprojroot::has_dir("episodes"), path)
+  criteria <- rprojroot::has_dir("episodes") |
+    rprojroot::has_dir("site") |
+    rprojroot::has_dir("learners") |
+    rprojroot::has_dir("instructors") |
+    rprojroot::has_dir("profiles")
+
+  rprojroot::find_root(criteria, path)
 }
 
 no_readme <- function() "(?<![/]README)([.]md)$"
@@ -18,14 +24,19 @@ make_here <- function(ROOT) {
 }
 
 # creates a directory if it doesn't exist
-enforce_dir <- function(path) {
-  if (!fs::dir_exists(path)) {
-    fs::dir_create(path)
+enforce_dir <- function(paths) {
+  to_create <- !fs::dir_exists(paths)
+  if (any(to_create)) {
+    fs::dir_create(paths[to_create])
   }
-  invisible(path)
+  invisible(paths)
 }
 
 path_site <- function(path = NULL) {
+  sitepath <- Sys.getenv("SANDPAPER_SITE")
+  if (nzchar(sitepath)) {
+    return(fs::path_real(sitepath))
+  }
   if (is.null(path)) {
     fs::path(.build_paths$source, "site")
   } else {
@@ -43,9 +54,9 @@ path_built <- function(inpath = NULL) {
 
 get_markdown_files <- function(path = NULL) {
   fs::dir_ls(
-    path_built(path), 
-    regexp = no_readme(), 
-    perl = TRUE, 
+    path_built(path),
+    regexp = no_readme(),
+    perl = TRUE,
     recurse = TRUE
   )
 }
