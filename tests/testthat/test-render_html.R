@@ -83,16 +83,16 @@ test_that("pandoc structure is rendered correctly", {
 
   args <- construct_pandoc_args(example_markdown, out, to = "native")
   callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
-  if (.Platform$OS.type == "windows" && Sys.getenv("CI", unset = '') == "true") {
-    # let's see what this looks like
-    message(cat(readLines(out), sep = "\n"))
-  }
-  skip_on_os("windows")
   formation = function(x) {
     rgx <- "(data-bs-parent|aria-labelledby).+?(Instructor|Solution|Spoiler)1"
     return(sub(rgx, "[\\2 hidden]", x))
   }
-  expect_snapshot(cat(readLines(out), sep = "\n"), transform = formation)
+  ver <- as.character(rmarkdown::pandoc_version())
+  expect_snapshot(
+    cat(readLines(out), sep = "\n"),
+    transform = formation,
+    variant = ver
+  )
 })
 
 test_that("paragraphs after objectives block are parsed correctly", {
@@ -107,12 +107,8 @@ test_that("paragraphs after objectives block are parsed correctly", {
   writeLines(ex2, tmp)
   args <- construct_pandoc_args(tmp, out, to = "native")
   callr::r(function(...) rmarkdown::pandoc_convert(...), args = args)
-  if (.Platform$OS.type == "windows" && Sys.getenv("CI", unset = '') == "true") {
-    # let's see what this looks like
-    message(cat(readLines(out), sep = "\n"))
-  }
-  skip_on_os("windows")
-  expect_snapshot(cat(readLines(out), sep = "\n"))
+  ver <- as.character(rmarkdown::pandoc_version())
+  expect_snapshot(cat(readLines(out), sep = "\n"), variant = ver)
 
 })
 
@@ -141,11 +137,6 @@ test_that("render_html applies the internal lua filter", {
   expect_match(res, "div class=\"nothing\"", fixed = TRUE)
   expect_failure(expect_match(res, "Nothing</h2>", fixed = TRUE))
 
-  if (.Platform$OS.type == "windows" && Sys.getenv("CI", unset = '') == "true") {
-    # let's see what this looks like
-    message(res)
-  }
-  skip_on_os("windows")
   formation = function(x) {
     open <- "[<]div id[=]\"collapse(Instructor|Solution|Spoiler)\\d\".+"
     mid  <- "(data-bs-parent|aria-labelledby).+?(Instructor|Solution|Spoiler)\\d[\"]$"
@@ -155,7 +146,8 @@ test_that("render_html applies the internal lua filter", {
     x <- sub(close, "...done]>", x)
     return(x)
   }
-  expect_snapshot(cat(res), transform = formation)
+  ver <- as.character(rmarkdown::pandoc_version())
+  expect_snapshot(cat(res), transform = formation, variant = ver)
 })
 
 
