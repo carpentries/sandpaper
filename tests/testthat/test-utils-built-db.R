@@ -20,7 +20,7 @@ test_that("get_lineages() will return a list equal to the files in the lesson", 
   expect_equal(get_lineages(lsn), expected)
 })
 
-test_that("SANDPAPER_SITE enviornment variable will move the database path", {
+test_that("(#536) SANDPAPER_SITE enviornment variable will move the database path", {
 
   # setup: create our new site folder
   orig_outdir <- path_built(res)

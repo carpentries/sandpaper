@@ -22,7 +22,7 @@ if (expected == actual) {
 }
 # end downlit shim ----------------------------------------------------------
 
-test_that("SANDPAPER_SITE envvar works as expected", {
+test_that("(#536) SANDPAPER_SITE envvar works as expected", {
 
   # NOTE: this involves a bit of fenangleing because when I wrote this test
   # suite originally, I was relying on non-independent tests. That is, all the
