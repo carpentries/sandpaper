@@ -56,8 +56,8 @@ test_that("(#536) SANDPAPER_SITE envvar works as expected", {
   rel <- fs::path_dir(tmp)
   site_rel <- fs::path_rel(path_site(res), start = rel)
   env_rel  <- fs::path_rel(Sys.getenv("SANDPAPER_SITE"), start = rel)
-  expect_equal(site_rel, env_rel)
-  expect_equal(fs::path(env_rel, "docs"), fs::path_rel(dst_path, rel))
+  expect_equal(fs::path_norm(site_rel), fs::path_norm(env_rel))
+  expect_equal(fs::path(fs::path_norm(env_rel), "docs"), fs::path_rel(fs::path_norm(dst_path), rel))
   # but it should not yet exist because we still need to initialise it
   expect_false(fs::dir_exists(dst_path))
 
