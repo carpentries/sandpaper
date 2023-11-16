@@ -209,7 +209,7 @@ section_fun <- function(slug) {
 #'   build_keypoints(pkg, htmls, quiet = FALSE)
 #' }
 build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "section", append = "self::node()", prefix = FALSE, quiet = FALSE) {
-  path <- root_path(pkg$src_path)
+  path <- get_source_path() %||% root_path(pkg$src_path)
   out_path <- pkg$dst_path
   this_lesson(path)
 

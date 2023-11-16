@@ -23,3 +23,7 @@ set_source_path <- function(path) {
   .build_paths$source <- root_path(path) %||% .build_paths$source
   invisible(.build_paths$source)
 }
+
+get_source_path <- function() {
+  .build_paths$source
+}
