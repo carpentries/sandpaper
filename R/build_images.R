@@ -3,7 +3,7 @@ build_images <- function(pkg, pages = NULL, quiet = FALSE) {
   build_agg_page(
     pkg = pkg,
     pages = pages,
-    title = "All Images",
+    title = tr_("All Images"),
     slug = "images",
     aggregate = "/img/..",
     prefix = FALSE,

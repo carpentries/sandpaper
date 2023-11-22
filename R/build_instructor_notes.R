@@ -24,7 +24,7 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
     this_dat <- list(
       this_page = "instructor-notes.html",
       body = use_instructor(html),
-      pagetitle = "Instructor Notes"
+      pagetitle = tr_("Instructor Notes")
     )
 
     page_globals$instructor$update(this_dat)
