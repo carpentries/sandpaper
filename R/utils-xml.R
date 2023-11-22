@@ -100,7 +100,7 @@ fix_callouts <- function(nodes = NULL) {
   xml2::xml_set_attr(h3, "class", "callout-title")
   inner_div <- xml2::xml_parent(h3)
   # remove the "section level3 callout-title" attrs
-  xml2::xml_set_attr(inner_div, "class", "callout-inner")
+  xml2::xml_set_attr(inner_div, "class", "callout-inner section")
   # Get the heading IDS (because we use section headings, the IDs are anchored
   # to the section div and not the heading element)
   # <div class="section level3 callout-title callout-inner">

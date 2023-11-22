@@ -161,6 +161,8 @@ create_pkgdown_yaml <- function(path) {
   handout <- if (is.null(usr$handout)) "~" else siQuote(usr$handout)
   handout <- if (isTRUE(handout)) "files/code-handout.R" else handout
   yaml <- get_yaml_text(template_pkgdown())
+  calls <- sys.calls()
+  is_prod <- in_production(calls)
   # Should we display DOI info? If so, parse the URL and return the doi
   # note that a missing doi will return nothing
   doi <- sub("^[/]", "", xml2::url_parse(usr$doi)$path)
@@ -168,6 +170,7 @@ create_pkgdown_yaml <- function(path) {
   yaml <- whisker::whisker.render(yaml,
     data = list(
       # Basic information
+      url     = if (is_prod) metadata_url(usr) else "~",
       version = siQuote(utils::packageVersion("sandpaper")),
       config  = siQuote(path_config(path)),
       title   = siQuote(usr$title),
