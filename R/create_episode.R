@@ -39,8 +39,8 @@ create_episode <- function(title, ext = "Rmd", make_prefix = FALSE, add = TRUE, 
   if (add) {
     move_episode(ename, position = add, write = TRUE, path = path)
   }
-  usethis::edit_file(fs::path(path, "episodes", ename), open = open)
-  invisible(fs::path(path, "episodes", ename))
+  new_file <- usethis::edit_file(fs::path(path, "episodes", ename), open = open)
+  return(new_file)
 }
 
 
