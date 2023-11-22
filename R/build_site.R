@@ -31,6 +31,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   # Here we provision our website using pkgdown and either initialise it if it
   # does not exist or update the CSS, HTML, and JS if it does exist.
   pkg <- pkgdown::as_pkgdown(path_site(path), override = override)
+  pkg <-  section_init(pkg, depth = 0, override = override)
   built_path <- fs::path(pkg$src_path, "built")
   # NOTE: This is a kludge to prevent pkgdown from displaying a bunch of noise
   #       if the user asks for quiet.
