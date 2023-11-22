@@ -147,6 +147,10 @@ test_that("render_html applies the internal lua filter", {
     return(x)
   }
   ver <- as.character(rmarkdown::pandoc_version())
+  non_utf8_windows <- tolower(Sys.info()[["sysname"]]) == "windows" &&
+    getRversion() < package_version("4.2.0")
+  skip_if(non_utf8_windows, 
+    message = "This version of Windows cannot handle UTF-8 strings")
   expect_snapshot(cat(res), transform = formation, variant = ver)
 })
 
