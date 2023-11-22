@@ -14,6 +14,15 @@
   @karenword, #394; fixed: @ErinBecker, #530, reviewed: @zkamvar)
 * `create_episode()` will now open new episodes for editing in interactive
   sessions (implemented: @milanmlft, #534, reviewed: @zkamvar)
+* The `site/` folder is now customisable to any writable directory on your
+  system by setting the experimental `SANDPAPER_SITE` environment variable to
+  any valid and empty folder. This is most useful in the context of Docker
+  containers, where file permissions to mounted volumes are not always
+  guaranteed (reported: @fherreazcue #536; implemented: @zkamvar, #537)
+* DOI badges can now be displayed when paired with {varnish} version 0.4.0 by
+  adding the `doi:` key to the `config.yaml` file with either the raw DOI or
+  the URL to the DOI (reported: @tobyhodges, carpentries/workbench#67;
+  fixed: @tobyhodges, #535).
 
 ## BUG FIX
 
@@ -23,6 +32,13 @@
 ## MISC
 
 * Added @milanmlft as contributor
+
+# sandpaper 0.14.1 (2023-11-09)
+
+## BUG FIX
+
+* `mailto:` links are no longer prepended with the URL (reported: @apirogov,
+  #538; fixed: @zkamvar, #539)
 
 # sandpaper 0.14.0 (2023-10-02)
 

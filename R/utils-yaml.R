@@ -158,9 +158,13 @@ create_pkgdown_yaml <- function(path) {
   # The user does not interact with this and {{mustache}} is logic-less, so we
   # can be super-verbose here and create any logic we need on the R-side.
   usr <- yaml::read_yaml(path_config(path), eval.expr = FALSE)
-  handout <- if (is.null(usr$handout)) "~" else usr$handout
+  handout <- if (is.null(usr$handout)) "~" else siQuote(usr$handout)
   handout <- if (isTRUE(handout)) "files/code-handout.R" else handout
   yaml <- get_yaml_text(template_pkgdown())
+  # Should we display DOI info? If so, parse the URL and return the doi
+  # note that a missing doi will return nothing
+  doi <- sub("^[/]", "", xml2::url_parse(usr$doi)$path)
+  doi <- if (length(doi) == 1L && nzchar(doi)) siQuote(doi) else "~"
   yaml <- whisker::whisker.render(yaml,
     data = list(
       # Basic information
@@ -176,16 +180,18 @@ create_pkgdown_yaml <- function(path) {
       carpentry      = siQuote(usr$carpentry),
       carpentry_icon = siQuote(which_icon_carpentry(usr$carpentry)),
       license        = siQuote(usr$license),
-      handout        = siQuote(handout),
+      handout        = handout,
       cp             = usr$carpentry == 'cp',
       lc             = usr$carpentry == 'lc',
       dc             = usr$carpentry == 'dc',
       swc            = usr$carpentry == 'swc',
       # Should we display a lifecycle banner?
-      life_cycle = if (usr$life_cycle == "stable")    "~"  else siQuote(usr$life_cycle),
-      pre_alpha  = if (usr$life_cycle == "pre-alpha") TRUE else "~",
-      alpha      = if (usr$life_cycle == "alpha")     TRUE else "~",
-      beta       = if (usr$life_cycle == "beta")      TRUE else "~",
+      life_cycle = siQuote(usr$life_cycle),
+      pre_alpha  = usr$life_cycle == "pre-alpha",
+      alpha      = usr$life_cycle == "alpha",
+      beta       = usr$life_cycle == "beta",
+      stable     = usr$life_cycle == "stable",
+      doi        = doi,
       NULL
     )
   )
@@ -238,4 +244,3 @@ quote_config_items <- function(yaml) {
   }
   yaml
 }
-
