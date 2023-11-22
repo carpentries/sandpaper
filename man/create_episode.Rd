@@ -17,13 +17,35 @@ create_episode(
   open = rlang::is_interactive()
 )
 
-create_episode_md(title, make_prefix = FALSE, add = TRUE, path = ".")
+create_episode_md(
+  title,
+  make_prefix = FALSE,
+  add = TRUE,
+  path = ".",
+  open = rlang::is_interactive()
+)
 
-create_episode_rmd(title, make_prefix = FALSE, add = TRUE, path = ".")
+create_episode_rmd(
+  title,
+  make_prefix = FALSE,
+  add = TRUE,
+  path = ".",
+  open = rlang::is_interactive()
+)
 
-draft_episode_md(title, make_prefix = FALSE, path = ".")
+draft_episode_md(
+  title,
+  make_prefix = FALSE,
+  path = ".",
+  open = rlang::is_interactive()
+)
 
-draft_episode_rmd(title, make_prefix = FALSE, path = ".")
+draft_episode_rmd(
+  title,
+  make_prefix = FALSE,
+  path = ".",
+  open = rlang::is_interactive()
+)
 }
 \arguments{
 \item{title}{the title of the episode}
