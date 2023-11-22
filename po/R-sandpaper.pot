@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: sandpaper 0.14.1.9000\n"
+"POT-Creation-Date: 2023-11-22 15:19+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: build_404.R:57
+msgid "Page not found"
+msgstr ""
+
+#: build_aio.R:6
+msgid "All in One View"
+msgstr ""
+
+#: build_episode.R:134
+msgid "Home"
+msgstr ""
+
+#: build_home.R:49
+msgid "Summary and Schedule"
+msgstr ""
+
+#: build_home.R:58
+msgid "Summary and Setup"
+msgstr ""
+
+#: build_home.R:100
+msgid "Finish"
+msgstr ""
+
+#: build_images.R:6
+msgid "All Images"
+msgstr ""
+
+#: build_instructor_notes.R:27
+msgid "Instructor Notes"
+msgstr ""
+
+#: build_keypoints.R:6
+msgid "Key Points"
+msgstr ""
+
+#: build_profiles.R:16
+msgid "Learner Profiles"
+msgstr ""
