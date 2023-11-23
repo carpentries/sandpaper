@@ -28,10 +28,10 @@ and episode, draft, or remove an episode from the schedule.
 if (interactive() || Sys.getenv("CI") != "") {
   tmp <- tempfile()
   create_lesson(tmp)
-  create_episode_md("getting-started", path = tmp)
-  create_episode_rmd("plotting", path = tmp)
-  create_episode_md("experimental", path = tmp, add = FALSE)
-  set_episodes(tmp, c("getting-started.md", "introduction.Rmd", "plotting.Rmd"), 
+  create_episode_md("getting-started", path = tmp, open = FALSE)
+  create_episode_rmd("plotting", path = tmp, open = FALSE)
+  create_episode_md("experimental", path = tmp, add = FALSE, open = FALSE)
+  set_episodes(tmp, c("getting-started.md", "introduction.Rmd", "plotting.Rmd"),
     write = TRUE)
 
   # Default episode order is alphabetical, we can use this to nudge episodes
@@ -43,7 +43,7 @@ if (interactive() || Sys.getenv("CI") != "") {
   # Add episodes from the drafts
   get_drafts(tmp)
   move_episode("experimental.md", 2L, path = tmp) # view where it will live
-  move_episode("experimental.md", 2L, write = TRUE, path = tmp) 
+  move_episode("experimental.md", 2L, write = TRUE, path = tmp)
   get_episodes(tmp)
 
   # Unpublish episodes by setting position to zero
