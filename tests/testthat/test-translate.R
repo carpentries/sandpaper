@@ -4,7 +4,6 @@ config_path <- fs::path(tmp, "config.yaml")
 config <- yaml::read_yaml(config_path)
 config$lang <- "ja"
 yaml::write_yaml(config, config_path)
-metadata_json <- trimws(create_metadata_jsonld(tmp))
 sitepath <- fs::path(tmp, "site", "docs")
 
 test_that("Lessons can be translated with lang setting", {
