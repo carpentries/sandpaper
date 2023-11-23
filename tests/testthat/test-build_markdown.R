@@ -1,7 +1,9 @@
 # setup test fixture
 {
   tmp <- res <- restore_fixture()
-  create_episode("second-episode", path = tmp)
+  suppressMessages({
+    create_episode("second-episode", path = tmp, open = FALSE)
+  })
   instruct <- fs::path(tmp, "instructors", "pyramid.md")
   writeLines(
     c(

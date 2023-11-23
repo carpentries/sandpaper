@@ -20,7 +20,9 @@ test_that("syllabus can be extracted from source files", {
 
 test_that("syllabus will update with new files", {
 
-  create_episode("postroduction", path = tmp, add = TRUE)
+  suppressMessages({
+    create_episode("postroduction", path = tmp, add = TRUE, open = FALSE)
+  })
   res <- get_syllabus(tmp, questions = TRUE)
   expect_named(res, c("episode", "timings", "path", "percents", "questions"))
   expect_equal(nrow(res), 3)
