@@ -5,15 +5,3 @@ local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
     .local_envir = scope
   )
 }
-
-section_init <- function(
-  pkg, depth, override = list(), .frame = parent.frame()) {
-  pkg <- pkgdown::as_pkgdown(pkg, override = override)
-
-  rstudio_save_all()
-  local_envvar_pkgdown(pkg, .frame)
-  local_options_link(pkg, depth = depth, .frame = .frame)
-
-  pkg
-}
-
