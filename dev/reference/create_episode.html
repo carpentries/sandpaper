@@ -64,15 +64,44 @@ schedule.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_episode</span><span class="op">(</span><span class="va">title</span>, ext <span class="op">=</span> <span class="st">"Rmd"</span>, make_prefix <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_episode</span><span class="op">(</span></span>
+<span>  <span class="va">title</span>,</span>
+<span>  ext <span class="op">=</span> <span class="st">"Rmd"</span>,</span>
+<span>  make_prefix <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  add <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  path <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">create_episode_md</span><span class="op">(</span><span class="va">title</span>, make_prefix <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="fu">create_episode_md</span><span class="op">(</span></span>
+<span>  <span class="va">title</span>,</span>
+<span>  make_prefix <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  add <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  path <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">create_episode_rmd</span><span class="op">(</span><span class="va">title</span>, make_prefix <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="fu">create_episode_rmd</span><span class="op">(</span></span>
+<span>  <span class="va">title</span>,</span>
+<span>  make_prefix <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  add <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  path <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">draft_episode_md</span><span class="op">(</span><span class="va">title</span>, make_prefix <span class="op">=</span> <span class="cn">FALSE</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="fu">draft_episode_md</span><span class="op">(</span></span>
+<span>  <span class="va">title</span>,</span>
+<span>  make_prefix <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  path <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">draft_episode_rmd</span><span class="op">(</span><span class="va">title</span>, make_prefix <span class="op">=</span> <span class="cn">FALSE</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">draft_episode_rmd</span><span class="op">(</span></span>
+<span>  <span class="va">title</span>,</span>
+<span>  make_prefix <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  path <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -102,31 +131,38 @@ schedule. If <code>FALSE</code>, the episode is added as a draft episode.</p></d
 <dt>path</dt>
 <dd><p>the path to the sandpaper lesson.</p></dd>
 
+
+<dt>open</dt>
+<dd><p>if interactive, the episode will open in a new editor window.</p></dd>
+
 </dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="va">tmp</span>, open <span class="op">=</span> <span class="cn">FALSE</span>, rmd <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpkPUx4F/file18e5479186d3</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpHyNZHy/file187b37dc4b7d</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No schedule set, using Rmd files in <span style="color: #0000BB;">episodes/</span> directory.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpkPUx4F/file18e5479186d3</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpHyNZHy/file187b37dc4b7d</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">→ </span><span style="font-weight: 100; font-style: italic;">To remove this message, define your schedule in </span><span style="color: #0000BB; font-weight: 100; font-style: italic;">config.yaml</span><span style="font-weight: 100; font-style: italic;"> or use `set_episodes()` to generate it.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpkPUx4F/file18e5479186d3</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpHyNZHy/file187b37dc4b7d</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpkPUx4F/file18e5479186d3</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpHyNZHy/file187b37dc4b7d</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> To save this configuration, use</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> set_episodes(path = path, order = ep, write = TRUE)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpkPUx4F/file18e5479186d3</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/RtmpkPUx4F/file18e5479186d3/episodes/introduction.md</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpkPUx4F/file18e5479186d3</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpHyNZHy/file187b37dc4b7d</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'/tmp/RtmpHyNZHy/file187b37dc4b7d/episodes/introduction.md'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/RtmpHyNZHy/file187b37dc4b7d/episodes/introduction.md</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpHyNZHy/file187b37dc4b7d</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Workflows up-to-date!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpkPUx4F/file18e5479186d3</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/RtmpkPUx4F/file18e5479186d3</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpkPUx4F/file18e5479186d3</span>...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpkPUx4F/file18e5479186d3</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpHyNZHy/file187b37dc4b7d</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/RtmpHyNZHy/file187b37dc4b7d</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpHyNZHy/file187b37dc4b7d</span>...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpHyNZHy/file187b37dc4b7d</span></span>
 <span class="r-in"><span><span class="fu">create_episode_md</span><span class="op">(</span><span class="st">"getting-started"</span>, path <span class="op">=</span> <span class="va">tmp</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'/tmp/RtmpHyNZHy/file187b37dc4b7d/episodes/getting-started.md'</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpHyNZHy/file187b37dc4b7d/episodes/getting-started.md</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
