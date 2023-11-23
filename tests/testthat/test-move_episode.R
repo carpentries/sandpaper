@@ -1,14 +1,16 @@
 {
   res <- restore_fixture()
-  create_episode("new", add = FALSE, path = res)
-  create_episode("new too", add = FALSE, path = res)
-  create_episode("new mewtwo three", add = FALSE, path = res)
+  suppressMessages({
+    create_episode("new", add = FALSE, path = res, open = FALSE)
+    create_episode("new too", add = FALSE, path = res, open = FALSE)
+    create_episode("new mewtwo three", add = FALSE, path = res, open = FALSE)
+  })
   eporder <- c("introduction.Rmd", "new.Rmd", "new-mewtwo-three.Rmd", "new-too.Rmd")
   set_episodes(res, eporder, write = TRUE)
 }
 
 test_that("all episodes are present in the config file", {
-  
+
   eps <- get_config(res)$episodes
   expect_setequal(eps, fs::path_file(get_sources(res, "episodes")))
   expect_equal(eps, eporder)
@@ -31,7 +33,7 @@ test_that("Errors happen with invalid position arguments", {
 
 cli::test_that_cli("no position will trigger an interactive search", {
 
-  expect_snapshot(tryCatch(move_episode(1, path = res), 
+  expect_snapshot(tryCatch(move_episode(1, path = res),
       error = function(e) e$message))
 
 })
@@ -46,20 +48,20 @@ cli::test_that_cli("Episodes can be moved to a different position", {
 
   expect_snapshot(move_episode("introduction.Rmd", 4, write = FALSE, path = res))
   expect_equal(get_episodes(res), eporder)
-  
+
   expect_snapshot(move_episode(4, 3, write = FALSE, path = res))
   expect_equal(get_episodes(res), eporder)
 
   move_episode(4, 3, write = TRUE, path = res)
-  expect_equal(get_episodes(res), 
+  expect_equal(get_episodes(res),
     c("introduction.Rmd", "new.Rmd", "new-too.Rmd", "new-mewtwo-three.Rmd"))
 
   move_episode("introduction.Rmd", 4, write = TRUE, path = res)
-  expect_equal(get_episodes(res), 
+  expect_equal(get_episodes(res),
     c("new.Rmd", "new-too.Rmd", "new-mewtwo-three.Rmd", "introduction.Rmd"))
 
   move_episode("introduction.Rmd", 1, write = TRUE, path = res)
-  expect_equal(get_episodes(res), 
+  expect_equal(get_episodes(res),
     c("introduction.Rmd", "new.Rmd", "new-too.Rmd", "new-mewtwo-three.Rmd"))
 
 })
@@ -80,14 +82,14 @@ cli::test_that_cli("Episodes can be moved out of position", {
   expect_equal(get_episodes(res), eporder)
 
   move_episode(3, 0, write = TRUE, path = res)
-  expect_equal(get_episodes(res), 
+  expect_equal(get_episodes(res),
     c("introduction.Rmd", "new.Rmd", "new-too.Rmd"))
 
 })
 
 cli::test_that_cli("no position will trigger an interactive search", {
 
-  expect_snapshot(tryCatch(move_episode("new-mewtwo-three.Rmd", path = res), 
+  expect_snapshot(tryCatch(move_episode("new-mewtwo-three.Rmd", path = res),
       error = function(e) e$message))
 
 })
@@ -123,7 +125,7 @@ cli::test_that_cli("Drafts can be added to the index", {
   expect_equal(get_episodes(res), eporder[-3])
 
   expect_snapshot(move_episode("new-mewtwo-three.Rmd", 4, write = TRUE, path = res))
-  expect_equal(get_episodes(res), 
+  expect_equal(get_episodes(res),
     c("introduction.Rmd", "new.Rmd", "new-too.Rmd", "new-mewtwo-three.Rmd"))
 
 })

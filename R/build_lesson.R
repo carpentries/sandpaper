@@ -55,7 +55,7 @@
 #'
 #' tmp <- tempfile()
 #' create_lesson(tmp, open = FALSE, rmd = FALSE)
-#' create_episode("first-script", path = tmp)
+#' create_episode("first-script", path = tmp, open = FALSE)
 #' check_lesson(tmp)
 #' build_lesson(tmp)
 build_lesson <- function(path = ".", rebuild = FALSE, quiet = !interactive(), preview = TRUE, override = list()) {
