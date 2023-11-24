@@ -32,6 +32,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   # does not exist or update the CSS, HTML, and JS if it does exist.
   pkg <- pkgdown::as_pkgdown(path_site(path), override = override)
   local_envvar_pkgdown(pkg)
+  pkg <- add_varnish_translations(pkg)
   built_path <- fs::path(pkg$src_path, "built")
   # NOTE: This is a kludge to prevent pkgdown from displaying a bunch of noise
   #       if the user asks for quiet.
