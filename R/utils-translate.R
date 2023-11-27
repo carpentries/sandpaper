@@ -4,12 +4,14 @@ local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
     LANGUAGE = pkg$meta$template$params$lang,
     .local_envir = scope
   )
+  add_varnish_translations()
 }
 
-add_varnish_translations <- function(pkg) {
-  pkg$translate <- list(
+add_varnish_translations <- function() {
+  menu_translations <- list(
     keypoints = tr_("Key Points"),
     see_aio = tr_("See all in one page")
   )
-  return(pkg)
+  learner_globals$set("translate", menu_translations)
+  instructor_globals$set("translate", menu_tranlsations)
 }
