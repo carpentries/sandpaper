@@ -61,6 +61,18 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
   update_sidebar(global_data$instructor, instructor_nodes, fs::path_file(this_page))
   meta$set("url", paste0(base_url, this_page))
   global_data$instructor$set("json", fill_metadata_template(meta))
+
+  # loop through the translation and apply the timings.
+  to_translate <- global_data$instructor$get()[["translate"]]
+  translated <- lapply(to_translate,
+    function(e, dat) {
+      tryCatch(glue::glue_data(dat, e, .open = "{%", .close = "%}"),
+        error = function(err) return(e))
+    },
+    dat = global_data$instructor$get()
+  )
+  print(translated$Estim)
+  global_data$instructor$set("translate", translated)
   modified <- pkgdown::render_page(pkg,
     template,
     data = global_data$instructor$get(),
@@ -71,6 +83,7 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
 
   # Process learner page if needed ---------------------------------------------
   if (modified) {
+    global_data$learner$set("translate", translated)
     this_page <- as_html(this_page)
     update_sidebar(global_data$learner, learner_nodes, fs::path_file(this_page))
     meta$set("url", paste0(base_url, this_page))
