@@ -1,0 +1,121 @@
+---
+title: "Data and Flow from Source to Website"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data and Flow from Source to Website}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "##"
+)
+```
+
+## Introduction
+
+This is a vignette that is designed for R package developers who are looking to
+understand how the data flows between the lesson source and the final website.
+I am assuming that the person reading this has familiarity with R packaging and
+R environments.
+
+One of the design philosophies of The Workbench is that if a lesson author or
+contributor would like to add any sort of metadata or modify a setting in any
+given lesson, they can do so by editing the source of the lesson with no need to
+modify their workflow.
+
+Metadata is different from content because, while it is not directly related to
+the content, it has extra information that helps the users of the site navigate
+the content. For example, each episode page has three piece of metadata
+embedded as a YAML list at the top of the source file that defines the title
+along with estimated time for teaching and excercises.
+
+```yaml
+title: "Introduction"
+teaching: 5
+exercises: 5
+```
+
+In terms of the lesson itself, metadata that is related to the whole lesson is
+stored in `config.yaml`. This YAML file is designed to be as flat as possible to
+avoid common problems with writing YAML. Metadata here include things like the
+title of the Lesson, the source page of the lesson, the time it was created, and
+the lesson program it belongs to.
+
+```yaml
+title: "An Example Lesson"
+carpentry: "incubator"
+created: "2023-11-27"
+life-cycle: "pre-alpha"
+```
+
+It also defines the order of the episodes and other content.
+
+```yaml
+episodes:
+ - introduction.md
+ - first-example.md
+```
+
+
+## Example
+
+All of these metadata are collected and stored in memory before the lesson is
+built (triggered during `validate_lesson()`), which are accessible via the
+objects defined by the internal `sandpaper:::set_globals()`. Here I will set
+up an example lesson that I will use to demonstrate these global variables. 
+Please note that I will be using internal functions in this demonstration. These
+internal functions are not guaranteed to be stable outside of the context of
+{sandpaper}. 
+
+```{r create-example}
+library("sandpaper")
+snd <- asNamespace("sandpaper")
+# create a new lesson
+lsn <- create_lesson(tempfile(), name = "An Example Lesson", 
+  rstudio = TRUE, open = FALSE, rmd = FALSE)
+# add a new episode
+create_episode_md(title = "First Example", add = TRUE, path = lsn, open = FALSE)
+```
+
+Within {sandpaper}, there are environments that contain metadata related to the
+whole lesson called `.resources`, `instructor_globals`, `learner_globals`, and
+`this_metadata`. Before the lesson is validated, these values are empty:
+
+```{r globals}
+snd$.resources$get()
+snd$instructor_globals$get()
+snd$learner_globals$get()
+snd$this_metadata$get()
+```
+
+
+When I run `validate_lesson()` the first time, all the metadata is collected and
+parsed from the `config.yaml`, and the individual episodes and cached. 
+
+```{r validate}
+# first run is always longer than the second
+system.time(validate_lesson(lsn))
+system.time(validate_lesson(lsn))
+snd$.resources$get()
+snd$instructor_globals$get()
+snd$learner_globals$get()
+snd$this_metadata$get()
+snd$get_path_site_yaml(lsn)
+```
+
+
+
+## Static Variables
+
+### Build Options
+
+### Metadata
+
+## Caculated Variables
+
+### Site-wide metadata
+
+### Page specific data
