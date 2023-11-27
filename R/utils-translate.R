@@ -13,5 +13,5 @@ add_varnish_translations <- function() {
     see_aio = tr_("See all in one page")
   )
   learner_globals$set("translate", menu_translations)
-  instructor_globals$set("translate", menu_tranlsations)
+  instructor_globals$set("translate", menu_translations)
 }
