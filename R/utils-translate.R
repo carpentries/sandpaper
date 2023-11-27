@@ -4,13 +4,13 @@ local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
     LANGUAGE = pkg$meta$template$params$lang,
     .local_envir = scope
   )
-  add_varnishtr_anslations()
+  add_varnish_translations()
 }
 
-add_varnishtr_anslations <- function() {
-  menutr_anslations <- list(
+add_varnish_translations <- function() {
+  menu_translations <- list(
     keypoints = tr_("Key Points"),
-    see_aio = tr_("See all in one page")
+    see_aio = tr_("See all in one page"),
     SkipMain = tr_('Skip to main content'),
     Previs = tr_('Previous'),
     Next = tr_('Next'),
@@ -19,8 +19,9 @@ add_varnishtr_anslations <- function() {
     Menu = tr_('Menu'),
     More = tr_('More'),
     Edtthp = tr_('Edit this page'),
-    Estim = tr_('Estimated time'),
-    minutes = tr_('minutes'),
+    # the {% %} are variables that should _not_ be translated, but moved into
+    # context of the translation. 
+    Estim = tr_('Estimated time: {% minutes %} minutes'),
     ExprCS = tr_('Export Chapter Slides'),
     LrnrVw = tr_('Learner View'),
     InstrV = tr_('Instructor View'),
@@ -31,7 +32,7 @@ add_varnishtr_anslations <- function() {
     LrnrPr = tr_('Learner Profiles'),
     EPISOD = tr_('EPISODES'),
     RESOUR = tr_('RESOURCES'),
-    DwnlLH = tr_('Download Lesson Handout')
+    DwnlLH = tr_('Download Lesson Handout'),
     ExpnAS = tr_('Expand All Solutions'),
     StpIns = tr_('Setup Instructions'),
     Dfrftl = tr_('Download files required for the lesson'),
@@ -57,7 +58,8 @@ add_varnishtr_anslations <- function() {
     LernMr = tr_('Learn More'),
     English = tr_('English (US)'),
     French = tr_('French'),
+    NULL
   )
-  learner_globals$set("translate", menutr_anslations)
-  instructor_globals$set("translate", menutr_anslations)
+  learner_globals$set("translate", menu_translations)
+  instructor_globals$set("translate", menu_translations)
 }
