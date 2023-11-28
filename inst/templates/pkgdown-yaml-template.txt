@@ -3,6 +3,7 @@
 # If you want to make changes, please edit {{ config }}
 # ------------------------------------------------------------------ information
 title: {{ title }} # needed to set the site title
+lang: {{ lang }}{{ ^lang }}'en'{{ /lang }}
 home:
   title: Home
   strip_header: true
