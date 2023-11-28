@@ -9,9 +9,24 @@ local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
 
 add_varnish_translations <- function() {
   menu_translations <- list(
-    keypoints = tr_("Key Points"),
+    KeyPoints = tr_("Key Points"),
+    InstructorNotes = tr_('Instructor Notes'),
+    ExtractAllImages = tr_('Extract All Images'),
+    Glossary = tr_('Glossary'),
+    LearnerProfiles = tr_('Learner Profiles'),
     see_aio = tr_("See all in one page"),
-    SkipMain = tr_('Skip to main content'),
+    SkipToMain = tr_('Skip to main content'),
+    MainNavigation = tr_('Main Navigation'), # alt text
+    LessonProgress = tr_('Lesson Progress'), # alt text
+    Search = tr_('Search'),
+    SearchButton = tr_('search button'), # alt text
+    iPreAlpha = tr_('Pre-Alpha'),
+    iAlpha = tr_('Alpha'),
+    iBeta = tr_('Beta'),
+    PreAlphaNote = tr_('This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.'),
+    AlphaNote = tr_('This lesson is in the alpha phase, which means that it has been taught once and lesson authors are iterating on feedback.'),
+    BetaNote = tr_('This lesson is in the beta phase, which means that it is ready for teaching by instructors outside of the original author team.'),
+    PeerReview = tr_('This lesson has passed peer review.'),
     Previs = tr_('Previous'),
     Next = tr_('Next'),
     Back = tr_('Back'),
@@ -20,16 +35,12 @@ add_varnish_translations <- function() {
     More = tr_('More'),
     Edtthp = tr_('Edit this page'),
     # the {% %} are variables that should _not_ be translated, but moved into
-    # context of the translation. 
+    # context of the translation.
     Estim = tr_('Estimated time: {% minutes %} minutes'),
     ExprCS = tr_('Export Chapter Slides'),
-    LrnrVw = tr_('Learner View'),
-    InstrV = tr_('Instructor View'),
+    LearnerView = tr_('Learner View'),
+    InstructorView = tr_('Instructor View'),
     Setup = tr_('Setup'),
-    InstrN = tr_('Instructor Notes'),
-    ExtrAI = tr_('Extract All Images'),
-    Glssry = tr_('Glossary'),
-    LrnrPr = tr_('Learner Profiles'),
     EPISOD = tr_('EPISODES'),
     RESOUR = tr_('RESOURCES'),
     DwnlLH = tr_('Download Lesson Handout'),
@@ -51,9 +62,6 @@ add_varnish_translations <- function() {
     CC4 = tr_('Template licensed under CC-BY 4.0'),
     ThCrpn = tr_('The Carpentries'),
     Bwspav = tr_('Built with'),
-    PreAlphaNote = tr_('This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.'),
-    AlphaNote = tr_('This lesson is in the alpha phase, which means that it has been taught once and lesson authors are iterating on feedback.'),
-    BetaNote = tr_('This lesson is in the beta phase, which means that it is ready for teaching by instructors outside of the original author team.'),
     GvFdbc = tr_('Give Feedback'),
     LernMr = tr_('Learn More'),
     English = tr_('English (US)'),
