@@ -16,7 +16,7 @@ add_varnish_translations <- function() {
     ExtractAllImages = tr_('Extract All Images'),
     Glossary = tr_('Glossary'),
     LearnerProfiles = tr_('Learner Profiles'),
-    see_aio = tr_("See all in one page"),
+    AIO = tr_("See all in one page"),
     SkipToMain = tr_('Skip to main content'),
     MainNavigation = tr_('Main Navigation'), # alt text
     LessonProgress = tr_('Lesson Progress'), # alt text
@@ -42,7 +42,7 @@ add_varnish_translations <- function() {
     Contributing = tr_('Contributing'),
     Source = tr_('Source'),
     Cite = tr_('Cite'),
-    Contct = tr_('Contact'),
+    Contact = tr_('Contact'),
     About = tr_('About'),
     # the {% %} are variables that should _not_ be translated, but moved into
     # context of the translation.
@@ -61,8 +61,7 @@ add_varnish_translations <- function() {
     Carpentries = tr_('The Carpentries'),
     BuiltWith = tr_('Built with sandpaper{% sandpaper_version %}, pegboard{% pegboard_version %}, and varnish{% varnish_version %}'),
     GiveFeedback = tr_('Give Feedback'),
-    LearnMore = tr_('Learn More'),
-    NULL
+    LearnMore = tr_('Learn More')
   )
   learner_globals$set("translate", menu_translations)
   instructor_globals$set("translate", menu_translations)
