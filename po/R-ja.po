@@ -41,7 +41,7 @@ msgstr "全ての画像"
 
 #: build_instructor_notes.R:27 utils-translate.R:15
 msgid "Instructor Notes"
-msgstr "インストラクター用のメモ"
+msgstr "インストラクター用メモ"
 
 #: build_keypoints.R:6 utils-translate.R:12
 msgid "Key Points"
@@ -53,11 +53,11 @@ msgstr "学習者プロフィール"
 
 #: utils-translate.R:13
 msgid "Learner View"
-msgstr ""
+msgstr "学習者表示"
 
 #: utils-translate.R:14
 msgid "Instructor View"
-msgstr ""
+msgstr "インストラクター表示"
 
 #: utils-translate.R:16
 msgid "Extract All Images"
@@ -65,15 +65,15 @@ msgstr "全ての画像"
 
 #: utils-translate.R:17
 msgid "Glossary"
-msgstr ""
+msgstr "用語集"
 
 #: utils-translate.R:19
 msgid "See all in one page"
-msgstr "一つにまとまったを見る"
+msgstr "一つにまとまったページ"
 
 #: utils-translate.R:20
 msgid "Skip to main content"
-msgstr ""
+msgstr "本文へ移動"
 
 #: utils-translate.R:21
 msgid "Main Navigation"
@@ -85,7 +85,7 @@ msgstr ""
 
 #: utils-translate.R:23
 msgid "Search"
-msgstr ""
+msgstr "検索"
 
 #: utils-translate.R:24
 msgid "search button"
@@ -93,158 +93,168 @@ msgstr ""
 
 #: utils-translate.R:25
 msgid "Pre-Alpha"
-msgstr ""
+msgstr "プレアルファ"
 
 #: utils-translate.R:26
 msgid "Alpha"
-msgstr ""
+msgstr "アルファ"
 
 #: utils-translate.R:27
 msgid "Beta"
-msgstr ""
+msgstr "ベタ"
 
 #: utils-translate.R:28
 msgid ""
 "This lesson is in the pre-alpha phase, which means that it is in early "
 "development, but has not yet been taught."
 msgstr ""
+"このレッスンはプレアルファフェーズ（開発が始まったが、まだ教えられたことがな"
+"い）にある。"
 
 #: utils-translate.R:29
 msgid ""
 "This lesson is in the alpha phase, which means that it has been taught once "
 "and lesson authors are iterating on feedback."
 msgstr ""
+"このレッスンはアルファフェーズ（一度教えられ、レッスン作成者がフィードバック"
+"を反復している）にある。"
 
 #: utils-translate.R:30
 msgid ""
 "This lesson is in the beta phase, which means that it is ready for teaching "
 "by instructors outside of the original author team."
 msgstr ""
+"このレッスンはベタフェーズ（原著者チーム以外の指導者にも教える準備が整ってい"
+"る）にある"
 
 #: utils-translate.R:31
 msgid "This lesson has passed peer review."
-msgstr ""
+msgstr "このレッスンはピアレビューに合格しました"
 
 #: utils-translate.R:32
 msgid "Previous"
-msgstr ""
+msgstr "前へ"
 
 #: utils-translate.R:33
 msgid "Next"
-msgstr ""
+msgstr "次へ"
 
 #: utils-translate.R:34
 msgid "Back"
-msgstr ""
+msgstr "前へ"
 
 #: utils-translate.R:36
 msgid "Menu"
-msgstr ""
+msgstr "メニュー"
 
 #: utils-translate.R:37
 msgid "More"
-msgstr ""
+msgstr "もっと"
 
 #: utils-translate.R:38
 msgid "This lesson is subject to the Code of Conduct"
-msgstr ""
+msgstr "このレッスンは行動規範の対象となります"
 
 #: utils-translate.R:39
 msgid "Code of Conduct"
-msgstr ""
+msgstr "行動規範"
 
 #: utils-translate.R:40
 msgid "Edit this page"
-msgstr ""
+msgstr "ページの編集"
 
 #: utils-translate.R:41
 msgid "Edit on GitHub"
-msgstr ""
+msgstr "GitHubで編集"
 
 #: utils-translate.R:42
 msgid "Contributing"
-msgstr ""
+msgstr "貢献"
 
 #: utils-translate.R:43
 msgid "Source"
-msgstr ""
+msgstr "ソース"
 
 #: utils-translate.R:44
 msgid "Cite"
-msgstr ""
+msgstr "引用"
 
 #: utils-translate.R:45
 msgid "Contact"
-msgstr ""
+msgstr "お問い合わせ"
 
 #: utils-translate.R:46
 msgid "About"
-msgstr ""
+msgstr "概要"
 
 #: utils-translate.R:49
 msgid "Estimated time: {% minutes %} minutes"
-msgstr ""
+msgstr "所要時間：{% minutes %}分"
 
 #: utils-translate.R:50
 msgid "Setup"
-msgstr ""
+msgstr "セットアップ"
 
 #: utils-translate.R:51
 msgid "EPISODES"
-msgstr ""
+msgstr "エピソード"
 
 #: utils-translate.R:52
 msgid "RESOURCES"
-msgstr ""
+msgstr "資料"
 
 #: utils-translate.R:53
 msgid "Expand All Solutions"
-msgstr ""
+msgstr "回答を全て見る"
 
 #: utils-translate.R:54
 msgid "Setup Instructions"
-msgstr ""
+msgstr "セットアップの手順"
 
 #: utils-translate.R:55
 msgid "Download Lesson Handout"
-msgstr ""
+msgstr "レッスンのプリントをダウンロード"
 
 #: utils-translate.R:56
 msgid "Download files required for the lesson"
-msgstr ""
+msgstr "レッスンに必要なファイルのダウンロード"
 
 #: utils-translate.R:57
 msgid "Export Chapter Slides"
-msgstr ""
+msgstr "スライドのエキスポート"
 
 #: utils-translate.R:58
 msgid ""
 "The actual schedule may vary slightly depending on the topics and exercises "
 "chosen by the instructor."
 msgstr ""
+"実際のスケジュールは、講師が選んだトピックやエクササイズによって多少異なる場"
+"合があります。"
 
 #: utils-translate.R:59
 msgid "Materials licensed under {% license %} by {% authors %}"
-msgstr ""
+msgstr "材料は{% authors %}によって{% license %}のもとに掲載を許諾されている"
 
 #: utils-translate.R:60
 msgid "Template licensed under CC-BY 4.0 by {% template_authors %}"
-msgstr ""
+msgstr "テンプレートは{% template_authors %}によってクリエイティブ・コモンズ・ライセンス（4.0 国際）のもとに掲載を許諾されている"
 
 #: utils-translate.R:61
 msgid "The Carpentries"
-msgstr ""
+msgstr "ザ・カーペントリーズ"
 
 #: utils-translate.R:62
 msgid ""
 "Built with sandpaper{% sandpaper_version %}, pegboard{% pegboard_version %}, "
 "and varnish{% varnish_version %}"
 msgstr ""
+"sandpaper{% sandpaper_version %}、pegboard{% pegboard_version %}、"
+"およびvarnish{% varnish_version %}によって作られた"
 
 #: utils-translate.R:63
 msgid "Give Feedback"
-msgstr ""
+msgstr "フィードバック"
 
 #: utils-translate.R:64
 msgid "Learn More"
-msgstr ""
+msgstr "さらに詳しく"
