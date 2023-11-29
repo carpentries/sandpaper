@@ -1,5 +1,5 @@
 # Translations for static lesson elements happens during the `build_site()`
-# phase. The `local_envvar_pkgdown()` function is run. It should only 
+# phase. The `local_envvar_pkgdown()` function is run. It should only
 # ever be run inside of another function to ensure the scope is honoured.
 local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
   withr::local_envvar(
@@ -70,7 +70,7 @@ add_varnish_translations <- function() {
     SetupInstructions = tr_('Setup Instructions'),
     DownloadFiles = tr_('Download files required for the lesson'),
     ActualScheduleNote = tr_('The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.'),
-    MaterialsLicencedUnder = tr_('Materials licensed under {% license %} by {% authors %}'),
+    MaterialsLicensedUnder = tr_('Materials licensed under {% license %} by {% authors %}'),
     CC4 = tr_('Template licensed under CC-BY 4.0 by {% template_authors %}'),
     Carpentries = tr_('The Carpentries'),
     BuiltWith = tr_('Built with sandpaper{% sandpaper_version %}, pegboard{% pegboard_version %}, and varnish{% varnish_version %}'),
@@ -82,23 +82,25 @@ add_varnish_translations <- function() {
 }
 
 fill_translation_vars <- function(the_data) {
-  # define icons that we will need to pre-fab insert for the template. 
+  # define icons that we will need to pre-fab insert for the template.
   icns <- c("clock", "edit")
   template_icons <- lapply(icns, function(i) {
     glue::glue('<i aria-hidden="true" data-feather="{i}"></i>')
   })
 
   # add our templating variables to the data list
-  dat <- c(the_data, 
+  dat <- c(the_data,
     list(
        icons = setNames(template_icons, icns),
        template_authors = "The Carpentries",
        authors = "the authors",
-       license = "CC-BY 4.0",
+       license = the_data$license %||% "CC-BY 4.0",
        minutes = the_data$minutes %||% NULL,
        updated = the_data$updated %||% NULL
     )
   )
+
+  dat$license <- glue::glue('<a href="LICENSE.html">{dat$license}</a>')
   # loop through the translation strings and replace all {% keys %}
   translated <- lapply(the_data[["translate"]],
     function(e, dat) {
