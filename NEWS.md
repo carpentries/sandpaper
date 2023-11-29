@@ -1,4 +1,4 @@
-# sandpaper 0.14.0.9000 (unreleased)
+# sandpaper 0.15.0 (2023-11-29)
 
 ## NEW FEATURES
 
