@@ -70,20 +70,26 @@ set_globals <- function(path) {
   idx_item <- xml2::read_html(instructor_sidebar[[1]])
   idx_link <- xml2::xml_find_first(idx_item, ".//a")
   idx_text <- xml2::xml_contents(idx_link)
-  if (length(idx_text) == 1 && xml2::xml_text(idx_text) == "0. ") {
-    xml2::xml_set_text(idx_link, "Summary and Schedule")
+  no_index_title <- length(idx_text) == 1 && xml2::xml_text(idx_text) == "0. "
+  if (no_index_title) {
+    xml2::xml_set_text(idx_link, tr_("Summary and Schedule"))
   } else {
     xml2::xml_set_text(idx_text, sub("^0[.] ", "", xml2::xml_text(idx_text)))
   }
   sindex <- create_sidebar_item(nodes = NULL, as.character(idx_link), 1)
   learner_sidebar <- instructor_sidebar
   instructor_sidebar[[1]] <- sindex
-  learner_sidebar[[1]] <- sub("Schedule", "Setup", sindex)
+  if (no_index_title) {
+    xml2::xml_set_text(idx_link, tr_("Summary and Setup"))
+    sindex <- create_sidebar_item(nodes = NULL, as.character(idx_link), 1)
+  }
+  learner_sidebar[[1]] <- sindex
 
   # Resources
   learner <- create_resources_dropdown(these_resources[["learners"]],
     "learners")
-  instructor <- create_resources_dropdown(these_resources[["instructors"]], "instructors")
+  instructor <- create_resources_dropdown(these_resources[["instructors"]], 
+    "instructors")
   instructor$extras <- c(instructor$extras, "<hr>", learner$extras)
   instructor$resources <- c(instructor$resources, "<hr>", learner$extras)
   pkg_versions <- varnish_vars()
