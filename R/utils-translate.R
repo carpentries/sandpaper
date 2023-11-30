@@ -82,6 +82,12 @@ add_varnish_translations <- function() {
   instructor_globals$set("translate", menu_translations)
 }
 
+
+replace_link <- function(txt, href) {
+  txt <- sub("<(", paste0('<a href="', href, '">'), txt, fixed = TRUE)
+  return(sub(")>", "</a>", txt, fixed = TRUE))
+}
+
 fill_translation_vars <- function(the_data) {
   # define icons that we will need to pre-fab insert for the template.
   icns <- c("clock", "edit")
@@ -103,14 +109,14 @@ fill_translation_vars <- function(the_data) {
 
   dat$license <- glue::glue('<a href="LICENSE.html">{dat$license}</a>')
   # loop through the translation strings and replace all {% keys %}
-  translated <- lapply(the_data[["translate"]],
-    function(e, dat) {
-      if (grepl("{%", e, fixed = TRUE)) {
-        return(glue::glue_data(dat, e, .open = "{%", .close = "%}"))
-      } else {
-        return(e)
-      }
-    },
-    dat = dat
-  )
+  translated <- the_data[["translate"]]
+  for (key in names(translated)) {
+    the_string <- translated[[key]]
+    if (grepl("{%", the_string, fixed = TRUE)) {
+      the_string <- glue::glue_data(dat, the_string,
+        .open = "{%", .close = "%}")
+    }
+    translated[[key]] <- the_string
+  }
+  return(translated)
 }
