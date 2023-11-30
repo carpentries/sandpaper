@@ -112,7 +112,8 @@ fill_translation_vars <- function(the_data) {
   translated <- the_data[["translate"]]
   for (key in names(translated)) {
     the_string <- translated[[key]]
-    if (grepl("{%", the_string, fixed = TRUE)) {
+    is_templated <- grepl("{%", the_string, fixed = TRUE)
+    if (is_templated) {
       the_string <- glue::glue_data(dat, the_string,
         .open = "{%", .close = "%}")
     }
