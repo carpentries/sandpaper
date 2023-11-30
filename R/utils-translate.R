@@ -31,6 +31,7 @@ add_varnish_translations <- function() {
     InstructorNotes = tr_('Instructor Notes'), # navbar.html
     Glossary = tr_('Glossary'),                # navbar.html
     LearnerProfiles = tr_('Learner Profiles'), # navbar.html
+    More = tr_('More'),
     Search = tr_('Search'),
     LessonProgress = tr_('Lesson Progress'), # alt text
 
@@ -45,20 +46,20 @@ add_varnish_translations <- function() {
     DownloadHandout = tr_('Download Lesson Handout'),
     ExportSlides = tr_('Export Chapter Slides'), # content-chapter.html
 
-    # content-chapter.html ----------------------------------------------------
-    # TODO: continu to categorise this
+    # content-[thing].html ---------------------------------------------------
     PreviousAndNext = tr_('Previous and Next Chapter'),
     Previous = tr_('Previous'),
     EstimatedTime = tr_('Estimated time: {% icons$clock %} {% minutes %} minutes'),
     Next = tr_('Next'),
-    NextChapter = tr_('Next Chapter'),
+    NextChapter = tr_('Next Chapter'), # alt-text
     LastUpdate = tr_('Last updated on {% updated %}'),
     EditThisPage = tr_('Edit this page'),
     ExpandAllSolutions = tr_('Expand All Solutions'),
 
-    Back = tr_('Back'),
+    # footer.html ------------------------------------------------------------
+    BackToTop = tr_('Back To Top'),
+    # SpanBackToTop = tr_('Back To Top'),
     Menu = tr_('Menu'),
-    More = tr_('More'),
     ThisLessonCoC = tr_('This lesson is subject to the Code of Conduct'),
     CoC = tr_('Code of Conduct'),
     EditOnGH = tr_('Edit on GitHub'),
