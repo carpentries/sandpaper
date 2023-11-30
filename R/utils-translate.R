@@ -58,9 +58,8 @@ add_varnish_translations <- function() {
 
     # footer.html ------------------------------------------------------------
     BackToTop = tr_('Back To Top'),
-    # SpanBackToTop = tr_('Back To Top'),
     Menu = tr_('Menu'),
-    ThisLessonCoC = tr_('This lesson is subject to the Code of Conduct'),
+    ThisLessonCoC = tr_('This lesson is subject to the <(Code of Conduct)>'),
     CoC = tr_('Code of Conduct'),
     EditOnGH = tr_('Edit on GitHub'),
     Contributing = tr_('Contributing'),
@@ -116,6 +115,17 @@ fill_translation_vars <- function(the_data) {
     if (is_templated) {
       the_string <- glue::glue_data(dat, the_string,
         .open = "{%", .close = "%}")
+    }
+    string_exists <- length(the_string) > 0L
+    has_url_template <- string_exists && grepl("<(", the_string, fixed = TRUE)
+    if (has_url_template) {
+      # In this space, we need to replace links present in the URL template
+      # with their URLs
+      # (e.g. going from `<(hello)>` to `<a href="hello.html">hello</a>`)
+      the_string <- switch(key,
+        ThisLessonCoC = replace_link(the_string, "CODE_OF_CONDUCT.html"),
+        default = the_string
+      )
     }
     translated[[key]] <- the_string
   }
