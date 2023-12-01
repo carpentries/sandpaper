@@ -80,7 +80,7 @@ add_class <- function(nodes, new) {
 
 add_anchors <- function(nodes, ids) {
   anchor <- paste0(
-    "<a class='anchor' aria-label='anchor' href='#", ids, "'></a>"
+    "<a class='anchor' aria-label='", tr_("anchor"), "' href='#", ids, "'></a>"
   )
   for (i in seq_along(nodes)) {
     heading <- nodes[[i]]

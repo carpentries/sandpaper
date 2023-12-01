@@ -73,7 +73,7 @@ add_varnish_translations <- function() {
     Contact = tr_('Contact'),
     About = tr_('About'),
     MaterialsLicensedUnder = tr_('Materials licensed under {% license %} by {% authors %}'),
-    TemplateLicense = tr_('<(Template licensed under CC-BY 4.0)> by {% template_authors %}'),
+    TemplateLicense = tr_('Template licensed under <(CC-BY 4.0)> by {% template_authors %}'),
     Carpentries = tr_('The Carpentries'),
     BuiltWith = tr_('Built with {% sandpaper_link %}, {% pegboard_link %}, and {% varnish_link %}'),
 
