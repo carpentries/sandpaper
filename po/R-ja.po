@@ -121,7 +121,7 @@ msgstr "用語集"
 
 #: utils-translate.R:34
 msgid "More"
-msgstr "もっと"
+msgstr "その他"
 
 #: utils-translate.R:35
 msgid "Search"
@@ -181,11 +181,11 @@ msgstr "次へ"
 
 #: utils-translate.R:54
 msgid "Next Chapter"
-msgstr ""
+msgstr "次のチャプター"
 
 #: utils-translate.R:55
 msgid "Last updated on {% updated %}"
-msgstr ""
+msgstr "最終更新日：{% updated %}"
 
 #: utils-translate.R:56
 msgid "Edit this page"
@@ -213,7 +213,7 @@ msgstr ""
 
 #: utils-translate.R:65
 msgid "Back To Top"
-msgstr ""
+msgstr "上へ戻る"
 
 #: utils-translate.R:66
 msgid "Menu"
@@ -221,7 +221,7 @@ msgstr "メニュー"
 
 #: utils-translate.R:67
 msgid "This lesson is subject to the <(Code of Conduct)>"
-msgstr "このレッスンは<(行動規範)>の対象となります"
+msgstr "このレッスンは<(行動規範)>の対象となっている"
 
 #: utils-translate.R:68
 msgid "Code of Conduct"
@@ -256,12 +256,9 @@ msgid "Materials licensed under {% license %} by {% authors %}"
 msgstr "材料は{% authors %}によって{% license %}のもとに掲載を許諾されている"
 
 #: utils-translate.R:76
-#, fuzzy
-#| msgid "Template licensed under CC-BY 4.0 by {% template_authors %}"
 msgid "<(Template licensed under CC-BY 4.0)> by {% template_authors %}"
 msgstr ""
-"テンプレートは{% template_authors %}によってクリエイティブ・コモンズ・ライセ"
-"ンス（4.0 国際）のもとに掲載を許諾されている"
+"テンプレートは{% template_authors %}によって<(CC-BY 4.0のもとに掲載を許諾されている)>"
 
 #: utils-translate.R:77
 msgid "The Carpentries"
@@ -271,7 +268,7 @@ msgstr "ザ・カーペントリーズ"
 msgid ""
 "Built with {% sandpaper_link %}, {% pegboard_link %}, and {% varnish_link %}"
 msgstr ""
-"{% sandpaper_link %}、{% pegboard_link %}、および"
+"このレッスンは{% sandpaper_link %}、{% pegboard_link %}、および"
 "{% varnish_link %}によって作られた"
 
 #: utils-translate.R:81
@@ -281,6 +278,3 @@ msgstr "フィードバック"
 #: utils-translate.R:82
 msgid "Learn More"
 msgstr "さらに詳しく"
-
-#~ msgid "Back"
-#~ msgstr "前へ"
