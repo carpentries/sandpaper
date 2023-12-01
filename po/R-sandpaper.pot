@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.14.1.9000\n"
-"POT-Creation-Date: 2023-11-30 11:22-0800\n"
+"POT-Creation-Date: 2023-11-30 16:31-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,11 +22,11 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: build_home.R:49
+#: build_home.R:49 utils-translate.R:98 utils-varnish.R:87
 msgid "Summary and Schedule"
 msgstr ""
 
-#: build_home.R:58
+#: build_home.R:58 utils-translate.R:94 utils-varnish.R:95
 msgid "Summary and Setup"
 msgstr ""
 
@@ -189,81 +189,80 @@ msgid "Expand All Solutions"
 msgstr ""
 
 #: utils-translate.R:60
-msgid "Back To Top"
-msgstr ""
-
-#: utils-translate.R:61
-msgid "Menu"
-msgstr ""
-
-#: utils-translate.R:62
-msgid "This lesson is subject to the <(Code of Conduct)>"
-msgstr ""
-
-#: utils-translate.R:63
-msgid "Code of Conduct"
-msgstr ""
-
-#: utils-translate.R:64
-msgid "Edit on GitHub"
-msgstr ""
-
-#: utils-translate.R:65
-msgid "Contributing"
-msgstr ""
-
-#: utils-translate.R:66
-msgid "Source"
-msgstr ""
-
-#: utils-translate.R:67
-msgid "Cite"
-msgstr ""
-
-#: utils-translate.R:68
-msgid "Contact"
-msgstr ""
-
-#: utils-translate.R:69
-msgid "About"
-msgstr ""
-
-#: utils-translate.R:70
 msgid "Setup Instructions"
 msgstr ""
 
-#: utils-translate.R:71
+#: utils-translate.R:61
 msgid "Download files required for the lesson"
 msgstr ""
 
-#: utils-translate.R:72
+#: utils-translate.R:62
 msgid ""
 "The actual schedule may vary slightly depending on the topics and exercises "
 "chosen by the instructor."
 msgstr ""
 
+#: utils-translate.R:65
+msgid "Back To Top"
+msgstr ""
+
+#: utils-translate.R:66
+msgid "Menu"
+msgstr ""
+
+#: utils-translate.R:67
+msgid "This lesson is subject to the <(Code of Conduct)>"
+msgstr ""
+
+#: utils-translate.R:68
+msgid "Code of Conduct"
+msgstr ""
+
+#: utils-translate.R:69
+msgid "Edit on GitHub"
+msgstr ""
+
+#: utils-translate.R:70
+msgid "Contributing"
+msgstr ""
+
+#: utils-translate.R:71
+msgid "Source"
+msgstr ""
+
+#: utils-translate.R:72
+msgid "Cite"
+msgstr ""
+
 #: utils-translate.R:73
-msgid "Materials licensed under {% license %} by {% authors %}"
+msgid "Contact"
 msgstr ""
 
 #: utils-translate.R:74
-msgid "Template licensed under CC-BY 4.0 by {% template_authors %}"
+msgid "About"
 msgstr ""
 
 #: utils-translate.R:75
-msgid "The Carpentries"
+msgid "Materials licensed under {% license %} by {% authors %}"
 msgstr ""
 
 #: utils-translate.R:76
-msgid ""
-"Built with sandpaper{% sandpaper_version %}, pegboard{% pegboard_version %}, "
-"and varnish{% varnish_version %}"
+msgid "<(Template licensed under CC-BY 4.0)> by {% template_authors %}"
 msgstr ""
 
 #: utils-translate.R:77
-msgid "Give Feedback"
+msgid "The Carpentries"
 msgstr ""
 
 #: utils-translate.R:78
+msgid ""
+"Built with {% sandpaper_link %}, {% pegboard_link %}, and {% varnish_link %}"
+msgstr ""
+
+#: utils-translate.R:81
+msgid "Give Feedback"
+msgstr ""
+
+#: utils-translate.R:82
 msgid "Learn More"
 msgstr ""
