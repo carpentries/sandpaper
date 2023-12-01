@@ -100,6 +100,15 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #'
 #' The following keypairs are known by sandpaper, but are optional:
 #'
+#' - **lang** `[character]` the [language
+#'   code](https://www.gnu.org/software/gettext/manual/html_node/Usual-Language-Codes.html)
+#'   that matches the language of the lesson content. This defaults to `"en"`,
+#'   but can be any language code (e.g. "ja" specifying Japanese) or
+#'   combination language code and [country
+#'   code](https://www.gnu.org/software/gettext/manual/html_node/Country-Codes.html)
+#'   (e.g. "pt_BR" specifies Pourtugese used in Brazil). For more information
+#'   on how this is used, see [the Locale Names section of the gettext
+#'   manual](https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html)
 #' - **url** `[character]` custom URL if you are deploying to a URL that is not
 #'   the default github pages io domain.
 #' - **fail_on_error** `[boolean]` for R Markdown lessons; fail the build if any
