@@ -47,7 +47,7 @@ add_varnish_translations <- function() {
     ExportSlides = tr_('Export Chapter Slides'), # content-chapter.html
 
     # content-[thing].html ---------------------------------------------------
-    PreviousAndNext = tr_('Previous and Next Chapter'),
+    PreviousAndNext = tr_('Previous and Next Chapter'), # alt text
     Previous = tr_('Previous'),
     EstimatedTime = tr_('Estimated time: {% icons$clock %} {% minutes %} minutes'),
     Next = tr_('Next'),
@@ -55,6 +55,11 @@ add_varnish_translations <- function() {
     LastUpdate = tr_('Last updated on {% updated %}'),
     EditThisPage = tr_('Edit this page'),
     ExpandAllSolutions = tr_('Expand All Solutions'),
+
+    # content-syllabus.html --------------------------------------------------
+    SetupInstructions = tr_('Setup Instructions'),
+    DownloadFiles = tr_('Download files required for the lesson'),
+    ActualScheduleNote = tr_('The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.'),
 
     # footer.html ------------------------------------------------------------
     BackToTop = tr_('Back To Top'),
@@ -67,13 +72,12 @@ add_varnish_translations <- function() {
     Cite = tr_('Cite'),
     Contact = tr_('Contact'),
     About = tr_('About'),
-    SetupInstructions = tr_('Setup Instructions'),
-    DownloadFiles = tr_('Download files required for the lesson'),
-    ActualScheduleNote = tr_('The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.'),
     MaterialsLicensedUnder = tr_('Materials licensed under {% license %} by {% authors %}'),
-    CC4 = tr_('Template licensed under CC-BY 4.0 by {% template_authors %}'),
+    TemplateLicense = tr_('<(Template licensed under CC-BY 4.0)> by {% template_authors %}'),
     Carpentries = tr_('The Carpentries'),
-    BuiltWith = tr_('Built with sandpaper{% sandpaper_version %}, pegboard{% pegboard_version %}, and varnish{% varnish_version %}'),
+    BuiltWith = tr_('Built with {% sandpaper_link %}, {% pegboard_link %}, and {% varnish_link %}'),
+
+    # beta content not used anymore.
     GiveFeedback = tr_('Give Feedback'),
     LearnMore = tr_('Learn More')
   )
@@ -96,15 +100,15 @@ fix_both_sidebars <- function(learner, instructor, translations) {
 }
 
 # The sidebar construction happens during the first parts of `build_lesson()`
-# when `validate_lesson()` is called and the Lesson object is loaded. 
+# when `validate_lesson()` is called and the Lesson object is loaded.
 #
 # Because of this, it will always be in the local of the user, which is not
 # necessarily the locale of the lesson. We should not necessarily impose the
 # lesson locale on the user because the error messages from earlier build
-# stages should be in the user's locale. 
+# stages should be in the user's locale.
 #
 # This is all a really long-winded way to say that we need to set the
-# translation here, where the translation variables are set. 
+# translation here, where the translation variables are set.
 #
 # This function takes a sidebar list, a translation for either "summary and
 # schedule" or "summary and setup" and applies the translation to the HTML for
@@ -139,11 +143,11 @@ replace_link <- function(txt, href) {
 #' @keywords internal
 #' @details There are two kinds of templating we use:
 #'
-#'  1. variable templating indicated by `{% key %}` where `key` represents a 
+#'  1. variable templating indicated by `{% key %}` where `key` represents a
 #'     variable that exists within the global data and is replaced.
-#'  2. link templating indicated by `<(text to wrap)>` where we replace the 
+#'  2. link templating indicated by `<(text to wrap)>` where we replace the
 #'     `<()>` with a known URL or HTML markup. This allows the translators to
-#'     translate text without having to worry about HTML markup. 
+#'     translate text without having to worry about HTML markup.
 #' @examples
 #'
 #' dat <- list(
@@ -177,12 +181,12 @@ fill_translation_vars <- function(the_data) {
        updated = the_data$updated %||% NULL
     )
   )
-  # variables that have known fixed URLs can simply have them added in. 
+  # variables that have known fixed URLs can simply have them added in.
   dat$license <- glue::glue('<a href="LICENSE.html">{dat$license}</a>')
   translated <- the_data[["translate"]]
-  
+
   # all translated items need to have variables replaced and the URL templates
-  # filled out. 
+  # filled out.
   for (key in names(translated)) {
     the_string <- translated[[key]]
     is_templated <- grepl("{%", the_string, fixed = TRUE)

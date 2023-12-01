@@ -21,7 +21,7 @@ varnish_vars <- function() {
     res <- paste0(user, "/", repo, "/tree/", ref)
     return(res)
   }
-  list(
+  res <- list(
     sandpaper_version = ver("sandpaper"),
     sandpaper_cfg     = cfg("sandpaper"),
     pegboard_version  = ver("pegboard"),
@@ -29,6 +29,18 @@ varnish_vars <- function() {
     varnish_version   = ver("varnish"),
     varnish_cfg       = cfg("varnish")
   )
+  carpurl <- function(res, pkg) {
+    config <- res[[paste0(pkg, "_cfg")]] %||% paste0("carpentries/", pkg)
+    version <- res[[paste0(pkg, "_version")]]
+    glue::glue('<a href="https://github.com/{config}">{pkg}{version}</a>')
+  }
+  urls <- list(
+    sandpaper_link = carpurl(res, "sandpaper"),
+    pegboard_link = carpurl(res, "pegboard"),
+    varnish_link = carpurl(res, "varnish")
+  )
+  return(c(res, urls))
+
 }
 
 #' Set the necessary common global variables for use in the {varnish} template.
