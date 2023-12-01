@@ -118,6 +118,7 @@ fix_callouts <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   callouts <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'callout ')]")
   h3 <- xml2::xml_find_all(callouts, "./div/h3")
+  lapply(h3, translate_callout_heading)
   xml2::xml_set_attr(h3, "class", "callout-title")
   inner_div <- xml2::xml_parent(h3)
   # remove the "section level3 callout-title" attrs
@@ -137,6 +138,47 @@ fix_callouts <- function(nodes = NULL) {
   # we replace the callout ID with the correct ID
   xml2::xml_set_attr(callouts, "id", ids)
   invisible(nodes)
+}
+
+# translate callouts that have generic headings.
+#
+# If a callout does not have a heading, it has callout class converted to a 
+# title case heading. This is most common with key points. This applies the
+# appropriate translations based on the language of the lesson (including
+# English)
+translate_callout_heading <- function(heading) {
+  txt <- xml2::xml_text(heading)
+  known <- c(
+    "Callout",
+    "Challenge",
+    "Prereq",
+    "Checklist",
+    "Solution",
+    "Hint",
+    "Spoiler",
+    "Discussion",
+    "Testimonial",
+    "Keypoints",
+    "Instructor"
+  )
+  if (txt %in% known) {
+    translated <- switch(txt,
+      Callout     = tr_("Callout"),
+      Challenge   = tr_("Challenge"),
+      Prereq      = tr_("Prerequisite"),
+      Checklist   = tr_("Checklist"),
+      Solution    = tr_("Solution"),
+      Hint        = tr_("Hint"),
+      Spoiler     = tr_("Spoiler"),
+      Discussion  = tr_("Discussion"),
+      Testimonial = tr_("Testimonial"),
+      Keypoints   = tr_("Key Points"),
+      Instructor  = tr_("Instructor Note"),
+      txt
+    )
+    xml2::xml_set_text(heading, translated)
+  }
+  return(invisible(heading))
 }
 
 fix_setup_link <- function(nodes = NULL) {
