@@ -1,5 +1,6 @@
 fix_nodes <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
+  translate_overview(nodes)
   fix_headings(nodes)
   fix_callouts(nodes)
   fix_codeblocks(nodes)
@@ -91,6 +92,26 @@ add_anchors <- function(nodes, ids) {
     # Insert anchor in first element of header
     xml2::xml_add_child(heading, xml2::read_xml(anchor[[i]]))
   }
+}
+
+# translate the overview cards, which are defined in
+# inst/rmarkdown/lua/lesson.lua
+translate_overview <- function(nodes = NULL) {
+  if (length(nodes) == 0) return(nodes)
+  card <- xml2::xml_find_first(nodes, ".//div[@class='overview card']")
+  if (length(card) == 0) {
+    return(nodes)
+  }
+  overview <- xml2::xml_find_first(card, "./h2[@class='card-header']")
+  qpath <- ".//div[starts-with(@class, 'inner')]/h3[@class='card-title'][text()='Questions']"
+  opath <- ".//div[starts-with(@class, 'inner')]/h3[@class='card-title'][text()='Objectives']"
+  questions <- xml2::xml_find_first(card, qpath)
+  objectives <- xml2::xml_find_first(card, opath)
+
+  xml2::xml_set_text(questions, tr_("Questions"))
+  xml2::xml_set_text(objectives, tr_("Objectives"))
+  xml2::xml_set_text(overview, tr_("Overview"))
+  invisible(nodes)
 }
 
 fix_callouts <- function(nodes = NULL) {
