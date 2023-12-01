@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.14.1.9000\n"
-"POT-Creation-Date: 2023-12-01 11:23-0800\n"
+"POT-Creation-Date: 2023-12-01 14:41-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Instructor Notes"
 msgstr ""
 
-#: build_keypoints.R:6 utils-translate.R:30
+#: build_keypoints.R:6 utils-translate.R:30 utils-xml.R:172
 msgid "Key Points"
 msgstr ""
 
@@ -281,4 +281,44 @@ msgstr ""
 
 #: utils-xml.R:113
 msgid "Overview"
+msgstr ""
+
+#: utils-xml.R:163
+msgid "Callout"
+msgstr ""
+
+#: utils-xml.R:164
+msgid "Challenge"
+msgstr ""
+
+#: utils-xml.R:165
+msgid "Prerequisite"
+msgstr ""
+
+#: utils-xml.R:166
+msgid "Checklist"
+msgstr ""
+
+#: utils-xml.R:167
+msgid "Solution"
+msgstr ""
+
+#: utils-xml.R:168
+msgid "Hint"
+msgstr ""
+
+#: utils-xml.R:169
+msgid "Spoiler"
+msgstr ""
+
+#: utils-xml.R:170
+msgid "Discussion"
+msgstr ""
+
+#: utils-xml.R:171
+msgid "Testimonial"
+msgstr ""
+
+#: utils-xml.R:173
+msgid "Instructor Note"
 msgstr ""
