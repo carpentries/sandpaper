@@ -69,7 +69,7 @@ test_that("schedule is empty by default", {
 test_that("new episodes will add to the schedule by default", {
 
   set_episodes(tmp, "introduction.Rmd", write = TRUE)
-  create_episode("new", path = tmp)
+  suppressMessages(create_episode("new", path = tmp, open = FALSE))
   expect_equal(get_episodes(tmp), c("introduction.Rmd", "new.Rmd"), ignore_attr = TRUE)
 
 })
@@ -114,7 +114,7 @@ test_that("adding episodes will concatenate the schedule", {
 
   set_episodes(tmp, "introduction.Rmd", write = TRUE)
   expect_equal(get_episodes(tmp), "introduction.Rmd")
-  create_episode("second-episode", add = TRUE, path = tmp)
+  suppressMessages(create_episode("second-episode", add = TRUE, path = tmp, open = FALSE))
   expect_equal(res, tmp, ignore_attr = TRUE)
   expect_equal(get_episodes(tmp), c("introduction.Rmd", "second-episode.Rmd"), ignore_attr = TRUE)
 

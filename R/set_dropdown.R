@@ -18,7 +18,7 @@
 #'   path = tmp,
 #'   write = TRUE
 #' )
-#' create_episode("using-R", path = tmp)
+#' create_episode("using-R", path = tmp, open = FALSE)
 #' print(sched <- get_episodes(tmp))
 #'
 #' # reverse the schedule
