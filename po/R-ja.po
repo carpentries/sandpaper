@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.14.1.9000\n"
-"POT-Creation-Date: 2023-11-30 16:17-0800\n"
+"POT-Creation-Date: 2023-12-01 11:23-0800\n"
 "PO-Revision-Date: 2023-11-22 09:14+0900\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -256,9 +256,10 @@ msgid "Materials licensed under {% license %} by {% authors %}"
 msgstr "材料は{% authors %}によって{% license %}のもとに掲載を許諾されている"
 
 #: utils-translate.R:76
-msgid "<(Template licensed under CC-BY 4.0)> by {% template_authors %}"
+msgid "Template licensed under <(CC-BY 4.0)> by {% template_authors %}"
 msgstr ""
-"テンプレートは{% template_authors %}によって<(CC-BY 4.0のもとに掲載を許諾されている)>"
+"テンプレートは{% template_authors %}によって<(CC-BY 4.0)>のもとに掲載を許諾さ"
+"れている"
 
 #: utils-translate.R:77
 msgid "The Carpentries"
@@ -268,8 +269,8 @@ msgstr "ザ・カーペントリーズ"
 msgid ""
 "Built with {% sandpaper_link %}, {% pegboard_link %}, and {% varnish_link %}"
 msgstr ""
-"このレッスンは{% sandpaper_link %}、{% pegboard_link %}、および"
-"{% varnish_link %}によって作られた"
+"このレッスンは{% sandpaper_link %}、{% pegboard_link %}、および{% "
+"varnish_link %}によって作られた"
 
 #: utils-translate.R:81
 msgid "Give Feedback"
@@ -278,3 +279,19 @@ msgstr "フィードバック"
 #: utils-translate.R:82
 msgid "Learn More"
 msgstr "さらに詳しく"
+
+#: utils-xml.R:84
+msgid "anchor"
+msgstr ""
+
+#: utils-xml.R:111
+msgid "Questions"
+msgstr ""
+
+#: utils-xml.R:112
+msgid "Objectives"
+msgstr ""
+
+#: utils-xml.R:113
+msgid "Overview"
+msgstr ""

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.14.1.9000\n"
-"POT-Creation-Date: 2023-12-01 09:59+0900\n"
+"POT-Creation-Date: 2023-12-01 11:23-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -247,7 +247,7 @@ msgid "Materials licensed under {% license %} by {% authors %}"
 msgstr ""
 
 #: utils-translate.R:76
-msgid "<(Template licensed under CC-BY 4.0)> by {% template_authors %}"
+msgid "Template licensed under <(CC-BY 4.0)> by {% template_authors %}"
 msgstr ""
 
 #: utils-translate.R:77
@@ -265,4 +265,20 @@ msgstr ""
 
 #: utils-translate.R:82
 msgid "Learn More"
+msgstr ""
+
+#: utils-xml.R:84
+msgid "anchor"
+msgstr ""
+
+#: utils-xml.R:111
+msgid "Questions"
+msgstr ""
+
+#: utils-xml.R:112
+msgid "Objectives"
+msgstr ""
+
+#: utils-xml.R:113
+msgid "Overview"
 msgstr ""
