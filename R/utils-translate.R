@@ -204,7 +204,8 @@ fill_translation_vars <- function(the_data) {
       # (e.g. going from `<(hello)>` to `<a href="hello.html">hello</a>`)
       the_string <- switch(key,
         ThisLessonCoC = replace_link(the_string, "CODE_OF_CONDUCT.html"),
-        default = the_string
+        TemplateLicense = replace_link(the_string, "https://creativecommons.org/licenses/by-sa/4.0/"),
+        the_string
       )
     }
     translated[[key]] <- the_string
