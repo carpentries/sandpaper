@@ -105,11 +105,11 @@ msgstr "学習者表示"
 
 #: utils-translate.R:27
 msgid "Main Navigation"
-msgstr ""
+msgstr "メインナビゲーション"
 
 #: utils-translate.R:28
 msgid "search button"
-msgstr ""
+msgstr "検索ボタン"
 
 #: utils-translate.R:29
 msgid "Setup"
@@ -129,11 +129,11 @@ msgstr "検索"
 
 #: utils-translate.R:36
 msgid "Lesson Progress"
-msgstr ""
+msgstr "レッスンの進捗状況"
 
 #: utils-translate.R:39
 msgid "close menu"
-msgstr ""
+msgstr "メニューを閉じる"
 
 #: utils-translate.R:40
 msgid "EPISODES"
@@ -141,7 +141,7 @@ msgstr "エピソード"
 
 #: utils-translate.R:42
 msgid "Home Page Navigation"
-msgstr ""
+msgstr "ホームページのナビゲーション"
 
 #: utils-translate.R:43
 msgid "RESOURCES"
@@ -165,7 +165,7 @@ msgstr "スライドのエキスポート"
 
 #: utils-translate.R:50
 msgid "Previous and Next Chapter"
-msgstr ""
+msgstr "前の章と次の章"
 
 #: utils-translate.R:51
 msgid "Previous"
@@ -282,56 +282,56 @@ msgstr "さらに詳しく"
 
 #: utils-xml.R:84
 msgid "anchor"
-msgstr ""
+msgstr "アンカー"
 
 #: utils-xml.R:111
 msgid "Questions"
-msgstr ""
+msgstr "質問"
 
 #: utils-xml.R:112
 msgid "Objectives"
-msgstr ""
+msgstr "目的"
 
 #: utils-xml.R:113
 msgid "Overview"
-msgstr ""
+msgstr "概要"
 
 #: utils-xml.R:163
 msgid "Callout"
-msgstr ""
+msgstr "コールアウト"
 
 #: utils-xml.R:164
 msgid "Challenge"
-msgstr ""
+msgstr "チャレンジ"
 
 #: utils-xml.R:165
 msgid "Prerequisite"
-msgstr ""
+msgstr "必須条件"
 
 #: utils-xml.R:166
 msgid "Checklist"
-msgstr ""
+msgstr "チェックリスト"
 
 #: utils-xml.R:167
 msgid "Solution"
-msgstr ""
+msgstr "回答"
 
 #: utils-xml.R:168
 msgid "Hint"
-msgstr ""
+msgstr "ヒント"
 
 #: utils-xml.R:169
 msgid "Spoiler"
-msgstr ""
+msgstr "ネタバレ"
 
 #: utils-xml.R:170
 msgid "Discussion"
-msgstr ""
+msgstr "ディスカッション"
 
 #: utils-xml.R:171
 msgid "Testimonial"
-msgstr ""
+msgstr "推薦文"
 
 #: utils-xml.R:173
 msgid "Instructor Note"
-msgstr ""
+msgstr "インストラクター用メモ"
