@@ -1,6 +1,8 @@
 {
 tmp <- res <- restore_fixture()
-create_episode("outroduction", path = res)
+suppressMessages({
+  create_episode("outroduction", path = res, open = FALSE)
+})
 outro <- fs::path(res, "episodes", "outroduction.Rmd")
 fs::file_move(outro, fs::path_ext_set(outro, "md"))
 

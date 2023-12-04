@@ -56,11 +56,12 @@ check_lesson <- function(path = ".") {
 }
 
 check_site_rendered <- function(path = ".") {
+  path <- path_site(path)
   list(
-    site        = validate_that(check_dir(path, "site")),
-    built       = validate_that(check_dir(path, "site/built")),
-    readme      = validate_that(check_exists(path, "site/README.md")),
-    config      = validate_that(check_exists(path, "site/_pkgdown.yaml")),
-    description = validate_that(check_exists(path, "site/DESCRIPTION"))
+    site        = validate_that(check_dir(path, ".")),
+    built       = validate_that(check_dir(path, "built")),
+    readme      = validate_that(check_exists(path, "README.md")),
+    config      = validate_that(check_exists(path, "_pkgdown.yaml")),
+    description = validate_that(check_exists(path, "DESCRIPTION"))
   )
 }

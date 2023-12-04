@@ -1,6 +1,8 @@
 {
   res <- restore_fixture()
-  create_episode("new", path = res)
+  suppressMessages({
+    create_episode("new", path = res, open = FALSE)
+  })
 }
 
 cli::test_that_cli("Default state reports all episodes published", {

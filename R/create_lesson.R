@@ -86,7 +86,7 @@ create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio 
   create_site(path)
 
   cli::cli_status_update("{cli::symbol$arrow_right} Creating first episode ...")
-  ep <- create_episode("introduction", ext = if (rmd) "Rmd" else "md", path = path)
+  ep <- create_episode("introduction", ext = if (rmd) "Rmd" else "md", path = path, open = FALSE)
   cli::cli_alert_success("First episode created in {.file {ep}}")
 
   if (rstudio) {

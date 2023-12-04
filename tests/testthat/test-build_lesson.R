@@ -235,9 +235,10 @@ test_that("Lesson websites contains instructor metadata", {
 })
 
 test_that("single files can be built", {
-
-  create_episode("_Second_ Episode!", path = tmp)
-  suppressMessages(s <- get_episodes(tmp))
+  suppressMessages({
+    create_episode("_Second_ Episode!", path = tmp, open = FALSE)
+    s <- get_episodes(tmp)
+  })
   set_episodes(tmp, s, write = TRUE)
 
   rdr <- sandpaper_site(fs::path(tmp, "episodes", "second-episode.Rmd"))
