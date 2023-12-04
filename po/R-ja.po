@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.14.1.9000\n"
-"POT-Creation-Date: 2023-12-04 07:57-0800\n"
+"POT-Creation-Date: 2023-12-04 08:49-0800\n"
 "PO-Revision-Date: 2023-11-22 09:14+0900\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -23,11 +23,11 @@ msgstr "一つにまとまったページ"
 msgid "Home"
 msgstr "ホーム"
 
-#: build_home.R:49 utils-translate.R:98 utils-varnish.R:87
+#: build_home.R:49 utils-translate.R:105 utils-varnish.R:87
 msgid "Summary and Schedule"
 msgstr "概要とスケジュール"
 
-#: build_home.R:58 utils-translate.R:94 utils-varnish.R:95
+#: build_home.R:58 utils-translate.R:101 utils-varnish.R:95
 msgid "Summary and Setup"
 msgstr "概要とセットアップ"
 
@@ -191,7 +191,7 @@ msgstr "最終更新日：{% updated %}"
 msgid "Edit this page"
 msgstr "ページの編集"
 
-#: utils-translate.R:57
+#: utils-translate.R:57 utils-translate.R:82
 msgid "Expand All Solutions"
 msgstr "回答を全て見る"
 
@@ -216,67 +216,83 @@ msgid "Back To Top"
 msgstr "上へ戻る"
 
 #: utils-translate.R:66
+msgid "<(Back)> To Top"
+msgstr "上へ<(戻る)>"
+
+#: utils-translate.R:67
 msgid "Menu"
 msgstr "メニュー"
 
-#: utils-translate.R:67
+#: utils-translate.R:68
 msgid "This lesson is subject to the <(Code of Conduct)>"
 msgstr "このレッスンは<(行動規範)>の対象となっている"
 
-#: utils-translate.R:68
+#: utils-translate.R:69
 msgid "Code of Conduct"
 msgstr "行動規範"
 
-#: utils-translate.R:69
+#: utils-translate.R:70
 msgid "Edit on GitHub"
 msgstr "GitHubで編集"
 
-#: utils-translate.R:70
+#: utils-translate.R:71
 msgid "Contributing"
 msgstr "貢献"
 
-#: utils-translate.R:71
+#: utils-translate.R:72
 msgid "Source"
 msgstr "ソース"
 
-#: utils-translate.R:72
+#: utils-translate.R:73
 msgid "Cite"
 msgstr "引用"
 
-#: utils-translate.R:73
+#: utils-translate.R:74
 msgid "Contact"
 msgstr "お問い合わせ"
 
-#: utils-translate.R:74
+#: utils-translate.R:75
 msgid "About"
 msgstr "概要"
 
-#: utils-translate.R:75
+#: utils-translate.R:76
 msgid "Materials licensed under {% license %} by {% authors %}"
 msgstr "材料は{% authors %}によって{% license %}のもとに掲載を許諾されている"
 
-#: utils-translate.R:76
+#: utils-translate.R:77
 msgid "Template licensed under <(CC-BY 4.0)> by {% template_authors %}"
 msgstr ""
 "テンプレートは{% template_authors %}によって<(CC-BY 4.0)>のもとに掲載を許諾さ"
 "れている"
 
-#: utils-translate.R:77
+#: utils-translate.R:78
 msgid "The Carpentries"
 msgstr "ザ・カーペントリーズ"
 
-#: utils-translate.R:78
+#: utils-translate.R:79
 msgid ""
 "Built with {% sandpaper_link %}, {% pegboard_link %}, and {% varnish_link %}"
 msgstr ""
 "このレッスンは{% sandpaper_link %}、{% pegboard_link %}、および{% "
 "varnish_link %}によって作られた"
 
-#: utils-translate.R:81
+#: utils-translate.R:83
+msgid "Collapse All Solutions"
+msgstr ""
+
+#: utils-translate.R:84
+msgid "Collapse"
+msgstr ""
+
+#: utils-translate.R:85
+msgid "Episodes"
+msgstr ""
+
+#: utils-translate.R:88
 msgid "Give Feedback"
 msgstr "フィードバック"
 
-#: utils-translate.R:82
+#: utils-translate.R:89
 msgid "Learn More"
 msgstr "さらに詳しく"
 
