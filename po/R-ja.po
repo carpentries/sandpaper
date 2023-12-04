@@ -286,7 +286,7 @@ msgstr ""
 
 #: utils-translate.R:85
 msgid "Episodes"
-msgstr ""
+msgstr "エピソード"
 
 #: utils-translate.R:88
 msgid "Give Feedback"

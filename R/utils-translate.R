@@ -78,7 +78,7 @@ add_varnish_translations <- function() {
     Carpentries = tr_('The Carpentries'),
     BuiltWith = tr_('Built with {% sandpaper_link %}, {% pegboard_link %}, and {% varnish_link %}'),
 
-    # javascript (NOTE: not yet implemented) ----------------------------------
+    # javascript --------------------------------------------------------------
     ExpandAllSolutions = tr_('Expand All Solutions'),
     CollapseAllSolutions = tr_('Collapse All Solutions'),
     Collapse = tr_('Collapse'),
