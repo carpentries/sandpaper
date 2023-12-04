@@ -78,7 +78,7 @@ fix_codeblocks <- function(nodes = NULL) {
     ".//pre[@class='output' or @class='warning' or @class='error']")
   if (length(outputs)) {
     xml2::xml_add_parent(outputs, "div", class = "codewrapper")
-    class_headings <- toupper(xml2::xml_attr(outputs, "class"))
+    class_headings <- toupper(trimws(xml2::xml_attr(outputs, "class")))
     add_code_heading(outputs, apply_translations(class_headings, translations))
   }
   invisible(nodes)
@@ -89,7 +89,7 @@ fix_codeblocks <- function(nodes = NULL) {
 apply_translations <- function(txt, translations) {
   ntxt <- length(txt)
   ntranslations <- length(translations)
-  if (ntxt == 0L || ntranslations == 0L || ntxt != ntranslations) {
+  if (ntxt == 0L || ntranslations == 0L) {
     return(txt)
   }
   to_translate <- txt %in% names(translations)
