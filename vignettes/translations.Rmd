@@ -1,0 +1,28 @@
+---
+title: "Translating The Workbench"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Translating The Workbench}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+To write a lesson in a specific language, the author should add `lang: 'xx'`
+to the `config.yaml` file where `xx` represents the [language
+code](https://www.gnu.org/software/gettext/manual/html_node/Usual-Language-Codes.html)
+that matches the language of the lesson content. This defaults to `"en"`, but
+can be any language code (e.g. "ja" specifying Japanese) or combination
+language code and [country
+code](https://www.gnu.org/software/gettext/manual/html_node/Country-Codes.html)
+(e.g. "pt_BR" specifies Pourtugese used in Brazil). For more information
+on how this is used, see [the Locale Names section of the gettext
+manual](https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html)
