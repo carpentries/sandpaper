@@ -63,6 +63,7 @@ add_varnish_translations <- function() {
 
     # footer.html ------------------------------------------------------------
     BackToTop = tr_('Back To Top'),
+    SpanToTop = tr_('<(Back)> To Top'),
     Menu = tr_('Menu'),
     ThisLessonCoC = tr_('This lesson is subject to the <(Code of Conduct)>'),
     CoC = tr_('Code of Conduct'),
@@ -76,6 +77,12 @@ add_varnish_translations <- function() {
     TemplateLicense = tr_('Template licensed under <(CC-BY 4.0)> by {% template_authors %}'),
     Carpentries = tr_('The Carpentries'),
     BuiltWith = tr_('Built with {% sandpaper_link %}, {% pegboard_link %}, and {% varnish_link %}'),
+
+    # javascript (NOTE: not yet implemented) ----------------------------------
+    ExpandAllSolutions = tr_('Expand All Solutions'),
+    CollapseAllSolutions = tr_('Collapse All Solutions'),
+    Collapse = tr_('Collapse'),
+    Episodes = tr_('Episodes'),
 
     # beta content not used anymore.
     GiveFeedback = tr_('Give Feedback'),
@@ -129,8 +136,12 @@ fix_sidebar_translation <- function(sidebar, translation) {
 # replace text string with a <(kirby template)> with link text
 # replace_link("this string has a <(kirby template)>", "https://emojicombos.com/kirby")
 replace_link <- function(txt, href) {
-  txt <- sub("<(", paste0('<a href="', href, '">'), txt, fixed = TRUE)
-  return(sub(")>", "</a>", txt, fixed = TRUE))
+  replace_html(txt, open = paste0('<a href="', href, '">'), close = "</a>")
+}
+
+replace_html <- function(txt, open, close) {
+  txt <- sub("<(", open, txt, fixed = TRUE)
+  return(sub(")>", close, txt, fixed = TRUE))
 }
 
 #' Apply template items to translated strings
@@ -203,8 +214,16 @@ fill_translation_vars <- function(the_data) {
       # with their URLs
       # (e.g. going from `<(hello)>` to `<a href="hello.html">hello</a>`)
       the_string <- switch(key,
-        ThisLessonCoC = replace_link(the_string, "CODE_OF_CONDUCT.html"),
-        TemplateLicense = replace_link(the_string, "https://creativecommons.org/licenses/by-sa/4.0/"),
+        ThisLessonCoC = replace_link(the_string,
+          href = "CODE_OF_CONDUCT.html"
+        ),
+        TemplateLicense = replace_link(the_string,
+          href = "https://creativecommons.org/licenses/by-sa/4.0/"
+        ),
+        SpanToTop = replace_html(the_string,
+          open = '<span class="d-none d-sm-none d-md-none d-lg-none d-xl-block">',
+          close = '</span>'
+        ),
         the_string
       )
     }
