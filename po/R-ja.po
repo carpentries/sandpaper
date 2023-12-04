@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.14.1.9000\n"
-"POT-Creation-Date: 2023-12-01 14:41-0800\n"
+"POT-Creation-Date: 2023-12-04 07:57-0800\n"
 "PO-Revision-Date: 2023-11-22 09:14+0900\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -43,7 +43,7 @@ msgstr "全ての画像"
 msgid "Instructor Notes"
 msgstr "インストラクター用メモ"
 
-#: build_keypoints.R:6 utils-translate.R:30 utils-xml.R:172
+#: build_keypoints.R:6 utils-translate.R:30 utils-xml.R:249
 msgid "Key Points"
 msgstr "まとめ"
 
@@ -280,58 +280,70 @@ msgstr "フィードバック"
 msgid "Learn More"
 msgstr "さらに詳しく"
 
-#: utils-xml.R:84
+#: utils-xml.R:106
+msgid "OUTPUT"
+msgstr ""
+
+#: utils-xml.R:107
+msgid "WARNING"
+msgstr ""
+
+#: utils-xml.R:108
+msgid "ERROR"
+msgstr ""
+
+#: utils-xml.R:158
 msgid "anchor"
 msgstr "アンカー"
 
-#: utils-xml.R:111
+#: utils-xml.R:185
 msgid "Questions"
 msgstr "質問"
 
-#: utils-xml.R:112
+#: utils-xml.R:186
 msgid "Objectives"
 msgstr "目的"
 
-#: utils-xml.R:113
+#: utils-xml.R:187
 msgid "Overview"
 msgstr "概要"
 
-#: utils-xml.R:163
+#: utils-xml.R:240
 msgid "Callout"
 msgstr "コールアウト"
 
-#: utils-xml.R:164
+#: utils-xml.R:241
 msgid "Challenge"
 msgstr "チャレンジ"
 
-#: utils-xml.R:165
+#: utils-xml.R:242
 msgid "Prerequisite"
 msgstr "必須条件"
 
-#: utils-xml.R:166
+#: utils-xml.R:243
 msgid "Checklist"
 msgstr "チェックリスト"
 
-#: utils-xml.R:167
+#: utils-xml.R:244
 msgid "Solution"
 msgstr "回答"
 
-#: utils-xml.R:168
+#: utils-xml.R:245
 msgid "Hint"
 msgstr "ヒント"
 
-#: utils-xml.R:169
+#: utils-xml.R:246
 msgid "Spoiler"
 msgstr "ネタバレ"
 
-#: utils-xml.R:170
+#: utils-xml.R:247
 msgid "Discussion"
 msgstr "ディスカッション"
 
-#: utils-xml.R:171
+#: utils-xml.R:248
 msgid "Testimonial"
 msgstr "推薦文"
 
-#: utils-xml.R:173
+#: utils-xml.R:250
 msgid "Instructor Note"
 msgstr "インストラクター用メモ"
