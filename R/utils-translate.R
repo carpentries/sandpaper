@@ -1,14 +1,54 @@
+#' Show a list of languages known by {sandpaper}
+#'
+#' @return a character vector of language codes known by {sandpaper}
+#' 
+#' @details The known languages are translations of menu and navigational
+#' elements that exist in {sandpaper}. If these elements have not been
+#' translated for a given language and you would like to add translations for
+#' them, please consult `vignette("translations", package = "sandpaper")` for
+#' details of how to do so in the source code for {sandpaper}.
+#'
+#' ## List of Known Languages:
+#'
+#' ```{r, echo = FALSE}
+#' langs <- known_languages()
+#' writeLines(paste("-", langs))
+#' ```
+#' 
+#' @export
+#' @examples
+#' known_languages()
+known_languages <- function() {
+  lang_files <- system.file("po", package = "sandpaper")
+  as.character(c("en", fs::path_file(fs::dir_ls(lang_files, type = "dir"))))
+}
+
+is_known_language <- function(lang = NULL, warn = FALSE) {
+  lang <- lang %||% "en"
+  not_known <- lang %nin% known_languages()
+  if (not_known && warn) {
+    warn_no_language(lang)
+  }
+  return(!not_known) 
+}
+
 # Translations for static lesson elements happens during the `build_site()`
 # phase. The `local_envvar_pkgdown()` function is run. It should only
 # ever be run inside of another function to ensure the scope is honoured.
 local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
-  withr::local_envvar(
-    IN_PKGDOWN = "true",
-    LANGUAGE = pkg$meta$template$params$lang,
-    .local_envir = scope
-  )
-  add_varnish_translations()
+  lang <- pkg$meta$template$params$lang
+  if (is_known_language(lang, warn = TRUE)) {
+    withr::local_envvar(
+      IN_PKGDOWN = "true",
+      LANGUAGE = lang,
+      .local_envir = scope
+    )
+    add_varnish_translations()
+  }
 }
+
+
+
 
 # These are all the translations that occur in {varnish}
 add_varnish_translations <- function() {
@@ -25,6 +65,8 @@ add_varnish_translations <- function() {
     InstructorView = tr_('Instructor View'),   # navbar.html
     LearnerView = tr_('Learner View'),         # navbar.html
     MainNavigation = tr_('Main Navigation'), # alt text
+    ToggleNavigation = tr_('Toggle Navigation'), # alt-text
+    Menu = tr_('Menu'), # footer.html
     SearchButton = tr_('search button'),     # alt text
     Setup = tr_('Setup'),                      # navbar.html
     KeyPoints = tr_("Key Points"),             # navbar.html
@@ -64,7 +106,6 @@ add_varnish_translations <- function() {
     # footer.html ------------------------------------------------------------
     BackToTop = tr_('Back To Top'),
     SpanToTop = tr_('<(Back)> To Top'),
-    Menu = tr_('Menu'),
     ThisLessonCoC = tr_('This lesson is subject to the <(Code of Conduct)>'),
     CoC = tr_('Code of Conduct'),
     EditOnGH = tr_('Edit on GitHub'),
