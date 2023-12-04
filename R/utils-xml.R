@@ -22,27 +22,101 @@ fix_headings <- function(nodes = NULL) {
   invisible(nodes)
 }
 
+#' add codewrapper class and apply code heading to all code blocks
+#'
+#' The syntax highlighte4d code blocks that come out of pandoc have this
+#' structure (where `lang` is the language of the code block):
+#'
+#' ```html
+#' <div class="sourceCode" id="cb1">
+#'   <pre class="sourceCode lang">
+#'     <code class="sourceCode lang">
+#'     ...
+#'     </code>
+#'   </pre>
+#' </div>
+#' ```
+#'
+#' In The Workbench, we want to have this structure:
+#'
+#' ```html
+#' <div class="codewrapper sourceCode" id="cb1">
+#'   <h3 class="code-label">
+#'    LANG
+#'    <i aria-hidden=true data-feather="chevron-left"></i>
+#'    <i aria-hidden=true data-feather="chevron-right"></i>
+#'   </h3>
+#'   <pre class="sourceCode lang" tabindex="0">
+#'     <code class="sourceCode lang">
+#'     ...
+#'     </code>
+#'   </pre>
+#' </div>
+#' ```
+#'
+#' This allows us to display the language of the code block in the lesson,
+#' which can be helpful when the lesson switches between BASH and another
+#' language.
+#'
+#' @param nodes HTML nodes
+#' @return the modified nodes
+#'
+#' @noRd
 fix_codeblocks <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   code <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'sourceCode')]")
   xml2::xml_set_attr(code, "class", "codewrapper sourceCode")
   pre <- xml2::xml_children(code)
-  type <- rev(trimws(sub("sourceCode", "", xml2::xml_attr(pre, "class"))))
-  add_code_heading(pre, toupper(type))
-  outputs <- xml2::xml_find_all(nodes, ".//pre[@class='output' or @class='warning' or @class='error']")
+  # pre-compile these during the transformation so we only have to do it 
+  # once per document
+  translations <- get_codeblock_translations()
+  # Extract the language, transform to all caps, and reverse the order.
+  # We need to reverse the order so that we can add
+  type <- toupper(trimws(sub("sourceCode", "", xml2::xml_attr(pre, "class"))))
+  add_code_heading(pre, apply_translations(type, translations))
+  outputs <- xml2::xml_find_all(nodes,
+    ".//pre[@class='output' or @class='warning' or @class='error']")
   if (length(outputs)) {
     xml2::xml_add_parent(outputs, "div", class = "codewrapper")
-    class_headings <- rev(toupper(xml2::xml_attr(outputs, "class")))
-    add_code_heading(outputs, class_headings)
+    class_headings <- toupper(xml2::xml_attr(outputs, "class"))
+    add_code_heading(outputs, apply_translations(class_headings, translations))
   }
   invisible(nodes)
+}
+
+# Apply translations to text assuming that the names of the translations 
+# matches the text
+apply_translations <- function(txt, translations) {
+  ntxt <- length(txt)
+  ntranslations <- length(translations)
+  if (ntxt == 0L || ntranslations == 0L || ntxt != ntranslations) {
+    return(txt)
+  }
+  to_translate <- txt %in% names(translations)
+  if (any(to_translate)) {
+    ids <- txt[to_translate]
+    txt[to_translate] <- translations[ids]
+  }
+  return(txt)
+}
+
+# generator of translations for code blocks. 
+get_codeblock_translations <- function() {
+  c(
+    OUTPUT = tr_("OUTPUT"),
+    WARNING = tr_("WARNING"),
+    ERROR = tr_("ERROR")
+  )
 }
 
 add_code_heading <- function(codes = NULL, labels = "OUTPUT") {
   if (length(codes) == 0) return(codes)
   xml2::xml_set_attr(codes, "tabindex", "0")
-  heads <- xml2::xml_add_sibling(codes, "h3", labels, class = "code-label",
-    .where = "before")
+  # NOTE: xml_add_sibling adds the siblings from bottom to top, so these labels
+  # need to be in reverse. It's weird.
+  heads <- xml2::xml_add_sibling(codes, "h3", rev(labels), 
+    class = "code-label", .where = "before"
+  )
   for (head in heads) {
     xml2::xml_add_child(head, "i",
       "aria-hidden" = "true", "data-feather" = "chevron-left")
@@ -142,7 +216,7 @@ fix_callouts <- function(nodes = NULL) {
 
 # translate callouts that have generic headings.
 #
-# If a callout does not have a heading, it has callout class converted to a 
+# If a callout does not have a heading, it has callout class converted to a
 # title case heading. This is most common with key points. This applies the
 # appropriate translations based on the language of the lesson (including
 # English)
