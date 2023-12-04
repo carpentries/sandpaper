@@ -215,6 +215,7 @@ test_that("update_cache() will update old package versions", {
 })
 
 reticulate_installable <- check_reticulate_installable()
+use_python(lsn, type = "virtualenv", open = FALSE)
 
 test_that("manage_deps() does not overwrite requirements.txt", {
   skip_if_not(reticulate_installable, "reticulate is not installable")
@@ -226,7 +227,6 @@ test_that("manage_deps() does not overwrite requirements.txt", {
 
   ## Set up Python and manually add requirements.txt without actually installing
   ## the Python package, mimicking the scenario where a Python dependency is missing
-  use_python(lsn, type = "virtualenv")
   req_file <- fs::path(lsn, "requirements.txt")
   writeLines("numpy", req_file)
 
@@ -239,8 +239,6 @@ test_that("manage_deps() restores Python dependencies", {
   skip_if_not(reticulate_installable, "reticulate is not installable")
   skip_on_cran()
   skip_on_os("windows")
-
-  use_python(lsn, type = "virtualenv")
 
   req_file <- fs::path(lsn, "requirements.txt")
   writeLines("numpy", req_file)
