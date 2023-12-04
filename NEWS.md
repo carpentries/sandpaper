@@ -12,6 +12,10 @@
   callout blocks (reported: @clarallebot, 
   https://github.com/carpentries/workbench/issues/44; fixed: @zkamvar, #546)
 
+## DEPENDENCIES
+
+* The {withr} package has been upgraded to an import from a suggested package.
+
 ## MISC
 
 * Added @joelnitta as an author and translator

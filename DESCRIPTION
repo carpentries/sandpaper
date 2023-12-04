@@ -74,6 +74,7 @@ Imports:
     renv (>= 0.14.0),
     rprojroot,
     usethis (>= 2.0.0),
+    withr,
     whisker,
     callr,
     servr,
@@ -86,7 +87,6 @@ Suggests:
     brio,
     xml2,
     xslt,
-    withr,
     jsonlite,
     sessioninfo,
     mockr,
@@ -95,7 +95,7 @@ Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   ropensci/tinkr,
   carpentries/pegboard,
-  carpentries/varnish
+  carpentries/varnish@add-l10n-support
 SystemRequirements: pandoc (>= 2.11.4) - https://pandoc.org
 Encoding: UTF-8
 LazyData: true
