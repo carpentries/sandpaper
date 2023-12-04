@@ -25,4 +25,8 @@ language code and [country
 code](https://www.gnu.org/software/gettext/manual/html_node/Country-Codes.html)
 (e.g. "pt_BR" specifies Pourtugese used in Brazil). For more information
 on how this is used, see [the Locale Names section of the gettext
-manual](https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html)
+manual](https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html).
+
+Setting the `lang:` keyword will allow the lesson navigational elements to be
+presented in the same language as the lesson content _if the language has been
+added to {sandpaper}_. 
