@@ -139,6 +139,7 @@ articles:
     - building-with-renv
     - automated-pull-requests
     - include-child-documents
+    - translations
  - title: "Developer Guides"
    contents:
     - articles/landscape
