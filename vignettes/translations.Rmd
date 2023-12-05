@@ -16,18 +16,13 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-The Carpentries is a world-wide organisation with instructors and learners who
-speak dozens of languages. One of the key concepts we teach in our instructor
-training curriculum is to avoid excessive cognitive load when teaching
-programming. One big source of cognitive load is attempting to learn in a
-language other than your mother tongue. Thus, the community has created a set
-of translations for Carpentries lessons and tools such as Joel Nitta's
-[{dovetail} package](https://github.com/joelnitta/dovetail#readme) and
-rOpenSci's [{babeldown} package](https://docs.ropensci.org/babeldown/) that
-help organise these translations. This allows learner to read the content in
-their own language, but there is still the problem of the site elements. One of
-the advantages of The Carpentries Workbench is that the authors do not have to
-worry about site structor or navigation. 
+The philosophy of The Carpentries Workbench is one of separation between lesson
+content and the tooling needed to transform that content into a website. It is
+possible to write a lesson in any human language that has a syllabary which can
+be represented on a computer. The only catch is: by default the language of the
+_website template_---all the navigational elements of the website---is English,
+so authors need to tell The Workbench what language the website template should
+use. 
 
 To write a lesson in a specific language, the lesson author should add `lang:
 'xx'` to the `config.yaml` file where `xx` represents the [language
@@ -40,26 +35,32 @@ code](https://www.gnu.org/software/gettext/manual/html_node/Country-Codes.html)
 this is used, see [the Locale Names section of the gettext
 manual](https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html).
 
-Setting the `lang:` keyword will allow the lesson navigational elements to be
-presented in the same language as the lesson content _if the language has been
-added to {sandpaper}_. If not, the menu items will appear in English. 
+Setting the `lang:` keyword will allow the lesson navigational elements of the
+website template to be presented in the same language as the lesson content _if
+the language has been added to {sandpaper}_. If not, the menu items will appear
+in English. 
 
-This vignette is of interest to those who wish to update
-translations or add new translations. In this vignette I will provide resources
-for updating and adding new languages, the process by which translation happens,
-and I will outline special syntax used in {sandpaper}. This process will use the
-[{potools} package](https://michaelchirico.github.io/potools/), which requires
-the [GNU gettext system](https://www.gnu.org/software/gettext/).
+This vignette is of interest to those who wish to update translations or add new
+translations. In this vignette I will provide resources for updating and adding
+new languages, the process by which translation happens, and I will outline
+special syntax used in {sandpaper}. This process will use the [{potools}
+package](https://michaelchirico.github.io/potools/), which requires the [GNU
+gettext system](https://www.gnu.org/software/gettext/).
 
 ## Resources
 
-The documentation for the {potools} package is a wonderful resource. 
-Use `vignette("translators", package = "potools")` to read details about what to
-consider when translating text in a package. Another really good resource is
-[a blog post by Maëlle Salmon](https://masalmon.eu/2023/10/06/potools-mwe/)
-which gives a minimum working example of translating package messages using
-{potools}. 
+The documentation for the {potools} package is a wonderful resource. Use
+`vignette("translators", package = "potools")` to read details about what to
+consider when translating text in a package. Another really good resource is [a
+blog post by Maëlle Salmon](https://masalmon.eu/2023/10/06/potools-mwe/) which
+gives a minimum working example of translating package messages using {potools}.
 
+If you are interested in translating _lesson content_, please consult tools such
+as Joel Nitta's [{dovetail}](https://github.com/joelnitta/dovetail#readme) for
+providing a method for translators to track and deploy translations of
+Carpentries lessons. You can also use rOpenSci's
+[{babeldown}](https://docs.ropensci.org/babeldown/), which uses the DeepL API
+for automated translation that translators can edit afterwards. 
 
 ## Translating in {sandpaper}
 
@@ -68,11 +69,12 @@ has template variables written in mustache templating. These variables define
 visible menu text such as "Key Points" and screen-reader accessible text for
 buttons such as "close menu". 
 
-Translating in {sandpaper}, you will be working with `.po` files that live in
-the `po/` folder in the source of this package. There is one `.po` file per
-language translated and the syntax looks like this, the first line shows the
-file where the translation exists, the second line gives the message in English,
-and the third line gives the translation:
+Translating in {sandpaper}, you will be working with `.po` files that live in 
+[the po/ folder](https://github.com/carpentries/sandpaper/tree/HEAD/po) in the
+source of this package. There is one `.po` file per language translated and the
+syntax looks like this, where the first line shows the file where the
+translation exists, the second line gives the message in English, and the third
+line gives the translation:
 
 ```po
 #: build_404.R:57
@@ -115,13 +117,12 @@ you can find it by searching the source code for `tr_`.
 Some content for translation requires variables or markup to be added after
 translation. 
 
-Items in `{% curly_braces_and_percent_symbols %}` are variables and should
-remain in English:
+Items in `{curly_braces}` are variables and should remain in English:
 
 ```po
 #: utils-translate.R:52
-msgid "Estimated time: {% icons$clock %} {% minutes %} minutes"
-msgstr "所要時間：{% icons$clock %} {% minutes %}分"
+msgid "Estimated time: {icons$clock} {minutes} minutes"
+msgstr "所要時間：{icons$clock} {minutes}分"
 ```
 
 Words in `<(kirby quotes)>` will have HTML markup surrounding them and should be
@@ -132,5 +133,56 @@ translated:
 msgid "This lesson is subject to the <(Code of Conduct)>"
 msgstr "このレッスンは<(行動規範)>の対象となります"
 ```
+
+### Updates to translations
+
+There may be times in the future where translations will need to be updated
+because text changes or is added. When this happens, the maintainer of
+{sandpaper} will run the following commands to extract the new translation
+strings, update all languages, and recompile the `.mo` files for the built
+package. 
+
+```r
+potools::po_extract()
+potools::po_update()
+potools::po_compile()
+```
+
+When the languages are updated, the translation utility will attempt to make
+fuzzy matches or create new strings. For example, if we update the "Page not
+found" translation to be title case, add punctuation and a little whimsy to be
+`"Page? Not Found! -_-;"`, when you go to edit your translation, you
+might see something like this:
+
+```po
+#: build_404.R:57
+#, fuzzy
+#| msgid "Page not found"
+msgid "Page? Not Found! -_-;"
+msgstr "ページが見つかりません"
+```
+
+The old translation will be used until a translator updates it and runs
+`potools::po_compile()` to update the `.mo` files.
+
+When new strings for translations are added, the translation utility does not
+assume to know anything about translation and the will appear like so:
+
+
+```po
+#: build_404.R:57
+msgid "A new translation approaches!"
+msgstr ""
+```
+
+If no translation is available for a given string, it will default to the string
+itself:
+
+```{r default-string}
+with_language("ja", {
+  enc2utf8(gettext("A new translation approaches!", domain = "R-sandpaper"))
+})
+```
+
 
 
