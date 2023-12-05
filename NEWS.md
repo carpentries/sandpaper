@@ -5,6 +5,14 @@
 * It is now possible to build lessons in languages other than English so that
   the website elements are also localised to that language (reported: @zkamvar,
   #205, @joelnitta, #544; fixed: @joelnitta and @zkamvar, #546). 
+* `known_languages()` is a function that will return the language codes that are
+  known by {sandpaper}. 
+
+## DOCUMENTATION
+
+* A new vignette `vignette("translation", package = "sandpaper")` describes how
+  translation of template components works and how to submit new/update
+  translations.
 
 ## BUG FIX
 
