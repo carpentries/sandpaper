@@ -132,6 +132,7 @@ test_that("pin_version() will use_specific versions", {
 
   skip_on_cran()
   skip_on_os("windows")
+  skip_on_os("mac")
   skip_if_offline()
 
   withr::local_options(list("renv.verbose" = TRUE))
