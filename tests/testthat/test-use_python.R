@@ -54,5 +54,5 @@ test_that("py_install() installs Python packages", {
   expect_s3_class(numpy, "python.builtin.module")
 
   req_file <- fs::path(lsn, "requirements.txt")
-  expect_true(grepl("^numpy", readLines(req_file)))
+  expect_true(any(grepl("^numpy", readLines(req_file))))
 })
