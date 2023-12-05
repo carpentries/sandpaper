@@ -12,7 +12,7 @@ test_that("Lessons can be translated with lang setting", {
   os <- tolower(Sys.info()[["sysname"]])
   ver <- getRversion()
 
-  skip_if(os == "windows" && ver <= "4.1")
+  skip_if(os == "windows" && ver < "4.2")
 
   # Build lesson
   suppressMessages(build_lesson(tmp, preview = FALSE, quiet = TRUE))
