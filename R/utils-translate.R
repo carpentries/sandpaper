@@ -90,10 +90,10 @@ add_varnish_translations <- function() {
     # content-[thing].html ---------------------------------------------------
     PreviousAndNext = tr_('Previous and Next Chapter'), # alt text
     Previous = tr_('Previous'),
-    EstimatedTime = tr_('Estimated time: {% icons$clock %} {% minutes %} minutes'),
+    EstimatedTime = tr_('Estimated time: {icons$clock} {minutes} minutes'),
     Next = tr_('Next'),
     NextChapter = tr_('Next Chapter'), # alt-text
-    LastUpdate = tr_('Last updated on {% updated %}'),
+    LastUpdate = tr_('Last updated on {updated}'),
     EditThisPage = tr_('Edit this page'),
     ExpandAllSolutions = tr_('Expand All Solutions'),
 
@@ -113,10 +113,10 @@ add_varnish_translations <- function() {
     Cite = tr_('Cite'),
     Contact = tr_('Contact'),
     About = tr_('About'),
-    MaterialsLicensedUnder = tr_('Materials licensed under {% license %} by {% authors %}'),
-    TemplateLicense = tr_('Template licensed under <(CC-BY 4.0)> by {% template_authors %}'),
+    MaterialsLicensedUnder = tr_('Materials licensed under {license} by {authors}'),
+    TemplateLicense = tr_('Template licensed under <(CC-BY 4.0)> by {template_authors}'),
     Carpentries = tr_('The Carpentries'),
-    BuiltWith = tr_('Built with {% sandpaper_link %}, {% pegboard_link %}, and {% varnish_link %}'),
+    BuiltWith = tr_('Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}'),
 
     # javascript --------------------------------------------------------------
     ExpandAllSolutions = tr_('Expand All Solutions'),
@@ -194,7 +194,7 @@ replace_html <- function(txt, open, close) {
 #' @keywords internal
 #' @details There are two kinds of templating we use:
 #'
-#'  1. variable templating indicated by `{% key %}` where `key` represents a
+#'  1. variable templating indicated by `{key}` where `key` represents a
 #'     variable that exists within the global data and is replaced.
 #'  2. link templating indicated by `<(text to wrap)>` where we replace the
 #'     `<()>` with a known URL or HTML markup. This allows the translators to
@@ -207,9 +207,9 @@ replace_html <- function(txt, open, close) {
 #'   minutes = 5,
 #'   translate = list(
 #'      one = "a normal translated string (pretend it's translated from another language)",
-#'      two = "a question: are you (A) {% a %}, (B) {% b %}",
-#'      EstimatedTime = "Estimated time: {% icons$clock %} {% minutes %}",
-#'      license = "Licensed under {% license %} by {% authors %}",
+#'      two = "a question: are you (A) {a}, (B) {b}",
+#'      EstimatedTime = "Estimated time: {icons$clock} {minutes}",
+#'      license = "Licensed under {license} by {authors}",
 #'      ThisLessonCoC = "This lesson operates under our <(Code of Conduct)>"
 #'   )
 #' )
@@ -217,14 +217,14 @@ replace_html <- function(txt, open, close) {
 fill_translation_vars <- function(the_data) {
   # define icons that we will need to pre-fab insert for the template.
   icns <- c("clock", "edit")
-  template_icons <- lapply(icns, function(i) {
-    glue::glue('<i aria-hidden="true" data-feather="{i}"></i>')
-  })
+  template_icns <- glue::glue(
+    '<i aria-hidden="true" data-feather="{icns}"></i>'
+  )
 
   # add our templating variables to the data list
   dat <- c(the_data,
     list(
-       icons = setNames(template_icons, icns),
+       icons = setNames(as.list(template_icns), icns),
        template_authors = '<a href="https://carpentries.org/">The Carpentries</a>',
        authors = "the authors",
        license = the_data$license %||% "CC-BY 4.0",
@@ -240,12 +240,11 @@ fill_translation_vars <- function(the_data) {
   # filled out.
   for (key in names(translated)) {
     the_string <- translated[[key]]
-    is_templated <- grepl("{%", the_string, fixed = TRUE)
+    is_templated <- grepl("[{][A-z_$.]+?[}]", the_string)
     if (is_templated) {
-      # if the string has a template variable {% key %}, it should be replaced
+      # if the string has a template variable {key}, it should be replaced
       # via {glue}.
-      the_string <- glue::glue_data(dat, the_string,
-        .open = "{%", .close = "%}")
+      the_string <- glue::glue_data(dat, the_string)
     }
     string_exists <- length(the_string) > 0L
     has_url_template <- string_exists && grepl("<(", the_string, fixed = TRUE)

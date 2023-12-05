@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.15.0.9000\n"
-"POT-Creation-Date: 2023-12-05 10:07+0900\n"
+"POT-Creation-Date: 2023-12-05 07:24-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,7 +181,7 @@ msgid "Previous"
 msgstr ""
 
 #: utils-translate.R:93
-msgid "Estimated time: {% icons$clock %} {% minutes %} minutes"
+msgid "Estimated time: {icons$clock} {minutes} minutes"
 msgstr ""
 
 #: utils-translate.R:94
@@ -193,7 +193,7 @@ msgid "Next Chapter"
 msgstr ""
 
 #: utils-translate.R:96
-msgid "Last updated on {% updated %}"
+msgid "Last updated on {updated}"
 msgstr ""
 
 #: utils-translate.R:97
@@ -259,11 +259,11 @@ msgid "About"
 msgstr ""
 
 #: utils-translate.R:116
-msgid "Materials licensed under {% license %} by {% authors %}"
+msgid "Materials licensed under {license} by {authors}"
 msgstr ""
 
 #: utils-translate.R:117
-msgid "Template licensed under <(CC-BY 4.0)> by {% template_authors %}"
+msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
 msgstr ""
 
 #: utils-translate.R:118
@@ -271,8 +271,7 @@ msgid "The Carpentries"
 msgstr ""
 
 #: utils-translate.R:119
-msgid ""
-"Built with {% sandpaper_link %}, {% pegboard_link %}, and {% varnish_link %}"
+msgid "Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}"
 msgstr ""
 
 #: utils-translate.R:123
