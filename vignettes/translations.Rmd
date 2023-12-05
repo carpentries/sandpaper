@@ -16,17 +16,39 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-To write a lesson in a specific language, the author should add `lang: 'xx'`
-to the `config.yaml` file where `xx` represents the [language
+The Carpentries is a world-wide organisation with instructors and learners who
+speak dozens of languages. One of the key concepts we teach in our instructor
+training curriculum is to avoid excessive cognitive load when teaching
+programming. One big source of cognitive load is attempting to learn in a
+language other than your mother tongue. Thus, the community has created a set
+of translations for Carpentries lessons and tools such as Joel Nitta's
+[{dovetail} package](https://github.com/joelnitta/dovetail#readme) and
+rOpenSci's [{babeldown} package](https://docs.ropensci.org/babeldown/) that
+help organise these translations. This allows learner to read the content in
+their own language, but there is still the problem of the site elements. One of
+the advantages of The Carpentries Workbench is that the authors do not have to
+worry about site structor or navigation. 
+
+To write a lesson in a specific language, the lesson author should add `lang:
+'xx'` to the `config.yaml` file where `xx` represents the [language
 code](https://www.gnu.org/software/gettext/manual/html_node/Usual-Language-Codes.html)
 that matches the language of the lesson content. This defaults to `"en"`, but
 can be any language code (e.g. "ja" specifying Japanese) or combination
 language code and [country
 code](https://www.gnu.org/software/gettext/manual/html_node/Country-Codes.html)
-(e.g. "pt_BR" specifies Pourtugese used in Brazil). For more information
-on how this is used, see [the Locale Names section of the gettext
+(e.g. "pt_BR" specifies Pourtugese used in Brazil). For more information on how
+this is used, see [the Locale Names section of the gettext
 manual](https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html).
 
 Setting the `lang:` keyword will allow the lesson navigational elements to be
 presented in the same language as the lesson content _if the language has been
-added to {sandpaper}_. 
+added to {sandpaper}_. If not, the menu items will appear in English. 
+
+This vignette is of interest to those who wish to update
+translations or add new translations. In this vignette I will briefly describe
+how the translation works, how to update a translation, and how to add a new
+language for translation. This process will use the [{potools}
+package](https://michaelchirico.github.io/potools/), which requires the [GNU
+gettext system](https://www.gnu.org/software/gettext/).
+
+

@@ -67,7 +67,7 @@ fix_codeblocks <- function(nodes = NULL) {
   code <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'sourceCode')]")
   xml2::xml_set_attr(code, "class", "codewrapper sourceCode")
   pre <- xml2::xml_children(code)
-  # pre-compile these during the transformation so we only have to do it 
+  # pre-compile these during the transformation so we only have to do it
   # once per document
   translations <- get_codeblock_translations()
   # Extract the language, transform to all caps, and reverse the order.
@@ -84,7 +84,7 @@ fix_codeblocks <- function(nodes = NULL) {
   invisible(nodes)
 }
 
-# Apply translations to text assuming that the names of the translations 
+# Apply translations to text assuming that the names of the translations
 # matches the text
 apply_translations <- function(txt, translations) {
   ntxt <- length(txt)
@@ -100,7 +100,7 @@ apply_translations <- function(txt, translations) {
   return(txt)
 }
 
-# generator of translations for code blocks. 
+# generator of translations for code blocks.
 get_codeblock_translations <- function() {
   c(
     OUTPUT = tr_("OUTPUT"),
@@ -114,7 +114,7 @@ add_code_heading <- function(codes = NULL, labels = "OUTPUT") {
   xml2::xml_set_attr(codes, "tabindex", "0")
   # NOTE: xml_add_sibling adds the siblings from bottom to top, so these labels
   # need to be in reverse. It's weird.
-  heads <- xml2::xml_add_sibling(codes, "h3", rev(labels), 
+  heads <- xml2::xml_add_sibling(codes, "h3", rev(labels),
     class = "code-label", .where = "before"
   )
   for (head in heads) {
