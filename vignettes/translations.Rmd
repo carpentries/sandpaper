@@ -45,10 +45,92 @@ presented in the same language as the lesson content _if the language has been
 added to {sandpaper}_. If not, the menu items will appear in English. 
 
 This vignette is of interest to those who wish to update
-translations or add new translations. In this vignette I will briefly describe
-how the translation works, how to update a translation, and how to add a new
-language for translation. This process will use the [{potools}
-package](https://michaelchirico.github.io/potools/), which requires the [GNU
-gettext system](https://www.gnu.org/software/gettext/).
+translations or add new translations. In this vignette I will provide resources
+for updating and adding new languages, the process by which translation happens,
+and I will outline special syntax used in {sandpaper}. This process will use the
+[{potools} package](https://michaelchirico.github.io/potools/), which requires
+the [GNU gettext system](https://www.gnu.org/software/gettext/).
+
+## Resources
+
+The documentation for the {potools} package is a wonderful resource. 
+Use `vignette("translators", package = "potools")` to read details about what to
+consider when translating text in a package. Another really good resource is
+[a blog post by Maëlle Salmon](https://masalmon.eu/2023/10/06/potools-mwe/)
+which gives a minimum working example of translating package messages using
+{potools}. 
+
+
+## Translating in {sandpaper}
+
+The translations from {sandpaper} are mostly shuffled off to {varnish}, where it
+has template variables written in mustache templating. These variables define
+visible menu text such as "Key Points" and screen-reader accessible text for
+buttons such as "close menu". 
+
+Translating in {sandpaper}, you will be working with `.po` files that live in
+the `po/` folder in the source of this package. There is one `.po` file per
+language translated and the syntax looks like this, the first line shows the
+file where the translation exists, the second line gives the message in English,
+and the third line gives the translation:
+
+```po
+#: build_404.R:57
+msgid "Page not found"
+msgstr "ページが見つかりません"
+```
+
+These po files are compiled into binary `.mo` files that are carried with the
+built package on to the user's computer. These files are used by the R function
+`base::gettext()` to translate messages in a specific context. The context for
+{sandpaper} is known as `R-sandpaper`:
+
+
+```{r gettext}
+library("withr")
+library("sandpaper")
+known_languages()
+with_language("ja", {
+  enc2utf8(gettext("Page not found", domain = "R-sandpaper"))
+})
+with_language("en", {
+  enc2utf8(gettext("Page not found", domain = "R-sandpaper"))
+})
+```
+
+If a language does not exist, it will revert to English:
+
+```{r gettext-2}
+with_language("xx", {
+  enc2utf8(gettext("Page not found", domain = "R-sandpaper"))
+})
+```
+
+To make translation keys easier to detect, a convenience function, `tr_()` has
+been defined, so if you want to find the context for a given translation key,
+you can find it by searching the source code for `tr_`.
+
+### Special syntax for translators
+
+Some content for translation requires variables or markup to be added after
+translation. 
+
+Items in `{% curly_braces_and_percent_symbols %}` are variables and should
+remain in English:
+
+```po
+#: utils-translate.R:52
+msgid "Estimated time: {% icons$clock %} {% minutes %} minutes"
+msgstr "所要時間：{% icons$clock %} {% minutes %}分"
+```
+
+Words in `<(kirby quotes)>` will have HTML markup surrounding them and should be
+translated:
+
+```
+#: utils-translate.R:62
+msgid "This lesson is subject to the <(Code of Conduct)>"
+msgstr "このレッスンは<(行動規範)>の対象となります"
+```
 
 
