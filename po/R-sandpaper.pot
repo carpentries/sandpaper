@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.15.0.9000\n"
-"POT-Creation-Date: 2023-12-04 11:56-0800\n"
+"POT-Creation-Date: 2023-12-05 10:07+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 msgid "All in One View"
 msgstr ""
 
-#: build_episode.R:134 utils-translate.R:83
+#: build_episode.R:134 utils-translate.R:82
 msgid "Home"
 msgstr ""
 
-#: build_home.R:49 utils-translate.R:146 utils-varnish.R:87
+#: build_home.R:49 utils-translate.R:145 utils-varnish.R:87
 msgid "Summary and Schedule"
 msgstr ""
 
-#: build_home.R:58 utils-translate.R:142 utils-varnish.R:95
+#: build_home.R:58 utils-translate.R:141 utils-varnish.R:95
 msgid "Summary and Setup"
 msgstr ""
 
@@ -38,252 +38,260 @@ msgstr ""
 msgid "All Images"
 msgstr ""
 
-#: build_instructor_notes.R:27 utils-translate.R:73
+#: build_images.R:49
+msgid "Figure {element}"
+msgstr ""
+
+#: build_images.R:60
+msgid "Image {i} of {n}: {sQuote(txt)}"
+msgstr ""
+
+#: build_instructor_notes.R:27 utils-translate.R:72
 msgid "Instructor Notes"
 msgstr ""
 
-#: build_keypoints.R:6 utils-translate.R:72 utils-xml.R:249
+#: build_keypoints.R:6 utils-translate.R:71 utils-xml.R:249
 msgid "Key Points"
 msgstr ""
 
-#: build_profiles.R:16 utils-translate.R:75
+#: build_profiles.R:16 utils-translate.R:74
 msgid "Learner Profiles"
 msgstr ""
 
-#: utils-translate.R:57
+#: utils-translate.R:56
 msgid "Skip to main content"
 msgstr ""
 
-#: utils-translate.R:58
+#: utils-translate.R:57
 msgid "Pre-Alpha"
 msgstr ""
 
-#: utils-translate.R:59
+#: utils-translate.R:58
 msgid ""
 "This lesson is in the pre-alpha phase, which means that it is in early "
 "development, but has not yet been taught."
 msgstr ""
 
-#: utils-translate.R:60
+#: utils-translate.R:59
 msgid ""
 "This lesson is in the alpha phase, which means that it has been taught once "
 "and lesson authors are iterating on feedback."
 msgstr ""
 
-#: utils-translate.R:61
+#: utils-translate.R:60
 msgid "Alpha"
 msgstr ""
 
-#: utils-translate.R:62
+#: utils-translate.R:61
 msgid ""
 "This lesson is in the beta phase, which means that it is ready for teaching "
 "by instructors outside of the original author team."
 msgstr ""
 
-#: utils-translate.R:63
+#: utils-translate.R:62
 msgid "Beta"
 msgstr ""
 
-#: utils-translate.R:64
+#: utils-translate.R:63
 msgid "This lesson has passed peer review."
 msgstr ""
 
-#: utils-translate.R:65
+#: utils-translate.R:64
 msgid "Instructor View"
 msgstr ""
 
-#: utils-translate.R:66
+#: utils-translate.R:65
 msgid "Learner View"
 msgstr ""
 
-#: utils-translate.R:67
+#: utils-translate.R:66
 msgid "Main Navigation"
 msgstr ""
 
-#: utils-translate.R:68
+#: utils-translate.R:67
 msgid "Toggle Navigation"
 msgstr ""
 
-#: utils-translate.R:69
+#: utils-translate.R:68
 msgid "Menu"
 msgstr ""
 
-#: utils-translate.R:70
+#: utils-translate.R:69
 msgid "search button"
 msgstr ""
 
-#: utils-translate.R:71
+#: utils-translate.R:70
 msgid "Setup"
 msgstr ""
 
-#: utils-translate.R:74
+#: utils-translate.R:73
 msgid "Glossary"
 msgstr ""
 
-#: utils-translate.R:76
+#: utils-translate.R:75
 msgid "More"
 msgstr ""
 
-#: utils-translate.R:77
+#: utils-translate.R:76
 msgid "Search"
 msgstr ""
 
-#: utils-translate.R:78
+#: utils-translate.R:77
 msgid "Lesson Progress"
 msgstr ""
 
-#: utils-translate.R:81
+#: utils-translate.R:80
 msgid "close menu"
 msgstr ""
 
-#: utils-translate.R:82
+#: utils-translate.R:81
 msgid "EPISODES"
 msgstr ""
 
-#: utils-translate.R:84
+#: utils-translate.R:83
 msgid "Home Page Navigation"
 msgstr ""
 
-#: utils-translate.R:85
+#: utils-translate.R:84
 msgid "RESOURCES"
 msgstr ""
 
-#: utils-translate.R:86
+#: utils-translate.R:85
 msgid "Extract All Images"
 msgstr ""
 
-#: utils-translate.R:87
+#: utils-translate.R:86
 msgid "See all in one page"
 msgstr ""
 
-#: utils-translate.R:88
+#: utils-translate.R:87
 msgid "Download Lesson Handout"
 msgstr ""
 
-#: utils-translate.R:89
+#: utils-translate.R:88
 msgid "Export Chapter Slides"
 msgstr ""
 
-#: utils-translate.R:92
+#: utils-translate.R:91
 msgid "Previous and Next Chapter"
 msgstr ""
 
-#: utils-translate.R:93
+#: utils-translate.R:92
 msgid "Previous"
 msgstr ""
 
-#: utils-translate.R:94
+#: utils-translate.R:93
 msgid "Estimated time: {% icons$clock %} {% minutes %} minutes"
 msgstr ""
 
-#: utils-translate.R:95
+#: utils-translate.R:94
 msgid "Next"
 msgstr ""
 
-#: utils-translate.R:96
+#: utils-translate.R:95
 msgid "Next Chapter"
 msgstr ""
 
-#: utils-translate.R:97
+#: utils-translate.R:96
 msgid "Last updated on {% updated %}"
 msgstr ""
 
-#: utils-translate.R:98
+#: utils-translate.R:97
 msgid "Edit this page"
 msgstr ""
 
-#: utils-translate.R:99 utils-translate.R:123
+#: utils-translate.R:98 utils-translate.R:122
 msgid "Expand All Solutions"
 msgstr ""
 
-#: utils-translate.R:102
+#: utils-translate.R:101
 msgid "Setup Instructions"
 msgstr ""
 
-#: utils-translate.R:103
+#: utils-translate.R:102
 msgid "Download files required for the lesson"
 msgstr ""
 
-#: utils-translate.R:104
+#: utils-translate.R:103
 msgid ""
 "The actual schedule may vary slightly depending on the topics and exercises "
 "chosen by the instructor."
 msgstr ""
 
-#: utils-translate.R:107
+#: utils-translate.R:106
 msgid "Back To Top"
 msgstr ""
 
-#: utils-translate.R:108
+#: utils-translate.R:107
 msgid "<(Back)> To Top"
 msgstr ""
 
-#: utils-translate.R:109
+#: utils-translate.R:108
 msgid "This lesson is subject to the <(Code of Conduct)>"
 msgstr ""
 
-#: utils-translate.R:110
+#: utils-translate.R:109
 msgid "Code of Conduct"
 msgstr ""
 
-#: utils-translate.R:111
+#: utils-translate.R:110
 msgid "Edit on GitHub"
 msgstr ""
 
-#: utils-translate.R:112
+#: utils-translate.R:111
 msgid "Contributing"
 msgstr ""
 
-#: utils-translate.R:113
+#: utils-translate.R:112
 msgid "Source"
 msgstr ""
 
-#: utils-translate.R:114
+#: utils-translate.R:113
 msgid "Cite"
 msgstr ""
 
-#: utils-translate.R:115
+#: utils-translate.R:114
 msgid "Contact"
 msgstr ""
 
-#: utils-translate.R:116
+#: utils-translate.R:115
 msgid "About"
 msgstr ""
 
-#: utils-translate.R:117
+#: utils-translate.R:116
 msgid "Materials licensed under {% license %} by {% authors %}"
 msgstr ""
 
-#: utils-translate.R:118
+#: utils-translate.R:117
 msgid "Template licensed under <(CC-BY 4.0)> by {% template_authors %}"
 msgstr ""
 
-#: utils-translate.R:119
+#: utils-translate.R:118
 msgid "The Carpentries"
 msgstr ""
 
-#: utils-translate.R:120
+#: utils-translate.R:119
 msgid ""
 "Built with {% sandpaper_link %}, {% pegboard_link %}, and {% varnish_link %}"
 msgstr ""
 
-#: utils-translate.R:124
+#: utils-translate.R:123
 msgid "Collapse All Solutions"
 msgstr ""
 
-#: utils-translate.R:125
+#: utils-translate.R:124
 msgid "Collapse"
 msgstr ""
 
-#: utils-translate.R:126
+#: utils-translate.R:125
 msgid "Episodes"
 msgstr ""
 
-#: utils-translate.R:129
+#: utils-translate.R:128
 msgid "Give Feedback"
 msgstr ""
 
-#: utils-translate.R:130
+#: utils-translate.R:129
 msgid "Learn More"
 msgstr ""
 
