@@ -18,8 +18,9 @@ knitr::opts_chunk$set(
 
 This is a vignette that is designed for R package developers who are looking to
 understand how the data flows between the lesson source and the final website.
-I am assuming that the person reading this has familiarity with R packaging and
-R environments.
+I am assuming that the person reading this has familiarity with 
+[R packaging](https://r-pkgs.org/) and [R
+environments](https://r-pkgs.org/data.html#sec-data-state).
 
 One of the design philosophies of The Workbench is that if a lesson author or
 contributor would like to add any sort of metadata or modify a setting in any
@@ -113,11 +114,15 @@ objects defined by the internal `sandpaper:::set_globals()`. Here I will set
 up an example lesson that I will use to demonstrate these global variables. 
 Please note that I will be using internal functions in this demonstration. These
 internal functions are not guaranteed to be stable outside of the context of
-{sandpaper}. 
+{sandpaper}. Using the `asNamespace("sandpaper")` function allows me to create
+a method for accessing the internal functions:
 
-```{r create-example, message = FALSE}
+```{r create-namespace-example, message = FALSE}
 library("sandpaper")
 snd <- asNamespace("sandpaper")
+```
+
+```{r, create-example, message = FALSE}
 # create a new lesson
 lsn <- create_lesson(tempfile(), name = "An Example Lesson", 
   rstudio = TRUE, open = FALSE, rmd = FALSE)
@@ -136,14 +141,17 @@ snd$learner_globals$get()
 snd$this_metadata$get()
 ```
 
-
 When I run `validate_lesson()` the first time, all the metadata is collected and
-parsed from the `config.yaml`, and the individual episodes and cached. 
+parsed from the `config.yaml`, and the individual episodes and cached.
 
 ```{r validate}
 # first run is always longer than the second
 system.time(validate_lesson(lsn))
 system.time(validate_lesson(lsn))
+```
+
+
+```{r resources-get}
 snd$.resources$get()
 snd$instructor_globals$get()
 snd$learner_globals$get()
