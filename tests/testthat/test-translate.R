@@ -9,6 +9,10 @@ sitepath <- fs::path(tmp, "site", "docs")
 test_that("Lessons can be translated with lang setting", {
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
+  os <- tolower(Sys.info()[["sysname"]])
+  ver <- getRversion()
+
+  skip_if(os == "windows" && ver <= "4.1")
 
   # Build lesson
   suppressMessages(build_lesson(tmp, preview = FALSE, quiet = TRUE))
