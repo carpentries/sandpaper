@@ -217,7 +217,7 @@ whole lesson called `.store`, `.resources`, `instructor_globals`,
 `learner_globals`, and `this_metadata`. Before the lesson is validated, these
 values are empty:
 
-```{r globals}
+```{r globals-empty}
 class(snd$.store)
 print(snd$.store$get())
 class(snd$.resources)
