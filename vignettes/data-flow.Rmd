@@ -136,10 +136,15 @@ whole lesson called `.store`, `.resources`, `instructor_globals`,
 values are empty:
 
 ```{r globals}
+class(snd$.store)
 print(snd$.store$get())
+class(snd$.resources)
 snd$.resources$get()
+class(snd$instructor_globals)
 snd$instructor_globals$get()
+class(snd$learner_globals)
 snd$learner_globals$get()
+class(snd$this_metadata)
 snd$this_metadata$get()
 ```
 
@@ -232,8 +237,15 @@ cli::tree(vltree)
 Now when we these variables are called, you can see the information stored in
 them:
 
-```{r resources-get}
+### Lesson Storage
+
+
+```{r store-get}
+class(snd$.store)
 print(snd$.store$get())
+```
+
+```{r resources-get}
 snd$.resources$get()
 snd$instructor_globals$get()
 snd$learner_globals$get()
