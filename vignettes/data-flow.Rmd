@@ -218,22 +218,26 @@ whole lesson called `.store`, `.resources`, `instructor_globals`,
 values are empty:
 
 ```{r globals-empty}
+snd <- asNamespace("sandpaper")
 class(snd$.store)
 print(snd$.store$get())
+class(snd$this_metadata)
+snd$this_metadata$get()
 class(snd$.resources)
 snd$.resources$get()
 class(snd$instructor_globals)
 snd$instructor_globals$get()
 class(snd$learner_globals)
 snd$learner_globals$get()
-class(snd$this_metadata)
-snd$this_metadata$get()
 ```
 
 These will contain the following information:
 
  - `.store` a `pegboard::Lesson` object that contains the XML representation of
    the parsed Markdown source files
+ - `this_metadata` the real and computed metadata associated with the lesson
+   along with the JSON-LD template for generating the metadata in the footer of
+   the lesson.
  - `.resources` a list of the availabe files used to build the lesson in the
    order specified by `config.yaml`
  - `instructor_globals` pre-computed global data that includes the sidebar
@@ -241,9 +245,6 @@ These will contain the following information:
    packages used to build the lesson
  - `learner_globals` same as `instructor_globals`, but specifically for learner
    view
- - `this_metadata` the real and computed metadata associated with the lesson
-   along with the JSON-LD template for generating the metadata in the footer of
-   the lesson.
 
 When I run `validate_lesson()` the first time, all the metadata is collected and
 parsed from the `config.yaml`, and the individual episodes and cached.
@@ -317,14 +318,15 @@ cli::tree(vltree)
 ```
 
 Now when we these variables are called, you can see the information stored in
-them:
+them.
 
-### Lesson Storage
+## Lesson Storage
 
 This function stores the `pegboard::Lesson` object and is responsible for
 initialising and resetting the variable cache. 
 
 ```{r store-get}
+snd <- asNamespace("sandpaper")
 class(snd$.store)
 print(snd$.store$get())
 ```
@@ -347,16 +349,7 @@ snd$.store$set(lsn)
 snd$.store$valid(lsn)
 ```
 
-### Lesson Resources (files)
-
-The next thing that we store globally are the resources we use to build the
-lesson. This allows us to avoid needing to constantly read the file system:
-
-```{r resources-get}
-snd$.resources$get()
-```
-
-### Metadata
+## Metadata
 
 The metadata is used to store the content of `config.yaml` and to provide
 computed metadata for a lesson that is included in the footer as a JSON-LD
@@ -364,6 +357,7 @@ object, which is useful for indexing. Note that this metadata must be
 duplicated for each page to give the correct URL and identifiers. 
 
 ```{r metadata}
+snd <- asNamespace("sandpaper")
 snd$this_metadata$get()
 ```
 
@@ -374,7 +368,17 @@ using the internal `fill_metadata_template()` function:
 writeLines(snd$fill_metadata_template(snd$this_metadata))
 ```
 
-### Global and Local Variables
+## Lesson Resources (files)
+
+The next thing that we store globally are the resources we use to build the
+lesson. This allows us to avoid needing to constantly read the file system:
+
+```{r resources-get}
+snd <- asNamespace("sandpaper")
+snd$.resources$get()
+```
+
+## Global and Local Variables
 
 The rest are global and local variables that are recorded in the
 `instructor_globals` and `learner_globals`. These are copied for each page and
@@ -387,7 +391,7 @@ snd$learner_globals$get()
 ```
 
 
-### pkgdown metadata
+## pkgdown metadata
 
 Another source of metadata is that created for the pkgdown in a file called
 `site/_pkgdown.yaml`. 
@@ -407,4 +411,15 @@ snd <- asNamespace("sandpaper")
 pkg <- pkgdown::as_pkgdown(snd$path_site(lsn))
 pkg
 ```
+
+Before being sent to be rendered, it goes through one more transformation, which
+is where the variable contexts you find in {varnish} come from. The contexts
+that we use are `site` for the root path and title, `yaml` for lesson-wide
+content, and `lang` to define the language. Everything else is not used.
+
+```{r data-template}
+dat <- pkgdown::data_template(pkg)
+writeLines(yaml::as.yaml(dat[c("lang", "site", "yaml")]))
+```
+
 
