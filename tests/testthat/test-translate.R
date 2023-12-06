@@ -52,5 +52,83 @@ test_that("Lessons can be translated with lang setting", {
     xml2::xml_text(xml2::xml_find_all(xml, ".//@aria-label"))
   )
 
+  # Episode elements -------------------------------------------------
+  # We use here the Instructor view because it is more fully featured
+  xml <- xml2::read_html(fs::path(sitepath, "instructor", "introduction.html"))
+
+  # overview, objectives, and questions
+  overview_card <- xml2::xml_find_first(xml, ".//div[@class='overview card']")
+
+  # Overview card
+  overview <- xml2::xml_find_first(overview_card, ".//h2[@class='card-header']")
+  expect_equal(
+    xml2::xml_text(overview, trim = TRUE),
+    withr::with_language("ja", tr_("Overview"))
+  )
+  expect_false(
+    identical(
+      xml2::xml_text(overview, trim = TRUE),
+      withr::with_language("en", tr_("Overview"))
+    )
+  )
+
+  # Questions and Objectives
+  quob <- xml2::xml_find_all(overview_card, ".//h3[@class='card-title']")
+  expect_equal(
+    xml2::xml_text(quob, trim = TRUE),
+    withr::with_language("ja", c(tr_("Questions"), tr_("Objectives")))
+  )
+  expect_false(
+    identical(
+      xml2::xml_text(quob, trim = TRUE),
+    withr::with_language("en", c(tr_("Questions"), tr_("Objectives")))
+    )
+  )
+
+  # Keypoints are always the last block and should be auto-translated
+  xpath_keypoints <- ".//div[@class='callout keypoints']//h3[@class='callout-title']"
+  keypoints <- xml2::xml_find_first(xml, xpath_keypoints)
+  expect_equal(
+    xml2::xml_text(keypoints, trim = TRUE),
+    withr::with_language("ja", tr_("Key Points"))
+  )
+  expect_false(
+    identical(
+      xml2::xml_text(keypoints, trim = TRUE),
+      withr::with_language("en", tr_("Key Points"))
+    )
+  )
+
+  # Instructor note headings should be translated
+  xpath_instructor <- ".//div[@class='accordion-item']/button/h3"
+  instructor_note <- xml2::xml_find_all(xml, xpath_instructor)
+  expect_equal(
+    xml2::xml_text(instructor_note, trim = TRUE),
+    withr::with_language("ja", tr_("Instructor Note"))
+  )
+  expect_false(
+    identical(
+      xml2::xml_text(instructor_note, trim = TRUE),
+      withr::with_language("en", tr_("Instructor Note"))
+    )
+  )
+
+  # solution headings should be translated
+  xpath_solution <- ".//div[@class='accordion-item']/button/h4"
+  solution <- xml2::xml_find_all(xml, xpath_solution)
+  # take the last solution block because that's the one that does not have
+  # a title.
+  solution <- solution[[length(solution)]]
+  expect_equal(
+    xml2::xml_text(solution, trim = TRUE),
+    withr::with_language("ja", tr_("Show me the solution"))
+  )
+  skip("We need the japanese translation for this phrase")
+  expect_false(
+    identical(
+      xml2::xml_text(solution, trim = TRUE),
+      withr::with_language("en", tr_("Show me the solution"))
+    )
+  )
 
 })
