@@ -345,15 +345,15 @@ msgstr "推薦文"
 
 #: utils-translate.R:178
 msgid "Show me the solution"
-msgstr ""
+msgstr "回答を表示する"
 
 #: utils-translate.R:179
 msgid "Give me a hint"
-msgstr ""
+msgstr "ヒントを表示する"
 
 #: utils-translate.R:180
 msgid "Show details"
-msgstr ""
+msgstr "詳細を表示する"
 
 #: utils-translate.R:181
 msgid "Instructor Note"
@@ -374,12 +374,3 @@ msgstr "目的"
 #: utils-xml.R:163
 msgid "Overview"
 msgstr "概要"
-
-#~ msgid "Solution"
-#~ msgstr "回答"
-
-#~ msgid "Hint"
-#~ msgstr "ヒント"
-
-#~ msgid "Spoiler"
-#~ msgstr "ネタバレ"
