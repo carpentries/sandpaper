@@ -203,7 +203,6 @@ test_that("update_cache() will update old package versions", {
 
   skip_on_cran()
   skip_on_os("windows")
-  skip_on_os("mac")
   skip_if_offline()
   skip_if(covr::in_covr())
 
