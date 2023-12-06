@@ -2,6 +2,7 @@ fix_nodes <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   translate_overview(nodes)
   fix_headings(nodes)
+  fix_accordions(nodes)
   fix_callouts(nodes)
   fix_codeblocks(nodes)
   fix_figures(nodes)
@@ -163,6 +164,24 @@ translate_overview <- function(nodes = NULL) {
   invisible(nodes)
 }
 
+fix_accordions <- function(nodes = NULL) {
+  if (length(nodes) == 0) return(nodes)
+  accordions <- xml2::xml_find_all(nodes,
+    ".//div[starts-with(@class, 'accordion ')]"
+  )
+  # NOTE: we need to include `text()` in the call here because of the presence
+  # of the decorative blocks inside the accordion headings.
+  # solution and hint are h4
+  # instructor and spoiler are h3
+  headings <- xml2::xml_find_all(accordions,
+    "./div/button/h3/text() | ./div/button/h4/text()"
+  )
+  lapply(headings, translate_callout_heading)
+  # at this point, we would fix headings, but we do not actually have a way to
+  # consistently do this, so it remains as an exercise for the future.
+  return(invisible(nodes))
+}
+
 fix_callouts <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   callouts <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'callout ')]")
@@ -196,19 +215,19 @@ fix_callouts <- function(nodes = NULL) {
 # appropriate translations based on the language of the lesson (including
 # English)
 translate_callout_heading <- function(heading) {
-  txt <- xml2::xml_text(heading)
+  txt <- xml2::xml_text(heading, trim = TRUE)
   known <- c(
     "Callout",
     "Challenge",
     "Prereq",
     "Checklist",
-    "Solution",
-    "Hint",
-    "Spoiler",
     "Discussion",
     "Testimonial",
     "Keypoints",
-    "Instructor"
+    "Show me a solution",
+    "Give me a hint",
+    "Show details",
+    "Instructor Note"
   )
   if (txt %in% known) {
     translated <- switch(txt,
@@ -216,13 +235,13 @@ translate_callout_heading <- function(heading) {
       Challenge   = tr_("Challenge"),
       Prereq      = tr_("Prerequisite"),
       Checklist   = tr_("Checklist"),
-      Solution    = tr_("Solution"),
-      Hint        = tr_("Hint"),
-      Spoiler     = tr_("Spoiler"),
       Discussion  = tr_("Discussion"),
       Testimonial = tr_("Testimonial"),
       Keypoints   = tr_("Key Points"),
-      Instructor  = tr_("Instructor Note"),
+      "Show me the solution" = tr_("Show me the solution"),
+      "Give me a hint"       = tr_("Give me a hint"),
+      "Show details"         = tr_("Show details"),
+      "Instructor Note"      = tr_("Instructor Note"),
       txt
     )
     xml2::xml_set_text(heading, translated)
