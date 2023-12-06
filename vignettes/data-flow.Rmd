@@ -110,6 +110,10 @@ The templates used by {varnish} will take metadata from one of two sources:
 2. a list of values passed to the `pkgdown::render_page()` function. These
    values can be both global and local. 
 
+These get inserted into the template via the `pkgdown::render_page()` function
+where the contents of the `_pkgdown.yaml` file are inserted into the data list
+as `$yaml`.
+
 The challenge for {sandpaper} is this: when we have a list of per-lesson global
 variables that need to be allocated when `build_lesson()` is run and per-file
 variables that need to be allocated before every call to `build_html()`.
