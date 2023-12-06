@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.14.1.9000\n"
-"POT-Creation-Date: 2023-12-05 07:24-0800\n"
+"POT-Creation-Date: 2023-12-06 11:03-0800\n"
 "PO-Revision-Date: 2023-11-22 09:14+0900\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -23,11 +23,11 @@ msgstr "一つにまとまったページ"
 msgid "Home"
 msgstr "ホーム"
 
-#: build_home.R:49 utils-translate.R:145 utils-varnish.R:87
+#: build_home.R:49 utils-translate.R:195 utils-varnish.R:87
 msgid "Summary and Schedule"
 msgstr "概要とスケジュール"
 
-#: build_home.R:58 utils-translate.R:141 utils-varnish.R:95
+#: build_home.R:58 utils-translate.R:191 utils-varnish.R:95
 msgid "Summary and Setup"
 msgstr "概要とセットアップ"
 
@@ -51,7 +51,7 @@ msgstr "画像{i}/{n}: {sQuote(txt)}"
 msgid "Instructor Notes"
 msgstr "インストラクター用メモ"
 
-#: build_keypoints.R:6 utils-translate.R:71 utils-xml.R:249
+#: build_keypoints.R:6 utils-translate.R:71 utils-translate.R:173
 msgid "Key Points"
 msgstr "まとめ"
 
@@ -274,8 +274,8 @@ msgstr "材料は{authors}によって{license}のもとに掲載を許諾され
 #: utils-translate.R:117
 msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
 msgstr ""
-"テンプレートは{template_authors}によって<(CC-BY 4.0)>のもとに掲載を許諾さ"
-"れている"
+"テンプレートは{template_authors}によって<(CC-BY 4.0)>のもとに掲載を許諾されて"
+"いる"
 
 #: utils-translate.R:118
 msgid "The Carpentries"
@@ -284,8 +284,8 @@ msgstr "ザ・カーペントリーズ"
 #: utils-translate.R:119
 msgid "Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}"
 msgstr ""
-"このレッスンは{sandpaper_link}、{pegboard_link}、および{"
-"varnish_link}によって作られた"
+"このレッスンは{sandpaper_link}、{pegboard_link}、および{varnish_link}によって"
+"作られた"
 
 #: utils-translate.R:123
 msgid "Collapse All Solutions"
@@ -307,70 +307,79 @@ msgstr "フィードバック"
 msgid "Learn More"
 msgstr "さらに詳しく"
 
-#: utils-xml.R:106
+#: utils-translate.R:158
 msgid "OUTPUT"
 msgstr "出力"
 
-#: utils-xml.R:107
+#: utils-translate.R:159
 msgid "WARNING"
 msgstr "警告"
 
-#: utils-xml.R:108
+#: utils-translate.R:160
 msgid "ERROR"
 msgstr "エラー"
 
-#: utils-xml.R:158
-msgid "anchor"
-msgstr "アンカー"
-
-#: utils-xml.R:185
-msgid "Questions"
-msgstr "質問"
-
-#: utils-xml.R:186
-msgid "Objectives"
-msgstr "目的"
-
-#: utils-xml.R:187
-msgid "Overview"
-msgstr "概要"
-
-#: utils-xml.R:240
+#: utils-translate.R:167
 msgid "Callout"
 msgstr "コールアウト"
 
-#: utils-xml.R:241
+#: utils-translate.R:168
 msgid "Challenge"
 msgstr "チャレンジ"
 
-#: utils-xml.R:242
+#: utils-translate.R:169
 msgid "Prerequisite"
 msgstr "必須条件"
 
-#: utils-xml.R:243
+#: utils-translate.R:170
 msgid "Checklist"
 msgstr "チェックリスト"
 
-#: utils-xml.R:244
-msgid "Solution"
-msgstr "回答"
-
-#: utils-xml.R:245
-msgid "Hint"
-msgstr "ヒント"
-
-#: utils-xml.R:246
-msgid "Spoiler"
-msgstr "ネタバレ"
-
-#: utils-xml.R:247
+#: utils-translate.R:171
 msgid "Discussion"
 msgstr "ディスカッション"
 
-#: utils-xml.R:248
+#: utils-translate.R:172
 msgid "Testimonial"
 msgstr "推薦文"
 
-#: utils-xml.R:250
+#: utils-translate.R:178
+msgid "Show me the solution"
+msgstr ""
+
+#: utils-translate.R:179
+msgid "Give me a hint"
+msgstr ""
+
+#: utils-translate.R:180
+msgid "Show details"
+msgstr ""
+
+#: utils-translate.R:181
 msgid "Instructor Note"
 msgstr "インストラクター用メモ"
+
+#: utils-xml.R:134
+msgid "anchor"
+msgstr "アンカー"
+
+#: utils-xml.R:161
+msgid "Questions"
+msgstr "質問"
+
+#: utils-xml.R:162
+msgid "Objectives"
+msgstr "目的"
+
+#: utils-xml.R:163
+msgid "Overview"
+msgstr "概要"
+
+#~ msgid "Solution"
+#~ msgstr "回答"
+
+#~ msgid "Hint"
+#~ msgstr "ヒント"
+
+#~ msgid "Spoiler"
+#~ msgstr "ネタバレ"
