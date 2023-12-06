@@ -176,7 +176,8 @@ fix_accordions <- function(nodes = NULL) {
   headings <- xml2::xml_find_all(accordions,
     "./div/button/h3/text() | ./div/button/h4/text()"
   )
-  lapply(headings, translate_callout_heading)
+  translations <- get_accordion_translations()
+  xml_text_translate(headings, translations)
   # at this point, we would fix headings, but we do not actually have a way to
   # consistently do this, so it remains as an exercise for the future.
   return(invisible(nodes))

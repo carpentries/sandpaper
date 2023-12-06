@@ -149,12 +149,27 @@ apply_translations <- function(txt, translations) {
   return(txt)
 }
 
+xml_text_translate <- function(nodes, translations) {
+  txt <- xml2::xml_text(nodes, trim = TRUE)
+  xml2::xml_set_text(nodes, apply_translations(txt, translations))
+  return(invisible(nodes))
+}
+
 # generator of translations for code blocks.
 get_codeblock_translations <- function() {
   c(
     OUTPUT = tr_("OUTPUT"),
     WARNING = tr_("WARNING"),
     ERROR = tr_("ERROR")
+  )
+}
+
+get_accordion_translations <- function() {
+  c(
+    "Show me the solution" = tr_("Show me the solution"),
+    "Give me a hint"       = tr_("Give me a hint"),
+    "Show details"         = tr_("Show details"),
+    "Instructor Note"      = tr_("Instructor Note")
   )
 }
 
