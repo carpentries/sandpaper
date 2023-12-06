@@ -84,31 +84,6 @@ fix_codeblocks <- function(nodes = NULL) {
   invisible(nodes)
 }
 
-# Apply translations to text assuming that the names of the translations
-# matches the text
-apply_translations <- function(txt, translations) {
-  ntxt <- length(txt)
-  ntranslations <- length(translations)
-  if (ntxt == 0L || ntranslations == 0L) {
-    return(txt)
-  }
-  to_translate <- txt %in% names(translations)
-  if (any(to_translate)) {
-    ids <- txt[to_translate]
-    txt[to_translate] <- translations[ids]
-  }
-  return(txt)
-}
-
-# generator of translations for code blocks.
-get_codeblock_translations <- function() {
-  c(
-    OUTPUT = tr_("OUTPUT"),
-    WARNING = tr_("WARNING"),
-    ERROR = tr_("ERROR")
-  )
-}
-
 add_code_heading <- function(codes = NULL, labels = "OUTPUT") {
   if (length(codes) == 0) return(codes)
   xml2::xml_set_attr(codes, "tabindex", "0")
