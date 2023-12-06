@@ -138,21 +138,18 @@ add_varnish_translations <- function() {
 apply_translations <- function(txt, translations) {
   ntxt <- length(txt)
   ntranslations <- length(translations)
+  # empty text or empty translations returns the text
   if (ntxt == 0L || ntranslations == 0L) {
     return(txt)
   }
+  # when there are translations, apply them only to the matching elements of
+  # the vector
   to_translate <- txt %in% names(translations)
   if (any(to_translate)) {
     ids <- txt[to_translate]
     txt[to_translate] <- translations[ids]
   }
   return(txt)
-}
-
-xml_text_translate <- function(nodes, translations) {
-  txt <- xml2::xml_text(nodes, trim = TRUE)
-  xml2::xml_set_text(nodes, apply_translations(txt, translations))
-  return(invisible(nodes))
 }
 
 # generator of translations for code blocks.
@@ -164,6 +161,18 @@ get_codeblock_translations <- function() {
   )
 }
 
+# generator for translations of callout blocks and accordions
+get_callout_translations <- function() {
+  c(
+    Callout     = tr_("Callout"),
+    Challenge   = tr_("Challenge"),
+    Prereq      = tr_("Prerequisite"),
+    Checklist   = tr_("Checklist"),
+    Discussion  = tr_("Discussion"),
+    Testimonial = tr_("Testimonial"),
+    Keypoints   = tr_("Key Points")
+  )
+}
 get_accordion_translations <- function() {
   c(
     "Show me the solution" = tr_("Show me the solution"),

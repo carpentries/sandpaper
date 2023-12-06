@@ -164,6 +164,16 @@ translate_overview <- function(nodes = NULL) {
   invisible(nodes)
 }
 
+# translate contents of an XML node list
+# @param nodes an xml node or xml nodelist
+# @param translations a named vector of translated strings whose names are the
+#   strings in English
+xml_text_translate <- function(nodes, translations) {
+  txt <- xml2::xml_text(nodes, trim = TRUE)
+  xml2::xml_set_text(nodes, apply_translations(txt, translations))
+  return(invisible(nodes))
+}
+
 fix_accordions <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   accordions <- xml2::xml_find_all(nodes,
@@ -187,7 +197,8 @@ fix_callouts <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   callouts <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'callout ')]")
   h3 <- xml2::xml_find_all(callouts, "./div/h3")
-  lapply(h3, translate_callout_heading)
+  translations <- get_callout_translations()
+  xml_text_translate(h3, translations)
   xml2::xml_set_attr(h3, "class", "callout-title")
   inner_div <- xml2::xml_parent(h3)
   # remove the "section level3 callout-title" attrs
@@ -207,47 +218,6 @@ fix_callouts <- function(nodes = NULL) {
   # we replace the callout ID with the correct ID
   xml2::xml_set_attr(callouts, "id", ids)
   invisible(nodes)
-}
-
-# translate callouts that have generic headings.
-#
-# If a callout does not have a heading, it has callout class converted to a
-# title case heading. This is most common with key points. This applies the
-# appropriate translations based on the language of the lesson (including
-# English)
-translate_callout_heading <- function(heading) {
-  txt <- xml2::xml_text(heading, trim = TRUE)
-  known <- c(
-    "Callout",
-    "Challenge",
-    "Prereq",
-    "Checklist",
-    "Discussion",
-    "Testimonial",
-    "Keypoints",
-    "Show me a solution",
-    "Give me a hint",
-    "Show details",
-    "Instructor Note"
-  )
-  if (txt %in% known) {
-    translated <- switch(txt,
-      Callout     = tr_("Callout"),
-      Challenge   = tr_("Challenge"),
-      Prereq      = tr_("Prerequisite"),
-      Checklist   = tr_("Checklist"),
-      Discussion  = tr_("Discussion"),
-      Testimonial = tr_("Testimonial"),
-      Keypoints   = tr_("Key Points"),
-      "Show me the solution" = tr_("Show me the solution"),
-      "Give me a hint"       = tr_("Give me a hint"),
-      "Show details"         = tr_("Show details"),
-      "Instructor Note"      = tr_("Instructor Note"),
-      txt
-    )
-    xml2::xml_set_text(heading, translated)
-  }
-  return(invisible(heading))
 }
 
 fix_setup_link <- function(nodes = NULL) {
