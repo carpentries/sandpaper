@@ -106,6 +106,70 @@ writeLines("```")
 ````
 
 
+## Storage Function Factories
+
+There are two types of storage [function
+factories](https://adv-r.hadley.nz/function-factories.html) in {sandpaper}:
+Lesson Store (`.lesson_store()`) and List Store (`.list_store()`). Both of these
+return lists of functions that access their calling environments, which are
+created when the package is loaded:
+
+### List Store
+
+The list store acts like a persistent list that has `get()` `set()`, `clear()`,
+`copy()` and `update()` methods.
+
+```{r list-store}
+library("sandpaper")
+snd <- asNamespace("sandpaper")
+this_list <- snd$.list_store()
+names(this_list)
+class(this_list)
+
+# to set a list, use a NULL key
+this_list$set(key = NULL, list(
+  A = list(first = 1),
+  B = list(
+    C = list(
+      D = letters[1:4],
+      E = sqrt(2),
+      F = TRUE
+    ),
+    G = head(sleep)
+  )
+))
+
+# get the list
+this_list$get()
+
+# copy a list so that you can preserve the original list
+that_list <- this_list$copy()
+
+# update list elements by adding to them (note: vectors will be replaced)
+that_list$update(list(A = list(platform = "MY COMPUTER")))
+that_list$get()
+
+# set nested list elements
+that_list$set(c("A", "platform"), "YOUR COMPUTER")
+
+# note that modified copies do not modify the originals
+that_list$get()[["A"]]
+this_list$get()[["A"]]
+```
+
+
+### Lesson Store
+
+This creates the object containing the `pegboard::Lesson` object and it is 
+a special object because when a lesson is set with this object, it will
+additionally set the _other_ global data (as shown below).
+
+```{r lesson-store}
+snd <- asNamespace("sandpaper")
+some_lesson <- snd$.lesson_store()
+names(some_lesson)
+```
+
 ## Example
 
 All of these metadata are collected and stored in memory before the lesson is
@@ -238,7 +302,6 @@ Now when we these variables are called, you can see the information stored in
 them:
 
 ### Lesson Storage
-
 
 ```{r store-get}
 class(snd$.store)
