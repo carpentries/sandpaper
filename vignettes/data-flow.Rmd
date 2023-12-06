@@ -131,15 +131,32 @@ create_episode_md(title = "First Example", add = TRUE, path = lsn, open = FALSE)
 ```
 
 Within {sandpaper}, there are environments that contain metadata related to the
-whole lesson called `.resources`, `instructor_globals`, `learner_globals`, and
-`this_metadata`. Before the lesson is validated, these values are empty:
+whole lesson called `.store`, `.resources`, `instructor_globals`,
+`learner_globals`, and `this_metadata`. Before the lesson is validated, these
+values are empty:
 
 ```{r globals}
+print(snd$.store$get())
 snd$.resources$get()
 snd$instructor_globals$get()
 snd$learner_globals$get()
 snd$this_metadata$get()
 ```
+
+These will contain the following information:
+
+ - `.store` a `pegboard::Lesson` object that contains the XML representation of
+   the parsed Markdown source files
+ - `.resources` a list of the availabe files used to build the lesson in the
+   order specified by `config.yaml`
+ - `instructor_globals` pre-computed global data that includes the sidebar
+   template, the syllabus, the dropdown menus, and information about the
+   packages used to build the lesson
+ - `learner_globals` same as `instructor_globals`, but specifically for learner
+   view
+ - `this_metadata` the real and computed metadata associated with the lesson
+   along with the JSON-LD template for generating the metadata in the footer of
+   the lesson.
 
 When I run `validate_lesson()` the first time, all the metadata is collected and
 parsed from the `config.yaml`, and the individual episodes and cached.
@@ -150,14 +167,92 @@ system.time(validate_lesson(lsn))
 system.time(validate_lesson(lsn))
 ```
 
+The `validate_lesson()` call will pull from the cache in `.store` if it exists
+and is valid (which means that nothing in git has changed). If it's not valid or
+does not exist, then all of the global storage is initialised in this general
+cascade:
+
+```{r vl-tree, echo = FALSE}
+funs <- c(
+  vl = "validate_lesson()", 
+  tl = "this_lesson()", 
+  sv = ".store$valid()",
+  ggd = "gert::git_diff()",
+  ggs = "gert::git_status()", 
+  ggl = "gert::git_log()", 
+  pl = "pegboard::Lesson$new()",
+  ss = ".store$set()", 
+  sg = "set_globals()",
+  srl = "set_resource_list()",
+  res = ".resources$set()",
+  grl = "get_resource_list()",
+  im = "initialise_metadata()",
+  gc = "get_config()",
+  tm = "template_metadata()",
+  tms = "this_metadata$set()",
+  cs = "create_sidebar()",
+  crd = "create_resources_dropdown()",
+  lgs = "learner_globals$set()",
+  igs = "instructor_globals$set()"
+)
+labels <- funs
+to_lab <- c("ss", "res", "tms", "lgs", "igs")
+labels[to_lab] <- cli::col_cyan(cli::style_bold(labels[to_lab]))
+vltree <- data.frame(
+  fn = funs,
+  calls = I(list(
+    vl = funs["tl"], 
+    tl = list(funs["sv"], funs["pl"], funs["ss"]), 
+    sv = list(funs["ggd"], funs["ggs"], funs["ggl"]),
+    ggd = character(0),
+    ggs = character(0),
+    ggl = character(0), 
+    pl = character(0),
+    ss = list(funs["sg"]), 
+    sg = list(funs["im"], funs["srl"], funs["cs"], funs["crd"], funs["lgs"],
+      funs["igs"]), 
+    srl = list(funs["grl"], funs["res"]),
+    res = character(0),
+    grl = list(funs["gc"]),
+    im = list(funs["gc"], funs["tm"], funs["tms"]),
+    gc = character(0),
+    tm = character(0),
+    tms = character(0),
+    cs = character(0),
+    crd = character(0),
+    lgs = character(0),
+    igs = character(0)
+    )
+  ),
+  labels = labels
+)
+cli::tree(vltree)
+```
+
+Now when we these variables are called, you can see the information stored in
+them:
 
 ```{r resources-get}
+print(snd$.store$get())
 snd$.resources$get()
 snd$instructor_globals$get()
 snd$learner_globals$get()
 snd$this_metadata$get()
-snd$get_path_site_yaml(lsn)
 ```
+
+
+### pkgdown metadata
+
+Another source of metadata is that created for the pkgdown in a file called
+`site/_pkgdown.yaml`
+
+
+```{r yaml, results="asis", echo = FALSE, comment = ""}
+writeLines("```yaml")
+writeLines(readLines(fs::path(lsn, "site", "_pkgdown.yaml")))
+writeLines("```")
+```
+
 
 
 
