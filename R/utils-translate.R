@@ -33,13 +33,12 @@ is_known_language <- function(lang = NULL, warn = FALSE) {
 }
 
 # Translations for static lesson elements happens during the `build_site()`
-# phase. The `local_envvar_pkgdown()` function is run. It should only
-# ever be run inside of another function to ensure the scope is honoured.
-local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
-  lang <- pkg$meta$template$params$lang %||% "en"
+# phase. The `set_language()` function is run. It should only ever be run
+# inside of another function to ensure the scope is honoured.
+set_language <- function(lang = NULL, scope = parent.frame()) {
+  lang <- lang %||% "en"
   is_known_language(lang, warn = TRUE)
   withr::local_envvar(
-    IN_PKGDOWN = "true",
     LANGUAGE = lang,
     .local_envir = scope
   )

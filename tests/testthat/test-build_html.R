@@ -81,7 +81,7 @@ test_that("(#536) SANDPAPER_SITE envvar works as expected", {
   expect_false(fs::file_exists(orig_profiles_instructor))
 
   # needed to ensure the global translations are implemented.
-  local_envvar_pkgdown(pkg)
+  set_language("en")
 
   # after build, only the files constrolled by the SANDPAPER_SITE envvar should
   # exist, but the ones in the default site should not exist.
@@ -107,7 +107,7 @@ test_that("[build_home()] works independently", {
   fs::file_copy(fs::path(res, "learners", "setup.md"), built_dir)
 
   # needed to ensure the global translations are implemented.
-  local_envvar_pkgdown(pkg)
+  set_language("en")
 
   build_home(pkg, quiet = TRUE,
     next_page = fs::path(res, "episodes", "introduction.Rmd")
@@ -181,9 +181,9 @@ test_that("[build_profiles()] works independently", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "profiles.html")))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "instructor", "profiles.html")))
-  
+
   # needed to ensure the global translations are implemented.
-  local_envvar_pkgdown(pkg)
+  set_language("en")
 
   build_profiles(pkg, quiet = TRUE)
   expect_true(fs::file_exists(fs::path(pkg$dst_path, "profiles.html")))
