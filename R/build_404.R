@@ -54,7 +54,7 @@ build_404 <- function(pkg, quiet = FALSE) {
   this_dat <- list(
     this_page = "404.html",
     body = html,
-    pagetitle = "Page not found"
+    pagetitle = tr_("Page not found")
   )
   page_globals$instructor$update(this_dat)
   page_globals$learner$update(this_dat)

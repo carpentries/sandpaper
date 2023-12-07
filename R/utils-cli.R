@@ -41,6 +41,18 @@ warn_schedule <- function() {
   cli::cli_end(thm)
 }
 
+warn_no_language <- function(lang) {
+  thm <- cli::cli_div(theme = sandpaper_cli_theme())
+  wmsg <- "{.code {siQuote(lang)}} is not a language that has been defined in The Workbench."
+  cli::cli_alert_warning(wmsg)
+  amsg1 <- "Use {.code known_languages()} to see a list of known languages"
+  cli::cli_alert_info(cli::style_dim(amsg1), class = "alert-suggestion")
+  amsg2 <- c("To add a new language, consult {.code vignette('translations', package = 'sandpaper')}")
+  cli::cli_alert_info(cli::style_dim(amsg2), class = "alert-suggestion")
+
+  cli::cli_end(thm)
+}
+
 show_changed_yaml <- function(sched, order, yaml, what = "episodes") {
 
   # display for the user to distinguish what was added and what was taken

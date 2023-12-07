@@ -171,6 +171,7 @@ create_pkgdown_yaml <- function(path) {
       version = siQuote(utils::packageVersion("sandpaper")),
       config  = siQuote(path_config(path)),
       title   = siQuote(usr$title),
+      lang    = if (is.null(usr$lang)) NULL else siQuote(usr$lang),
       time    = UTC_timestamp(Sys.time()),
       source  = siQuote(sub("/$", "", usr$source)),
       branch  = siQuote(usr$branch),
