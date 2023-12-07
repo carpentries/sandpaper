@@ -37,11 +37,13 @@ is_known_language <- function(lang = NULL, warn = FALSE) {
 # inside of another function to ensure the scope is honoured.
 set_language <- function(lang = NULL, scope = parent.frame()) {
   lang <- lang %||% "en"
-  is_known_language(lang, warn = TRUE)
-  withr::local_envvar(
-    LANGUAGE = lang,
-    .local_envir = scope
-  )
+  known <- is_known_language(lang, warn = TRUE)
+  if (known) {
+    withr::local_envvar(
+      LANGUAGE = lang,
+      .local_envir = scope
+    )
+  }
   add_varnish_translations()
 }
 

@@ -6,12 +6,57 @@ config$lang <- "ja"
 yaml::write_yaml(config, config_path)
 sitepath <- fs::path(tmp, "site", "docs")
 
+
+
+test_that("set_language() uses english by default", {
+
+  os <- tolower(Sys.info()[["sysname"]])
+  ver <- getRversion()
+  skip_if(os == "windows" && ver < "4.2")
+
+  # default is english
+  set_language()
+  expect_equal(tr_("OUTPUT"), "OUTPUT")
+  
+  # set to japanese and it becomes different
+  set_language("ja")
+  OUTJA <- tr_("OUTPUT")
+  expect_false(identical(OUTJA, "OUTPUT"))
+  
+  # unknown language will not switch the current language
+  suppressMessages(expect_message(set_language("xx"), "languages"))
+  expect_equal(tr_("OUTPUT"), OUTJA)
+
+  # set back to english (default)
+  set_language()
+  expect_equal(tr_("OUTPUT"), "OUTPUT")
+
+})
+
+
+test_that("is_known_language returns a warning for an unknown language", {
+
+  os <- tolower(Sys.info()[["sysname"]])
+  ver <- getRversion()
+  skip_if(os == "windows" && ver < "4.2")
+
+  expect_true(is_known_language("ja"))
+  expect_false(is_known_language("xx"))
+  suppressMessages({
+    expect_message({
+      expect_false(is_known_language("xx", warn = TRUE))
+    }, "languages", label = "is_known_language(warn = TRUE)")
+  })
+
+})
+
+
 test_that("Lessons can be translated with lang setting", {
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
+
   os <- tolower(Sys.info()[["sysname"]])
   ver <- getRversion()
-
   skip_if(os == "windows" && ver < "4.2")
 
   # Build lesson
