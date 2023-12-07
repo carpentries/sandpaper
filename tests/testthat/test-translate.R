@@ -123,7 +123,6 @@ test_that("Lessons can be translated with lang setting", {
     xml2::xml_text(solution, trim = TRUE),
     withr::with_language("ja", tr_("Show me the solution"))
   )
-  skip("We need the japanese translation for this phrase")
   expect_false(
     identical(
       xml2::xml_text(solution, trim = TRUE),
