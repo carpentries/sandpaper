@@ -40,6 +40,9 @@
     <loc>https://carpentries.github.io/sandpaper/dev/articles/toolchain.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper/dev/articles/translations.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper/dev/authors.html</loc>
   </url>
   <url>
@@ -121,6 +124,9 @@
     <loc>https://carpentries.github.io/sandpaper/dev/reference/dot-list_store.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper/dev/reference/fill_translation_vars.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper/dev/reference/fix_sidebar_href.html</loc>
   </url>
   <url>
@@ -155,6 +161,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/dev/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/dev/reference/known_languages.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/dev/reference/lesson_storage.html</loc>

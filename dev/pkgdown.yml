@@ -9,7 +9,8 @@ articles:
   automated-pull-requests: automated-pull-requests.html
   building-with-renv: building-with-renv.html
   include-child-documents: include-child-documents.html
-last_built: 2023-11-23T00:24Z
+  translations: translations.html
+last_built: 2023-12-07T19:20Z
 urls:
   reference: https://carpentries.github.io/sandpaper/reference
   article: https://carpentries.github.io/sandpaper/articles
