@@ -24,8 +24,14 @@
 
 * The {withr} package has been upgraded to an import from a suggested package.
 
+## LANGUAGES
+
+* Japanese (ja) (added: @joelnitta, #546)
+* Spanish (es) (added: @yabellini, #552)
+
 ## MISC
 
+* Added @yabellini as a contributor and translator
 * Added @joelnitta as an author and translator
 
 
