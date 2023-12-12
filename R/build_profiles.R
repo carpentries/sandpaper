@@ -13,7 +13,7 @@ build_profiles <- function(pkg, quiet) {
   this_dat <- list(
     this_page = "profiles.html",
     body = use_instructor(html),
-    pagetitle = tr_("Learner Profiles")
+    pagetitle = page_globals$instructor$get()$translate$LearnerProfiles# tr_("Learner Profiles")
   )
   page_globals$instructor$update(this_dat)
 
