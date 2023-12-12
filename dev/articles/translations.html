@@ -123,14 +123,28 @@ to {sandpaper}</em>. If not, the menu items will appear in English.</p>
 <p>This vignette is of interest to those who wish to update translations
 or add new translations. In this vignette I will provide resources for
 updating and adding new languages, the process by which translation
-happens, and I will outline special syntax used in {sandpaper}. This
-process will use the <a href="https://michaelchirico.github.io/potools/" class="external-link">{potools} package</a>,
+happens, and I will outline special syntax used in {sandpaper}. ##
+Resources</p>
+<div class="section level3">
+<h3 id="recommended-tools">Recommended Tools<a class="anchor" aria-label="anchor" href="#recommended-tools"></a>
+</h3>
+<p>To provide translations as a non-maintainer, you need only a text
+editor to add translations to the strings present in the
+<code>.po</code> translation files (see more about these files in the <a href="#translating-in-sandpaper">Translating in {sandpaper}
+section</a>.</p>
+<p>If you would like to compile and test these translations locally, you
+will need the <a href="https://michaelchirico.github.io/potools/" class="external-link">{potools} package</a>,
 which requires the <a href="https://www.gnu.org/software/gettext/" class="external-link">GNU
-gettext system</a>.</p>
+gettext system</a>. As mentioned in the <a href="https://michaelchirico.github.io/potools/#installation" class="external-link">{potools}
+installation documentation</a>, if you are on macOS, you will likely
+need to use <code>brew</code> to install <code>gettext</code> with
+<code>brew install gettext</code>, otherwise, it is bundled with RTools
+(needed for package development on Windows) and it is present on most
+Linux distributions.</p>
 </div>
-<div class="section level2">
-<h2 id="resources">Resources<a class="anchor" aria-label="anchor" href="#resources"></a>
-</h2>
+<div class="section level3">
+<h3 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h3>
 <p>The documentation for the {potools} package is a wonderful resource.
 Use <code><a href="https://michaelchirico.github.io/potools/articles/translators.html" class="external-link">vignette("translators", package = "potools")</a></code> to read
 details about what to consider when translating text in a package.
@@ -138,11 +152,14 @@ Another really good resource is <a href="https://masalmon.eu/2023/10/06/potools-
 Salmon</a> which gives a minimum working example of translating package
 messages using {potools}.</p>
 <p>If you are interested in translating <em>lesson content</em>, please
-consult tools such as Joel Nitta’s <a href="https://github.com/joelnitta/dovetail#readme" class="external-link">{dovetail}</a> for
+consult Joel Nitta’s <a href="https://hackmd.io/@joelnitta/SkCSC6ZNT#Guide-for-translators-l10n" class="external-link">Carpentries
+translation guide</a>.</p>
+<p>You can use tools such as Joel Nitta’s <a href="https://github.com/joelnitta/dovetail#readme" class="external-link">{dovetail}</a> for
 providing a method for translators to track and deploy translations of
 Carpentries lessons. You can also use rOpenSci’s <a href="https://docs.ropensci.org/babeldown/" class="external-link">{babeldown}</a>, which uses
 the DeepL API for automated translation that translators can edit
 afterwards.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="translating-in-sandpaper">Translating in {sandpaper}<a class="anchor" aria-label="anchor" href="#translating-in-sandpaper"></a>
@@ -152,21 +169,40 @@ afterwards.</p>
 templating. These variables define visible menu text such as “Key
 Points” and screen-reader accessible text for buttons such as “close
 menu”.</p>
-<p>Translating in {sandpaper}, you will be working with <code>.po</code>
-files that live in <a href="https://github.com/carpentries/sandpaper/tree/HEAD/po" class="external-link">the po/
+<p>There are 3 languages that are known to {sandpaper}:</p>
+<ul>
+<li>en</li>
+<li>es</li>
+<li>ja</li>
+</ul>
+<p>If a language is not known to {sandpaper} and a lesson attempts to
+use that language, it will default back to English (the source
+language).</p>
+<div class="section level3">
+<h3 id="the-source-files-of-translations">The source files of translations<a class="anchor" aria-label="anchor" href="#the-source-files-of-translations"></a>
+</h3>
+<p>When you translate in {sandpaper}, you will be working with
+<code>.po</code> files, which are text files that live in <a href="https://github.com/carpentries/sandpaper/tree/HEAD/po" class="external-link">the po/
 folder</a> in the source of this package. There is one <code>.po</code>
-file per language translated and the syntax looks like this, where the
+file per language translated. The syntax looks like this, where the
 first line shows the file where the translation exists, the second line
 gives the message in English, and the third line gives the
 translation:</p>
 <pre class="po"><code>#: build_404.R:57
 msgid "Page not found"
 msgstr "ページが見つかりません"</code></pre>
+<p>These files are recognised by <a href="https://michaelchirico.github.io/potools/#alternative-software" class="external-link">several
+well-established graphical user interfaces</a>, but since they are text
+files, you can edit them in any text editor or on GitHub directly.</p>
+</div>
+<div class="section level3">
+<h3 id="how-translations-are-processed-in-r">How translations are processed in R<a class="anchor" aria-label="anchor" href="#how-translations-are-processed-in-r"></a>
+</h3>
 <p>These po files are compiled into binary <code>.mo</code> files that
 are carried with the built package on to the user’s computer. These
 files are used by the R function <code><a href="https://rdrr.io/r/base/gettext.html" class="external-link">base::gettext()</a></code> to
 translate messages in a specific context. The context for {sandpaper} is
-known as <code>R-sandpaper</code>:</p>
+known as <code>R-sandpaper</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://withr.r-lib.org" class="external-link">"withr"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://carpentries.github.io/sandpaper/">"sandpaper"</a></span><span class="op">)</span></span>
@@ -190,6 +226,7 @@ known as <code>R-sandpaper</code>:</p>
 <code>tr_()</code> has been defined, so if you want to find the context
 for a given translation key, you can find it by searching the source
 code for <code>tr_</code>.</p>
+</div>
 <div class="section level3">
 <h3 id="special-syntax-for-translators">Special syntax for translators<a class="anchor" aria-label="anchor" href="#special-syntax-for-translators"></a>
 </h3>
