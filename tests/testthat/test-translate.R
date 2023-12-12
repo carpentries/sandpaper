@@ -78,6 +78,34 @@ test_that("Lessons can be translated with lang setting", {
 
   # Build lesson
   suppressMessages(build_lesson(tmp, preview = FALSE, quiet = TRUE))
+  
+  # GENERATED PAGES ------------------------------------------------
+  # Check generated page headers
+  inst_note <- xml2::read_html(fs::path(sitepath, "instructor/instructor-notes.html"))
+  h1_inst <- xml2::xml_find_first(inst_note, "//main/div/h1")
+  expect_equal(
+    xml2::xml_text(h1_inst),
+    withr::with_language("ja", tr_("Instructor Notes"))
+  )
+  expect_false(
+    identical(
+      xml2::xml_text(h1_inst),
+      withr::with_language("en", tr_("Instructor Notes"))
+    )
+  )
+  profiles <- xml2::read_html(fs::path(sitepath, "profiles.html"))
+  h1_profiles <- xml2::xml_find_first(profiles, "//main/div/h1")
+  expect_equal(
+    xml2::xml_text(h1_profiles),
+    withr::with_language("ja", tr_("Learner Profiles"))
+  )
+  expect_false(
+    identical(
+      xml2::xml_text(h1_profiles),
+      withr::with_language("en", tr_("Learner Profiles"))
+    )
+  )
+
 
   # Extract first header (Summary and Setup) from index
   xml <- xml2::read_html(fs::path(sitepath, "index.html"))
