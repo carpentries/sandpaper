@@ -23,6 +23,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Zhian N. Kamvar \email{zkamvar@carpentries.org} (\href{https://orcid.org/0000-0003-1458-7108}{ORCID})
 
+Authors:
+\itemize{
+  \item Joel H. Nitta \email{joelnitta@gmail.com} (\href{https://orcid.org/0000-0003-4719-7472}{ORCID}) [translator]
+}
+
 Other contributors:
 \itemize{
   \item Julien Colomb (\href{https://orcid.org/0000-0002-3127-5520}{ORCID}) [contributor]

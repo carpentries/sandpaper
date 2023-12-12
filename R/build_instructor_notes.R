@@ -24,7 +24,7 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
     this_dat <- list(
       this_page = "instructor-notes.html",
       body = use_instructor(html),
-      pagetitle = "Instructor Notes"
+      pagetitle = tr_("Instructor Notes")
     )
 
     page_globals$instructor$update(this_dat)
@@ -135,7 +135,7 @@ make_instructor_note_linkback <- function(node, name) {
   title <- trimws(xml2::xml_text(node))
   id <- xml2::xml_attr(node, "id")
   newid <- glue::glue("{name}-{id}")
-  anchor <- glue::glue("<a class='anchor' aria-label='anchor' href='#{newid}'></a>")
+  anchor <- glue::glue("<a class='anchor' aria-label='{tr_('anchor')}' href='#{newid}'></a>")
   new <- "<h3><a href='{name}.html#{id}'>{title}</a>{anchor}</h3>"
   node <- xml2::read_xml(glue::glue(new))
   xml2::xml_set_attr(node, "id", newid)

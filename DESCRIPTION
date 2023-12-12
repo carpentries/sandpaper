@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.15.0
+Version: 0.15.0.9000
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -44,6 +44,15 @@ Authors@R: c(
            role = c("ctb"),
            email = "milan.malfait94@gmail.com",
            comment = c(ORCID = "0000-0001-9144-3701")),
+    person(given = "Joel H.",
+           family = "Nitta",
+           role = c("aut", "trl"),
+           email = "joelnitta@gmail.com",
+           comment = c(ORCID = "0000-0003-4719-7472")),
+    person(given = "Yanina",
+           family = "Bellini Saibene",
+           role = c("ctb", "trl"),
+           comment = c(ORCID = "0000-0002-4522-7466")),
     person())
 Description: We provide tools to build a Carpentries-themed lesson repository
   into an accessible standalone static website. These include local tools and
@@ -69,6 +78,7 @@ Imports:
     renv (>= 0.14.0),
     rprojroot,
     usethis (>= 2.0.0),
+    withr,
     whisker,
     callr,
     servr,
@@ -81,7 +91,6 @@ Suggests:
     brio,
     xml2,
     xslt,
-    withr,
     jsonlite,
     sessioninfo,
     mockr,
@@ -97,6 +106,7 @@ LazyData: true
 Config/testthat/edition: 3
 Config/testthat/parallel: false
 Config/Needs/check: rstudio/renv
+Config/potools/style: explicit
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 URL: https://carpentries.github.io/sandpaper/, https://github.com/carpentries/sandpaper/, https://carpentries.github.io/workbench/

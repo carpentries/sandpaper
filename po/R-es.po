@@ -1,0 +1,368 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: sandpaper 0.15.0.9000\n"
+"POT-Creation-Date: 2023-12-06 11:03-0800\n"
+"PO-Revision-Date: 2023-12-06 11:03-0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: build_404.R:57
+msgid "Page not found"
+msgstr "Página no encontrada"
+
+#: build_aio.R:6
+msgid "All in One View"
+msgstr "Todo en una sola página"
+
+#: build_episode.R:134 utils-translate.R:82
+msgid "Home"
+msgstr "Inicio"
+
+#: build_home.R:49 utils-translate.R:195 utils-varnish.R:87
+msgid "Summary and Schedule"
+msgstr "Resumen y agenda"
+
+#: build_home.R:58 utils-translate.R:191 utils-varnish.R:95
+msgid "Summary and Setup"
+msgstr "Resumen y configuración"
+
+#: build_home.R:100
+msgid "Finish"
+msgstr "Final"
+
+#: build_images.R:6
+msgid "All Images"
+msgstr "Todas las imágenes"
+
+#: build_images.R:49
+msgid "Figure {element}"
+msgstr "Figura {element}"
+
+#: build_images.R:60
+msgid "Image {i} of {n}: {sQuote(txt)}"
+msgstr "Imagen {i} de {n}: {sQuote(txt)}"
+
+#: build_instructor_notes.R:27 utils-translate.R:72
+msgid "Instructor Notes"
+msgstr "Notas de la instructora"
+
+#: build_keypoints.R:6 utils-translate.R:71 utils-translate.R:173
+msgid "Key Points"
+msgstr "Puntos Clave"
+
+#: build_profiles.R:16 utils-translate.R:74
+msgid "Learner Profiles"
+msgstr "Perfiles de estudiante"
+
+#: utils-translate.R:56
+msgid "Skip to main content"
+msgstr "Ir al contenido principal"
+
+#: utils-translate.R:57
+msgid "Pre-Alpha"
+msgstr "Pre-Alfa"
+
+#: utils-translate.R:58
+msgid ""
+"This lesson is in the pre-alpha phase, which means that it is in early "
+"development, but has not yet been taught."
+msgstr "Esta lección se encuentra en la fase pre-alfa, lo que significa que está en las primeras "
+"etapas de desarrollo, pero aún no se ha enseñado."
+
+#: utils-translate.R:59
+msgid ""
+"This lesson is in the alpha phase, which means that it has been taught once "
+"and lesson authors are iterating on feedback."
+msgstr ""
+"Esta lección se encuentra en la fase alfa, lo que significa que se ha enseñado una ves"
+"y las autoras de la lección están trabajando en los comentarios."
+#: utils-translate.R:60
+msgid "Alpha"
+msgstr "Alfa"
+
+#: utils-translate.R:61
+msgid ""
+"This lesson is in the beta phase, which means that it is ready for teaching "
+"by instructors outside of the original author team."
+msgstr ""
+"Esta lección se encuentra en la fase beta, lo que significa que está lista para enseñar"
+"por instructoras que no son parte del equipo original de autoras"
+#: utils-translate.R:62
+msgid "Beta"
+msgstr "Beta"
+
+#: utils-translate.R:63
+msgid "This lesson has passed peer review."
+msgstr "Esta lección pasó la revisión por pares."
+
+#: utils-translate.R:64
+msgid "Instructor View"
+msgstr "Vista de la instructora"
+
+#: utils-translate.R:65
+msgid "Learner View"
+msgstr "Vista de estudiante"
+
+#: utils-translate.R:66
+msgid "Main Navigation"
+msgstr "Navegación principal"
+
+#: utils-translate.R:67
+msgid "Toggle Navigation"
+msgstr "Alternar navegación"
+
+#: utils-translate.R:68
+msgid "Menu"
+msgstr "Menú"
+
+#: utils-translate.R:69
+msgid "search button"
+msgstr "botón de buscar"
+
+#: utils-translate.R:70
+msgid "Setup"
+msgstr "Configuración"
+
+#: utils-translate.R:73
+msgid "Glossary"
+msgstr "Glosario"
+
+#: utils-translate.R:75
+msgid "More"
+msgstr "Más"
+
+#: utils-translate.R:76
+msgid "Search"
+msgstr "Buscar"
+
+#: utils-translate.R:77
+msgid "Lesson Progress"
+msgstr "Progreso de la lección"
+
+#: utils-translate.R:80
+msgid "close menu"
+msgstr "Cerrar menú"
+
+#: utils-translate.R:81
+msgid "EPISODES"
+msgstr "EPISODIOS"
+
+#: utils-translate.R:83
+msgid "Home Page Navigation"
+msgstr "Navegación de la página de inicio"
+
+#: utils-translate.R:84
+msgid "RESOURCES"
+msgstr "RECURSOS"
+
+#: utils-translate.R:85
+msgid "Extract All Images"
+msgstr "Extraer todas las imágenes"
+
+#: utils-translate.R:86
+msgid "See all in one page"
+msgstr "Todo en una sola página"
+
+#: utils-translate.R:87
+msgid "Download Lesson Handout"
+msgstr "Descargar el material de la lección"
+
+#: utils-translate.R:88
+msgid "Export Chapter Slides"
+msgstr "Exportar las diapositivas del capítulo"
+
+#: utils-translate.R:91
+msgid "Previous and Next Chapter"
+msgstr "Capítulo previo y siguiente"
+
+#: utils-translate.R:92
+msgid "Previous"
+msgstr "Previo"
+
+#: utils-translate.R:93
+msgid "Estimated time: {icons$clock} {minutes} minutes"
+msgstr "Tiempo estimado: {icons$clock} {minutes} minutos"
+
+#: utils-translate.R:94
+msgid "Next"
+msgstr "Siguiente"
+
+#: utils-translate.R:95
+msgid "Next Chapter"
+msgstr "Capítulo Siguiente"
+
+#: utils-translate.R:96
+msgid "Last updated on {updated}"
+msgstr "Última actualización: {updated}"
+
+#: utils-translate.R:97
+msgid "Edit this page"
+msgstr "Mejora esta página"
+
+#: utils-translate.R:98 utils-translate.R:122
+msgid "Expand All Solutions"
+msgstr "Mostrar todas las soluciones"
+
+#: utils-translate.R:101
+msgid "Setup Instructions"
+msgstr "Configuración"
+
+#: utils-translate.R:102
+msgid "Download files required for the lesson"
+msgstr "Descargar los archivos necesarios para la lección"
+
+#: utils-translate.R:103
+msgid ""
+"The actual schedule may vary slightly depending on the topics and exercises "
+"chosen by the instructor."
+msgstr "El horario real puede variar ligeramente dependiendo de los temas y "
+"ejercicios elegidos por la instructora."
+
+#: utils-translate.R:106
+msgid "Back To Top"
+msgstr "Volver al inicio"
+
+#: utils-translate.R:107
+msgid "<(Back)> To Top"
+msgstr "<(Volver)> al inicio"
+
+#: utils-translate.R:108
+msgid "This lesson is subject to the <(Code of Conduct)>"
+msgstr "Esta lección está sujeta al <(Código de Conducta)>"
+
+#: utils-translate.R:109
+msgid "Code of Conduct"
+msgstr "Código de Conducta"
+
+#: utils-translate.R:110
+msgid "Edit on GitHub"
+msgstr "Editar en GitHub"
+
+#: utils-translate.R:111
+msgid "Contributing"
+msgstr "Contribuir"
+
+#: utils-translate.R:112
+msgid "Source"
+msgstr "Fuente"
+
+#: utils-translate.R:113
+msgid "Cite"
+msgstr "Cita"
+
+#: utils-translate.R:114
+msgid "Contact"
+msgstr "Contacto"
+
+#: utils-translate.R:115
+msgid "About"
+msgstr "Acerca de"
+
+#: utils-translate.R:116
+msgid "Materials licensed under {license} by {authors}"
+msgstr "Materiales bajo la {license} por {authors}"
+
+#: utils-translate.R:117
+msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
+msgstr "Plantilla compartida bajo <(CC-BY 4.0)> por {template_authors}"
+
+#: utils-translate.R:118
+msgid "The Carpentries"
+msgstr "The Carpentries"
+
+#: utils-translate.R:119
+msgid "Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}"
+msgstr "Construido con {sandpaper_link}, {pegboard_link} y {varnish_link}"
+
+#: utils-translate.R:123
+msgid "Collapse All Solutions"
+msgstr "Cerrar todas las soluciones"
+
+#: utils-translate.R:124
+msgid "Collapse"
+msgstr "Cerrar"
+
+#: utils-translate.R:125
+msgid "Episodes"
+msgstr "Episodios"
+
+#: utils-translate.R:128
+msgid "Give Feedback"
+msgstr "Dar feedback"
+
+#: utils-translate.R:129
+msgid "Learn More"
+msgstr "Aprender más"
+
+#: utils-translate.R:158
+msgid "OUTPUT"
+msgstr "SALIDA"
+
+#: utils-translate.R:159
+msgid "WARNING"
+msgstr "ADVERTENCIA"
+
+#: utils-translate.R:160
+msgid "ERROR"
+msgstr "ERROR"
+
+#: utils-translate.R:167
+msgid "Callout"
+msgstr "Aviso"
+
+#: utils-translate.R:168
+msgid "Challenge"
+msgstr "Desafío"
+
+#: utils-translate.R:169
+msgid "Prerequisite"
+msgstr "Pre requisito"
+
+#: utils-translate.R:170
+msgid "Checklist"
+msgstr "Lista de verificación"
+
+#: utils-translate.R:171
+msgid "Discussion"
+msgstr "Discusión"
+
+#: utils-translate.R:172
+msgid "Testimonial"
+msgstr "Testimonio"
+
+#: utils-translate.R:178
+msgid "Show me the solution"
+msgstr "Mostrar la solución"
+
+#: utils-translate.R:179
+msgid "Give me a hint"
+msgstr "Dar una pista"
+
+#: utils-translate.R:180
+msgid "Show details"
+msgstr "Mostrar detalles"
+
+#: utils-translate.R:181
+msgid "Instructor Note"
+msgstr "Notas de la instructora"
+
+#: utils-xml.R:134
+msgid "anchor"
+msgstr "anclaje"
+
+#: utils-xml.R:161
+msgid "Questions"
+msgstr "Preguntas"
+
+#: utils-xml.R:162
+msgid "Objectives"
+msgstr "Objetivos"
+
+#: utils-xml.R:163
+msgid "Overview"
+msgstr "Hoja de ruta"

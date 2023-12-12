@@ -107,6 +107,60 @@ test_that("setup links with anchors are respected", {
 })
 
 
+test_that("code block languages are in the correct order", {
+
+  # SETUP ---------------------------------------------------
+  html <- '<div class="sourceCode" id="cb1">
+  <pre class="sourceCode bash">
+  <code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">shello</span></span>
+  </code>
+  </pre>
+  </div>
+  <div class="sourceCode" id="cb2">
+  <pre class="sourceCode r">
+  <code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>letters</span>
+  </code>
+  </pre>
+  </div>'
+  
+  nodes <- xml2::read_html(html)
+  
+  # ABSENCE TESTS -------------------------------------------
+  # By default, there are no h3 headings
+  expect_length(xml2::xml_find_all(nodes, ".//h3"), 0L)
+  xpath_codewrap <- ".//div[@class='codewrapper sourceCode']"
+  expect_length(xml2::xml_find_all(nodes, xpath_codewrap), 0L)
+  xpath_pre_tabindex <- ".//pre[@tabindex]"
+  expect_length(xml2::xml_find_all(nodes, xpath_pre_tabindex), 0L)
+  
+  fix_codeblocks(nodes)
+  
+  # PRESENCE TESTS ------------------------------------------
+  expect_length(xml2::xml_find_all(nodes, ".//h3"), 2L)
+  expect_length(xml2::xml_find_all(nodes, xpath_codewrap), 2L)
+  expect_length(xml2::xml_find_all(nodes, xpath_pre_tabindex), 2L)
+
+  # after fixing, the h3 headings should be in the correct order
+  heading_text <- xml2::xml_text(xml2::xml_find_all(nodes, ".//h3"))
+  expect_equal(heading_text, c("BASH", "R"))
+
+  # divs now have two children
+  first_div <- xml2::xml_find_first(nodes, ".//div")
+  expect_equal(xml2::xml_name(xml2::xml_children(first_div)), c("h3", "pre"))
+
+  # the first pre block is a child of the first div
+  first_pre <- xml2::xml_find_first(nodes, ".//pre")
+  # the parent is _identical_ to the first_div because of how the xml2 package
+  # works
+  expect_identical(xml2::xml_parent(first_pre), first_div)
+  expect_equal(xml2::xml_attr(first_pre, "class"), "sourceCode bash")
+  # a tabindex attribute is added
+  expect_equal(xml2::xml_attr(first_pre, "tabindex"), "0")
+
+})
+
+
+
 test_that("empty args result in nothing happening", {
   expect_null(fix_nodes())
   expect_null(fix_setup_link())

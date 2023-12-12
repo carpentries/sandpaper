@@ -3,7 +3,7 @@ build_aio <- function(pkg, pages = NULL, quiet = FALSE) {
   build_agg_page(
     pkg = pkg,
     pages = pages,
-    title = "All in One View",
+    title = tr_("All in One View"),
     slug = "aio",
     aggregate = "*",
     prefix = TRUE,

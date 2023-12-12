@@ -1,0 +1,443 @@
+---
+title: "Data and Flow from Source to Website"
+author: "Zhian N. Kamvar"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data and Flow from Source to Website}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "##"
+)
+```
+
+## Introduction
+
+This is a vignette that is designed for R package developers who are looking to
+understand how the data flows between the lesson source and the final website.
+I am assuming that the person reading this has familiarity with 
+[R packaging](https://r-pkgs.org/) and [R
+environments](https://r-pkgs.org/data.html#sec-data-state).
+
+One of the design philosophies of The Workbench is that if a lesson author or
+contributor would like to add any sort of metadata or modify a setting in any
+given lesson, they can do so by editing the source of the lesson with no need to
+modify their workflow.
+
+### A note about the design
+
+The design of this is very much PDD (panic-driven design). I was okay with
+wracking up technical debt because I knew that I could go back and refactor once
+I got it released. If I had a chance to go back and refactor, I would gladly do
+so. The creation of muliple storage objects using function factories was what I
+knew at the time. I now know that it might be better to use global environments
+instead. The implementation of this was originally done in [pull request
+#248](https://github.com/carpentries/sandpaper/pull/248), which was trying to
+deduplicate code after the release of version 0.1.0, which was a massive push
+after finally getting the new website layout. 
+
+The flow of data I lay out here could all live in the same package-level
+environment (or even a package-level R6 object) instead of being implemented as
+function factories, but that's a refactor for another day and another
+maintainer. 
+
+### Two Sources of Metadata
+
+Metadata is different from content because, while it is not directly related to
+the content, it has extra information that helps the users of the site navigate
+the content. For example, each episode page has three piece of metadata
+embedded as a YAML list at the top of the source file that defines the title
+along with estimated time for teaching and excercises.
+
+```yaml
+title: "Introduction"
+teaching: 5
+exercises: 5
+```
+
+In terms of the lesson itself, metadata that is related to the whole lesson is
+stored in `config.yaml`. This YAML file is designed to be as flat as possible to
+avoid common problems with writing YAML. Metadata here include things like the
+title of the Lesson, the source page of the lesson, the time it was created, and
+the lesson program it belongs to.
+
+```yaml
+title: "An Example Lesson"
+carpentry: "incubator"
+created: "2023-11-27"
+life-cycle: "pre-alpha"
+```
+
+It also defines optional parameters such as the order of the episodes and other content that can be used to customise how the lesson is built.
+
+```yaml
+episodes:
+ - introduction.md
+ - first-example.md
+
+handout: true
+```
+
+The thing to know about this metdata and these variables is that they all get
+passed to {varnish} and are used to control how the lesson website is built
+along with the metadata.
+
+### An introduction to `{varnish}`
+
+In order to understand how to pass data from `config.yaml` to {varnish}, it is
+important to first understand the paradigm of how {sandpaper} and {varnish} work
+together to produce a lesson website. Behind the scenes, we build markdown with
+{knitr}, render the raw HTML with Pandoc and then use {pkgdown} to insert the
+HTML and metadata into a template (written in [the logicless templating
+language, Mustache](https://mustache.github.io/mustache.5.html)) that can be
+updated and modified independently of {sandpaper}. This template is called
+{varnish}.
+
+In the paradigm of {pkgdown}, the HTML template is split up into different
+components that are rendered separately and then combined into a single layout
+template. For example, here is the template that defines the layout:
+
+````{r varnish-template-layout, echo = FALSE, results = "asis"}
+writeLines("```html")
+tplt <- system.file("pkgdown", "templates", "layout.html", package = "varnish")
+writeLines(readLines(tplt))
+writeLines("```")
+````
+
+You can see that it contains `{{{ head }}}`, `{{{ header }}}`, `{{{ navbar }}}`,
+`{{{ content }}}` and `{{{ footer }}}`. These are all the results of the other
+rendered templates. For example, here's the `head.html` template, which defines
+the content that goes in the HTML `<head>` tag (defining titles, metadata, 
+stylesheets, and JavaScript):
+
+````{r varnish-template-head, echo = FALSE, results = "asis"}
+writeLines("```html")
+tplt <- system.file("pkgdown", "templates", "head.html", package = "varnish")
+writeLines(readLines(tplt))
+writeLines("```")
+````
+
+The templates used by {varnish} will take metadata from one of two sources:
+
+1. a `_pkgdown.yaml` file that defines global metadata like language (see the
+   [pkgdown metadata section](#pkgdown-metadata) for details.
+2. a list of values passed to the `pkgdown::render_page()` function. These
+   values can be both global and local. 
+
+These get inserted into the template via the `pkgdown::render_page()` function
+where the contents of the `_pkgdown.yaml` file are inserted into the data list
+as `$yaml`.
+
+The challenge for {sandpaper} is this: when we have a list of per-lesson global
+variables that need to be allocated when `build_lesson()` is run and per-file
+variables that need to be allocated before every call to `build_html()`.
+
+The solution that we've come up with is to store these lists in environments
+that are encapsulated by function factories, which are detailed in the next
+section.
+
+## Storage Function Factories
+
+There are two types of storage [function
+factories](https://adv-r.hadley.nz/function-factories.html) in {sandpaper}:
+Lesson Store (`.lesson_store()`) and List Store (`.list_store()`). Both of these
+return lists of functions that access their calling environments, which are
+created when the package is loaded:
+
+### List Store
+
+The list store acts like a persistent list that has `get()` `set()`, `clear()`,
+`copy()` and `update()` methods.
+
+```{r list-store}
+snd <- asNamespace("sandpaper")
+this_list <- snd$.list_store()
+names(this_list)
+class(this_list)
+
+# to set a list, use a NULL key
+this_list$set(key = NULL, list(
+  A = list(first = 1),
+  B = list(
+    C = list(
+      D = letters[1:4],
+      E = sqrt(2),
+      F = TRUE
+    ),
+    G = head(sleep)
+  )
+))
+
+# get the list
+this_list$get()
+
+# copy a list so that you can preserve the original list
+that_list <- this_list$copy()
+
+# update list elements by adding to them (note: vectors will be replaced)
+that_list$update(list(A = list(platform = "MY COMPUTER")))
+that_list$get()
+
+# set nested list elements
+that_list$set(c("A", "platform"), "YOUR COMPUTER")
+
+# note that modified copies do not modify the originals
+that_list$get()[["A"]]
+this_list$get()[["A"]]
+```
+
+### Lesson Store
+
+This creates the object containing the `pegboard::Lesson` object, that we can
+use to extract episode-specific metadata along with the text of the questions.
+It is a special object because when a lesson is set with this object, it will
+additionally set the _other_ global data.
+
+When {sandpaper} is loaded, the List Store and Lesson Store objects are created
+and live in the {sandpaper} namespace as long as the session is active. 
+
+```{r lesson-store}
+snd <- asNamespace("sandpaper")
+some_lesson <- snd$.lesson_store()
+names(some_lesson)
+```
+
+## Example
+
+All of these metadata are collected and stored in memory before the lesson is
+built (triggered during `validate_lesson()`), which are accessible via the
+objects defined by the internal `sandpaper:::set_globals()`. Here I will set
+up an example lesson that I will use to demonstrate these global variables. 
+Please note that I will be using internal functions in this demonstration. These
+internal functions are not guaranteed to be stable outside of the context of
+{sandpaper}. Using the `asNamespace("sandpaper")` function allows me to create
+a method for accessing the internal functions:
+
+```{r create-namespace-example, message = FALSE}
+library("sandpaper")
+snd <- asNamespace("sandpaper")
+```
+
+```{r, create-example, message = FALSE}
+# create a new lesson
+lsn <- create_lesson(tempfile(), name = "An Example Lesson", 
+  rstudio = TRUE, open = FALSE, rmd = FALSE)
+# add a new episode
+create_episode_md(title = "First Example", add = TRUE, path = lsn, open = FALSE)
+```
+
+Within {sandpaper}, there are environments that contain metadata related to the
+whole lesson called `.store`, `.resources`, `instructor_globals`,
+`learner_globals`, and `this_metadata`. Before the lesson is validated, these
+values are empty:
+
+```{r globals-empty}
+snd <- asNamespace("sandpaper")
+class(snd$.store)
+print(snd$.store$get())
+class(snd$this_metadata)
+snd$this_metadata$get()
+class(snd$.resources)
+snd$.resources$get()
+class(snd$instructor_globals)
+snd$instructor_globals$get()
+class(snd$learner_globals)
+snd$learner_globals$get()
+```
+
+These will contain the following information:
+
+ - `.store` a `pegboard::Lesson` object that contains the XML representation of
+   the parsed Markdown source files
+ - `this_metadata` the real and computed metadata associated with the lesson
+   along with the JSON-LD template for generating the metadata in the footer of
+   the lesson.
+ - `.resources` a list of the availabe files used to build the lesson in the
+   order specified by `config.yaml`
+ - `instructor_globals` pre-computed global data that includes the sidebar
+   template, the syllabus, the dropdown menus, and information about the
+   packages used to build the lesson
+ - `learner_globals` same as `instructor_globals`, but specifically for learner
+   view
+
+When I run `validate_lesson()` the first time, all the metadata is collected and
+parsed from the `config.yaml`, and the individual episodes and cached.
+
+```{r validate}
+# first run is always longer than the second
+system.time(validate_lesson(lsn))
+system.time(validate_lesson(lsn))
+```
+
+The `validate_lesson()` call will pull from the cache in `.store` if it exists
+and is valid (which means that nothing in git has changed). If it's not valid or
+does not exist, then all of the global storage is initialised in this general
+cascade:
+
+```{r vl-tree, echo = FALSE, eval = getRversion() >= "4.0"}
+funs <- c(
+  vl = "validate_lesson()", 
+  tl = "this_lesson()", 
+  sv = ".store$valid()",
+  ggd = "gert::git_diff()",
+  ggs = "gert::git_status()", 
+  ggl = "gert::git_log()", 
+  pl = "pegboard::Lesson$new()",
+  ss = ".store$set()", 
+  sg = "set_globals()",
+  srl = "set_resource_list()",
+  res = ".resources$set()",
+  grl = "get_resource_list()",
+  im = "initialise_metadata()",
+  gc = "get_config()",
+  tm = "template_metadata()",
+  tms = "this_metadata$set()",
+  cs = "create_sidebar()",
+  crd = "create_resources_dropdown()",
+  lgs = "learner_globals$set()",
+  igs = "instructor_globals$set()"
+)
+labels <- funs
+to_lab <- c("ss", "res", "tms", "lgs", "igs")
+labels[to_lab] <- cli::col_cyan(cli::style_bold(labels[to_lab]))
+vltree <- data.frame(
+  fn = funs,
+  calls = I(list(
+    vl = funs["tl"], 
+    tl = list(funs["sv"], funs["pl"], funs["ss"]), 
+    sv = list(funs["ggd"], funs["ggs"], funs["ggl"]),
+    ggd = character(0),
+    ggs = character(0),
+    ggl = character(0), 
+    pl = character(0),
+    ss = list(funs["sg"]), 
+    sg = list(funs["im"], funs["srl"], funs["cs"], funs["crd"], funs["lgs"],
+      funs["igs"]), 
+    srl = list(funs["grl"], funs["res"]),
+    res = character(0),
+    grl = list(funs["gc"]),
+    im = list(funs["gc"], funs["tm"], funs["tms"]),
+    gc = character(0),
+    tm = character(0),
+    tms = character(0),
+    cs = character(0),
+    crd = character(0),
+    lgs = character(0),
+    igs = character(0)
+    )
+  ),
+  labels = labels
+)
+cli::tree(vltree)
+```
+
+Now when we these variables are called, you can see the information stored in
+them.
+
+## Lesson Storage
+
+This function stores the `pegboard::Lesson` object and is responsible for
+initialising and resetting the variable cache. 
+
+```{r store-get}
+snd <- asNamespace("sandpaper")
+class(snd$.store)
+print(snd$.store$get())
+```
+
+We can check if the cache needs to be reset by using the `$valid()` function
+inside this object, which checks the git log, git status, and git diff as a
+global check of the lesson contents. When nothing changes, it returns TRUE:
+
+```{r store-valid}
+snd$.store$valid(lsn)
+```
+
+However, if we update the lesson contents in some way by setting a config
+variable, it will be `FALSE`, indicating that it needs to be reset:
+
+```{r store-invald}
+set_config(c(handout = TRUE), path = lsn, write = TRUE, create = TRUE)
+snd$.store$valid(lsn)
+snd$.store$set(lsn)
+snd$.store$valid(lsn)
+```
+
+## Metadata
+
+The metadata is used to store the content of `config.yaml` and to provide
+computed metadata for a lesson that is included in the footer as a JSON-LD
+object, which is useful for indexing. Note that this metadata must be
+duplicated for each page to give the correct URL and identifiers. 
+
+```{r metadata}
+snd <- asNamespace("sandpaper")
+snd$this_metadata$get()
+```
+
+This metadata is rendered as JSON-LD and passed as a new variable to {varnish}
+using the internal `fill_metadata_template()` function:
+
+```{r fill-metadata}
+writeLines(snd$fill_metadata_template(snd$this_metadata))
+```
+
+## Lesson Resources (files)
+
+The next thing that we store globally are the resources we use to build the
+lesson. This allows us to avoid needing to constantly read the file system:
+
+```{r resources-get}
+snd <- asNamespace("sandpaper")
+snd$.resources$get()
+```
+
+## Global and Local Variables
+
+The rest are global and local variables that are recorded in the
+`instructor_globals` and `learner_globals`. These are copied for each page and
+updated with local data (e.g. the sidebar needs to include headings for the
+current page). 
+
+```{r globals}
+snd$instructor_globals$get()
+snd$learner_globals$get()
+```
+
+
+## pkgdown metadata
+
+Another source of metadata is that created for the pkgdown in a file called
+`site/_pkgdown.yaml`. 
+
+```{r yaml, results="asis", echo = FALSE, comment = ""}
+writeLines("```yaml")
+writeLines(readLines(fs::path(lsn, "site", "_pkgdown.yaml")))
+writeLines("```")
+```
+
+This file is what allows {pkgdown} to recognise that a website needs to be
+built. These variables are compiled into the `pkg` variable that is passed to
+all downstream files from `build_site()`:
+
+```{r pkgdown}
+snd <- asNamespace("sandpaper")
+pkg <- pkgdown::as_pkgdown(snd$path_site(lsn))
+pkg
+```
+
+Before being sent to be rendered, it goes through one more transformation, which
+is where the variable contexts you find in {varnish} come from. The contexts
+that we use are `site` for the root path and title, `yaml` for lesson-wide
+content, and `lang` to define the language. Everything else is not used.
+
+```{r data-template}
+dat <- pkgdown::data_template(pkg)
+writeLines(yaml::as.yaml(dat[c("lang", "site", "yaml")]))
+```
+
+

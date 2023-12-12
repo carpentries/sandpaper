@@ -1,3 +1,40 @@
+# sandpaper 0.15.0.9000 (unreleased)
+
+## NEW FEATURES
+
+* It is now possible to build lessons in languages other than English so that
+  the website elements are also localised to that language (reported: @zkamvar,
+  #205, @joelnitta, #544; fixed: @joelnitta and @zkamvar, #546). 
+* `known_languages()` is a function that will return the language codes that are
+  known by {sandpaper}. 
+
+## DOCUMENTATION
+
+* A new vignette `vignette("translation", package = "sandpaper")` describes how
+  translation of template components works and how to submit new/update
+  translations.
+
+## BUG FIX
+
+* The spelling of keypoints is now consistent between the menu item and the
+  callout blocks (reported: @clarallebot, 
+  https://github.com/carpentries/workbench/issues/44; fixed: @zkamvar, #546)
+
+## DEPENDENCIES
+
+* The {withr} package has been upgraded to an import from a suggested package.
+
+## LANGUAGES
+
+* Japanese (ja) (added: @joelnitta, #546)
+* Spanish (es) (added: @yabellini, #552)
+
+## MISC
+
+* Added @yabellini as a contributor and translator
+* Added @joelnitta as an author and translator
+
+
 # sandpaper 0.15.0 (2023-11-29)
 
 ## NEW FEATURES
