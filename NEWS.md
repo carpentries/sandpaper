@@ -12,7 +12,10 @@
 
 * A new vignette `vignette("translation", package = "sandpaper")` describes how
   translation of template components works and how to submit new/update
-  translations.
+  translations (added: @zkamvar, #546).
+- A new vignette about data flow `vignette("data-flow", package = "sandpaper")`
+  describes how templating, translations, and lesson metadata flows from
+  {sandpaper} to {varnish} (added: @zkamvar, #553)
 
 ## BUG FIX
 
