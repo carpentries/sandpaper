@@ -34,6 +34,23 @@ test_that("set_language() uses english by default", {
 })
 
 
+test_that("set_language() can use country codes", {
+
+  os <- tolower(Sys.info()[["sysname"]])
+  ver <- getRversion()
+  skip_if(os == "windows" && ver < "4.2")
+
+  expect_silent(set_language("es_AR"))
+  OUTAR <- tr_("OUTPUT")
+  expect_false(identical(OUTAR, "OUTPUT"))
+
+  # the country codes will fall back to language code if they don't exist
+  expect_silent(set_language("es"))
+  expect_equal(tr_("OUTPUT"), OUTAR)
+  
+})
+
+
 test_that("is_known_language returns a warning for an unknown language", {
 
   os <- tolower(Sys.info()[["sysname"]])
@@ -65,6 +82,7 @@ test_that("Lessons can be translated with lang setting", {
   # Extract first header (Summary and Setup) from index
   xml <- xml2::read_html(fs::path(sitepath, "index.html"))
   h1_header <- xml2::xml_find_all(xml, "//h1[@class='schedule-heading']")
+  nav_links <- xml2::xml_find_all(xml, "//a[starts-with(@class,'nav-link')]")
 
   # language should be set to japanese
   expect_equal(xml2::xml_attr(xml, "lang"), "ja")
@@ -76,6 +94,21 @@ test_that("Lessons can be translated with lang setting", {
       withr::with_language("ja", tr_("Summary and Setup"))
     )
   )
+  # Navbar has expected text
+  expect_equal(
+    xml2::xml_text(nav_links),
+    withr::with_language("ja", 
+      c(tr_("Key Points"), tr_("Glossary"), tr_("Learner Profiles"))
+    )
+  )
+  expect_false(
+    identical(
+      xml2::xml_text(nav_links),
+      withr::with_language("en", 
+        c(tr_("Key Points"), tr_("Glossary"), tr_("Learner Profiles"))
+      )
+    )
+  )
 
   # Header should no longer be in English
   expect_false(
@@ -84,7 +117,7 @@ test_that("Lessons can be translated with lang setting", {
       withr::with_language("en", tr_("Summary and Setup"))
     )
   )
-
+  
   # aria labels should be translated
   arias <- c("Main Navigation", "Toggle Navigation", "Search", "search button",
     "Lesson Progress", "close menu", "Next Chapter", "anchor", "Back To Top")
@@ -100,6 +133,23 @@ test_that("Lessons can be translated with lang setting", {
   # Episode elements -------------------------------------------------
   # We use here the Instructor view because it is more fully featured
   xml <- xml2::read_html(fs::path(sitepath, "instructor", "introduction.html"))
+  nav_links <- xml2::xml_find_all(xml, "//a[starts-with(@class,'nav-link')]")
+
+  # navbar has expected text
+  expect_equal(
+    xml2::xml_text(nav_links),
+    withr::with_language("ja", 
+      c(tr_("Key Points"), tr_("Instructor Notes"), tr_("Extract All Images"))
+    )
+  )
+  expect_false(
+    identical(
+      xml2::xml_text(nav_links),
+      withr::with_language("en", 
+        c(tr_("Key Points"), tr_("Instructor Notes"), tr_("Extract All Images"))
+      )
+    )
+  )
 
   # overview, objectives, and questions
   overview_card <- xml2::xml_find_first(xml, ".//div[@class='overview card']")
