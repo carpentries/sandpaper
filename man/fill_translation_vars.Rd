@@ -20,7 +20,7 @@ Apply template items to translated strings
 \details{
 There are two kinds of templating we use:
 \enumerate{
-\item variable templating indicated by \verb{\{\% key \%\}} where \code{key} represents a
+\item variable templating indicated by \code{{key}} where \code{key} represents a
 variable that exists within the global data and is replaced.
 \item link templating indicated by \verb{<(text to wrap)>} where we replace the
 \verb{<()>} with a known URL or HTML markup. This allows the translators to
@@ -35,9 +35,9 @@ dat <- list(
   minutes = 5,
   translate = list(
      one = "a normal translated string (pretend it's translated from another language)",
-     two = "a question: are you (A) {\% a \%}, (B) {\% b \%}",
-     EstimatedTime = "Estimated time: {\% icons$clock \%} {\% minutes \%}",
-     license = "Licensed under {\% license \%} by {\% authors \%}",
+     two = "a question: are you (A) {a}, (B) {b}",
+     EstimatedTime = "Estimated time: {icons$clock} {minutes}",
+     license = "Licensed under {license} by {authors}",
      ThisLessonCoC = "This lesson operates under our <(Code of Conduct)>"
   )
 )

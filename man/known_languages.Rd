@@ -21,6 +21,7 @@ details of how to do so in the source code for {sandpaper}.
 \subsection{List of Known Languages:}{
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> - en
+#> - es
 #> - ja
 }\if{html}{\out{</div>}}
 }

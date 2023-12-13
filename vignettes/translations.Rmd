@@ -34,6 +34,9 @@ code](https://www.gnu.org/software/gettext/manual/html_node/Country-Codes.html)
 (e.g. "pt_BR" specifies Pourtugese used in Brazil). For more information on how
 this is used, see [the Locale Names section of the gettext
 manual](https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html).
+If there is country-specific variation for a language that needs to be added,
+it is not necessary to re-translate everything that is identical in the original
+language file---you only need to translate what is different.
 
 Setting the `lang:` keyword will allow the lesson navigational elements of the
 website template to be presented in the same language as the lesson content _if
@@ -43,7 +46,9 @@ in English.
 This vignette is of interest to those who wish to update translations or add new
 translations. In this vignette I will provide resources for updating and adding
 new languages, the process by which translation happens, and I will outline
-special syntax used in {sandpaper}. ## Resources
+special syntax used in {sandpaper}. 
+
+## Resources
 
 ### Recommended Tools
 
