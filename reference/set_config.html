@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.15.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.16.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,6 +27,7 @@
     <a class="dropdown-item" href="../articles/building-with-renv.html">Building Lessons With A Package Cache</a>
     <a class="dropdown-item" href="../articles/automated-pull-requests.html">Working with Automated Pull Requests</a>
     <a class="dropdown-item" href="../articles/include-child-documents.html">Including Child Documents</a>
+    <a class="dropdown-item" href="../articles/translations.html">Translating The Workbench</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
@@ -111,7 +112,13 @@ information about the lesson</p></li>
 <h3 id="optional-keypairs-known-by-sandpaper">Optional Keypairs Known by Sandpaper<a class="anchor" aria-label="anchor" href="#optional-keypairs-known-by-sandpaper"></a></h3>
 
 
-<p>The following keypairs are known by sandpaper, but are optional:</p><ul><li><p><strong>url</strong> <code>[character]</code> custom URL if you are deploying to a URL that is not
+<p>The following keypairs are known by sandpaper, but are optional:</p><ul><li><p><strong>lang</strong> <code>[character]</code> the <a href="https://www.gnu.org/software/gettext/manual/html_node/Usual-Language-Codes.html" class="external-link">language code</a>
+that matches the language of the lesson content. This defaults to <code>"en"</code>,
+but can be any language code (e.g. "ja" specifying Japanese) or
+combination language code and <a href="https://www.gnu.org/software/gettext/manual/html_node/Country-Codes.html" class="external-link">country code</a>
+(e.g. "pt_BR" specifies Pourtugese used in Brazil). For more information
+on how this is used, see <a href="https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html" class="external-link">the Locale Names section of the gettext manual</a></p></li>
+<li><p><strong>url</strong> <code>[character]</code> custom URL if you are deploying to a URL that is not
 the default github pages io domain.</p></li>
 <li><p><strong>fail_on_error</strong> <code>[boolean]</code> for R Markdown lessons; fail the build if any
 chunks produce an error. Use <code>#| error: true</code> in chunk options to allow the
@@ -180,7 +187,7 @@ symbol to refer to the specific branch or commit to use:</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Zhian N. Kamvar.</p>
+  <p></p><p>Developed by Zhian N. Kamvar, Joel H. Nitta.</p>
 </div>
 
 <div class="pkgdown-footer-right">

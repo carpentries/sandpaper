@@ -25,6 +25,9 @@
     <loc>https://carpentries.github.io/sandpaper/articles/building-with-renv.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper/articles/data-flow.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper/articles/deployment.html</loc>
   </url>
   <url>
@@ -41,6 +44,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/articles/toolchain.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/articles/translations.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/authors.html</loc>
@@ -124,6 +130,9 @@
     <loc>https://carpentries.github.io/sandpaper/reference/dot-list_store.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/fill_translation_vars.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper/reference/fix_sidebar_href.html</loc>
   </url>
   <url>
@@ -158,6 +167,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper/reference/known_languages.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper/reference/lesson_storage.html</loc>
