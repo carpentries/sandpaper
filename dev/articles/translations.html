@@ -115,7 +115,10 @@ to <code>"en"</code>, but can be any language code (e.g. “ja” specifying
 Japanese) or combination language code and <a href="https://www.gnu.org/software/gettext/manual/html_node/Country-Codes.html" class="external-link">country
 code</a> (e.g. “pt_BR” specifies Pourtugese used in Brazil). For more
 information on how this is used, see <a href="https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html" class="external-link">the
-Locale Names section of the gettext manual</a>.</p>
+Locale Names section of the gettext manual</a>. If there is
+country-specific variation for a language that needs to be added, it is
+not necessary to re-translate everything that is identical in the
+original language file—you only need to translate what is different.</p>
 <p>Setting the <code>lang:</code> keyword will allow the lesson
 navigational elements of the website template to be presented in the
 same language as the lesson content <em>if the language has been added
@@ -123,8 +126,11 @@ to {sandpaper}</em>. If not, the menu items will appear in English.</p>
 <p>This vignette is of interest to those who wish to update translations
 or add new translations. In this vignette I will provide resources for
 updating and adding new languages, the process by which translation
-happens, and I will outline special syntax used in {sandpaper}. ##
-Resources</p>
+happens, and I will outline special syntax used in {sandpaper}.</p>
+</div>
+<div class="section level2">
+<h2 id="resources">Resources<a class="anchor" aria-label="anchor" href="#resources"></a>
+</h2>
 <div class="section level3">
 <h3 id="recommended-tools">Recommended Tools<a class="anchor" aria-label="anchor" href="#recommended-tools"></a>
 </h3>

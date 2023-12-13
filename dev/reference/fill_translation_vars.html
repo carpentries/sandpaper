@@ -81,7 +81,7 @@ a list of translated strings.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>There are two kinds of templating we use:</p><ol><li><p>variable templating indicated by <code>{% key %}</code> where <code>key</code> represents a
+    <p>There are two kinds of templating we use:</p><ol><li><p>variable templating indicated by <code>{key}</code> where <code>key</code> represents a
 variable that exists within the global data and is replaced.</p></li>
 <li><p>link templating indicated by <code>&lt;(text to wrap)&gt;</code> where we replace the
 <code>&lt;()&gt;</code> with a known URL or HTML markup. This allows the translators to
@@ -97,9 +97,9 @@ translate text without having to worry about HTML markup.</p></li>
 <span class="r-in"><span>  minutes <span class="op">=</span> <span class="fl">5</span>,</span></span>
 <span class="r-in"><span>  translate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>     one <span class="op">=</span> <span class="st">"a normal translated string (pretend it's translated from another language)"</span>,</span></span>
-<span class="r-in"><span>     two <span class="op">=</span> <span class="st">"a question: are you (A) {% a %}, (B) {% b %}"</span>,</span></span>
-<span class="r-in"><span>     EstimatedTime <span class="op">=</span> <span class="st">"Estimated time: {% icons$clock %} {% minutes %}"</span>,</span></span>
-<span class="r-in"><span>     license <span class="op">=</span> <span class="st">"Licensed under {% license %} by {% authors %}"</span>,</span></span>
+<span class="r-in"><span>     two <span class="op">=</span> <span class="st">"a question: are you (A) {a}, (B) {b}"</span>,</span></span>
+<span class="r-in"><span>     EstimatedTime <span class="op">=</span> <span class="st">"Estimated time: {icons$clock} {minutes}"</span>,</span></span>
+<span class="r-in"><span>     license <span class="op">=</span> <span class="st">"Licensed under {license} by {authors}"</span>,</span></span>
 <span class="r-in"><span>     ThisLessonCoC <span class="op">=</span> <span class="st">"This lesson operates under our &lt;(Code of Conduct)&gt;"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -108,13 +108,13 @@ translate text without having to worry about HTML markup.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a normal translated string (pretend it's translated from another language)"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $two</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a question: are you (A) {% a %}, (B) {% b %}"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a question: are you (A) a barn, (B) a bee</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $EstimatedTime</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Estimated time: {% icons$clock %} {% minutes %}"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimated time: &lt;i aria-hidden="true" data-feather="clock"&gt;&lt;/i&gt; 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $license</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Licensed under {% license %} by {% authors %}"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Licensed under &lt;a href="LICENSE.html"&gt;CC-BY 4.0&lt;/a&gt; by the authors</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ThisLessonCoC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "This lesson operates under our &lt;a href=\"CODE_OF_CONDUCT.html\"&gt;Code of Conduct&lt;/a&gt;"</span>
