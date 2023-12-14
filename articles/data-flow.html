@@ -407,7 +407,7 @@ functions:</p>
 <span>  rstudio <span class="op">=</span> <span class="cn">TRUE</span>, open <span class="op">=</span> <span class="cn">FALSE</span>, rmd <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co"># add a new episode</span></span>
 <span><span class="fu"><a href="../reference/create_episode.html">create_episode_md</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"First Example"</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, path <span class="op">=</span> <span class="va">lsn</span>, open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">## /tmp/RtmpVWaNWA/file2d6b69aceeb1/episodes/first-example.md</span></span></code></pre></div>
+<span><span class="co">## /tmp/RtmpruiwRq/file2d70467b1963/episodes/first-example.md</span></span></code></pre></div>
 <p>Within {sandpaper}, there are environments that contain metadata
 related to the whole lesson called <code>.store</code>,
 <code>.resources</code>, <code>instructor_globals</code>,
@@ -465,12 +465,12 @@ the individual episodes and cached.</p>
 <span><span class="co">## ── Validating Fenced Divs ──────────────────────────────────────────────</span></span>
 <span><span class="co">## ── Validating Internal Links and Images ────────────────────────────────</span></span>
 <span><span class="co">##    user  system elapsed </span></span>
-<span><span class="co">##   0.343   0.028   0.370</span></span>
+<span><span class="co">##   0.386   0.011   0.398</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="../reference/validate_lesson.html">validate_lesson</a></span><span class="op">(</span><span class="va">lsn</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## ── Validating Fenced Divs ──────────────────────────────────────────────</span></span>
 <span><span class="co">## ── Validating Internal Links and Images ────────────────────────────────</span></span>
 <span><span class="co">##    user  system elapsed </span></span>
-<span><span class="co">##   0.105   0.000   0.105</span></span></code></pre></div>
+<span><span class="co">##   0.103   0.003   0.107</span></span></code></pre></div>
 <p>The <code><a href="../reference/validate_lesson.html">validate_lesson()</a></code> call will pull from the cache in
 <code>.store</code> if it exists and is valid (which means that nothing
 in git has changed). If it’s not valid or does not exist, then all of
@@ -527,7 +527,7 @@ responsible for initialising and resetting the variable cache.</p>
 <span><span class="co">##     load_built: function () </span></span>
 <span><span class="co">##     n_problems: active binding</span></span>
 <span><span class="co">##     overview: FALSE</span></span>
-<span><span class="co">##     path: /tmp/RtmpVWaNWA/file2d6b69aceeb1</span></span>
+<span><span class="co">##     path: /tmp/RtmpruiwRq/file2d70467b1963</span></span>
 <span><span class="co">##     reset: function () </span></span>
 <span><span class="co">##     rmd: FALSE</span></span>
 <span><span class="co">##     sandpaper: TRUE</span></span>
@@ -553,7 +553,7 @@ config variable, it will be <code>FALSE</code>, indicating that it needs
 to be reset:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_config.html">set_config</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>handout <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, path <span class="op">=</span> <span class="va">lsn</span>, write <span class="op">=</span> <span class="cn">TRUE</span>, create <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Writing to <span style="color: #0000BB;">/tmp/RtmpVWaNWA/file2d6b69aceeb1/config.yaml</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Writing to <span style="color: #0000BB;">/tmp/RtmpruiwRq/file2d70467b1963/config.yaml</span></span></span>
 <span><span class="co">## → NA -&gt; handout: true</span></span>
 <span><span class="va">snd</span><span class="op">$</span><span class="va">.store</span><span class="op">$</span><span class="fu">valid</span><span class="op">(</span><span class="va">lsn</span><span class="op">)</span></span>
 <span><span class="co">## [1] FALSE</span></span>
@@ -591,7 +591,7 @@ identifiers.</p>
 <span><span class="co">## [1] "CC-BY 4.0"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $source</span></span>
-<span><span class="co">## [1] "https://github.com/carpentries/file2d6b69aceeb1"</span></span>
+<span><span class="co">## [1] "https://github.com/carpentries/file2d70467b1963"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $branch</span></span>
 <span><span class="co">## [1] "main"</span></span>
@@ -636,7 +636,7 @@ identifiers.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $url</span></span>
-<span><span class="co">## [1] "https://carpentries.github.io/file2d6b69aceeb1/"</span></span>
+<span><span class="co">## [1] "https://carpentries.github.io/file2d70467b1963/"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $overview</span></span>
 <span><span class="co">## [1] FALSE</span></span>
@@ -651,14 +651,14 @@ function:</p>
 <span><span class="co">## {</span></span>
 <span><span class="co">##   "@context": "https://schema.org",</span></span>
 <span><span class="co">##   "@type": "TrainingMaterial",</span></span>
-<span><span class="co">##   "@id": "https://carpentries.github.io/file2d6b69aceeb1/index.html",</span></span>
+<span><span class="co">##   "@id": "https://carpentries.github.io/file2d70467b1963/index.html",</span></span>
 <span><span class="co">##   "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",</span></span>
 <span><span class="co">##   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",</span></span>
 <span><span class="co">##   "keywords": "software, data, lesson, The Carpentries",</span></span>
 <span><span class="co">##   "name": "An Example Lesson",</span></span>
 <span><span class="co">##   "creativeWorkStatus": "active",</span></span>
-<span><span class="co">##   "url": "https://carpentries.github.io/file2d6b69aceeb1/index.html",</span></span>
-<span><span class="co">##   "identifier": "https://carpentries.github.io/file2d6b69aceeb1/index.html",</span></span>
+<span><span class="co">##   "url": "https://carpentries.github.io/file2d70467b1963/index.html",</span></span>
+<span><span class="co">##   "identifier": "https://carpentries.github.io/file2d70467b1963/index.html",</span></span>
 <span><span class="co">##   "dateCreated": "2023-12-14",</span></span>
 <span><span class="co">##   "dateModified": "2023-12-14",</span></span>
 <span><span class="co">##   "datePublished": "2023-12-14"</span></span>
@@ -674,40 +674,40 @@ file system:</p>
 <code class="sourceCode R"><span><span class="va">snd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ns-internal.html" class="external-link">asNamespace</a></span><span class="op">(</span><span class="st">"sandpaper"</span><span class="op">)</span></span>
 <span><span class="va">snd</span><span class="op">$</span><span class="va">.resources</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## $.</span></span>
-<span><span class="co">##   /tmp/RtmpVWaNWA/file2d6b69aceeb1/CODE_OF_CONDUCT.md </span></span>
-<span><span class="co">## "/tmp/RtmpVWaNWA/file2d6b69aceeb1/CODE_OF_CONDUCT.md" </span></span>
-<span><span class="co">##           /tmp/RtmpVWaNWA/file2d6b69aceeb1/LICENSE.md </span></span>
-<span><span class="co">##         "/tmp/RtmpVWaNWA/file2d6b69aceeb1/LICENSE.md" </span></span>
-<span><span class="co">##          /tmp/RtmpVWaNWA/file2d6b69aceeb1/config.yaml </span></span>
-<span><span class="co">##        "/tmp/RtmpVWaNWA/file2d6b69aceeb1/config.yaml" </span></span>
-<span><span class="co">##             /tmp/RtmpVWaNWA/file2d6b69aceeb1/index.md </span></span>
-<span><span class="co">##           "/tmp/RtmpVWaNWA/file2d6b69aceeb1/index.md" </span></span>
-<span><span class="co">##             /tmp/RtmpVWaNWA/file2d6b69aceeb1/links.md </span></span>
-<span><span class="co">##           "/tmp/RtmpVWaNWA/file2d6b69aceeb1/links.md" </span></span>
+<span><span class="co">##   /tmp/RtmpruiwRq/file2d70467b1963/CODE_OF_CONDUCT.md </span></span>
+<span><span class="co">## "/tmp/RtmpruiwRq/file2d70467b1963/CODE_OF_CONDUCT.md" </span></span>
+<span><span class="co">##           /tmp/RtmpruiwRq/file2d70467b1963/LICENSE.md </span></span>
+<span><span class="co">##         "/tmp/RtmpruiwRq/file2d70467b1963/LICENSE.md" </span></span>
+<span><span class="co">##          /tmp/RtmpruiwRq/file2d70467b1963/config.yaml </span></span>
+<span><span class="co">##        "/tmp/RtmpruiwRq/file2d70467b1963/config.yaml" </span></span>
+<span><span class="co">##             /tmp/RtmpruiwRq/file2d70467b1963/index.md </span></span>
+<span><span class="co">##           "/tmp/RtmpruiwRq/file2d70467b1963/index.md" </span></span>
+<span><span class="co">##             /tmp/RtmpruiwRq/file2d70467b1963/links.md </span></span>
+<span><span class="co">##           "/tmp/RtmpruiwRq/file2d70467b1963/links.md" </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $episodes</span></span>
-<span><span class="co">##    /tmp/RtmpVWaNWA/file2d6b69aceeb1/episodes/introduction.md </span></span>
-<span><span class="co">##  "/tmp/RtmpVWaNWA/file2d6b69aceeb1/episodes/introduction.md" </span></span>
-<span><span class="co">##   /tmp/RtmpVWaNWA/file2d6b69aceeb1/episodes/first-example.md </span></span>
-<span><span class="co">## "/tmp/RtmpVWaNWA/file2d6b69aceeb1/episodes/first-example.md" </span></span>
+<span><span class="co">##    /tmp/RtmpruiwRq/file2d70467b1963/episodes/introduction.md </span></span>
+<span><span class="co">##  "/tmp/RtmpruiwRq/file2d70467b1963/episodes/introduction.md" </span></span>
+<span><span class="co">##   /tmp/RtmpruiwRq/file2d70467b1963/episodes/first-example.md </span></span>
+<span><span class="co">## "/tmp/RtmpruiwRq/file2d70467b1963/episodes/first-example.md" </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $instructors</span></span>
-<span><span class="co">##   /tmp/RtmpVWaNWA/file2d6b69aceeb1/instructors/instructor-notes.md </span></span>
-<span><span class="co">## "/tmp/RtmpVWaNWA/file2d6b69aceeb1/instructors/instructor-notes.md" </span></span>
+<span><span class="co">##   /tmp/RtmpruiwRq/file2d70467b1963/instructors/instructor-notes.md </span></span>
+<span><span class="co">## "/tmp/RtmpruiwRq/file2d70467b1963/instructors/instructor-notes.md" </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $learners</span></span>
-<span><span class="co">##   /tmp/RtmpVWaNWA/file2d6b69aceeb1/learners/reference.md </span></span>
-<span><span class="co">## "/tmp/RtmpVWaNWA/file2d6b69aceeb1/learners/reference.md" </span></span>
-<span><span class="co">##       /tmp/RtmpVWaNWA/file2d6b69aceeb1/learners/setup.md </span></span>
-<span><span class="co">##     "/tmp/RtmpVWaNWA/file2d6b69aceeb1/learners/setup.md" </span></span>
+<span><span class="co">##   /tmp/RtmpruiwRq/file2d70467b1963/learners/reference.md </span></span>
+<span><span class="co">## "/tmp/RtmpruiwRq/file2d70467b1963/learners/reference.md" </span></span>
+<span><span class="co">##       /tmp/RtmpruiwRq/file2d70467b1963/learners/setup.md </span></span>
+<span><span class="co">##     "/tmp/RtmpruiwRq/file2d70467b1963/learners/setup.md" </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $profiles</span></span>
-<span><span class="co">##   /tmp/RtmpVWaNWA/file2d6b69aceeb1/profiles/learner-profiles.md </span></span>
-<span><span class="co">## "/tmp/RtmpVWaNWA/file2d6b69aceeb1/profiles/learner-profiles.md" </span></span>
+<span><span class="co">##   /tmp/RtmpruiwRq/file2d70467b1963/profiles/learner-profiles.md </span></span>
+<span><span class="co">## "/tmp/RtmpruiwRq/file2d70467b1963/profiles/learner-profiles.md" </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $`renv/profiles/lesson-requirements`</span></span>
 <span><span class="co">##                                                                                </span></span>
-<span><span class="co">## "/tmp/RtmpVWaNWA/file2d6b69aceeb1/renv/profiles/lesson-requirements/renv.lock"</span></span></code></pre></div>
+<span><span class="co">## "/tmp/RtmpruiwRq/file2d70467b1963/renv/profiles/lesson-requirements/renv.lock"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="global-and-local-variables">Global and Local Variables<a class="anchor" aria-label="anchor" href="#global-and-local-variables"></a>
@@ -1190,7 +1190,7 @@ for <code>tr_</code> in sandpaper</a>.</p>
 called <code>site/_pkgdown.yaml</code>.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------------------------------------------------ information</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This file was generated by sandpaper version '0.16.1'</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If you want to make changes, please edit '/tmp/RtmpVWaNWA/file2d6b69aceeb1/config.yaml'</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If you want to make changes, please edit '/tmp/RtmpruiwRq/file2d70467b1963/config.yaml'</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------------------------------------------------ information</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> An Example Lesson</span></span>
@@ -1202,8 +1202,8 @@ called <code>site/_pkgdown.yaml</code>.</p>
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> varnish</span></span>
 <span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">time</span><span class="kw">:</span><span class="at"> 2023-12-14 16:52:27 +0000</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/carpentries/file2d6b69aceeb1</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">time</span><span class="kw">:</span><span class="at"> 2023-12-14 16:56:05 +0000</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/carpentries/file2d70467b1963</span></span>
 <span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span>
 <span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">contact</span><span class="kw">:</span><span class="at"> team@carpentries.org</span></span>
 <span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">license</span><span class="kw">:</span><span class="at"> CC-BY 4.0</span></span>
@@ -1258,10 +1258,10 @@ pages in the past).</li>
 <span><span class="co">## [1] "en"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $src_path</span></span>
-<span><span class="co">## <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpVWaNWA/file2d6b69aceeb1/site</span></span></span>
+<span><span class="co">## <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpruiwRq/file2d70467b1963/site</span></span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $dst_path</span></span>
-<span><span class="co">## /tmp/RtmpVWaNWA/file2d6b69aceeb1/site/docs</span></span>
+<span><span class="co">## /tmp/RtmpruiwRq/file2d70467b1963/site/docs</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $meta</span></span>
 <span><span class="co">## $meta$title</span></span>
@@ -1287,10 +1287,10 @@ pages in the past).</li>
 <span><span class="co">## </span></span>
 <span><span class="co">## $meta$template$params</span></span>
 <span><span class="co">## $meta$template$params$time</span></span>
-<span><span class="co">## [1] "2023-12-14 16:52:27 +0000"</span></span>
+<span><span class="co">## [1] "2023-12-14 16:56:05 +0000"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $meta$template$params$source</span></span>
-<span><span class="co">## [1] "https://github.com/carpentries/file2d6b69aceeb1"</span></span>
+<span><span class="co">## [1] "https://github.com/carpentries/file2d70467b1963"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $meta$template$params$branch</span></span>
 <span><span class="co">## [1] "main"</span></span>
@@ -1377,8 +1377,8 @@ used.</p>
 <span><span class="co">##   root: ''</span></span>
 <span><span class="co">##   title: An Example Lesson</span></span>
 <span><span class="co">## yaml:</span></span>
-<span><span class="co">##   time: 2023-12-14 16:52:27 +0000</span></span>
-<span><span class="co">##   source: https://github.com/carpentries/file2d6b69aceeb1</span></span>
+<span><span class="co">##   time: 2023-12-14 16:56:05 +0000</span></span>
+<span><span class="co">##   source: https://github.com/carpentries/file2d70467b1963</span></span>
 <span><span class="co">##   branch: main</span></span>
 <span><span class="co">##   contact: team@carpentries.org</span></span>
 <span><span class="co">##   license: CC-BY 4.0</span></span>
