@@ -51,7 +51,7 @@ test_that("fix figures account for inline images and do not clobber them into fi
 
 
 
-test_that("callout are processed correctly", {
+test_that("(#556) (#454) callout are processed correctly", {
   html_test <- xml2::read_html(test_path("examples/callout-ids.html"))
   fix_callouts(html_test)
   anchors <- xml2::xml_find_all(html_test, ".//a")
@@ -71,6 +71,7 @@ test_that("callout are processed correctly", {
   # The IDs should match the anchors
   expect_equal(paste0("#", ids), xml2::xml_attr(anchors, "href"))
   # The headings should match what we expect
+  # (https://github.com/carpentries/sandpaper/issues/556)
   htext <- xml2::xml_find_all(headings, ".//text()")
   expect_equal(xml2::xml_text(htext), 
     c("Challenge (", "this is code", ")", "Wait what?"))
