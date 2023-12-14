@@ -1,3 +1,10 @@
+# sandpaper 0.16.1 (2023-12-14)
+
+## BUG FIX
+
+* Callout headings with markup in the titles will no longer have text duplicated
+  (reported: @zkamvar, #556; fixed: @zkamvar, #557)
+
 # sandpaper 0.16.0 (2023-12-13)
 
 ## NEW FEATURES
