@@ -87,6 +87,11 @@ test_that("Lessons can be translated with lang setting", {
   instruct <- xml2::read_html(fs::path(sitepath, "instructor/index.html"))
   # language should be set to japanese
   expect_equal(xml2::xml_attr(xml, "lang"), "ja")
+  to_main <- xml2::xml_find_first(xml, "//a[@href='#main-content']")
+  ito_main <- xml2::xml_find_first(instruct, "//a[@href='#main-content']")
+  expect_set_translated(to_main, "Skip to main content")
+  expect_set_translated(ito_main, "Skip to main content")
+
   expect_equal(xml2::xml_attr(instruct, "lang"), "ja")
   expect_title_translated(xml, "Summary and Setup")
   expect_title_translated(instruct, "Summary and Schedule")
@@ -97,6 +102,10 @@ test_that("Lessons can be translated with lang setting", {
   expect_set_translated(h1_header, "Summary and Setup")
   ih1_header <- xml2::xml_find_all(instruct, h1_xpath)
   expect_set_translated(ih1_header, "Summary and Schedule")
+
+  # Schedule for instructor view ends with "Finish"
+  final_cell <- xml2::xml_find_first(instruct, "//tr[last()]/td[2]")
+  expect_set_translated(final_cell, "Finish")
 
   # Navbar has expected text
   nav_xpath <- "//a[starts-with(@class,'nav-link')]"
@@ -122,7 +131,9 @@ test_that("Lessons can be translated with lang setting", {
     "Back To Top"
   )
   aria_labels <- xml2::xml_find_all(xml, ".//@aria-label")
+  iaria_labels <- xml2::xml_find_all(instruct, ".//@aria-label")
   expect_set_translated(aria_labels, aria_text)
+  expect_set_translated(iaria_labels, aria_text)
 
 
   # GENERATED PAGES ------------------------------------------------
@@ -150,8 +161,13 @@ test_that("Lessons can be translated with lang setting", {
 
   # Episode elements -------------------------------------------------
   # We use here the Instructor view because it is more fully featured
+  # NOTE: we expect this to be the first episode after the home page
   xml <- xml2::read_html(fs::path(sitepath, "instructor", "introduction.html"))
   expect_equal(xml2::xml_attr(xml, "lang"), "ja")
+  to_main <- xml2::xml_find_first(xml, "//a[@href='#main-content']")
+  expect_set_translated(to_main, "Skip to main content")
+  previous <- xml2::xml_find_all(xml, "//a[@class='chapter-link']")
+  expect_set_translated(previous, c("Home", "Previous"))
 
   # navbar has expected text
   nav_links <- xml2::xml_find_all(xml, "//a[starts-with(@class,'nav-link')]")
