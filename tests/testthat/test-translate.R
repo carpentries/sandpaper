@@ -80,35 +80,24 @@ test_that("Lessons can be translated with lang setting", {
   # Build lesson
   suppressMessages(build_lesson(tmp, preview = FALSE, quiet = TRUE))
 
-  # GENERATED PAGES ------------------------------------------------
-  # Check generated page headers
-  inst_note <- xml2::read_html(fs::path(sitepath, "instructor/instructor-notes.html"))
-  h1_inst <- xml2::xml_find_first(inst_note, "//main/div/h1")
-  expect_set_translated(h1_inst, "Instructor Notes")
-
-  profiles <- xml2::read_html(fs::path(sitepath, "profiles.html"))
-  h1_profiles <- xml2::xml_find_first(profiles, "//main/div/h1")
-  expect_set_translated(h1_profiles, "Learner Profiles")
-
-
-  # Extract first header (Summary and Setup) from index
+  # Home Page ------------------------------------------------------
   xml <- xml2::read_html(fs::path(sitepath, "index.html"))
-  h1_header <- xml2::xml_find_all(xml, "//h1[@class='schedule-heading']")
-  nav_links <- xml2::xml_find_all(xml, "//a[starts-with(@class,'nav-link')]")
-
   # language should be set to japanese
   expect_equal(xml2::xml_attr(xml, "lang"), "ja")
 
-  # Header should be translated to Japanese
+  # Extract first header (Summary and Setup) from index
+  h1_header <- xml2::xml_find_all(xml, "//h1[@class='schedule-heading']")
   expect_set_translated(h1_header, "Summary and Setup")
 
   # Navbar has expected text
+  nav_links <- xml2::xml_find_all(xml, "//a[starts-with(@class,'nav-link')]")
   expect_set_translated(nav_links,
     c("Key Points", "Glossary", "Learner Profiles")
   )
 
   # aria labels should be translated
-  aria_text <- c("Main Navigation",
+  aria_text <- c(
+    "Main Navigation",
     "Toggle Navigation",
     "Search",
     "search button",
@@ -121,6 +110,18 @@ test_that("Lessons can be translated with lang setting", {
   aria_labels <- xml2::xml_find_all(xml, ".//@aria-label")
   expect_set_translated(aria_labels, aria_text)
 
+
+  # GENERATED PAGES ------------------------------------------------
+  # Check generated page headers
+  inst_note <- xml2::read_html(fs::path(sitepath, "instructor/instructor-notes.html"))
+  h1_inst <- xml2::xml_find_first(inst_note, "//main/div/h1")
+  expect_set_translated(h1_inst, "Instructor Notes")
+
+  profiles <- xml2::read_html(fs::path(sitepath, "profiles.html"))
+  h1_profiles <- xml2::xml_find_first(profiles, "//main/div/h1")
+  expect_set_translated(h1_profiles, "Learner Profiles")
+
+
   # Episode elements -------------------------------------------------
   # We use here the Instructor view because it is more fully featured
   xml <- xml2::read_html(fs::path(sitepath, "instructor", "introduction.html"))
@@ -131,17 +132,25 @@ test_that("Lessons can be translated with lang setting", {
     c("Key Points", "Instructor Notes", "Extract All Images")
   )
 
+  # aria labels should be translated
+  aria_text <- c(
+    "Main Navigation",
+    "Toggle Navigation",
+    "Search",
+    "search button",
+    "Lesson Progress",
+    "close menu",
+    "Previous and Next Chapter", 
+    "anchor",
+    "Back To Top"
+  )
+  aria_labels <- xml2::xml_find_all(xml, ".//@aria-label")
+  expect_set_translated(aria_labels, aria_text)
+
   # overview, objectives, and questions
   overview_card <- xml2::xml_find_first(xml, ".//div[@class='overview card']")
-
-  # Overview card
-  overview <- xml2::xml_find_first(overview_card, ".//h2[@class='card-header']")
-  expect_set_translated(overview, "Overview")
-
-  # Questions and Objectives
-  quob <- xml2::xml_find_all(overview_card, ".//h3[@class='card-title']")
-  expect_set_translated(quob, c("Questions", "Objectives"))
-
+  over_heads <- xml2::xml_find_all(overview_card, ".//h2 | .//h3")
+  expect_set_translated(over_heads, c("Overview", "Questions", "Objectives"))
 
   # Keypoints are always the last block and should be auto-translated
   xpath_keypoints <- ".//div[@class='callout keypoints']//h3[@class='callout-title']"
