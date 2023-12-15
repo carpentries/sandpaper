@@ -25,7 +25,7 @@ known_languages <- function() {
 
 is_known_language <- function(lang = NULL, warn = FALSE) {
   lang <- lang %||% "en"
-  not_known <- lang %nin% known_languages()
+  not_known <- strsplit(lang, "_")[[1]][1] %nin% known_languages()
   if (not_known && warn) {
     warn_no_language(lang)
   }

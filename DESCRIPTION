@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.15.0.9000
+Version: 0.16.1
 Authors@R: c(
     person(given = "Zhian N.",
            family = "Kamvar",
@@ -97,7 +97,6 @@ Suggests:
     varnish (>= 0.3.0)
 Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
-  ropensci/tinkr,
   carpentries/pegboard,
   carpentries/varnish
 SystemRequirements: pandoc (>= 2.11.4) - https://pandoc.org
