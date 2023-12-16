@@ -59,7 +59,6 @@ add_varnish_translations <- function() {
 
   learner_globals$set("translate", menu_translations)
   instructor_globals$set("translate", menu_translations)
-  fix_both_sidebars(learner_globals, instructor_globals, menu_translations)
 
   # computed translations are added before the pages are passed to varnish
   to_compute <- to_translate[names(to_translate) != "varnish"]
@@ -71,6 +70,7 @@ add_varnish_translations <- function() {
     # the callout fixer can recognise it
     Keypoints = menu_translations[["KeyPoints"]]
   )
+  fix_both_sidebars(learner_globals, instructor_globals)
 }
 
 # Apply translations to text assuming that the names of the translations
@@ -94,45 +94,36 @@ apply_translations <- function(txt, translations) {
 
 # generator of translations for code blocks.
 get_codeblock_translations <- function() {
-  c(
-    OUTPUT = tr_("OUTPUT"),
-    WARNING = tr_("WARNING"),
-    ERROR = tr_("ERROR")
-  )
+  needed <- c("OUTPUT", "ERROR", "WARNING")
+  unlist(these$translations$computed[needed])
 }
 
 # generator for translations of callout blocks and accordions
 get_callout_translations <- function() {
-  c(
-    Callout     = tr_("Callout"),
-    Challenge   = tr_("Challenge"),
-    Prereq      = tr_("Prerequisite"),
-    Checklist   = tr_("Checklist"),
-    Discussion  = tr_("Discussion"),
-    Testimonial = tr_("Testimonial"),
-    Keypoints   = tr_("Key Points")
-  )
+  needed <- c("Callout", "Challenge", "Prereq", "Checklist", "Discussion",
+    "Testimonial", "Keypoints")
+  unlist(these$translations$computed[needed])
 }
 get_accordion_translations <- function() {
-  c(
-    "Show me the solution" = tr_("Show me the solution"),
-    "Give me a hint"       = tr_("Give me a hint"),
-    "Show details"         = tr_("Show details"),
-    "Instructor Note"      = tr_("Instructor Note")
+  needed <- c("Show me the solution",
+    "Give me a hint",
+    "Show details",
+    "Instructor Note"
   )
+  unlist(these$translations$computed[needed])
 }
 
 
 # See the `fix_sidebar_translation()` comment. This takes the learner and
 # instructor global data and fixes the titles of the  first element
 # representing the home page.
-fix_both_sidebars <- function(learner, instructor, translations) {
+fix_both_sidebars <- function(learner, instructor) {
   lside <- learner$get()[["sidebar"]]
-  learn_summary <- tr_("Summary and Setup")
+  learn_summary <- these$translations$computed$SummaryAndSetup
   learner$set("sidebar", fix_sidebar_translation(lside, learn_summary))
 
   iside <- instructor$get()[["sidebar"]]
-  instruct_summary <- tr_("Summary and Schedule")
+  instruct_summary <- these$translations$computed$SummaryAndSchedule
   instructor$set("sidebar", fix_sidebar_translation(lside, instruct_summary))
 }
 

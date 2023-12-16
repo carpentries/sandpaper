@@ -109,10 +109,10 @@
       "Instructor Note"      = tr_("Instructor Note"),
       # Headings -------------------------------------------------------------
       SummaryAndSetup = tr_("Summary and Setup"),
-      SummaryAndSetup = tr_("Summary and Schedule"),
-      AllInOneView    = tr_("All in One View"),
-      PageNotFound    = tr_("Page not found"),
-      AllImages       = tr_("All Images"),
+      SummaryAndSchedule = tr_("Summary and Schedule"),
+      AllInOneView = tr_("All in One View"),
+      PageNotFound = tr_("Page not found"),
+      AllImages = tr_("All Images"),
       # Misc -----------------------------------------------------------------
       Anchor = tr_("anchor"),
       Figure = tr_("Figure {element}"),
