@@ -69,7 +69,7 @@ test_that("is_known_language returns a warning for an unknown language", {
 test_that("Lessons can be translated with lang setting", {
 
   # NOTE: this requires the expect_set_translated() function defined in
-  # tests/testthat/helper-translate.R 
+  # tests/testthat/helper-translate.R
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
 
@@ -183,7 +183,7 @@ test_that("Lessons can be translated with lang setting", {
     "search button",
     "Lesson Progress",
     "close menu",
-    "Previous and Next Chapter", 
+    "Previous and Next Chapter",
     "anchor",
     "Back To Top"
   )
