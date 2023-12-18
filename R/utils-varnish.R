@@ -67,7 +67,7 @@ set_globals <- function(path) {
   template_check$set()
   initialise_metadata(path)
   # set the translations
-  set_translations(this_metadata$get()[["lang"]])
+  set_language(this_metadata$get()[["lang"]])
   # get the resources if they exist (but do not destroy the global environment)
   old <- .resources$get()
   on.exit(.resources$set(key = NULL, old))

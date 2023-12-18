@@ -97,6 +97,7 @@ reference:
      (this is non-exhaustive)
  - contents:
    - known_languages
+   - translations
    - render_html
    - build_site
    - build_episode_html
