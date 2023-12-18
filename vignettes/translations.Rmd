@@ -226,4 +226,9 @@ with_language("ja", {
 ```
 
 
+## List of Translation Variables
+
+```{r child="../man/children/translation-vars.Rmd"}
+```
+
 

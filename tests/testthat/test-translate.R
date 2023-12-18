@@ -12,22 +12,39 @@ test_that("set_language() uses english by default", {
   ver <- getRversion()
   skip_if(os == "windows" && ver < "4.2")
 
+  # Before anything happens, the translations should match the source
+  expect_equal(these$translations$src$computed, these$translations$computed)
+  expect_equal(these$translations$src$varnish, these$translations$varnish)
+
   # default is english
   set_language()
-  expect_equal(tr_("OUTPUT"), "OUTPUT")
+
+  # If the translations are set to english, the source should continue to match
+  expect_equal(these$translations$src$computed, these$translations$computed)
+  expect_equal(these$translations$src$varnish, these$translations$varnish)
+
+  # confirm a specific source element
+  src <- these$translations$src$computed$OUTPUT
+  expect_equal(these$translations$computed$OUTPUT, src)
 
   # set to japanese and it becomes different
   set_language("ja")
-  OUTJA <- tr_("OUTPUT")
-  expect_false(identical(OUTJA, "OUTPUT"))
+  expect_failure({
+    expect_equal(these$translations$src$computed, these$translations$computed)
+  })
+  expect_failure({
+    expect_equal(these$translations$src$varnish, these$translations$varnish)
+  })
+  OUTJA <- these$translations$computed$OUTPUT
+  expect_failure(expect_equal(OUTJA, src))
 
   # unknown language will not switch the current language
   suppressMessages(expect_message(set_language("xx"), "languages"))
-  expect_equal(tr_("OUTPUT"), OUTJA)
+  expect_equal(these$translations$computed$OUTPUT, OUTJA)
 
   # set back to english (default)
   set_language()
-  expect_equal(tr_("OUTPUT"), "OUTPUT")
+  expect_equal(these$translations$computed$OUTPUT, src)
 
 })
 
@@ -38,13 +55,14 @@ test_that("set_language() can use country codes", {
   ver <- getRversion()
   skip_if(os == "windows" && ver < "4.2")
 
+  src <- these$translations$src$computed$OUTPUT
   expect_silent(set_language("es_AR"))
-  OUTAR <- tr_("OUTPUT")
-  expect_false(identical(OUTAR, "OUTPUT"))
+  OUTAR <- these$translations$computed$OUTPUT
+  expect_false(identical(OUTAR, src))
 
   # the country codes will fall back to language code if they don't exist
   expect_silent(set_language("es"))
-  expect_equal(tr_("OUTPUT"), OUTAR)
+  expect_equal(these$translations$computed$OUTPUT, OUTAR)
 
 })
 
@@ -69,7 +87,7 @@ test_that("is_known_language returns a warning for an unknown language", {
 test_that("Lessons can be translated with lang setting", {
 
   # NOTE: this requires the expect_set_translated() function defined in
-  # tests/testthat/helper-translate.R 
+  # tests/testthat/helper-translate.R
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
 
@@ -183,7 +201,7 @@ test_that("Lessons can be translated with lang setting", {
     "search button",
     "Lesson Progress",
     "close menu",
-    "Previous and Next Chapter", 
+    "Previous and Next Chapter",
     "anchor",
     "Back To Top"
   )

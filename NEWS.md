@@ -1,3 +1,19 @@
+# sandpaper 0.16.1.9000 (unreleased)
+
+## DOCUMENTATION
+
+* A list of translatable strings has now been added to 
+  `vignette("translations", package = "sandpaper")`
+
+## INTERNAL
+
+* Translation strings now are unduplicated and live in a single file
+  (`R/utils-translate.R`). This will make finding and updating these strings
+  easier for maintainer and translators.
+* Translations now live in the global environment called `these$translations`
+* A new documentation page called `?translate` contains details of how
+  translations of template elements are rendered.
+
 # sandpaper 0.16.1 (2023-12-14)
 
 ## BUG FIX
