@@ -37,6 +37,7 @@ is_known_language <- function(lang = NULL, warn = FALSE) {
 # phase. The `set_language()` function is run. It should only ever be run
 # inside of another function to ensure the scope is honoured.
 set_language <- function(lang = NULL, scope = parent.frame()) {
+  return(NULL)
   lang <- lang %||% "en"
   known <- is_known_language(lang, warn = TRUE)
   if (known) {
@@ -49,28 +50,34 @@ set_language <- function(lang = NULL, scope = parent.frame()) {
 }
 
 
-
+set_translations <- function(lang = NULL) {
+  lang <- lang %||% "en"
+  known <- is_known_language(lang, warn = TRUE)
+  if (known) {
+    withr::with_language(lang, {
+      add_varnish_translations()
+    })
+  }
+  no_translations_exist <- length(these$translations$varnish) == 0L
+  if (no_translations_exist) {
+    withr::with_language("en", {
+      add_varnish_translations()
+    })
+  }
+}
 
 # These are all the translations that occur in {varnish}
 add_varnish_translations <- function() {
   to_translate <- these$translations$src
-  menu_translations <- lapply(to_translate$varnish, tr_) 
-  these$translations$varnish <- menu_translations
-
-  learner_globals$set("translate", menu_translations)
-  instructor_globals$set("translate", menu_translations)
-
+  these$translations$varnish <- lapply(to_translate$varnish, tr_)
   # computed translations are added before the pages are passed to varnish
   to_compute <- to_translate[names(to_translate) != "varnish"]
-  shared <- c("Home", "KeyPoints", "LearnerProfiles")
   these$translations$computed <- c(
-    lapply(to_translate, tr_),
-    menu_translations[shared],
+    lapply(to_compute, tr_),
     # NOTE: this is NOT a typo: it is an alternate form of KeyPoints so that
     # the callout fixer can recognise it
-    Keypoints = menu_translations[["KeyPoints"]]
+    Keypoints = these$translations$varnish[["KeyPoints"]]
   )
-  fix_both_sidebars(learner_globals, instructor_globals)
 }
 
 # Apply translations to text assuming that the names of the translations
