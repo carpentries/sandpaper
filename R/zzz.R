@@ -82,8 +82,7 @@
       GiveFeedback = tr_('Give Feedback'),
       LearnMore = tr_('Learn More')
     )
-    src = list(
-      varnish = varnish,
+    computed <- list(
       # These keys and values are used in {sandpaper} before they are
       # passed to {varnish}
       # Code blocks ----------------------------------------------------------
@@ -101,7 +100,7 @@
       Checklist   = tr_("Checklist"),
       Discussion  = tr_("Discussion"),
       Testimonial = tr_("Testimonial"),
-      Keypoints   = tr_("Key Points"),
+      Keypoints   = varnish$KeyPoints,
       # Accordions -----------------------------------------------------------
       "Show me the solution" = tr_("Show me the solution"),
       "Give me a hint"       = tr_("Give me a hint"),
@@ -119,10 +118,14 @@
       ImageOf = tr_("Image {i} of {n}: {sQuote(txt)}"),
       Finish = tr_("Finish")
     )
+    src = list(
+      varnish = varnish,
+      computed = computed
+    )
     ns$these$translations <- list(
       src = src,
-      varnish = list(),
-      computed = list()
+      varnish = varnish,
+      computed = computed
     )
   })
   invisible()

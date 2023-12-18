@@ -70,14 +70,7 @@ set_translations <- function(lang = NULL) {
 add_varnish_translations <- function() {
   to_translate <- these$translations$src
   these$translations$varnish <- lapply(to_translate$varnish, tr_)
-  # computed translations are added before the pages are passed to varnish
-  to_compute <- to_translate[names(to_translate) != "varnish"]
-  these$translations$computed <- c(
-    lapply(to_compute, tr_),
-    # NOTE: this is NOT a typo: it is an alternate form of KeyPoints so that
-    # the callout fixer can recognise it
-    Keypoints = these$translations$varnish[["KeyPoints"]]
-  )
+  these$translations$computed <- lapply(to_translate$computed, tr_)
 }
 
 # Apply translations to text assuming that the names of the translations
