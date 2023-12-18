@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.15.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.16.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,33 +56,55 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.15.0.9000" id="sandpaper-01509000-unreleased">sandpaper 0.15.0.9000 (unreleased)<a class="anchor" aria-label="anchor" href="#sandpaper-01509000-unreleased"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.16.1.9000" id="sandpaper-01619000-unreleased">sandpaper 0.16.1.9000 (unreleased)<a class="anchor" aria-label="anchor" href="#sandpaper-01619000-unreleased"></a></h2>
 <div class="section level3">
-<h3 id="new-features-0-15-0-9000">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-15-0-9000"></a></h3>
+<h3 id="documentation-0-16-1-9000">DOCUMENTATION<a class="anchor" aria-label="anchor" href="#documentation-0-16-1-9000"></a></h3>
+<ul><li>A list of translatable strings has now been added to <code><a href="../articles/translations.html">vignette("translations", package = "sandpaper")</a></code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="internal-0-16-1-9000">INTERNAL<a class="anchor" aria-label="anchor" href="#internal-0-16-1-9000"></a></h3>
+<ul><li>Translation strings now are unduplicated and live in a single file (<code>R/utils-translate.R</code>). This will make finding and updating these strings easier for maintainer and translators.</li>
+<li>Translations now live in the global environment called <code>these$translations</code>
+</li>
+<li>A new documentation page called <code>?translate</code> contains details of how translations of template elements are rendered.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.16.1" id="sandpaper-0161-2023-12-14">sandpaper 0.16.1 (2023-12-14)<a class="anchor" aria-label="anchor" href="#sandpaper-0161-2023-12-14"></a></h2>
+<div class="section level3">
+<h3 id="bug-fix-0-16-1">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-16-1"></a></h3>
+<ul><li>Callout headings with markup in the titles will no longer have text duplicated (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/556" class="external-link">#556</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/557" class="external-link">#557</a>)</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.16.0" id="sandpaper-0160-2023-12-13">sandpaper 0.16.0 (2023-12-13)<a class="anchor" aria-label="anchor" href="#sandpaper-0160-2023-12-13"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-16-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-16-0"></a></h3>
 <ul><li>It is now possible to build lessons in languages other than English so that the website elements are also localised to that language (reported: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/205" class="external-link">#205</a>, <a href="https://github.com/joelnitta" class="external-link">@joelnitta</a>, <a href="https://github.com/carpentries/sandpaper/issues/544" class="external-link">#544</a>; fixed: <a href="https://github.com/joelnitta" class="external-link">@joelnitta</a> and <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/546" class="external-link">#546</a>).</li>
 <li>
 <code><a href="../reference/known_languages.html">known_languages()</a></code> is a function that will return the language codes that are known by {sandpaper}.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="documentation-0-15-0-9000">DOCUMENTATION<a class="anchor" aria-label="anchor" href="#documentation-0-15-0-9000"></a></h3>
+<h3 id="documentation-0-16-0">DOCUMENTATION<a class="anchor" aria-label="anchor" href="#documentation-0-16-0"></a></h3>
 <ul><li>A new vignette <code>vignette("translation", package = "sandpaper")</code> describes how translation of template components works and how to submit new/update translations (added: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/546" class="external-link">#546</a>).</li>
 <li>A new vignette about data flow <code><a href="../articles/data-flow.html">vignette("data-flow", package = "sandpaper")</a></code> describes how templating, translations, and lesson metadata flows from {sandpaper} to {varnish} (added: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/553" class="external-link">#553</a>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fix-0-15-0-9000">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-15-0-9000"></a></h3>
+<h3 id="bug-fix-0-16-0">BUG FIX<a class="anchor" aria-label="anchor" href="#bug-fix-0-16-0"></a></h3>
 <ul><li>The spelling of keypoints is now consistent between the menu item and the callout blocks (reported: <a href="https://github.com/clarallebot" class="external-link">@clarallebot</a>, <a href="https://github.com/carpentries/workbench/issues/44" class="external-link uri">https://github.com/carpentries/workbench/issues/44</a>; fixed: <a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/carpentries/sandpaper/issues/546" class="external-link">#546</a>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="dependencies-0-15-0-9000">DEPENDENCIES<a class="anchor" aria-label="anchor" href="#dependencies-0-15-0-9000"></a></h3>
+<h3 id="dependencies-0-16-0">DEPENDENCIES<a class="anchor" aria-label="anchor" href="#dependencies-0-16-0"></a></h3>
 <ul><li>The {withr} package has been upgraded to an import from a suggested package.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="languages-0-15-0-9000">LANGUAGES<a class="anchor" aria-label="anchor" href="#languages-0-15-0-9000"></a></h3>
+<h3 id="languages-0-16-0">LANGUAGES<a class="anchor" aria-label="anchor" href="#languages-0-16-0"></a></h3>
 <ul><li>Japanese (ja) (added: <a href="https://github.com/joelnitta" class="external-link">@joelnitta</a>, <a href="https://github.com/carpentries/sandpaper/issues/546" class="external-link">#546</a>)</li>
 <li>Spanish (es) (added: <a href="https://github.com/yabellini" class="external-link">@yabellini</a>, <a href="https://github.com/carpentries/sandpaper/issues/552" class="external-link">#552</a>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="misc-0-15-0-9000">MISC<a class="anchor" aria-label="anchor" href="#misc-0-15-0-9000"></a></h3>
+<h3 id="misc-0-16-0">MISC<a class="anchor" aria-label="anchor" href="#misc-0-16-0"></a></h3>
 <ul><li>Added <a href="https://github.com/yabellini" class="external-link">@yabellini</a> as a contributor and translator</li>
 <li>Added <a href="https://github.com/joelnitta" class="external-link">@joelnitta</a> as an author and translator</li>
 </ul></div>
