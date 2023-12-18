@@ -3,6 +3,7 @@
 \docType{data}
 \name{these}
 \alias{these}
+\alias{translations}
 \alias{establish_translation_vars}
 \alias{set_language}
 \title{Establish and Manage Translation Strings}
