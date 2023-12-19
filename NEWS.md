@@ -13,6 +13,11 @@
 * Translations now live in the global environment called `these$translations`
 * A new documentation page called `?translate` contains details of how
   translations of template elements are rendered.
+- `tr_src()` helper function provides access to the source strings of the
+  translations.
+- `tr_get()`, `tr_varnish()`, and `tr_computed()` helper functions provide
+  access top the lists of translated strings. These have replaced the `tr_()`
+  strings at the point of generation.
 
 # sandpaper 0.16.1 (2023-12-14)
 

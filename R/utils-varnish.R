@@ -86,7 +86,7 @@ set_globals <- function(path) {
   idx_text <- xml2::xml_contents(idx_link)
   no_index_title <- length(idx_text) == 1 && xml2::xml_text(idx_text) == "0. "
   if (no_index_title) {
-    xml2::xml_set_text(idx_link, these$translations$computed$SummaryAndSchedule)
+    xml2::xml_set_text(idx_link, tr_computed("SummaryAndSchedule"))
   } else {
     xml2::xml_set_text(idx_text, sub("^0[.] ", "", xml2::xml_text(idx_text)))
   }
@@ -94,7 +94,7 @@ set_globals <- function(path) {
   learner_sidebar <- instructor_sidebar
   instructor_sidebar[[1]] <- sindex
   if (no_index_title) {
-    xml2::xml_set_text(idx_link, these$translations$computed$SummaryAndSetup)
+    xml2::xml_set_text(idx_link, tr_computed("SummaryAndSetup"))
     sindex <- create_sidebar_item(nodes = NULL, as.character(idx_link), 1)
   }
   learner_sidebar[[1]] <- sindex
@@ -115,7 +115,7 @@ set_globals <- function(path) {
       sidebar = learner_sidebar,
       more = paste(learner$extras, collapse = ""),
       resources = paste(learner$resources, collapse = ""),
-      translate = these$translations$varnish
+      translate = tr_varnish()
     ), pkg_versions)
   )
   instructor_globals$set(key = NULL,
@@ -125,7 +125,7 @@ set_globals <- function(path) {
       sidebar = instructor_sidebar,
       more = paste(instructor$extras, collapse = ""),
       resources = paste(instructor$resources, collapse = ""),
-      translate = these$translations$varnish
+      translate = tr_varnish()
     ), pkg_versions)
   )
 }

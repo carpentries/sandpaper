@@ -130,7 +130,7 @@ add_class <- function(nodes, new) {
 }
 
 add_anchors <- function(nodes, ids) {
-  tranchor <- these$translations$computed$Anchor
+  tranchor <- tr_computed("Anchor")
   anchor <- paste0(
     "<a class='anchor' aria-label='", tranchor, "' href='#", ids, "'></a>"
   )
@@ -158,7 +158,7 @@ translate_overview <- function(nodes = NULL) {
   opath <- ".//div[starts-with(@class, 'inner')]/h3[@class='card-title'][text()='Objectives']"
   questions <- xml2::xml_find_first(card, qpath)
   objectives <- xml2::xml_find_first(card, opath)
-  translated <- these$translations$computed
+  translated <- tr_computed()
 
   xml2::xml_set_text(questions, translated[["Questions"]])
   xml2::xml_set_text(objectives, translated[["Objectives"]])

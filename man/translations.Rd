@@ -6,6 +6,10 @@
 \alias{translations}
 \alias{establish_translation_vars}
 \alias{set_language}
+\alias{tr_src}
+\alias{tr_get}
+\alias{tr_varnish}
+\alias{tr_computed}
 \title{Establish and Manage Translation Strings}
 \format{
 An object of class \code{environment} of length 1.
@@ -16,14 +20,39 @@ these
 establish_translation_vars()
 
 set_language(lang = NULL)
+
+tr_src(from = "varnish", key = NULL)
+
+tr_get(from = "varnish", key = NULL)
+
+tr_varnish(key = NULL)
+
+tr_computed(key = NULL)
 }
 \arguments{
 \item{lang}{a two-letter language code (optionally with a country code).
 Defaults to \code{NULL}, which falls back to English (the language of the
 source code).}
+
+\item{from}{a single character specifying the translation list to fetch.
+This defaults to "varnish" but can be one of the following:
+\itemize{
+\item src
+\item varnish
+\item computed
+}}
+
+\item{key}{a single character specifying a specific key to fetch from the
+translation list. This defaults to \code{NULL}, returning the whole list.}
+}
+\value{
+if \code{key = NULL}, a list if \code{key} is a single character, the result
+will be an unnamed character vector of length 1 representing the value from
+that list.
 }
 \description{
-Establish and Manage Translation Strings
+This is documentation for internal functions for translation. If you want a
+guide to providing translations, please read \code{vignette("translations", package = "sandpaper")}
 }
 \details{
 A page generated from {sandpaper} is made up of user-provided
@@ -155,12 +184,26 @@ that are inserted \emph{before} they get to {varnish}:\tabular{ll}{
 }
 }
 \examples{
+# When sandpaper is loaded, these functions return English
 snd <- asNamespace("sandpaper")
-snd$these$translations$varnish
-snd$these$translations$computed
+head(snd$tr_varnish())
+head(snd$tr_computed())
+
+# Setting language to Spanish will translate the computed and varnish
 snd$set_language("es")
-snd$these$translations$computed
-snd$set_language() # defaults to English
-snd$these$translations$computed
+head(snd$tr_varnish())
+head(snd$tr_computed())
+
+# The source will remain the same
+head(snd$tr_src("varnish"))
+head(snd$tr_src("computed"))
+
+# Running set_language with no arguments defaults to English
+snd$set_language() 
+head(snd$tr_varnish())
+head(snd$tr_computed())
+}
+\seealso{
+\code{\link[=known_languages]{known_languages()}} for a list of known language codes.
 }
 \keyword{internal}
