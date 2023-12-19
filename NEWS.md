@@ -1,5 +1,9 @@
 # sandpaper 0.16.1.9000 (unreleased)
 
+## MISC
+
+* JSON metadata now contains the `inLanguage` key.
+
 ## DOCUMENTATION
 
 * A list of translatable strings has now been added to 
