@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.16.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.16.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +55,29 @@
       <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.16.2" id="sandpaper-0162-2023-12-19">sandpaper 0.16.2 (2023-12-19)<a class="anchor" aria-label="anchor" href="#sandpaper-0162-2023-12-19"></a></h2>
+<div class="section level3">
+<h3 id="misc-0-16-2">MISC<a class="anchor" aria-label="anchor" href="#misc-0-16-2"></a></h3>
+<ul><li>JSON metadata now contains the <code>inLanguage</code> key.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-0-16-2">DOCUMENTATION<a class="anchor" aria-label="anchor" href="#documentation-0-16-2"></a></h3>
+<ul><li>A list of translatable strings has now been added to <code><a href="../articles/translations.html">vignette("translations", package = "sandpaper")</a></code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="internal-0-16-2">INTERNAL<a class="anchor" aria-label="anchor" href="#internal-0-16-2"></a></h3>
+<ul><li>Translation strings now are unduplicated and live in a single file (<code>R/utils-translate.R</code>). This will make finding and updating these strings easier for maintainer and translators.</li>
+<li>Translations now live in the global environment called <code>these$translations</code>
+</li>
+<li>A new documentation page called <code>?translate</code> contains details of how translations of template elements are rendered.</li>
+<li>
+<code><a href="../reference/translations.html">tr_src()</a></code> helper function provides access to the source strings of the translations.</li>
+<li>
+<code><a href="../reference/translations.html">tr_get()</a></code>, <code><a href="../reference/translations.html">tr_varnish()</a></code>, and <code><a href="../reference/translations.html">tr_computed()</a></code> helper functions provide access top the lists of translated strings. These have replaced the <code>tr_()</code> strings at the point of generation.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.16.1" id="sandpaper-0161-2023-12-14">sandpaper 0.16.1 (2023-12-14)<a class="anchor" aria-label="anchor" href="#sandpaper-0161-2023-12-14"></a></h2>
 <div class="section level3">
