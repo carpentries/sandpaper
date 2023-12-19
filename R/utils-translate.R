@@ -1,4 +1,3 @@
-
 #' Establish and Manage Translation Strings
 #'
 #' @details A page generated from {sandpaper} is made up of user-provided
