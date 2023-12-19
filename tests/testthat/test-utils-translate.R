@@ -138,15 +138,15 @@ test_that("Lessons can be translated with lang setting", {
   nav_xpath <- "//a[starts-with(@class,'nav-link')]"
   nav_links <- xml2::xml_find_all(xml, nav_xpath)
   expect_set_translated(nav_links,
-    c(tr_src("varnish", "KeyPoints"), 
-      tr_src("varnish", "Glossary"), 
+    c(tr_src("varnish", "KeyPoints"),
+      tr_src("varnish", "Glossary"),
       tr_src("varnish", "LearnerProfiles")
     )
   )
   inav_links <- xml2::xml_find_all(instruct, nav_xpath)
   expect_set_translated(inav_links,
-    c(tr_src("varnish", "KeyPoints"), 
-      tr_src("varnish", "InstructorNotes"), 
+    c(tr_src("varnish", "KeyPoints"),
+      tr_src("varnish", "InstructorNotes"),
       tr_src("varnish", "ExtractAllImages")
     )
   )
@@ -201,7 +201,7 @@ test_that("Lessons can be translated with lang setting", {
   expect_set_translated(to_main, tr_src("varnish", "SkipToMain"))
   previous <- xml2::xml_find_all(xml, "//a[@class='chapter-link']")
   expect_set_translated(previous, c(
-      tr_src("varnish", "Home"), 
+      tr_src("varnish", "Home"),
       tr_src("varnish", "Previous")
     )
   )
@@ -209,8 +209,8 @@ test_that("Lessons can be translated with lang setting", {
   # navbar has expected text
   nav_links <- xml2::xml_find_all(xml, "//a[starts-with(@class,'nav-link')]")
   expect_set_translated(nav_links,
-    c(tr_src("varnish", "KeyPoints"), 
-      tr_src("varnish", "InstructorNotes"), 
+    c(tr_src("varnish", "KeyPoints"),
+      tr_src("varnish", "InstructorNotes"),
       tr_src("varnish", "ExtractAllImages")
     )
   )
@@ -233,9 +233,9 @@ test_that("Lessons can be translated with lang setting", {
   # overview, objectives, and questions
   overview_card <- xml2::xml_find_first(xml, ".//div[@class='overview card']")
   over_heads <- xml2::xml_find_all(overview_card, ".//h2 | .//h3")
-  expect_set_translated(over_heads, 
-    c(tr_src("computed", "Overview"), 
-      tr_src("computed", "Questions"), 
+  expect_set_translated(over_heads,
+    c(tr_src("computed", "Overview"),
+      tr_src("computed", "Questions"),
       tr_src("computed", "Objectives")
     )
   )
@@ -243,14 +243,14 @@ test_that("Lessons can be translated with lang setting", {
   # Keypoints are always the last block and should be auto-translated
   xpath_keypoints <- ".//div[@class='callout keypoints']//h3[@class='callout-title']"
   keypoints <- xml2::xml_find_first(xml, xpath_keypoints)
-  expect_set_translated(keypoints, 
+  expect_set_translated(keypoints,
     tr_src("computed", "Keypoints")
   )
 
   # Instructor note headings should be translated
   xpath_instructor <- ".//div[@class='accordion-item']/button/h3"
   instructor_note <- xml2::xml_find_all(xml, xpath_instructor)
-  expect_set_translated(instructor_note, 
+  expect_set_translated(instructor_note,
     tr_src("computed", "Instructor Note")
   )
 
@@ -261,7 +261,7 @@ test_that("Lessons can be translated with lang setting", {
   # a title.
   solution <- solution[[length(solution)]]
 
-  expect_set_translated(solution, 
+  expect_set_translated(solution,
     tr_src("computed", "Show me the solution")
   )
 

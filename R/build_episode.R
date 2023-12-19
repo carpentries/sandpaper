@@ -131,7 +131,7 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
   pf_title <- NULL
 
   if (!is.null(page_back)) {
-    trhome <- these$translations$varnish$Home
+    trhome <- tr_varnish("Home")
     pb_title <- if (page_back == "index.md") trhome else get_trimmed_title(page_back)
     page_back <- as_html(page_back)
   }

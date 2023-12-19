@@ -3,7 +3,7 @@ build_images <- function(pkg, pages = NULL, quiet = FALSE) {
   build_agg_page(
     pkg = pkg,
     pages = pages,
-    title = these$translations$computed$AllImages,
+    title = tr_computed("AllImages"),
     slug = "images",
     aggregate = "/img/..",
     prefix = FALSE,
@@ -47,7 +47,7 @@ make_images_section <- function(name, contents, parent) {
     alt <- xml2::xml_text(xml2::xml_find_all(content, "./img/@alt"))
     n <- length(alt)
     xml2::xml_add_child(section, "h3",
-      glue::glue(these$translations$computed$Figure),
+      glue::glue(tr_computed("Figure")),
       id = glue::glue("{name}-figure-{element}")
     )
     for (i in seq_along(alt)) {
@@ -58,7 +58,7 @@ make_images_section <- function(name, contents, parent) {
       if (txt == "") {
         txt <- "[decorative]"
       }
-      desc <- glue::glue(these$translations$computed$ImageOf)
+      desc <- glue::glue(tr_computed("ImageOf"))
       xml2::xml_add_child(section, "p", "aria-hidden" = "true", desc)
     }
     xml2::xml_add_child(section, contents[[element]])
