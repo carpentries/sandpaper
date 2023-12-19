@@ -1,4 +1,4 @@
-# sandpaper 0.16.1.9000 (unreleased)
+# sandpaper 0.16.2 (2023-12-19)
 
 ## MISC
 
