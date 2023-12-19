@@ -6,6 +6,15 @@ config$lang <- "ja"
 yaml::write_yaml(config, config_path)
 sitepath <- fs::path(tmp, "site", "docs")
 
+
+test_that("tr_ helpers will extract the source", {
+
+  expect_equal(these$translations$src$computed, tr_src("computed"))
+  expect_equal(these$translations$src$varnish, tr_src("varnish"))
+
+})
+
+
 test_that("set_language() uses english by default", {
 
   os <- tolower(Sys.info()[["sysname"]])
@@ -13,38 +22,38 @@ test_that("set_language() uses english by default", {
   skip_if(os == "windows" && ver < "4.2")
 
   # Before anything happens, the translations should match the source
-  expect_equal(these$translations$src$computed, these$translations$computed)
-  expect_equal(these$translations$src$varnish, these$translations$varnish)
+  expect_equal(tr_computed(), tr_src("computed"))
+  expect_equal(tr_varnish(), tr_src("varnish"))
 
   # default is english
   set_language()
 
   # If the translations are set to english, the source should continue to match
-  expect_equal(these$translations$src$computed, these$translations$computed)
-  expect_equal(these$translations$src$varnish, these$translations$varnish)
+  expect_equal(tr_computed(), tr_src("computed"))
+  expect_equal(tr_varnish(), tr_src("varnish"))
 
   # confirm a specific source element
-  src <- these$translations$src$computed$OUTPUT
-  expect_equal(these$translations$computed$OUTPUT, src)
+  src <- tr_src("computed", "OUTPUT")
+  expect_equal(src, tr_computed("OUTPUT"))
 
   # set to japanese and it becomes different
   set_language("ja")
   expect_failure({
-    expect_equal(these$translations$src$computed, these$translations$computed)
+    expect_equal(tr_computed(), tr_src("computed"))
   })
   expect_failure({
-    expect_equal(these$translations$src$varnish, these$translations$varnish)
+    expect_equal(tr_varnish(), tr_src("varnish"))
   })
-  OUTJA <- these$translations$computed$OUTPUT
+  OUTJA <- tr_computed("OUTPUT")
   expect_failure(expect_equal(OUTJA, src))
 
   # unknown language will not switch the current language
   suppressMessages(expect_message(set_language("xx"), "languages"))
-  expect_equal(these$translations$computed$OUTPUT, OUTJA)
+  expect_equal(tr_computed("OUTPUT"), OUTJA)
 
   # set back to english (default)
   set_language()
-  expect_equal(these$translations$computed$OUTPUT, src)
+  expect_equal(tr_computed("OUTPUT"), src)
 
 })
 
@@ -55,14 +64,14 @@ test_that("set_language() can use country codes", {
   ver <- getRversion()
   skip_if(os == "windows" && ver < "4.2")
 
-  src <- these$translations$src$computed$OUTPUT
+  src <- tr_src("computed")$OUTPUT
   expect_silent(set_language("es_AR"))
-  OUTAR <- these$translations$computed$OUTPUT
+  OUTAR <- tr_computed()$OUTPUT
   expect_false(identical(OUTAR, src))
 
   # the country codes will fall back to language code if they don't exist
   expect_silent(set_language("es"))
-  expect_equal(these$translations$computed$OUTPUT, OUTAR)
+  expect_equal(tr_computed()$OUTPUT, OUTAR)
 
 })
 

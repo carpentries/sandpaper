@@ -165,6 +165,13 @@ establish_translation_vars <- function() {
     src = list(varnish = varnish, computed = computed),
     varnish = varnish,
     computed = computed
+    # NOTE: If you want to include translations for messages to the user in
+    # their own language, they could be added to this list and then the
+    # message functions (e.g. those in R/utils-cli.R) could use
+    # a key from these$translations$msg
+    # msg = list(
+    #   RemovedFile = tr_("Removed {what}"),
+    # )
   )
 }
 
@@ -227,6 +234,30 @@ is_known_language <- function(lang = NULL, warn = FALSE) {
     warn_no_language(lang)
   }
   return(!not_known)
+}
+
+tr_src <- function(from = "varnish", key = NULL) {
+  res <- these$translations$src[[from]]
+  if (length(key) == 1L) {
+    res <- res[[key]]
+  }
+  return(res)
+}
+
+tr_get <- function(from = "varnish", key = NULL) {
+  res <- these$translations[[from]]
+  if (length(key) == 1L) {
+    res <- res[[key]]
+  }
+  return(res)
+}
+
+tr_varnish <- function(key = NULL) {
+  tr_get(from = "varnish", key = key)
+}
+
+tr_computed <- function(key = NULL) {
+  tr_get(from = "computed", key = key)
 }
 
 
