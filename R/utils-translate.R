@@ -1,4 +1,8 @@
 #' Establish and Manage Translation Strings
+#' 
+#' This is documentation for internal functions for translation. If you want a
+#' guide to providing translations, please read `vignette("translations",
+#' package = "sandpaper")`
 #'
 #' @details A page generated from {sandpaper} is made up of user-provided
 #'   content wrapped into templated HTML provided by {varnish}. Since users can
@@ -32,15 +36,27 @@
 #'
 #' @aliases translations
 #' @rdname translations
+#' @seealso [known_languages()] for a list of known language codes.
 #' @keywords internal
 #' @examples
+#' # When sandpaper is loaded, these functions return English
 #' snd <- asNamespace("sandpaper")
-#' snd$these$translations$varnish
-#' snd$these$translations$computed
+#' head(snd$tr_varnish())
+#' head(snd$tr_computed())
+#'
+#' # Setting language to Spanish will translate the computed and varnish
 #' snd$set_language("es")
-#' snd$these$translations$computed
-#' snd$set_language() # defaults to English
-#' snd$these$translations$computed
+#' head(snd$tr_varnish())
+#' head(snd$tr_computed())
+#'
+#' # The source will remain the same
+#' head(snd$tr_src("varnish"))
+#' head(snd$tr_src("computed"))
+#'
+#' # Running set_language with no arguments defaults to English
+#' snd$set_language() 
+#' head(snd$tr_varnish())
+#' head(snd$tr_computed())
 these <- new.env(parent = emptyenv())
 
 #' @rdname translations
@@ -201,6 +217,7 @@ add_varnish_translations <- function() {
   these$translations$varnish <- lapply(to_translate$varnish, tr_)
   these$translations$computed <- lapply(to_translate$computed, tr_)
 }
+
 #' Show a list of languages known by {sandpaper}
 #'
 #' @return a character vector of language codes known by {sandpaper}
@@ -218,6 +235,8 @@ add_varnish_translations <- function() {
 #' writeLines(paste("-", langs))
 #' ```
 #'
+#' @seealso `vignette("translations", package = "sandpaper")` for an overview
+#'   of providing translations.
 #' @export
 #' @examples
 #' known_languages()
@@ -235,6 +254,17 @@ is_known_language <- function(lang = NULL, warn = FALSE) {
   return(!not_known)
 }
 
+#' @param from a single character specifying the translation list to fetch.
+#'   This defaults to "varnish" but can be one of the following:
+#'   ```{r echo = FALSE, results = "asis"}
+#'   writeLines(paste("-", names(these$translations)))
+#'   ```
+#' @param key a single character specifying a specific key to fetch from the
+#'   translation list. This defaults to `NULL`, returning the whole list.
+#' @return if `key = NULL`, a list if `key` is a single character, the result
+#'   will be an unnamed character vector of length 1 representing the value from
+#'   that list.
+#' @rdname translations
 tr_src <- function(from = "varnish", key = NULL) {
   res <- these$translations$src[[from]]
   if (length(key) == 1L) {
@@ -243,6 +273,7 @@ tr_src <- function(from = "varnish", key = NULL) {
   return(res)
 }
 
+#' @rdname translations
 tr_get <- function(from = "varnish", key = NULL) {
   res <- these$translations[[from]]
   if (length(key) == 1L) {
@@ -251,10 +282,12 @@ tr_get <- function(from = "varnish", key = NULL) {
   return(res)
 }
 
+#' @rdname translations
 tr_varnish <- function(key = NULL) {
   tr_get(from = "varnish", key = key)
 }
 
+#' @rdname translations
 tr_computed <- function(key = NULL) {
   tr_get(from = "computed", key = key)
 }
@@ -284,7 +317,7 @@ get_codeblock_translations <- function() {
   needed <- c("OUTPUT",
     "ERROR",
     "WARNING")
-  unlist(these$translations$computed[needed])
+  unlist(tr_computed()[needed])
 }
 
 # generator for translations of callout blocks and accordions
@@ -296,7 +329,7 @@ get_callout_translations <- function() {
     "Discussion",
     "Testimonial",
     "Keypoints")
-  unlist(these$translations$computed[needed])
+  unlist(tr_computed()[needed])
 }
 
 get_accordion_translations <- function() {
@@ -305,7 +338,7 @@ get_accordion_translations <- function() {
     "Show details",
     "Instructor Note"
   )
-  unlist(these$translations$computed[needed])
+  unlist(tr_computed()[needed])
 }
 
 # replace text string with a <(kirby template)> with link text
