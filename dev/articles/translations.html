@@ -228,10 +228,13 @@ known as <code>R-sandpaper</code>.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">enc2utf8</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/gettext.html" class="external-link">gettext</a></span><span class="op">(</span><span class="st">"Page not found"</span>, domain <span class="op">=</span> <span class="st">"R-sandpaper"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Page not found"</span></span></code></pre></div>
-<p>To make translation keys easier to detect, a convenience function,
-<code>tr_()</code> has been defined, so if you want to find the context
-for a given translation key, you can find it by searching the source
-code for <code>tr_</code>.</p>
+<p>To make translation keys easier to detect, an internal convenience
+function, <code>tr_()</code> has been defined, In addition, the source
+strings and keys for the translations can be found from
+<code><a href="../reference/translations.html">tr_src()</a></code>, <code><a href="../reference/translations.html">tr_varnish()</a></code> and
+<code><a href="../reference/translations.html">tr_computed()</a></code>, so if you want to find the context for a
+given translation key, you can find it by searching the source code for
+<code>tr_</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="special-syntax-for-translators">Special syntax for translators<a class="anchor" aria-label="anchor" href="#special-syntax-for-translators"></a>

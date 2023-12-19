@@ -123,27 +123,27 @@ of hashes is created with <code><a href="https://rlang.r-lib.org/reference/hash.
 <span class="r-in"><span><span class="co"># The setup needs to include an R Markdown file with a child file.</span></span></span>
 <span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/delete.html" class="external-link">dir_delete</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to search directory '/tmp/RtmpUFYqh5/file188a35d542c3': no such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to search directory '/tmp/RtmpeZbuq1/file183b3788d748': no such file or directory</span>
 <span class="r-in"><span><span class="fu"><a href="create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="va">tmp</span>, rmd <span class="op">=</span> <span class="cn">FALSE</span>, open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUFYqh5/file188a35d542c3</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpeZbuq1/file183b3788d748</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No schedule set, using Rmd files in <span style="color: #0000BB;">episodes/</span> directory.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUFYqh5/file188a35d542c3</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpeZbuq1/file183b3788d748</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">→ </span><span style="font-weight: 100; font-style: italic;">To remove this message, define your schedule in </span><span style="color: #0000BB; font-weight: 100; font-style: italic;">config.yaml</span><span style="font-weight: 100; font-style: italic;"> or use `set_episodes()` to generate it.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUFYqh5/file188a35d542c3</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpeZbuq1/file183b3788d748</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUFYqh5/file188a35d542c3</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpeZbuq1/file183b3788d748</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> To save this configuration, use</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> set_episodes(path = path, order = ep, write = TRUE)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUFYqh5/file188a35d542c3</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'/tmp/RtmpUFYqh5/file188a35d542c3/episodes/introduction.md'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/RtmpUFYqh5/file188a35d542c3/episodes/introduction.md</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUFYqh5/file188a35d542c3</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpeZbuq1/file183b3788d748</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'/tmp/RtmpeZbuq1/file183b3788d748/episodes/introduction.md'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/RtmpeZbuq1/file183b3788d748/episodes/introduction.md</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpeZbuq1/file183b3788d748</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Workflows up-to-date!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUFYqh5/file188a35d542c3</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/RtmpUFYqh5/file188a35d542c3</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpUFYqh5/file188a35d542c3</span>...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpUFYqh5/file188a35d542c3</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpeZbuq1/file183b3788d748</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/RtmpeZbuq1/file183b3788d748</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/RtmpeZbuq1/file183b3788d748</span>...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpeZbuq1/file183b3788d748</span></span>
 <span class="r-in"><span><span class="co"># get namespace to use internal functions</span></span></span>
 <span class="r-in"><span><span class="va">sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ns-internal.html" class="external-link">asNamespace</a></span><span class="op">(</span><span class="st">"sandpaper"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"site/built/md5sum.txt"</span><span class="op">)</span></span></span>
@@ -167,38 +167,38 @@ of hashes is created with <code><a href="https://rlang.r-lib.org/reference/hash.
 <span class="r-in"><span><span class="va">children</span> <span class="op">&lt;-</span> <span class="va">sp</span><span class="op">$</span><span class="fu">get_lineages</span><span class="op">(</span><span class="va">lsn</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">children</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`episodes/introduction.Rmd`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpUFYqh5/file188a35d542c3/episodes/introduction.Rmd"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "/tmp/RtmpUFYqh5/file188a35d542c3/episodes/files/hi.md"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpeZbuq1/file183b3788d748/episodes/introduction.Rmd"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "/tmp/RtmpeZbuq1/file183b3788d748/episodes/files/hi.md"     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $CODE_OF_CONDUCT.md</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpUFYqh5/file188a35d542c3/CODE_OF_CONDUCT.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpeZbuq1/file183b3788d748/CODE_OF_CONDUCT.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $CONTRIBUTING.md</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpUFYqh5/file188a35d542c3/CONTRIBUTING.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpeZbuq1/file183b3788d748/CONTRIBUTING.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $LICENSE.md</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpUFYqh5/file188a35d542c3/LICENSE.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpeZbuq1/file183b3788d748/LICENSE.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $README.md</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpUFYqh5/file188a35d542c3/README.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpeZbuq1/file183b3788d748/README.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $index.md</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpUFYqh5/file188a35d542c3/index.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpeZbuq1/file183b3788d748/index.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $links.md</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpUFYqh5/file188a35d542c3/links.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpeZbuq1/file183b3788d748/links.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`instructors/instructor-notes.md`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpUFYqh5/file188a35d542c3/instructors/instructor-notes.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpeZbuq1/file183b3788d748/instructors/instructor-notes.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`learners/reference.md`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpUFYqh5/file188a35d542c3/learners/reference.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpeZbuq1/file183b3788d748/learners/reference.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`learners/setup.md`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpUFYqh5/file188a35d542c3/learners/setup.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpeZbuq1/file183b3788d748/learners/setup.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`profiles/learner-profiles.md`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpUFYqh5/file188a35d542c3/profiles/learner-profiles.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/RtmpeZbuq1/file183b3788d748/profiles/learner-profiles.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># hash_children ---------------------------------------------------</span></span></span>
