@@ -66,12 +66,12 @@ test_that("set_language() can use country codes", {
 
   src <- tr_src("computed")$OUTPUT
   expect_silent(set_language("es_AR"))
-  OUTAR <- tr_computed()$OUTPUT
+  OUTAR <- tr_computed("OUTPUT")
   expect_false(identical(OUTAR, src))
 
   # the country codes will fall back to language code if they don't exist
   expect_silent(set_language("es"))
-  expect_equal(tr_computed()$OUTPUT, OUTAR)
+  expect_equal(tr_computed("OUTPUT"), OUTAR)
 
 })
 
@@ -116,46 +116,52 @@ test_that("Lessons can be translated with lang setting", {
   expect_equal(xml2::xml_attr(xml, "lang"), "ja")
   to_main <- xml2::xml_find_first(xml, "//a[@href='#main-content']")
   ito_main <- xml2::xml_find_first(instruct, "//a[@href='#main-content']")
-  expect_set_translated(to_main, "Skip to main content")
-  expect_set_translated(ito_main, "Skip to main content")
+  expect_set_translated(to_main, tr_src("varnish", "SkipToMain"))
+  expect_set_translated(ito_main, tr_src("varnish", "SkipToMain"))
 
   expect_equal(xml2::xml_attr(instruct, "lang"), "ja")
-  expect_title_translated(xml, "Summary and Setup")
-  expect_title_translated(instruct, "Summary and Schedule")
+  expect_title_translated(xml, tr_src("computed", "SummaryAndSetup"))
+  expect_title_translated(instruct, tr_src("computed", "SummaryAndSchedule"))
 
   # Extract first header (Summary and Setup) from index
   h1_xpath <- "//h1[@class='schedule-heading']"
   h1_header <- xml2::xml_find_all(xml, h1_xpath)
-  expect_set_translated(h1_header, "Summary and Setup")
+  expect_set_translated(h1_header, tr_src("computed", "SummaryAndSetup"))
   ih1_header <- xml2::xml_find_all(instruct, h1_xpath)
-  expect_set_translated(ih1_header, "Summary and Schedule")
+  expect_set_translated(ih1_header, tr_src("computed", "SummaryAndSchedule"))
 
   # Schedule for instructor view ends with "Finish"
   final_cell <- xml2::xml_find_first(instruct, "//tr[last()]/td[2]")
-  expect_set_translated(final_cell, "Finish")
+  expect_set_translated(final_cell, tr_src("computed", "Finish"))
 
   # Navbar has expected text
   nav_xpath <- "//a[starts-with(@class,'nav-link')]"
   nav_links <- xml2::xml_find_all(xml, nav_xpath)
   expect_set_translated(nav_links,
-    c("Key Points", "Glossary", "Learner Profiles")
+    c(tr_src("varnish", "KeyPoints"), 
+      tr_src("varnish", "Glossary"), 
+      tr_src("varnish", "LearnerProfiles")
+    )
   )
   inav_links <- xml2::xml_find_all(instruct, nav_xpath)
   expect_set_translated(inav_links,
-    c("Key Points", "Instructor Notes", "Extract All Images")
+    c(tr_src("varnish", "KeyPoints"), 
+      tr_src("varnish", "InstructorNotes"), 
+      tr_src("varnish", "ExtractAllImages")
+    )
   )
 
   # aria labels should be translated
   aria_text <- c(
-    "Main Navigation",
-    "Toggle Navigation",
-    "Search",
-    "search button",
-    "Lesson Progress",
-    "close menu",
-    "Next Chapter",
-    "anchor",
-    "Back To Top"
+    tr_src("varnish", "MainNavigation"),
+    tr_src("varnish", "ToggleNavigation"),
+    tr_src("varnish", "Search"),
+    tr_src("varnish", "SearchButton"),
+    tr_src("varnish", "LessonProgress"),
+    tr_src("varnish", "CloseMenu"),
+    tr_src("varnish", "NextChapter"),
+    tr_src("computed", "Anchor"),
+    tr_src("varnish", "BackToTop")
   )
   aria_labels <- xml2::xml_find_all(xml, ".//@aria-label")
   iaria_labels <- xml2::xml_find_all(instruct, ".//@aria-label")
@@ -168,22 +174,22 @@ test_that("Lessons can be translated with lang setting", {
   inst_notes_path <- fs::path(sitepath, "instructor/instructor-notes.html")
   inst_notes <- xml2::read_html(inst_notes_path)
   expect_equal(xml2::xml_attr(inst_notes, "lang"), "ja")
-  expect_h1_translated(inst_notes, "Instructor Notes")
-  expect_title_translated(inst_notes, "Instructor Notes")
+  expect_h1_translated(inst_notes, tr_src("varnish", "InstructorNotes"))
+  expect_title_translated(inst_notes, tr_src("varnish", "InstructorNotes"))
 
   profiles <- xml2::read_html(fs::path(sitepath, "profiles.html"))
   expect_equal(xml2::xml_attr(profiles, "lang"), "ja")
-  expect_h1_translated(profiles, "Learner Profiles")
-  expect_title_translated(profiles, "Learner Profiles")
+  expect_h1_translated(profiles, tr_src("varnish", "LearnerProfiles"))
+  expect_title_translated(profiles, tr_src("varnish", "LearnerProfiles"))
 
   fof <- xml2::read_html(fs::path(sitepath, "404.html"))
   expect_equal(xml2::xml_attr(fof, "lang"), "ja")
-  expect_h1_translated(fof, "Page not found")
-  expect_title_translated(fof, "Page not found")
+  expect_h1_translated(fof, tr_src("computed", "PageNotFound"))
+  expect_title_translated(fof, tr_src("computed", "PageNotFound"))
 
   imgs <- xml2::read_html(fs::path(sitepath, "instructor/images.html"))
   expect_equal(xml2::xml_attr(imgs, "lang"), "ja")
-  expect_title_translated(imgs, "All Images")
+  expect_title_translated(imgs, tr_src("computed", "AllImages"))
 
 
   # Episode elements -------------------------------------------------
@@ -192,27 +198,34 @@ test_that("Lessons can be translated with lang setting", {
   xml <- xml2::read_html(fs::path(sitepath, "instructor", "introduction.html"))
   expect_equal(xml2::xml_attr(xml, "lang"), "ja")
   to_main <- xml2::xml_find_first(xml, "//a[@href='#main-content']")
-  expect_set_translated(to_main, "Skip to main content")
+  expect_set_translated(to_main, tr_src("varnish", "SkipToMain"))
   previous <- xml2::xml_find_all(xml, "//a[@class='chapter-link']")
-  expect_set_translated(previous, c("Home", "Previous"))
+  expect_set_translated(previous, c(
+      tr_src("varnish", "Home"), 
+      tr_src("varnish", "Previous")
+    )
+  )
 
   # navbar has expected text
   nav_links <- xml2::xml_find_all(xml, "//a[starts-with(@class,'nav-link')]")
   expect_set_translated(nav_links,
-    c("Key Points", "Instructor Notes", "Extract All Images")
+    c(tr_src("varnish", "KeyPoints"), 
+      tr_src("varnish", "InstructorNotes"), 
+      tr_src("varnish", "ExtractAllImages")
+    )
   )
 
   # aria labels should be translated
   aria_text <- c(
-    "Main Navigation",
-    "Toggle Navigation",
-    "Search",
-    "search button",
-    "Lesson Progress",
-    "close menu",
-    "Previous and Next Chapter",
-    "anchor",
-    "Back To Top"
+    tr_src("varnish", "MainNavigation"),
+    tr_src("varnish", "ToggleNavigation"),
+    tr_src("varnish", "Search"),
+    tr_src("varnish", "SearchButton"),
+    tr_src("varnish", "LessonProgress"),
+    tr_src("varnish", "CloseMenu"),
+    tr_src("varnish", "PreviousAndNext"),
+    tr_src("computed", "Anchor"),
+    tr_src("varnish", "BackToTop")
   )
   aria_labels <- xml2::xml_find_all(xml, ".//@aria-label")
   expect_set_translated(aria_labels, aria_text)
@@ -220,17 +233,26 @@ test_that("Lessons can be translated with lang setting", {
   # overview, objectives, and questions
   overview_card <- xml2::xml_find_first(xml, ".//div[@class='overview card']")
   over_heads <- xml2::xml_find_all(overview_card, ".//h2 | .//h3")
-  expect_set_translated(over_heads, c("Overview", "Questions", "Objectives"))
+  expect_set_translated(over_heads, 
+    c(tr_src("computed", "Overview"), 
+      tr_src("computed", "Questions"), 
+      tr_src("computed", "Objectives")
+    )
+  )
 
   # Keypoints are always the last block and should be auto-translated
   xpath_keypoints <- ".//div[@class='callout keypoints']//h3[@class='callout-title']"
   keypoints <- xml2::xml_find_first(xml, xpath_keypoints)
-  expect_set_translated(keypoints, "Key Points")
+  expect_set_translated(keypoints, 
+    tr_src("computed", "Keypoints")
+  )
 
   # Instructor note headings should be translated
   xpath_instructor <- ".//div[@class='accordion-item']/button/h3"
   instructor_note <- xml2::xml_find_all(xml, xpath_instructor)
-  expect_set_translated(instructor_note, "Instructor Note")
+  expect_set_translated(instructor_note, 
+    tr_src("computed", "Instructor Note")
+  )
 
   # solution headings should be translated
   xpath_solution <- ".//div[@class='accordion-item']/button/h4"
@@ -239,6 +261,8 @@ test_that("Lessons can be translated with lang setting", {
   # a title.
   solution <- solution[[length(solution)]]
 
-  expect_set_translated(solution, "Show me the solution")
+  expect_set_translated(solution, 
+    tr_src("computed", "Show me the solution")
+  )
 
 })
