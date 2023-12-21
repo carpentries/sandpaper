@@ -66,6 +66,8 @@ varnish_vars <- function() {
 set_globals <- function(path) {
   template_check$set()
   initialise_metadata(path)
+  # set the translations
+  set_language(this_metadata$get()[["lang"]])
   # get the resources if they exist (but do not destroy the global environment)
   old <- .resources$get()
   on.exit(.resources$set(key = NULL, old))
@@ -84,7 +86,7 @@ set_globals <- function(path) {
   idx_text <- xml2::xml_contents(idx_link)
   no_index_title <- length(idx_text) == 1 && xml2::xml_text(idx_text) == "0. "
   if (no_index_title) {
-    xml2::xml_set_text(idx_link, tr_("Summary and Schedule"))
+    xml2::xml_set_text(idx_link, tr_computed("SummaryAndSchedule"))
   } else {
     xml2::xml_set_text(idx_text, sub("^0[.] ", "", xml2::xml_text(idx_text)))
   }
@@ -92,7 +94,7 @@ set_globals <- function(path) {
   learner_sidebar <- instructor_sidebar
   instructor_sidebar[[1]] <- sindex
   if (no_index_title) {
-    xml2::xml_set_text(idx_link, tr_("Summary and Setup"))
+    xml2::xml_set_text(idx_link, tr_computed("SummaryAndSetup"))
     sindex <- create_sidebar_item(nodes = NULL, as.character(idx_link), 1)
   }
   learner_sidebar[[1]] <- sindex
@@ -100,7 +102,7 @@ set_globals <- function(path) {
   # Resources
   learner <- create_resources_dropdown(these_resources[["learners"]],
     "learners")
-  instructor <- create_resources_dropdown(these_resources[["instructors"]], 
+  instructor <- create_resources_dropdown(these_resources[["instructors"]],
     "instructors")
   instructor$extras <- c(instructor$extras, "<hr>", learner$extras)
   instructor$resources <- c(instructor$resources, "<hr>", learner$extras)
@@ -112,7 +114,8 @@ set_globals <- function(path) {
       instructor = FALSE,
       sidebar = learner_sidebar,
       more = paste(learner$extras, collapse = ""),
-      resources = paste(learner$resources, collapse = "")
+      resources = paste(learner$resources, collapse = ""),
+      translate = tr_varnish()
     ), pkg_versions)
   )
   instructor_globals$set(key = NULL,
@@ -121,7 +124,8 @@ set_globals <- function(path) {
       instructor = TRUE,
       sidebar = instructor_sidebar,
       more = paste(instructor$extras, collapse = ""),
-      resources = paste(instructor$resources, collapse = "")
+      resources = paste(instructor$resources, collapse = ""),
+      translate = tr_varnish()
     ), pkg_versions)
   )
 }

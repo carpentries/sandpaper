@@ -29,3 +29,7 @@ details of how to do so in the source code for {sandpaper}.
 \examples{
 known_languages()
 }
+\seealso{
+\code{vignette("translations", package = "sandpaper")} for an overview
+of providing translations.
+}

@@ -3,7 +3,7 @@ build_keypoints <- function(pkg, pages = NULL, quiet = FALSE) {
   build_agg_page(
     pkg = pkg,
     pages = pages,
-    title = tr_("Key Points"),
+    title = tr_varnish("KeyPoints"),
     slug = "key-points",
     aggregate = "/div[starts-with(@id, 'keypoints')]/div[@class='callout-inner']/div[@class='callout-content']/*",
     prefix = FALSE,

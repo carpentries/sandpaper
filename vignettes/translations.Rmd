@@ -149,9 +149,11 @@ with_language("xx", {
 })
 ```
 
-To make translation keys easier to detect, a convenience function, `tr_()` has
-been defined, so if you want to find the context for a given translation key,
-you can find it by searching the source code for `tr_`.
+To make translation keys easier to detect, an internal convenience function,
+`tr_()` has been defined, In addition, the source strings and keys for the
+translations can be found from `tr_src()`, `tr_varnish()` and `tr_computed()`,
+so if you want to find the context for a given translation key, you can find it
+by searching the source code for `tr_`.
 
 ### Special syntax for translators
 
@@ -225,5 +227,10 @@ with_language("ja", {
 })
 ```
 
+
+## List of Translation Variables
+
+```{r child="../man/children/translation-vars.Rmd"}
+```
 
 
