@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.16.1.9000\n"
-"POT-Creation-Date: 2023-12-19 09:37-0800\n"
+"POT-Creation-Date: 2024-01-12 11:34+0900\n"
 "PO-Revision-Date: 2023-12-19 09:37-0800\n"
 "Last-Translator: Olexandr Konovalov\n"
 "Language-Team: none\n"
@@ -33,8 +33,8 @@ msgid ""
 "This lesson is in the alpha phase, which means that it has been taught once "
 "and lesson authors are iterating on feedback."
 msgstr ""
-"Цей урок знаходиться в альфа-фазі, що означає, що він викладався один раз, "
-"і перероблюється згідно з отриманими відгуками."
+"Цей урок знаходиться в альфа-фазі, що означає, що він викладався один раз, і "
+"перероблюється згідно з отриманими відгуками."
 
 #: utils-translate.R:78
 msgid "Alpha"
@@ -85,7 +85,6 @@ msgid "Setup"
 msgstr "Налаштування"
 
 #: utils-translate.R:89
-msgctxt "utils-translate.R:89"
 msgid "Key Points"
 msgstr "Ключові моменти"
 
@@ -177,8 +176,7 @@ msgstr "Останнє оновлення {updated}"
 msgid "Edit this page"
 msgstr "Редагувати цю сторінку"
 
-#: utils-translate.R:114+utils-translate.R:135
-msgctxt "utils-translate.R:114 utils-translate.R:135"
+#: utils-translate.R:114 utils-translate.R:135
 msgid "Expand All Solutions"
 msgstr "Розгорнути всі рішення"
 
