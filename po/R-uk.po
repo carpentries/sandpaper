@@ -178,7 +178,7 @@ msgstr "Редагувати цю сторінку"
 
 #: utils-translate.R:114 utils-translate.R:135
 msgid "Expand All Solutions"
-msgstr "Розгорнути всі рішення"
+msgstr "Розгорнути всі відповіді"
 
 #: utils-translate.R:116
 msgid "Setup Instructions"
@@ -256,7 +256,7 @@ msgstr ""
 
 #: utils-translate.R:136
 msgid "Collapse All Solutions"
-msgstr "Згорнути всі рішення"
+msgstr "Згорнути всі відповіді"
 
 #: utils-translate.R:137
 msgid "Collapse"
@@ -324,7 +324,7 @@ msgstr "Відгук"
 
 #: utils-translate.R:162
 msgid "Show me the solution"
-msgstr "Показати рішення"
+msgstr "Показати відповіді"
 
 #: utils-translate.R:163
 msgid "Give me a hint"
@@ -340,11 +340,11 @@ msgstr "Примітка для викладача"
 
 #: utils-translate.R:167
 msgid "Summary and Setup"
-msgstr "Підсумок і налаштування"
+msgstr "Передмова і налаштування"
 
 #: utils-translate.R:168
 msgid "Summary and Schedule"
-msgstr "Підсумок і розклад"
+msgstr "Передмова і розклад"
 
 #: utils-translate.R:169
 msgid "All in One View"
