@@ -1,363 +1,375 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: sandpaper 0.16.2\n"
-"POT-Creation-Date: 2024-01-14 22:46+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Project-Id-Version: sandpaper 0.16.1.9000\n"
+"POT-Creation-Date: 2024-01-12 11:34+0900\n"
+"PO-Revision-Date: 2023-12-19 09:37-0800\n"
+"Last-Translator: Olexandr Konovalov\n"
+"Language-Team: none\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: utils-translate.R:74
 msgid "Skip to main content"
-msgstr ""
+msgstr "Перейти до основного вмісту"
 
 #: utils-translate.R:75
 msgid "Pre-Alpha"
-msgstr ""
+msgstr "Пре-альфа"
 
 #: utils-translate.R:76
 msgid ""
 "This lesson is in the pre-alpha phase, which means that it is in early "
 "development, but has not yet been taught."
 msgstr ""
+"Цей урок знаходиться в пре-альфа-фазі, що означає, що він знаходиться на "
+"ранній стадії розробки, та ще не викладався."
 
 #: utils-translate.R:77
 msgid ""
 "This lesson is in the alpha phase, which means that it has been taught once "
 "and lesson authors are iterating on feedback."
 msgstr ""
+"Цей урок знаходиться в альфа-фазі, що означає, що він викладався один раз, і "
+"перероблюється згідно з отриманими відгуками."
 
 #: utils-translate.R:78
 msgid "Alpha"
-msgstr ""
+msgstr "Альфа"
 
 #: utils-translate.R:79
 msgid ""
 "This lesson is in the beta phase, which means that it is ready for teaching "
 "by instructors outside of the original author team."
 msgstr ""
+"Цей урок знаходиться на стадії бета-тестування, що означає, що він готовий "
+"для викладання інструкторами, які не належать до початкової команди авторів."
 
 #: utils-translate.R:80
 msgid "Beta"
-msgstr ""
+msgstr "Бета"
 
 #: utils-translate.R:81
 msgid "This lesson has passed peer review."
-msgstr ""
+msgstr "Цей урок пройшов експертну перевірку."
 
 #: utils-translate.R:82
 msgid "Instructor View"
-msgstr ""
+msgstr "Версія для інструктора"
 
 #: utils-translate.R:83
 msgid "Learner View"
-msgstr ""
+msgstr "Версія для слухача"
 
 #: utils-translate.R:84
 msgid "Main Navigation"
-msgstr ""
+msgstr "Головна навігація"
 
 #: utils-translate.R:85
 msgid "Toggle Navigation"
-msgstr ""
+msgstr "Переключити навігацію"
 
 #: utils-translate.R:86
 msgid "Menu"
-msgstr ""
+msgstr "Меню"
 
 #: utils-translate.R:87
 msgid "search button"
-msgstr ""
+msgstr "кнопка пошуку"
 
 #: utils-translate.R:88
 msgid "Setup"
-msgstr ""
+msgstr "Налаштування"
 
 #: utils-translate.R:89
 msgid "Key Points"
-msgstr ""
+msgstr "Ключові моменти"
 
 #: utils-translate.R:90
 msgid "Instructor Notes"
-msgstr ""
+msgstr "Примітки для викладача"
 
 #: utils-translate.R:91
 msgid "Glossary"
-msgstr ""
+msgstr "Глосарій"
 
 #: utils-translate.R:92
 msgid "Learner Profiles"
-msgstr ""
+msgstr "Профілі учнів"
 
 #: utils-translate.R:93
 msgid "More"
-msgstr ""
+msgstr "Більше"
 
 #: utils-translate.R:94
 msgid "Search"
-msgstr ""
+msgstr "Пошук"
 
 #: utils-translate.R:95
 msgid "Lesson Progress"
-msgstr ""
+msgstr "Хід уроку"
 
 #: utils-translate.R:97
 msgid "close menu"
-msgstr ""
+msgstr "закрити меню"
 
 #: utils-translate.R:98
 msgid "EPISODES"
-msgstr ""
+msgstr "ЕПІЗОДИ"
 
 #: utils-translate.R:99
 msgid "Home"
-msgstr ""
+msgstr "Додому"
 
 #: utils-translate.R:100
 msgid "Home Page Navigation"
-msgstr ""
+msgstr "Навігація на домашній сторінці"
 
 #: utils-translate.R:101
 msgid "RESOURCES"
-msgstr ""
+msgstr "РЕСУРСИ"
 
 #: utils-translate.R:102
 msgid "Extract All Images"
-msgstr ""
+msgstr "Переглянути усі зображення"
 
 #: utils-translate.R:103
 msgid "See all in one page"
-msgstr ""
+msgstr "Все в одній сторінці"
 
 #: utils-translate.R:104
 msgid "Download Lesson Handout"
-msgstr ""
+msgstr "Завантажити роздатковий матеріал уроку"
 
 #: utils-translate.R:105
 msgid "Export Chapter Slides"
-msgstr ""
+msgstr "Експорт слайдів розділу"
 
 #: utils-translate.R:107
 msgid "Previous and Next Chapter"
-msgstr ""
+msgstr "Попередній і наступний розділ"
 
 #: utils-translate.R:108
 msgid "Previous"
-msgstr ""
+msgstr "Попередній"
 
 #: utils-translate.R:109
 msgid "Estimated time: {icons$clock} {minutes} minutes"
-msgstr ""
+msgstr "Приблизний час: {icons$clock} {minutes} хвилин"
 
 #: utils-translate.R:110
 msgid "Next"
-msgstr ""
+msgstr "Далі"
 
 #: utils-translate.R:111
 msgid "Next Chapter"
-msgstr ""
+msgstr "Наступний розділ"
 
 #: utils-translate.R:112
 msgid "Last updated on {updated}"
-msgstr ""
+msgstr "Останнє оновлення {updated}"
 
 #: utils-translate.R:113
 msgid "Edit this page"
-msgstr ""
+msgstr "Редагувати цю сторінку"
 
 #: utils-translate.R:114 utils-translate.R:135
 msgid "Expand All Solutions"
-msgstr ""
+msgstr "Розгорнути всі відповіді"
 
 #: utils-translate.R:116
 msgid "Setup Instructions"
-msgstr ""
+msgstr "Інструкції з налаштування"
 
 #: utils-translate.R:117
 msgid "Download files required for the lesson"
-msgstr ""
+msgstr "Завантажити файли, необхідні для уроку"
 
 #: utils-translate.R:118
 msgid ""
 "The actual schedule may vary slightly depending on the topics and exercises "
 "chosen by the instructor."
 msgstr ""
+"Фактичний розклад може дещо відрізнятися залежно від тем і вправ, обраних "
+"інструктором."
 
 #: utils-translate.R:120
 msgid "Back To Top"
-msgstr ""
+msgstr "Догори"
 
 #: utils-translate.R:121
 msgid "<(Back)> To Top"
-msgstr ""
+msgstr "<(Назад)> Догори"
 
 #: utils-translate.R:122
 msgid "This lesson is subject to the <(Code of Conduct)>"
-msgstr ""
+msgstr "Цей урок регулюється <(Кодексом поведінки)>"
 
 #: utils-translate.R:123
 msgid "Code of Conduct"
-msgstr ""
+msgstr "Кодекс поведінки"
 
 #: utils-translate.R:124
 msgid "Edit on GitHub"
-msgstr ""
+msgstr "Редагувати на GitHub"
 
 #: utils-translate.R:125
 msgid "Contributing"
-msgstr ""
+msgstr "Як допомогти?"
 
 #: utils-translate.R:126
 msgid "Source"
-msgstr ""
+msgstr "Вихідні файли уроку"
 
 #: utils-translate.R:127
 msgid "Cite"
-msgstr ""
+msgstr "Цитувати"
 
 #: utils-translate.R:128
 msgid "Contact"
-msgstr ""
+msgstr "Контакти"
 
 #: utils-translate.R:129
 msgid "About"
-msgstr ""
+msgstr "Інформація"
 
 #: utils-translate.R:130
 msgid "Materials licensed under {license} by {authors}"
-msgstr ""
+msgstr "Матеріали ліцензовані за {license}. Автори: {authors}"
 
 #: utils-translate.R:131
 msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
 msgstr ""
+"Шаблон ліцензовано за <(CC-BY 4.0)>. Автори шаблону: {template_authors}"
 
 #: utils-translate.R:132
 msgid "The Carpentries"
-msgstr ""
+msgstr "The Carpentries"
 
 #: utils-translate.R:133
 msgid "Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}"
 msgstr ""
+"Створено за допомогою {sandpaper_link}, {pegboard_link} та {varnish_link}"
 
 #: utils-translate.R:136
 msgid "Collapse All Solutions"
-msgstr ""
+msgstr "Згорнути всі відповіді"
 
 #: utils-translate.R:137
 msgid "Collapse"
-msgstr ""
+msgstr "Згорнути"
 
 #: utils-translate.R:138
 msgid "Episodes"
-msgstr ""
+msgstr "Епізоди"
 
 #: utils-translate.R:140
 msgid "Give Feedback"
-msgstr ""
+msgstr "Надати відгук"
 
 #: utils-translate.R:141
 msgid "Learn More"
-msgstr ""
+msgstr "Вивчайте більше"
 
 #: utils-translate.R:147
 msgid "OUTPUT"
-msgstr ""
+msgstr "ВИХІД"
 
 #: utils-translate.R:148
 msgid "WARNING"
-msgstr ""
+msgstr "УВАГА"
 
 #: utils-translate.R:149
 msgid "ERROR"
-msgstr ""
+msgstr "ПОМИЛКА"
 
 #: utils-translate.R:151
 msgid "Overview"
-msgstr ""
+msgstr "Огляд"
 
 #: utils-translate.R:152
 msgid "Questions"
-msgstr ""
+msgstr "Питання"
 
 #: utils-translate.R:153
 msgid "Objectives"
-msgstr ""
+msgstr "Цілі"
 
 #: utils-translate.R:154
 msgid "Callout"
-msgstr ""
+msgstr "Виноска"
 
 #: utils-translate.R:155
 msgid "Challenge"
-msgstr ""
+msgstr "Вправа"
 
 #: utils-translate.R:156
 msgid "Prerequisite"
-msgstr ""
+msgstr "Передумова"
 
 #: utils-translate.R:157
 msgid "Checklist"
-msgstr ""
+msgstr "Контрольний список"
 
 #: utils-translate.R:158
 msgid "Discussion"
-msgstr ""
+msgstr "Обговорення"
 
 #: utils-translate.R:159
 msgid "Testimonial"
-msgstr ""
+msgstr "Відгук"
 
 #: utils-translate.R:162
 msgid "Show me the solution"
-msgstr ""
+msgstr "Показати відповіді"
 
 #: utils-translate.R:163
 msgid "Give me a hint"
-msgstr ""
+msgstr "Отримати підказку"
 
 #: utils-translate.R:164
 msgid "Show details"
-msgstr ""
+msgstr "Показати деталі"
 
 #: utils-translate.R:165
 msgid "Instructor Note"
-msgstr ""
+msgstr "Примітка для викладача"
 
 #: utils-translate.R:167
 msgid "Summary and Setup"
-msgstr ""
+msgstr "Передмова і налаштування"
 
 #: utils-translate.R:168
 msgid "Summary and Schedule"
-msgstr ""
+msgstr "Передмова і розклад"
 
 #: utils-translate.R:169
 msgid "All in One View"
-msgstr ""
+msgstr "Все на одній сторінці"
 
 #: utils-translate.R:170
 msgid "Page not found"
-msgstr ""
+msgstr "Сторінку не знайдено"
 
 #: utils-translate.R:171
 msgid "All Images"
-msgstr ""
+msgstr "Усі зображення"
 
 #: utils-translate.R:173
 msgid "anchor"
-msgstr ""
+msgstr "якір"
 
 #: utils-translate.R:174
 msgid "Figure {element}"
-msgstr ""
+msgstr "Малюнок {element}"
 
 #: utils-translate.R:175
 msgid "Image {i} of {n}: {sQuote(txt)}"
-msgstr ""
+msgstr "Зображення {i} з {n}: {sQuote(txt)}"
 
 #: utils-translate.R:176
 msgid "Finish"
-msgstr ""
+msgstr "Кінець"
