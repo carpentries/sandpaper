@@ -85,7 +85,7 @@ following features:
 
 ### Rendering locally
 
-![The local two-step model of deployment into local folders](vignettes/articles/img/local-flow.dot.svg){alt='diagram of three
+![The local two-step model of deployment into local folders](articles/img/local-flow.dot.svg){alt='diagram of three
 folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow
 (labelled as hash episodes) pointing to "site/built/", labelled as Markdown.
 The Markdown folder has an arrow (labelled as "apply template") pointing to
@@ -109,7 +109,7 @@ long-running lessons can be updated and previewed quickly.
 
 ### Rendering on continuous integration
 
-![Two-step deployment model on continuous integration](vignettes/articles/img/branch-flow.svg){alt='Diagrammatic representation of the GitHub
+![Two-step deployment model on continuous integration](articles/img/branch-flow.svg){alt='Diagrammatic representation of the GitHub
 deployment cycle showing four branches, gh-pages, md-outputs, main, and
 my-edit. The my-edit branch is a direct descendent of the main branch, while
 the gh-pages and md-outputs branches are orphans. Each commit of the main
@@ -288,28 +288,13 @@ your computer's Desktop.
 ```{r}
 usethis::create_from_github(
   repo = "swcarpentry/r-novice-gapminder", 
-  destdir = "~/Desktop/r-novice-gampinder",
+  destdir = "~/Desktop/r-novice-gapminder",
   fork = TRUE
 )
 ```
 
 This will copy all of the source files to your computer and move you to the
 directory.
-
-Note that the rendered website will not be immediately available. To download
-the site as it currently appears on the web, use:
-
-```{r}
-sandpaper::fetch_lesson(markdown = TRUE, site = TRUE)
-```
-
-This will download the site and the rendered markdown files into the `site/`
-folder. To save bandwidth, you can choose to just download the markdown files
-and artifacts by settin `site = FALSE`. Now, you can edit the Rmarkdown files
-in `episodes/` and quickly render the site.
-
-To upload changes to the lesson repository, you can use the follow
-
 
 ### Maintaining a Lesson
 
