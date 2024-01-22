@@ -189,7 +189,6 @@ Accessors
  - `build_episode_html()` renders a built markdown file to html (internal use)
  - `build_lesson()` builds the lesson into a static website
  - `build_portable_lesson()` builds the lesson into a portable static website
- - `fetch_lesson()` fetches the static website from the lesson repository
 
 **Continuous Integration Utilities**
 
@@ -295,21 +294,6 @@ usethis::create_from_github(
 
 This will copy all of the source files to your computer and move you to the
 directory.
-
-Note that the rendered website will not be immediately available. To download
-the site as it currently appears on the web, use:
-
-```{r}
-sandpaper::fetch_lesson(markdown = TRUE, site = TRUE)
-```
-
-This will download the site and the rendered markdown files into the `site/`
-folder. To save bandwidth, you can choose to just download the markdown files
-and artifacts by settin `site = FALSE`. Now, you can edit the Rmarkdown files
-in `episodes/` and quickly render the site.
-
-To upload changes to the lesson repository, you can use the follow
-
 
 ### Maintaining a Lesson
 
