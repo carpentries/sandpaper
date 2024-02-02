@@ -21,7 +21,8 @@ local blocks = {
   ["discussion"] = "message-circle",
   ["testimonial"] = "heart",
   ["keypoints"] = "key",
-  ["instructor"] = "edit-2"
+  ["instructor"] = "edit-2",
+  ["tab"] = "none"
 }
 
 local block_counts = {
@@ -36,7 +37,9 @@ local block_counts = {
   ["discussion"] = 0,
   ["testimonial"] = 0,
   ["keypoints"] = 0,
-  ["instructor"] = 0
+  ["instructor"] = 0,
+  ["tab"] = 0,
+  ["tab_collapse"] = 0,
 }
 
 -- get the timing elements from the metadata and store them in a global var
@@ -192,6 +195,10 @@ local button_headings = {
   <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
   {{title}}
   </h3>]],
+  ["tab"] = [[
+  <h3 class="tab-header" id="heading{{id}}">
+  {{title}}
+  </h3>]],
 }
 
 local accordion_titles = {
@@ -266,6 +273,169 @@ accordion = function(el, class)
   main_div.identifier = div_id
   main_div.classes = main_class
   return(main_div)
+end
+
+local tab_button_num = 1
+local tabpanel_tab_button_num = 0
+local tabpanel_current_tab_button_num = 1
+
+local tabpanels = {}
+local empty_list    = pandoc.List:new()
+
+local test = {}
+
+local tab_button = [[
+<button class="tab-button collapsed" type="button" role="tab" aria-selected="false" aria-expanded="false" aria-controls="tabpanel{{id}} tabindex=-1">
+  <span class="focus">
+{{heading}}
+  </span>
+</button>]]
+
+local tab_button_selected = [[
+<button class="tab-button collapsed" type="button" role="tab" aria-selected="true" aria-expanded="false" aria-controls="tabpanel{{id}}">
+  <span class="focus">
+{{heading}}
+  </span>
+</button>]]
+
+wrap_tab_panel = function(el)
+  if tabpanel_current_tab_button_num == tabpanel_tab_button_num then
+    print(tabpanel_current_tab_button_num)
+    print(tabpanel_tab_button_num)
+    print(el)
+    table.insert(tabpanels, el)
+    return empty_list
+  else
+    print("WRAPPING")
+    print(tabpanel_current_tab_button_num)
+    print(tabpanel_tab_button_num)
+    print(el)
+
+    block_counts["tab_collapse"] = block_counts["tab_collapse"] + 1
+    local id    = block_counts["tab_collapse"]
+    local CLASS = upper_case("tab")
+
+    collapse_id = "tabpanel"..CLASS..id
+    tab_div_id  = "tab"..id
+
+     -- return the content
+    local tab_collapse = pandoc.Div(tabpanels)
+    -- n.b. in pandoc 2.17, the attributes must be set after the classes
+    if tabpanel_current_tab_button_num == 1 then
+      tab_collapse.attributes = {
+        ['aria-selected'] = 'True',
+      }
+    else
+      tab_collapse.classes = {"tab-hidden"}
+      tab_collapse.attributes = {
+        ['aria-selected'] = 'False',
+      }
+    end
+    tab_collapse.identifier = collapse_id
+    tab_collapse.attributes = {
+      ['role'] = 'tabpanel',
+      ['aria-labelledby'] = tab_div_id,
+    }
+    tabpanels = {}
+    table.insert(tabpanels, el)
+    tabpanel_current_tab_button_num = tabpanel_current_tab_button_num + 1
+    -- print(tab_collapse)
+    table.insert(test, tab_collapse)
+    return tab_collapse
+  end
+end
+
+tab_button_filter = {
+  Header = function(el)
+    block_counts["tab"] = block_counts["tab"] + 1
+    local id    = block_counts["tab"]
+    local CLASS = upper_case("tab")
+    local label = CLASS..id
+
+    if el.level == 1 then
+      -- return the header button
+      local this_button
+
+      if tab_button_num == 1 then
+        this_button = tab_button_selected
+        tab_button_num = tab_button_num + 1
+      else
+        this_button = tab_button
+      end
+
+      this_button = this_button:gsub("{{heading}}", button_headings["tab"])
+      this_button = this_button:gsub("{{title}}", pandoc.utils.stringify(el))
+      -- this_button = this_button:gsub("{{class}}", "tab")
+      this_button = this_button:gsub("{{id}}", label)
+
+      local button = pandoc.RawBlock("html", this_button)
+
+      return button
+    else
+      return empty_list
+    end
+  end,
+  Para = function(el)
+    return empty_list
+  end,
+  Div = function(el)
+    return empty_list
+  end,
+  CodeBlock = function(el)
+    return empty_list
+  end
+}
+
+tab_panel_filter = {
+  Header = function(el)
+    if el.level == 1 then
+      tabpanel_tab_button_num = tabpanel_tab_button_num + 1
+    end
+    return empty_list
+  end,
+  Para = function(el)
+    local para_div = wrap_tab_panel(el)
+    return para_div
+  end,
+  Div = function(el)
+    local div_div = wrap_tab_panel(el)
+    return div_div
+  end,
+  CodeBlock = function(el)
+    local code_div = wrap_tab_panel(el)
+    return code_div
+  end
+}
+
+tab_block = function(el)
+
+  buttons = pandoc.walk_block(el,tab_button_filter)
+  panels = pandoc.walk_block(el,tab_panel_filter)
+
+  local button_div = pandoc.Div(buttons.content)
+  button_div.classes = {"automatic"}
+  button_div.attributes = {
+    ['role'] = 'tablist',
+  }
+
+  print('END')
+  print(panels)
+  -- trick into thinking there is a final header
+  tabpanel_tab_button_num = tabpanel_tab_button_num + 1
+  local last_panel = wrap_tab_panel(tabpanels)
+  -- table.insert(test, last_panel)
+  table.insert(test, 1, button_div)
+  -- print(last_panel)
+  -- local tabs = pandoc.Div({button_div, panels, last_panel})
+  local tabs = pandoc.Div(test)
+  tabs.classes = {"tabs"}
+
+  tab_button_num = 1
+  tabpanel_tab_button_num = 0
+  tabpanel_current_tab_button_num = 1
+  tabpanels = {}
+
+  return tabs
 end
 
 callout_block = function(el)
@@ -400,6 +570,14 @@ handle_our_divs = function(el)
   v,i = el.classes:find("challenge")
   if i ~= nil then
     return(challenge_block(el))
+  end
+
+  -- Tab blocks:
+  --
+  -- Toggleable Tab blocks.
+  v,i = el.classes:find("tab")
+  if i ~= nil then
+    return(tab_block(el))
   end
 
   -- All other Div tags should have at most level 3 headers
