@@ -195,7 +195,7 @@ local button_headings = {
   {{title}}
   </h3>]],
   ["tab"] = [[
-  <h3 class="tab-header" id="heading{{id}}">
+  <h3 class="tab-header" id="nav-tab-heading-{{id}}">
   {{title}}
   </h3>]],
 }
@@ -281,8 +281,6 @@ local tab_button_num = 0
 -- element thinks it is on
 local tabpanel_tab_button_num = 1
 
--- Stores the tab titles
-local tab_titles = {}
 -- Stores the tab nav buttons
 local tab_buttons = {}
 -- Stores the elements to form the tabpanel
@@ -292,13 +290,13 @@ local this_tab_tabpanel = {}
 local tabpanels = {}
 
 local tab_button = [[
-<button class="nav-link" id="nav-{{title_no_spaces}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{title_no_spaces}}" type="button" role="tab" aria-controls="nav-{{title_no_spaces}}-{{ID}}" aria-selected="false">
+<button class="nav-link" id="nav-tab-{{id}}" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-{{id}}" type="button" role="tab" aria-controls="nav-tabpanel-{{id}}" aria-selected="false">
 {{heading}}
 </button>]]
 
 -- The first tab button is active
 local tab_button_active = [[
-<button class="nav-link active" id="nav-{{title_no_spaces}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{title_no_spaces}}" type="button" role="tab" aria-controls="nav-{{title_no_spaces}}-{{ID}}" aria-selected="false">
+<button class="nav-link active" id="nav-tab-{{id}}" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-{{id}}" type="button" role="tab" aria-controls="nav-tabpanel-{{id}}" aria-selected="true">
   <span class="focus">
 {{heading}}
   </span>
@@ -315,27 +313,25 @@ add_to_tabpanel = function(el)
   -- wrap the tabpanel content we stored in the
   -- this_tab_tabpanel table for the previous button
   else
-    local title_no_spaces = tab_titles[tabpanel_tab_button_num]:gsub("%s+", "-")
-    local id = block_counts["tab"]
-    local collapse_id = "nav-"..title_no_spaces..id.."-"..tabpanel_tab_button_num
-    local tabpanel_div_id  = collapse_id.."-tab"..id.."-"..tabpanel_tab_button_num
+    local tab_id    = block_counts["tab"]
+    local id = tab_id.."-"..tabpanel_tab_button_num
 
     -- Wrap the tabpanel contents in a div
-    local tab_collapse = pandoc.Div(this_tab_tabpanel)
+    local tabpanel_div = pandoc.Div(this_tab_tabpanel)
     -- n.b. in pandoc 2.17, the attributes must be set after the classes
     if tabpanel_tab_button_num == 1 then
-      tab_collapse.classes = {"tab-pane show active"}
+      tabpanel_div.classes = {"tab-pane show active"}
     else
-      tab_collapse.classes = {"tab-pane"}
+      tabpanel_div.classes = {"tab-pane"}
     end
-    tab_collapse.identifier = collapse_id
-    tab_collapse.attributes = {
+    tabpanel_div.identifier = "nav-tabpanel-"..id
+    tabpanel_div.attributes = {
       ['role'] = 'tabpanel',
-      ['aria-labelledby'] = tabpanel_div_id,
+      ['aria-labelledby'] = "nav-tab-"..id,
     }
 
     -- Store the div for the tab_block function
-    table.insert(tabpanels, tab_collapse)
+    table.insert(tabpanels, tabpanel_div)
 
     -- We move onto the next button having processed
     -- the previous buttons tabpanel content
@@ -353,15 +349,14 @@ tab_filter = {
     -- Level 1 headers mark the tab titles
     -- all other headers in a tab block are ignored
     if el.level == 1 then
-      local id    = block_counts["tab"]
-      local label = id.."-"..tabpanel_tab_button_num
+      local tab_id    = block_counts["tab"]
+      local id = tab_id.."-"..tab_button_num+1
 
       -- Found another button so increment the
       -- current tab_button_num
       tab_button_num = tab_button_num + 1
       -- Insert the title for the add_to_tabpanel to access
       local title = pandoc.utils.stringify(el)
-      table.insert(tab_titles, title)
 
       -- Create the button, if this is the first
       -- button it needs to be active
@@ -373,11 +368,9 @@ tab_filter = {
       end
 
       -- Substitute in the button information
-      local title_no_spaces = title:gsub("%s+", "-")
       this_button = this_button:gsub("{{heading}}", button_headings["tab"])
       this_button = this_button:gsub("{{title}}", title)
-      this_button = this_button:gsub("{{title_no_spaces}}", title_no_spaces)
-      this_button = this_button:gsub("{{id}}", label)
+      this_button = this_button:gsub("{{id}}", id)
 
       -- Convert the tab button to a raw block and store
       local button = pandoc.RawBlock("html", this_button)
@@ -442,7 +435,6 @@ tab_block = function(el)
   -- Reset counters for the next tab block
   tab_button_num = 0
   tabpanel_tab_button_num = 1
-  tab_titles = {}
   tab_buttons = {}
   this_tab_tabpanel = {}
   tabpanels = {}
