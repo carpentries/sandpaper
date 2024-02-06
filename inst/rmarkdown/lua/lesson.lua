@@ -369,11 +369,16 @@ tab_filter = {
         local tab_id = block_counts["group-tab"]
         local title_no_spaces = title:gsub("%s+", "")
         id = tab_id.."-"..title_no_spaces
+        -- The JS for the group tabs selects buttons
+        -- to show based on the name attribute.
+        -- Here we set it to the button title.
         name = 'name="'..title_no_spaces..'"'
+        -- Store the title so it can be used in the tabpanel id
         table.insert(group_tab_titles, title_no_spaces)
       else
         local tab_id = block_counts["tab"]
         id = tab_id.."-"..tab_button_num+1
+        -- Non group tabs don't need a name attribute.
         name = ""
       end
 
