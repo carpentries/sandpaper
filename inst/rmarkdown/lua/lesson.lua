@@ -22,7 +22,8 @@ local blocks = {
   ["testimonial"] = "heart",
   ["keypoints"] = "key",
   ["instructor"] = "edit-2",
-  ["tab"] = "none"
+  ["tab"] = "none",
+  ["group-tab"] = "none"
 }
 
 local block_counts = {
@@ -38,7 +39,8 @@ local block_counts = {
   ["testimonial"] = 0,
   ["keypoints"] = 0,
   ["instructor"] = 0,
-  ["tab"] = 0
+  ["tab"] = 0,
+  ["group-tab"] = 0
 }
 
 -- get the timing elements from the metadata and store them in a global var
@@ -289,17 +291,19 @@ local this_tab_tabpanel = {}
 -- Stores a tab blocks, tabpanel content
 local tabpanels = {}
 
+-- Are we processing a group-tab?
+local group_tab = false
+local group_tab_titles = {}
+
 local tab_button = [[
-<button class="nav-link" id="nav-tab-{{id}}" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-{{id}}" type="button" role="tab" aria-controls="nav-tabpanel-{{id}}" aria-selected="false">
+<button class="nav-link" id="nav-tab-{{id}}" {{name}} data-bs-toggle="tab" data-bs-target="#nav-tabpanel-{{id}}" type="button" role="tab" aria-controls="nav-tabpanel-{{id}}" aria-selected="false">
 {{heading}}
 </button>]]
 
 -- The first tab button is active
 local tab_button_active = [[
-<button class="nav-link active" id="nav-tab-{{id}}" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-{{id}}" type="button" role="tab" aria-controls="nav-tabpanel-{{id}}" aria-selected="true">
-  <span class="focus">
+<button class="nav-link active" id="nav-tab-{{id}}" {{name}} data-bs-toggle="tab" data-bs-target="#nav-tabpanel-{{id}}" type="button" role="tab" aria-controls="nav-tabpanel-{{id}}" aria-selected="true">
 {{heading}}
-  </span>
 </button>]]
 
 add_to_tabpanel = function(el)
@@ -313,8 +317,14 @@ add_to_tabpanel = function(el)
   -- wrap the tabpanel content we stored in the
   -- this_tab_tabpanel table for the previous button
   else
-    local tab_id    = block_counts["tab"]
-    local id = tab_id.."-"..tabpanel_tab_button_num
+    local id
+    if group_tab then
+      local tab_id = block_counts["group-tab"]
+      id = tab_id.."-"..group_tab_titles[tabpanel_tab_button_num]
+    else
+      local tab_id = block_counts["tab"]
+      id = tab_id.."-"..tabpanel_tab_button_num
+    end
 
     -- Wrap the tabpanel contents in a div
     local tabpanel_div = pandoc.Div(this_tab_tabpanel)
@@ -349,14 +359,27 @@ tab_filter = {
     -- Level 1 headers mark the tab titles
     -- all other headers in a tab block are ignored
     if el.level == 1 then
-      local tab_id    = block_counts["tab"]
-      local id = tab_id.."-"..tab_button_num+1
+
+      -- Insert the title for the add_to_tabpanel to access
+      local title = pandoc.utils.stringify(el)
+
+      local id
+      local name
+      if group_tab then
+        local tab_id = block_counts["group-tab"]
+        local title_no_spaces = title:gsub("%s+", "")
+        id = tab_id.."-"..title_no_spaces
+        name = 'name="'..title_no_spaces..'"'
+        table.insert(group_tab_titles, title_no_spaces)
+      else
+        local tab_id = block_counts["tab"]
+        id = tab_id.."-"..tab_button_num+1
+        name = ""
+      end
 
       -- Found another button so increment the
       -- current tab_button_num
       tab_button_num = tab_button_num + 1
-      -- Insert the title for the add_to_tabpanel to access
-      local title = pandoc.utils.stringify(el)
 
       -- Create the button, if this is the first
       -- button it needs to be active
@@ -371,6 +394,7 @@ tab_filter = {
       this_button = this_button:gsub("{{heading}}", button_headings["tab"])
       this_button = this_button:gsub("{{title}}", title)
       this_button = this_button:gsub("{{id}}", id)
+      this_button = this_button:gsub("{{name}}", name)
 
       -- Convert the tab button to a raw block and store
       local button = pandoc.RawBlock("html", this_button)
@@ -396,13 +420,20 @@ tab_filter = {
 tab_block = function(el)
 
   -- Increment the tab count
-  block_counts["tab"] = block_counts["tab"] + 1
+  local count
+  if group_tab then
+    block_counts["group-tab"] = block_counts["group-tab"] + 1
+    count = block_counts["group-tab"]
+  else
+    block_counts["tab"] = block_counts["tab"] + 1
+    count = block_counts["tab"]
+  end
 
   -- Walk the tab elements and process them
   _ = pandoc.walk_block(el,tab_filter)
 
   -- Wraps the tab buttons to create the tablist div
-  local button_div_id = "nav-tab-"..block_counts["tab"]
+  local button_div_id = "nav-tab-"..count
   local button_div = pandoc.Div(tab_buttons)
   button_div.identifier = button_div_id
   button_div.classes = {"nav", "nav-tabs"}
@@ -420,7 +451,7 @@ tab_block = function(el)
 
   -- Wraps the tabpanels
   local tab_content_div = pandoc.Div(tabpanels)
-  local tab_content_div_id = "nav-tabContent-"..block_counts["tab"]
+  local tab_content_div_id = "nav-tabContent-"..count
   tab_content_div.identifier = tab_content_div_id
   tab_content_div.classes = {"tab-content"}
 
@@ -581,6 +612,16 @@ handle_our_divs = function(el)
   -- Toggleable Tab blocks.
   v,i = el.classes:find("tab")
   if i ~= nil then
+    group_tab = false
+    return(tab_block(el))
+  end
+
+  -- Group Tab blocks:
+  --
+  -- Toggleable Group Tab blocks.
+  v,i = el.classes:find("group-tab")
+  if i ~= nil then
+    group_tab = true
     return(tab_block(el))
   end
 
