@@ -29,7 +29,7 @@ path_citation <- function(inpath) {
   home <- root_path(inpath)
   cff <- "CITATION.cff"
   cffp <- fs::path(home, cff)
-  if (file_exists(cffp)) {
+  if (fs::file_exists(cffp)) {
     return(cff)
   }
   return("CITATION")
