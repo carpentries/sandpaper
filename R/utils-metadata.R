@@ -33,7 +33,6 @@ initialise_metadata <- function(path = ".") {
   old <- this_metadata$get()
   if (length(old) == 0L) {
     this_metadata$set(NULL, cfg)
-    this_metadata$set("citation", path_citation(path))
     this_metadata$set("metadata_template", readLines(template_metadata()))
     this_metadata$set("pagetitle", cfg$title)
     this_metadata$set("keywords", cfg$keywords)
@@ -48,6 +47,7 @@ initialise_metadata <- function(path = ".") {
   this_metadata$set("url", metadata_url(cfg))
   this_metadata$set(c("date", "modified"), format(Sys.Date(), "%F"))
   this_metadata$set(c("date", "published"), format(Sys.Date(), "%F"))
+  this_metadata$set("citation", path_citation(path))
 }
 
 
