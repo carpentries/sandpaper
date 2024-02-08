@@ -28,7 +28,7 @@ path_profiles <- function(inpath) {
 path_citation <- function(inpath) {
   home <- root_path(inpath)
   cff <- "CITATION.cff"
-  cffp <- fs::path(home, cffp)
+  cffp <- fs::path(home, cff)
   if (is.null(cffp)) {
     return("CITATION")
   }
