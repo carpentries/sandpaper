@@ -197,7 +197,8 @@ fix_accordions <- function(nodes = NULL) {
 
 fix_callouts <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
-  callouts <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'callout ')]")
+  # fix for https://github.com/carpentries/sandpaper/issues/470
+  callouts <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'callout ')] | .//div[@class='callout']")
   h3 <- xml2::xml_find_all(callouts, "./div/h3")
   translations <- get_callout_translations()
   # https://github.com/carpentries/sandpaper/issues/556
