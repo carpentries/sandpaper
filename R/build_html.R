@@ -63,6 +63,7 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
   translated <- fill_translation_vars(global_data$instructor$get())
   global_data$instructor$set("json", fill_metadata_template(meta))
   global_data$instructor$set("translate", translated)
+  global_data$instructor$set("citation", meta$get()$citation)
   modified <- pkgdown::render_page(pkg,
     template,
     data = global_data$instructor$get(),
@@ -78,6 +79,7 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
     update_sidebar(global_data$learner, learner_nodes, fs::path_file(this_page))
     meta$set("url", paste0(base_url, this_page))
     global_data$learner$set("json", fill_metadata_template(meta))
+    global_data$learner$set("citation", meta$get()$citation)
     pkgdown::render_page(pkg,
       template,
       data = global_data$learner$get(),
