@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, setup, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   compact = TRUE, # https://github.com/r-lib/pkgdown/issues/1843
@@ -70,7 +70,7 @@ as you wish, but when you create child files, be sure the following two rules
 apply:
 
 1. The child documents live in the `files/` folder under their parent folders
-2. The reference to child files is _relative_ to the parent file. 
+2. The reference to child files is _relative_ to the parent file.
 
 For example, you have a file structure like this:
 
@@ -113,8 +113,8 @@ lsn_obj$children[[1]]$show()
 
 ````
 
-This means that when `episodes/introduction.Rmd` is built, 
-`episodes/files/child.Rmd` will also be built, evaulating the `sessionInfo()`. 
+This means that when `episodes/introduction.Rmd` is built,
+`episodes/files/child.Rmd` will also be built, evaulating the `sessionInfo()`.
 So the resulting markdown document will look like this:
 
 ````markdown
@@ -136,13 +136,13 @@ and `data/`) are copied over from their source folders to `site/built/`. This
 allows us to build the R Markdown files using `site/built/` as the working
 directory which accomplishes two things:
 
-1. The default sandpaper folder structure is flattened for the website. 
+1. The default sandpaper folder structure is flattened for the website.
 2. any files the R Markdown document creates or deletes will not affect the
    source files of the project
 
 For example, let's say we added a chunk to our source R Markdown folder that
 will create a file in the `data/` directory called "time.txt" and then reads in
-the contents of that file. 
+the contents of that file.
 
 
 ````markdown
@@ -151,7 +151,7 @@ the contents of that file.
 ep <- lsn_obj$episodes[[1]]
 txt <- c(
   "```{r setup, echo = FALSE}",
-  "writeLines(format(Sys.time()), 'data/time.txt')", 
+  "writeLines(format(Sys.time()), 'data/time.txt')",
   "cat(paste0('The time is: ', readLines('data/time.txt')))",
   "```"
 )
@@ -202,7 +202,7 @@ final parent of the child document where the output will eventually end up.
 Let's say you wanted to refererence a figure `episodes/fig/one.png` and a link
 to a document for learners `learners/info.md` from the child document, but
 instead it's located at `episodes/files/children/child.Rmd`, which is built by
-`episodes/introduction.Rmd`. 
+`episodes/introduction.Rmd`.
 
 ```{r setup-new-child, echo = FALSE, comment = "#"}
 lsn_obj <- snd$this_lesson(lsn)
@@ -210,7 +210,7 @@ withr::with_dir(fs::path(lsn, "episodes", "files"), {
   fs::dir_create("children")
   fs::file_touch("../fig/one.png")
   writeLines(c(
-      "---", 
+      "---",
       "title: info",
       "---",
       "\nthis is a test file\n"
@@ -223,7 +223,7 @@ withr::with_dir(fs::path(lsn, "episodes", "files"), {
 withr::with_dir(lsn, fs::dir_tree("./episodes/"))
 ep <- lsn_obj$episodes[[1]]
 code <- ep$code
-xml2::xml_set_attr(code[[5]], "child", 
+xml2::xml_set_attr(code[[5]], "child",
   sQuote("files/children/child.Rmd", q = 2)
 )
 ep$write(fs::path(lsn, "episodes"), format = "Rmd")
@@ -233,7 +233,7 @@ Here is a link to [the info document](../learners/info.md)
 
 ![example](fig/one.png){alt='example figure'}
 ")
-lsn_obj$children[[1]]$write(fs::path(lsn, "episodes/files/children"), 
+lsn_obj$children[[1]]$write(fs::path(lsn, "episodes/files/children"),
   format = "Rmd"
 )
 ```
@@ -252,8 +252,8 @@ lsn_obj$episodes[[1]]$tail(15)
 In `episodes/files/children/child.Rmd`, under [internal link
 rules][internal-link-ref], you you should reference these
 resources with `fig/one.png` and `../learners/info.md`, which are _in the
-context of the build parent directory (in this case, `episodes/`)_, as 
-demonstrated here: 
+context of the build parent directory (in this case, `episodes/`)_, as
+demonstrated here:
 
 [internal-link-ref]: https://carpentries.github.io/sandpaper-docs/episodes.html#internal-links)
 
@@ -269,9 +269,9 @@ lsn_obj$children[[1]]$show()
 Again, the reason for this is because when the document gets built, the result
 is all in the context of the parent document in the `site/built` directory[^1]\:
 
-[^1]: there is a caveat to this paradigm, on translation to HTML, all links 
+[^1]: there is a caveat to this paradigm, on translation to HTML, all links
   that begin with `../[folder]/` prefixes have those stripped in the final
-  version of the site. 
+  version of the site.
 
 
 ```{r show-built-assets, echo = FALSE, comment = "#"}
