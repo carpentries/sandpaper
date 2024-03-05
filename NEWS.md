@@ -1,3 +1,12 @@
+# sandpaper 0.16.3.9000 (2024-03-05)
+
+## BUG FIX
+
+* Hotfix for pandoc2-to-pandoc3 bump that resulted in CSS deduplication
+  of section classes for callout blocks
+  (reported: @bencomp, #470; @ndporter https://github.com/carpentries/workbench/issues/81; 
+  fixed: @froggleston, #574)
+
 # sandpaper 0.16.2 (2023-12-19)
 
 ## MISC
