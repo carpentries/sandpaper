@@ -8,10 +8,11 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
+# comment to fix https://github.com/r-lib/pkgdown/issues/1843
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  compact = TRUE, # https://github.com/r-lib/pkgdown/issues/1843
-  comment = "#>"
+    collapse = TRUE,
+    compact = TRUE,
+    comment = "#>"
 )
 
 # setup the lesson to include a child document
