@@ -148,9 +148,9 @@ markdown files</li>
 for the lessons, but I think this will need to happen after things are
 released on CRAN to avoid maxing out the github api requests.</p>
 </div>
-<div class="figure">
-<img src="img/local-flow.dot.svg" alt='diagram of three folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML". The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'><p class="caption">Thr local two-step model of deployment into local
-folders</p>
+<div class="float">
+<img src="img/local-flow.dot.svg" alt='diagram of three folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML". The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'><div class="figcaption">Thr local two-step model of deployment into
+local folders</div>
 </div>
 <p>Now, the first reaction you may have is, “Why do we need a two step
 process when we can generate HTML directly from R Markdown?” The answer
@@ -177,9 +177,9 @@ not on your computer.</p>
 <div class="section level2">
 <h2 id="i-deployment-github">[i] Deployment (GitHub)<a class="anchor" aria-label="anchor" href="#i-deployment-github"></a>
 </h2>
-<div class="figure">
-<img src="img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><p class="caption">Two-step deployment model on continuous
-integration</p>
+<div class="float">
+<img src="img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><div class="figcaption">Two-step deployment model on continuous
+integration</div>
 </div>
 <p>Because some lesson content will be auto-generated from an ecosystem
 of software that is constantly evolving, it’s important to make sure a
@@ -198,9 +198,9 @@ failure, having them separate allows us to audit the failure and fix the
 issue on the appropriate end. Thus, we use the same two-step system we
 presented earlier in local rendering, with weekly and monthly
 checks:</p>
-<div class="figure">
-<img src="https://imgur.com/l64RiGs.png" alt=""><p class="caption">Diagrammatic representation of the GitHub deployment
-cycle</p>
+<div class="float">
+<img src="https://imgur.com/l64RiGs.png" alt="Diagrammatic representation of the GitHub deployment cycle"><div class="figcaption">Diagrammatic representation of the GitHub
+deployment cycle</div>
 </div>
 <p>Zooming in on the Pull request workflow we can see that there is only
 one point of entry. The box elements represent user interactions, the
@@ -208,8 +208,8 @@ ellipses are GitHub workflows. The color indicates permission levels for
 the workflows. Lavender workflows only have the ability to check out
 code and compare it. Wheat/yellow colored workflows have full
 permissions to push to the repository:</p>
-<div class="figure">
-<img src="img/pr-flow.dot.svg" alt=""><p class="caption">Representation of PR deployment cycle</p>
+<div class="float">
+<img src="img/pr-flow.dot.svg" alt="Representation of PR deployment cycle"><div class="figcaption">Representation of PR deployment cycle</div>
 </div>
 <p>Because we only track the source files of the lesson and not the
 output from the maintainer’s computer, we need to rely on Continuous
@@ -220,9 +220,9 @@ commits in two extra directories, we create them in orphan branches
 called <code>md-sources</code> and <code>gh-pages</code>. The latter is
 familiar to most lesson maintainers, and the former serves as a staging
 and evaluation area for changes in generated content.</p>
-<div class="figure">
-<img src="img/independent-components.dot.svg" alt=""><p class="caption">Dependency relationship between components of the
-Lesson Template</p>
+<div class="float">
+<img src="img/independent-components.dot.svg" alt="Dependency relationship between components of the Lesson Template"><div class="figcaption">Dependency relationship between components of
+the Lesson Template</div>
 </div>
 <blockquote>
 <p>Takeaway from this diagram: Yes, this is complex, but its modularity
@@ -285,8 +285,8 @@ that come from pull requests (which have previously been vetted).
 <div class="section level3">
 <h3 id="pull-requests">Pull requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a>
 </h3>
-<div class="figure">
-<img src="img/pr-branch.svg" alt='diagram showing five branches, two of which are highlighted: "md-outputs", and "md-outputs-PR-1" where the latter is an orphan branch starting from the last commit of the former and applying the changes from the "my-edit" branch on top, showing that the output has changed'><p class="caption">The Pull Request flow</p>
+<div class="float">
+<img src="img/pr-branch.svg" alt='diagram showing five branches, two of which are highlighted: "md-outputs", and "md-outputs-PR-1" where the latter is an orphan branch starting from the last commit of the former and applying the changes from the "my-edit" branch on top, showing that the output has changed'><div class="figcaption">The Pull Request flow</div>
 </div>
 <p>Each time a pull request is added, the maintainer should be informed
 of what changes in the lesson (if anything), so the process goes like
@@ -305,8 +305,8 @@ changes amended to the <code>md-sources-{pr#}</code> branch
 master, the site is rebuilt from source, and the pr branch is
 removed.</li>
 </ol>
-<div class="figure">
-<img src="img/pr-merge.svg" alt='diagram showing  four branches, where "my-edit" is merged into "main" and that drives the  two-step process of rendering "md-outputs" and then "gh-pages". The changes from the "my-edit" branch are reflected in the "md-outputs" branch output.'><p class="caption">A successfully merged Pull Request</p>
+<div class="float">
+<img src="img/pr-merge.svg" alt='diagram showing four branches, where "my-edit" is merged into "main" and that drives the two-step process of rendering "md-outputs" and then "gh-pages". The changes from the "my-edit" branch are reflected in the "md-outputs" branch output.'><div class="figcaption">A successfully merged Pull Request</div>
 </div>
 </div>
 <div class="section level3">

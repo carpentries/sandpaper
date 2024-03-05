@@ -164,19 +164,19 @@ detect and install any packages (and updates) needed for your lesson.
 of your lessons going forward.</strong></p>
 <p>For example, let’s say you have a lesson that uses the {cowsay} and
 {curl} packages to bring a random cat fact at the end of the lesson:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for lessons even if you don"t need to generate any code</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r catfact, message=FALSE, echo=FALSE}</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="in">library(curl)</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="in">library(cowsay)</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="in">say("catfact", "cat")</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for lessons even if you don"t need to generate any code</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="in">```{r catfact, message=FALSE, echo=FALSE}</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="in">library(curl)</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="in">library(cowsay)</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="in">say("catfact", "cat")</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>When you build your lesson, you will see this kind of output:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/build_lesson.html">build_lesson</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -226,34 +226,34 @@ of your lessons going forward.</strong></p>
 <span><span class="co">#| </span></span>
 <span><span class="co">#| [ truncated ]</span></span></code></pre>
 <p>The output will use the newly downloaded packages:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for lessons even if you don"t need to generate any code</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{.output}</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="in"> -------------- </span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="in">A cat can’t climb head first down a tree because every claw on a cat’s paw points the same way. To get down from a tree, a cat must back down.</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="in"> --------------</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="in">    \</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="in">      \</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="in">        \</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="in">            |\___/|</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="in">          ==) ^Y^ (==</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="in">            \  ^  /</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="in">             )=*=(</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="in">            /     \</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="in">            |     |</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="in">           /| | | |\</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="in">           \| | |_|/\</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="in">      jgs  //_// ___/</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="in">               \_)</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for lessons even if you don"t need to generate any code</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="in">```{.output}</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="in"> -------------- </span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="in">A cat can’t climb head first down a tree because every claw on a cat’s paw points the same way. To get down from a tree, a cat must back down.</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="in"> --------------</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="in">    \</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="in">      \</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="in">        \</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="in">            |\___/|</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="in">          ==) ^Y^ (==</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="in">            \  ^  /</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="in">             )=*=(</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="in">            /     \</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="in">            |     |</span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="in">           /| | | |\</span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="in">           \| | |_|/\</span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="in">      jgs  //_// ___/</span></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a><span class="in">               \_)</span></span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="temporarily-turning-off-the-cache">Temporarily Turning Off the Cache<a class="anchor" aria-label="anchor" href="#temporarily-turning-off-the-cache"></a>
 </h3>
@@ -271,21 +271,21 @@ lesson will default to using your local library.</p>
 <span><span class="co">#| [ truncated ]</span></span></code></pre>
 <p>The output will use packages if they are available, but throw errors
 if they do not exist:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for lessons even if you don"t need to generate any code</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{.error}</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="in">Error in library(cowsay): there is no package called "cowsay"</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{.error}</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="in">Error in say("catfact", "cat"): could not find function "say"</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for lessons even if you don"t need to generate any code</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="in">```{.error}</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="in">Error in library(cowsay): there is no package called "cowsay"</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="in">```{.error}</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="in">Error in say("catfact", "cat"): could not find function "say"</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>When you want to turn it on again, you can use
 <code><a href="../reference/package_cache.html">use_package_cache()</a></code></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -375,9 +375,9 @@ repository itself. This means that if you want to use a package, you
 <p>For example, if I wanted to use the <code>sessioninfo</code> package
 to create a record at the end of an episode, I would only need to add
 the following chunk:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r sessioninfo, echo = FALSE}</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="in">sessioninfo::session_info()</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="in">```{r sessioninfo, echo = FALSE}</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="in">sessioninfo::session_info()</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>From there, {sandpaper} will be able to detect the package and add it
 to the cache.</p>
 <blockquote>
