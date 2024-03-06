@@ -356,9 +356,9 @@ end
 
 tab_filter = {
   Header = function(el)
-    -- Level 1 headers mark the tab titles
+    -- Level 3 headers mark the tab titles
     -- all other headers in a tab block are ignored
-    if el.level == 1 then
+    if el.level == 3 then
 
       -- Insert the title for the add_to_tabpanel to access
       local title = pandoc.utils.stringify(el)
@@ -418,6 +418,12 @@ tab_filter = {
     _ = add_to_tabpanel(el)
   end,
   CodeBlock = function(el)
+    _ = add_to_tabpanel(el)
+  end,
+  OrderedList = function(el)
+    _ = add_to_tabpanel(el)
+  end,
+  BulletList = function(el)
     _ = add_to_tabpanel(el)
   end
 }
