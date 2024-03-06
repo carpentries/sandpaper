@@ -8,10 +8,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "##"
+    collapse = TRUE,
+    comment = "##"
 )
 ```
 
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 This is a vignette that is designed for R package developers who are looking to
 understand how the data flows between the lesson source and the final website.
-I am assuming that the person reading this has familiarity with 
+I am assuming that the person reading this has familiarity with
 [R packaging](https://r-pkgs.org/) and [R
 environments](https://r-pkgs.org/data.html#sec-data-state).
 
@@ -38,12 +38,12 @@ knew at the time. I now know that it might be better to use global environments
 instead. The implementation of this was originally done in [pull request
 #248](https://github.com/carpentries/sandpaper/pull/248), which was trying to
 deduplicate code after the release of version 0.1.0, which was a massive push
-after finally getting the new website layout. 
+after finally getting the new website layout.
 
 The flow of data I lay out here could all live in the same package-level
 environment (or even a package-level R6 object) instead of being implemented as
 function factories, but that's a refactor for another day and another
-maintainer. 
+maintainer.
 
 ### Two Sources of Metadata
 
@@ -111,7 +111,7 @@ writeLines("```")
 You can see that it contains `{{{ head }}}`, `{{{ header }}}`, `{{{ navbar }}}`,
 `{{{ content }}}` and `{{{ footer }}}`. These are all the results of the other
 rendered templates. For example, here's the `head.html` template, which defines
-the content that goes in the HTML `<head>` tag (defining titles, metadata, 
+the content that goes in the HTML `<head>` tag (defining titles, metadata,
 stylesheets, and JavaScript):
 
 ````{r varnish-template-head, echo = FALSE, results = "asis"}
@@ -126,7 +126,7 @@ The templates used by {varnish} will take metadata from one of two sources:
 1. a `_pkgdown.yaml` file that defines global metadata like language (see the
    [pkgdown metadata section](#pkgdown-metadata) for details.
 2. a list of values passed to the `pkgdown::render_page()` function. These
-   values can be both global and local. 
+   values can be both global and local.
 
 These get inserted into the template via the `pkgdown::render_page()` function
 where the contents of the `_pkgdown.yaml` file are inserted into the data list
@@ -198,7 +198,7 @@ It is a special object because when a lesson is set with this object, it will
 additionally set the _other_ global data.
 
 When {sandpaper} is loaded, the List Store and Lesson Store objects are created
-and live in the {sandpaper} namespace as long as the session is active. 
+and live in the {sandpaper} namespace as long as the session is active.
 
 ```{r lesson-store}
 snd <- asNamespace("sandpaper")
@@ -211,7 +211,7 @@ names(some_lesson)
 All of these metadata are collected and stored in memory before the lesson is
 built (triggered during `validate_lesson()`), which are accessible via the
 objects defined by the internal `sandpaper:::set_globals()`. Here I will set
-up an example lesson that I will use to demonstrate these global variables. 
+up an example lesson that I will use to demonstrate these global variables.
 Please note that I will be using internal functions in this demonstration. These
 internal functions are not guaranteed to be stable outside of the context of
 {sandpaper}. Using the `asNamespace("sandpaper")` function allows me to create
@@ -224,7 +224,7 @@ snd <- asNamespace("sandpaper")
 
 ```{r, create-example, message = FALSE}
 # create a new lesson
-lsn <- create_lesson(tempfile(), name = "An Example Lesson", 
+lsn <- create_lesson(tempfile(), name = "An Example Lesson",
   rstudio = TRUE, open = FALSE, rmd = FALSE)
 # add a new episode
 create_episode_md(title = "First Example", add = TRUE, path = lsn, open = FALSE)
@@ -280,14 +280,14 @@ cascade:
 
 ```{r vl-tree, echo = FALSE, eval = getRversion() >= "4.0"}
 funs <- c(
-  vl = "validate_lesson()", 
-  tl = "this_lesson()", 
+  vl = "validate_lesson()",
+  tl = "this_lesson()",
   sv = ".store$valid()",
   ggd = "gert::git_diff()",
-  ggs = "gert::git_status()", 
-  ggl = "gert::git_log()", 
+  ggs = "gert::git_status()",
+  ggl = "gert::git_log()",
   pl = "pegboard::Lesson$new()",
-  ss = ".store$set()", 
+  ss = ".store$set()",
   sg = "set_globals()",
   srl = "set_resource_list()",
   res = ".resources$set()",
@@ -311,16 +311,16 @@ labels[to_lab] <- cli::col_cyan(cli::style_bold(labels[to_lab]))
 vltree <- data.frame(
   fn = funs,
   calls = I(list(
-    vl = funs["tl"], 
-    tl = list(funs["sv"], funs["pl"], funs["ss"]), 
+    vl = funs["tl"],
+    tl = list(funs["sv"], funs["pl"], funs["ss"]),
     sv = list(funs["ggd"], funs["ggs"], funs["ggl"]),
     ggd = character(0),
     ggs = character(0),
-    ggl = character(0), 
+    ggl = character(0),
     pl = character(0),
-    ss = list(funs["sg"]), 
+    ss = list(funs["sg"]),
     sg = list(funs["im"], funs["sl"], funs["srl"], funs["cs"], funs["crd"], funs["lgs"],
-      funs["igs"]), 
+      funs["igs"]),
     srl = list(funs["grl"], funs["res"]),
     res = character(0),
     grl = list(funs["gc"]),
@@ -349,7 +349,7 @@ them.
 ## Lesson Storage
 
 This function stores the `pegboard::Lesson` object and is responsible for
-initialising and resetting the variable cache. 
+initialising and resetting the variable cache.
 
 ```{r store-get}
 snd <- asNamespace("sandpaper")
@@ -380,7 +380,7 @@ snd$.store$valid(lsn)
 The metadata is used to store the content of `config.yaml` and to provide
 computed metadata for a lesson that is included in the footer as a JSON-LD
 object, which is useful for indexing. Note that this metadata must be
-duplicated for each page to give the correct URL and identifiers. 
+duplicated for each page to give the correct URL and identifiers.
 
 ```{r metadata}
 snd <- asNamespace("sandpaper")
@@ -409,7 +409,7 @@ snd$.resources$get()
 The rest are global and local variables that are recorded in the
 `instructor_globals` and `learner_globals`. These are copied for each page and
 updated with local data (e.g. the sidebar needs to include headings for the
-current page). 
+current page).
 
 ```{r globals}
 snd <- asNamespace("sandpaper")
@@ -447,7 +447,7 @@ whisker::whisker.render("Edit this page: {{ translate.EditThisPage }}",
 This is key to building lessons in other languages, regardless of your default
 language. The lesson author sets the `lang:` config key to the two-letter
 language code that the lesson is written in. This gets passed to the
-`set_language()` function, which modifies the translations inside the global 
+`set_language()` function, which modifies the translations inside the global
 data, but it does not modify the language of the user session:
 
 ```{r set-language-es}
@@ -478,7 +478,7 @@ whisker::whisker.render("Edit this page: {{ translate.EditThisPage }}",
 ## pkgdown metadata
 
 Another source of metadata is that created for the pkgdown in a file called
-`site/_pkgdown.yaml`. 
+`site/_pkgdown.yaml`.
 
 ```{r yaml, results="asis", echo = FALSE, comment = ""}
 writeLines("```yaml")
