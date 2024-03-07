@@ -47,12 +47,15 @@ test_that("py_install() installs Python packages", {
   skip_if_not(reticulate_installable, "reticulate is not installable")
   skip_on_os("windows")
 
-  py_install("numpy", path = lsn)
+  numpy_version <- "numpy==1.26.4"
+  py_install(numpy_version, path = lsn)
   numpy <- local_load_py_pkg(lsn, "numpy")
 
-  expect_no_error({numpy <- local_load_py_pkg(lsn, "numpy")})
+  expect_no_error({
+    numpy <- local_load_py_pkg(lsn, "numpy")
+  })
   expect_s3_class(numpy, "python.builtin.module")
 
   req_file <- fs::path(lsn, "requirements.txt")
-  expect_true(any(grepl("^numpy", readLines(req_file))))
+  expect_true(numpy_version %in% readLines(req_file))
 })

@@ -229,10 +229,11 @@ test_that("manage_deps() does not overwrite requirements.txt", {
   ## the Python package, mimicking the scenario where a Python dependency is missing
   req_file <- fs::path(lsn, "requirements.txt")
   if (file.exists(req_file)) fs::file_delete(req_file)
-  writeLines("numpy", req_file)
+  numpy_version <- "numpy==1.26.4"
+  writeLines(numpy_version, req_file)
 
   res <- manage_deps(lsn, quiet = TRUE)
-  expect_true(grepl("^numpy", readLines(req_file))[1])
+  expect_true(numpy_version %in% readLines(req_file))
 })
 
 
