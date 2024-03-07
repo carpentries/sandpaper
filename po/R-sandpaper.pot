@@ -1,0 +1,363 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: sandpaper 0.16.2\n"
+"POT-Creation-Date: 2024-01-14 22:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: utils-translate.R:74
+msgid "Skip to main content"
+msgstr ""
+
+#: utils-translate.R:75
+msgid "Pre-Alpha"
+msgstr ""
+
+#: utils-translate.R:76
+msgid ""
+"This lesson is in the pre-alpha phase, which means that it is in early "
+"development, but has not yet been taught."
+msgstr ""
+
+#: utils-translate.R:77
+msgid ""
+"This lesson is in the alpha phase, which means that it has been taught once "
+"and lesson authors are iterating on feedback."
+msgstr ""
+
+#: utils-translate.R:78
+msgid "Alpha"
+msgstr ""
+
+#: utils-translate.R:79
+msgid ""
+"This lesson is in the beta phase, which means that it is ready for teaching "
+"by instructors outside of the original author team."
+msgstr ""
+
+#: utils-translate.R:80
+msgid "Beta"
+msgstr ""
+
+#: utils-translate.R:81
+msgid "This lesson has passed peer review."
+msgstr ""
+
+#: utils-translate.R:82
+msgid "Instructor View"
+msgstr ""
+
+#: utils-translate.R:83
+msgid "Learner View"
+msgstr ""
+
+#: utils-translate.R:84
+msgid "Main Navigation"
+msgstr ""
+
+#: utils-translate.R:85
+msgid "Toggle Navigation"
+msgstr ""
+
+#: utils-translate.R:86
+msgid "Menu"
+msgstr ""
+
+#: utils-translate.R:87
+msgid "search button"
+msgstr ""
+
+#: utils-translate.R:88
+msgid "Setup"
+msgstr ""
+
+#: utils-translate.R:89
+msgid "Key Points"
+msgstr ""
+
+#: utils-translate.R:90
+msgid "Instructor Notes"
+msgstr ""
+
+#: utils-translate.R:91
+msgid "Glossary"
+msgstr ""
+
+#: utils-translate.R:92
+msgid "Learner Profiles"
+msgstr ""
+
+#: utils-translate.R:93
+msgid "More"
+msgstr ""
+
+#: utils-translate.R:94
+msgid "Search"
+msgstr ""
+
+#: utils-translate.R:95
+msgid "Lesson Progress"
+msgstr ""
+
+#: utils-translate.R:97
+msgid "close menu"
+msgstr ""
+
+#: utils-translate.R:98
+msgid "EPISODES"
+msgstr ""
+
+#: utils-translate.R:99
+msgid "Home"
+msgstr ""
+
+#: utils-translate.R:100
+msgid "Home Page Navigation"
+msgstr ""
+
+#: utils-translate.R:101
+msgid "RESOURCES"
+msgstr ""
+
+#: utils-translate.R:102
+msgid "Extract All Images"
+msgstr ""
+
+#: utils-translate.R:103
+msgid "See all in one page"
+msgstr ""
+
+#: utils-translate.R:104
+msgid "Download Lesson Handout"
+msgstr ""
+
+#: utils-translate.R:105
+msgid "Export Chapter Slides"
+msgstr ""
+
+#: utils-translate.R:107
+msgid "Previous and Next Chapter"
+msgstr ""
+
+#: utils-translate.R:108
+msgid "Previous"
+msgstr ""
+
+#: utils-translate.R:109
+msgid "Estimated time: {icons$clock} {minutes} minutes"
+msgstr ""
+
+#: utils-translate.R:110
+msgid "Next"
+msgstr ""
+
+#: utils-translate.R:111
+msgid "Next Chapter"
+msgstr ""
+
+#: utils-translate.R:112
+msgid "Last updated on {updated}"
+msgstr ""
+
+#: utils-translate.R:113
+msgid "Edit this page"
+msgstr ""
+
+#: utils-translate.R:114 utils-translate.R:135
+msgid "Expand All Solutions"
+msgstr ""
+
+#: utils-translate.R:116
+msgid "Setup Instructions"
+msgstr ""
+
+#: utils-translate.R:117
+msgid "Download files required for the lesson"
+msgstr ""
+
+#: utils-translate.R:118
+msgid ""
+"The actual schedule may vary slightly depending on the topics and exercises "
+"chosen by the instructor."
+msgstr ""
+
+#: utils-translate.R:120
+msgid "Back To Top"
+msgstr ""
+
+#: utils-translate.R:121
+msgid "<(Back)> To Top"
+msgstr ""
+
+#: utils-translate.R:122
+msgid "This lesson is subject to the <(Code of Conduct)>"
+msgstr ""
+
+#: utils-translate.R:123
+msgid "Code of Conduct"
+msgstr ""
+
+#: utils-translate.R:124
+msgid "Edit on GitHub"
+msgstr ""
+
+#: utils-translate.R:125
+msgid "Contributing"
+msgstr ""
+
+#: utils-translate.R:126
+msgid "Source"
+msgstr ""
+
+#: utils-translate.R:127
+msgid "Cite"
+msgstr ""
+
+#: utils-translate.R:128
+msgid "Contact"
+msgstr ""
+
+#: utils-translate.R:129
+msgid "About"
+msgstr ""
+
+#: utils-translate.R:130
+msgid "Materials licensed under {license} by {authors}"
+msgstr ""
+
+#: utils-translate.R:131
+msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
+msgstr ""
+
+#: utils-translate.R:132
+msgid "The Carpentries"
+msgstr ""
+
+#: utils-translate.R:133
+msgid "Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}"
+msgstr ""
+
+#: utils-translate.R:136
+msgid "Collapse All Solutions"
+msgstr ""
+
+#: utils-translate.R:137
+msgid "Collapse"
+msgstr ""
+
+#: utils-translate.R:138
+msgid "Episodes"
+msgstr ""
+
+#: utils-translate.R:140
+msgid "Give Feedback"
+msgstr ""
+
+#: utils-translate.R:141
+msgid "Learn More"
+msgstr ""
+
+#: utils-translate.R:147
+msgid "OUTPUT"
+msgstr ""
+
+#: utils-translate.R:148
+msgid "WARNING"
+msgstr ""
+
+#: utils-translate.R:149
+msgid "ERROR"
+msgstr ""
+
+#: utils-translate.R:151
+msgid "Overview"
+msgstr ""
+
+#: utils-translate.R:152
+msgid "Questions"
+msgstr ""
+
+#: utils-translate.R:153
+msgid "Objectives"
+msgstr ""
+
+#: utils-translate.R:154
+msgid "Callout"
+msgstr ""
+
+#: utils-translate.R:155
+msgid "Challenge"
+msgstr ""
+
+#: utils-translate.R:156
+msgid "Prerequisite"
+msgstr ""
+
+#: utils-translate.R:157
+msgid "Checklist"
+msgstr ""
+
+#: utils-translate.R:158
+msgid "Discussion"
+msgstr ""
+
+#: utils-translate.R:159
+msgid "Testimonial"
+msgstr ""
+
+#: utils-translate.R:162
+msgid "Show me the solution"
+msgstr ""
+
+#: utils-translate.R:163
+msgid "Give me a hint"
+msgstr ""
+
+#: utils-translate.R:164
+msgid "Show details"
+msgstr ""
+
+#: utils-translate.R:165
+msgid "Instructor Note"
+msgstr ""
+
+#: utils-translate.R:167
+msgid "Summary and Setup"
+msgstr ""
+
+#: utils-translate.R:168
+msgid "Summary and Schedule"
+msgstr ""
+
+#: utils-translate.R:169
+msgid "All in One View"
+msgstr ""
+
+#: utils-translate.R:170
+msgid "Page not found"
+msgstr ""
+
+#: utils-translate.R:171
+msgid "All Images"
+msgstr ""
+
+#: utils-translate.R:173
+msgid "anchor"
+msgstr ""
+
+#: utils-translate.R:174
+msgid "Figure {element}"
+msgstr ""
+
+#: utils-translate.R:175
+msgid "Image {i} of {n}: {sQuote(txt)}"
+msgstr ""
+
+#: utils-translate.R:176
+msgid "Finish"
+msgstr ""

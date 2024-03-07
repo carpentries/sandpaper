@@ -1,3 +1,84 @@
+# sandpaper 0.16.3.9000 (2024-03-05)
+
+## BUG FIX
+
+* Hotfix for pandoc2-to-pandoc3 bump that resulted in CSS deduplication
+  of section classes for callout blocks
+  (reported: @bencomp, #470; @ndporter https://github.com/carpentries/workbench/issues/81; 
+  fixed: @froggleston, #574)
+
+# sandpaper 0.16.2 (2023-12-19)
+
+## MISC
+
+* JSON metadata now contains the `inLanguage` key.
+
+## DOCUMENTATION
+
+* A list of translatable strings has now been added to 
+  `vignette("translations", package = "sandpaper")`
+
+## INTERNAL
+
+* Translation strings now are unduplicated and live in a single file
+  (`R/utils-translate.R`). This will make finding and updating these strings
+  easier for maintainer and translators.
+* Translations now live in the global environment called `these$translations`
+* A new documentation page called `?translate` contains details of how
+  translations of template elements are rendered.
+- `tr_src()` helper function provides access to the source strings of the
+  translations.
+- `tr_get()`, `tr_varnish()`, and `tr_computed()` helper functions provide
+  access top the lists of translated strings. These have replaced the `tr_()`
+  strings at the point of generation.
+
+# sandpaper 0.16.1 (2023-12-14)
+
+## BUG FIX
+
+* Callout headings with markup in the titles will no longer have text duplicated
+  (reported: @zkamvar, #556; fixed: @zkamvar, #557)
+
+# sandpaper 0.16.0 (2023-12-13)
+
+## NEW FEATURES
+
+* It is now possible to build lessons in languages other than English so that
+  the website elements are also localised to that language (reported: @zkamvar,
+  #205, @joelnitta, #544; fixed: @joelnitta and @zkamvar, #546). 
+* `known_languages()` is a function that will return the language codes that are
+  known by {sandpaper}. 
+
+## DOCUMENTATION
+
+* A new vignette `vignette("translation", package = "sandpaper")` describes how
+  translation of template components works and how to submit new/update
+  translations (added: @zkamvar, #546).
+- A new vignette about data flow `vignette("data-flow", package = "sandpaper")`
+  describes how templating, translations, and lesson metadata flows from
+  {sandpaper} to {varnish} (added: @zkamvar, #553)
+
+## BUG FIX
+
+* The spelling of keypoints is now consistent between the menu item and the
+  callout blocks (reported: @clarallebot, 
+  https://github.com/carpentries/workbench/issues/44; fixed: @zkamvar, #546)
+
+## DEPENDENCIES
+
+* The {withr} package has been upgraded to an import from a suggested package.
+
+## LANGUAGES
+
+* Japanese (ja) (added: @joelnitta, #546)
+* Spanish (es) (added: @yabellini, #552)
+
+## MISC
+
+* Added @yabellini as a contributor and translator
+* Added @joelnitta as an author and translator
+
+
 # sandpaper 0.15.0 (2023-11-29)
 
 ## NEW FEATURES

@@ -1,0 +1,376 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: sandpaper 0.14.1.9000\n"
+"POT-Creation-Date: 2023-12-19 09:37-0800\n"
+"PO-Revision-Date: 2023-11-22 09:14+0900\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: utils-translate.R:74
+msgid "Skip to main content"
+msgstr "本文へ移動"
+
+#: utils-translate.R:75
+msgid "Pre-Alpha"
+msgstr "プレアルファ"
+
+#: utils-translate.R:76
+msgid ""
+"This lesson is in the pre-alpha phase, which means that it is in early "
+"development, but has not yet been taught."
+msgstr ""
+"このレッスンはプレアルファフェーズ（開発が始まったが、まだ教えられたことがな"
+"い）にある。"
+
+#: utils-translate.R:77
+msgid ""
+"This lesson is in the alpha phase, which means that it has been taught once "
+"and lesson authors are iterating on feedback."
+msgstr ""
+"このレッスンはアルファフェーズ（一度教えられ、レッスン作成者がフィードバック"
+"を反復している）にある。"
+
+#: utils-translate.R:78
+msgid "Alpha"
+msgstr "アルファ"
+
+#: utils-translate.R:79
+msgid ""
+"This lesson is in the beta phase, which means that it is ready for teaching "
+"by instructors outside of the original author team."
+msgstr ""
+"このレッスンはベタフェーズ（原著者チーム以外の指導者にも教える準備が整ってい"
+"る）にある"
+
+#: utils-translate.R:80
+msgid "Beta"
+msgstr "ベタ"
+
+#: utils-translate.R:81
+msgid "This lesson has passed peer review."
+msgstr "このレッスンはピアレビューに合格しました"
+
+#: utils-translate.R:82
+msgid "Instructor View"
+msgstr "インストラクター表示"
+
+#: utils-translate.R:83
+msgid "Learner View"
+msgstr "学習者表示"
+
+#: utils-translate.R:84
+msgid "Main Navigation"
+msgstr "メインナビゲーション"
+
+#: utils-translate.R:85
+msgid "Toggle Navigation"
+msgstr "ナビゲーションの切り替え"
+
+#: utils-translate.R:86
+msgid "Menu"
+msgstr "メニュー"
+
+#: utils-translate.R:87
+msgid "search button"
+msgstr "検索ボタン"
+
+#: utils-translate.R:88
+msgid "Setup"
+msgstr "セットアップ"
+
+#: utils-translate.R:89
+msgid "Key Points"
+msgstr "まとめ"
+
+#: utils-translate.R:90
+msgid "Instructor Notes"
+msgstr "インストラクター用メモ"
+
+#: utils-translate.R:91
+msgid "Glossary"
+msgstr "用語集"
+
+#: utils-translate.R:92
+msgid "Learner Profiles"
+msgstr "学習者プロフィール"
+
+#: utils-translate.R:93
+msgid "More"
+msgstr "その他"
+
+#: utils-translate.R:94
+msgid "Search"
+msgstr "検索"
+
+#: utils-translate.R:95
+msgid "Lesson Progress"
+msgstr "レッスンの進捗状況"
+
+#: utils-translate.R:97
+msgid "close menu"
+msgstr "メニューを閉じる"
+
+#: utils-translate.R:98
+msgid "EPISODES"
+msgstr "エピソード"
+
+#: utils-translate.R:99
+msgid "Home"
+msgstr "ホーム"
+
+#: utils-translate.R:100
+msgid "Home Page Navigation"
+msgstr "ホームページのナビゲーション"
+
+#: utils-translate.R:101
+msgid "RESOURCES"
+msgstr "資料"
+
+#: utils-translate.R:102
+msgid "Extract All Images"
+msgstr "全ての画像"
+
+#: utils-translate.R:103
+msgid "See all in one page"
+msgstr "一つにまとまったページ"
+
+#: utils-translate.R:104
+msgid "Download Lesson Handout"
+msgstr "レッスンのプリントをダウンロード"
+
+#: utils-translate.R:105
+msgid "Export Chapter Slides"
+msgstr "スライドのエキスポート"
+
+#: utils-translate.R:107
+msgid "Previous and Next Chapter"
+msgstr "前の章と次の章"
+
+#: utils-translate.R:108
+msgid "Previous"
+msgstr "前へ"
+
+#: utils-translate.R:109
+msgid "Estimated time: {icons$clock} {minutes} minutes"
+msgstr "所要時間：{icons$clock} {minutes}分"
+
+#: utils-translate.R:110
+msgid "Next"
+msgstr "次へ"
+
+#: utils-translate.R:111
+msgid "Next Chapter"
+msgstr "次のチャプター"
+
+#: utils-translate.R:112
+msgid "Last updated on {updated}"
+msgstr "最終更新日：{updated}"
+
+#: utils-translate.R:113
+msgid "Edit this page"
+msgstr "ページの編集"
+
+#: utils-translate.R:114 utils-translate.R:135
+msgid "Expand All Solutions"
+msgstr "回答を全て表示する"
+
+#: utils-translate.R:116
+msgid "Setup Instructions"
+msgstr "セットアップの手順"
+
+#: utils-translate.R:117
+msgid "Download files required for the lesson"
+msgstr "レッスンに必要なファイルのダウンロード"
+
+#: utils-translate.R:118
+msgid ""
+"The actual schedule may vary slightly depending on the topics and exercises "
+"chosen by the instructor."
+msgstr ""
+"実際のスケジュールは、講師が選んだトピックやエクササイズによって多少異なる場"
+"合があります。"
+
+#: utils-translate.R:120
+msgid "Back To Top"
+msgstr "上へ戻る"
+
+#: utils-translate.R:121
+msgid "<(Back)> To Top"
+msgstr "上へ<(戻る)>"
+
+#: utils-translate.R:122
+msgid "This lesson is subject to the <(Code of Conduct)>"
+msgstr "このレッスンは<(行動規範)>の対象となっている"
+
+#: utils-translate.R:123
+msgid "Code of Conduct"
+msgstr "行動規範"
+
+#: utils-translate.R:124
+msgid "Edit on GitHub"
+msgstr "GitHubで編集"
+
+#: utils-translate.R:125
+msgid "Contributing"
+msgstr "貢献"
+
+#: utils-translate.R:126
+msgid "Source"
+msgstr "ソース"
+
+#: utils-translate.R:127
+msgid "Cite"
+msgstr "引用"
+
+#: utils-translate.R:128
+msgid "Contact"
+msgstr "お問い合わせ"
+
+#: utils-translate.R:129
+msgid "About"
+msgstr "概要"
+
+#: utils-translate.R:130
+msgid "Materials licensed under {license} by {authors}"
+msgstr "材料は{authors}によって{license}のもとに掲載を許諾されている"
+
+#: utils-translate.R:131
+msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
+msgstr ""
+"テンプレートは{template_authors}によって<(CC-BY 4.0)>のもとに掲載を許諾されて"
+"いる"
+
+#: utils-translate.R:132
+msgid "The Carpentries"
+msgstr "ザ・カーペントリーズ"
+
+#: utils-translate.R:133
+msgid "Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}"
+msgstr ""
+"このレッスンは{sandpaper_link}、{pegboard_link}、および{varnish_link}によって"
+"作られた"
+
+#: utils-translate.R:136
+msgid "Collapse All Solutions"
+msgstr "回答を全て折りたたむ"
+
+#: utils-translate.R:137
+msgid "Collapse"
+msgstr "折りたたむ"
+
+#: utils-translate.R:138
+msgid "Episodes"
+msgstr "エピソード"
+
+#: utils-translate.R:140
+msgid "Give Feedback"
+msgstr "フィードバック"
+
+#: utils-translate.R:141
+msgid "Learn More"
+msgstr "さらに詳しく"
+
+#: utils-translate.R:147
+msgid "OUTPUT"
+msgstr "出力"
+
+#: utils-translate.R:148
+msgid "WARNING"
+msgstr "警告"
+
+#: utils-translate.R:149
+msgid "ERROR"
+msgstr "エラー"
+
+#: utils-translate.R:151
+msgid "Overview"
+msgstr "概要"
+
+#: utils-translate.R:152
+msgid "Questions"
+msgstr "質問"
+
+#: utils-translate.R:153
+msgid "Objectives"
+msgstr "目的"
+
+#: utils-translate.R:154
+msgid "Callout"
+msgstr "コールアウト"
+
+#: utils-translate.R:155
+msgid "Challenge"
+msgstr "チャレンジ"
+
+#: utils-translate.R:156
+msgid "Prerequisite"
+msgstr "必須条件"
+
+#: utils-translate.R:157
+msgid "Checklist"
+msgstr "チェックリスト"
+
+#: utils-translate.R:158
+msgid "Discussion"
+msgstr "ディスカッション"
+
+#: utils-translate.R:159
+msgid "Testimonial"
+msgstr "推薦文"
+
+#: utils-translate.R:162
+msgid "Show me the solution"
+msgstr "回答を表示する"
+
+#: utils-translate.R:163
+msgid "Give me a hint"
+msgstr "ヒントを表示する"
+
+#: utils-translate.R:164
+msgid "Show details"
+msgstr "詳細を表示する"
+
+#: utils-translate.R:165
+msgid "Instructor Note"
+msgstr "インストラクター用メモ"
+
+#: utils-translate.R:167
+msgid "Summary and Setup"
+msgstr "概要とセットアップ"
+
+#: utils-translate.R:168
+msgid "Summary and Schedule"
+msgstr "概要とスケジュール"
+
+#: utils-translate.R:169
+msgid "All in One View"
+msgstr "一つにまとまったページ"
+
+#: utils-translate.R:170
+msgid "Page not found"
+msgstr "ページが見つかりません"
+
+#: utils-translate.R:171
+msgid "All Images"
+msgstr "全ての画像"
+
+#: utils-translate.R:173
+msgid "anchor"
+msgstr "アンカー"
+
+#: utils-translate.R:174
+msgid "Figure {element}"
+msgstr "図の{element}"
+
+#: utils-translate.R:175
+msgid "Image {i} of {n}: {sQuote(txt)}"
+msgstr "画像{i}/{n}: {sQuote(txt)}"
+
+#: utils-translate.R:176
+msgid "Finish"
+msgstr "終わり"

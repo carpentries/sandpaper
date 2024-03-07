@@ -48,6 +48,12 @@ information about the lesson
 
 The following keypairs are known by sandpaper, but are optional:
 \itemize{
+\item \strong{lang} \verb{[character]} the \href{https://www.gnu.org/software/gettext/manual/html_node/Usual-Language-Codes.html}{language code}
+that matches the language of the lesson content. This defaults to \code{"en"},
+but can be any language code (e.g. "ja" specifying Japanese) or
+combination language code and \href{https://www.gnu.org/software/gettext/manual/html_node/Country-Codes.html}{country code}
+(e.g. "pt_BR" specifies Pourtugese used in Brazil). For more information
+on how this is used, see \href{https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html}{the Locale Names section of the gettext manual}
 \item \strong{url} \verb{[character]} custom URL if you are deploying to a URL that is not
 the default github pages io domain.
 \item \strong{fail_on_error} \verb{[boolean]} for R Markdown lessons; fail the build if any

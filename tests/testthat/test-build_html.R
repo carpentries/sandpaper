@@ -102,6 +102,7 @@ test_that("[build_home()] works independently", {
   fs::dir_create(built_dir)
   fs::file_copy(fs::path(res, "index.md"), built_dir)
   fs::file_copy(fs::path(res, "learners", "setup.md"), built_dir)
+
   build_home(pkg, quiet = TRUE,
     next_page = fs::path(res, "episodes", "introduction.Rmd")
   )
@@ -174,6 +175,7 @@ test_that("[build_profiles()] works independently", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "profiles.html")))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "instructor", "profiles.html")))
+
   build_profiles(pkg, quiet = TRUE)
   expect_true(fs::file_exists(fs::path(pkg$dst_path, "profiles.html")))
   expect_true(fs::file_exists(fs::path(pkg$dst_path, "instructor", "profiles.html")))

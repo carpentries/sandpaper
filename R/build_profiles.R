@@ -13,7 +13,7 @@ build_profiles <- function(pkg, quiet) {
   this_dat <- list(
     this_page = "profiles.html",
     body = use_instructor(html),
-    pagetitle = "Learner Profiles"
+    pagetitle = tr_varnish("LearnerProfiles")
   )
   page_globals$instructor$update(this_dat)
 

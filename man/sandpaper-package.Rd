@@ -23,6 +23,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Zhian N. Kamvar \email{zkamvar@carpentries.org} (\href{https://orcid.org/0000-0003-1458-7108}{ORCID})
 
+Authors:
+\itemize{
+  \item Joel H. Nitta \email{joelnitta@gmail.com} (\href{https://orcid.org/0000-0003-4719-7472}{ORCID}) [translator]
+}
+
 Other contributors:
 \itemize{
   \item Julien Colomb (\href{https://orcid.org/0000-0002-3127-5520}{ORCID}) [contributor]
@@ -34,6 +39,7 @@ Other contributors:
   \item Hugo Gruson \email{hugo.gruson+R@normalesup.org} [contributor]
   \item Rob Davey \email{robertdavey@carpentries.org} [contributor]
   \item Milan Malfait \email{milan.malfait94@gmail.com} (\href{https://orcid.org/0000-0001-9144-3701}{ORCID}) [contributor]
+  \item Yanina Bellini Saibene (\href{https://orcid.org/0000-0002-4522-7466}{ORCID}) [contributor, translator]
 }
 
 }

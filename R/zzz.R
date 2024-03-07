@@ -9,6 +9,7 @@
   if (is.null(op)) {
     try_use_renv()
   }
+  establish_translation_vars()
   invisible()
 }
 #nocov end
