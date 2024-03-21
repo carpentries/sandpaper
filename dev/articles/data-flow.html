@@ -38,7 +38,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.16.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.16.4.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -138,27 +138,27 @@ the site navigate the content. For example, each episode page has three
 piece of metadata embedded as a YAML list at the top of the source file
 that defines the title along with estimated time for teaching and
 excercises.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Introduction"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">teaching</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">exercises</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Introduction"</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">teaching</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">exercises</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span></code></pre></div>
 <p>In terms of the lesson itself, metadata that is related to the whole
 lesson is stored in <code>config.yaml</code>. This YAML file is designed
 to be as flat as possible to avoid common problems with writing YAML.
 Metadata here include things like the title of the Lesson, the source
 page of the lesson, the time it was created, and the lesson program it
 belongs to.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"An Example Lesson"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">carpentry</span><span class="kw">:</span><span class="at"> </span><span class="st">"incubator"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">created</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023-11-27"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">life-cycle</span><span class="kw">:</span><span class="at"> </span><span class="st">"pre-alpha"</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"An Example Lesson"</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">carpentry</span><span class="kw">:</span><span class="at"> </span><span class="st">"incubator"</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">created</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023-11-27"</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">life-cycle</span><span class="kw">:</span><span class="at"> </span><span class="st">"pre-alpha"</span></span></code></pre></div>
 <p>It also defines optional parameters such as the order of the episodes
 and other content that can be used to customise how the lesson is
 built.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">episodes</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="kw">-</span><span class="at"> introduction.md</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="kw">-</span><span class="at"> first-example.md</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">handout</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">episodes</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="at"> </span><span class="kw">-</span><span class="at"> introduction.md</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="at"> </span><span class="kw">-</span><span class="at"> first-example.md</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">handout</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 <p>The thing to know about this metdata and these variables is that they
 all get passed to {varnish} and are used to control how the lesson
 website is built along with the metadata.</p>
@@ -178,24 +178,24 @@ independently of {sandpaper}. This template is called {varnish}.</p>
 different components that are rendered separately and then combined into
 a single layout template. For example, here is the template that defines
 the layout:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- START: inst/pkgdown/templates/layout.html --&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Generated by pkgdown: do not edit by hand --&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!doctype </span>html<span class="dt">&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html</span> <span class="er">lang</span><span class="ot">=</span><span class="st">"{{ lang }}"</span><span class="kw">&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;head&gt;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    {{{ head }}}</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/head&gt;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;body&gt;</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    {{{ header }}}</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"container"</span><span class="kw">&gt;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"row"</span><span class="kw">&gt;</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        {{{ navbar }}}</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        {{{ content }}}</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;/div&gt;</span><span class="co">&lt;!--/div.row--&gt;</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>      {{{ footer }}} {{! the end of div class container is in footer }}</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/body&gt;</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="re">END</span><span class="co">:   inst/pkgdown/templates/layout.html--&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">&lt;!-- START: inst/pkgdown/templates/layout.html --&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">&lt;!-- Generated by pkgdown: do not edit by hand --&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="ot"> lang</span><span class="op">=</span><span class="st">"{{ lang }}"</span><span class="dt">&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    {{{ head }}}</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    {{{ header }}}</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"container"</span><span class="dt">&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"row"</span><span class="dt">&gt;</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>        {{{ navbar }}}</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>        {{{ content }}}</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>      <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span><span class="co">&lt;!--/div.row--&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>      {{{ footer }}} {{! the end of div class container is in footer }}</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="re">END</span><span class="co">:   inst/pkgdown/templates/layout.html--&gt;</span></span></code></pre></div>
 <p>You can see that it contains <code>{{{ head }}}</code>,
 <code>{{{ header }}}</code>, <code>{{{ navbar }}}</code>,
 <code>{{{ content }}}</code> and <code>{{{ footer }}}</code>. These are
@@ -203,36 +203,36 @@ all the results of the other rendered templates. For example, here’s the
 <code>head.html</code> template, which defines the content that goes in
 the HTML <code>&lt;head&gt;</code> tag (defining titles, metadata,
 stylesheets, and JavaScript):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;meta</span> <span class="er">charset</span><span class="ot">=</span><span class="st">"utf-8"</span><span class="kw">&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;title&gt;</span>{{#site}}{{<span class="er">&amp;</span>title}}{{/site}}{{#pagetitle}}: {{<span class="er">&amp;</span>pagetitle}}{{/pagetitle}}<span class="kw">&lt;/title&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">"viewport"</span> <span class="er">content</span><span class="ot">=</span><span class="st">"width=device-width, initial-scale=1"</span><span class="kw">&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">"stylesheet"</span> <span class="er">type</span><span class="ot">=</span><span class="st">"text/css"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{{#site}}{{root}}{{/site}}assets/styles.css"</span><span class="kw">&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">"{{#site}}{{root}}{{/site}}assets/scripts.js"</span><span class="ot"> type=</span><span class="st">"text/javascript"</span><span class="kw">&gt;&lt;/script&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- mathjax --&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">"text/x-mathjax-config"</span><span class="kw">&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    MathJax<span class="op">.</span><span class="at">Hub</span><span class="op">.</span><span class="fu">Config</span>({</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">config</span><span class="op">:</span> [<span class="st">"MMLorHTML.js"</span>]<span class="op">,</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">jax</span><span class="op">:</span> [<span class="st">"input/TeX"</span><span class="op">,</span><span class="st">"input/MathML"</span><span class="op">,</span><span class="st">"output/HTML-CSS"</span><span class="op">,</span><span class="st">"output/NativeMML"</span><span class="op">,</span> <span class="st">"output/PreviewHTML"</span>]<span class="op">,</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">extensions</span><span class="op">:</span> [<span class="st">"tex2jax.js"</span><span class="op">,</span><span class="st">"mml2jax.js"</span><span class="op">,</span><span class="st">"MathMenu.js"</span><span class="op">,</span><span class="st">"MathZoom.js"</span><span class="op">,</span> <span class="st">"fast-preview.js"</span><span class="op">,</span> <span class="st">"AssistiveMML.js"</span><span class="op">,</span> <span class="st">"a11y/accessibility-menu.js"</span>]<span class="op">,</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">TeX</span><span class="op">:</span> {</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">extensions</span><span class="op">:</span> [<span class="st">"AMSmath.js"</span><span class="op">,</span><span class="st">"AMSsymbols.js"</span><span class="op">,</span><span class="st">"noErrors.js"</span><span class="op">,</span><span class="st">"noUndefined.js"</span>]</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tex2jax</span><span class="op">:</span> {</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">inlineMath</span><span class="op">:</span> [[<span class="st">'</span><span class="sc">\\</span><span class="st">('</span><span class="op">,</span> <span class="st">'</span><span class="sc">\\</span><span class="st">)'</span>]]<span class="op">,</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">displayMath</span><span class="op">:</span> [ [<span class="st">'$$'</span><span class="op">,</span><span class="st">'$$'</span>]<span class="op">,</span> [<span class="st">'</span><span class="sc">\\</span><span class="st">['</span><span class="op">,</span> <span class="st">'</span><span class="sc">\\</span><span class="st">]'</span>] ]<span class="op">,</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">processEscapes</span><span class="op">:</span> <span class="kw">true</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/script&gt;</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"</span> <span class="er">integrity</span><span class="ot">=</span><span class="st">"sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k="</span> <span class="er">crossorigin</span><span class="ot">=</span><span class="st">"anonymous"</span><span class="kw">&gt;&lt;/script&gt;</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- Responsive Favicon for The Carpentries --&gt;</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">"apple-touch-icon"</span> <span class="er">sizes</span><span class="ot">=</span><span class="st">"180x180"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{{#site}}{{root}}{{/site}}apple-touch-icon.png"</span><span class="kw">&gt;</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">"icon"</span> <span class="er">type</span><span class="ot">=</span><span class="st">"image/png"</span> <span class="er">sizes</span><span class="ot">=</span><span class="st">"32x32"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{{#site}}{{root}}{{/site}}favicon-32x32.png"</span><span class="kw">&gt;</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">"icon"</span> <span class="er">type</span><span class="ot">=</span><span class="st">"image/png"</span> <span class="er">sizes</span><span class="ot">=</span><span class="st">"16x16"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{{#site}}{{root}}{{/site}}favicon-16x16.png"</span><span class="kw">&gt;</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">"manifest"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{{#site}}{{root}}{{/site}}site.webmanifest"</span><span class="kw">&gt;</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">"mask-icon"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{{#site}}{{root}}{{/site}}safari-pinned-tab.svg"</span> <span class="er">color</span><span class="ot">=</span><span class="st">"#5bbad5"</span><span class="kw">&gt;</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">"msapplication-TileColor"</span> <span class="er">content</span><span class="ot">=</span><span class="st">"#da532c"</span><span class="kw">&gt;</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">"theme-color"</span> <span class="er">content</span><span class="ot">=</span><span class="st">"#ffffff"</span><span class="kw">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">"utf-8"</span><span class="dt">&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">title</span><span class="dt">&gt;</span>{{#site}}{{<span class="er">&amp;</span>title}}{{/site}}{{#pagetitle}}: {{<span class="er">&amp;</span>pagetitle}}{{/pagetitle}}<span class="dt">&lt;/</span><span class="kw">title</span><span class="dt">&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">"viewport"</span><span class="ot"> content</span><span class="op">=</span><span class="st">"width=device-width, initial-scale=1"</span><span class="dt">&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">"stylesheet"</span><span class="ot"> type</span><span class="op">=</span><span class="st">"text/css"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"{{#site}}{{root}}{{/site}}assets/styles.css"</span><span class="dt">&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> src</span><span class="op">=</span><span class="st">"{{#site}}{{root}}{{/site}}assets/scripts.js"</span><span class="ot"> type=</span><span class="st">"text/javascript"</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    <span class="co">&lt;!-- mathjax --&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> type=</span><span class="st">"text/x-mathjax-config"</span><span class="dt">&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    MathJax<span class="op">.</span><span class="at">Hub</span><span class="op">.</span><span class="fu">Config</span>({</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>      <span class="dt">config</span><span class="op">:</span> [<span class="st">"MMLorHTML.js"</span>]<span class="op">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>      <span class="dt">jax</span><span class="op">:</span> [<span class="st">"input/TeX"</span><span class="op">,</span><span class="st">"input/MathML"</span><span class="op">,</span><span class="st">"output/HTML-CSS"</span><span class="op">,</span><span class="st">"output/NativeMML"</span><span class="op">,</span> <span class="st">"output/PreviewHTML"</span>]<span class="op">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>      <span class="dt">extensions</span><span class="op">:</span> [<span class="st">"tex2jax.js"</span><span class="op">,</span><span class="st">"mml2jax.js"</span><span class="op">,</span><span class="st">"MathMenu.js"</span><span class="op">,</span><span class="st">"MathZoom.js"</span><span class="op">,</span> <span class="st">"fast-preview.js"</span><span class="op">,</span> <span class="st">"AssistiveMML.js"</span><span class="op">,</span> <span class="st">"a11y/accessibility-menu.js"</span>]<span class="op">,</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>      <span class="dt">TeX</span><span class="op">:</span> {</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>        <span class="dt">extensions</span><span class="op">:</span> [<span class="st">"AMSmath.js"</span><span class="op">,</span><span class="st">"AMSsymbols.js"</span><span class="op">,</span><span class="st">"noErrors.js"</span><span class="op">,</span><span class="st">"noUndefined.js"</span>]</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>      <span class="dt">tex2jax</span><span class="op">:</span> {</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>        <span class="dt">inlineMath</span><span class="op">:</span> [[<span class="st">'</span><span class="sc">\\</span><span class="st">('</span><span class="op">,</span> <span class="st">'</span><span class="sc">\\</span><span class="st">)'</span>]]<span class="op">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>        <span class="dt">displayMath</span><span class="op">:</span> [ [<span class="st">'$$'</span><span class="op">,</span><span class="st">'$$'</span>]<span class="op">,</span> [<span class="st">'</span><span class="sc">\\</span><span class="st">['</span><span class="op">,</span> <span class="st">'</span><span class="sc">\\</span><span class="st">]'</span>] ]<span class="op">,</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>        <span class="dt">processEscapes</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>      }</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> src</span><span class="op">=</span><span class="st">"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"</span><span class="ot"> integrity</span><span class="op">=</span><span class="st">"sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k="</span><span class="ot"> crossorigin</span><span class="op">=</span><span class="st">"anonymous"</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>    <span class="co">&lt;!-- Responsive Favicon for The Carpentries --&gt;</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">"apple-touch-icon"</span><span class="ot"> sizes</span><span class="op">=</span><span class="st">"180x180"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"{{#site}}{{root}}{{/site}}apple-touch-icon.png"</span><span class="dt">&gt;</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">"icon"</span><span class="ot"> type</span><span class="op">=</span><span class="st">"image/png"</span><span class="ot"> sizes</span><span class="op">=</span><span class="st">"32x32"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"{{#site}}{{root}}{{/site}}favicon-32x32.png"</span><span class="dt">&gt;</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">"icon"</span><span class="ot"> type</span><span class="op">=</span><span class="st">"image/png"</span><span class="ot"> sizes</span><span class="op">=</span><span class="st">"16x16"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"{{#site}}{{root}}{{/site}}favicon-16x16.png"</span><span class="dt">&gt;</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">"manifest"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"{{#site}}{{root}}{{/site}}site.webmanifest"</span><span class="dt">&gt;</span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">"mask-icon"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"{{#site}}{{root}}{{/site}}safari-pinned-tab.svg"</span><span class="ot"> color</span><span class="op">=</span><span class="st">"#5bbad5"</span><span class="dt">&gt;</span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">"msapplication-TileColor"</span><span class="ot"> content</span><span class="op">=</span><span class="st">"#da532c"</span><span class="dt">&gt;</span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">"theme-color"</span><span class="ot"> content</span><span class="op">=</span><span class="st">"#ffffff"</span><span class="dt">&gt;</span></span></code></pre></div>
 <p>The templates used by {varnish} will take metadata from one of two
 sources:</p>
 <ol style="list-style-type: decimal">
@@ -404,11 +404,11 @@ functions:</p>
 <span><span class="va">snd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ns-internal.html" class="external-link">asNamespace</a></span><span class="op">(</span><span class="st">"sandpaper"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a new lesson</span></span>
-<span><span class="va">lsn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"An Example Lesson"</span>, </span>
+<span><span class="va">lsn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"An Example Lesson"</span>,</span>
 <span>  rstudio <span class="op">=</span> <span class="cn">TRUE</span>, open <span class="op">=</span> <span class="cn">FALSE</span>, rmd <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co"># add a new episode</span></span>
 <span><span class="fu"><a href="../reference/create_episode.html">create_episode_md</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"First Example"</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, path <span class="op">=</span> <span class="va">lsn</span>, open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">## /tmp/Rtmp4HqRvJ/file2cb73b6ee210/episodes/first-example.md</span></span></code></pre></div>
+<span><span class="co">## /tmp/Rtmpd9j1LE/file2c7a328b7995/episodes/first-example.md</span></span></code></pre></div>
 <p>Within {sandpaper}, there are environments that contain metadata
 related to the whole lesson called <code>.store</code>,
 <code>.resources</code>, <code>instructor_globals</code>,
@@ -466,12 +466,12 @@ the individual episodes and cached.</p>
 <span><span class="co">## ── Validating Fenced Divs ──────────────────────────────────────────────</span></span>
 <span><span class="co">## ── Validating Internal Links and Images ────────────────────────────────</span></span>
 <span><span class="co">##    user  system elapsed </span></span>
-<span><span class="co">##   0.356   0.028   0.384</span></span>
+<span><span class="co">##   0.349   0.060   0.409</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="../reference/validate_lesson.html">validate_lesson</a></span><span class="op">(</span><span class="va">lsn</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## ── Validating Fenced Divs ──────────────────────────────────────────────</span></span>
 <span><span class="co">## ── Validating Internal Links and Images ────────────────────────────────</span></span>
 <span><span class="co">##    user  system elapsed </span></span>
-<span><span class="co">##   0.107   0.000   0.107</span></span></code></pre></div>
+<span><span class="co">##   0.117   0.000   0.116</span></span></code></pre></div>
 <p>The <code><a href="../reference/validate_lesson.html">validate_lesson()</a></code> call will pull from the cache in
 <code>.store</code> if it exists and is valid (which means that nothing
 in git has changed). If it’s not valid or does not exist, then all of
@@ -532,7 +532,7 @@ responsible for initialising and resetting the variable cache.</p>
 <span><span class="co">##     load_built: function () </span></span>
 <span><span class="co">##     n_problems: active binding</span></span>
 <span><span class="co">##     overview: FALSE</span></span>
-<span><span class="co">##     path: /tmp/Rtmp4HqRvJ/file2cb73b6ee210</span></span>
+<span><span class="co">##     path: /tmp/Rtmpd9j1LE/file2c7a328b7995</span></span>
 <span><span class="co">##     reset: function () </span></span>
 <span><span class="co">##     rmd: FALSE</span></span>
 <span><span class="co">##     sandpaper: TRUE</span></span>
@@ -558,7 +558,7 @@ config variable, it will be <code>FALSE</code>, indicating that it needs
 to be reset:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_config.html">set_config</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>handout <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, path <span class="op">=</span> <span class="va">lsn</span>, write <span class="op">=</span> <span class="cn">TRUE</span>, create <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Writing to <span style="color: #0000BB;">/tmp/Rtmp4HqRvJ/file2cb73b6ee210/config.yaml</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Writing to <span style="color: #0000BB;">/tmp/Rtmpd9j1LE/file2c7a328b7995/config.yaml</span></span></span>
 <span><span class="co">## → NA -&gt; handout: true</span></span>
 <span><span class="va">snd</span><span class="op">$</span><span class="va">.store</span><span class="op">$</span><span class="fu">valid</span><span class="op">(</span><span class="va">lsn</span><span class="op">)</span></span>
 <span><span class="co">## [1] FALSE</span></span>
@@ -584,7 +584,7 @@ identifiers.</p>
 <span><span class="co">## [1] "An Example Lesson"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $created</span></span>
-<span><span class="co">## [1] "2023-12-19"</span></span>
+<span><span class="co">## [1] "2024-03-21"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $keywords</span></span>
 <span><span class="co">## [1] "software, data, lesson, The Carpentries"</span></span>
@@ -596,7 +596,7 @@ identifiers.</p>
 <span><span class="co">## [1] "CC-BY 4.0"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $source</span></span>
-<span><span class="co">## [1] "https://github.com/carpentries/file2cb73b6ee210"</span></span>
+<span><span class="co">## [1] "https://github.com/carpentries/file2c7a328b7995"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $branch</span></span>
 <span><span class="co">## [1] "main"</span></span>
@@ -613,35 +613,39 @@ identifiers.</p>
 <span><span class="co">##  [3] "  \"@context\": \"https://schema.org\","                                                                                                           </span></span>
 <span><span class="co">##  [4] "  \"@type\": \"TrainingMaterial\","                                                                                                                </span></span>
 <span><span class="co">##  [5] "  \"@id\": \"&lt;% url %&gt;\","                                                                                                                         </span></span>
-<span><span class="co">##  [6] "  \"dct:conformsTo\": \"https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE\","                                                           </span></span>
-<span><span class="co">##  [7] "  \"description\": \"&lt;% desc %&gt;&lt;% ^desc %&gt;A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide&lt;% /desc %&gt;\","</span></span>
-<span><span class="co">##  [8] "  \"keywords\": \"&lt;% keywords %&gt;&lt;% ^keywords %&gt;software,data,lesson,The Carpentries&lt;% /keywords %&gt;\","                                             </span></span>
-<span><span class="co">##  [9] "  \"name\": \"&lt;% &amp;pagetitle %&gt;\","                                                                                                                 </span></span>
-<span><span class="co">## [10] "  \"creativeWorkStatus\": \"active\","                                                                                                             </span></span>
-<span><span class="co">## [11] "  \"url\": \"&lt;% url %&gt;\","                                                                                                                         </span></span>
-<span><span class="co">## [12] "  \"identifier\": \"&lt;% url %&gt;\","                                                                                                                  </span></span>
-<span><span class="co">## [13] "  &lt;% #date %&gt;\"dateCreated\": \"&lt;% created %&gt;\","                                                                                                  </span></span>
-<span><span class="co">## [14] "  \"dateModified\": \"&lt;% modified %&gt;\","                                                                                                           </span></span>
-<span><span class="co">## [15] "  \"datePublished\": \"&lt;% published %&gt;\"&lt;% /date %&gt;"                                                                                               </span></span>
-<span><span class="co">## [16] "}"                                                                                                                                                 </span></span>
-<span><span class="co">## [17] "&lt;%={{ }}=%&gt;"                                                                                                                                       </span></span>
+<span><span class="co">##  [6] "  \"inLanguage\": \"&lt;% lang %&gt;\","                                                                                                                 </span></span>
+<span><span class="co">##  [7] "  \"dct:conformsTo\": \"https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE\","                                                           </span></span>
+<span><span class="co">##  [8] "  \"description\": \"&lt;% desc %&gt;&lt;% ^desc %&gt;A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide&lt;% /desc %&gt;\","</span></span>
+<span><span class="co">##  [9] "  \"keywords\": \"&lt;% keywords %&gt;&lt;% ^keywords %&gt;software,data,lesson,The Carpentries&lt;% /keywords %&gt;\","                                             </span></span>
+<span><span class="co">## [10] "  \"name\": \"&lt;% &amp;pagetitle %&gt;\","                                                                                                                 </span></span>
+<span><span class="co">## [11] "  \"creativeWorkStatus\": \"active\","                                                                                                             </span></span>
+<span><span class="co">## [12] "  \"url\": \"&lt;% url %&gt;\","                                                                                                                         </span></span>
+<span><span class="co">## [13] "  \"identifier\": \"&lt;% url %&gt;\","                                                                                                                  </span></span>
+<span><span class="co">## [14] "  &lt;% #date %&gt;\"dateCreated\": \"&lt;% created %&gt;\","                                                                                                  </span></span>
+<span><span class="co">## [15] "  \"dateModified\": \"&lt;% modified %&gt;\","                                                                                                           </span></span>
+<span><span class="co">## [16] "  \"datePublished\": \"&lt;% published %&gt;\"&lt;% /date %&gt;"                                                                                               </span></span>
+<span><span class="co">## [17] "}"                                                                                                                                                 </span></span>
+<span><span class="co">## [18] "&lt;%={{ }}=%&gt;"                                                                                                                                       </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pagetitle</span></span>
 <span><span class="co">## [1] "An Example Lesson"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $date</span></span>
 <span><span class="co">## $date$created</span></span>
-<span><span class="co">## [1] "2023-12-19"</span></span>
+<span><span class="co">## [1] "2024-03-21"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $date$modified</span></span>
-<span><span class="co">## [1] "2023-12-19"</span></span>
+<span><span class="co">## [1] "2024-03-21"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $date$published</span></span>
-<span><span class="co">## [1] "2023-12-19"</span></span>
+<span><span class="co">## [1] "2024-03-21"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $url</span></span>
-<span><span class="co">## [1] "https://carpentries.github.io/file2cb73b6ee210/"</span></span>
+<span><span class="co">## [1] "https://carpentries.github.io/file2c7a328b7995/"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $citation</span></span>
+<span><span class="co">## [1] "CITATION"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $overview</span></span>
 <span><span class="co">## [1] FALSE</span></span>
@@ -656,17 +660,18 @@ function:</p>
 <span><span class="co">## {</span></span>
 <span><span class="co">##   "@context": "https://schema.org",</span></span>
 <span><span class="co">##   "@type": "TrainingMaterial",</span></span>
-<span><span class="co">##   "@id": "https://carpentries.github.io/file2cb73b6ee210/index.html",</span></span>
+<span><span class="co">##   "@id": "https://carpentries.github.io/file2c7a328b7995/index.html",</span></span>
+<span><span class="co">##   "inLanguage": "en",</span></span>
 <span><span class="co">##   "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",</span></span>
 <span><span class="co">##   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",</span></span>
 <span><span class="co">##   "keywords": "software, data, lesson, The Carpentries",</span></span>
 <span><span class="co">##   "name": "An Example Lesson",</span></span>
 <span><span class="co">##   "creativeWorkStatus": "active",</span></span>
-<span><span class="co">##   "url": "https://carpentries.github.io/file2cb73b6ee210/index.html",</span></span>
-<span><span class="co">##   "identifier": "https://carpentries.github.io/file2cb73b6ee210/index.html",</span></span>
-<span><span class="co">##   "dateCreated": "2023-12-19",</span></span>
-<span><span class="co">##   "dateModified": "2023-12-19",</span></span>
-<span><span class="co">##   "datePublished": "2023-12-19"</span></span>
+<span><span class="co">##   "url": "https://carpentries.github.io/file2c7a328b7995/index.html",</span></span>
+<span><span class="co">##   "identifier": "https://carpentries.github.io/file2c7a328b7995/index.html",</span></span>
+<span><span class="co">##   "dateCreated": "2024-03-21",</span></span>
+<span><span class="co">##   "dateModified": "2024-03-21",</span></span>
+<span><span class="co">##   "datePublished": "2024-03-21"</span></span>
 <span><span class="co">## }</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -679,40 +684,40 @@ file system:</p>
 <code class="sourceCode R"><span><span class="va">snd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ns-internal.html" class="external-link">asNamespace</a></span><span class="op">(</span><span class="st">"sandpaper"</span><span class="op">)</span></span>
 <span><span class="va">snd</span><span class="op">$</span><span class="va">.resources</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## $.</span></span>
-<span><span class="co">##   /tmp/Rtmp4HqRvJ/file2cb73b6ee210/CODE_OF_CONDUCT.md </span></span>
-<span><span class="co">## "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/CODE_OF_CONDUCT.md" </span></span>
-<span><span class="co">##           /tmp/Rtmp4HqRvJ/file2cb73b6ee210/LICENSE.md </span></span>
-<span><span class="co">##         "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/LICENSE.md" </span></span>
-<span><span class="co">##          /tmp/Rtmp4HqRvJ/file2cb73b6ee210/config.yaml </span></span>
-<span><span class="co">##        "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/config.yaml" </span></span>
-<span><span class="co">##             /tmp/Rtmp4HqRvJ/file2cb73b6ee210/index.md </span></span>
-<span><span class="co">##           "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/index.md" </span></span>
-<span><span class="co">##             /tmp/Rtmp4HqRvJ/file2cb73b6ee210/links.md </span></span>
-<span><span class="co">##           "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/links.md" </span></span>
+<span><span class="co">##   /tmp/Rtmpd9j1LE/file2c7a328b7995/CODE_OF_CONDUCT.md </span></span>
+<span><span class="co">## "/tmp/Rtmpd9j1LE/file2c7a328b7995/CODE_OF_CONDUCT.md" </span></span>
+<span><span class="co">##           /tmp/Rtmpd9j1LE/file2c7a328b7995/LICENSE.md </span></span>
+<span><span class="co">##         "/tmp/Rtmpd9j1LE/file2c7a328b7995/LICENSE.md" </span></span>
+<span><span class="co">##          /tmp/Rtmpd9j1LE/file2c7a328b7995/config.yaml </span></span>
+<span><span class="co">##        "/tmp/Rtmpd9j1LE/file2c7a328b7995/config.yaml" </span></span>
+<span><span class="co">##             /tmp/Rtmpd9j1LE/file2c7a328b7995/index.md </span></span>
+<span><span class="co">##           "/tmp/Rtmpd9j1LE/file2c7a328b7995/index.md" </span></span>
+<span><span class="co">##             /tmp/Rtmpd9j1LE/file2c7a328b7995/links.md </span></span>
+<span><span class="co">##           "/tmp/Rtmpd9j1LE/file2c7a328b7995/links.md" </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $episodes</span></span>
-<span><span class="co">##    /tmp/Rtmp4HqRvJ/file2cb73b6ee210/episodes/introduction.md </span></span>
-<span><span class="co">##  "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/episodes/introduction.md" </span></span>
-<span><span class="co">##   /tmp/Rtmp4HqRvJ/file2cb73b6ee210/episodes/first-example.md </span></span>
-<span><span class="co">## "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/episodes/first-example.md" </span></span>
+<span><span class="co">##    /tmp/Rtmpd9j1LE/file2c7a328b7995/episodes/introduction.md </span></span>
+<span><span class="co">##  "/tmp/Rtmpd9j1LE/file2c7a328b7995/episodes/introduction.md" </span></span>
+<span><span class="co">##   /tmp/Rtmpd9j1LE/file2c7a328b7995/episodes/first-example.md </span></span>
+<span><span class="co">## "/tmp/Rtmpd9j1LE/file2c7a328b7995/episodes/first-example.md" </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $instructors</span></span>
-<span><span class="co">##   /tmp/Rtmp4HqRvJ/file2cb73b6ee210/instructors/instructor-notes.md </span></span>
-<span><span class="co">## "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/instructors/instructor-notes.md" </span></span>
+<span><span class="co">##   /tmp/Rtmpd9j1LE/file2c7a328b7995/instructors/instructor-notes.md </span></span>
+<span><span class="co">## "/tmp/Rtmpd9j1LE/file2c7a328b7995/instructors/instructor-notes.md" </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $learners</span></span>
-<span><span class="co">##   /tmp/Rtmp4HqRvJ/file2cb73b6ee210/learners/reference.md </span></span>
-<span><span class="co">## "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/learners/reference.md" </span></span>
-<span><span class="co">##       /tmp/Rtmp4HqRvJ/file2cb73b6ee210/learners/setup.md </span></span>
-<span><span class="co">##     "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/learners/setup.md" </span></span>
+<span><span class="co">##   /tmp/Rtmpd9j1LE/file2c7a328b7995/learners/reference.md </span></span>
+<span><span class="co">## "/tmp/Rtmpd9j1LE/file2c7a328b7995/learners/reference.md" </span></span>
+<span><span class="co">##       /tmp/Rtmpd9j1LE/file2c7a328b7995/learners/setup.md </span></span>
+<span><span class="co">##     "/tmp/Rtmpd9j1LE/file2c7a328b7995/learners/setup.md" </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $profiles</span></span>
-<span><span class="co">##   /tmp/Rtmp4HqRvJ/file2cb73b6ee210/profiles/learner-profiles.md </span></span>
-<span><span class="co">## "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/profiles/learner-profiles.md" </span></span>
+<span><span class="co">##   /tmp/Rtmpd9j1LE/file2c7a328b7995/profiles/learner-profiles.md </span></span>
+<span><span class="co">## "/tmp/Rtmpd9j1LE/file2c7a328b7995/profiles/learner-profiles.md" </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $`renv/profiles/lesson-requirements`</span></span>
 <span><span class="co">##                                                                                </span></span>
-<span><span class="co">## "/tmp/Rtmp4HqRvJ/file2cb73b6ee210/renv/profiles/lesson-requirements/renv.lock"</span></span></code></pre></div>
+<span><span class="co">## "/tmp/Rtmpd9j1LE/file2c7a328b7995/renv/profiles/lesson-requirements/renv.lock"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="global-and-local-variables">Global and Local Variables<a class="anchor" aria-label="anchor" href="#global-and-local-variables"></a>
@@ -930,31 +935,31 @@ needs to include headings for the current page).</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $sandpaper_version</span></span>
-<span><span class="co">##  (0.16.1.9000)</span></span>
+<span><span class="co">##  (0.16.4.9000)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $sandpaper_cfg</span></span>
 <span><span class="co">## NULL</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pegboard_version</span></span>
-<span><span class="co">##  (0.7.3)</span></span>
+<span><span class="co">##  (0.7.4)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pegboard_cfg</span></span>
-<span><span class="co">## [1] "carpentries/pegboard/tree/1bc5753e917d515c3d888ce6cc013c0a680eacfc"</span></span>
+<span><span class="co">## [1] "carpentries/pegboard/tree/e9ca729c7db3ca97f016480679f9f58d115d2721"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $varnish_version</span></span>
 <span><span class="co">##  (1.0.1.9000)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $varnish_cfg</span></span>
-<span><span class="co">## [1] "carpentries/varnish/tree/1a863b61af402d1d244833e7dccb67894067b0e3"</span></span>
+<span><span class="co">## [1] "carpentries/varnish/tree/aee9b673fb0cf7c04fcfaeeb43b73dd60fc0a007"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $sandpaper_link</span></span>
-<span><span class="co">## &lt;a href="https://github.com/carpentries/sandpaper"&gt;sandpaper (0.16.1.9000)&lt;/a&gt;</span></span>
+<span><span class="co">## &lt;a href="https://github.com/carpentries/sandpaper"&gt;sandpaper (0.16.4.9000)&lt;/a&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pegboard_link</span></span>
-<span><span class="co">## &lt;a href="https://github.com/carpentries/pegboard/tree/1bc5753e917d515c3d888ce6cc013c0a680eacfc"&gt;pegboard (0.7.3)&lt;/a&gt;</span></span>
+<span><span class="co">## &lt;a href="https://github.com/carpentries/pegboard/tree/e9ca729c7db3ca97f016480679f9f58d115d2721"&gt;pegboard (0.7.4)&lt;/a&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $varnish_link</span></span>
-<span><span class="co">## &lt;a href="https://github.com/carpentries/varnish/tree/1a863b61af402d1d244833e7dccb67894067b0e3"&gt;varnish (1.0.1.9000)&lt;/a&gt;</span></span>
+<span><span class="co">## &lt;a href="https://github.com/carpentries/varnish/tree/aee9b673fb0cf7c04fcfaeeb43b73dd60fc0a007"&gt;varnish (1.0.1.9000)&lt;/a&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $syllabus</span></span>
 <span><span class="co">##                        episode timings               path percents</span></span>
@@ -1175,31 +1180,31 @@ needs to include headings for the current page).</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $sandpaper_version</span></span>
-<span><span class="co">##  (0.16.1.9000)</span></span>
+<span><span class="co">##  (0.16.4.9000)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $sandpaper_cfg</span></span>
 <span><span class="co">## NULL</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pegboard_version</span></span>
-<span><span class="co">##  (0.7.3)</span></span>
+<span><span class="co">##  (0.7.4)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pegboard_cfg</span></span>
-<span><span class="co">## [1] "carpentries/pegboard/tree/1bc5753e917d515c3d888ce6cc013c0a680eacfc"</span></span>
+<span><span class="co">## [1] "carpentries/pegboard/tree/e9ca729c7db3ca97f016480679f9f58d115d2721"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $varnish_version</span></span>
 <span><span class="co">##  (1.0.1.9000)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $varnish_cfg</span></span>
-<span><span class="co">## [1] "carpentries/varnish/tree/1a863b61af402d1d244833e7dccb67894067b0e3"</span></span>
+<span><span class="co">## [1] "carpentries/varnish/tree/aee9b673fb0cf7c04fcfaeeb43b73dd60fc0a007"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $sandpaper_link</span></span>
-<span><span class="co">## &lt;a href="https://github.com/carpentries/sandpaper"&gt;sandpaper (0.16.1.9000)&lt;/a&gt;</span></span>
+<span><span class="co">## &lt;a href="https://github.com/carpentries/sandpaper"&gt;sandpaper (0.16.4.9000)&lt;/a&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pegboard_link</span></span>
-<span><span class="co">## &lt;a href="https://github.com/carpentries/pegboard/tree/1bc5753e917d515c3d888ce6cc013c0a680eacfc"&gt;pegboard (0.7.3)&lt;/a&gt;</span></span>
+<span><span class="co">## &lt;a href="https://github.com/carpentries/pegboard/tree/e9ca729c7db3ca97f016480679f9f58d115d2721"&gt;pegboard (0.7.4)&lt;/a&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $varnish_link</span></span>
-<span><span class="co">## &lt;a href="https://github.com/carpentries/varnish/tree/1a863b61af402d1d244833e7dccb67894067b0e3"&gt;varnish (1.0.1.9000)&lt;/a&gt;</span></span>
+<span><span class="co">## &lt;a href="https://github.com/carpentries/varnish/tree/aee9b673fb0cf7c04fcfaeeb43b73dd60fc0a007"&gt;varnish (1.0.1.9000)&lt;/a&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $overview</span></span>
 <span><span class="co">## [1] FALSE</span></span></code></pre></div>
@@ -1209,44 +1214,44 @@ needs to include headings for the current page).</p>
 <p>In the majority of the {varnish} templates are keys that need
 translations that are in the format of
 <code>{{ translate.ThingInPascalCase }}</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- START: inst/pkgdown/templates/content-syllabus.html --&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"col-xl-12 col-lg-12"</span><span class="kw">&gt;</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;main</span> <span class="er">id</span><span class="ot">=</span><span class="st">"main-content"</span> <span class="er">class</span><span class="ot">=</span><span class="st">"main-content"</span><span class="kw">&gt;</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;h1&gt;</span>{{<span class="er">&amp;</span> pagetitle }}<span class="kw">&lt;/h1&gt;</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"container lesson-content"</span><span class="kw">&gt;</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;p&gt;</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>          {{# translate.LastUpdate }} {{<span class="er">&amp;</span> translate.LastUpdate }} |{{/ translate.LastUpdate }}</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{{#yaml}}{{source}}/edit/{{branch}}/{{/yaml}}{{file_source}}{{^file_source}}index.md{{/file_source}}"</span><span class="kw">&gt;</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>            {{ translate.EditThisPage }} <span class="kw">&lt;i</span> <span class="er">aria-hidden</span><span class="ot">=</span><span class="st">"true"</span> <span class="er">data-feather</span><span class="ot">=</span><span class="st">"edit"</span><span class="kw">&gt;&lt;/i&gt;</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;/a&gt;</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/p&gt;</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>      {{<span class="er">&amp;</span> readme }}</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>      {{#syllabus}}</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;section</span> <span class="er">id</span><span class="ot">=</span><span class="st">"schedule"</span><span class="kw">&gt;</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;table</span> <span class="er">class</span><span class="ot">=</span><span class="st">"table schedule table-striped"</span> <span class="er">role</span><span class="ot">=</span><span class="st">"presentation"</span><span class="kw">&gt;</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;tbody&gt;</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>          {{#setup}}</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;tr&gt;</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">"#setup"</span><span class="kw">&gt;</span>{{ translate.SetupInstructions }}<span class="kw">&lt;/a&gt;&lt;/td&gt;&lt;td&gt;</span> {{ translate.DownloadFiles }}<span class="kw">&lt;/td&gt;</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;/tr&gt;</span></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>          {{/setup}}</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>          {{<span class="er">&amp;</span> syllabus }}</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;/table&gt;</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;p&gt;</span></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>      {{ translate.ActualScheduleNote }}</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;/p&gt;</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;/section&gt;</span></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>      {{/syllabus}}</span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>      {{#setup}}</span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;section</span> <span class="er">id</span><span class="ot">=</span><span class="st">"setup"</span><span class="kw">&gt;</span></span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>      {{{setup}}}</span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;/section&gt;</span></span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>      {{/setup}}</span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/main&gt;</span></span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/div&gt;</span></span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="re">END</span><span class="co">  : inst/pkgdown/templates/content-syllabus.html --&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co">&lt;!-- START: inst/pkgdown/templates/content-syllabus.html --&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"col-xl-12 col-lg-12"</span><span class="dt">&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">main</span><span class="ot"> id</span><span class="op">=</span><span class="st">"main-content"</span><span class="ot"> class</span><span class="op">=</span><span class="st">"main-content"</span><span class="dt">&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">h1</span><span class="dt">&gt;</span>{{<span class="er">&amp;</span> pagetitle }}<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"container lesson-content"</span><span class="dt">&gt;</span></span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>        <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>          {{# translate.LastUpdate }} {{<span class="er">&amp;</span> translate.LastUpdate }} |{{/ translate.LastUpdate }}</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>          <span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">"{{#yaml}}{{source}}/edit/{{branch}}/{{/yaml}}{{file_source}}{{^file_source}}index.md{{/file_source}}"</span><span class="dt">&gt;</span></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>            {{ translate.EditThisPage }} <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> aria-hidden</span><span class="op">=</span><span class="st">"true"</span><span class="ot"> data-feather</span><span class="op">=</span><span class="st">"edit"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>          <span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>        <span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a>      {{<span class="er">&amp;</span> readme }}</span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a>      {{#syllabus}}</span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">section</span><span class="ot"> id</span><span class="op">=</span><span class="st">"schedule"</span><span class="dt">&gt;</span></span>
+<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">table</span><span class="ot"> class</span><span class="op">=</span><span class="st">"table schedule table-striped"</span><span class="ot"> role</span><span class="op">=</span><span class="st">"presentation"</span><span class="dt">&gt;</span></span>
+<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a>        <span class="dt">&lt;</span><span class="kw">tbody</span><span class="dt">&gt;</span></span>
+<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a>          {{#setup}}</span>
+<span id="cb20-20"><a href="#cb20-20" tabindex="-1"></a>          <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb20-21"><a href="#cb20-21" tabindex="-1"></a>            <span class="dt">&lt;</span><span class="kw">td</span><span class="dt">&gt;&lt;/</span><span class="kw">td</span><span class="dt">&gt;&lt;</span><span class="kw">td</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">"#setup"</span><span class="dt">&gt;</span>{{ translate.SetupInstructions }}<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">td</span><span class="dt">&gt;&lt;</span><span class="kw">td</span><span class="dt">&gt;</span> {{ translate.DownloadFiles }}<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb20-22"><a href="#cb20-22" tabindex="-1"></a>          <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb20-23"><a href="#cb20-23" tabindex="-1"></a>          {{/setup}}</span>
+<span id="cb20-24"><a href="#cb20-24" tabindex="-1"></a>          {{<span class="er">&amp;</span> syllabus }}</span>
+<span id="cb20-25"><a href="#cb20-25" tabindex="-1"></a>      <span class="dt">&lt;/</span><span class="kw">table</span><span class="dt">&gt;</span></span>
+<span id="cb20-26"><a href="#cb20-26" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb20-27"><a href="#cb20-27" tabindex="-1"></a>      {{ translate.ActualScheduleNote }}</span>
+<span id="cb20-28"><a href="#cb20-28" tabindex="-1"></a>      <span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb20-29"><a href="#cb20-29" tabindex="-1"></a>      <span class="dt">&lt;/</span><span class="kw">section</span><span class="dt">&gt;</span></span>
+<span id="cb20-30"><a href="#cb20-30" tabindex="-1"></a>      {{/syllabus}}</span>
+<span id="cb20-31"><a href="#cb20-31" tabindex="-1"></a>      {{#setup}}</span>
+<span id="cb20-32"><a href="#cb20-32" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">section</span><span class="ot"> id</span><span class="op">=</span><span class="st">"setup"</span><span class="dt">&gt;</span></span>
+<span id="cb20-33"><a href="#cb20-33" tabindex="-1"></a>      {{{setup}}}</span>
+<span id="cb20-34"><a href="#cb20-34" tabindex="-1"></a>      <span class="dt">&lt;/</span><span class="kw">section</span><span class="dt">&gt;</span></span>
+<span id="cb20-35"><a href="#cb20-35" tabindex="-1"></a>      {{/setup}}</span>
+<span id="cb20-36"><a href="#cb20-36" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">main</span><span class="dt">&gt;</span></span>
+<span id="cb20-37"><a href="#cb20-37" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb20-38"><a href="#cb20-38" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="re">END</span><span class="co">  : inst/pkgdown/templates/content-syllabus.html --&gt;</span></span></code></pre></div>
 <p>These variables are in {sandpaper} and are <em>expected to
 exist</em>. Because they are expected to exist, theese variables are
 generated and stored in the internal environment
@@ -1272,7 +1277,7 @@ the language of the user session:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">snd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ns-internal.html" class="external-link">asNamespace</a></span><span class="op">(</span><span class="st">"sandpaper"</span><span class="op">)</span></span>
 <span><span class="va">snd</span><span class="op">$</span><span class="fu">set_config</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>lang <span class="op">=</span> <span class="st">"es"</span><span class="op">)</span>, path <span class="op">=</span> <span class="va">lsn</span>, create <span class="op">=</span> <span class="cn">TRUE</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Writing to <span style="color: #0000BB;">/tmp/Rtmp4HqRvJ/file2cb73b6ee210/config.yaml</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Writing to <span style="color: #0000BB;">/tmp/Rtmpd9j1LE/file2c7a328b7995/config.yaml</span></span></span>
 <span><span class="co">## → NA -&gt; lang: 'es'</span></span>
 <span><span class="va">snd</span><span class="op">$</span><span class="fu">this_lesson</span><span class="op">(</span><span class="va">lsn</span><span class="op">)</span></span>
 <span><span class="fu">whisker</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/whisker/man/whisker.render.html" class="external-link">whisker.render</a></span><span class="op">(</span><span class="st">"Edit this page: {{ translate.EditThisPage }}"</span>,</span>
@@ -1285,7 +1290,7 @@ the language of the user session:</p>
 config:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">snd</span><span class="op">$</span><span class="fu">set_config</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>lang <span class="op">=</span> <span class="st">"en"</span><span class="op">)</span>, path <span class="op">=</span> <span class="va">lsn</span>, create <span class="op">=</span> <span class="cn">TRUE</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Writing to <span style="color: #0000BB;">/tmp/Rtmp4HqRvJ/file2cb73b6ee210/config.yaml</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Writing to <span style="color: #0000BB;">/tmp/Rtmpd9j1LE/file2c7a328b7995/config.yaml</span></span></span>
 <span><span class="co">## → lang: 'es' -&gt; lang: 'en'</span></span>
 <span><span class="va">snd</span><span class="op">$</span><span class="fu">this_lesson</span><span class="op">(</span><span class="va">lsn</span><span class="op">)</span></span>
 <span><span class="fu">whisker</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/whisker/man/whisker.render.html" class="external-link">whisker.render</a></span><span class="op">(</span><span class="st">"Edit this page: {{ translate.EditThisPage }}"</span>,</span>
@@ -1679,46 +1684,46 @@ that correspond to the following variables in {varnish}:</p>
 </h2>
 <p>Another source of metadata is that created for the pkgdown in a file
 called <code>site/_pkgdown.yaml</code>.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------------------------------------------------ information</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This file was generated by sandpaper version '0.16.1.9000'</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If you want to make changes, please edit '/tmp/Rtmp4HqRvJ/file2cb73b6ee210/config.yaml'</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------------------------------------------------ information</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> An Example Lesson</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> en</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Home</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">strip_header</span><span class="kw">:</span><span class="at"> </span><span class="ch">yes</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> varnish</span></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">time</span><span class="kw">:</span><span class="at"> 2023-12-19 18:27:25 +0000</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/carpentries/file2cb73b6ee210</span></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">contact</span><span class="kw">:</span><span class="at"> team@carpentries.org</span></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">license</span><span class="kw">:</span><span class="at"> CC-BY 4.0</span></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">handout</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">cp</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">lc</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dc</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">swc</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">carpentry</span><span class="kw">:</span><span class="at"> incubator</span></span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">carpentry_name</span><span class="kw">:</span><span class="at"> Carpentries Incubator</span></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">carpentry_icon</span><span class="kw">:</span><span class="at"> incubator</span></span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">life_cycle</span><span class="kw">:</span><span class="at"> pre-alpha</span></span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pre_alpha</span><span class="kw">:</span><span class="at"> </span><span class="ch">yes</span></span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">alpha</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">beta</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">stable</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">doi</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">title</span><span class="kw">:</span><span class="at"> An Example Lesson</span></span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">created</span><span class="kw">:</span><span class="at"> </span><span class="st">'2023-12-19'</span></span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">keywords</span><span class="kw">:</span><span class="at"> software, data, lesson, The Carpentries</span></span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">episodes</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">learners</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">instructors</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">profiles</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="co"># ------------------------------------------------------------------ information</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="co"># This file was generated by sandpaper version '0.16.4.9000'</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="co"># If you want to make changes, please edit '/tmp/Rtmpd9j1LE/file2c7a328b7995/config.yaml'</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="co"># ------------------------------------------------------------------ information</span></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> An Example Lesson</span></span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> en</span></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Home</span></span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a><span class="at">  </span><span class="fu">strip_header</span><span class="kw">:</span><span class="at"> </span><span class="ch">yes</span></span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> varnish</span></span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a><span class="at">    </span><span class="fu">time</span><span class="kw">:</span><span class="at"> 2024-03-21 13:59:03 +0000</span></span>
+<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/carpentries/file2c7a328b7995</span></span>
+<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a><span class="at">    </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span>
+<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a><span class="at">    </span><span class="fu">contact</span><span class="kw">:</span><span class="at"> team@carpentries.org</span></span>
+<span id="cb24-19"><a href="#cb24-19" tabindex="-1"></a><span class="at">    </span><span class="fu">license</span><span class="kw">:</span><span class="at"> CC-BY 4.0</span></span>
+<span id="cb24-20"><a href="#cb24-20" tabindex="-1"></a><span class="at">    </span><span class="fu">handout</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb24-21"><a href="#cb24-21" tabindex="-1"></a><span class="at">    </span><span class="fu">cp</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
+<span id="cb24-22"><a href="#cb24-22" tabindex="-1"></a><span class="at">    </span><span class="fu">lc</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
+<span id="cb24-23"><a href="#cb24-23" tabindex="-1"></a><span class="at">    </span><span class="fu">dc</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
+<span id="cb24-24"><a href="#cb24-24" tabindex="-1"></a><span class="at">    </span><span class="fu">swc</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
+<span id="cb24-25"><a href="#cb24-25" tabindex="-1"></a><span class="at">    </span><span class="fu">carpentry</span><span class="kw">:</span><span class="at"> incubator</span></span>
+<span id="cb24-26"><a href="#cb24-26" tabindex="-1"></a><span class="at">    </span><span class="fu">carpentry_name</span><span class="kw">:</span><span class="at"> Carpentries Incubator</span></span>
+<span id="cb24-27"><a href="#cb24-27" tabindex="-1"></a><span class="at">    </span><span class="fu">carpentry_icon</span><span class="kw">:</span><span class="at"> incubator</span></span>
+<span id="cb24-28"><a href="#cb24-28" tabindex="-1"></a><span class="at">    </span><span class="fu">life_cycle</span><span class="kw">:</span><span class="at"> pre-alpha</span></span>
+<span id="cb24-29"><a href="#cb24-29" tabindex="-1"></a><span class="at">    </span><span class="fu">pre_alpha</span><span class="kw">:</span><span class="at"> </span><span class="ch">yes</span></span>
+<span id="cb24-30"><a href="#cb24-30" tabindex="-1"></a><span class="at">    </span><span class="fu">alpha</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
+<span id="cb24-31"><a href="#cb24-31" tabindex="-1"></a><span class="at">    </span><span class="fu">beta</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
+<span id="cb24-32"><a href="#cb24-32" tabindex="-1"></a><span class="at">    </span><span class="fu">stable</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
+<span id="cb24-33"><a href="#cb24-33" tabindex="-1"></a><span class="at">    </span><span class="fu">doi</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb24-34"><a href="#cb24-34" tabindex="-1"></a><span class="at">    </span><span class="fu">title</span><span class="kw">:</span><span class="at"> An Example Lesson</span></span>
+<span id="cb24-35"><a href="#cb24-35" tabindex="-1"></a><span class="at">    </span><span class="fu">created</span><span class="kw">:</span><span class="at"> </span><span class="st">'2024-03-21'</span></span>
+<span id="cb24-36"><a href="#cb24-36" tabindex="-1"></a><span class="at">    </span><span class="fu">keywords</span><span class="kw">:</span><span class="at"> software, data, lesson, The Carpentries</span></span>
+<span id="cb24-37"><a href="#cb24-37" tabindex="-1"></a><span class="at">    </span><span class="fu">episodes</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb24-38"><a href="#cb24-38" tabindex="-1"></a><span class="at">    </span><span class="fu">learners</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb24-39"><a href="#cb24-39" tabindex="-1"></a><span class="at">    </span><span class="fu">instructors</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb24-40"><a href="#cb24-40" tabindex="-1"></a><span class="at">    </span><span class="fu">profiles</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span></code></pre></div>
 <p>This file is what allows {pkgdown} to recognise that a website needs
 to be built. These variables are compiled into the <code>pkg</code>
 variable that is passed to all downstream files from
@@ -1749,10 +1754,10 @@ pages in the past).</li>
 <span><span class="co">## [1] "en"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $src_path</span></span>
-<span><span class="co">## <span style="color: #0000BB; font-weight: bold;">/tmp/Rtmp4HqRvJ/file2cb73b6ee210/site</span></span></span>
+<span><span class="co">## <span style="color: #0000BB; font-weight: bold;">/tmp/Rtmpd9j1LE/file2c7a328b7995/site</span></span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $dst_path</span></span>
-<span><span class="co">## /tmp/Rtmp4HqRvJ/file2cb73b6ee210/site/docs</span></span>
+<span><span class="co">## /tmp/Rtmpd9j1LE/file2c7a328b7995/site/docs</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $meta</span></span>
 <span><span class="co">## $meta$title</span></span>
@@ -1778,10 +1783,10 @@ pages in the past).</li>
 <span><span class="co">## </span></span>
 <span><span class="co">## $meta$template$params</span></span>
 <span><span class="co">## $meta$template$params$time</span></span>
-<span><span class="co">## [1] "2023-12-19 18:27:25 +0000"</span></span>
+<span><span class="co">## [1] "2024-03-21 13:59:03 +0000"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $meta$template$params$source</span></span>
-<span><span class="co">## [1] "https://github.com/carpentries/file2cb73b6ee210"</span></span>
+<span><span class="co">## [1] "https://github.com/carpentries/file2c7a328b7995"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $meta$template$params$branch</span></span>
 <span><span class="co">## [1] "main"</span></span>
@@ -1838,7 +1843,7 @@ pages in the past).</li>
 <span><span class="co">## [1] "An Example Lesson"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $meta$template$params$created</span></span>
-<span><span class="co">## [1] "2023-12-19"</span></span>
+<span><span class="co">## [1] "2024-03-21"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $meta$template$params$keywords</span></span>
 <span><span class="co">## [1] "software, data, lesson, The Carpentries"</span></span>
@@ -1868,8 +1873,8 @@ used.</p>
 <span><span class="co">##   root: ''</span></span>
 <span><span class="co">##   title: An Example Lesson</span></span>
 <span><span class="co">## yaml:</span></span>
-<span><span class="co">##   time: 2023-12-19 18:27:25 +0000</span></span>
-<span><span class="co">##   source: https://github.com/carpentries/file2cb73b6ee210</span></span>
+<span><span class="co">##   time: 2024-03-21 13:59:03 +0000</span></span>
+<span><span class="co">##   source: https://github.com/carpentries/file2c7a328b7995</span></span>
 <span><span class="co">##   branch: main</span></span>
 <span><span class="co">##   contact: team@carpentries.org</span></span>
 <span><span class="co">##   license: CC-BY 4.0</span></span>
@@ -1888,7 +1893,7 @@ used.</p>
 <span><span class="co">##   stable: no</span></span>
 <span><span class="co">##   doi: ~</span></span>
 <span><span class="co">##   title: An Example Lesson</span></span>
-<span><span class="co">##   created: '2023-12-19'</span></span>
+<span><span class="co">##   created: '2024-03-21'</span></span>
 <span><span class="co">##   keywords: software, data, lesson, The Carpentries</span></span>
 <span><span class="co">##   episodes: ~</span></span>
 <span><span class="co">##   learners: ~</span></span>

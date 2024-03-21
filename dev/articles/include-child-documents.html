@@ -38,7 +38,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.16.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.16.4.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -141,89 +141,89 @@ file.</li>
 <span><span class="co"># └── <span style="color: #00BB00;">introduction.Rmd</span></span></span></code></pre>
 <p>The last few lines of <code>episodes/introduction.Rmd</code> looks
 like this:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Cool, right?</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r si, child="files/child.Rmd"}</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.md`</span> files for episodes when you want static content</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for episodes when you need to generate output</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>Cool, right?</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="in">```{r si, child="files/child.Rmd"}</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.md`</span> files for episodes when you want static content</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for episodes when you need to generate output</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
 <p>You can see there the declaration of the child document is an empty
 code chunk:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>```{r si, child = "files/child.Rmd"}</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>```</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>```{r si, child = "files/child.Rmd"}</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>```</span></code></pre></div>
 <p>This tells {knitr} to take a detour and render the contents of
 <code>files/child.Rmd</code>(relative to the current working directory,
 which is the episodes folder). The entire document of
 <code>episodes/files/child.Rmd</code> looks like this:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session Information</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>The following is the session information of this R session</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">```{r sessioninfo}</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">sessionInfo()</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">## Session Information</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>The following is the session information of this R session</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="in">```{r sessioninfo}</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="in">sessionInfo()</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>This means that when <code>episodes/introduction.Rmd</code> is built,
 <code>episodes/files/child.Rmd</code> will also be built, evaulating the
 <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code>. So the resulting markdown document will look
 like this:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in">`$\alpha = \dfrac{1}{(1 - \beta)^2}$`</span> becomes: $<span class="sc">\\</span>alpha = <span class="sc">\\</span>dfrac{1}{(1 - <span class="sc">\\</span>beta)^2}$</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>Cool, right?</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session Information</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>The following is the session information of this R session</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{.output}</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="in">R version 4.3.2 (2023-10-31)</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="in">Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="in">Running under: Ubuntu 22.04.3 LTS</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="in">Matrix products: default</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="in">BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="in">LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="in">locale:</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="in"> [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="in"> [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="in"> [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="in">[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="in">time zone: UTC</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="in">tzcode source: system (glibc)</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="in">attached base packages:</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="in">[1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="in">loaded via a namespace (and not attached):</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="in">[1] compiler_4.3.2 tools_4.3.2    highr_0.10     knitr_1.45     xfun_0.41     </span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="in">[6] evaluate_0.23 </span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.md`</span> files for episodes when you want static content</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for episodes when you need to generate output</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="in">`$\alpha = \dfrac{1}{(1 - \beta)^2}$`</span> becomes: $<span class="sc">\\</span>alpha = <span class="sc">\\</span>dfrac{1}{(1 - <span class="sc">\\</span>beta)^2}$</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>Cool, right?</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="fu">## Session Information</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>The following is the session information of this R session</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="in">```{.output}</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="in">R version 4.3.3 (2024-02-29)</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="in">Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="in">Running under: Ubuntu 22.04.4 LTS</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="in">Matrix products: default</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="in">BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="in">LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="in">locale:</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="in"> [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="in"> [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="in"> [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="in">[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="in">time zone: UTC</span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="in">tzcode source: system (glibc)</span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="in">attached base packages:</span></span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="in">[1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="in">loaded via a namespace (and not attached):</span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="in">[1] compiler_4.3.3 tools_4.3.3    highr_0.10     knitr_1.45     xfun_0.42     </span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="in">[6] evaluate_0.23 </span></span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
+<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.md`</span> files for episodes when you want static content</span>
+<span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for episodes when you need to generate output</span>
+<span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
+<span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
+<span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="workspace-consideration">Workspace consideration<a class="anchor" aria-label="anchor" href="#workspace-consideration"></a>
@@ -245,17 +245,17 @@ the source files of the project</li>
 <p>For example, let’s say we added a chunk to our source R Markdown
 folder that will create a file in the <code>data/</code> directory
 called “time.txt” and then reads in the contents of that file.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>title: 'introduction'</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>teaching: 10</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>exercises: 2</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, echo=FALSE}</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="in">writeLines(format(Sys.time()), 'data/time.txt')</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="in">cat(paste0('The time is: ', readLines('data/time.txt')))</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>---</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>title: 'introduction'</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>teaching: 10</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>exercises: 2</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>---</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="in">```{r setup, echo=FALSE}</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="in">writeLines(format(Sys.time()), 'data/time.txt')</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="in">cat(paste0('The time is: ', readLines('data/time.txt')))</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>When the lesson gets built, the <code>episodes/</code> directory will
 continue to like this:</p>
 <pre><code><span><span class="co"># <span style="color: #0000BB; font-weight: bold;">./episodes/</span></span></span>
@@ -289,16 +289,16 @@ with all of the other files in the lesson</em>:</p>
 <p>You can see in <code>data/</code>, it now contains
 <code>time.txt</code>. The rendered Markdown file
 <code>site/built/introduction.md</code> reflects the updates:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>title: 'introduction'</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>teaching: 10</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>exercises: 2</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{.output}</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="in">The time is: 2023-12-19 18:27:33</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>---</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>title: 'introduction'</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>teaching: 10</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>exercises: 2</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>---</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="in">```{.output}</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="in">The time is: 2024-03-21 13:59:11</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="child-document-assets">Child document assets<a class="anchor" aria-label="anchor" href="#child-document-assets"></a>
@@ -325,38 +325,38 @@ built by <code>episodes/introduction.Rmd</code>.</p>
 <span><span class="co"># └── <span style="color: #00BB00;">introduction.Rmd</span></span></span></code></pre>
 <p>The parent document (<code>episodes/introduction.Rmd</code>)
 referencing the child document would look like this:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Cool, right?</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r si, child="files/children/child.Rmd"}</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.md`</span> files for episodes when you want static content</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for episodes when you need to generate output</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>Cool, right?</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="in">```{r si, child="files/children/child.Rmd"}</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.md`</span> files for episodes when you want static content</span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for episodes when you need to generate output</span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
 <p>In <code>episodes/files/children/child.Rmd</code>, under <a href="https://carpentries.github.io/sandpaper-docs/episodes.html#internal-links)">internal
 link rules</a>, you you should reference these resources with
 <code>fig/one.png</code> and <code>../learners/info.md</code>, which are
 <em>in the context of the build parent directory (in this case,
 <code>episodes/</code>)</em>, as demonstrated here:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Here is a link to <span class="co">[</span><span class="ot">the info document</span><span class="co">](../learners/info.md)</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="al">![example](fig/one.png)</span>{alt='example figure'}</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session Information</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>The following is the session information of this R session</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="in">```{r sessioninfo}</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="in">sessionInfo()</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>Here is a link to <span class="co">[</span><span class="ot">the info document</span><span class="co">](../learners/info.md)</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="al">![example](fig/one.png)</span>{alt='example figure'}</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="fu">## Session Information</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>The following is the session information of this R session</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="in">```{r sessioninfo}</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="in">sessionInfo()</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>Again, the reason for this is because when the document gets built,
 the result is all in the context of the parent document in the
 <code>site/built</code> directory<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;there is a caveat to this paradigm, on translation to
@@ -384,56 +384,56 @@ those stripped in the final version of the site.&lt;/p&gt;"><sup>1</sup></a>:</p
 <span><span class="co"># ├── reference.md</span></span>
 <span><span class="co"># └── setup.md</span></span></code></pre>
 <p>Which makes sense in <code>site/built/introduction.md</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>Cool, right?</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>Here is a link to <span class="co">[</span><span class="ot">the info document</span><span class="co">](../learners/info.md)</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="al">![example](fig/one.png)</span>{alt='example figure'}</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session Information</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>The following is the session information of this R session</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{.output}</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="in">R version 4.3.2 (2023-10-31)</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="in">Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="in">Running under: Ubuntu 22.04.3 LTS</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="in">Matrix products: default</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="in">BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="in">LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="in">locale:</span></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="in"> [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="in"> [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="in"> [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="in">[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="in">time zone: UTC</span></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="in">tzcode source: system (glibc)</span></span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="in">attached base packages:</span></span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="in">[1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a><span class="in">loaded via a namespace (and not attached):</span></span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a><span class="in">[1] compiler_4.3.2 tools_4.3.2    highr_0.10     knitr_1.45     xfun_0.41     </span></span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="in">[6] evaluate_0.23 </span></span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.md`</span> files for episodes when you want static content</span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for episodes when you need to generate output</span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
-<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>Cool, right?</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>Here is a link to <span class="co">[</span><span class="ot">the info document</span><span class="co">](../learners/info.md)</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="al">![example](fig/one.png)</span>{alt='example figure'}</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="fu">## Session Information</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>The following is the session information of this R session</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="in">```{.output}</span></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="in">R version 4.3.3 (2024-02-29)</span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="in">Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="in">Running under: Ubuntu 22.04.4 LTS</span></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a><span class="in">Matrix products: default</span></span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="in">BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="in">LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a><span class="in">locale:</span></span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="in"> [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a><span class="in"> [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a><span class="in"> [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
+<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a><span class="in">[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
+<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a><span class="in">time zone: UTC</span></span>
+<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a><span class="in">tzcode source: system (glibc)</span></span>
+<span id="cb14-34"><a href="#cb14-34" tabindex="-1"></a></span>
+<span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a><span class="in">attached base packages:</span></span>
+<span id="cb14-36"><a href="#cb14-36" tabindex="-1"></a><span class="in">[1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb14-37"><a href="#cb14-37" tabindex="-1"></a></span>
+<span id="cb14-38"><a href="#cb14-38" tabindex="-1"></a><span class="in">loaded via a namespace (and not attached):</span></span>
+<span id="cb14-39"><a href="#cb14-39" tabindex="-1"></a><span class="in">[1] compiler_4.3.3 tools_4.3.3    highr_0.10     knitr_1.45     xfun_0.42     </span></span>
+<span id="cb14-40"><a href="#cb14-40" tabindex="-1"></a><span class="in">[6] evaluate_0.23 </span></span>
+<span id="cb14-41"><a href="#cb14-41" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-42"><a href="#cb14-42" tabindex="-1"></a></span>
+<span id="cb14-43"><a href="#cb14-43" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
+<span id="cb14-44"><a href="#cb14-44" tabindex="-1"></a></span>
+<span id="cb14-45"><a href="#cb14-45" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.md`</span> files for episodes when you want static content</span>
+<span id="cb14-46"><a href="#cb14-46" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.Rmd`</span> files for episodes when you need to generate output</span>
+<span id="cb14-47"><a href="#cb14-47" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::check_lesson()`</span> to identify any issues with your lesson</span>
+<span id="cb14-48"><a href="#cb14-48" tabindex="-1"></a><span class="ss">- </span>Run <span class="in">`sandpaper::build_lesson()`</span> to preview your lesson locally</span>
+<span id="cb14-49"><a href="#cb14-49" tabindex="-1"></a></span>
+<span id="cb14-50"><a href="#cb14-50" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::::::::::::::</span></code></pre></div>
 <div class="section level3">
 <h3 id="what-happens-if-we-use-relative-links-here">What happens if we use relative links here?<a class="anchor" aria-label="anchor" href="#what-happens-if-we-use-relative-links-here"></a>
 </h3>
@@ -459,9 +459,9 @@ you must write the relative path from the build parent. This means that
 if you want to reference <code>episodes/files/child-two.md</code> from
 <code>episodes/files/child-one.Rmd</code>, you must write it this way:
 in <code>episodes/files/child-one.Rmd</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>```{r child='files/child-two.md'}</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>```</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>```{r child='files/child-two.md'}</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>```</span></code></pre></div>
 </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
