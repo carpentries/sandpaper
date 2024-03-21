@@ -25,6 +25,16 @@ path_profiles <- function(inpath) {
   fs::path(home, "profiles")
 }
 
+path_citation <- function(inpath) {
+  home <- root_path(inpath)
+  cff <- "CITATION.cff"
+  cffp <- fs::path(home, cff)
+  if (fs::file_exists(cffp)) {
+    return(cff)
+  }
+  return("CITATION")
+}
+
 
 provide_setup <- function(cfg, setup = "setup.md") {
   if (is.null(cfg) || is.null(cfg$learners)) {
