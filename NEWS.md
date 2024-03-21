@@ -1,3 +1,11 @@
+# sandpaper 0.16.4.9000 (2024-03-21)
+
+## NEW FEATURES
+
+* The lesson page footer now supports either a CITATION or CITATION.cff file
+  (reported: @tobyhodges, implemented: @froggleston, #572; @tobyhodges, 
+  https://github.com/carpentries/varnish/pull/122)
+
 # sandpaper 0.16.3 (2024-03-12)
 
 ## BUG FIX
