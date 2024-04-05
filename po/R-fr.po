@@ -202,7 +202,7 @@ msgstr "<(Retour)> En Haut"
 
 #: utils-translate.R:122
 msgid "This lesson is subject to the <(Code of Conduct)>"
-msgstr "Cette leçon est soumise au <(Code of Conduct)>"
+msgstr "Cette leçon est soumise au <(Code de Conduite)>"
 
 #: utils-translate.R:123
 msgid "Code of Conduct"
