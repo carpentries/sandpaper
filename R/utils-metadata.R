@@ -47,6 +47,7 @@ initialise_metadata <- function(path = ".") {
   this_metadata$set("url", metadata_url(cfg))
   this_metadata$set(c("date", "modified"), format(Sys.Date(), "%F"))
   this_metadata$set(c("date", "published"), format(Sys.Date(), "%F"))
+  this_metadata$set("citation", path_citation(path))
 }
 
 
