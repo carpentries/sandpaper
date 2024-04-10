@@ -98,7 +98,7 @@ Suggests:
 Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   carpentries/pegboard,
-  carpentries/varnish#153
+  carpentries/varnish#132
 SystemRequirements: pandoc (>= 2.11.4) - https://pandoc.org
 Encoding: UTF-8
 LazyData: true
