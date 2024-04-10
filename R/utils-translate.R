@@ -1,5 +1,5 @@
 #' Establish and Manage Translation Strings
-#' 
+#'
 #' This is documentation for internal functions for translation. If you want a
 #' guide to providing translations, please read `vignette("translations",
 #' package = "sandpaper")`
@@ -54,7 +54,7 @@
 #' head(snd$tr_src("computed"))
 #'
 #' # Running set_language with no arguments defaults to English
-#' snd$set_language() 
+#' snd$set_language()
 #' head(snd$tr_varnish())
 #' head(snd$tr_computed())
 these <- new.env(parent = emptyenv())
@@ -91,7 +91,7 @@ establish_translation_vars <- function() {
       Glossary = tr_('Glossary'),                # navbar.html
       LearnerProfiles = tr_('Learner Profiles'), # navbar.html
       More = tr_('More'),
-      Search = tr_('Search'),
+      # Search = tr_('Search'),
       LessonProgress = tr_('Lesson Progress'), # alt text
       # navbar.html -----------------------------------------------------------
       CloseMenu = tr_("close menu"), # alt text
