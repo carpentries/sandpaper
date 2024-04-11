@@ -14,7 +14,7 @@ test_that("build_episode functions works independently", {
 
   withr::local_options(list(sandpaper.use_renv = FALSE))
   pkg <- pkgdown::as_pkgdown(file.path(tmp, "site"))
-  expect_output(pkgdown::init_site(pkg))
+  expect_message(pkgdown::init_site(pkg))
 
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
@@ -42,14 +42,14 @@ test_that("build_episode functions works independently", {
 
   expect_false(file.exists(file.path(tmp, "site", "docs", "fun.html")))
   expect_false(file.exists(file.path(tmp, "site", "docs", "instructor", "fun.html")))
-  expect_output({
+  expect_message({
     build_episode_html(res,
       fun_file,
       page_back = fun_file,
       page_forward = fun_file,
       pkg = pkg
     )
-  }, "Writing 'fun.html'")
+  }, "Writing `fun.html`")
   expect_true(file.exists(file.path(tmp, "site", "docs", "fun.html")))
   expect_true(file.exists(file.path(tmp, "site", "docs", "instructor", "fun.html")))
 })
