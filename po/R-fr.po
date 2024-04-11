@@ -74,8 +74,8 @@ msgid "Menu"
 msgstr "Menu"
 
 #: utils-translate.R:87
-msgid "search button"
-msgstr "bouton de recherche"
+msgid "Search the All In One page"
+msgstr "Rechercher dans la page 'All In One'"
 
 #: utils-translate.R:88
 msgid "Setup"
