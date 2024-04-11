@@ -67,7 +67,7 @@ test_that("(#536) SANDPAPER_SITE envvar works as expected", {
   expect_false(identical(pkg$dst_path, fs::path(path_site(res), "docs")))
   # When we initialise a pkgdown site, it should initialise inside of the
   # SANDPAPER_SITE envvar
-  expect_output(pkgdown::init_site(new_pkg))
+  expect_message(pkgdown::init_site(new_pkg))
   expect_true(fs::dir_exists(dst_path))
 
   # none of the files should exist before build
@@ -94,7 +94,7 @@ test_that("(#536) SANDPAPER_SITE envvar works as expected", {
 test_that("[build_home()] works independently", {
 
   skip_if_not(rmarkdown::pandoc_available("2.11"))
-  expect_output(pkgdown::init_site(pkg))
+  expect_message(pkgdown::init_site(pkg))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "index.html")))
   expect_false(fs::file_exists(fs::path(pkg$dst_path, "instructor", "index.html")))
 
