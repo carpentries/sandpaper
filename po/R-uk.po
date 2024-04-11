@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.16.1.9000\n"
-"POT-Creation-Date: 2024-01-12 11:34+0900\n"
+"POT-Creation-Date: 2024-04-11 13:14+0100\n"
 "PO-Revision-Date: 2023-12-19 09:37-0800\n"
 "Last-Translator: Olexandr Konovalov\n"
 "Language-Team: none\n"
@@ -9,8 +9,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: utils-translate.R:74
 msgid "Skip to main content"
@@ -77,8 +77,8 @@ msgid "Menu"
 msgstr "Меню"
 
 #: utils-translate.R:87
-msgid "search button"
-msgstr "кнопка пошуку"
+msgid "Search the All In One page"
+msgstr "Пошук на сторінці «All In One»."
 
 #: utils-translate.R:88
 msgid "Setup"
@@ -103,10 +103,6 @@ msgstr "Профілі учнів"
 #: utils-translate.R:93
 msgid "More"
 msgstr "Більше"
-
-#: utils-translate.R:94
-msgid "Search"
-msgstr "Пошук"
 
 #: utils-translate.R:95
 msgid "Lesson Progress"
@@ -373,3 +369,6 @@ msgstr "Зображення {i} з {n}: {sQuote(txt)}"
 #: utils-translate.R:176
 msgid "Finish"
 msgstr "Кінець"
+
+#~ msgid "Search"
+#~ msgstr "Пошук"

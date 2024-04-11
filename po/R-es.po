@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.15.0.9000\n"
-"POT-Creation-Date: 2023-12-19 09:37-0800\n"
+"POT-Creation-Date: 2024-04-11 13:14+0100\n"
 "PO-Revision-Date: 2023-12-06 11:03-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -77,8 +77,8 @@ msgid "Menu"
 msgstr "Menú"
 
 #: utils-translate.R:87
-msgid "search button"
-msgstr "botón de buscar"
+msgid "Search the All In One page"
+msgstr "Buscar en la página All In One"
 
 #: utils-translate.R:88
 msgid "Setup"
@@ -103,10 +103,6 @@ msgstr "Perfiles de estudiante"
 #: utils-translate.R:93
 msgid "More"
 msgstr "Más"
-
-#: utils-translate.R:94
-msgid "Search"
-msgstr "Buscar"
 
 #: utils-translate.R:95
 msgid "Lesson Progress"
@@ -371,3 +367,6 @@ msgstr "Imagen {i} de {n}: {sQuote(txt)}"
 #: utils-translate.R:176
 msgid "Finish"
 msgstr "Final"
+
+#~ msgid "Search"
+#~ msgstr "Buscar"
