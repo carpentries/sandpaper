@@ -127,7 +127,7 @@ establish_translation_vars <- function() {
       Cite = tr_('Cite'),
       Contact = tr_('Contact'),
       About = tr_('About'),
-      MaterialsLicensedUnder = tr_('Materials licensed under {license} by {authors}'),
+      MaterialsLicensedUnder = tr_('Materials licensed under {license} by the authors'),
       TemplateLicense = tr_('Template licensed under <(CC-BY 4.0)> by {template_authors}'),
       Carpentries = tr_('The Carpentries'),
       BuiltWith = tr_('Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}'),
@@ -396,7 +396,6 @@ fill_translation_vars <- function(the_data) {
     list(
        icons = named_icons,
        template_authors = '<a href="https://carpentries.org/">The Carpentries</a>',
-       authors = "the authors",
        license = the_data$license %||% "CC-BY 4.0",
        minutes = the_data$minutes %||% NULL,
        updated = the_data$updated %||% NULL

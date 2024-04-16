@@ -234,7 +234,7 @@ msgstr "Acerca de"
 
 #: utils-translate.R:130
 msgid "Materials licensed under {license} by {authors}"
-msgstr "Materiales bajo la {license} por {authors}"
+msgstr "Materiales bajo la {license} por las autoras"
 
 #: utils-translate.R:131
 msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
