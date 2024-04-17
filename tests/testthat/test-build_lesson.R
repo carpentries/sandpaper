@@ -283,7 +283,7 @@ test_that("single files can be re-built", {
 
   suppressMessages({
     rdr$render(fs::path(tmp, "LICENSE.md")) %>%
-      expect_output("Writing") %>%
+      expect_message("Writing") %>%
       expect_message("Output created: .*LICENSE.html")
   })
 
