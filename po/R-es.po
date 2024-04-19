@@ -233,8 +233,6 @@ msgid "About"
 msgstr "Acerca de"
 
 #: utils-translate.R:130
-#, fuzzy
-#| msgid "Materials licensed under {license} by {authors}"
 msgid "Materials licensed under {license} by the authors"
 msgstr "Materiales bajo la {license} por las autoras"
 
