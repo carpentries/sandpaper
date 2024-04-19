@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.0.8
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   automated-pull-requests: automated-pull-requests.html
@@ -11,7 +11,7 @@ articles:
   landscape: landscape.html
   toolchain: toolchain.html
   translations: translations.html
-last_built: 2024-04-11T12:37Z
+last_built: 2024-04-19T13:09Z
 urls:
   reference: https://carpentries.github.io/sandpaper/reference
   article: https://carpentries.github.io/sandpaper/articles
