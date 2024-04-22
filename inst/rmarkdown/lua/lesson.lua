@@ -152,6 +152,11 @@ function level_head(el, level)
   local id = 1
   local header = el.content[id]
 
+  -- fix for https://github.com/carpentries/sandpaper/issues/581
+  if header == nil then
+    return el
+  end
+
   if level ~= 0 and header.level == nil then
     -- capitalize the first letter and insert it at the top of the block
     local C = text.upper(text.sub(class, 1, 1))
