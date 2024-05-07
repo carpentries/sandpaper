@@ -61,6 +61,7 @@ test_that("All template files exist", {
   expect_true(fs::file_exists(fs::path(tmp, "episodes", "introduction.Rmd")))
   expect_true(fs::file_exists(fs::path(tmp, ".gitignore")))
   expect_true(fs::file_exists(fs::path(tmp, paste0(basename(tmp), ".Rproj"))))
+  expect_true(fs::file_exists(fs::path(tmp, "CITATION.cff")))
 })
 
 test_that("Templated files are correct", {
@@ -73,6 +74,10 @@ test_that("Templated files are correct", {
   expect_setequal(
     readLines(fs::path(tmp, "episodes", "introduction.Rmd")),
     strsplit(expected, "\n")[[1]]
+  )
+  expect_setequal(
+    readLines(fs::path(tmp, "CITATION.cff")),
+    readLines(template_citation())
   )
 
 })
