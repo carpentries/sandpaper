@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.16.4\n"
-"POT-Creation-Date: 2024-04-11 13:16+0100\n"
+"POT-Creation-Date: 2024-04-20 19:32+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -223,7 +223,7 @@ msgid "About"
 msgstr ""
 
 #: utils-translate.R:130
-msgid "Materials licensed under {license} by {authors}"
+msgid "Materials licensed under {license} by the authors"
 msgstr ""
 
 #: utils-translate.R:131
