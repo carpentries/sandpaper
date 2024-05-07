@@ -179,7 +179,7 @@ lockfile has changed.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">restore_fixture</span> <span class="op">&lt;-</span> <span class="va">snd</span><span class="op">$</span><span class="fu">create_test_lesson</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → Bootstrapping example lesson</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Lesson bootstrapped in 3.269563 secs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Lesson bootstrapped in 3.039949 secs</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → Bootstrapping example lesson</span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"sandpaper.test_fixture"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"Create Remote"</span><span class="op">)</span></span></span>
@@ -188,10 +188,10 @@ lockfile has changed.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">rmt</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/file_temp.html" class="external-link">file_temp</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"REMOTE-"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">snd</span><span class="op">$</span><span class="fu">setup_local_remote</span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span>, remote <span class="op">=</span> <span class="va">rmt</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Remote set up in 0.01770735 secs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Remote set up in 0.01540065 secs</span>
 <span class="r-in"><span><span class="va">tok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"Elapsed time: {round(tok - tik, 2)} seconds"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 3.32 seconds</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 3.08 seconds</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># reporting -----</span></span></span>
 <span class="r-in"><span><span class="co"># The repository should only have one branch and the remote should be in</span></span></span>
@@ -204,8 +204,8 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   name                 commit                        updated            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> main                 121aaab1f8ea51501edd2e212c7f… 2024-04-19 <span style="color: #949494;">13:10:11</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> sandpaper-local/main 121aaab1f8ea51501edd2e212c7f… 2024-04-19 <span style="color: #949494;">13:10:11</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> main                 6026672a9352e5478e06eaa1ea4e… 2024-05-07 <span style="color: #949494;">17:06:38</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> sandpaper-local/main 6026672a9352e5478e06eaa1ea4e… 2024-05-07 <span style="color: #949494;">17:06:38</span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"First episode status"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">First episode status</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -213,12 +213,12 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file             created             modified            commits head </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-04-19 <span style="color: #949494;">13:10:11</span> 2024-04-19 <span style="color: #949494;">13:10:11</span>       1 121a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-05-07 <span style="color: #949494;">17:06:38</span> 2024-05-07 <span style="color: #949494;">17:06:38</span>       1 6026…</span>
 <span class="r-in"><span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_commit.html" class="external-link">git_stat_files</a></span><span class="op">(</span><span class="st">"episodes/introduction.Rmd"</span>, repo <span class="op">=</span> <span class="va">rmt</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file             created             modified            commits head </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-04-19 <span style="color: #949494;">13:10:11</span> 2024-04-19 <span style="color: #949494;">13:10:11</span>       1 121a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-05-07 <span style="color: #949494;">17:06:38</span> 2024-05-07 <span style="color: #949494;">17:06:38</span>       1 6026…</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># DEPLOY ------------------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="va">tik</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
@@ -232,9 +232,9 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to a new branch 'md-outputs'</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git rm -rf --quiet .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git commit --allow-empty -m 'Initializing md-outputs branch'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [md-outputs (root-commit) c69f51c] Initializing md-outputs branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [md-outputs (root-commit) 111bcf9] Initializing md-outputs branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git push sandpaper-local 'HEAD:md-outputs'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpy58M2t/REMOTE-18762aa7cc19</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmp83eEP8/REMOTE-186133ea994c</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * [new branch]      HEAD -&gt; md-outputs</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout main</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Your branch is up to date with 'sandpaper-local/main'.</span>
@@ -243,17 +243,17 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Fetch sandpaper-local/md-outputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local md-outputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git fetch sandpaper-local md-outputs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmpy58M2t/REMOTE-18762aa7cc19</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmp83eEP8/REMOTE-186133ea994c</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * branch            md-outputs -&gt; FETCH_HEAD</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local '*'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Add worktree for sandpaper-local/md-outputs in site/built</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree add --track -B md-outputs \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpy58M2t/file18762171f4b9/lesson-example/site/built \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmp83eEP8/file18615389ff21/lesson-example/site/built \</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   sandpaper-local/md-outputs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'md-outputs'; was at c69f51c)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'md-outputs'; was at 111bcf9)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> branch 'md-outputs' set up to track 'sandpaper-local/md-outputs'.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at c69f51c Initializing md-outputs branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at 111bcf9 Initializing md-outputs branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Build Markdown Sources</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Consent to use package cache provided</span>
@@ -266,11 +266,11 @@ lockfile has changed.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using package cache in /home/runner/.cache/R/renv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> processing file: /tmp/Rtmpy58M2t/file18762171f4b9/lesson-example/episodes/introduction.Rmd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> processing file: /tmp/Rtmp83eEP8/file18615389ff21/lesson-example/episodes/introduction.Rmd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1/3          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2/3 [pyramid]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3/3          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">output file: /tmp/Rtmpy58M2t/file18762171f4b9/lesson-example/site/built/introduction.md</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">output file: /tmp/Rtmp83eEP8/file18615389ff21/lesson-example/site/built/introduction.md</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Commit Markdown Sources</span>
@@ -278,13 +278,13 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   'markdown source builds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Auto-generated via {sandpaper}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : 121aaab1f8ea51501edd2e212c7f5758935754a2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : 6026672a9352e5478e06eaa1ea4e0956c3e343bb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Branch  : main</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Author  : carpenter &lt;team@carpentries.org&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-04-19 13:10:11 +0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-05-07 17:06:38 +0000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Message : Initial commit [via {sandpaper}]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> '</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [md-outputs 2d37db0] markdown source builds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [md-outputs 4282397] markdown source builds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  13 files changed, 731 insertions(+)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 CODE_OF_CONDUCT.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 LICENSE.md</span>
@@ -300,20 +300,20 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 renv.lock</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 setup.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote -v</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmpy58M2t/REMOTE-18762aa7cc19 (fetch)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmpy58M2t/REMOTE-18762aa7cc19 (push)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmp83eEP8/REMOTE-186133ea994c (fetch)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmp83eEP8/REMOTE-186133ea994c (push)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git push --force sandpaper-local 'HEAD:md-outputs'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpy58M2t/REMOTE-18762aa7cc19</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">   c69f51c..2d37db0  HEAD -&gt; md-outputs</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmp83eEP8/REMOTE-186133ea994c</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">   111bcf9..4282397  HEAD -&gt; md-outputs</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Create New Branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout --orphan gh-pages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to a new branch 'gh-pages'</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git rm -rf --quiet .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git commit --allow-empty -m 'Initializing gh-pages branch'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [gh-pages (root-commit) 7b46662] Initializing gh-pages branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [gh-pages (root-commit) 88b3d8f] Initializing gh-pages branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git push sandpaper-local 'HEAD:gh-pages'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpy58M2t/REMOTE-18762aa7cc19</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmp83eEP8/REMOTE-186133ea994c</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * [new branch]      HEAD -&gt; gh-pages</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout main</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Your branch is up to date with 'sandpaper-local/main'.</span>
@@ -322,17 +322,17 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Fetch sandpaper-local/gh-pages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local gh-pages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git fetch sandpaper-local gh-pages</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmpy58M2t/REMOTE-18762aa7cc19</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmp83eEP8/REMOTE-186133ea994c</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * branch            gh-pages   -&gt; FETCH_HEAD</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local '*'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Add worktree for sandpaper-local/gh-pages in site/docs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree add --track -B gh-pages \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpy58M2t/file18762171f4b9/lesson-example/site/docs \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmp83eEP8/file18615389ff21/lesson-example/site/docs \</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   sandpaper-local/gh-pages</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'gh-pages'; was at 7b46662)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'gh-pages'; was at 88b3d8f)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> branch 'gh-pages' set up to track 'sandpaper-local/gh-pages'.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at 7b46662 Initializing gh-pages branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at 88b3d8f Initializing gh-pages branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Build Lesson Website</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">◉</span> pandoc found</span>
@@ -419,27 +419,27 @@ lockfile has changed.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing '<span style="color: #0000BB;">instructor-notes.html</span>'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Creating sitemap.xml</span> ────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Output created: /tmp/Rtmpy58M2t/file18762171f4b9/lesson-example/site/docs/index.html</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Output created: /tmp/Rtmp83eEP8/file18615389ff21/lesson-example/site/docs/index.html</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Commit Lesson Website</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git commit --allow-empty -m \</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   'site deploy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Auto-generated via {sandpaper}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : 2d37db032a39b0b7e9855c118c6e409f5bbdc249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : 4282397822bc46a97cc08991bca2a4f004df237f</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Branch  : md-outputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Author  : GitHub Actions &lt;actions@github.com&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-04-19 13:10:15 +0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-05-07 17:06:42 +0000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Message : markdown source builds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Auto-generated via {sandpaper}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : 121aaab1f8ea51501edd2e212c7f5758935754a2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : 6026672a9352e5478e06eaa1ea4e0956c3e343bb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Branch  : main</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Author  : carpenter &lt;team@carpentries.org&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-04-19 13:10:11 +0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-05-07 17:06:38 +0000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Message : Initial commit [via {sandpaper}]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> '</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [gh-pages 6841aa1] site deploy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [gh-pages 20aebf1] site deploy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  148 files changed, 10643 insertions(+)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 .nojekyll</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 404.html</span>
@@ -590,19 +590,19 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 site.webmanifest</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 sitemap.xml</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote -v</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmpy58M2t/REMOTE-18762aa7cc19 (fetch)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmpy58M2t/REMOTE-18762aa7cc19 (push)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmp83eEP8/REMOTE-186133ea994c (fetch)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmp83eEP8/REMOTE-186133ea994c (push)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git push --force sandpaper-local 'HEAD:gh-pages'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpy58M2t/REMOTE-18762aa7cc19</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">   7b46662..6841aa1  HEAD -&gt; gh-pages</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmp83eEP8/REMOTE-186133ea994c</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">   88b3d8f..20aebf1  HEAD -&gt; gh-pages</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree remove --force \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpy58M2t/file18762171f4b9/lesson-example/site/docs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmp83eEP8/file18615389ff21/lesson-example/site/docs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree remove --force \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpy58M2t/file18762171f4b9/lesson-example/site/built</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmp83eEP8/file18615389ff21/lesson-example/site/built</span>
 <span class="r-in"><span><span class="va">tok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"Elapsed time: {round(tok - tik, 2)} seconds"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 11.03 seconds</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 11.37 seconds</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># reporting -----</span></span></span>
 <span class="r-in"><span><span class="co"># The repository and remote should both have three branches</span></span></span>
@@ -614,12 +614,12 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   name                       commit                  updated            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> gh-pages                   6841aa164993176bff2f56… 2024-04-19 <span style="color: #949494;">13:10:22</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> main                       121aaab1f8ea51501edd2e… 2024-04-19 <span style="color: #949494;">13:10:11</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> md-outputs                 2d37db032a39b0b7e9855c… 2024-04-19 <span style="color: #949494;">13:10:15</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> sandpaper-local/gh-pages   6841aa164993176bff2f56… 2024-04-19 <span style="color: #949494;">13:10:22</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> sandpaper-local/main       121aaab1f8ea51501edd2e… 2024-04-19 <span style="color: #949494;">13:10:11</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> sandpaper-local/md-outputs 2d37db032a39b0b7e9855c… 2024-04-19 <span style="color: #949494;">13:10:15</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> gh-pages                   20aebf1c666e5a181b600a… 2024-05-07 <span style="color: #949494;">17:06:49</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> main                       6026672a9352e5478e06ea… 2024-05-07 <span style="color: #949494;">17:06:38</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> md-outputs                 4282397822bc46a97cc089… 2024-05-07 <span style="color: #949494;">17:06:42</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> sandpaper-local/gh-pages   20aebf1c666e5a181b600a… 2024-05-07 <span style="color: #949494;">17:06:49</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> sandpaper-local/main       6026672a9352e5478e06ea… 2024-05-07 <span style="color: #949494;">17:06:38</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> sandpaper-local/md-outputs 4282397822bc46a97cc089… 2024-05-07 <span style="color: #949494;">17:06:42</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># An indicator this worked: the first episode should be represented as</span></span></span>
 <span class="r-in"><span><span class="co"># different files across the branches:</span></span></span>
@@ -633,14 +633,14 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file             created             modified            commits head </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-04-19 <span style="color: #949494;">13:10:11</span> 2024-04-19 <span style="color: #949494;">13:10:11</span>       1 121a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-05-07 <span style="color: #949494;">17:06:38</span> 2024-05-07 <span style="color: #949494;">17:06:38</span>       1 6026…</span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h3</a></span><span class="op">(</span><span class="st">"rendered markdown"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── rendered markdown </span>
 <span class="r-in"><span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_commit.html" class="external-link">git_stat_files</a></span><span class="op">(</span><span class="st">"introduction.md"</span>, repo <span class="op">=</span> <span class="va">rmt</span>, ref <span class="op">=</span> <span class="st">"md-outputs"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file            created             modified            commits head  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> introduction.md 2024-04-19 <span style="color: #949494;">13:10:15</span> 2024-04-19 <span style="color: #949494;">13:10:15</span>       1 2d37d…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> introduction.md 2024-05-07 <span style="color: #949494;">17:06:42</span> 2024-05-07 <span style="color: #949494;">17:06:42</span>       1 42823…</span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h3</a></span><span class="op">(</span><span class="st">"html file"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── html file </span>
@@ -648,7 +648,7 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file             created             modified            commits head </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> introduction.ht… 2024-04-19 <span style="color: #949494;">13:10:22</span> 2024-04-19 <span style="color: #949494;">13:10:22</span>       1 6841…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> introduction.ht… 2024-05-07 <span style="color: #949494;">17:06:49</span> 2024-05-07 <span style="color: #949494;">17:06:49</span>       1 20ae…</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># CLEAN -------------------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="va">tik</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
@@ -656,14 +656,14 @@ lockfile has changed.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Clean Up</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────</span></span>
 <span class="r-in"><span><span class="va">snd</span><span class="op">$</span><span class="fu">remove_local_remote</span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> removing 'sandpaper-local' (<span style="color: #0000BB;">/tmp/Rtmpy58M2t/REMOTE-18762aa7cc19</span>)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpy58M2t/REMOTE-18762aa7cc19</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> removing 'sandpaper-local' (<span style="color: #0000BB;">/tmp/Rtmp83eEP8/REMOTE-186133ea994c</span>)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp83eEP8/REMOTE-186133ea994c</span>
 <span class="r-in"><span><span class="va">snd</span><span class="op">$</span><span class="fu">reset_git_user</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># remove the test fixture and report</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/delete.html" class="external-link">dir_delete</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"Elapsed time: {round(tok - tik, 2)} seconds"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 0.1 seconds</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 0.11 seconds</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
