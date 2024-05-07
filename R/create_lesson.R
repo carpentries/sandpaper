@@ -41,6 +41,7 @@ create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio 
   copy_template("conduct", path, "CODE_OF_CONDUCT.md")
   copy_template("license", path, "LICENSE.md")
   copy_template("contributing", path, "CONTRIBUTING.md")
+  copy_template("citation", path, "CITATION.cff")
   copy_template("setup", fs::path(path, "learners"), "setup.md")
   copy_template("index", path, "index.md")
   copy_template("links", path, "links.md")
