@@ -233,8 +233,8 @@ msgid "About"
 msgstr "À propos"
 
 #: utils-translate.R:130
-msgid "Materials licensed under {license} by {authors}"
-msgstr "Contenu publié sous licence {license} par {authors}"
+msgid "Materials licensed under {license} by the authors"
+msgstr "Contenu publié sous licence {license} par les auteurs"
 
 #: utils-translate.R:131
 msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
