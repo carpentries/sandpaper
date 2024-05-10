@@ -8,7 +8,6 @@
 }
 
 test_that("lessons can be created in empty directories", {
-
   expect_false(fs::dir_exists(tmp))
   suppressMessages({capture.output({
     res <- create_lesson(tmp, name = "BRAND NEW LESSON", rstudio = TRUE, open = TRUE)
@@ -26,7 +25,6 @@ test_that("lessons are NOT initialized with a 'master' branch", {
   expect_false(gert::git_branch_exists("master", repo = tmp))
   # enforce that our new branch matches the user's default branch (or main)
   expect_true(gert::git_branch(tmp) == sandpaper:::get_default_branch())
-
 })
 
 test_that("check_lesson() passes muster on new lessons", {
@@ -61,6 +59,7 @@ test_that("All template files exist", {
   expect_true(fs::file_exists(fs::path(tmp, "episodes", "introduction.Rmd")))
   expect_true(fs::file_exists(fs::path(tmp, ".gitignore")))
   expect_true(fs::file_exists(fs::path(tmp, paste0(basename(tmp), ".Rproj"))))
+  expect_true(fs::file_exists(fs::path(tmp, "CITATION.cff")))
 })
 
 test_that("Templated files are correct", {
@@ -74,7 +73,10 @@ test_that("Templated files are correct", {
     readLines(fs::path(tmp, "episodes", "introduction.Rmd")),
     strsplit(expected, "\n")[[1]]
   )
-
+  expect_setequal(
+    readLines(fs::path(tmp, "CITATION.cff")),
+    readLines(template_citation())
+  )
 })
 
 test_that("Lesson configuration is correctly provisioned", {
@@ -122,7 +124,6 @@ test_that("We have a git repo that's correctly configured", {
 })
 
 cli::test_that_cli("Destruction of the .gitignore file renders the lesson incorrect", {
-
   if (fs::file_exists(gi <- fs::path(tmp, ".gitignore"))) fs::file_delete(gi)
   expect_snapshot({
     expect_error(
@@ -133,7 +134,6 @@ cli::test_that_cli("Destruction of the .gitignore file renders the lesson incorr
 })
 
 test_that("lessons cannot be created in directories that are occupied", {
-
   skip("needs evaluation, but not critical infrastructure tool")
   tmpdir <- fs::file_temp()
   fs::dir_create(tmpdir)
@@ -148,5 +148,4 @@ test_that("lessons cannot be created in directories that are occupied", {
 
   # This should fail
   expect_error(create_lesson(tmp, open = FALSE), "lesson-example is not an empty directory.")
-
 })

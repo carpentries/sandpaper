@@ -58,6 +58,10 @@ template_links <- generate_template_function("links")
 
 #' @rdname template
 #' @export
+template_citation <- generate_template_function("citation")
+
+#' @rdname template
+#' @export
 template_config <- generate_template_function("config")
 
 #' @rdname template
