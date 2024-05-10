@@ -1,5 +1,5 @@
 #' Establish and Manage Translation Strings
-#' 
+#'
 #' This is documentation for internal functions for translation. If you want a
 #' guide to providing translations, please read `vignette("translations",
 #' package = "sandpaper")`
@@ -54,7 +54,7 @@
 #' head(snd$tr_src("computed"))
 #'
 #' # Running set_language with no arguments defaults to English
-#' snd$set_language() 
+#' snd$set_language()
 #' head(snd$tr_varnish())
 #' head(snd$tr_computed())
 these <- new.env(parent = emptyenv())
@@ -84,14 +84,14 @@ establish_translation_vars <- function() {
       MainNavigation = tr_('Main Navigation'), # alt text
       ToggleNavigation = tr_('Toggle Navigation'), # alt-text
       Menu = tr_('Menu'), # footer.html
-      SearchButton = tr_('search button'),     # alt text
+      SearchButton = tr_('Search the All In One page'), # alt text
       Setup = tr_('Setup'),                      # navbar.html
       KeyPoints = tr_("Key Points"),             # navbar.html
       InstructorNotes = tr_('Instructor Notes'), # navbar.html
       Glossary = tr_('Glossary'),                # navbar.html
       LearnerProfiles = tr_('Learner Profiles'), # navbar.html
       More = tr_('More'),
-      Search = tr_('Search'),
+      # Search = tr_('Search'),
       LessonProgress = tr_('Lesson Progress'), # alt text
       # navbar.html -----------------------------------------------------------
       CloseMenu = tr_("close menu"), # alt text
@@ -127,7 +127,7 @@ establish_translation_vars <- function() {
       Cite = tr_('Cite'),
       Contact = tr_('Contact'),
       About = tr_('About'),
-      MaterialsLicensedUnder = tr_('Materials licensed under {license} by {authors}'),
+      MaterialsLicensedUnder = tr_('Materials licensed under {license} by the authors'),
       TemplateLicense = tr_('Template licensed under <(CC-BY 4.0)> by {template_authors}'),
       Carpentries = tr_('The Carpentries'),
       BuiltWith = tr_('Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}'),
@@ -377,7 +377,7 @@ replace_html <- function(txt, open, close) {
 #'      one = "a normal translated string (pretend it's translated from another language)",
 #'      two = "a question: are you (A) {a}, (B) {b}",
 #'      EstimatedTime = "Estimated time: {icons$clock} {minutes}",
-#'      license = "Licensed under {license} by {authors}",
+#'      license = "Licensed under {license} by the authors",
 #'      ThisLessonCoC = "This lesson operates under our <(Code of Conduct)>"
 #'   )
 #' )
@@ -396,7 +396,6 @@ fill_translation_vars <- function(the_data) {
     list(
        icons = named_icons,
        template_authors = '<a href="https://carpentries.org/">The Carpentries</a>',
-       authors = "the authors",
        license = the_data$license %||% "CC-BY 4.0",
        minutes = the_data$minutes %||% NULL,
        updated = the_data$updated %||% NULL

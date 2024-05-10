@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.14.1.9000\n"
-"POT-Creation-Date: 2023-12-19 09:37-0800\n"
+"POT-Creation-Date: 2024-04-20 19:32+0900\n"
 "PO-Revision-Date: 2023-11-22 09:14+0900\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -76,8 +76,8 @@ msgid "Menu"
 msgstr "メニュー"
 
 #: utils-translate.R:87
-msgid "search button"
-msgstr "検索ボタン"
+msgid "Search the All In One page"
+msgstr "オールインワンページで検索"
 
 #: utils-translate.R:88
 msgid "Setup"
@@ -102,10 +102,6 @@ msgstr "学習者プロフィール"
 #: utils-translate.R:93
 msgid "More"
 msgstr "その他"
-
-#: utils-translate.R:94
-msgid "Search"
-msgstr "検索"
 
 #: utils-translate.R:95
 msgid "Lesson Progress"
@@ -236,8 +232,8 @@ msgid "About"
 msgstr "概要"
 
 #: utils-translate.R:130
-msgid "Materials licensed under {license} by {authors}"
-msgstr "材料は{authors}によって{license}のもとに掲載を許諾されている"
+msgid "Materials licensed under {license} by the authors"
+msgstr "材料は著者によって{license}のもとに掲載を許諾されている"
 
 #: utils-translate.R:131
 msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
@@ -374,3 +370,6 @@ msgstr "画像{i}/{n}: {sQuote(txt)}"
 #: utils-translate.R:176
 msgid "Finish"
 msgstr "終わり"
+
+#~ msgid "Search"
+#~ msgstr "検索"

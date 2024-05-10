@@ -37,7 +37,7 @@ dat <- list(
      one = "a normal translated string (pretend it's translated from another language)",
      two = "a question: are you (A) {a}, (B) {b}",
      EstimatedTime = "Estimated time: {icons$clock} {minutes}",
-     license = "Licensed under {license} by {authors}",
+     license = "Licensed under {license} by the authors",
      ThisLessonCoC = "This lesson operates under our <(Code of Conduct)>"
   )
 )

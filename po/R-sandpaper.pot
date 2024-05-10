@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: sandpaper 0.16.2\n"
-"POT-Creation-Date: 2024-01-14 22:46+0000\n"
+"Project-Id-Version: sandpaper 0.16.4\n"
+"POT-Creation-Date: 2024-04-20 19:32+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,7 +69,7 @@ msgid "Menu"
 msgstr ""
 
 #: utils-translate.R:87
-msgid "search button"
+msgid "Search the All In One page"
 msgstr ""
 
 #: utils-translate.R:88
@@ -94,10 +94,6 @@ msgstr ""
 
 #: utils-translate.R:93
 msgid "More"
-msgstr ""
-
-#: utils-translate.R:94
-msgid "Search"
 msgstr ""
 
 #: utils-translate.R:95
@@ -227,7 +223,7 @@ msgid "About"
 msgstr ""
 
 #: utils-translate.R:130
-msgid "Materials licensed under {license} by {authors}"
+msgid "Materials licensed under {license} by the authors"
 msgstr ""
 
 #: utils-translate.R:131
