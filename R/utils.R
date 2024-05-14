@@ -188,7 +188,9 @@ which_carpentry <- function(carpentry) {
     swc = "Software Carpentry",
     cp = "The Carpentries",
     incubator = "Carpentries Incubator",
-    lab = "Carpentries Lab"
+    lab = "Carpentries Lab",
+    # Default: match the input
+    carpentry
   )
 }
 
@@ -199,7 +201,9 @@ which_icon_carpentry <- function(carpentry) {
     swc = "software",
     cp = "carpentries",
     incubator = "incubator",
-    lab = "lab"
+    lab = "lab",
+    # Default: match the input
+    carpentry
   )
 }
 
