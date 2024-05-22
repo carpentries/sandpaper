@@ -1,10 +1,7 @@
 test_that("analytics carpentries tracker code generation works", {
-    yaml <- "
-      analytics: carpentries
-    "
+    tracker_yaml <- "analytics: carpentries"
 
-    pgy <- politely_get_yaml(yaml)
-    YML <- yaml::yaml.load(pgy)
+    YML <- yaml::yaml.load(tracker_yaml)
 
     tracker_str <- processTracker(siQuote(YML$analytics))
 
