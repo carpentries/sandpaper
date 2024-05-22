@@ -171,7 +171,7 @@ translate_overview <- function(nodes = NULL) {
 # @param translations a named vector of translated strings whose names are the
 #   strings in English
 xml_text_translate <- function(nodes, translations) {
-  txt <- xml2::xml_text(nodes, trim = TRUE)
+  txt <- xml2::xml_text(nodes, trim = FALSE)
   xml2::xml_set_text(nodes, apply_translations(txt, translations))
   return(invisible(nodes))
 }

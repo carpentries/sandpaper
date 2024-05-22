@@ -304,7 +304,7 @@ apply_translations <- function(txt, translations) {
   }
   # when there are translations, apply them only to the matching elements of
   # the vector
-  to_translate <- txt %in% names(translations)
+  to_translate <- trimws(txt) %in% names(translations)
   if (any(to_translate)) {
     ids <- txt[to_translate]
     txt[to_translate] <- translations[ids]
