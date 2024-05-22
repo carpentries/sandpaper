@@ -4,6 +4,13 @@
 
 * Fix for empty divs when checking for headers
   (reported: @dmgatti, #581; fixed @froggleston)
+* Add support for including the Carpentries matomo
+  tracker, a custom user-supplied tracker script, or
+  no tracking 
+  (reported: @tbyhdgs, @fiveop https://github.com/carpentries/varnish/issues/37,
+   @zkamvar https://github.com/carpentries/sandpaper/issues/438,
+   implemented: @froggleston
+  )
 
 
 # sandpaper 0.16.4 (2024-04-10)
