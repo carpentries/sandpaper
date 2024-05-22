@@ -3,9 +3,6 @@ test_that("analytics carpentries tracker code generation works", {
       analytics: carpentries
     "
 
-    expectation <- "
-
-    "
     pgy <- politely_get_yaml(yaml)
     YML <- yaml::yaml.load(pgy)
 
