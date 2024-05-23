@@ -199,11 +199,18 @@ fix_callouts <- function(nodes = NULL) {
   if (length(nodes) == 0) return(nodes)
   # fix for https://github.com/carpentries/sandpaper/issues/470
   callouts <- xml2::xml_find_all(nodes, ".//div[starts-with(@class, 'callout ')] | .//div[@class='callout']")
-  h3 <- xml2::xml_find_all(callouts, "./div/h3")
-  translations <- get_callout_translations()
+
   # https://github.com/carpentries/sandpaper/issues/556
-  h3_text <- xml2::xml_find_all(h3, ".//text()")
+  translations <- get_callout_translations()
+
+  # process only h3 titles with no child tags for translation
+  # https://github.com/carpentries/sandpaper/issues/562
+  h3_translate <- xml2::xml_find_all(callouts, "./div/h3[not(*)]")
+  h3_text <- xml2::xml_find_all(h3_translate, ".//text()")
   xml_text_translate(h3_text, translations)
+
+  # process all callouts for styling
+  h3 <- xml2::xml_find_all(callouts, "./div/h3")
   xml2::xml_set_attr(h3, "class", "callout-title")
   inner_div <- xml2::xml_parent(h3)
   # remove the "section level3 callout-title" attrs
