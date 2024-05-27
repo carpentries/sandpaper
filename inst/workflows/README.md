@@ -94,7 +94,7 @@ branch called `update/workflows` and a pull request is created. Maintainers are
 encouraged to review the changes and accept the pull request if the outputs
 are okay.
 
-This update is run ~~weekly or~~ on demand.
+This update is run weekly or on demand.
 
 ### 03 Maintain: Update Package Cache (update-cache.yaml)
 
