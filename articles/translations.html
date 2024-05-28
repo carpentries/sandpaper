@@ -214,17 +214,19 @@ known as <code>R-sandpaper</code>.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://withr.r-lib.org" class="external-link">"withr"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://carpentries.github.io/sandpaper/">"sandpaper"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/known_languages.html">known_languages</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "en" "es" "fr" "ja" "uk"</span></span>
-<span><span class="fu"><a href="https://withr.r-lib.org/reference/with_language.html" class="external-link">with_language</a></span><span class="op">(</span><span class="st">"ja"</span>, <span class="op">{</span></span>
+<span><span class="co">#&gt; [1] "en" "es" "fr" "ja" "uk"</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://withr.r-lib.org/reference/with_language.html" class="external-link">with_language</a></span><span class="op">(</span><span class="st">"ja"</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">enc2utf8</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/gettext.html" class="external-link">gettext</a></span><span class="op">(</span><span class="st">"Page not found"</span>, domain <span class="op">=</span> <span class="st">"R-sandpaper"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "ページが見つかりません"</span></span>
-<span><span class="fu"><a href="https://withr.r-lib.org/reference/with_language.html" class="external-link">with_language</a></span><span class="op">(</span><span class="st">"en"</span>, <span class="op">{</span></span>
+<span><span class="co">#&gt; [1] "ページが見つかりません"</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://withr.r-lib.org/reference/with_language.html" class="external-link">with_language</a></span><span class="op">(</span><span class="st">"en"</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">enc2utf8</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/gettext.html" class="external-link">gettext</a></span><span class="op">(</span><span class="st">"Page not found"</span>, domain <span class="op">=</span> <span class="st">"R-sandpaper"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Page not found"</span></span></code></pre></div>
 <p>If a language does not exist, it will revert to English:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://withr.r-lib.org/reference/with_language.html" class="external-link">with_language</a></span><span class="op">(</span><span class="st">"xx"</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">enc2utf8</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/gettext.html" class="external-link">gettext</a></span><span class="op">(</span><span class="st">"Page not found"</span>, domain <span class="op">=</span> <span class="st">"R-sandpaper"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
@@ -261,7 +263,7 @@ updated because text changes or is added. When this happens, the
 maintainer of {sandpaper} will run the following commands to extract the
 new translation strings, update all languages, and recompile the
 <code>.mo</code> files for the built package.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">potools</span><span class="fu">::</span><span class="fu">po_extract</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">potools</span><span class="fu">::</span><span class="fu">po_update</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">potools</span><span class="fu">::</span><span class="fu">po_compile</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -286,7 +288,7 @@ msgid "A new translation approaches!"
 msgstr ""</code></pre>
 <p>If no translation is available for a given string, it will default to
 the string itself:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://withr.r-lib.org/reference/with_language.html" class="external-link">with_language</a></span><span class="op">(</span><span class="st">"ja"</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">enc2utf8</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/gettext.html" class="external-link">gettext</a></span><span class="op">(</span><span class="st">"A new translation approaches!"</span>, domain <span class="op">=</span> <span class="st">"R-sandpaper"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
