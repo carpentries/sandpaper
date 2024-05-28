@@ -4,6 +4,12 @@
 
 * Fix for empty divs when checking for headers
   (reported: @dmgatti, #581; fixed @froggleston)
+* Fix for spacing in callout titles when they have
+  inner tags, e.g. `<code>`
+  (reported: @abostroem, #562; fixed @froggleston)
+
+## NEW FEATURES
+
 * Add support for including the Carpentries matomo
   tracker, a custom user-supplied tracker script, or
   no tracking 
