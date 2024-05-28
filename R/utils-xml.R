@@ -209,7 +209,6 @@ fix_callouts <- function(nodes = NULL) {
   h3_text <- xml2::xml_find_all(h3_translate, ".//text()")
   xml_text_translate(h3_text, translations)
 
-  # process all callouts for styling
   h3 <- xml2::xml_find_all(callouts, "./div/h3")
   xml2::xml_set_attr(h3, "class", "callout-title")
   inner_div <- xml2::xml_parent(h3)
