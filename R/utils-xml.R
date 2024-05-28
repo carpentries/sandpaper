@@ -171,6 +171,7 @@ translate_overview <- function(nodes = NULL) {
 # @param translations a named vector of translated strings whose names are the
 #   strings in English
 xml_text_translate <- function(nodes, translations) {
+  # removes whitespace in order to translate, but need to add it back for nested tags
   txt <- xml2::xml_text(nodes, trim = TRUE)
   xml2::xml_set_text(nodes, apply_translations(txt, translations))
   return(invisible(nodes))
@@ -204,6 +205,7 @@ fix_callouts <- function(nodes = NULL) {
   # https://github.com/carpentries/sandpaper/issues/556
   h3_text <- xml2::xml_find_all(h3, ".//text()")
   xml_text_translate(h3_text, translations)
+
   xml2::xml_set_attr(h3, "class", "callout-title")
   inner_div <- xml2::xml_parent(h3)
   # remove the "section level3 callout-title" attrs
