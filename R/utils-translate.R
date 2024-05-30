@@ -293,6 +293,15 @@ tr_computed <- function(key = NULL) {
 }
 
 
+starts_with_whitespace <- function(x) {
+  grepl("^\\s", x)
+}
+
+# Function to check if a string ends with a whitespace
+ends_with_whitespace <- function(x) {
+  grepl("\\s$", x)
+}
+
 # Apply translations to text assuming that the names of the translations
 # matches the text
 apply_translations <- function(txt, translations) {
@@ -302,14 +311,38 @@ apply_translations <- function(txt, translations) {
   if (ntxt == 0L || ntranslations == 0L) {
     return(txt)
   }
+
+  # https://github.com/carpentries/sandpaper/issues/562
+  # check if there is leading or trailing whitespace
+  sw <- starts_with_whitespace(txt)
+  ew <- ends_with_whitespace(txt)
+
+  # replace newlines with spaces and trim whitespace
+  trimmed_txt <- sub("\n", " ", txt)
+  trimmed_txt <- sub("^[[:space:]]+", "", trimmed_txt)
+  trimmed_txt <- sub("[[:space:]]+$", "", trimmed_txt)
+
   # when there are translations, apply them only to the matching elements of
   # the vector
-  to_translate <- txt %in% names(translations)
+  to_translate <- trimmed_txt %in% names(translations)
   if (any(to_translate)) {
-    ids <- txt[to_translate]
-    txt[to_translate] <- translations[ids]
+    ids <- trimmed_txt[to_translate]
+    trimmed_txt[to_translate] <- translations[ids]
+
+    # reintroduce whitespace where there was previously
+    if (any(sw)) {
+      trimmed_txt <- paste0(" ", trimmed_txt)
+    }
+
+    if (any(ew)) {
+      trimmed_txt <- paste0(trimmed_txt, " ")
+    }
+
+    return(trimmed_txt)
+  } else {
+    # return original text if no translations are found
+    return(txt)
   }
-  return(txt)
 }
 
 # generator of translations for code blocks.
