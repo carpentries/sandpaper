@@ -64,6 +64,10 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
   global_data$instructor$set("json", fill_metadata_template(meta))
   global_data$instructor$set("translate", translated)
   global_data$instructor$set("citation", meta$get()$citation)
+
+  # add tracker script
+  global_data$instructor$set("analytics", processTracker(meta$get()$analytics))
+
   modified <- pkgdown::render_page(pkg,
     template,
     data = global_data$instructor$get(),
@@ -80,6 +84,10 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
     meta$set("url", paste0(base_url, this_page))
     global_data$learner$set("json", fill_metadata_template(meta))
     global_data$learner$set("citation", meta$get()$citation)
+
+    # add tracker script
+    global_data$learner$set("analytics", processTracker(meta$get()$analytics))
+
     pkgdown::render_page(pkg,
       template,
       data = global_data$learner$get(),

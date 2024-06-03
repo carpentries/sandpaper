@@ -344,6 +344,7 @@ test_that("Lessons can be translated with lang setting", {
   # Instructor note headings should be translated
   xpath_instructor <- ".//div[@class='accordion-item']/button/h3"
   instructor_note <- xml2::xml_find_all(xml, xpath_instructor)
+
   expect_set_translated(instructor_note,
     tr_src("computed", "Instructor Note")
   )
@@ -353,6 +354,7 @@ test_that("Lessons can be translated with lang setting", {
   solution <- xml2::xml_find_all(xml, xpath_solution)
   # take the last solution block because that's the one that does not have
   # a title.
+  # print(solution)
   solution <- solution[[length(solution)]]
 
   expect_set_translated(solution,
