@@ -215,7 +215,7 @@ test_that("update_cache() will update old package versions", {
 })
 
 reticulate_installable <- check_reticulate_installable()
-use_python(lsn, type = "virtualenv", open = FALSE)
+use_python(lsn, type = "virtualenv", open = FALSE, quiet = TRUE)
 
 test_that("manage_deps() does not overwrite requirements.txt", {
   skip_if_not(reticulate_installable, "reticulate is not installable")
@@ -249,4 +249,17 @@ test_that("manage_deps() restores Python dependencies", {
 
   expect_no_error({numpy <- local_load_py_pkg(lsn, "numpy")})
   expect_s3_class(numpy, "python.builtin.module")
+})
+
+
+test_that("update_cache does not remove uninstalled Python dependencies from requirements.txt", {
+  skip_if_not(reticulate_installable, "reticulate is not installable")
+  skip_on_cran()
+  skip_on_os("windows")
+
+  req_file <- fs::path(lsn, "requirements.txt")
+  writeLines("imnotinstalled", req_file)
+
+  res <- update_cache(lsn, prompt = FALSE, quiet = TRUE)
+  expect_true("imnotinstalled" %in% readLines(req_file))
 })
