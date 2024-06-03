@@ -45,10 +45,10 @@
 #' }
 use_python <- function(path = ".", python = NULL,
                        type = c("auto", "virtualenv", "conda", "system"),
-                       open = rlang::is_interactive(), ...) {
+                       open = rlang::is_interactive(), ..., quiet = FALSE) {
 
   ## Make sure reticulate is installed
-  install_reticulate(path = path)
+  install_reticulate(path = path, quiet = quiet)
 
   ## Generate function to run in separate R process
   use_python_with_renv <- function(path, python, type, ...) {
@@ -68,7 +68,7 @@ use_python <- function(path = ".", python = NULL,
   callr::r(
     func = function(f, path, python, type,  ...) f(path = path, python = python , type = type, ...),
     args = list(f = callr_use_python, path = path, python = python, type = type, ...),
-    show = TRUE
+    show = !quiet
   )
 
   if (open) {
