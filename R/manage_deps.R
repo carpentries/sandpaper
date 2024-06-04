@@ -112,6 +112,11 @@ update_cache <- function(path = ".", profile = "lesson-requirements", prompt = i
     Sys.setenv("RENV_PROFILE" = prof)
   }, add = TRUE)
   Sys.setenv("RENV_PROFILE" = profile)
+
+  # Make sure the current requirements are installed, this also avoids removing any uninstalled
+  # Python dependencies in requirements.txt
+  manage_deps(path = path, profile = profile, snapshot = snapshot, quiet = quiet)
+
   renv::load(project = path)
   lib <- renv::paths$library(project = path)
   if (prompt) {
