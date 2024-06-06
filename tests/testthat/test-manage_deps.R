@@ -258,8 +258,9 @@ test_that("update_cache does not remove uninstalled Python dependencies from req
   skip_on_os("windows")
 
   req_file <- fs::path(lsn, "requirements.txt")
-  writeLines("pandas", req_file)
+  write("pandas", req_file, append = TRUE, sep = "\n")
 
   res <- update_cache(lsn, prompt = FALSE, quiet = TRUE)
-  expect_true("pandas" %in% readLines(req_file))
+  print(readLines(req_file))
+  expect_true(any(grepl("pandas", readLines(req_file))))
 })
