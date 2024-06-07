@@ -104,23 +104,31 @@ manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = 
 #'   if it's running in an interactive session.
 #' @rdname dependency_management
 #' @export
-update_cache <- function(path = ".", profile = "lesson-requirements", prompt = interactive(), quiet = !prompt, snapshot = TRUE) {
-  path <- root_path(path)
+update_cache <- function(path = ".", profile = "lesson-requirements", prompt = interactive(),
+                         quiet = !prompt, snapshot = TRUE) {
+
   prof <- Sys.getenv("RENV_PROFILE")
   on.exit({
-    invisible(utils::capture.output(renv::deactivate(path), type = "message"))
     Sys.setenv("RENV_PROFILE" = prof)
   }, add = TRUE)
   Sys.setenv("RENV_PROFILE" = profile)
+  path <- root_path(path)
 
   # Make sure the current requirements are installed, this also avoids removing any uninstalled
   # Python dependencies in requirements.txt
   manage_deps(path = path, profile = profile, snapshot = snapshot, quiet = quiet)
 
-  renv::load(project = path)
   lib <- renv::paths$library(project = path)
+  updates <- callr::r(
+    func = function(f, lib) f(lib),
+    args = list(
+      f = with_renv_factory(check_for_updates, renv_path = path, renv_profile = profile),
+      lib = lib
+    ),
+    show = !quiet
+  )
+
   if (prompt) {
-    updates <- renv::update(library = lib, check = TRUE, prompt = TRUE)
     if (isTRUE(updates)) {
       return(invisible())
     }
@@ -140,6 +148,33 @@ update_cache <- function(path = ".", profile = "lesson-requirements", prompt = i
       return(invisible())
     }
   }
+
+  sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
+  out <- callr::r(
+    func = function(f, path, lib, snapshot) f(path, lib, snapshot),
+    args = list(
+      f = with_renv_factory(callr_update_cache, renv_path = path, renv_profile = profile),
+      path = path,
+      lib = lib,
+      snapshot = snapshot
+    ),
+    show = !quiet,
+    spinner = sho,
+    user_profile = FALSE,
+    env = c(callr::rcmd_safe_env(),
+      "R_PROFILE_USER" = fs::path(tempfile(), "nada"),
+      "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available()
+    )
+  )
+  invisible(out)
+}
+
+check_for_updates <- function(lib) {
+  cli::cli_alert("Checking for updates")
+  renv::update(library = lib, check = TRUE, prompt = TRUE)
+}
+
+callr_update_cache <- function(path, lib, snapshot) {
   updates <- renv::update(library = lib, prompt = FALSE)
   if (snapshot) {
     renv::snapshot(lockfile = renv::paths$lockfile(project = path), prompt = FALSE)
