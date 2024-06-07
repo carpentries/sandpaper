@@ -206,10 +206,13 @@ test_that("update_cache() will update old package versions", {
   skip_if_offline()
   skip_if(covr::in_covr())
 
+  pkg <- "sessioninfo"
+  old_pkg_version <- "1.1.0"
+  pin_version(glue::glue("{pkg}@{old_pkg_version}"), path = fs::path(lsn, "episodes"))
 
   res <- update_cache(path = fs::path(lsn, "episodes"), prompt = FALSE, quiet = FALSE)
   expect_true(
-    package_version(res$sessioninfo$Version) > package_version("1.1.0")
+    package_version(res[[pkg]]$Version) > package_version(old_pkg_version)
   )
 
 })
@@ -260,7 +263,6 @@ test_that("update_cache does not remove uninstalled Python dependencies from req
   req_file <- fs::path(lsn, "requirements.txt")
   write("pandas", req_file, append = TRUE, sep = "\n")
 
-  res <- update_cache(lsn, prompt = FALSE, quiet = TRUE)
-  print(readLines(req_file))
+  res <- update_cache(lsn, prompt = FALSE, quiet = FALSE)
   expect_true(any(grepl("pandas", readLines(req_file))))
 })
