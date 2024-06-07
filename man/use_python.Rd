@@ -29,6 +29,8 @@ virtual environments will be used.}
 
 \item{...}{Further arguments to be passed to \code{\link[reticulate:py_install]{reticulate::py_install()}}}
 
+\item{quiet}{if \code{TRUE}, suppresses output.}
+
 \item{packages}{Python packages to be installed as a character vecto.}
 }
 \value{

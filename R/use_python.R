@@ -6,6 +6,7 @@
 #' @param path path to the current project
 #' @inheritParams renv::use_python
 #' @param open if interactive, the lesson will open in a new editor window.
+#' @param quiet if `TRUE`, suppresses output.
 #' @param ... Further arguments to be passed on to [renv::use_python()]
 #'
 #' @details
