@@ -314,6 +314,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   return(NULL)
 }
 
+
 #' Generate a function to run in a renv profile
 #'
 #' This is a [Function operator](https://adv-r.hadley.nz/function-operators.html) which will
@@ -334,6 +335,9 @@ with_renv_factory <- function(func, renv_path, renv_profile = "lesson-requiremen
   force(func); force(renv_path); force(renv_profile)
 
   function(...) {
+    on.exit({
+      invisible(utils::capture.output(renv::deactivate(project = renv_path), type = "message"))
+    }, add = TRUE)
     renv_path <- normalizePath(renv_path)
     withr::local_dir(renv_path)
     withr::local_envvar(c("RENV_PROFILE" = renv_profile))
@@ -342,3 +346,5 @@ with_renv_factory <- function(func, renv_path, renv_profile = "lesson-requiremen
     func(...)
   }
 }
+
+
