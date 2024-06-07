@@ -10,7 +10,8 @@ use_python(
   python = NULL,
   type = c("auto", "virtualenv", "conda", "system"),
   open = rlang::is_interactive(),
-  ...
+  ...,
+  quiet = FALSE
 )
 
 py_install(packages, path = ".", ...)
