@@ -83,6 +83,7 @@ establish_translation_vars <- function() {
       LearnerView = tr_('Learner View'),         # navbar.html
       MainNavigation = tr_('Main Navigation'), # alt text
       ToggleNavigation = tr_('Toggle Navigation'), # alt-text
+      ToggleDarkMode = tr_('Toggle theme (auto)'), # alt-text
       Menu = tr_('Menu'), # footer.html
       SearchButton = tr_('Search the All In One page'), # alt text
       Setup = tr_('Setup'),                      # navbar.html
