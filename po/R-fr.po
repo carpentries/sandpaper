@@ -74,7 +74,7 @@ msgstr "Afficher/cacher la barre de navigation"
 
 #: utils-translate.R:86
 msgid "Toggle theme (auto)"
-msgstr ""
+msgstr "Changer de thème (auto)"
 
 #: utils-translate.R:87
 msgid "Menu"
