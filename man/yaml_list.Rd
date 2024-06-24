@@ -25,7 +25,9 @@ cat(yaml::as.yaml(hx)) # representation in yaml
 #> - a
 #> - b
 #> - c
-cat(whisker::whisker.render("hello: \{\{hello\}\}", hx)) # messed up whisker
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{cat(whisker::whisker.render("hello: \{\{hello\}\}", hx)) # messed up whisker
 #> hello: a,b,c
 }\if{html}{\out{</div>}}
 

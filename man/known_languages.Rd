@@ -22,6 +22,7 @@ details of how to do so in the source code for {sandpaper}.
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> - en
 #> - es
+#> - fr
 #> - ja
 #> - uk
 }\if{html}{\out{</div>}}
