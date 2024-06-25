@@ -9,8 +9,7 @@
 # cp: Carpentries (to use for instructor training for instance)
 # incubator: The Carpentries Incubator
 # Note that you can also use a custom carpentry type. For more info,
-# see the varnish documentation.
-# TODO: add link to varnish documentation once it's there
+# see the documentation: https://carpentries.github.io/sandpaper-docs/editing.html
 carpentry: {{ carpentry }}
 
 # Custom carpentry description
