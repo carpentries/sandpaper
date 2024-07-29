@@ -62,7 +62,8 @@ Description: We provide tools to build a Carpentries-themed lesson repository
   lesson author needs to focus on is writing the content of the actual lesson.
 License: MIT + file LICENSE
 Imports:
-    pkgdown (>= 1.6.0),
+    pkgdown (> 1.6.0),
+    pkgdown (<= 2.0.9),
     pegboard (>= 0.7.0),
     cli (>= 3.4.0),
     commonmark,

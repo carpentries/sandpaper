@@ -148,8 +148,9 @@ add_anchors <- function(nodes, ids) {
 
     # fix for pkgdown 2.1.0 now adding in anchors for <section> tags
     # rename our workbench translated sections <workbench-section>
-    sections <- xml2::xml_parent(heading)
-    xml2::xml_set_name(sections, "workbench-section")
+    # this would require a lot more downstream work
+    # sections <- xml2::xml_parent(heading)
+    # xml2::xml_set_name(sections, "workbench-section")
   }
 }
 
