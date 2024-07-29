@@ -134,14 +134,22 @@ add_anchors <- function(nodes, ids) {
   anchor <- paste0(
     "<a class='anchor' aria-label='", tranchor, "' href='#", ids, "'></a>"
   )
+
   for (i in seq_along(nodes)) {
     heading <- nodes[[i]]
+
     if (length(xml2::xml_contents(heading)) == 0) {
       # skip empty headings
       next
     }
+
     # Insert anchor in first element of header
     xml2::xml_add_child(heading, xml2::read_xml(anchor[[i]]))
+
+    # fix for pkgdown 2.1.0 now adding in anchors for <section> tags
+    # rename our workbench translated sections <workbench-section>
+    sections <- xml2::xml_parent(heading)
+    xml2::xml_set_name(sections, "workbench-section")
   }
 }
 
