@@ -21,10 +21,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Zhian N. Kamvar \email{zkamvar@carpentries.org} (\href{https://orcid.org/0000-0003-1458-7108}{ORCID})
+\strong{Maintainer}: Robert Davey \email{robertdavey@carpentries.org} (\href{https://orcid.org/0000-0002-5589-7754}{ORCID})
 
 Authors:
 \itemize{
+  \item Erin Becker \email{erinbecker@carpentries.org} (\href{https://orcid.org/0000-0002-6832-0233}{ORCID})
+  \item Zhian N. Kamvar \email{zkamvar@carpentries.org} (\href{https://orcid.org/0000-0003-1458-7108}{ORCID})
   \item Joel H. Nitta \email{joelnitta@gmail.com} (\href{https://orcid.org/0000-0003-4719-7472}{ORCID}) [translator]
 }
 
@@ -35,9 +37,7 @@ Other contributors:
   \item Toby Hodges \email{tobyhodges@carpentries.org} [contributor]
   \item François Michonneau \email{francois@carpentries.org} [contributor]
   \item Kelly Barnes \email{kbarnes@carpentries.org} [contributor]
-  \item Erin Becker \email{ebecker@carpentries.org} [contributor]
   \item Hugo Gruson \email{hugo.gruson+R@normalesup.org} [contributor]
-  \item Rob Davey \email{robertdavey@carpentries.org} [contributor]
   \item Milan Malfait \email{milan.malfait94@gmail.com} (\href{https://orcid.org/0000-0001-9144-3701}{ORCID}) [contributor]
   \item Yanina Bellini Saibene (\href{https://orcid.org/0000-0002-4522-7466}{ORCID}) [contributor, translator]
 }
