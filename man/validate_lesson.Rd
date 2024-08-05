@@ -23,7 +23,7 @@ a list with the results for each test as described in
 A validator based on the \link[pegboard:Lesson]{pegboard::Lesson} class cached with \code{\link[=this_lesson]{this_lesson()}}
 that will provide line reports for fenced divs, links, images, and heading
 structure. For details on the type of validators avaliable, see the
-{pegboard} article \href{https://carpentries.github.io/pegboard/articles/validation.html}{Validation of Lesson Elements}
+\code{{pegboard}} article \href{https://carpentries.github.io/pegboard/articles/validation.html}{Validation of Lesson Elements}
 }
 \details{
 \subsection{Headings}{

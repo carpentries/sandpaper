@@ -53,7 +53,7 @@
 #'
 #' ## I have used \pkg{renv} before; how do I turn it off before sandpaper loads?
 #'
-#' You can set `options(sandpaper.use_renv = FALSE)` before loading {sandpaper}.
+#' You can set `options(sandpaper.use_renv = FALSE)` before loading `{sandpaper}`.
 #'
 #' @param prompt if `TRUE` (default when interactive), a prompt for consent
 #'   giving information about the proposed modifications will appear on the
@@ -68,7 +68,7 @@
 #'   inside the package cache.
 #' @examples
 #' if (!getOption("sandpaper.use_renv") && interactive()) {
-#'   # The first time you set up {renv}, you will need permission
+#'   # The first time you set up `{renv}`, you will need permission
 #'   use_package_cache(prompt = TRUE)
 #'   # The package cache trigger is FALSE, by default
 #'   default <- package_cache_trigger()
@@ -79,7 +79,7 @@
 #' }
 #'
 #' if (getOption("sandpaper.use_renv") && interactive()) {
-#'   # If you have previously used {renv}, permission is implied
+#'   # If you have previously used `{renv}`, permission is implied
 #'   use_package_cache(prompt = TRUE)
 #'
 #'   # You can temporarily turn this off

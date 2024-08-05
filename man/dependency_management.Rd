@@ -87,8 +87,8 @@ Carpentries lessons are also working academics and will likely have
 projects on their computer where the package versions are necessary for
 their work, it's important that those environments are respected.
 
-Our flavor of {renv} applies a package cache explicitly to the content of
-the lesson, but does not impose itself as the default {renv} environment.
+Our flavor of \code{{renv}} applies a package cache explicitly to the content of
+the lesson, but does not impose itself as the default \code{{renv}} environment.
 
 This provisioner will do the following steps:
 \enumerate{

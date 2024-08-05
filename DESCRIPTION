@@ -109,7 +109,7 @@ Config/testthat/parallel: false
 Config/Needs/check: rstudio/renv
 Config/potools/style: explicit
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 URL: https://carpentries.github.io/sandpaper/, https://github.com/carpentries/sandpaper/, https://carpentries.github.io/workbench/
 BugReports: https://github.com/carpentries/sandpaper/issues/
 VignetteBuilder: knitr
