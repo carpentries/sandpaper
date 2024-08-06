@@ -58,7 +58,10 @@ test_that("(#556) (#454) callout are processed correctly", {
   headings <- xml2::xml_find_all(html_test, ".//h3")
   callouts <- xml2::xml_find_all(html_test,
     ".//div[starts-with(@class, 'callout ')]")
-  expect_length(anchors, 2)
+
+  # temporarily removed as a result of https://github.com/r-lib/pkgdown/issues/2737
+  # expect_length(anchors, 2)
+
   expect_length(callouts, 2)
   expect_length(headings, 2)
   # headings should not have IDS
@@ -68,12 +71,15 @@ test_that("(#556) (#454) callout are processed correctly", {
   # The IDs should be what we expect
   ids <- xml2::xml_attr(callouts, "id")
   expect_equal(ids, c("discussion1", "wait-what"))
+
+  # temporarily removed as a result of https://github.com/r-lib/pkgdown/issues/2737
   # The IDs should match the anchors
-  expect_equal(paste0("#", ids), xml2::xml_attr(anchors, "href"))
+  # expect_equal(paste0("#", ids), xml2::xml_attr(anchors, "href"))
+
   # The headings should match what we expect
   # (https://github.com/carpentries/sandpaper/issues/556)
   htext <- xml2::xml_find_all(headings, ".//text()")
-  expect_equal(xml2::xml_text(htext), 
+  expect_equal(xml2::xml_text(htext),
     c("Challenge (", "this is code", ")", "Wait what?"))
 })
 
@@ -127,9 +133,9 @@ test_that("code block languages are in the correct order", {
   </code>
   </pre>
   </div>'
-  
+
   nodes <- xml2::read_html(html)
-  
+
   # ABSENCE TESTS -------------------------------------------
   # By default, there are no h3 headings
   expect_length(xml2::xml_find_all(nodes, ".//h3"), 0L)
@@ -137,9 +143,9 @@ test_that("code block languages are in the correct order", {
   expect_length(xml2::xml_find_all(nodes, xpath_codewrap), 0L)
   xpath_pre_tabindex <- ".//pre[@tabindex]"
   expect_length(xml2::xml_find_all(nodes, xpath_pre_tabindex), 0L)
-  
+
   fix_codeblocks(nodes)
-  
+
   # PRESENCE TESTS ------------------------------------------
   expect_length(xml2::xml_find_all(nodes, ".//h3"), 2L)
   expect_length(xml2::xml_find_all(nodes, xpath_codewrap), 2L)
