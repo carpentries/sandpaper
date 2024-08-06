@@ -14,7 +14,7 @@ build_html(
 )
 }
 \arguments{
-\item{template}{the name of the {varnish} template to use. Defaults to
+\item{template}{the name of the \code{{varnish}} template to use. Defaults to
 "chapter"}
 
 \item{pkg}{an object created from  \code{\link[pkgdown:as_pkgdown]{pkgdown::as_pkgdown()}}}
@@ -26,7 +26,7 @@ and learner page, it will be a single \code{xml_document} object.}
 
 \item{global_data}{a list store object that contains copies of the global
 variables for the page, including metadata, navigation, and variables for
-the {varnish} templates.}
+the \code{{varnish}} templates.}
 
 \item{path_md}{the path (absolute, relative, or filename) the current
 markdown file being processed.}
@@ -44,7 +44,7 @@ Build instructor and learner HTML page
 \details{
 This function is a central workhorse that connects the global
 lesson metadata and the global variables for each page to the rendering
-engine: {pkgdown}. It will perform the global operations that includes
+engine: \code{{pkgdown}}. It will perform the global operations that includes
 setting up the navigation (via \code{\link[=update_sidebar]{update_sidebar()}}), adding metadata, and
 building both the instructor and learner versions of the page (via
 \code{\link[pkgdown:render_page]{pkgdown::render_page()}}).

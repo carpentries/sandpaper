@@ -19,8 +19,8 @@ haven't been built before.}
 unsuccessful.
 }
 \description{
-In the spirit of {hugodown}, This function will build plain markdown files
-as a minimal R package in the \verb{site/} folder of your {sandpaper} lesson
+In the spirit of \code{{hugodown}}, This function will build plain markdown files
+as a minimal R package in the \verb{site/} folder of your \code{{sandpaper}} lesson
 repository tagged with the hash of your file to ensure that only files that
 have changed are rebuilt.
 }

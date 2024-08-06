@@ -2,26 +2,27 @@
 % Please edit documentation in R/utils-translate.R
 \name{known_languages}
 \alias{known_languages}
-\title{Show a list of languages known by {sandpaper}}
+\title{Show a list of languages known by \code{{sandpaper}}}
 \usage{
 known_languages()
 }
 \value{
-a character vector of language codes known by {sandpaper}
+a character vector of language codes known by \code{{sandpaper}}
 }
 \description{
-Show a list of languages known by {sandpaper}
+Show a list of languages known by \code{{sandpaper}}
 }
 \details{
 The known languages are translations of menu and navigational
-elements that exist in {sandpaper}. If these elements have not been
+elements that exist in \code{{sandpaper}}. If these elements have not been
 translated for a given language and you would like to add translations for
 them, please consult \code{vignette("translations", package = "sandpaper")} for
-details of how to do so in the source code for {sandpaper}.
+details of how to do so in the source code for \code{{sandpaper}}.
 \subsection{List of Known Languages:}{
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> - en
 #> - es
+#> - fr
 #> - ja
 #> - uk
 }\if{html}{\out{</div>}}

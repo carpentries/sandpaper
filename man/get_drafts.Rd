@@ -23,7 +23,7 @@ that are in draft status are printed to the screen.}
 a vector of paths to files in draft and a message (if specified)
 }
 \description{
-By default, {sandpaper} will use the files in alphabetical order as they are
+By default, \code{{sandpaper}} will use the files in alphabetical order as they are
 presented in the folders, however, it is \strong{strongly} for authors to specify
 the order of the files in their lessons, so that it's easy to rearrange or
 add, split, or rearrange files.

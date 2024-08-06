@@ -119,8 +119,8 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #' - **overview** `[boolean]` All lessons must have episodes with the exception
 #'   of overview lessons. To indicate that your lesson serves as an overview for
 #'   other lessons, use `overview: true`
-#' - **handout** `[boolean]` or `[character]` This option instructs {sandpaper}
-#'   to create a handout of all RMarkdown files via {pegboard}, which uses
+#' - **handout** `[boolean]` or `[character]` This option instructs `{sandpaper}`
+#'   to create a handout of all RMarkdown files via `{pegboard}`, which uses
 #'   [knitr::purl()] in the background after removing everything but the
 #'   challenges (without solutions) and any code blocks where `purl = TRUE`. The
 #'   default path for the handout is `files/code-handout.R`

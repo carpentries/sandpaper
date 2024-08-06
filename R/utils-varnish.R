@@ -43,7 +43,7 @@ varnish_vars <- function() {
 
 }
 
-#' Set the necessary common global variables for use in the {varnish} template.
+#' Set the necessary common global variables for use in the `{varnish}` template.
 #'
 #' This will enforce four global lists:
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-varnish.R
 \name{set_globals}
 \alias{set_globals}
-\title{Set the necessary common global variables for use in the {varnish} template.}
+\title{Set the necessary common global variables for use in the \code{{varnish}} template.}
 \usage{
 set_globals(path)
 }

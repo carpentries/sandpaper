@@ -36,22 +36,22 @@ of each page before it is rendered to HTML.
 \subsection{sandpaper.use_renv}{
 
 \strong{Default: variable} This option should not be modified by the user. It
-determines if {renv} should be used locally for R-based lessons. It is set
+determines if \code{{renv}} should be used locally for R-based lessons. It is set
 by \code{\link[=use_package_cache]{use_package_cache()}} and unset by \code{\link[=no_package_cache]{no_package_cache()}}. If a local user
-has never consented to using {renv} previously, then it defaults to \code{FALSE},
-but if {renv} has previously been used, it will be \code{TRUE}.
+has never consented to using \code{{renv}} previously, then it defaults to \code{FALSE},
+but if \code{{renv}} has previously been used, it will be \code{TRUE}.
 }
 
 \subsection{sandpaper.package_cache_trigger}{
 
 \strong{Default: FALSE locally/TRUE on GitHub} this tells R Markdown lessons to
-rebuild everything if the {renv} lockfile changes.
+rebuild everything if the \code{{renv}} lockfile changes.
 }
 
 \subsection{sandpaper.test_fixture}{
 
 \strong{Default: NULL} This is ONLY for internal use for testing interactive
-components non-interactively and for setting {renv} to behave correctly while
+components non-interactively and for setting \code{{renv}} to behave correctly while
 testing.
 }
 }

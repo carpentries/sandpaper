@@ -35,20 +35,20 @@
 #' ### sandpaper.use_renv
 #'
 #' **Default: variable** This option should not be modified by the user. It
-#' determines if {renv} should be used locally for R-based lessons. It is set
+#' determines if `{renv}` should be used locally for R-based lessons. It is set
 #' by [use_package_cache()] and unset by [no_package_cache()]. If a local user
-#' has never consented to using {renv} previously, then it defaults to `FALSE`,
-#' but if {renv} has previously been used, it will be `TRUE`.
+#' has never consented to using `{renv}` previously, then it defaults to `FALSE`,
+#' but if `{renv}` has previously been used, it will be `TRUE`.
 #'
 #' ### sandpaper.package_cache_trigger
 #'
 #' **Default: FALSE locally/TRUE on GitHub** this tells R Markdown lessons to
-#' rebuild everything if the {renv} lockfile changes. 
+#' rebuild everything if the `{renv}` lockfile changes. 
 #' 
 #' ### sandpaper.test_fixture 
 #'
 #' **Default: NULL** This is ONLY for internal use for testing interactive
-#' components non-interactively and for setting {renv} to behave correctly while
+#' components non-interactively and for setting `{renv}` to behave correctly while
 #' testing. 
 #'
 #' @name sandpaper.options

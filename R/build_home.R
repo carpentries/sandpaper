@@ -15,7 +15,7 @@
 #'   2. learners/setup.md
 #'
 #' This function uses [render_html()] to convert the page into HTML, which gets
-#' passed on to the "syllabus" or "overview" templates in {varnish} (via the
+#' passed on to the "syllabus" or "overview" templates in `{varnish}` (via the
 #' [build_html()] function as the `{{{ readme }}}` and `{{{ setup }}}` keys.
 build_home <- function(pkg, quiet, next_page = NULL) {
   page_globals <- setup_page_globals()

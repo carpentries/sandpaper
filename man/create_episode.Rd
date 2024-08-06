@@ -62,7 +62,7 @@ automatically determined by the files already present. When \code{FALSE}
 episode should be added. If \code{TRUE}, the episode is added to the end of the
 schedule. If \code{FALSE}, the episode is added as a draft episode.}
 
-\item{path}{the path to the {sandpaper} lesson.}
+\item{path}{the path to the \code{{sandpaper}} lesson.}
 
 \item{open}{if interactive, the episode will open in a new editor window.}
 }

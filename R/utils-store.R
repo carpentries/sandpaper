@@ -2,7 +2,7 @@
 #'
 #' @description
 #' A storage cache for [pegboard::Lesson] objects and other pre-computed items
-#' for use by other internal functions while {sandpaper} is working.
+#' for use by other internal functions while `{sandpaper}` is working.
 #'
 #' @section Lesson Object Storage:
 #'
@@ -22,7 +22,7 @@
 #'   previously stored lesson.
 #'
 #'   The storage cache is in a global package object called `.store`, which is
-#'   initialised when {sandpaper} is loaded via `.lesson_store()`
+#'   initialised when `{sandpaper}` is loaded via `.lesson_store()`
 #'
 #'   If there have been no changes git is aware of, the lesson remains the same.
 #'
@@ -190,7 +190,7 @@ clear_resource_list <- function(path) {
       .this_status <<- gert::git_status(repo = path)
       .this_commit <<- gert::git_log(repo = path, max = 1L)$commit
       .this_lesson <<- pegboard::Lesson$new(path, jekyll = FALSE)
-      # set the global storage for {varnish} so that we do not have to recompute
+      # set the global storage for `{varnish}` so that we do not have to recompute
       # things like the sidebar
       set_globals(path)
       # kludge to make sure overview status is accurate
@@ -253,7 +253,7 @@ template_check <- create_template_check()
 .html <- .list_store()
 
 # storage for global variables for the lesson site (those that get passed on to
-# {varnish})
+# `{varnish}`)
 instructor_globals <- .list_store()
 learner_globals <- .list_store()
 

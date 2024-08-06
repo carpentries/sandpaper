@@ -33,5 +33,5 @@ do not want to clean, set this to \code{NULL}.}
 the paths to the new files.
 }
 \description{
-This function copies and updates the workflows to run {sandpaper}.
+This function copies and updates the workflows to run \code{{sandpaper}}.
 }

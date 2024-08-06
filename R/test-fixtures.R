@@ -2,7 +2,7 @@
 #'
 #' @description
 #'
-#' This suite of functions are for use during testing of {sandpaper} and are
+#' This suite of functions are for use during testing of `{sandpaper}` and are
 #' designed to create/work with a temporary lesson and associated remote
 #' repository (locally) that persists throughout the test suite. These functions
 #' are used in `tests/testthat/setup.R`. For more information, see the [package

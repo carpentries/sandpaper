@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-renv.R
 \name{try_use_renv}
 \alias{try_use_renv}
-\title{Try to use {renv}}
+\title{Try to use \code{{renv}}}
 \usage{
 try_use_renv(force = FALSE)
 }
@@ -16,14 +16,14 @@ a character vector
 }
 \description{
 We use this when sandpaper starts to see if the user has previously consented
-to {renv}. The problem is that \code{\link[renv:consent]{renv::consent()}} throws \code{TRUE} if the user
+to \code{{renv}}. The problem is that \code{\link[renv:consent]{renv::consent()}} throws \code{TRUE} if the user
 has consented and an error if it has not :(
 }
 \details{
 This function wraps \code{renv::consent()} in a callr function and transforms the
 error into \code{FALSE}. It sets the \code{sandpaper.use_renv} variable to the value of
 that check and then returns the full text of the output if \code{FALSE} (this is
-the WELCOME message that's given when someone uses {renv} for the first time)
+the WELCOME message that's given when someone uses \code{{renv}} for the first time)
 and the last line of output if \code{TRUE} (a message either that a directory has
 been created or that consent has already been provided.)
 }

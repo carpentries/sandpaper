@@ -29,7 +29,7 @@ is effectively useless.}
 environment, which evaluates to the environment from \code{\link[callr:r]{callr::r()}}.}
 
 \item{quiet}{if \code{TRUE}, output is suppressed, default is \code{FALSE} to show
-{knitr} output.}
+\code{{knitr}} output.}
 
 \item{error}{if \code{TRUE} (default) errors do not make an invalid build.
 This can be set to false to cause the build to fail if an error occurs.

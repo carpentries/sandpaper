@@ -3,7 +3,7 @@
 #' A validator based on the [pegboard::Lesson] class cached with [this_lesson()]
 #' that will provide line reports for fenced divs, links, images, and heading
 #' structure. For details on the type of validators avaliable, see the 
-#' {pegboard} article [Validation of Lesson 
+#' `{pegboard}` article [Validation of Lesson 
 #' Elements](https://carpentries.github.io/pegboard/articles/validation.html)
 #'
 #' @details

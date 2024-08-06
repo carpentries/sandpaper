@@ -11,7 +11,7 @@
 #' @param make_prefix a logical. When `TRUE`, the prefix for the file will be
 #'   automatically determined by the files already present. When `FALSE`
 #'   (default), it assumes no prefix is needed.
-#' @param path the path to the {sandpaper} lesson.
+#' @param path the path to the `{sandpaper}` lesson.
 #' @param add (logical or numeric) If numeric, it represents the position the
 #'   episode should be added. If `TRUE`, the episode is added to the end of the
 #'   schedule. If `FALSE`, the episode is added as a draft episode.

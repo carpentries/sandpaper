@@ -1,7 +1,7 @@
 #' Build a single episode html file
 #'
 #' This is a Carpentries-specific wrapper around [pkgdown::render_page()] with
-#' templates from {varnish}. This function is largely for internal use and will
+#' templates from `{varnish}`. This function is largely for internal use and will
 #' likely change.
 #'
 #' @param path_md the path to the episode markdown (not RMarkdown) file
@@ -165,7 +165,7 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
 #' @param workenv an environment to use for evaluation. Defaults to the global
 #'   environment, which evaluates to the environment from [callr::r()].
 #' @param quiet if `TRUE`, output is suppressed, default is `FALSE` to show
-#'   {knitr} output.
+#'   `{knitr}` output.
 #' @param error if `TRUE` (default) errors do not make an invalid build.
 #'   This can be set to false to cause the build to fail if an error occurs.
 #'   This is generally controlled via the `fail_on_error` config option.

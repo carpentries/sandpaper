@@ -1,7 +1,7 @@
 #' Build plain markdown from the RMarkdown episodes
 #'
-#' In the spirit of {hugodown}, This function will build plain markdown files
-#' as a minimal R package in the `site/` folder of your {sandpaper} lesson
+#' In the spirit of `{hugodown}`, This function will build plain markdown files
+#' as a minimal R package in the `site/` folder of your `{sandpaper}` lesson
 #' repository tagged with the hash of your file to ensure that only files that
 #' have changed are rebuilt.
 #'
@@ -114,7 +114,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
   }
   cli::cli_end()
 
-  # Update hash of {renv} file if it exists ------------------------------------
+  # Update hash of `{renv}` file if it exists ------------------------------------
   if (getOption("sandpaper.use_renv")) {
     hash <- renv_lockfile_hash(path, db_path)
     lf_hash <- fs::path_file(db$new$file) == "renv.lock"

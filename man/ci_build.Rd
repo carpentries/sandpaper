@@ -91,7 +91,7 @@ the work tree.
 }
 \note{
 \code{ci_build_markdown()} will set the \code{sandpaper.use_renv}
-option to TRUE, which means that it will \emph{always} use the {renv}
+option to TRUE, which means that it will \emph{always} use the \code{{renv}}
 package cache if the lesson uses R Markdown.
 }
 \keyword{internal}

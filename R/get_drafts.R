@@ -1,6 +1,6 @@
 #' Show files in draft form
 #'
-#' By default, {sandpaper} will use the files in alphabetical order as they are
+#' By default, `{sandpaper}` will use the files in alphabetical order as they are
 #' presented in the folders, however, it is **strongly** for authors to specify
 #' the order of the files in their lessons, so that it's easy to rearrange or
 #' add, split, or rearrange files. 

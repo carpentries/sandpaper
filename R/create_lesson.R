@@ -97,7 +97,7 @@ create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio 
 
   cli::cli_status_update("{cli::symbol$arrow_right} Committing ...")
   gert::git_add(".", repo = path)
-  gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
+  gert::git_commit(message = "Initial commit [via `{sandpaper}`]", repo = path)
   enforce_main_branch(path)
   reset_git_user(path)
 

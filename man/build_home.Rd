@@ -30,7 +30,7 @@ The index page of the lesson is a combination of two pages:
 }
 
 This function uses \code{\link[=render_html]{render_html()}} to convert the page into HTML, which gets
-passed on to the "syllabus" or "overview" templates in {varnish} (via the
+passed on to the "syllabus" or "overview" templates in \code{{varnish}} (via the
 \code{\link[=build_html]{build_html()}} function as the \code{{{{ readme }}}} and \code{{{{ setup }}}} keys.
 }
 \keyword{internal}

@@ -2,7 +2,7 @@ has_git <- function() {
   Sys.which("git") != ""
 }
 
-# Shamelessly stolen from {pkgdown}, originally authored by Hadley Wickam
+# Shamelessly stolen from `{pkgdown}`, originally authored by Hadley Wickam
 git <- function (..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
   if (!has_git()) stop(cli::format_error("{.pkg git} is not installed"), call. = FALSE)
   callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo,
@@ -229,7 +229,7 @@ message_source <- function(commit_message = "", source_branch = "main", dir = ".
   log <- gert::git_log(ref = source_branch, max = 1L, repo = dir)
   paste0(commit_message,
     "\n",
-    "\nAuto-generated via {sandpaper}\n",
+    "\nAuto-generated via `{sandpaper}`\n",
     "Source  : ", log$commit, "\n",
     "Branch  : ", source_branch, "\n",
     "Author  : ", log$author, "\n",
