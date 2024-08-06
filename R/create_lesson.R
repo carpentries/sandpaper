@@ -11,6 +11,16 @@
 #'   file extension in the lesson.
 #' @param rstudio create an RStudio project (defaults to if RStudio exits)
 #' @param open if interactive, the lesson will open in a new editor window.
+#' @param add_python if set to `TRUE`, will add Python as a dependency for the
+#'   lesson. See [use_python()] for details. Defaults to `FALSE`.
+#' @param python the path to the version of Python to be used. The default,
+#'   `NULL`, will prompt the user to select an appropriate version of Python in
+#'   interactive sessions. In non-interactive sessions, \pkg{renv} will attempt
+#'   to automatically select an appropriate version. See [renv::use_python()]
+#'   for more details.
+#' @param type the type of Python environment to use. When `"auto"`, the
+#'   default, virtual environments will be used. See [renv::use_python()] for
+#'   more details.
 #'
 #' @export
 #' @return the path to the new lesson
@@ -19,7 +29,8 @@
 #' on.exit(unlink(tmp))
 #' lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #' lsn
-create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio = rstudioapi::isAvailable(), open = rlang::is_interactive()) {
+create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio = rstudioapi::isAvailable(), open = rlang::is_interactive(),
+                          add_python = FALSE, python = NULL, type = c("auto", "virtualenv", "conda", "system")) {
 
   path <- fs::path_abs(path)
   id <- cli::cli_status("{cli::symbol$arrow_right} Creating Lesson in {.file {path}}...")
@@ -93,6 +104,11 @@ create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio 
   if (has_consent) {
     cli::cli_status_update("{cli::symbol$arrow_right} Managing Dependencies ...")
     manage_deps(path, snapshot = TRUE)
+
+    if (add_python) {
+      cli::cli_status_update("{cli::symbol$arrow_right} Setting up Python ...")
+      use_python(path = path, python = python, type = type, open = FALSE)
+    }
   }
 
   cli::cli_status_update("{cli::symbol$arrow_right} Committing ...")

@@ -291,8 +291,12 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   #    recorded.
   if (lockfile_exists) {
     cli::cli_alert("Restoring any dependency versions")
-    res <- renv::restore(project = path, library = renv_lib,
-      lockfile = renv_lock, prompt = FALSE)
+    # Load profile, this ensures Python dependencies also get restored
+    renv::load(project = path)
+    on.exit({
+      invisible(utils::capture.output(renv::deactivate(project = path), type = "message"))
+    }, add = TRUE)
+    res <- renv::restore(project = path, prompt = FALSE)
   }
   if (snapshot) {
     # 3. Load the current profile, unloading it when we exit
@@ -309,3 +313,38 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   }
   return(NULL)
 }
+
+
+#' Generate a function to run in a renv profile
+#'
+#' This is a [Function operator](https://adv-r.hadley.nz/function-operators.html) which will
+#' generate a function that will run in a renv profile. This is useful for running code in a
+#' separate R subprocess with [`callr::r()`], to avoid *renv* side effects related to interactive
+#' sessions.
+#'
+#' @param func The function to be evaluated after loading the renv environment.
+#' @param renv_path The path to the renv environment to load. Usually a directory created by
+#'   [`create_lesson()`]
+#' @param renv_profile Optional profile to load. Defaults to "lesson-requirements".
+#' @param ... Additional arguments to be passed to `func`.
+#'
+#' @return The result of evaluating `func(...)` after loading the renv environment.
+#'
+#' @keywords internal
+with_renv_factory <- function(func, renv_path, renv_profile = "lesson-requirements") {
+  force(func); force(renv_path); force(renv_profile)
+
+  function(...) {
+    on.exit({
+      invisible(utils::capture.output(renv::deactivate(project = renv_path), type = "message"))
+    }, add = TRUE)
+    renv_path <- normalizePath(renv_path)
+    withr::local_dir(renv_path)
+    withr::local_envvar(c("RENV_PROFILE" = renv_profile))
+    renv::load(renv_path)
+
+    func(...)
+  }
+}
+
+
