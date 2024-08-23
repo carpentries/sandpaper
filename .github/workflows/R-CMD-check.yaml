@@ -62,7 +62,7 @@ jobs:
         run: git config --global core.autocrlf false
         shell: bash
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -88,7 +88,7 @@ jobs:
 
       - name: "Restore {renv} cache"
         if: runner.os != 'Windows'
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ env.RENV_PATHS_ROOT }}
           key: ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ runner.r }}-${{ hashFiles('.github/workflows/R-CMD-check.yaml') }}
