@@ -1,3 +1,20 @@
+# sandpaper 0.16.6 (2024-08-23)
+
+## BUG FIXES
+
+* Regression fix for update to pkgdown resulting in 
+  duplicated untranslated h2 anchors for sections (@froggleston #600)
+* Fix various action warnings and issues relating to 
+  old Node.js versions (@jhlegarreta #596)
+* Update core actions to v4 (@Bisaloo #577)
+
+## NEW FEATURES
+
+* Allow custom carpentry config types, and associated alt-text descriptions to 
+  support alternative logos/theming of lessons (@milanmlft #585, @ErinBecker)
+* Add support for French translations of core lesson components/sections (@Bisaloo #595)
+
+
 # sandpaper 0.16.5 (2024-06-18)
 
 ## BUG FIXES

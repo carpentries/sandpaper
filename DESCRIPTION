@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.16.5
+Version: 0.16.6
 Authors@R: c(
     person(given = "Robert",
            family = "Davey",
