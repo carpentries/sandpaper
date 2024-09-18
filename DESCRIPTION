@@ -96,7 +96,8 @@ Suggests:
     jsonlite,
     sessioninfo,
     mockr,
-    varnish (>= 0.3.0)
+    varnish (>= 0.3.0),
+    reticulate
 Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   carpentries/pegboard,
@@ -109,7 +110,7 @@ Config/testthat/parallel: false
 Config/Needs/check: rstudio/renv
 Config/potools/style: explicit
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 URL: https://carpentries.github.io/sandpaper/, https://github.com/carpentries/sandpaper/, https://carpentries.github.io/workbench/
 BugReports: https://github.com/carpentries/sandpaper/issues/
 VignetteBuilder: knitr
