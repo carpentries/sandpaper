@@ -1,6 +1,6 @@
 #nocov start
 # very internal function for me to burn everything down. This will remove
-# the local library, local cache, and the entire {renv} cache.
+# the local library, local cache, and the entire `{renv}` cache.
 renv_burn_it_down <- function(path = ".", profile = "lesson-requirements") {
   callr::r(function(path, profile) {
     wd <- getwd()
@@ -22,7 +22,7 @@ renv_is_allowed <- function() {
 
 renv_should_rebuild <- function(path = ".", rebuild, db_path = "site/built/md5sum.txt", profile = "lesson-requirements") {
   return_early <- rebuild            || # if rebuild is TRUE OR
-    !getOption("sandpaper.use_renv") || # if we are not using {renv} OR
+    !getOption("sandpaper.use_renv") || # if we are not using `{renv}` OR
     !package_cache_trigger()            # if the lockfile does not trigger rebuilds
 
   if (return_early) return(rebuild)
@@ -54,16 +54,16 @@ renv_lockfile_hash <- function(path, db_path, profile = "lesson-requirements") {
   return(list(old = old_hash, new = new_hash))
 }
 
-#' Try to use {renv}
+#' Try to use `{renv}`
 #'
 #' We use this when sandpaper starts to see if the user has previously consented
-#' to {renv}. The problem is that [renv::consent()] throws `TRUE` if the user
+#' to `{renv}`. The problem is that [renv::consent()] throws `TRUE` if the user
 #' has consented and an error if it has not :(
 #'
 #' This function wraps `renv::consent()` in a callr function and transforms the
 #' error into `FALSE`. It sets the `sandpaper.use_renv` variable to the value of
 #' that check and then returns the full text of the output if `FALSE` (this is
-#' the WELCOME message that's given when someone uses {renv} for the first time)
+#' the WELCOME message that's given when someone uses `{renv}` for the first time)
 #' and the last line of output if `TRUE` (a message either that a directory has
 #' been created or that consent has already been provided.)
 #'
@@ -235,8 +235,8 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   options(renv.config.user.profile = FALSE)
   renv_lib  <- renv::paths$library(project = path)
   renv_lock <- renv::paths$lockfile(project = path)
-  # Steps to update a {renv} environment regardless of whether or not the user
-  # has initiated {renv} in the first place
+  # Steps to update a `{renv}` environment regardless of whether or not the user
+  # has initiated `{renv}` in the first place
   #
   # 1. find the packages we need from the global library or elsewhere, and
   #    load them into the profile's library

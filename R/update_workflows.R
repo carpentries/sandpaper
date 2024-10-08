@@ -1,6 +1,6 @@
 #' Update github workflows
 #'
-#' This function copies and updates the workflows to run {sandpaper}. 
+#' This function copies and updates the workflows to run `{sandpaper}`. 
 #'
 #' @param path path to the current lesson.
 #' @param files the files to include in the update. Defaults to an empty string, 
