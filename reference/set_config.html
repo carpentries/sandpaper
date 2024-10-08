@@ -115,8 +115,8 @@ site that indicates the site is in the workbench beta phase.</p></li>
 <li><p><strong>overview</strong> <code>[boolean]</code> All lessons must have episodes with the exception
 of overview lessons. To indicate that your lesson serves as an overview for
 other lessons, use <code>overview: true</code></p></li>
-<li><p><strong>handout</strong> <code>[boolean]</code> or <code>[character]</code> This option instructs sandpaper
-to create a handout of all RMarkdown files via pegboard, which uses
+<li><p><strong>handout</strong> <code>[boolean]</code> or <code>[character]</code> This option instructs <code>{sandpaper}</code>
+to create a handout of all RMarkdown files via <code>{pegboard}</code>, which uses
 <code><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knitr::purl()</a></code> in the background after removing everything but the
 challenges (without solutions) and any code blocks where <code>purl = TRUE</code>. The
 default path for the handout is <code>files/code-handout.R</code></p></li>
