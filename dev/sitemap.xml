@@ -1,264 +1,90 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/SUPPORT.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/articles/automated-pull-requests.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/articles/building-with-renv.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/articles/data-flow.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/articles/deployment.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/articles/include-child-documents.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/articles/internationalisation.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/articles/landscape.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/articles/toolchain.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/articles/translations.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/index.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/build_404.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/build_agg.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/build_episode_html.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/build_episode_md.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/build_handout.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/build_home.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/build_html.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/build_lesson.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/build_markdown.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/build_site.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/build_status.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/check_lesson.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/check_pandoc.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/ci_build.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/ci_deploy.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/ci_session_info.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/copy_template.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/create_episode.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/create_lesson.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/create_sidebar.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/create_sidebar_item.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/dependency_management.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/dot-lesson_store.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/dot-list_store.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/fill_translation_vars.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/fix_sidebar_href.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/fixtures.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/get_config.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/get_content.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/get_drafts.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/get_dropdown.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/get_nav_data.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/get_resource_list.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/get_syllabus.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/git_worktree.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/hash_children.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/known_languages.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/lesson_storage.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/make_aio_section.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/make_images_section.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/make_instructornotes_section.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/move_episode.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/package_cache.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/parse_file_matches.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/provision.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/read_all_html.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/render_html.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/renv_diagnostics.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/renv_lockfile_hash.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/reserved_db.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/reset_episodes.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/reset_site.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/sandpaper-package.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/sandpaper.options.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/sandpaper_site.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/serve.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/set_config.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/set_dropdown.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/set_globals.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/strip_prefix.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/template.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/translations.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/try_use_renv.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/update_github_workflows.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/update_varnish.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/validate_lesson.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/work_with_cache.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries.github.io/sandpaper/dev/reference/yaml_list.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://carpentries.github.io/sandpaper/dev/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/CONTRIBUTING.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/LICENSE-text.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/LICENSE.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/SUPPORT.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/articles/automated-pull-requests.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/articles/building-with-renv.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/articles/data-flow.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/articles/deployment.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/articles/include-child-documents.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/articles/index.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/articles/internationalisation.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/articles/landscape.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/articles/toolchain.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/articles/translations.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/authors.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/index.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/news/index.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_404.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_agg.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_episode_html.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_episode_md.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_handout.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_home.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_html.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_lesson.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_markdown.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_site.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_status.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/check_lesson.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/check_pandoc.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/ci_build.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/ci_deploy.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/ci_session_info.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/copy_template.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/create_episode.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/create_lesson.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/create_sidebar.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/create_sidebar_item.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/dependency_management.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/dot-lesson_store.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/dot-list_store.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/fill_translation_vars.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/fix_sidebar_href.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/fixtures.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_config.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_content.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_drafts.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_dropdown.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_nav_data.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_resource_list.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_syllabus.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/git_worktree.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/hash_children.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/index.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/known_languages.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/lesson_storage.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/make_aio_section.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/make_images_section.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/make_instructornotes_section.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/move_episode.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/package_cache.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/parse_file_matches.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/provision.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/read_all_html.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/render_html.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/renv_diagnostics.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/renv_lockfile_hash.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/reserved_db.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/reset_episodes.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/reset_site.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/sandpaper-package.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/sandpaper.options.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/sandpaper_site.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/serve.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/set_config.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/set_dropdown.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/set_globals.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/strip_prefix.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/template.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/translations.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/try_use_renv.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/update_github_workflows.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/update_varnish.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/validate_lesson.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/work_with_cache.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/yaml_list.html</loc></url>
 </urlset>
+

@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="sandpaper">
 <title>Building and Deployment of a {sandpaper} lesson • sandpaper</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -15,71 +14,52 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Building and Deployment of a {sandpaper} lesson">
-<meta property="og:description" content="sandpaper">
-<meta property="og:image" content="https://carpentries.github.io/sandpaper/logo.png">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:creator" content="@zkamvar">
-<meta name="twitter:site" content="@thecarpentries">
 <meta name="robots" content="noindex">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.16.5.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.16.9.9000</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/building-with-renv.html">Building Lessons With A Package Cache</a>
-    <a class="dropdown-item" href="../articles/automated-pull-requests.html">Working with Automated Pull Requests</a>
-    <a class="dropdown-item" href="../articles/include-child-documents.html">Including Child Documents</a>
-    <a class="dropdown-item" href="../articles/translations.html">Translating The Workbench</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="../articles/index.html">More articles...</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/building-with-renv.html">Building Lessons With A Package Cache</a></li>
+    <li><a class="dropdown-item" href="../articles/automated-pull-requests.html">Working with Automated Pull Requests</a></li>
+    <li><a class="dropdown-item" href="../articles/include-child-documents.html">Including Child Documents</a></li>
+    <li><a class="dropdown-item" href="../articles/translations.html">Translating The Workbench</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../articles/index.html">More articles...</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/carpentries/sandpaper/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/carpentries/sandpaper/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -91,7 +71,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Building and Deployment of a {sandpaper} lesson</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/HEAD/vignettes/articles/deployment.Rmd" class="external-link"><code>vignettes/articles/deployment.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/main/vignettes/articles/deployment.Rmd" class="external-link"><code>vignettes/articles/deployment.Rmd</code></a></small>
       <div class="d-none name"><code>deployment.Rmd</code></div>
     </div>
 
@@ -150,7 +130,7 @@ for the lessons, but I think this will need to happen after things are
 released on CRAN to avoid maxing out the github api requests.</p>
 </div>
 <div class="float">
-<img src="img/local-flow.dot.svg" alt='diagram of three folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML". The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'><div class="figcaption">Thr local two-step model of deployment into
+<img src="img%2Flocal-flow.dot.svg" alt='diagram of three folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML". The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'><div class="figcaption">Thr local two-step model of deployment into
 local folders</div>
 </div>
 <p>Now, the first reaction you may have is, “Why do we need a two step
@@ -179,7 +159,7 @@ not on your computer.</p>
 <h2 id="i-deployment-github">[i] Deployment (GitHub)<a class="anchor" aria-label="anchor" href="#i-deployment-github"></a>
 </h2>
 <div class="float">
-<img src="img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><div class="figcaption">Two-step deployment model on continuous
+<img src="img%2Fbranch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><div class="figcaption">Two-step deployment model on continuous
 integration</div>
 </div>
 <p>Because some lesson content will be auto-generated from an ecosystem
@@ -210,7 +190,7 @@ the workflows. Lavender workflows only have the ability to check out
 code and compare it. Wheat/yellow colored workflows have full
 permissions to push to the repository:</p>
 <div class="float">
-<img src="img/pr-flow.dot.svg" alt="Representation of PR deployment cycle"><div class="figcaption">Representation of PR deployment cycle</div>
+<img src="img%2Fpr-flow.dot.svg" alt="Representation of PR deployment cycle"><div class="figcaption">Representation of PR deployment cycle</div>
 </div>
 <p>Because we only track the source files of the lesson and not the
 output from the maintainer’s computer, we need to rely on Continuous
@@ -222,7 +202,7 @@ called <code>md-sources</code> and <code>gh-pages</code>. The latter is
 familiar to most lesson maintainers, and the former serves as a staging
 and evaluation area for changes in generated content.</p>
 <div class="float">
-<img src="img/independent-components.dot.svg" alt="Dependency relationship between components of the Lesson Template"><div class="figcaption">Dependency relationship between components of
+<img src="img%2Findependent-components.dot.svg" alt="Dependency relationship between components of the Lesson Template"><div class="figcaption">Dependency relationship between components of
 the Lesson Template</div>
 </div>
 <blockquote>
@@ -287,7 +267,7 @@ that come from pull requests (which have previously been vetted).
 <h3 id="pull-requests">Pull requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a>
 </h3>
 <div class="float">
-<img src="img/pr-branch.svg" alt='diagram showing five branches, two of which are highlighted: "md-outputs", and "md-outputs-PR-1" where the latter is an orphan branch starting from the last commit of the former and applying the changes from the "my-edit" branch on top, showing that the output has changed'><div class="figcaption">The Pull Request flow</div>
+<img src="img%2Fpr-branch.svg" alt='diagram showing five branches, two of which are highlighted: "md-outputs", and "md-outputs-PR-1" where the latter is an orphan branch starting from the last commit of the former and applying the changes from the "my-edit" branch on top, showing that the output has changed'><div class="figcaption">The Pull Request flow</div>
 </div>
 <p>Each time a pull request is added, the maintainer should be informed
 of what changes in the lesson (if anything), so the process goes like
@@ -307,7 +287,7 @@ master, the site is rebuilt from source, and the pr branch is
 removed.</li>
 </ol>
 <div class="float">
-<img src="img/pr-merge.svg" alt='diagram showing four branches, where "my-edit" is merged into "main" and that drives the two-step process of rendering "md-outputs" and then "gh-pages". The changes from the "my-edit" branch are reflected in the "md-outputs" branch output.'><div class="figcaption">A successfully merged Pull Request</div>
+<img src="img%2Fpr-merge.svg" alt='diagram showing four branches, where "my-edit" is merged into "main" and that drives the two-step process of rendering "md-outputs" and then "gh-pages". The changes from the "my-edit" branch are reflected in the "md-outputs" branch output.'><div class="figcaption">A successfully merged Pull Request</div>
 </div>
 </div>
 <div class="section level3">
@@ -345,7 +325,7 @@ a Pull Request is created.</li>
 </ol>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
@@ -356,15 +336,15 @@ a Pull Request is created.</li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
