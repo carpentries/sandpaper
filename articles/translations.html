@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.16.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.16.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,7 +70,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Translating The Workbench</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/0.16.8/vignettes/translations.Rmd" class="external-link"><code>vignettes/translations.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/main/vignettes/translations.Rmd" class="external-link"><code>vignettes/translations.Rmd</code></a></small>
       <div class="d-none name"><code>translations.Rmd</code></div>
     </div>
 
@@ -154,9 +154,10 @@ afterwards.</p>
 templating. These variables define visible menu text such as “Key
 Points” and screen-reader accessible text for buttons such as “close
 menu”.</p>
-<p>There are 5 languages that are known to {sandpaper}:</p>
+<p>There are 6 languages that are known to {sandpaper}:</p>
 <ul>
 <li>en</li>
+<li>de</li>
 <li>es</li>
 <li>fr</li>
 <li>ja</li>
@@ -194,7 +195,7 @@ known as <code>R-sandpaper</code>.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://withr.r-lib.org" class="external-link">"withr"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://carpentries.github.io/sandpaper/">"sandpaper"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/known_languages.html">known_languages</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "en" "es" "fr" "ja" "uk"</span></span>
+<span><span class="co">#&gt; [1] "en" "de" "es" "fr" "ja" "uk"</span></span>
 <span><span class="fu"><a href="https://withr.r-lib.org/reference/with_language.html" class="external-link">with_language</a></span><span class="op">(</span><span class="st">"ja"</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">enc2utf8</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/gettext.html" class="external-link">gettext</a></span><span class="op">(</span><span class="st">"Page not found"</span>, domain <span class="op">=</span> <span class="st">"R-sandpaper"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
