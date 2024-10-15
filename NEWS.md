@@ -1,3 +1,12 @@
+# sandpaper 0.16.9 (2024-10-15)
+
+## BUG FIXES
+
+* Pin remaining workflows to ubuntu-22.04 instead of ubuntu-latest
+  (@froggleston #610)
+* Add compiled potools translation for German
+
+
 # sandpaper 0.16.8 (2024-10-11)
 
 ## BUG FIXES
