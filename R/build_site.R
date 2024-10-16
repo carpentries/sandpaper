@@ -157,6 +157,9 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
     describe_progress("Creating Images page", quiet = quiet)
     build_images(pkg, pages = html_pages, quiet = quiet)
+
+    describe_progress("Indexing Glosario links", quiet = quiet)
+    build_glossary(pkg, pages = html_pages, quiet = quiet)
   }
   describe_progress("Creating Instructor Notes", quiet = quiet)
   build_instructor_notes(pkg, pages = html_pages, built = built, quiet = quiet)
