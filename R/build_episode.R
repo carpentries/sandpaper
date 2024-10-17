@@ -19,6 +19,8 @@
 #'   sidebar. The current episode will be replaced with an index of all the
 #'   chapters in the episode.
 #' @param date the date the episode was last built.
+#' @param glosario a dictionary of terms read in from Glosario glossary.yaml
+#'   on Github. Defaults to NULL.
 #' @return `TRUE` if the page was successful, `FALSE` otherwise.
 #' @export
 #' @note this function is for internal use, but exported for those who know what
@@ -72,12 +74,13 @@
 build_episode_html <- function(path_md, path_src = NULL,
                                page_back = "index.md", page_forward = "index.md",
                                pkg, quiet = FALSE, page_progress = NULL,
-                               sidebar = NULL, date = NULL) {
+                               sidebar = NULL, date = NULL, glosario = NULL) {
   home <- get_source_path() %||% root_path(path_md)
   this_lesson(home)
   page_globals <- setup_page_globals()
   slug <- get_slug(path_md)
-  body <- render_html(path_md, quiet = quiet)
+  body <- render_html(path_md, quiet = quiet, glosario = glosario)
+
   if (body == "") {
     # if there is nothing in the page then we build nothing.
     return(NULL)

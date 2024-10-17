@@ -3,6 +3,7 @@
 export(build_episode_html)
 export(build_episode_md)
 export(build_handout)
+export(build_glossary)
 export(build_lesson)
 export(check_lesson)
 export(create_episode)
