@@ -103,7 +103,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
       page_progress = progress,
       date          = db$date[i],
       pkg           = pkg,
-      quiet         = quiet
+      quiet         = quiet,
+      glosario      = this_metadata$get()[["glosario"]]
     )
   }
   # if (rebuild_template) template_check$set()

@@ -46,6 +46,8 @@ render_glosario_links <- function(path_in, glosario = NULL, quiet = FALSE) {
     # overwrite the file with the new content
     writeLines(glosarioed_content, path_in)
   }
+
+  # the processed file path for subsequent lesson processing as usual
   invisible(path_in)
 }
 

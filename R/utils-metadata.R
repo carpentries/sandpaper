@@ -48,8 +48,7 @@ initialise_metadata <- function(path = ".") {
   this_metadata$set(c("date", "modified"), format(Sys.Date(), "%F"))
   this_metadata$set(c("date", "published"), format(Sys.Date(), "%F"))
   this_metadata$set("citation", path_citation(path))
+  this_metadata$set("glosario", read_glosario_yaml(cfg$glosario))
 
   this_metadata$set("analytics", cfg$analytics)
 }
-
-
