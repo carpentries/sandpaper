@@ -158,6 +158,7 @@ establish_translation_vars <- function() {
       Checklist   = tr_("Checklist"),
       Discussion  = tr_("Discussion"),
       Testimonial = tr_("Testimonial"),
+      Caution = tr_("Caution"),
       Keypoints   = varnish$KeyPoints,
       # Accordions -----------------------------------------------------------
       "Show me the solution" = tr_("Show me the solution"),
