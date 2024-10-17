@@ -164,11 +164,14 @@ build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = NUL
 get_glossary_links <- function(episode) {
   lang <- this_metadata$get()[["lang"]]
   links <- xml2::xml_find_all(episode, ".//a")
-  links <- links[xml2::xml_attr(links, "href") %>%
-    stringr::str_detect("^https://glosario.carpentries.org/")]
+  hrefs <- xml2::xml_attr(links, "href")
+  glos_links <- links[stringr::str_detect(hrefs, "^https://glosario.carpentries.org/")]
+
+  #links <- links[xml2::xml_attr(links, "href") %>%
+  #  stringr::str_detect("^https://glosario.carpentries.org/")]
 
   clean_links <- character()
-  for (link in links) {
+  for (link in glos_links) {
     href <- xml2::xml_attr(link, "href")
     xml2::xml_attr(link, "href") <- stringr::str_replace_all(href, "en/", lang)
     clean_links <- c(clean_links, href)
