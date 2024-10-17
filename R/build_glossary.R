@@ -167,9 +167,6 @@ get_glossary_links <- function(episode) {
   hrefs <- xml2::xml_attr(links, "href")
   glos_links <- links[stringr::str_detect(hrefs, "^https://glosario.carpentries.org/")]
 
-  #links <- links[xml2::xml_attr(links, "href") %>%
-  #  stringr::str_detect("^https://glosario.carpentries.org/")]
-
   clean_links <- character()
   for (link in glos_links) {
     href <- xml2::xml_attr(link, "href")
