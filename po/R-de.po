@@ -370,3 +370,7 @@ msgstr "Bild {i} von {n}: {sQuote(txt)}"
 #: utils-translate.R:177
 msgid "Finish"
 msgstr "Fertig"
+
+#: utils-translate.R:178
+msgid "Caution"
+msgstr "Vorsicht"

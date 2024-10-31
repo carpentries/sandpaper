@@ -361,3 +361,7 @@ msgstr ""
 #: utils-translate.R:177
 msgid "Finish"
 msgstr ""
+
+#: utils-translate.R:178
+msgid "Caution"
+msgstr ""
