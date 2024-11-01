@@ -13,7 +13,7 @@
 #'   - `ci_build_site()`: defaults to `gh-pages`, corresponds to `site_branch`
 #'      in [ci_deploy()]
 #' @note `ci_build_markdown()` will set the `sandpaper.use_renv`
-#'   option to TRUE, which means that it will _always_ use the {renv}
+#'   option to TRUE, which means that it will _always_ use the `{renv}`
 #'   package cache if the lesson uses R Markdown.
 #' @returns
 #'  - `ci_build_markdown()`: an [expression()] that is evaluated to tear down

@@ -181,14 +181,19 @@ create_description <- function(path) {
   desc$write(fs::path(path_site(path), "DESCRIPTION"))
 }
 
-which_carpentry <- function(carpentry) {
+which_carpentry <- function(carpentry, carpentry_description = NULL) {
+  if (!is.null(carpentry_description)) {
+    return(carpentry_description)
+  }
   switch(carpentry,
     lc = "Library Carpentry",
     dc = "Data Carpentry",
     swc = "Software Carpentry",
     cp = "The Carpentries",
     incubator = "Carpentries Incubator",
-    lab = "Carpentries Lab"
+    lab = "Carpentries Lab",
+    # Default: match the input
+    carpentry
   )
 }
 
@@ -199,7 +204,9 @@ which_icon_carpentry <- function(carpentry) {
     swc = "software",
     cp = "carpentries",
     incubator = "incubator",
-    lab = "lab"
+    lab = "lab",
+    # Default: match the input
+    carpentry
   )
 }
 

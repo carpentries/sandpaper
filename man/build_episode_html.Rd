@@ -46,7 +46,7 @@ chapters in the episode.}
 }
 \description{
 This is a Carpentries-specific wrapper around \code{\link[pkgdown:render_page]{pkgdown::render_page()}} with
-templates from {varnish}. This function is largely for internal use and will
+templates from \code{{varnish}}. This function is largely for internal use and will
 likely change.
 }
 \note{

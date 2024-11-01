@@ -1,10 +1,20 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.16.5.9000
+Version: 0.16.9
 Authors@R: c(
+    person(given = "Robert",
+           family = "Davey",
+           role = c("aut", "cre"),
+           email = "robertdavey@carpentries.org",
+           comment = c(ORCID = "0000-0002-5589-7754")),
+    person(given = "Erin",
+           family = "Becker",
+           role = c("aut"),
+           email = "erinbecker@carpentries.org",
+           comment = c(ORCID = "0000-0002-6832-0233")),
     person(given = "Zhian N.",
            family = "Kamvar",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "zkamvar@carpentries.org",
            comment = c(ORCID = "0000-0003-1458-7108")),
     person(given = "Julien",
@@ -27,18 +37,10 @@ Authors@R: c(
            family = "Barnes",
            role = c("ctb"),
            email = "kbarnes@carpentries.org"),
-    person(given = "Erin",
-           family = "Becker",
-           role = c("ctb"),
-           email = "ebecker@carpentries.org"),
     person(given = "Hugo",
            family = "Gruson",
            role = c("ctb"),
            email = "hugo.gruson+R@normalesup.org"),
-    person(given = "Rob",
-           family = "Davey",
-           role = c("ctb"),
-           email = "robertdavey@carpentries.org"),
     person(given = "Milan",
            family = "Malfait",
            role = c("ctb"),
@@ -53,6 +55,10 @@ Authors@R: c(
            family = "Bellini Saibene",
            role = c("ctb", "trl"),
            comment = c(ORCID = "0000-0002-4522-7466")),
+    person(given = "Martin",
+           family = "Raden",
+           role = c("ctb", "trl"),
+           comment = c(ORCID = "0000-0002-7926-5911")),
     person())
 Description: We provide tools to build a Carpentries-themed lesson repository
   into an accessible standalone static website. These include local tools and
@@ -108,7 +114,7 @@ Config/testthat/parallel: false
 Config/Needs/check: rstudio/renv
 Config/potools/style: explicit
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 URL: https://carpentries.github.io/sandpaper/, https://github.com/carpentries/sandpaper/, https://carpentries.github.io/workbench/
 BugReports: https://github.com/carpentries/sandpaper/issues/
 VignetteBuilder: knitr

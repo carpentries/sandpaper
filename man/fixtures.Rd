@@ -48,7 +48,7 @@ screen. Defaults to \code{FALSE}.}
 indicating the path to the remote
 }
 \description{
-This suite of functions are for use during testing of {sandpaper} and are
+This suite of functions are for use during testing of \code{{sandpaper}} and are
 designed to create/work with a temporary lesson and associated remote
 repository (locally) that persists throughout the test suite. These functions
 are used in \code{tests/testthat/setup.R}. For more information, see the \href{https://testthat.r-lib.org/articles/test-fixtures.html#package}{package scope section of testthat article on Test Fixtures}.

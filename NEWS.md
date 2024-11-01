@@ -1,4 +1,58 @@
-# sandpaper 0.16.5.9000 (2024-04-19)
+# sandpaper 0.16.9 (2024-10-15)
+
+## BUG FIXES
+
+* Pin remaining workflows to ubuntu-22.04 instead of ubuntu-latest
+  (@froggleston #610)
+* Add compiled potools translation for German
+
+
+# sandpaper 0.16.8 (2024-10-11)
+
+## BUG FIXES
+
+* Pin workflow to ubuntu-22.04 instead of ubuntu-latest
+  (reported @chrbknudsen #605, fixed @froggleston #606)
+* Update notes to remove excessive build warnings
+  (@milanmlft #599)
+
+## LANGUAGES
+
+* Add `R-de.po` for German translations of lesson elements
+  (@martin-raden #607)
+
+## MISC
+
+* Added @martin-raden as a contributor and translator - welcome!
+
+
+# sandpaper 0.16.7 (2024-09-04)
+
+## BUG FIXES
+
+* Add overwrite option to pr workflow to fix change in default from 
+  [update-artifact action v3 to v4](https://github.com/actions/upload-artifact#breaking-changes)
+  (@milanmlft #602)
+
+
+# sandpaper 0.16.6 (2024-08-23)
+
+## BUG FIXES
+
+* Regression fix for update to pkgdown resulting in 
+  duplicated untranslated h2 anchors for sections (@froggleston #600)
+* Fix various action warnings and issues relating to 
+  old Node.js versions (@jhlegarreta #596)
+* Update core actions to v4 (@Bisaloo #577)
+
+## NEW FEATURES
+
+* Allow custom carpentry config types, and associated alt-text descriptions to 
+  support alternative logos/theming of lessons (@milanmlft #585, @ErinBecker)
+* Add support for French translations of core lesson components/sections (@Bisaloo #595)
+
+
+# sandpaper 0.16.5 (2024-06-18)
 
 ## BUG FIXES
 

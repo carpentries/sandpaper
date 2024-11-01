@@ -1,379 +1,372 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: sandpaper 0.14.1.9000\n"
+"Project-Id-Version: sandpaper 0.16.5\n"
 "POT-Creation-Date: 2024-06-18 20:33+0100\n"
-"PO-Revision-Date: 2023-11-22 09:14+0900\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-10-08 20:33+0100\n"
+"Last-Translator: Martin Raden <martin.raden@uni-tuebingen.de>\n"
 "Language-Team: none\n"
-"Language: ja\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: utils-translate.R:74
 msgid "Skip to main content"
-msgstr "本文へ移動"
+msgstr "Zum Hauptinhalt springen"
 
 #: utils-translate.R:75
 msgid "Pre-Alpha"
-msgstr "プレアルファ"
+msgstr ""
 
 #: utils-translate.R:76
 msgid ""
 "This lesson is in the pre-alpha phase, which means that it is in early "
 "development, but has not yet been taught."
 msgstr ""
-"このレッスンはプレアルファフェーズ（開発が始まったが、まだ教えられたことがな"
-"い）にある。"
+"Diese Lektion befindet sich in der Pre-Alpha-Phase, was bedeutet, dass sie "
+"sich in einer frühen Entwicklungsphase befindet, aber noch nicht unterrichtet wurde."
 
 #: utils-translate.R:77
 msgid ""
 "This lesson is in the alpha phase, which means that it has been taught once "
 "and lesson authors are iterating on feedback."
 msgstr ""
-"このレッスンはアルファフェーズ（一度教えられ、レッスン作成者がフィードバック"
-"を反復している）にある。"
+"Diese Lektion befindet sich in der Alpha-Phase, was bedeutet, dass sie bereits "
+"einmal unterrichtet wurde und die Autoren das Feedback einarbeiten."
 
 #: utils-translate.R:78
 msgid "Alpha"
-msgstr "アルファ"
+msgstr ""
 
 #: utils-translate.R:79
 msgid ""
 "This lesson is in the beta phase, which means that it is ready for teaching "
 "by instructors outside of the original author team."
 msgstr ""
-"このレッスンはベタフェーズ（原著者チーム以外の指導者にも教える準備が整ってい"
-"る）にある"
+"Diese Lektion befindet sich in der Beta-Phase, was bedeutet, dass sie bereit "
+"für den Unterricht durch Dozenten außerhalb des ursprünglichen Autorenteams ist."
 
 #: utils-translate.R:80
 msgid "Beta"
-msgstr "ベタ"
+msgstr ""
 
 #: utils-translate.R:81
 msgid "This lesson has passed peer review."
-msgstr "このレッスンはピアレビューに合格しました"
+msgstr "Diese Lektion hat das Peer-Review bestanden."
 
 #: utils-translate.R:82
 msgid "Instructor View"
-msgstr "インストラクター表示"
+msgstr "Dozentenansicht"
 
 #: utils-translate.R:83
 msgid "Learner View"
-msgstr "学習者表示"
+msgstr "Lernansicht"
 
 #: utils-translate.R:84
 msgid "Main Navigation"
-msgstr "メインナビゲーション"
+msgstr "Hauptnavigation"
 
 #: utils-translate.R:85
 msgid "Toggle Navigation"
-msgstr "ナビゲーションの切り替え"
+msgstr "Navigation umschalten"
 
 #: utils-translate.R:86
 msgid "Toggle theme (auto)"
-msgstr ""
+msgstr "Thema umschalten (automatisch)"
 
 #: utils-translate.R:87
 msgid "Menu"
-msgstr "メニュー"
+msgstr "Menü"
 
 #: utils-translate.R:88
 msgid "Search the All In One page"
-msgstr "オールインワンページで検索"
+msgstr "Suche auf der All-In-One-Seite"
 
 #: utils-translate.R:89
 msgid "Setup"
-msgstr "セットアップ"
+msgstr "Einrichtung"
 
 #: utils-translate.R:90
 msgid "Key Points"
-msgstr "まとめ"
+msgstr "Hauptpunkte"
 
 #: utils-translate.R:91
 msgid "Instructor Notes"
-msgstr "インストラクター用メモ"
+msgstr "Dozentennotizen"
 
 #: utils-translate.R:92
 msgid "Glossary"
-msgstr "用語集"
+msgstr "Glossar"
 
 #: utils-translate.R:93
 msgid "Learner Profiles"
-msgstr "学習者プロフィール"
+msgstr "Lernprofile"
 
 #: utils-translate.R:94
 msgid "More"
-msgstr "その他"
+msgstr "Mehr"
 
 #: utils-translate.R:96
 msgid "Lesson Progress"
-msgstr "レッスンの進捗状況"
+msgstr "Lernfortschritt"
 
 #: utils-translate.R:98
 msgid "close menu"
-msgstr "メニューを閉じる"
+msgstr "Menü schließen"
 
 #: utils-translate.R:99
 msgid "EPISODES"
-msgstr "エピソード"
+msgstr "EPISODEN"
 
 #: utils-translate.R:100
 msgid "Home"
-msgstr "ホーム"
+msgstr "Startseite"
 
 #: utils-translate.R:101
 msgid "Home Page Navigation"
-msgstr "ホームページのナビゲーション"
+msgstr "Startseiten-Navigation"
 
 #: utils-translate.R:102
 msgid "RESOURCES"
-msgstr "資料"
+msgstr "RESSOURCEN"
 
 #: utils-translate.R:103
 msgid "Extract All Images"
-msgstr "全ての画像"
+msgstr "Alle Bilder extrahieren"
 
 #: utils-translate.R:104
 msgid "See all in one page"
-msgstr "一つにまとまったページ"
+msgstr "Alles auf einer Seite sehen"
 
 #: utils-translate.R:105
 msgid "Download Lesson Handout"
-msgstr "レッスンのプリントをダウンロード"
+msgstr "Lektionshandout herunterladen"
 
 #: utils-translate.R:106
 msgid "Export Chapter Slides"
-msgstr "スライドのエキスポート"
+msgstr "Kapitelfolien exportieren"
 
 #: utils-translate.R:108
 msgid "Previous and Next Chapter"
-msgstr "前の章と次の章"
+msgstr "Vorheriges und nächstes Kapitel"
 
 #: utils-translate.R:109
 msgid "Previous"
-msgstr "前へ"
+msgstr "Zurück"
 
 #: utils-translate.R:110
 msgid "Estimated time: {icons$clock} {minutes} minutes"
-msgstr "所要時間：{icons$clock} {minutes}分"
+msgstr "Geschätzte Zeit: {icons$clock} {minutes} Minuten"
 
 #: utils-translate.R:111
 msgid "Next"
-msgstr "次へ"
+msgstr "Weiter"
 
 #: utils-translate.R:112
 msgid "Next Chapter"
-msgstr "次のチャプター"
+msgstr "Nächstes Kapitel"
 
 #: utils-translate.R:113
 msgid "Last updated on {updated}"
-msgstr "最終更新日：{updated}"
+msgstr "Zuletzt aktualisiert am {updated}"
 
 #: utils-translate.R:114
 msgid "Edit this page"
-msgstr "ページの編集"
+msgstr "Diese Seite bearbeiten"
 
 #: utils-translate.R:115 utils-translate.R:136
 msgid "Expand All Solutions"
-msgstr "回答を全て表示する"
+msgstr "Alle Lösungen anzeigen"
 
 #: utils-translate.R:117
 msgid "Setup Instructions"
-msgstr "セットアップの手順"
+msgstr "Einrichtungshinweise"
 
 #: utils-translate.R:118
 msgid "Download files required for the lesson"
-msgstr "レッスンに必要なファイルのダウンロード"
+msgstr "Lektionsdateien herunterladen"
 
 #: utils-translate.R:119
 msgid ""
 "The actual schedule may vary slightly depending on the topics and exercises "
 "chosen by the instructor."
 msgstr ""
-"実際のスケジュールは、講師が選んだトピックやエクササイズによって多少異なる場"
-"合があります。"
+"Abhängig von den gewählten Themen und Übungen, kann der tatsächliche Zeitplan "
+"etwas abweichen."
+
 
 #: utils-translate.R:121
 msgid "Back To Top"
-msgstr "上へ戻る"
+msgstr "Zurück nach oben"
 
 #: utils-translate.R:122
 msgid "<(Back)> To Top"
-msgstr "上へ<(戻る)>"
+msgstr "<(Zurück)> nach oben"
 
 #: utils-translate.R:123
 msgid "This lesson is subject to the <(Code of Conduct)>"
-msgstr "このレッスンは<(行動規範)>の対象となっている"
+msgstr "Diese Lektion unterliegt dem <(Verhaltenskodex)>"
 
 #: utils-translate.R:124
 msgid "Code of Conduct"
-msgstr "行動規範"
+msgstr "Verhaltenskodex"
 
 #: utils-translate.R:125
 msgid "Edit on GitHub"
-msgstr "GitHubで編集"
+msgstr "Auf GitHub bearbeiten"
 
 #: utils-translate.R:126
 msgid "Contributing"
-msgstr "貢献"
+msgstr "Beitragen"
 
 #: utils-translate.R:127
 msgid "Source"
-msgstr "ソース"
+msgstr "Quelle"
 
 #: utils-translate.R:128
 msgid "Cite"
-msgstr "引用"
+msgstr "Zitieren"
 
 #: utils-translate.R:129
 msgid "Contact"
-msgstr "お問い合わせ"
+msgstr "Kontakt"
 
 #: utils-translate.R:130
 msgid "About"
-msgstr "概要"
+msgstr "Über"
 
 #: utils-translate.R:131
 msgid "Materials licensed under {license} by the authors"
-msgstr "材料は著者によって{license}のもとに掲載を許諾されている"
+msgstr "Materialien lizenziert unter {license} von den Autoren"
 
 #: utils-translate.R:132
 msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
-msgstr ""
-"テンプレートは{template_authors}によって<(CC-BY 4.0)>のもとに掲載を許諾されて"
-"いる"
+msgstr "Vorlage lizenziert unter <(CC-BY 4.0)> von {template_authors}"
 
 #: utils-translate.R:133
 msgid "The Carpentries"
-msgstr "ザ・カーペントリーズ"
+msgstr "Die Carpentries"
 
 #: utils-translate.R:134
 msgid "Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}"
-msgstr ""
-"このレッスンは{sandpaper_link}、{pegboard_link}、および{varnish_link}によって"
-"作られた"
+msgstr "Erstellt mit {sandpaper_link}, {pegboard_link} und {varnish_link}"
 
 #: utils-translate.R:137
 msgid "Collapse All Solutions"
-msgstr "回答を全て折りたたむ"
+msgstr "Alle Lösungen ausblenden"
 
 #: utils-translate.R:138
 msgid "Collapse"
-msgstr "折りたたむ"
+msgstr "Ausblenden"
 
 #: utils-translate.R:139
 msgid "Episodes"
-msgstr "エピソード"
+msgstr "Episoden"
 
 #: utils-translate.R:141
 msgid "Give Feedback"
-msgstr "フィードバック"
+msgstr "Feedback geben"
 
 #: utils-translate.R:142
 msgid "Learn More"
-msgstr "さらに詳しく"
+msgstr "Mehr erfahren"
 
 #: utils-translate.R:148
 msgid "OUTPUT"
-msgstr "出力"
+msgstr "AUSGABE"
 
 #: utils-translate.R:149
 msgid "WARNING"
-msgstr "警告"
+msgstr "WARNUNG"
 
 #: utils-translate.R:150
 msgid "ERROR"
-msgstr "エラー"
+msgstr "FEHLER"
 
 #: utils-translate.R:152
 msgid "Overview"
-msgstr "概要"
+msgstr "Übersicht"
 
 #: utils-translate.R:153
 msgid "Questions"
-msgstr "質問"
+msgstr "Fragen"
 
 #: utils-translate.R:154
 msgid "Objectives"
-msgstr "目的"
+msgstr "Ziele"
 
 #: utils-translate.R:155
 msgid "Callout"
-msgstr "コールアウト"
+msgstr "Wichtig"
 
 #: utils-translate.R:156
 msgid "Challenge"
-msgstr "チャレンジ"
+msgstr "Aufgabe"
 
 #: utils-translate.R:157
 msgid "Prerequisite"
-msgstr "必須条件"
+msgstr "Voraussetzung"
 
 #: utils-translate.R:158
 msgid "Checklist"
-msgstr "チェックリスト"
+msgstr "Checkliste"
 
 #: utils-translate.R:159
 msgid "Discussion"
-msgstr "ディスカッション"
+msgstr "Diskussion"
 
 #: utils-translate.R:160
 msgid "Testimonial"
-msgstr "推薦文"
+msgstr "Referenz"
 
 #: utils-translate.R:163
 msgid "Show me the solution"
-msgstr "回答を表示する"
+msgstr "Zeige mir die Lösung"
 
 #: utils-translate.R:164
 msgid "Give me a hint"
-msgstr "ヒントを表示する"
+msgstr "Gib mir einen Hinweis"
 
 #: utils-translate.R:165
 msgid "Show details"
-msgstr "詳細を表示する"
+msgstr "Details anzeigen"
 
 #: utils-translate.R:166
 msgid "Instructor Note"
-msgstr "インストラクター用メモ"
+msgstr "Hinweis für den Dozenten"
 
 #: utils-translate.R:168
 msgid "Summary and Setup"
-msgstr "概要とセットアップ"
+msgstr "Zusammenfassung und Einrichtung"
 
 #: utils-translate.R:169
 msgid "Summary and Schedule"
-msgstr "概要とスケジュール"
+msgstr "Zusammenfassung und Zeitplan"
 
 #: utils-translate.R:170
 msgid "All in One View"
-msgstr "一つにまとまったページ"
+msgstr "Alles auf einen Blick"
 
 #: utils-translate.R:171
 msgid "Page not found"
-msgstr "ページが見つかりません"
+msgstr "Seite nicht gefunden"
 
 #: utils-translate.R:172
 msgid "All Images"
-msgstr "全ての画像"
+msgstr "Alle Bilder"
 
 #: utils-translate.R:174
 msgid "anchor"
-msgstr "アンカー"
+msgstr "Anker"
 
 #: utils-translate.R:175
 msgid "Figure {element}"
-msgstr "図の{element}"
+msgstr "Abbildung {element}"
 
 #: utils-translate.R:176
 msgid "Image {i} of {n}: {sQuote(txt)}"
-msgstr "画像{i}/{n}: {sQuote(txt)}"
+msgstr "Bild {i} von {n}: {sQuote(txt)}"
 
 #: utils-translate.R:177
 msgid "Finish"
-msgstr "終わり"
-
-#~ msgid "Search"
-#~ msgstr "検索"
+msgstr "Fertig"

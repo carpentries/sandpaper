@@ -64,8 +64,8 @@ site that indicates the site is in the workbench beta phase.
 \item \strong{overview} \verb{[boolean]} All lessons must have episodes with the exception
 of overview lessons. To indicate that your lesson serves as an overview for
 other lessons, use \code{overview: true}
-\item \strong{handout} \verb{[boolean]} or \verb{[character]} This option instructs {sandpaper}
-to create a handout of all RMarkdown files via {pegboard}, which uses
+\item \strong{handout} \verb{[boolean]} or \verb{[character]} This option instructs \code{{sandpaper}}
+to create a handout of all RMarkdown files via \code{{pegboard}}, which uses
 \code{\link[knitr:knit]{knitr::purl()}} in the background after removing everything but the
 challenges (without solutions) and any code blocks where \code{purl = TRUE}. The
 default path for the handout is \code{files/code-handout.R}

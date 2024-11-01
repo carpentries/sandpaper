@@ -50,7 +50,7 @@ template_metadata()
 }
 \value{
 a character string with the path to the template within the
-{sandpaper} repo.
+\code{{sandpaper}} repo.
 }
 \description{
 Use these files as templates for your own sandpaper lesson

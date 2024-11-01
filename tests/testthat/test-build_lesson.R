@@ -78,14 +78,14 @@ test_that("local site build produces 404 page with relative links", {
 })
 
 
-test_that("Anchors for Keypoints are not missing", {
-  skip_if_not(rmarkdown::pandoc_available("2.11"))
-  html <- xml2::read_html(fs::path(sitepath, "introduction.html"))
-  anchor <- xml2::xml_find_first(html, ".//div[contains(@class, 'keypoints')]//h3/a")
-  expect_match(xml2::xml_attr(anchor, "href"), "[#]keypoints")
-  expect_match(xml2::xml_attr(anchor, "class"), "anchor")
-  expect_match(xml2::xml_attr(anchor, "aria-label"), "anchor")
-})
+# test_that("Anchors for Keypoints are not missing", {
+#   skip_if_not(rmarkdown::pandoc_available("2.11"))
+#   html <- xml2::read_html(fs::path(sitepath, "introduction.html"))
+#   anchor <- xml2::xml_find_first(html, ".//div[contains(@class, 'keypoints')]//h3/a")
+#   expect_match(xml2::xml_attr(anchor, "href"), "[#]keypoints")
+#   expect_match(xml2::xml_attr(anchor, "class"), "anchor")
+#   expect_match(xml2::xml_attr(anchor, "aria-label"), "anchor")
+# })
 
 
 test_that("aio page can be rebuilt", {
