@@ -9,7 +9,10 @@ read_glosario_yaml <- function(glosario) {
 
     if (httr::status_code(glosario_response) == 200) {
       glosario <- yaml::yaml.load(httr::content(glosario_response, as = "text"))
-      return(glosario)
+
+      # Convert the list into a named list using the 'slug' as the name for each entry
+      glos_dict <- setNames(glosario, sapply(glosario, function(x) x$slug))
+      return(glos_dict)
     } else {
       return(NULL)
     }
@@ -103,15 +106,13 @@ build_glossary <- function(pkg, pages = NULL, quiet = FALSE) {
 #'   build_glossary_page(pkg, htmls, quiet = FALSE)
 #'   build_keypoints(pkg, htmls, quiet = FALSE)
 #' }
-build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = NULL, aggregate = "*", append = "self::node()", quiet = FALSE) {
+build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = "reference", aggregate = "*", append = "self::node()", quiet = FALSE) {
   path <- get_source_path() %||% root_path(pkg$src_path)
   out_path <- pkg$dst_path
   this_lesson(path)
 
-  agg <- provision_agg_page(pkg, title = title, slug = slug, new = TRUE)
-
-  agg_sect <- xml2::xml_find_first(agg$learner, ".//section[@id='glossary']")
-  agg_ul <- xml2::xml_add_child(agg_sect, "ul", id="glosario-list")
+  lang <- this_metadata$get()[["lang"]]
+  glosario = this_metadata$get()[["glosario"]]
 
   the_episodes <- .resources$get()[["episodes"]]
   the_slugs <- get_slug(the_episodes)
@@ -130,6 +131,7 @@ build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = NUL
     ep_title <- as.character(xml2::xml_contents(get_content(ep_learn, ".//h1")))
 
     names(ename) <- paste(ep_title, collapse = "")
+
     ep_learn <- get_content(ep_learn, content = aggregate, pkg = pkg)
     ep_learn_glinks <- get_glossary_links(ep_learn)
 
@@ -145,20 +147,97 @@ build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = NUL
 
   glinks <- sort(glinks)
 
+  agg <- provision_agg_page(pkg, title = title, slug = slug, new = TRUE)
+  agg_sect <- xml2::xml_find_first(agg$learner, ".//section[@id='glossary']")
+
+  agg_sect <- xml2::xml_add_child(agg_sect, "section", id="glosario")
+  xml2::xml_add_child(agg_sect, "h2", "Glosario")
+  agg_ul <- xml2::xml_add_child(agg_sect, "ul", id="glosario-list")
+
   # Iterate over glinks to create HTML elements
   for (link in glinks) {
     # remove everything before the last #
-    term <- stringr::str_extract(link, "#(.*)")
-    term <- stringr::str_replace(term, "#", "")
+    link_term <- stringr::str_extract(link, "#(.*)")
+    link_term <- stringr::str_replace(link_term, "#", "")
+
+    # do not include glosario links that do not resolve to a term
+    if (is.null(glosario[[link_term]])) {
+      cli::cli_text("WARNING: Term not found in Glosario, not including: ", link_term)
+      next
+    }
+
+    term <- glosario[[link_term]][[lang]]$term
     agg_li <- xml2::xml_add_child(agg_ul, "li")
     xml2::xml_add_child(agg_li, "a", term, href = link)
+
+    if (is.null(glosario[[link_term]][[lang]]$def)) {
+        def <- markdown::markdownToHTML(
+            text = "_Definition not found in Glosario_",
+            fragment.only = TRUE
+        )
+        def <- xml2::read_html(def)
+    }
+    else {
+        def <- markdown::markdownToHTML(
+            text = glosario[[link_term]][[lang]]$def,
+            fragment.only = TRUE
+        )
+
+        def <- xml2::read_html(def)
+
+        # find all hrefs in the def fragment
+        anchors <- xml2::xml_find_all(def, ".//a")
+
+        for (anchor in anchors) {
+            href <- xml2::xml_attr(anchor, "href")
+            # check if the href is a relative glosario link
+            if (stringr::str_detect(href, "^#.*")) {
+                # replace the href with the full URL
+                url <- paste0(
+                    "https://glosario.carpentries.org/",
+                    this_metadata$get()[["lang"]],
+                    "/",
+                    href
+                )
+                xml2::xml_attr(anchor, "href") <- url
+            }
+        }
+    }
+    xml2::xml_add_child(agg_li, def)
   }
 
-  glos_out <- fs::path(out_path, as_html(slug))
-  report <- "Writing '{.file {glos_out}}'"
-  out <- fs::path_rel(glos_out, pkg$dst_path)
+  outpath <- fs::path(pkg$dst_path, "reference.html")
+  out <- fs::path_rel(outpath, pkg$dst_path)
+
+  already_built <- template_check$valid() && fs::file_exists(outpath)
+
+  if (already_built) {
+    report <- "Rebuilding '{.file {out}}'"
+    if (!quiet) cli::cli_text(report)
+
+    # delete the existing reference.html file
+    fs::file_delete(outpath)
+
+    built_path <- fs::path(pkg$src_path, "built")
+
+    # rebuild from scratch using build_episode_html
+    build_episode_html(
+      path_md = fs::path(built_path, "reference.md"),
+      pkg = pkg,
+      quiet = quiet,
+      glosario = glosario
+    )
+  }
+  else {
+    report <- "Appending to '{.file {out}}'"
+    if (!quiet) cli::cli_text(report)
+  }
+
+  ref_html <- xml2::read_html(outpath)
+  ref_sect <- xml2::xml_find_first(ref_html, ".//main/div[contains(@class, 'lesson-content')]")
+  xml2::xml_add_child(ref_sect, agg_sect)
   if (!quiet) cli::cli_text(report)
-  writeLines(as.character(agg$learner), glos_out)
+  writeLines(as.character(ref_html), outpath)
 }
 
 get_glossary_links <- function(episode) {
