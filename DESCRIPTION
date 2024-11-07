@@ -90,7 +90,8 @@ Imports:
     servr,
     utils,
     tools,
-    stringr
+    stringr,
+    httr
 Suggests:
     testthat (>= 3.0.0),
     covr,
