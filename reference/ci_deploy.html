@@ -45,7 +45,7 @@ access to that remote."><meta property="og:image" content="https://carpentries.g
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>(INTERNAL) Build and deploy the site with continous integration</h1>
-      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/0.16.9/R/ci_deploy.R" class="external-link"><code>R/ci_deploy.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/main/R/ci_deploy.R" class="external-link"><code>R/ci_deploy.R</code></a></small>
       <div class="d-none name"><code>ci_deploy.Rd</code></div>
     </div>
 
@@ -164,7 +164,7 @@ lockfile has changed.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">restore_fixture</span> <span class="op">&lt;-</span> <span class="va">snd</span><span class="op">$</span><span class="fu">create_test_lesson</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → Bootstrapping example lesson</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Lesson bootstrapped in 3.112519 secs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Lesson bootstrapped in 3.047571 secs</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → Bootstrapping example lesson</span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"sandpaper.test_fixture"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"Create Remote"</span><span class="op">)</span></span></span>
@@ -173,10 +173,10 @@ lockfile has changed.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">rmt</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/file_temp.html" class="external-link">file_temp</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"REMOTE-"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">snd</span><span class="op">$</span><span class="fu">setup_local_remote</span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span>, remote <span class="op">=</span> <span class="va">rmt</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Remote set up in 0.01444387 secs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Remote set up in 0.01466727 secs</span>
 <span class="r-in"><span><span class="va">tok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"Elapsed time: {round(tok - tik, 2)} seconds"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 3.15 seconds</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 3.09 seconds</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># reporting -----</span></span></span>
 <span class="r-in"><span><span class="co"># The repository should only have one branch and the remote should be in</span></span></span>
@@ -189,8 +189,8 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   name                 commit                        updated            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> main                 310bc52f498597df92ee3ea0452d… 2024-10-15 <span style="color: #949494;">14:43:41</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> sandpaper-local/main 310bc52f498597df92ee3ea0452d… 2024-10-15 <span style="color: #949494;">14:43:41</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> main                 a81f8b298f88aa9b384cea1c4686… 2024-11-07 <span style="color: #949494;">14:32:49</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> sandpaper-local/main a81f8b298f88aa9b384cea1c4686… 2024-11-07 <span style="color: #949494;">14:32:49</span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h2</a></span><span class="op">(</span><span class="st">"First episode status"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">First episode status</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -198,12 +198,12 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file             created             modified            commits head </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-10-15 <span style="color: #949494;">14:43:41</span> 2024-10-15 <span style="color: #949494;">14:43:41</span>       1 310b…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-11-07 <span style="color: #949494;">14:32:49</span> 2024-11-07 <span style="color: #949494;">14:32:49</span>       1 a81f…</span>
 <span class="r-in"><span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_commit.html" class="external-link">git_stat_files</a></span><span class="op">(</span><span class="st">"episodes/introduction.Rmd"</span>, repo <span class="op">=</span> <span class="va">rmt</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file             created             modified            commits head </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-10-15 <span style="color: #949494;">14:43:41</span> 2024-10-15 <span style="color: #949494;">14:43:41</span>       1 310b…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-11-07 <span style="color: #949494;">14:32:49</span> 2024-11-07 <span style="color: #949494;">14:32:49</span>       1 a81f…</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># DEPLOY ------------------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="va">tik</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
@@ -217,9 +217,9 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to a new branch 'md-outputs'</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git rm -rf --quiet .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git commit --allow-empty -m 'Initializing md-outputs branch'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [md-outputs (root-commit) 66cd0af] Initializing md-outputs branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [md-outputs (root-commit) 419df5f] Initializing md-outputs branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git push sandpaper-local 'HEAD:md-outputs'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpjfickg/REMOTE-175f164c410e</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmp5JxT2R/REMOTE-1698459f777e</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * [new branch]      HEAD -&gt; md-outputs</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout main</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to branch 'main'</span></span>
@@ -228,17 +228,17 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Fetch sandpaper-local/md-outputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local md-outputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git fetch sandpaper-local md-outputs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmpjfickg/REMOTE-175f164c410e</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmp5JxT2R/REMOTE-1698459f777e</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * branch            md-outputs -&gt; FETCH_HEAD</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local '*'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Add worktree for sandpaper-local/md-outputs in site/built</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree add --track -B md-outputs \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpjfickg/file175f6677d79e/lesson-example/site/built \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmp5JxT2R/file16986f746f1d/lesson-example/site/built \</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   sandpaper-local/md-outputs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'md-outputs'; was at 66cd0af)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'md-outputs'; was at 419df5f)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> branch 'md-outputs' set up to track 'sandpaper-local/md-outputs'.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at 66cd0af Initializing md-outputs branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at 419df5f Initializing md-outputs branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Build Markdown Sources</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Consent to use package cache provided</span>
@@ -251,11 +251,11 @@ lockfile has changed.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using package cache in /home/runner/.cache/R/renv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> processing file: /tmp/Rtmpjfickg/file175f6677d79e/lesson-example/episodes/introduction.Rmd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> processing file: /tmp/Rtmp5JxT2R/file16986f746f1d/lesson-example/episodes/introduction.Rmd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1/3          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2/3 [pyramid]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3/3          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">output file: /tmp/Rtmpjfickg/file175f6677d79e/lesson-example/site/built/introduction.md</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">output file: /tmp/Rtmp5JxT2R/file16986f746f1d/lesson-example/site/built/introduction.md</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Commit Markdown Sources</span>
@@ -263,13 +263,13 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   'markdown source builds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Auto-generated via `{sandpaper}`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : 310bc52f498597df92ee3ea0452d576c229ae0de</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : a81f8b298f88aa9b384cea1c468642823d926505</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Branch  : main</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Author  : carpenter &lt;team@carpentries.org&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-10-15 14:43:41 +0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-11-07 14:32:49 +0000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Message : Initial commit [via `{sandpaper}`]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> '</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [md-outputs fcb411f] markdown source builds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [md-outputs 3d811eb] markdown source builds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  13 files changed, 737 insertions(+)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 CODE_OF_CONDUCT.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 LICENSE.md</span>
@@ -285,20 +285,20 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 renv.lock</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 setup.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote -v</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmpjfickg/REMOTE-175f164c410e (fetch)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmpjfickg/REMOTE-175f164c410e (push)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmp5JxT2R/REMOTE-1698459f777e (fetch)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmp5JxT2R/REMOTE-1698459f777e (push)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git push --force sandpaper-local 'HEAD:md-outputs'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpjfickg/REMOTE-175f164c410e</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">   66cd0af..fcb411f  HEAD -&gt; md-outputs</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmp5JxT2R/REMOTE-1698459f777e</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">   419df5f..3d811eb  HEAD -&gt; md-outputs</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Create New Branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout --orphan gh-pages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to a new branch 'gh-pages'</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git rm -rf --quiet .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git commit --allow-empty -m 'Initializing gh-pages branch'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [gh-pages (root-commit) 3af84df] Initializing gh-pages branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [gh-pages (root-commit) fd497ff] Initializing gh-pages branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git push sandpaper-local 'HEAD:gh-pages'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpjfickg/REMOTE-175f164c410e</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmp5JxT2R/REMOTE-1698459f777e</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * [new branch]      HEAD -&gt; gh-pages</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git checkout main</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Switched to branch 'main'</span></span>
@@ -307,17 +307,17 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Fetch sandpaper-local/gh-pages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local gh-pages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git fetch sandpaper-local gh-pages</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmpjfickg/REMOTE-175f164c410e</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">From /tmp/Rtmp5JxT2R/REMOTE-1698459f777e</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;"> * branch            gh-pages   -&gt; FETCH_HEAD</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote set-branches sandpaper-local '*'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Add worktree for sandpaper-local/gh-pages in site/docs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree add --track -B gh-pages \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpjfickg/file175f6677d79e/lesson-example/site/docs \</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmp5JxT2R/file16986f746f1d/lesson-example/site/docs \</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   sandpaper-local/gh-pages</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'gh-pages'; was at 3af84df)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Preparing worktree (resetting branch 'gh-pages'; was at fd497ff)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> branch 'gh-pages' set up to track 'sandpaper-local/gh-pages'.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at 3af84df Initializing gh-pages branch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HEAD is now at fd497ff Initializing gh-pages branch</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Build Lesson Website</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">◉</span> pandoc found</span>
@@ -337,12 +337,196 @@ lockfile has changed.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">android-chrome-512x512.png</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/apple-touch-icon.png</span> to</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">apple-touch-icon.png</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Black.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Black.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Black.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Black.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Black.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Black.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Black.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Black.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Black.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Black.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-BlackItalic.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-BlackItalic.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-BlackItalic.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-BlackItalic.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-BlackItalic.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-BlackItalic.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-BlackItalic.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-BlackItalic.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-BlackItalic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-BlackItalic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Bold.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Bold.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Bold.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Bold.svg</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Bold.ttf</span> to</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Bold.ttf</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Bold.woff</span> to</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Bold.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Bold.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Bold.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-BoldItalic.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-BoldItalic.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-BoldItalic.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-BoldItalic.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-BoldItalic.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-BoldItalic.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-BoldItalic.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-BoldItalic.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-BoldItalic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-BoldItalic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraBold.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraBold.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraBold.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraBold.svg</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraBold.ttf</span> to</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraBold.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraBold.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraBold.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraBold.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraBold.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraBoldItalic.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraBoldItalic.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraBoldItalic.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraBoldItalic.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraBoldItalic.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraBoldItalic.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraBoldItalic.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraBoldItalic.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraBoldItalic.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraBoldItalic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraLight.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraLight.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraLight.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraLight.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraLight.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraLight.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraLight.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraLight.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraLight.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraLight.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraLightItalic.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraLightItalic.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraLightItalic.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraLightItalic.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraLightItalic.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraLightItalic.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraLightItalic.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraLightItalic.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-ExtraLightItalic.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-ExtraLightItalic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Italic-VariableFont_wght.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Italic-VariableFont_wght.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Italic.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Italic.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Italic.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Italic.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Italic.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Italic.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Italic.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Italic.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Italic.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Italic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Light.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Light.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Light.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Light.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Light.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Light.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Light.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Light.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Light.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Light.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-LightItalic.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-LightItalic.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-LightItalic.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-LightItalic.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-LightItalic.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-LightItalic.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-LightItalic.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-LightItalic.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-LightItalic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-LightItalic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Medium.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Medium.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Medium.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Medium.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Medium.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Medium.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Medium.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Medium.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Medium.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Medium.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-MediumItalic.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-MediumItalic.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-MediumItalic.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-MediumItalic.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-MediumItalic.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-MediumItalic.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-MediumItalic.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-MediumItalic.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-MediumItalic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-MediumItalic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Regular.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Regular.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Regular.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Regular.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Regular.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Regular.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Regular.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Regular.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-Regular.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-Regular.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-SemiBold.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-SemiBold.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-SemiBold.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-SemiBold.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-SemiBold.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-SemiBold.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-SemiBold.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-SemiBold.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-SemiBold.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-SemiBold.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-SemiBoldItalic.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-SemiBoldItalic.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-SemiBoldItalic.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-SemiBoldItalic.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-SemiBoldItalic.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> to <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-SemiBoldItalic.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-SemiBoldItalic.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-SemiBoldItalic.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-SemiBoldItalic.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-SemiBoldItalic.woff2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/Mulish-VariableFont_wght.ttf</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/Mulish-VariableFont_wght.ttf</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/MulishExtraLight-Regular.eot</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/MulishExtraLight-Regular.eot</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/MulishExtraLight-Regular.svg</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/MulishExtraLight-Regular.svg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/MulishExtraLight-Regular.woff</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/MulishExtraLight-Regular.woff</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/MulishExtraLight-Regular.woff2</span> to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/MulishExtraLight-Regular.woff2</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Copying</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">&lt;varnish&gt;/pkgdown/assets/assets/fonts/mulish-v5-latin-regular.eot</span> to</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB; font-weight: bold;">assets/fonts/mulish-v5-latin-regular.eot</span></span>
@@ -611,28 +795,28 @@ lockfile has changed.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing '<span style="color: #0000BB;">instructor-notes.html</span>'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Creating sitemap.xml</span> ────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Output created: /tmp/Rtmpjfickg/file175f6677d79e/lesson-example/site/docs/index.html</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Output created: /tmp/Rtmp5JxT2R/file16986f746f1d/lesson-example/site/docs/index.html</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::group::Commit Lesson Website</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git commit --allow-empty -m \</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   'site deploy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Auto-generated via `{sandpaper}`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : fcb411f8cc4b20551bef515044c14f22aed02868</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : 3d811ebe6e8c18fc7057e143c8c7f12a91312cad</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Branch  : md-outputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Author  : GitHub Actions &lt;actions@github.com&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-10-15 14:43:44 +0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-11-07 14:32:53 +0000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Message : markdown source builds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Auto-generated via `{sandpaper}`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : 310bc52f498597df92ee3ea0452d576c229ae0de</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Source  : a81f8b298f88aa9b384cea1c468642823d926505</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Branch  : main</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Author  : carpenter &lt;team@carpentries.org&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-10-15 14:43:41 +0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Time    : 2024-11-07 14:32:49 +0000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Message : Initial commit [via `{sandpaper}`]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> '</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [gh-pages eb8cf8f] site deploy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  149 files changed, 11334 insertions(+)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [gh-pages e105b18] site deploy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  232 files changed, 149495 insertions(+)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 .nojekyll</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 404.html</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 CODE_OF_CONDUCT.html</span>
@@ -641,9 +825,92 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 android-chrome-192x192.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 android-chrome-512x512.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 apple-touch-icon.png</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Black.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Black.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Black.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Black.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Black.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-BlackItalic.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-BlackItalic.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-BlackItalic.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-BlackItalic.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-BlackItalic.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Bold.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Bold.svg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Bold.ttf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Bold.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Bold.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-BoldItalic.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-BoldItalic.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-BoldItalic.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-BoldItalic.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-BoldItalic.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraBold.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraBold.svg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraBold.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraBold.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraBold.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraBoldItalic.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraBoldItalic.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraBoldItalic.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraBoldItalic.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraBoldItalic.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraLight.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraLight.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraLight.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraLight.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraLight.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraLightItalic.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraLightItalic.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraLightItalic.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraLightItalic.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-ExtraLightItalic.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Italic-VariableFont_wght.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Italic.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Italic.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Italic.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Italic.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Italic.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Light.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Light.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Light.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Light.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Light.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-LightItalic.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-LightItalic.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-LightItalic.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-LightItalic.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-LightItalic.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Medium.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Medium.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Medium.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Medium.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Medium.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-MediumItalic.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-MediumItalic.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-MediumItalic.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-MediumItalic.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-MediumItalic.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Regular.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Regular.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Regular.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Regular.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-Regular.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-SemiBold.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-SemiBold.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-SemiBold.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-SemiBold.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-SemiBold.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-SemiBoldItalic.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-SemiBoldItalic.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-SemiBoldItalic.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-SemiBoldItalic.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-SemiBoldItalic.woff2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/Mulish-VariableFont_wght.ttf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/MulishExtraLight-Regular.eot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/MulishExtraLight-Regular.svg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/MulishExtraLight-Regular.woff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/MulishExtraLight-Regular.woff2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/mulish-v5-latin-regular.eot</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/mulish-v5-latin-regular.svg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 assets/fonts/mulish-v5-latin-regular.ttf</span>
@@ -783,19 +1050,19 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 site.webmanifest</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  create mode 100644 sitemap.xml</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git remote -v</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmpjfickg/REMOTE-175f164c410e (fetch)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmpjfickg/REMOTE-175f164c410e (push)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmp5JxT2R/REMOTE-1698459f777e (fetch)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sandpaper-local	/tmp/Rtmp5JxT2R/REMOTE-1698459f777e (push)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git push --force sandpaper-local 'HEAD:gh-pages'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmpjfickg/REMOTE-175f164c410e</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">   3af84df..eb8cf8f  HEAD -&gt; gh-pages</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">To /tmp/Rtmp5JxT2R/REMOTE-1698459f777e</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">   fd497ff..e105b18  HEAD -&gt; gh-pages</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ::endgroup::</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree remove --force \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpjfickg/file175f6677d79e/lesson-example/site/docs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmp5JxT2R/file16986f746f1d/lesson-example/site/docs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running git worktree remove --force \</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmpjfickg/file175f6677d79e/lesson-example/site/built</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   /tmp/Rtmp5JxT2R/file16986f746f1d/lesson-example/site/built</span>
 <span class="r-in"><span><span class="va">tok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"Elapsed time: {round(tok - tik, 2)} seconds"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 11.98 seconds</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 13.77 seconds</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># reporting -----</span></span></span>
 <span class="r-in"><span><span class="co"># The repository and remote should both have three branches</span></span></span>
@@ -807,12 +1074,12 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   name                       commit                  updated            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> gh-pages                   eb8cf8fcafdcf60a10a9fb… 2024-10-15 <span style="color: #949494;">14:43:52</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> main                       310bc52f498597df92ee3e… 2024-10-15 <span style="color: #949494;">14:43:41</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> md-outputs                 fcb411f8cc4b20551bef51… 2024-10-15 <span style="color: #949494;">14:43:44</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> sandpaper-local/gh-pages   eb8cf8fcafdcf60a10a9fb… 2024-10-15 <span style="color: #949494;">14:43:52</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> sandpaper-local/main       310bc52f498597df92ee3e… 2024-10-15 <span style="color: #949494;">14:43:41</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> sandpaper-local/md-outputs fcb411f8cc4b20551bef51… 2024-10-15 <span style="color: #949494;">14:43:44</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> gh-pages                   e105b18c22244f02412624… 2024-11-07 <span style="color: #949494;">14:33:02</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> main                       a81f8b298f88aa9b384cea… 2024-11-07 <span style="color: #949494;">14:32:49</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> md-outputs                 3d811ebe6e8c18fc7057e1… 2024-11-07 <span style="color: #949494;">14:32:53</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> sandpaper-local/gh-pages   e105b18c22244f02412624… 2024-11-07 <span style="color: #949494;">14:33:02</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> sandpaper-local/main       a81f8b298f88aa9b384cea… 2024-11-07 <span style="color: #949494;">14:32:49</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> sandpaper-local/md-outputs 3d811ebe6e8c18fc7057e1… 2024-11-07 <span style="color: #949494;">14:32:53</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># An indicator this worked: the first episode should be represented as</span></span></span>
 <span class="r-in"><span><span class="co"># different files across the branches:</span></span></span>
@@ -826,14 +1093,14 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file             created             modified            commits head </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-10-15 <span style="color: #949494;">14:43:41</span> 2024-10-15 <span style="color: #949494;">14:43:41</span>       1 310b…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> episodes/introd… 2024-11-07 <span style="color: #949494;">14:32:49</span> 2024-11-07 <span style="color: #949494;">14:32:49</span>       1 a81f…</span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h3</a></span><span class="op">(</span><span class="st">"rendered markdown"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── rendered markdown </span>
 <span class="r-in"><span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_commit.html" class="external-link">git_stat_files</a></span><span class="op">(</span><span class="st">"introduction.md"</span>, repo <span class="op">=</span> <span class="va">rmt</span>, ref <span class="op">=</span> <span class="st">"md-outputs"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file            created             modified            commits head  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> introduction.md 2024-10-15 <span style="color: #949494;">14:43:44</span> 2024-10-15 <span style="color: #949494;">14:43:44</span>       1 fcb41…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> introduction.md 2024-11-07 <span style="color: #949494;">14:32:53</span> 2024-11-07 <span style="color: #949494;">14:32:53</span>       1 3d811…</span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_h1.html" class="external-link">cli_h3</a></span><span class="op">(</span><span class="st">"html file"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── html file </span>
@@ -841,7 +1108,7 @@ lockfile has changed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file             created             modified            commits head </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> introduction.ht… 2024-10-15 <span style="color: #949494;">14:43:52</span> 2024-10-15 <span style="color: #949494;">14:43:52</span>       1 eb8c…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> introduction.ht… 2024-11-07 <span style="color: #949494;">14:33:02</span> 2024-11-07 <span style="color: #949494;">14:33:02</span>       1 e105…</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># CLEAN -------------------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="va">tik</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
@@ -849,14 +1116,14 @@ lockfile has changed.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Clean Up</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────</span></span>
 <span class="r-in"><span><span class="va">snd</span><span class="op">$</span><span class="fu">remove_local_remote</span><span class="op">(</span>repo <span class="op">=</span> <span class="va">res</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> removing 'sandpaper-local' (<span style="color: #0000BB;">/tmp/Rtmpjfickg/REMOTE-175f164c410e</span>)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/REMOTE-175f164c410e</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> removing 'sandpaper-local' (<span style="color: #0000BB;">/tmp/Rtmp5JxT2R/REMOTE-1698459f777e</span>)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/REMOTE-1698459f777e</span>
 <span class="r-in"><span><span class="va">snd</span><span class="op">$</span><span class="fu">reset_git_user</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># remove the test fixture and report</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/delete.html" class="external-link">dir_delete</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_info</a></span><span class="op">(</span><span class="st">"Elapsed time: {round(tok - tik, 2)} seconds"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 0.1 seconds</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Elapsed time: 0.11 seconds</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

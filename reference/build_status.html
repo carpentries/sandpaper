@@ -41,7 +41,7 @@ provide utilities for removal and updating of the old database."><meta property=
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Identify what files need to be rebuilt and what need to be removed</h1>
-      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/0.16.9/R/utils-built-db.R" class="external-link"><code>R/utils-built-db.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/main/R/utils-built-db.R" class="external-link"><code>R/utils-built-db.R</code></a></small>
       <div class="d-none name"><code>build_status.Rd</code></div>
     </div>
 
@@ -133,28 +133,28 @@ entries missing from the sources.</p>
 <span class="r-in"><span><span class="co"># setup -----------------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/delete.html" class="external-link">dir_delete</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to search directory '/tmp/Rtmpjfickg/file175f7c637ba7': no such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to search directory '/tmp/Rtmp5JxT2R/file169868d0bab7': no such file or directory</span>
 <span class="r-in"><span><span class="fu"><a href="create_lesson.html">create_lesson</a></span><span class="op">(</span><span class="va">tmp</span>, rmd <span class="op">=</span> <span class="cn">FALSE</span>, open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No schedule set, using Rmd files in <span style="color: #0000BB;">episodes/</span> directory.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">→ </span><span style="font-weight: 100; font-style: italic;">To remove this message, define your schedule in </span><span style="color: #0000BB; font-weight: 100; font-style: italic;">config.yaml</span><span style="font-weight: 100; font-style: italic;"> or use `set_episodes()` to generate it.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> To save this configuration, use</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> set_episodes(path = path, order = ep, write = TRUE)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">☐</span> Edit <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.md</span>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.md</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">☐</span> Edit <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.md</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> First episode created in <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.md</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7</span>...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Workflows up-to-date!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7</span>...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmpjfickg/file175f7c637ba7</span>...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/Rtmpjfickg/file175f7c637ba7</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7</span>...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Lesson successfully created in <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Creating Lesson in <span style="color: #0000BB;">/tmp/Rtmp5JxT2R/file169868d0bab7</span>...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/tmp/Rtmp5JxT2R/file169868d0bab7</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># show build status -----------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># get namespace to use internal functions</span></span></span>
@@ -164,22 +164,22 @@ entries missing from the sources.</p>
 <span class="r-in"><span><span class="co"># first run, everything needs to be built and no build file exists</span></span></span>
 <span class="r-in"><span><span class="va">sp</span><span class="op">$</span><span class="fu">build_status</span><span class="op">(</span><span class="va">resources</span>, <span class="va">db</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $build</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.md</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/index.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/index.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $new</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                               file</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.md episodes/introduction.md</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/index.md                                 index.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.md episodes/introduction.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/index.md                                 index.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                   checksum</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/index.md                 a02c9c785ed98ddd84fe3d34ddb12fcd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/index.md                 a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                built</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.md site/built/introduction.md</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/index.md                        site/built/index.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.md site/built/introduction.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/index.md                        site/built/index.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                 date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/index.md                 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/index.md                 2024-11-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># second run, everything is identical and nothing to be rebuilt</span></span></span>
 <span class="r-in"><span><span class="va">sp</span><span class="op">$</span><span class="fu">build_status</span><span class="op">(</span><span class="va">resources</span>, <span class="va">db</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -194,16 +194,16 @@ entries missing from the sources.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-11-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $old</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                       file                         checksum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-11-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># this is because the db exists on disk and you can query it</span></span></span>
 <span class="r-in"><span><span class="va">sp</span><span class="op">$</span><span class="fu">get_built_db</span><span class="op">(</span><span class="va">db</span>, filter <span class="op">=</span> <span class="st">"*"</span><span class="op">)</span></span></span>
@@ -211,18 +211,18 @@ entries missing from the sources.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-11-07</span>
 <span class="r-in"><span><span class="va">sp</span><span class="op">$</span><span class="fu">get_built_db</span><span class="op">(</span><span class="va">db</span>, filter <span class="op">=</span> <span class="st">"*R?md"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                       file                         checksum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-11-07</span>
 <span class="r-in"><span><span class="co"># if you get the hash of the file, it's equal to the expected:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">actual</span> <span class="op">&lt;-</span> <span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/md5sum.html" class="external-link">md5sum</a></span><span class="op">(</span><span class="va">resources</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.md </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.md </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        "fd46501f174bb7e6cc280a1436fbc12a" </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">expected</span> <span class="op">&lt;-</span> <span class="va">sp</span><span class="op">$</span><span class="fu">get_hash</span><span class="op">(</span><span class="va">resources</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">db</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "fd46501f174bb7e6cc280a1436fbc12a"</span>
@@ -239,26 +239,26 @@ entries missing from the sources.</p>
 <span class="r-in"><span><span class="fu"><a href="set_dropdown.html">set_episodes</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path_file.html" class="external-link">path_file</a></span><span class="op">(</span><span class="va">resources</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sp</span><span class="op">$</span><span class="fu">build_status</span><span class="op">(</span><span class="va">resources</span>, <span class="va">db</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $build</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">/tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.Rmd</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">/tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.Rmd</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $remove</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmpjfickg/file175f7c637ba7/site/built/introduction.md</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /tmp/Rtmp5JxT2R/file169868d0bab7/site/built/introduction.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $new</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        file                         checksum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 episodes/introduction.Rmd 42f28ae9ac714f87eb912bfccf614cab</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        site/built/index.md 2024-11-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $old</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                       file                         checksum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-11-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># modified files need to be rebuilt -------------------------------------</span></span></span>
@@ -266,7 +266,7 @@ entries missing from the sources.</p>
 <span class="r-in"><span>  file <span class="op">=</span> <span class="va">resources</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, append <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sp</span><span class="op">$</span><span class="fu">build_status</span><span class="op">(</span><span class="va">resources</span>, <span class="va">db</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $build</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">/tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.Rmd</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">/tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.Rmd</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $remove</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -276,16 +276,16 @@ entries missing from the sources.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 episodes/introduction.Rmd 700f007bdd7e8fd6e3f7011f80dacf7b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-11-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $old</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        file                         checksum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 episodes/introduction.Rmd 42f28ae9ac714f87eb912bfccf614cab</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-11-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># child files require rebuilding ----------------------------------------</span></span></span>
@@ -295,7 +295,7 @@ entries missing from the sources.</p>
 <span class="r-in"><span>  file <span class="op">=</span> <span class="va">resources</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, append <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sp</span><span class="op">$</span><span class="fu">build_status</span><span class="op">(</span><span class="va">resources</span>, <span class="va">db</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $build</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">/tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.Rmd</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">/tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.Rmd</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $remove</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -305,16 +305,16 @@ entries missing from the sources.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 episodes/introduction.Rmd 4a0b39645c21579d9992ad3b50d623e4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-11-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $old</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        file                         checksum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 episodes/introduction.Rmd 700f007bdd7e8fd6e3f7011f80dacf7b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-11-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># NOTE: for child files, the checksums are the checksum of the checksums</span></span></span>
 <span class="r-in"><span><span class="co"># of the parent and children, so the file checksum may not make sense</span></span></span>
@@ -324,7 +324,7 @@ entries missing from the sources.</p>
 <span class="r-in"><span>  file <span class="op">=</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"episodes"</span>, <span class="st">"files"</span>, <span class="st">"hi.md"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sp</span><span class="op">$</span><span class="fu">build_status</span><span class="op">(</span><span class="va">resources</span>, <span class="va">db</span>, write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $build</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">/tmp/Rtmpjfickg/file175f7c637ba7/episodes/introduction.Rmd</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">/tmp/Rtmp5JxT2R/file169868d0bab7/episodes/introduction.Rmd</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $remove</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -334,16 +334,16 @@ entries missing from the sources.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 episodes/introduction.Rmd 2ab510dfa3fbd1f224ab3c20547391ea</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-11-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $old</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        file                         checksum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 episodes/introduction.Rmd 4a0b39645c21579d9992ad3b50d623e4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        built       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-10-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-10-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 site/built/introduction.md 2024-11-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        site/built/index.md 2024-11-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
