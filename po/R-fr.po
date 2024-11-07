@@ -372,5 +372,9 @@ msgstr "Image {i} sur {n} : {sQuote(txt)}"
 msgid "Finish"
 msgstr "Terminer"
 
+#: utils-translate.R:178
+msgid "Caution"
+msgstr "Prudence"
+
 #~ msgid "Search"
 #~ msgstr "Recherche"
