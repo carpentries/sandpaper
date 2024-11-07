@@ -104,7 +104,6 @@ build_glossary <- function(pkg, pages = NULL, quiet = FALSE) {
 #'
 #'   htmls <- read_all_html(pkg$dst_path)
 #'   build_glossary_page(pkg, htmls, quiet = FALSE)
-#'   build_keypoints(pkg, htmls, quiet = FALSE)
 #' }
 build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = "reference", aggregate = "*", append = "self::node()", quiet = FALSE) {
   path <- get_source_path() %||% root_path(pkg$src_path)

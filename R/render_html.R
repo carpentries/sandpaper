@@ -8,6 +8,7 @@
 #' @param path_in path to a markdown file
 #' @param quiet if `TRUE`, no output is produced. Default is `FALSE`, which
 #'   reports the markdown build via pandoc
+#' @param glosario a named list of glosario terms and definitions. Defaults to NULL.
 #' @param ... extra options (e.g. lua filters) to be passed to pandoc
 #'
 #' @return a character containing the rendred HTML file

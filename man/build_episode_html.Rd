@@ -13,7 +13,8 @@ build_episode_html(
   quiet = FALSE,
   page_progress = NULL,
   sidebar = NULL,
-  date = NULL
+  date = NULL,
+  glosario = NULL
 )
 }
 \arguments{
@@ -40,6 +41,9 @@ sidebar. The current episode will be replaced with an index of all the
 chapters in the episode.}
 
 \item{date}{the date the episode was last built.}
+
+\item{glosario}{a dictionary of terms read in from Glosario glossary.yaml
+on Github. Defaults to NULL.}
 }
 \value{
 \code{TRUE} if the page was successful, \code{FALSE} otherwise.
