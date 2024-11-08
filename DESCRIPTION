@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.16.10.9000
+Version: 0.16.10
 Authors@R: c(
     person(given = "Robert",
            family = "Davey",
@@ -59,6 +59,10 @@ Authors@R: c(
            family = "Raden",
            role = c("ctb", "trl"),
            comment = c(ORCID = "0000-0002-7926-5911")),
+    person(given = "Matthew",
+           family = "Armstrong",
+           role = c("ctb"),
+           email = "cs.matthewarmstrong@gmail.com"),           
     person())
 Description: We provide tools to build a Carpentries-themed lesson repository
   into an accessible standalone static website. These include local tools and

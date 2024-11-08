@@ -1,3 +1,14 @@
+# sandpaper 0.16.10 (2024-11-11)
+
+## NEW FEATURES
+
+* Add caution callout (@MttArmstrong #613)
+
+## MISC
+
+* Added @MttArmstrong as a contributor - welcome!
+
+
 # sandpaper 0.16.9 (2024-10-15)
 
 ## BUG FIXES
