@@ -6,7 +6,7 @@
 
 ## MISC
 
-* Added @MttArmstrong as a contributor - welcome!
+* Add @MttArmstrong as a contributor - welcome!
 
 
 # sandpaper 0.16.9 (2024-10-15)
