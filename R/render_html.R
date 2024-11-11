@@ -8,6 +8,7 @@
 #' @param path_in path to a markdown file
 #' @param quiet if `TRUE`, no output is produced. Default is `FALSE`, which
 #'   reports the markdown build via pandoc
+#' @param glosario a named list of glosario terms and definitions. Defaults to NULL.
 #' @param ... extra options (e.g. lua filters) to be passed to pandoc
 #'
 #' @return a character containing the rendred HTML file
@@ -41,7 +42,7 @@
 #' lf <- paste0("--lua-filter=", lua)
 #' cat(sandpaper:::render_html(tmp, lf))
 #' }
-render_html <- function(path_in, ..., quiet = FALSE) {
+render_html <- function(path_in, ..., quiet = FALSE, glosario = NULL) {
   htm <- tempfile(fileext = ".html")
   on.exit(unlink(htm), add = TRUE)
   links <- getOption("sandpaper.links")
@@ -57,6 +58,13 @@ render_html <- function(path_in, ..., quiet = FALSE) {
     path_in <- tmpin
     on.exit(unlink(tmpin), add = TRUE)
   }
+
+  if (!is.null(glosario)) {
+    # if we have a glossary, then we need to replace the glossary term placeholders
+    # with whisker.replace
+    path_in <- render_glosario_links(path_in, glosario = glosario, quiet = quiet)
+  }
+
   args <- construct_pandoc_args(path_in, output = htm, to = "html", ...)
   sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
   # Ensure we use the _loaded version_ of pandoc in case folks are using

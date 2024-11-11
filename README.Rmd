@@ -23,16 +23,16 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 The {sandpaper} package was created by [The Carpentries] to re-imagine our method
-of creating lesson websites for our workshops. This package will take a series 
-of [Markdown] or [RMarkdown] files and generate a static website with the 
+of creating lesson websites for our workshops. This package will take a series
+of [Markdown] or [RMarkdown] files and generate a static website with the
 features and styling of The Carpentries lessons including customized layouts and
 callout blocks. Much of the functionality in this package is inspired by
 [Jenny Bryan's](https://jennybryan.org/) work with the [{usethis}] package.
 
 ## Documentation
 
-**Want to know how this works in a lesson format? Head over to 
-<https://carpentries.github.io/sandpaper-docs/>.** 
+**Want to know how this works in a lesson format? Head over to
+<https://carpentries.github.io/sandpaper-docs/>.**
 
 If, instead, you already know how a lesson is built and are interested in
 understanding how the functions in {sandpaper} work, you can visit this package
@@ -40,13 +40,13 @@ documentation site at <https://carpentries.github.io/sandpaper/>.
 
 ## Installation
 
-{sandpaper} is not currently on CRAN, but it can be installed from our 
-[Carpentries Universe](https://carpentries.r-universe.dev/ui#builds) (updated 
+{sandpaper} is not currently on CRAN, but it can be installed from our
+[Carpentries Universe](https://carpentries.r-universe.dev/ui#builds) (updated
 every hour) with the following commands:
 
 ``` r
 options(repos = c(
-  carpentries = "https://carpentries.r-universe.dev/", 
+  carpentries = "https://carpentries.r-universe.dev/",
   CRAN = "https://cran.rstudio.com/"
 ))
 install.packages("sandpaper", dep = TRUE)
@@ -64,7 +64,7 @@ Note that this will also install development versions of the following packages:
 ## Design
 
 This package is designed to make the life of the lesson contributors and
-maintainers easier by separating the tools needed to build the site from the 
+maintainers easier by separating the tools needed to build the site from the
 user-defined content of the site itself. It will no longer rely on Jekyll or
 any of the other [>450 static site generators](https://staticsitegenerators.net),
 but instead rely on R, RStudio, and [{pkgdown}] to generate a site with the
@@ -98,14 +98,14 @@ issues surrounding out-of-date artefacts and directory structure confusion.
 The website is generated in two steps:
 
 1. markdown files from the source files are rendered containing a hash for the
-   source file so that these need only be re-rendered when they change. 
+   source file so that these need only be re-rendered when they change.
 2. html files are generated from the rendered markdown files and the CSS and JS
    sources in the [{varnish}] package for the preview.
 
 To ensure there are no clashes between minor differences in the user setup, no
 artifacts are committed to the main branch of the repository. Because of the
-caching mechanism between the website and the rendered markdown files, 
-long-running lessons can be updated and previewed quickly. 
+caching mechanism between the website and the rendered markdown files,
+long-running lessons can be updated and previewed quickly.
 
 ### Rendering on continuous integration
 
@@ -123,21 +123,21 @@ to be:
  - CI agnostic (but currently set up with GitHub)
  - easy to set up
  - auditable (e.g. I can see changes between the content of two commits)
- - versionable (e.g. I can instruct learners to go to `<WEBSITE>/1.1`. This 
+ - versionable (e.g. I can instruct learners to go to `<WEBSITE>/1.1`. This
    is inspired from the python documentation style)
 
 To acheive this, there will be two branches created: `md-outputs` and `gh-pages`
 that will inerit like so main -> `md-outputs` -> `gh-pages`. Because the build
 time from main to `md-outputs` can be time intensive, this will default to
-updating only files that were changed. 
+updating only files that were changed.
 
  - `md-outputs`: this branch will contain the files and artifacts generated from
-   rmarkdown in the vignettes directory of a thin package skeleton. 
+   rmarkdown in the vignettes directory of a thin package skeleton.
  - `gh-pages`: this branch is generated via `md-outputs` and bundles the html,
    css, and js for the website. This will contain a single `index.html` file
    with several subfolders with different versions of the site. The `index.html`
    file will redirect to the `current/` directory, which contains the up-to-date
-   site. 
+   site.
 
 #### Scheduled builds
 
@@ -145,11 +145,11 @@ updating only files that were changed.
    separated from the styling, we will set up the CI to generate the webpage
    from the pre-built sources on a weekly basis, which will check if there has
    been an update to the styles (which I have in the [{varnish}] package) and
-   then rebuild the site without rebuilding the content. 
+   then rebuild the site without rebuilding the content.
  - `md-outputs` branch: This will be rerun every month from scratch with the
    most recent version of R and R packages. If there is a change, a pull request
    can be generated to update the `renv.lock` file with a link to the changed
-   markdown files in this branch. 
+   markdown files in this branch.
 
 
 ### Function syntax
@@ -189,11 +189,12 @@ Accessors
  - `build_episode_html()` renders a built markdown file to html (internal use)
  - `build_lesson()` builds the lesson into a static website
  - `build_portable_lesson()` builds the lesson into a portable static website
+ - `build_glossary()` builds a Glosario-based glossary for the lesson
 
 **Continuous Integration Utilities**
 
  - `ci_deploy()` builds and deploys the lesson on CI from the source files
- - `ci_build_markdown()` builds the markdown files on CI from the source and deploys them to the markdown branch. 
+ - `ci_build_markdown()` builds the markdown files on CI from the source and deploys them to the markdown branch.
  - `ci_build_site()` deploys the lesson on CI from pre-rendered markdown files
  - `ci_release()` builds and deploys the lesson on CI from the source files and adds a release tag
  - `update_github_workflows()` updates GitHub workflows
@@ -201,7 +202,7 @@ Accessors
 Cleanup
 
  - `reset_episodes()` removes the schedule from the config.yaml file
- - `reset_site()` clears the website and cache 
+ - `reset_site()` clears the website and cache
 
 ## Usage
 
@@ -234,7 +235,7 @@ the following structure:
 |-- episodes/                # - PUT YOUR MARKDOWN FILES IN THIS FOLDER
 |   |-- data/                # -   Data for your lesson goes here
 |   |-- figures/             # -   All static figures and diagrams are here
-|   |-- files/               # -   Additional files (e.g. handouts) 
+|   |-- files/               # -   Additional files (e.g. handouts)
 |   `-- 00-introducition.Rmd # -   Lessons start with a two-digit number
 |-- instructors/             # - Information for Instructors
 |-- learners/                # - Information for Learners
@@ -265,10 +266,10 @@ sandpaper::build_lesson()
 ```
 
 > #### Working in RStudio?
-> 
+>
 > If you are using RStudio, you can preview the lesson site using the keyboard
 > shortcut <kbd>ctrl + shift + B</kbd> (which corresponds to the "Build Website" button in the "Build" tab. To preview individual files, you can use
-> <kbd>ctrl + shift + K</kbd> (This corresponds to the "Knit" button in the editor pane) 
+> <kbd>ctrl + shift + K</kbd> (This corresponds to the "Knit" button in the editor pane)
 
 This will create the website structure inside of the the `site/` folder, render
 the RMarkdown files to markdown (for inspection and quick rendering), render the
@@ -279,14 +280,14 @@ markdown files to HTML, and then enable a preview within your browser window.
 
 To contribute to a lesson, you can either fork the lesson to your own repository
 and clone it to your computer manually from GitHub, or you can use the {usethis}
-package to automate it. For example, This is how you can create a copy of 
+package to automate it. For example, This is how you can create a copy of
 [**Programming With R**](http://swcarpentry.github.io/r-novice-inflammation/) to
 your computer's Desktop.
 
 
 ```{r}
 usethis::create_from_github(
-  repo = "swcarpentry/r-novice-gapminder", 
+  repo = "swcarpentry/r-novice-gapminder",
   destdir = "~/Desktop/r-novice-gampinder",
   fork = TRUE
 )
@@ -303,9 +304,9 @@ already have a copy on your machine. If not, follow the instructions in the
 
 The typical workflow will look like this:
 
-1. open the sandpaper project in RStudio and make edits to files in the 
+1. open the sandpaper project in RStudio and make edits to files in the
    `episodes/` folder
-2. in the R console run the following 
+2. in the R console run the following
 
 
 ```{r}
@@ -325,8 +326,8 @@ sandpaper::build_portable_lesson(version = "current")
 ```
 
 This will render a fully portable lesson site as a zip file in the `site/`
-folder. You can distribute this lesson to learners who do not have reliable 
-internet access for use offline without sacrificing any of the styling. 
+folder. You can distribute this lesson to learners who do not have reliable
+internet access for use offline without sacrificing any of the styling.
 
 ### Rendering with GitHub actions
 
@@ -359,7 +360,7 @@ sandpaper::ci_release(tag = "0.1", md_branch = "md-outputs", site_branch = "gh-p
 
 
 [The Carpentries]: https://carpentries.org
-[Markdown]: https://www.markdownguide.org/getting-started/ 
+[Markdown]: https://www.markdownguide.org/getting-started/
 [RMarkdown]: https://rmarkdown.rstudio.com/
 [{learnr}]: https://rstudio.github.io/learnr/index.html
 [{remotes}]: https://remotes.r-lib.org/

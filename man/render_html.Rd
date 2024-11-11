@@ -4,7 +4,7 @@
 \alias{render_html}
 \title{Render html from a markdown file}
 \usage{
-render_html(path_in, ..., quiet = FALSE)
+render_html(path_in, ..., quiet = FALSE, glosario = NULL)
 }
 \arguments{
 \item{path_in}{path to a markdown file}
@@ -13,6 +13,8 @@ render_html(path_in, ..., quiet = FALSE)
 
 \item{quiet}{if \code{TRUE}, no output is produced. Default is \code{FALSE}, which
 reports the markdown build via pandoc}
+
+\item{glosario}{a named list of glosario terms and definitions. Defaults to NULL.}
 }
 \value{
 a character containing the rendred HTML file

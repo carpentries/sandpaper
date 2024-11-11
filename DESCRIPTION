@@ -93,7 +93,9 @@ Imports:
     callr,
     servr,
     utils,
-    tools
+    tools,
+    stringr,
+    httr
 Suggests:
     testthat (>= 3.0.0),
     covr,
