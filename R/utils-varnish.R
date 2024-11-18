@@ -115,7 +115,9 @@ set_globals <- function(path) {
       sidebar = learner_sidebar,
       more = paste(learner$extras, collapse = ""),
       resources = paste(learner$resources, collapse = ""),
-      translate = tr_varnish()
+      translate = tr_varnish(),
+      license = this_metadata$get()[["license"]],
+      license_url = this_metadata$get()[["license_url"]]
     ), pkg_versions)
   )
   instructor_globals$set(key = NULL,
@@ -125,7 +127,9 @@ set_globals <- function(path) {
       sidebar = instructor_sidebar,
       more = paste(instructor$extras, collapse = ""),
       resources = paste(instructor$resources, collapse = ""),
-      translate = tr_varnish()
+      translate = tr_varnish(),
+      license = this_metadata$get()[["license"]],
+      license_url = this_metadata$get()[["license_url"]]
     ), pkg_versions)
   )
 }
