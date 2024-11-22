@@ -40,6 +40,8 @@ Other contributors:
   \item Hugo Gruson \email{hugo.gruson+R@normalesup.org} [contributor]
   \item Milan Malfait \email{milan.malfait94@gmail.com} (\href{https://orcid.org/0000-0001-9144-3701}{ORCID}) [contributor]
   \item Yanina Bellini Saibene (\href{https://orcid.org/0000-0002-4522-7466}{ORCID}) [contributor, translator]
+  \item Martin Raden (\href{https://orcid.org/0000-0002-7926-5911}{ORCID}) [contributor, translator]
+  \item Matthew Armstrong \email{cs.matthewarmstrong@gmail.com} [contributor]
 }
 
 }
