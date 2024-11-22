@@ -36,6 +36,8 @@ initialise_metadata <- function(path = ".") {
     this_metadata$set("metadata_template", readLines(template_metadata()))
     this_metadata$set("pagetitle", cfg$title)
     this_metadata$set("keywords", cfg$keywords)
+    this_metadata$set("license", cfg$license)
+    this_metadata$set("license_url", cfg$license_url %||% "LICENSE.html")
     created <- cfg$created %||% tail(gert::git_log(max = 1e6, repo = path)$time, 1)
     this_metadata$set(c("date", "created"), format(as.Date(created), "%F"))
     # TODO: implement custom DESCRIPTION
