@@ -206,11 +206,63 @@ test_that("update_cache() will update old package versions", {
   skip_if_offline()
   skip_if(covr::in_covr())
 
+  pkg <- "sessioninfo"
+  old_pkg_version <- "1.1.0"
+  pin_version(glue::glue("{pkg}@{old_pkg_version}"), path = fs::path(lsn, "episodes"))
 
   res <- update_cache(path = fs::path(lsn, "episodes"), prompt = FALSE, quiet = FALSE)
   expect_true(
-    package_version(res$sessioninfo$Version) > package_version("1.1.0")
+    package_version(res[[pkg]]$Version) > package_version(old_pkg_version)
   )
 
 })
 
+reticulate_installable <- check_reticulate_installable()
+use_python(lsn, type = "virtualenv", open = FALSE, quiet = TRUE)
+
+test_that("manage_deps() does not overwrite requirements.txt", {
+  skip_if_not(reticulate_installable, "reticulate is not installable")
+  skip_on_cran()
+  skip_on_os("windows")
+
+  old_wd <- setwd(lsn)
+  withr::defer(setwd(old_wd))
+
+  ## Set up Python and manually add requirements.txt without actually installing
+  ## the Python package, mimicking the scenario where a Python dependency is missing
+  req_file <- fs::path(lsn, "requirements.txt")
+  if (file.exists(req_file)) fs::file_delete(req_file)
+  numpy_version <- "numpy==1.26.4"
+  writeLines(numpy_version, req_file)
+
+  res <- manage_deps(lsn, quiet = TRUE)
+  expect_true(numpy_version %in% readLines(req_file))
+})
+
+
+test_that("manage_deps() restores Python dependencies", {
+  skip_if_not(reticulate_installable, "reticulate is not installable")
+  skip_on_cran()
+  skip_on_os("windows")
+
+  req_file <- fs::path(lsn, "requirements.txt")
+  if (file.exists(req_file)) fs::file_delete(req_file)
+  writeLines("numpy", req_file)
+  res <- manage_deps(lsn, quiet = TRUE)
+
+  expect_no_error({numpy <- local_load_py_pkg(lsn, "numpy")})
+  expect_s3_class(numpy, "python.builtin.module")
+})
+
+
+test_that("update_cache does not remove uninstalled Python dependencies from requirements.txt", {
+  skip_if_not(reticulate_installable, "reticulate is not installable")
+  skip_on_cran()
+  skip_on_os("windows")
+
+  req_file <- fs::path(lsn, "requirements.txt")
+  write("art", req_file, append = TRUE, sep = "\n")
+
+  res <- update_cache(lsn, prompt = FALSE, quiet = FALSE)
+  expect_true(any(grepl("art", readLines(req_file))))
+})
