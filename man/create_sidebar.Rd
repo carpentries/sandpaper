@@ -12,7 +12,8 @@ create_resources_dropdown(files, type = "learners")
 create_sidebar(
   chapters,
   name = "",
-  html = "<a href='https://carpentries.org'/>"
+  html = "<a href='https://carpentries.org'/>",
+  disable_numbering = FALSE
 )
 
 update_sidebar(
@@ -37,6 +38,10 @@ are included.}
 
 \item{html}{the html of the current chapter. defaults to a link that will
 produce a sidebar with no links to headings.}
+
+\item{disable_numbering}{a boolean indicating if the sidebar should not automatically
+number the chapters. Defaults to \code{FALSE}. If \code{TRUE}, developers should consider
+adding their own custom numbering to the chapter titles in the frontmatter.}
 
 \item{sidebar}{an object of class "list-store" which has a \code{"sidebar"}
 element in the stored list. See \code{\link[=set_globals]{set_globals()}}.}

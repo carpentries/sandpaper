@@ -375,5 +375,9 @@ msgstr "画像{i}/{n}: {sQuote(txt)}"
 msgid "Finish"
 msgstr "終わり"
 
+#: utils-translate.R:178
+msgid "Caution"
+msgstr "注意"
+
 #~ msgid "Search"
 #~ msgstr "検索"

@@ -128,7 +128,7 @@ establish_translation_vars <- function() {
       Cite = tr_('Cite'),
       Contact = tr_('Contact'),
       About = tr_('About'),
-      MaterialsLicensedUnder = tr_('Materials licensed under {license} by the authors'),
+      MaterialsLicensedUnder = tr_('Materials licensed under <({license})> by the authors'),
       TemplateLicense = tr_('Template licensed under <(CC-BY 4.0)> by {template_authors}'),
       Carpentries = tr_('The Carpentries'),
       BuiltWith = tr_('Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}'),
@@ -158,6 +158,7 @@ establish_translation_vars <- function() {
       Checklist   = tr_("Checklist"),
       Discussion  = tr_("Discussion"),
       Testimonial = tr_("Testimonial"),
+      Caution = tr_("Caution"),
       Keypoints   = varnish$KeyPoints,
       # Accordions -----------------------------------------------------------
       "Show me the solution" = tr_("Show me the solution"),
@@ -431,6 +432,7 @@ fill_translation_vars <- function(the_data) {
        icons = named_icons,
        template_authors = '<a href="https://carpentries.org/">The Carpentries</a>',
        license = the_data$license %||% "CC-BY 4.0",
+       license_url = the_data$license_url %||% "LICENSE.html",
        minutes = the_data$minutes %||% NULL,
        updated = the_data$updated %||% NULL
     )
@@ -461,6 +463,9 @@ fill_translation_vars <- function(the_data) {
         ),
         TemplateLicense = replace_link(the_string,
           href = "https://creativecommons.org/licenses/by-sa/4.0/"
+        ),
+        MaterialsLicensedUnder = replace_link(the_string,
+          href = dat$license_url
         ),
         SpanToTop = replace_html(the_string,
           open = '<span class="d-none d-sm-none d-md-none d-lg-none d-xl-block">',

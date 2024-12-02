@@ -78,13 +78,31 @@ set_globals <- function(path) {
   # that is different is the name of the index node.
   idx <- these_resources[["."]]
   idx <- idx[as_html(idx) == "index.html"]
-  instructor_sidebar <- create_sidebar(c(idx, these_resources[["episodes"]]))
+
+  # get sidebar numbering disable option from config, if null set FALSE
+  disable_numbering <- this_metadata$get()[["disable_sidebar_numbering"]] %||% FALSE
+
+  instructor_sidebar <- create_sidebar(
+    c(idx, these_resources[["episodes"]]),
+    disable_numbering = disable_numbering
+  )
   # check if we have a title in the index sidebar and replace with
   # "summary and schedule" if it does not exist.
   idx_item <- xml2::read_html(instructor_sidebar[[1]])
   idx_link <- xml2::xml_find_first(idx_item, ".//a")
   idx_text <- xml2::xml_contents(idx_link)
-  no_index_title <- length(idx_text) == 1 && xml2::xml_text(idx_text) == "0. "
+  href <- xml2::xml_attr(idx_link, "href")
+
+  no_index_title <- (
+      length(idx_text) == 1 &&
+      xml2::xml_text(idx_text) == "0. "
+    ) ||
+    (
+      disable_numbering &&
+      length(idx_text) == 0 &&
+      href == "index.html"
+  )
+
   if (no_index_title) {
     xml2::xml_set_text(idx_link, tr_computed("SummaryAndSchedule"))
   } else {
@@ -115,7 +133,9 @@ set_globals <- function(path) {
       sidebar = learner_sidebar,
       more = paste(learner$extras, collapse = ""),
       resources = paste(learner$resources, collapse = ""),
-      translate = tr_varnish()
+      translate = tr_varnish(),
+      license = this_metadata$get()[["license"]],
+      license_url = this_metadata$get()[["license_url"]]
     ), pkg_versions)
   )
   instructor_globals$set(key = NULL,
@@ -125,7 +145,9 @@ set_globals <- function(path) {
       sidebar = instructor_sidebar,
       more = paste(instructor$extras, collapse = ""),
       resources = paste(instructor$resources, collapse = ""),
-      translate = tr_varnish()
+      translate = tr_varnish(),
+      license = this_metadata$get()[["license"]],
+      license_url = this_metadata$get()[["license_url"]]
     ), pkg_versions)
   )
 }
