@@ -1,5 +1,11 @@
 # sandpaper (development version)
 
+## BUG FIXES
+
+* The website preview feature which automatically opens a web browser after 
+  running `build_lesson()` has been fixed to work with the latest version of 
+  pkgdown (@Bisaloo, #627)
+
 # sandpaper 0.16.10 (2024-11-11)
 
 ## NEW FEATURES
