@@ -164,7 +164,7 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   # At the end, a sitemap is created with our aggregated pages.
   build_sitemap(pkg$dst_path, paths = html_pages$paths, quiet = quiet)
 
-  pkgdown::preview_site(pkg, "/", preview = preview)
+  pkgdown::preview_site(pkg, preview = preview)
 
   if (!quiet) {
     dst <- fs::path_rel(path = pkg$dst_path, start = path)
