@@ -46,13 +46,7 @@ Build a page for aggregating glosario links found in lesson elements
 }
 \details{
 We programmatically search through lesson content to find links that point to
-glosario terms. We then aggregate these links into a single page.
-
-To customise the page, we need a few things:
-\enumerate{
-\item a title
-\item a slug
-}
+glosario terms. We then aggregate these links into the Reference.
 }
 \note{
 This function assumes that you have already built all the episodes of your lesson.

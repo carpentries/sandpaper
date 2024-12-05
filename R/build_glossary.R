@@ -59,7 +59,6 @@ build_glossary <- function(pkg, pages = NULL, quiet = FALSE) {
   build_glossary_page(
       pkg = pkg,
       pages = pages,
-      # title = tr_computed("Glossary"),
       slug = "glossary",
       quiet = quiet,
   )
@@ -83,12 +82,8 @@ build_glossary <- function(pkg, pages = NULL, quiet = FALSE) {
 #' @details
 #'
 #' We programmatically search through lesson content to find links that point to
-#' glosario terms. We then aggregate these links into a single page.
+#' glosario terms. We then aggregate these links into the Reference.
 #'
-#' To customise the page, we need a few things:
-#'
-#' 1. a title
-#' 2. a slug
 #' @note
 #' This function assumes that you have already built all the episodes of your lesson.
 #'
