@@ -35,7 +35,9 @@ jobs:
 
           # use 4.1 to check with rtools40's older compiler
           - {os: windows-latest, r: '4.1'}
-
+          
+          - {os: ubuntu-22.04, cache: '~/.local/share/renv', r: 'release', cov: 'true'}
+          
           - {os: ubuntu-latest, cache: '~/.local/share/renv', r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest, cache: '~/.local/share/renv', r: 'release', cov: 'true'}
           - {os: ubuntu-latest, cache: '~/.local/share/renv', r: 'oldrel-1'}
