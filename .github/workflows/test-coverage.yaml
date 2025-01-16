@@ -17,6 +17,9 @@ jobs:
       RENV_PATHS_ROOT: ~/.local/share/renv
       OS_VERSION: 1
       LANG: "en_US-UTF.8"
+      LANGUAGE: "en_US.UTF-8"
+      LC_ALL: "en_US.UTF-8"
+      LC_MESSAGES: "en_US.UTF-8"
 
     steps:
       - uses: actions/checkout@v4
