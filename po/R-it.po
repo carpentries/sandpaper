@@ -1,367 +1,375 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.16.9.9000\n"
-"POT-Creation-Date: 2024-10-14 12:13+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2025-01-16 10:50+0100\n"
+"PO-Revision-Date: 2025-01-16 13:00+0100\n"
+"Last-Translator: Lisanna Paladin <lisanna.paladin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: utils-translate.R:74
 msgid "Skip to main content"
-msgstr ""
+msgstr Salta al contenuto principale"
 
 #: utils-translate.R:75
 msgid "Pre-Alpha"
-msgstr ""
+msgstr "Pre-Alpha""
 
 #: utils-translate.R:76
 msgid ""
-"This lesson is in the pre-alpha phase, which means that it is in early "
-"development, but has not yet been taught."
+"This lesson is in the pre-alpha phase, which means it is being developed, "
+"but it has not yet been taught."
 msgstr ""
+"Questa lezione è in fase pre-alpha, il che significa che è in fase di "
+"sviluppo, ma non è ancora stata insegnata."
 
 #: utils-translate.R:77
 msgid ""
 "This lesson is in the alpha phase, which means that it has been taught once "
 "and lesson authors are iterating on feedback."
 msgstr ""
+"Questa lezione è in fase alpha, il che significa che è stata insegnata una "
+"volta e gli autori stanno apportando modifiche basandosi sui feedback."
 
 #: utils-translate.R:78
 msgid "Alpha"
-msgstr ""
+msgstr "Alpha"
 
 #: utils-translate.R:79
 msgid ""
 "This lesson is in the beta phase, which means that it is ready for teaching "
 "by instructors outside of the original author team."
 msgstr ""
+"Questa lezione è in fase beta, il che significa che è pronta per essere "
+"insegnata da istruttori al di fuori del team originale degli autori."
 
 #: utils-translate.R:80
 msgid "Beta"
-msgstr ""
+msgstr "Beta"
 
 #: utils-translate.R:81
 msgid "This lesson has passed peer review."
-msgstr ""
+msgstr "Questa lezione ha superato la revisione tra pari."
 
 #: utils-translate.R:82
 msgid "Instructor View"
-msgstr ""
+msgstr "Vista Istruttore"
 
 #: utils-translate.R:83
 msgid "Learner View"
-msgstr ""
+msgstr "Vista Studente"
 
 #: utils-translate.R:84
 msgid "Main Navigation"
-msgstr ""
+msgstr "Navigazione Principale"
 
 #: utils-translate.R:85
 msgid "Toggle Navigation"
-msgstr ""
+msgstr "Attiva/Disattiva Navigazione"
 
 #: utils-translate.R:86
 msgid "Toggle theme (auto)"
-msgstr ""
+msgstr "Cambia tema (automatico)"
 
 #: utils-translate.R:87
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: utils-translate.R:88
 msgid "Search the All In One page"
-msgstr ""
+msgstr "Cerca nella pagina Tutto in Uno"
 
 #: utils-translate.R:89
 msgid "Setup"
-msgstr ""
+msgstr "Configurazione"
 
 #: utils-translate.R:90
 msgid "Key Points"
-msgstr ""
+msgstr "Punti Chiave"
 
 #: utils-translate.R:91
 msgid "Instructor Notes"
-msgstr ""
+msgstr "Note per l'Istruttore"
 
 #: utils-translate.R:92
 msgid "Glossary"
-msgstr ""
+msgstr "Glossario"
 
 #: utils-translate.R:93
 msgid "Learner Profiles"
-msgstr ""
+msgstr "Profili degli Studenti"
 
 #: utils-translate.R:94
 msgid "More"
-msgstr ""
+msgstr "Altro"
 
 #: utils-translate.R:96
 msgid "Lesson Progress"
-msgstr ""
+msgstr "Progresso della Lezione"
 
 #: utils-translate.R:98
 msgid "close menu"
-msgstr ""
+msgstr "chiudi menu"
 
 #: utils-translate.R:99
 msgid "EPISODES"
-msgstr ""
+msgstr "EPISODI"
 
 #: utils-translate.R:100
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: utils-translate.R:101
 msgid "Home Page Navigation"
-msgstr ""
+msgstr "Navigazione Home Page"
 
 #: utils-translate.R:102
 msgid "RESOURCES"
-msgstr ""
+msgstr "RISORSE"
 
 #: utils-translate.R:103
 msgid "Extract All Images"
-msgstr ""
+msgstr "Estrai Tutte le Immagini"
 
 #: utils-translate.R:104
 msgid "See all in one page"
-msgstr ""
+msgstr "Visualizza tutto in una pagina"
 
 #: utils-translate.R:105
 msgid "Download Lesson Handout"
-msgstr ""
+msgstr "Scarica il Materiale della Lezione"
 
 #: utils-translate.R:106
 msgid "Export Chapter Slides"
-msgstr ""
+msgstr "Esporta Diapositive del Capitolo"
 
 #: utils-translate.R:108
 msgid "Previous and Next Chapter"
-msgstr ""
+msgstr "Capitolo Precedente e Successivo"
 
 #: utils-translate.R:109
 msgid "Previous"
-msgstr ""
+msgstr "Precedente"
 
 #: utils-translate.R:110
 msgid "Estimated time: {icons$clock} {minutes} minutes"
-msgstr ""
+msgstr "Tempo stimato: {icons$clock} {minutes} minuti"
 
 #: utils-translate.R:111
 msgid "Next"
-msgstr ""
+msgstr "Successivo"
 
 #: utils-translate.R:112
 msgid "Next Chapter"
-msgstr ""
+msgstr "Capitolo Successivo"
 
 #: utils-translate.R:113
 msgid "Last updated on {updated}"
-msgstr ""
+msgstr "Ultimo aggiornamento il {updated}"
 
 #: utils-translate.R:114
 msgid "Edit this page"
-msgstr ""
+msgstr "Modifica questa pagina"
 
 #: utils-translate.R:115 utils-translate.R:136
 msgid "Expand All Solutions"
-msgstr ""
+msgstr "Espandi Tutte le Soluzioni"
 
 #: utils-translate.R:117
 msgid "Setup Instructions"
-msgstr ""
+msgstr "Istruzioni di Configurazione"
 
 #: utils-translate.R:118
 msgid "Download files required for the lesson"
-msgstr ""
+msgstr "Scarica i file richiesti per la lezione"
 
 #: utils-translate.R:119
 msgid ""
 "The actual schedule may vary slightly depending on the topics and exercises "
 "chosen by the instructor."
 msgstr ""
+"L'orario effettivo può variare leggermente a seconda degli argomenti e degli "
+"esercizi scelti dall'istruttore."
 
 #: utils-translate.R:121
 msgid "Back To Top"
-msgstr ""
+msgstr "Torna all'inizio"
 
 #: utils-translate.R:122
 msgid "<(Back)> To Top"
-msgstr ""
+msgstr "<(Indietro)> Torna all'inizio"
 
 #: utils-translate.R:123
 msgid "This lesson is subject to the <(Code of Conduct)>"
-msgstr ""
+msgstr "Questa lezione è soggetta al <(Codice di Condotta)>"
 
 #: utils-translate.R:124
 msgid "Code of Conduct"
-msgstr ""
+msgstr "Codice di Condotta"
 
 #: utils-translate.R:125
 msgid "Edit on GitHub"
-msgstr ""
+msgstr "Modifica su GitHub"
 
 #: utils-translate.R:126
 msgid "Contributing"
-msgstr ""
+msgstr "Contributi"
 
 #: utils-translate.R:127
 msgid "Source"
-msgstr ""
+msgstr "Fonte"
 
 #: utils-translate.R:128
 msgid "Cite"
-msgstr ""
+msgstr "Cita"
 
 #: utils-translate.R:129
 msgid "Contact"
-msgstr ""
+msgstr "Contatti"
 
 #: utils-translate.R:130
 msgid "About"
-msgstr ""
+msgstr "Informazioni"
 
 #: utils-translate.R:131
 msgid "Materials licensed under {license} by the authors"
-msgstr ""
+msgstr "Materiali concessi in licenza sotto {license} dagli autori"
 
 #: utils-translate.R:132
 msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
-msgstr ""
+msgstr "Template concesso in licenza sotto <(CC-BY 4.0)> da {template_authors}"
 
 #: utils-translate.R:133
 msgid "The Carpentries"
-msgstr ""
+msgstr "The Carpentries"
 
 #: utils-translate.R:134
 msgid "Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}"
-msgstr ""
+msgstr "Realizzato con {sandpaper_link}, {pegboard_link} e {varnish_link}"
 
 #: utils-translate.R:137
 msgid "Collapse All Solutions"
-msgstr ""
+msgstr "Nascondi Tutte le Soluzioni"
 
 #: utils-translate.R:138
 msgid "Collapse"
-msgstr ""
+msgstr "Nascondi"
 
 #: utils-translate.R:139
 msgid "Episodes"
-msgstr ""
+msgstr "Episodi"
 
 #: utils-translate.R:141
 msgid "Give Feedback"
-msgstr ""
+msgstr "Fornisci Feedback"
 
 #: utils-translate.R:142
 msgid "Learn More"
-msgstr ""
+msgstr "Scopri di Più"
 
 #: utils-translate.R:148
 msgid "OUTPUT"
-msgstr ""
+msgstr "OUTPUT"
 
 #: utils-translate.R:149
 msgid "WARNING"
-msgstr ""
+msgstr "ATTENZIONE"
 
 #: utils-translate.R:150
 msgid "ERROR"
-msgstr ""
+msgstr "ERRORE"
 
 #: utils-translate.R:152
 msgid "Overview"
-msgstr ""
+msgstr "Panoramica"
 
 #: utils-translate.R:153
 msgid "Questions"
-msgstr ""
+msgstr "Domande"
 
 #: utils-translate.R:154
 msgid "Objectives"
-msgstr ""
+msgstr "Obiettivi"
 
 #: utils-translate.R:155
 msgid "Callout"
-msgstr ""
+msgstr "Richiamo"
 
 #: utils-translate.R:156
 msgid "Challenge"
-msgstr ""
+msgstr "Sfida"
 
 #: utils-translate.R:157
 msgid "Prerequisite"
-msgstr ""
+msgstr "Prerequisito"
 
 #: utils-translate.R:158
 msgid "Checklist"
-msgstr ""
+msgstr "Lista di Controllo"
 
 #: utils-translate.R:159
 msgid "Discussion"
-msgstr ""
+msgstr "Discussione"
 
 #: utils-translate.R:160
 msgid "Testimonial"
-msgstr ""
+msgstr "Testimonianza"
 
 #: utils-translate.R:163
 msgid "Show me the solution"
-msgstr ""
+msgstr "Mostrami la soluzione"
 
 #: utils-translate.R:164
 msgid "Give me a hint"
-msgstr ""
+msgstr "Dammi un suggerimento"
 
 #: utils-translate.R:165
 msgid "Show details"
-msgstr ""
+msgstr "Mostra dettagli"
 
 #: utils-translate.R:166
 msgid "Instructor Note"
-msgstr ""
+msgstr "Nota per l'Istruttore"
 
 #: utils-translate.R:168
 msgid "Summary and Setup"
-msgstr ""
+msgstr "Riepilogo e Configurazione"
 
 #: utils-translate.R:169
 msgid "Summary and Schedule"
-msgstr ""
+msgstr "Riepilogo e Programma"
 
 #: utils-translate.R:170
 msgid "All in One View"
-msgstr ""
+msgstr "Visualizzazione Tutto in Uno"
 
 #: utils-translate.R:171
 msgid "Page not found"
-msgstr ""
+msgstr "Pagina non trovata"
 
 #: utils-translate.R:172
 msgid "All Images"
-msgstr ""
+msgstr "Tutte le Immagini"
 
 #: utils-translate.R:174
 msgid "anchor"
-msgstr ""
+msgstr "ancora"
 
 #: utils-translate.R:175
 msgid "Figure {element}"
-msgstr ""
+msgstr "Figura {element}"
 
 #: utils-translate.R:176
 msgid "Image {i} of {n}: {sQuote(txt)}"
-msgstr ""
+msgstr "Immagine {i} di {n}: {sQuote(txt)}"
 
 #: utils-translate.R:177
 msgid "Finish"
-msgstr ""
+msgstr "Fine"
 
 #: utils-translate.R:178
 msgid "Caution"
-msgstr ""
+msgstr "Attenzione"
