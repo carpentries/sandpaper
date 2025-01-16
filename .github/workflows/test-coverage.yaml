@@ -16,6 +16,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PATHS_ROOT: ~/.local/share/renv
       OS_VERSION: 1
+      LANG: "en_US-UTF.8"
 
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +28,7 @@ jobs:
       - name: "Set up pandoc"
         uses: r-lib/actions/setup-pandoc@v2
 
-      - name: "Install sysreqs"
+      - name: "Setup System Environment"
         id: run-apt
         shell: bash
         run: |
@@ -51,6 +52,8 @@ jobs:
           fi
           printf "libxslt-dev\n" >> ${{ runner.temp }}/sysdeps.txt
           sudo xargs apt-get install --fix-missing -y < ${{ runner.temp }}/sysdeps.txt || echo "Not on Ubuntu"
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8          
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
