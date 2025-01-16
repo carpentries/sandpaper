@@ -33,6 +33,8 @@ jobs:
         shell: bash
         run: |
           sudo apt update || exit 0
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 LC_MESSAGES=en_US.UTF-8 LANG=en_US.UTF-8
           curl https://carpentries.r-universe.dev/stats/sysdeps 2> /dev/null \
           | jq -r '.headers[0] | select(. != null)' 2> /dev/null \
           > ${{ runner.temp }}/sysdeps.txt
@@ -52,8 +54,6 @@ jobs:
           fi
           printf "libxslt-dev\n" >> ${{ runner.temp }}/sysdeps.txt
           sudo xargs apt-get install --fix-missing -y < ${{ runner.temp }}/sysdeps.txt || echo "Not on Ubuntu"
-          sudo locale-gen en_US.UTF-8
-          sudo update-locale LANG=en_US.UTF-8          
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
