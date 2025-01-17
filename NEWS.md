@@ -1,10 +1,23 @@
-# sandpaper (development version)
+# sandpaper (0.16.11)
 
 ## BUG FIXES
 
 * The website preview feature which automatically opens a web browser after 
   running `build_lesson()` has been fixed to work with the latest version of 
   pkgdown (@Bisaloo, #627)
+* Fix build failures if `instructor-notes.[R]md` is missing or not listed in 
+  the `config.yaml` (reported @jhidding #622, fixed @froggleston #626)
+
+## NEW FEATURES
+
+* Users can now provide a `disable_sidebar_numbering` option in a lesson 
+  `config.yaml` to turn off automatic episode numbering if they want to 
+  use their own, e.g. specifying their own numbering manually in episode
+  title blocks (reported @anenadic #623, implemented @froggleston #624)
+* Add a new `config_yaml` option `license_url` so that users can supply
+  custom license URLs for lesson footers (reported @chrbknudsen #619, 
+  implemented @froggleston #620)
+
 
 # sandpaper 0.16.10 (2024-11-11)
 
