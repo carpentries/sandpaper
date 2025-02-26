@@ -50,7 +50,7 @@ manual invaliation is necessary. You will need maintain access to the repository
 and you can either go to the actions tab and [click on the caches button to find
 and invalidate the failing cache](https://github.blog/changelog/2022-10-20-manage-caches-in-your-actions-workflows-from-web-interface/) 
 or by setting the `CACHE_VERSION` secret to the current date (which will
-invalidate all the caches).
+invalidate all of the caches).
 
 ## Updates
 
