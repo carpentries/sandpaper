@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: sandpaper 0.16.9.9000\n"
-"POT-Creation-Date: 2024-10-14 12:13+0100\n"
+"Project-Id-Version: sandpaper 0.16.11\n"
+"POT-Creation-Date: 2025-03-18 11:33-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -227,7 +227,7 @@ msgid "About"
 msgstr ""
 
 #: utils-translate.R:131
-msgid "Materials licensed under {license} by the authors"
+msgid "Materials licensed under <({license})> by the authors"
 msgstr ""
 
 #: utils-translate.R:132
@@ -310,58 +310,58 @@ msgstr ""
 msgid "Testimonial"
 msgstr ""
 
-#: utils-translate.R:163
-msgid "Show me the solution"
+#: utils-translate.R:161
+msgid "Caution"
 msgstr ""
 
 #: utils-translate.R:164
-msgid "Give me a hint"
+msgid "Show me the solution"
 msgstr ""
 
 #: utils-translate.R:165
-msgid "Show details"
+msgid "Give me a hint"
 msgstr ""
 
 #: utils-translate.R:166
+msgid "Show details"
+msgstr ""
+
+#: utils-translate.R:167
 msgid "Instructor Note"
 msgstr ""
 
-#: utils-translate.R:168
+#: utils-translate.R:169
 msgid "Summary and Setup"
 msgstr ""
 
-#: utils-translate.R:169
+#: utils-translate.R:170
 msgid "Summary and Schedule"
 msgstr ""
 
-#: utils-translate.R:170
+#: utils-translate.R:171
 msgid "All in One View"
 msgstr ""
 
-#: utils-translate.R:171
+#: utils-translate.R:172
 msgid "Page not found"
 msgstr ""
 
-#: utils-translate.R:172
+#: utils-translate.R:173
 msgid "All Images"
 msgstr ""
 
-#: utils-translate.R:174
+#: utils-translate.R:175
 msgid "anchor"
 msgstr ""
 
-#: utils-translate.R:175
+#: utils-translate.R:176
 msgid "Figure {element}"
 msgstr ""
 
-#: utils-translate.R:176
+#: utils-translate.R:177
 msgid "Image {i} of {n}: {sQuote(txt)}"
 msgstr ""
 
-#: utils-translate.R:177
-msgid "Finish"
-msgstr ""
-
 #: utils-translate.R:178
-msgid "Caution"
+msgid "Finish"
 msgstr ""

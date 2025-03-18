@@ -12,11 +12,11 @@ msgstr ""
 
 #: utils-translate.R:74
 msgid "Skip to main content"
-msgstr Salta al contenuto principale"
+msgstr "Salta al contenuto principale"
 
 #: utils-translate.R:75
 msgid "Pre-Alpha"
-msgstr "Pre-Alpha""
+msgstr "Pre-Alpha"
 
 #: utils-translate.R:76
 msgid ""

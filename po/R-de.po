@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.16.5\n"
-"POT-Creation-Date: 2024-06-18 20:33+0100\n"
+"POT-Creation-Date: 2025-03-18 11:33-0700\n"
 "PO-Revision-Date: 2024-10-08 20:33+0100\n"
 "Last-Translator: Martin Raden <martin.raden@uni-tuebingen.de>\n"
 "Language-Team: none\n"
@@ -24,15 +24,16 @@ msgid ""
 "development, but has not yet been taught."
 msgstr ""
 "Diese Lektion befindet sich in der Pre-Alpha-Phase, was bedeutet, dass sie "
-"sich in einer frühen Entwicklungsphase befindet, aber noch nicht unterrichtet wurde."
+"sich in einer frühen Entwicklungsphase befindet, aber noch nicht "
+"unterrichtet wurde."
 
 #: utils-translate.R:77
 msgid ""
 "This lesson is in the alpha phase, which means that it has been taught once "
 "and lesson authors are iterating on feedback."
 msgstr ""
-"Diese Lektion befindet sich in der Alpha-Phase, was bedeutet, dass sie bereits "
-"einmal unterrichtet wurde und die Autoren das Feedback einarbeiten."
+"Diese Lektion befindet sich in der Alpha-Phase, was bedeutet, dass sie "
+"bereits einmal unterrichtet wurde und die Autoren das Feedback einarbeiten."
 
 #: utils-translate.R:78
 msgid "Alpha"
@@ -44,7 +45,8 @@ msgid ""
 "by instructors outside of the original author team."
 msgstr ""
 "Diese Lektion befindet sich in der Beta-Phase, was bedeutet, dass sie bereit "
-"für den Unterricht durch Dozenten außerhalb des ursprünglichen Autorenteams ist."
+"für den Unterricht durch Dozenten außerhalb des ursprünglichen Autorenteams "
+"ist."
 
 #: utils-translate.R:80
 msgid "Beta"
@@ -191,9 +193,8 @@ msgid ""
 "The actual schedule may vary slightly depending on the topics and exercises "
 "chosen by the instructor."
 msgstr ""
-"Abhängig von den gewählten Themen und Übungen, kann der tatsächliche Zeitplan "
-"etwas abweichen."
-
+"Abhängig von den gewählten Themen und Übungen, kann der tatsächliche "
+"Zeitplan etwas abweichen."
 
 #: utils-translate.R:121
 msgid "Back To Top"
@@ -236,7 +237,9 @@ msgid "About"
 msgstr "Über"
 
 #: utils-translate.R:131
-msgid "Materials licensed under {license} by the authors"
+#, fuzzy
+#| msgid "Materials licensed under {license} by the authors"
+msgid "Materials licensed under <({license})> by the authors"
 msgstr "Materialien lizenziert unter {license} von den Autoren"
 
 #: utils-translate.R:132
@@ -319,58 +322,58 @@ msgstr "Diskussion"
 msgid "Testimonial"
 msgstr "Referenz"
 
-#: utils-translate.R:163
+#: utils-translate.R:161
+msgid "Caution"
+msgstr "Vorsicht"
+
+#: utils-translate.R:164
 msgid "Show me the solution"
 msgstr "Zeige mir die Lösung"
 
-#: utils-translate.R:164
+#: utils-translate.R:165
 msgid "Give me a hint"
 msgstr "Gib mir einen Hinweis"
 
-#: utils-translate.R:165
+#: utils-translate.R:166
 msgid "Show details"
 msgstr "Details anzeigen"
 
-#: utils-translate.R:166
+#: utils-translate.R:167
 msgid "Instructor Note"
 msgstr "Hinweis für den Dozenten"
 
-#: utils-translate.R:168
+#: utils-translate.R:169
 msgid "Summary and Setup"
 msgstr "Zusammenfassung und Einrichtung"
 
-#: utils-translate.R:169
+#: utils-translate.R:170
 msgid "Summary and Schedule"
 msgstr "Zusammenfassung und Zeitplan"
 
-#: utils-translate.R:170
+#: utils-translate.R:171
 msgid "All in One View"
 msgstr "Alles auf einen Blick"
 
-#: utils-translate.R:171
+#: utils-translate.R:172
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: utils-translate.R:172
+#: utils-translate.R:173
 msgid "All Images"
 msgstr "Alle Bilder"
 
-#: utils-translate.R:174
+#: utils-translate.R:175
 msgid "anchor"
 msgstr "Anker"
 
-#: utils-translate.R:175
+#: utils-translate.R:176
 msgid "Figure {element}"
 msgstr "Abbildung {element}"
 
-#: utils-translate.R:176
+#: utils-translate.R:177
 msgid "Image {i} of {n}: {sQuote(txt)}"
 msgstr "Bild {i} von {n}: {sQuote(txt)}"
 
-#: utils-translate.R:177
+#: utils-translate.R:178
 msgid "Finish"
 msgstr "Fertig"
-
-#: utils-translate.R:178
-msgid "Caution"
-msgstr "Vorsicht"

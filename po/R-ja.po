@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.14.1.9000\n"
-"POT-Creation-Date: 2024-06-18 20:33+0100\n"
+"POT-Creation-Date: 2025-03-18 11:33-0700\n"
 "PO-Revision-Date: 2023-11-22 09:14+0900\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -236,7 +236,9 @@ msgid "About"
 msgstr "概要"
 
 #: utils-translate.R:131
-msgid "Materials licensed under {license} by the authors"
+#, fuzzy
+#| msgid "Materials licensed under {license} by the authors"
+msgid "Materials licensed under <({license})> by the authors"
 msgstr "材料は著者によって{license}のもとに掲載を許諾されている"
 
 #: utils-translate.R:132
@@ -323,61 +325,61 @@ msgstr "ディスカッション"
 msgid "Testimonial"
 msgstr "推薦文"
 
-#: utils-translate.R:163
+#: utils-translate.R:161
+msgid "Caution"
+msgstr "注意"
+
+#: utils-translate.R:164
 msgid "Show me the solution"
 msgstr "回答を表示する"
 
-#: utils-translate.R:164
+#: utils-translate.R:165
 msgid "Give me a hint"
 msgstr "ヒントを表示する"
 
-#: utils-translate.R:165
+#: utils-translate.R:166
 msgid "Show details"
 msgstr "詳細を表示する"
 
-#: utils-translate.R:166
+#: utils-translate.R:167
 msgid "Instructor Note"
 msgstr "インストラクター用メモ"
 
-#: utils-translate.R:168
+#: utils-translate.R:169
 msgid "Summary and Setup"
 msgstr "概要とセットアップ"
 
-#: utils-translate.R:169
+#: utils-translate.R:170
 msgid "Summary and Schedule"
 msgstr "概要とスケジュール"
 
-#: utils-translate.R:170
+#: utils-translate.R:171
 msgid "All in One View"
 msgstr "一つにまとまったページ"
 
-#: utils-translate.R:171
+#: utils-translate.R:172
 msgid "Page not found"
 msgstr "ページが見つかりません"
 
-#: utils-translate.R:172
+#: utils-translate.R:173
 msgid "All Images"
 msgstr "全ての画像"
 
-#: utils-translate.R:174
+#: utils-translate.R:175
 msgid "anchor"
 msgstr "アンカー"
 
-#: utils-translate.R:175
+#: utils-translate.R:176
 msgid "Figure {element}"
 msgstr "図の{element}"
 
-#: utils-translate.R:176
+#: utils-translate.R:177
 msgid "Image {i} of {n}: {sQuote(txt)}"
 msgstr "画像{i}/{n}: {sQuote(txt)}"
 
-#: utils-translate.R:177
+#: utils-translate.R:178
 msgid "Finish"
 msgstr "終わり"
-
-#: utils-translate.R:178
-msgid "Caution"
-msgstr "注意"
 
 #~ msgid "Search"
 #~ msgstr "検索"

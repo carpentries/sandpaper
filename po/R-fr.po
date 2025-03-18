@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.16.2\n"
-"POT-Creation-Date: 2024-06-18 20:33+0100\n"
+"POT-Creation-Date: 2025-03-18 11:33-0700\n"
 "PO-Revision-Date: 2024-01-14 22:46+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -237,7 +237,9 @@ msgid "About"
 msgstr "À propos"
 
 #: utils-translate.R:131
-msgid "Materials licensed under {license} by the authors"
+#, fuzzy
+#| msgid "Materials licensed under {license} by the authors"
+msgid "Materials licensed under <({license})> by the authors"
 msgstr "Contenu publié sous licence {license} par les auteurs"
 
 #: utils-translate.R:132
@@ -320,61 +322,61 @@ msgstr "Discussion"
 msgid "Testimonial"
 msgstr "Témoignage"
 
-#: utils-translate.R:163
+#: utils-translate.R:161
+msgid "Caution"
+msgstr "Prudence"
+
+#: utils-translate.R:164
 msgid "Show me the solution"
 msgstr "Montrer la solution"
 
-#: utils-translate.R:164
+#: utils-translate.R:165
 msgid "Give me a hint"
 msgstr "Donner un indice"
 
-#: utils-translate.R:165
+#: utils-translate.R:166
 msgid "Show details"
 msgstr "Afficher les détails"
 
-#: utils-translate.R:166
+#: utils-translate.R:167
 msgid "Instructor Note"
 msgstr "Remarque de l'instructeur"
 
-#: utils-translate.R:168
+#: utils-translate.R:169
 msgid "Summary and Setup"
 msgstr "Résumé et Mise en Place"
 
-#: utils-translate.R:169
+#: utils-translate.R:170
 msgid "Summary and Schedule"
 msgstr "Résumé et Emploi du Temps"
 
-#: utils-translate.R:170
+#: utils-translate.R:171
 msgid "All in One View"
 msgstr "Tout sur une seule page"
 
-#: utils-translate.R:171
+#: utils-translate.R:172
 msgid "Page not found"
 msgstr "Page introuvable"
 
-#: utils-translate.R:172
+#: utils-translate.R:173
 msgid "All Images"
 msgstr "Toutes les images"
 
-#: utils-translate.R:174
+#: utils-translate.R:175
 msgid "anchor"
 msgstr "ancre"
 
-#: utils-translate.R:175
+#: utils-translate.R:176
 msgid "Figure {element}"
 msgstr "Figure {element}"
 
-#: utils-translate.R:176
+#: utils-translate.R:177
 msgid "Image {i} of {n}: {sQuote(txt)}"
 msgstr "Image {i} sur {n} : {sQuote(txt)}"
 
-#: utils-translate.R:177
+#: utils-translate.R:178
 msgid "Finish"
 msgstr "Terminer"
-
-#: utils-translate.R:178
-msgid "Caution"
-msgstr "Prudence"
 
 #~ msgid "Search"
 #~ msgstr "Recherche"

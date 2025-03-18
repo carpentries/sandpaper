@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.16.1.9000\n"
-"POT-Creation-Date: 2024-06-18 20:33+0100\n"
+"POT-Creation-Date: 2025-03-18 11:33-0700\n"
 "PO-Revision-Date: 2023-12-19 09:37-0800\n"
 "Last-Translator: Olexandr Konovalov\n"
 "Language-Team: none\n"
@@ -239,7 +239,7 @@ msgstr "Інформація"
 #: utils-translate.R:131
 #, fuzzy
 #| msgid "Materials licensed under {license} by {authors}"
-msgid "Materials licensed under {license} by the authors"
+msgid "Materials licensed under <({license})> by the authors"
 msgstr "Матеріали ліцензовані за {license}. Автори: {authors}"
 
 #: utils-translate.R:132
@@ -324,61 +324,61 @@ msgstr "Обговорення"
 msgid "Testimonial"
 msgstr "Відгук"
 
-#: utils-translate.R:163
+#: utils-translate.R:161
+msgid "Caution"
+msgstr "осторожность"
+
+#: utils-translate.R:164
 msgid "Show me the solution"
 msgstr "Показати відповіді"
 
-#: utils-translate.R:164
+#: utils-translate.R:165
 msgid "Give me a hint"
 msgstr "Отримати підказку"
 
-#: utils-translate.R:165
+#: utils-translate.R:166
 msgid "Show details"
 msgstr "Показати деталі"
 
-#: utils-translate.R:166
+#: utils-translate.R:167
 msgid "Instructor Note"
 msgstr "Примітка для викладача"
 
-#: utils-translate.R:168
+#: utils-translate.R:169
 msgid "Summary and Setup"
 msgstr "Передмова і налаштування"
 
-#: utils-translate.R:169
+#: utils-translate.R:170
 msgid "Summary and Schedule"
 msgstr "Передмова і розклад"
 
-#: utils-translate.R:170
+#: utils-translate.R:171
 msgid "All in One View"
 msgstr "Все на одній сторінці"
 
-#: utils-translate.R:171
+#: utils-translate.R:172
 msgid "Page not found"
 msgstr "Сторінку не знайдено"
 
-#: utils-translate.R:172
+#: utils-translate.R:173
 msgid "All Images"
 msgstr "Усі зображення"
 
-#: utils-translate.R:174
+#: utils-translate.R:175
 msgid "anchor"
 msgstr "якір"
 
-#: utils-translate.R:175
+#: utils-translate.R:176
 msgid "Figure {element}"
 msgstr "Малюнок {element}"
 
-#: utils-translate.R:176
+#: utils-translate.R:177
 msgid "Image {i} of {n}: {sQuote(txt)}"
 msgstr "Зображення {i} з {n}: {sQuote(txt)}"
 
-#: utils-translate.R:177
+#: utils-translate.R:178
 msgid "Finish"
 msgstr "Кінець"
-
-#: utils-translate.R:178
-msgid "Caution"
-msgstr "осторожность"
 
 #~ msgid "Search"
 #~ msgstr "Пошук"
