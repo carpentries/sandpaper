@@ -1,6 +1,7 @@
 # Query only the yaml header. This is faster than slurping the entire file...
 # useful for determining timings :)
 politely_get_yaml <- function(path) {
+  file_len <- R.utils::countLines(path)
   header <- readLines(path, n = 10, encoding = "UTF-8")
 
   barriers <- grep("^---$", header)
@@ -23,7 +24,7 @@ politely_get_yaml <- function(path) {
   if (length(barriers) == 1) {
     to_skip <- 10L
     next_ten <- vector(mode = "character", length = 10)
-    while (length(barriers) < 2) {
+    while (length(barriers) < 2 && to_skip < file_len) {
       next_ten <- scan(
         path,
         what = character(),
@@ -44,6 +45,12 @@ politely_get_yaml <- function(path) {
   # validate at the end of scanning
   if (is.na(barriers[1]) || is.na(barriers[2]) || barriers[2] <= barriers[1]) {
     cli::cli_alert_danger("Cannot find valid open and close of YAML frontmatter in episode {path}")
+    return(character(0))
+  }
+
+  # if the second line is blank
+  if (header[1] == "---" && header[2] == "") {
+    cli::cli_alert_danger("Blank line after first YAML block line in episode {path}")
     return(character(0))
   }
 
