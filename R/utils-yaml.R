@@ -1,27 +1,6 @@
 # Query only the yaml header. This is faster than slurping the entire file...
 # useful for determining timings :)
-
-validate_yaml_header <- function(header_lines) {
-  # Check for start and end markers
-  yaml_start <- which(header_lines == "---")[1]
-  yaml_end <- which(header_lines == "---")[2]
-
-  if (is.na(yaml_start) || is.na(yaml_end) || yaml_end <= yaml_start) {
-    return(FALSE)
-  }
-
-  yaml_header <- paste(header_lines[(yaml_start):(yaml_end)], collapse = "\n")
-
-  tryCatch({
-    yaml::yaml.load(yaml_header)
-    TRUE
-  }, error = function(e) {
-    FALSE
-  })
-}
-
 politely_get_yaml <- function(path) {
-  # validate header first
   header <- readLines(path, n = 10, encoding = "UTF-8")
 
   barriers <- grep("^---$", header)
@@ -34,33 +13,52 @@ politely_get_yaml <- function(path) {
     }
     return(character(0))
   }
-  else {
-    if (!validate_yaml_header(header)) {
-      cli::cli_alert_danger("Invalid YAML header found in {path}")
-      return(character(0))
+
+  # got at least one YAML header in the first 10 lines so check that the first line of a lesson is header open
+  if (barriers[1] != 1) {
+    cli::cli_alert_danger("First line is invalid - [expected ---, got {header[1]}] - in episode {path}")
+    return(character(0))
+  }
+
+  if (length(barriers) == 1) {
+    to_skip <- 10L
+    next_ten <- vector(mode = "character", length = 10)
+    while (length(barriers) < 2) {
+      next_ten <- scan(
+        path,
+        what = character(),
+        sep = "\n",
+        skip = to_skip,
+        nlines = 10,
+        encoding = "UTF-8",
+        quiet = TRUE,
+        blank.lines.skip = FALSE,
+        skipNul = FALSE
+      )
+      header <- c(header, next_ten)
+      barriers <- grep("^---$", header)
+      to_skip <- to_skip + 10L
     }
   }
-#   if (length(barriers) == 1) {
-#     to_skip <- 10L
-#     next_ten <- vector(mode = "character", length = 10)
-#     while (length(barriers) < 2) {
-#       next_ten <- scan(
-#         path,
-#         what = character(),
-#         sep = "\n",
-#         skip = to_skip,
-#         nlines = 10,
-#         encoding = "UTF-8",
-#         quiet = TRUE,
-#         blank.lines.skip = FALSE,
-#         skipNul = FALSE
-#       )
-#       header <- c(header, next_ten)
-#       barriers <- grep("^---$", header)
-#       to_skip <- to_skip + 10L
-#     }
-#   }
-  return(header[barriers[1]:barriers[2]])
+
+  # validate at the end of scanning
+  if (is.na(barriers[1]) || is.na(barriers[2]) || barriers[2] <= barriers[1]) {
+    cli::cli_alert_danger("Cannot find valid open and close of YAML frontmatter in episode {path}")
+    return(character(0))
+  }
+
+  header <- header[barriers[1]:barriers[2]]
+
+  # actually validate the final header
+  yaml_header <- paste(header, collapse = "\n")
+  tryCatch({
+    yaml::yaml.load(yaml_header)
+  }, error = function(e) {
+    cli::cli_alert_danger("YAML header is invalid in episode {path}")
+    return(character(0))
+  })
+
+  return(header)
 }
 
 siQuote <- function(string) {

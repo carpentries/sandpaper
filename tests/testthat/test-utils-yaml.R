@@ -20,7 +20,7 @@ cli::test_that_cli("polite yaml throws a message when there is no yaml", {
 
   withr::local_file(tmp <- tempfile())
   cat("A malformed YAML header\n---\n", file = tmp)
-  expect_message(politely_get_yaml(tmp), "Invalid YAML header found")
+  expect_message(politely_get_yaml(tmp), "First line is invalid")
 
   cat("# A header\n\nbut no yaml :/\n", file = tmp)
   expect_message(politely_get_yaml(tmp), "No yaml header found in the first 10 lines")
