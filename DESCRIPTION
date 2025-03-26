@@ -93,7 +93,8 @@ Imports:
     callr,
     servr,
     utils,
-    tools
+    tools,
+    R.utils
 Suggests:
     testthat (>= 3.0.0),
     covr,
