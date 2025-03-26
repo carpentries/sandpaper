@@ -1,7 +1,29 @@
 # Query only the yaml header. This is faster than slurping the entire file...
 # useful for determining timings :)
+
+validate_yaml_header <- function(header_lines) {
+  # Check for start and end markers
+  yaml_start <- which(header_lines == "---")[1]
+  yaml_end <- which(header_lines == "---")[2]
+
+  if (is.na(yaml_start) || is.na(yaml_end) || yaml_end <= yaml_start) {
+    return(FALSE)
+  }
+
+  yaml_header <- paste(header_lines[(yaml_start):(yaml_end)], collapse = "\n")
+
+  tryCatch({
+    yaml::yaml.load(yaml_header)
+    TRUE
+  }, error = function(e) {
+    FALSE
+  })
+}
+
 politely_get_yaml <- function(path) {
+  # validate header first
   header <- readLines(path, n = 10, encoding = "UTF-8")
+
   barriers <- grep("^---$", header)
   if (length(barriers) == 0) {
     # we don't need to warn if they are scanning an index.md with no yaml
@@ -12,26 +34,32 @@ politely_get_yaml <- function(path) {
     }
     return(character(0))
   }
-  if (length(barriers) == 1) {
-    to_skip <- 10L
-    next_ten <- vector(mode = "character", length = 10)
-    while (length(barriers) < 2) {
-      next_ten <- scan(
-        path,
-        what = character(),
-        sep = "\n",
-        skip = to_skip,
-        nlines = 10,
-        encoding = "UTF-8",
-        quiet = TRUE,
-        blank.lines.skip = FALSE,
-        skipNul = FALSE
-      )
-      header <- c(header, next_ten)
-      barriers <- grep("^---$", header)
-      to_skip <- to_skip + 10L
+  else {
+    if (!validate_yaml_header(header)) {
+      cli::cli_alert_danger("Invalid YAML header found in {path}")
+      return(character(0))
     }
   }
+#   if (length(barriers) == 1) {
+#     to_skip <- 10L
+#     next_ten <- vector(mode = "character", length = 10)
+#     while (length(barriers) < 2) {
+#       next_ten <- scan(
+#         path,
+#         what = character(),
+#         sep = "\n",
+#         skip = to_skip,
+#         nlines = 10,
+#         encoding = "UTF-8",
+#         quiet = TRUE,
+#         blank.lines.skip = FALSE,
+#         skipNul = FALSE
+#       )
+#       header <- c(header, next_ten)
+#       barriers <- grep("^---$", header)
+#       to_skip <- to_skip + 10L
+#     }
+#   }
   return(header[barriers[1]:barriers[2]])
 }
 
