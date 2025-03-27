@@ -104,7 +104,8 @@ Suggests:
     jsonlite,
     sessioninfo,
     mockr,
-    varnish (>= 0.3.0)
+    varnish (>= 0.3.0),
+    reticulate
 Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   carpentries/pegboard,

@@ -61,6 +61,7 @@ reference:
  - contents:
    - use_package_cache
    - manage_deps
+   - use_python
  - title: "Updating Lesson Tools"
    desc: >
      Lesson updates will happen automatically on a regular schedule on GitHub.
@@ -151,4 +152,3 @@ articles:
  - title: "In Progress"
    contents:
    - articles/internationalisation
-
