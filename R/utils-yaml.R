@@ -1,7 +1,9 @@
 # Query only the yaml header. This is faster than slurping the entire file...
 # useful for determining timings :)
 politely_get_yaml <- function(path) {
+  file_len <- R.utils::countLines(path)
   header <- readLines(path, n = 10, encoding = "UTF-8")
+
   barriers <- grep("^---$", header)
   if (length(barriers) == 0) {
     # we don't need to warn if they are scanning an index.md with no yaml
@@ -12,10 +14,17 @@ politely_get_yaml <- function(path) {
     }
     return(character(0))
   }
+
+  # got at least one YAML header in the first 10 lines so check that the first line of a lesson is header open
+  if (barriers[1] != 1) {
+    cli::cli_alert_danger("First line is invalid - [expected ---, got {header[1]}] - in episode {path}")
+    return(character(0))
+  }
+
   if (length(barriers) == 1) {
     to_skip <- 10L
     next_ten <- vector(mode = "character", length = 10)
-    while (length(barriers) < 2) {
+    while (length(barriers) < 2 && to_skip < file_len) {
       next_ten <- scan(
         path,
         what = character(),
@@ -32,7 +41,31 @@ politely_get_yaml <- function(path) {
       to_skip <- to_skip + 10L
     }
   }
-  return(header[barriers[1]:barriers[2]])
+
+  # validate at the end of scanning
+  if (is.na(barriers[1]) || is.na(barriers[2]) || barriers[2] <= barriers[1]) {
+    cli::cli_alert_danger("Cannot find valid open and close of YAML frontmatter in episode {path}")
+    return(character(0))
+  }
+
+  # if the second line is blank
+  if (header[1] == "---" && header[2] == "") {
+    cli::cli_alert_danger("Blank line after first YAML block line in episode {path}")
+    return(character(0))
+  }
+
+  header <- header[barriers[1]:barriers[2]]
+
+  # actually validate the final header
+  yaml_header <- paste(header, collapse = "\n")
+  tryCatch({
+    yaml::yaml.load(yaml_header)
+  }, error = function(e) {
+    cli::cli_alert_danger("YAML header is invalid in episode {path}")
+    return(character(0))
+  })
+
+  return(header)
 }
 
 siQuote <- function(string) {

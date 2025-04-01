@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.16.11
+Version: 0.16.12.9000
 Authors@R: c(
     person(given = "Robert",
            family = "Davey",
@@ -93,7 +93,8 @@ Imports:
     callr,
     servr,
     utils,
-    tools
+    tools,
+    R.utils
 Suggests:
     testthat (>= 3.0.0),
     covr,
