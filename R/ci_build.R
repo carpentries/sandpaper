@@ -64,7 +64,7 @@ ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origi
 
   has_withr <- requireNamespace("withr", quietly = TRUE)
   if (!has_git() || !requireNamespace("withr", quietly = TRUE)) {
-    stop(cli::format_error("{.fn ci_build_markdown} requires {.pkg git} and {.pkg withr}"), call. = FALSE)
+    stop(cli::format_error("{.fn ci_build_markdown} requires {.pkg git} and {.pkg withr}. Please check that they are installed."), call. = FALSE)
   }
 
   withr::with_dir(path, {
@@ -127,7 +127,7 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
 
   has_withr <- requireNamespace("withr", quietly = TRUE)
   if (!has_git() || !requireNamespace("withr", quietly = TRUE)) {
-    stop(cli::format_error("{.fn ci_build_site} requires {.pkg git} and {.pkg withr}"), call. = FALSE)
+    stop(cli::format_error("{.fn ci_build_site} requires {.pkg git} and {.pkg withr}. Please check that they are installed."), call. = FALSE)
   }
 
   withr::with_dir(path, {
