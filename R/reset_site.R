@@ -14,6 +14,8 @@
 #' dir(file.path(tmp, "site"))
 reset_site <- function(path = ".") {
   check_lesson(path)
-  fs::dir_delete(path_site(path))
+  if (fs::dir_exists(path_site(path))) {
+      fs::dir_delete(path_site(path))
+  }
   create_site(path)
 }

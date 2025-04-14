@@ -235,6 +235,11 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   options(renv.config.user.profile = FALSE)
   renv_lib  <- renv::paths$library(project = path)
   renv_lock <- renv::paths$lockfile(project = path)
+
+  if (!dir.create(file.path(renv_lib), recursive = TRUE, showWarnings = FALSE)) {
+    cli::cli_abort("The renv library folder '{renv_lib}' does not exist and could not be created. Please check your permissions.")
+  }
+
   # Steps to update a `{renv}` environment regardless of whether or not the user
   # has initiated `{renv}` in the first place
   #

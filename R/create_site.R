@@ -1,5 +1,4 @@
 create_site <- function(path) {
-
   chk <- check_site_rendered(path)
 
   if (!isTRUE(chk$site)) fs::dir_create(path_site(path))

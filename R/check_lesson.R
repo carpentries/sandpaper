@@ -33,20 +33,33 @@ check_lesson <- function(path = ".") {
   theirs <- if (fs::file_exists(g)) readLines(g) else character(0)
   theirs <- theirs[!grepl("^([#].+?|)$", trimws(theirs))]
 
+  lsn <- this_lesson(path)
+  not_overview <- !(lsn$overview && length(lsn$episodes) == 0L)
+
+  if (!not_overview) {
+    cli::cli_alert_info("This is an overview lesson - skipping episode checks")
+  }
+
   # Validation -----------------------------------------------------------------
 
   # Validators are stored in validators.R
   checklist <- list(
-    validate_that(check_dir(path, "episodes")),
-    # validate_that(check_dir(path, "instructors")),
     validate_that(check_dir(path, "learners")),
-    # validate_that(check_dir(path, "profiles")),
-    validate_that(check_dir(path, "site")),
     validate_that(check_dir(path, ".git")),
     validate_that(check_gitignore(theirs)),
-    validate_that(check_exists(path, "README.md")),
-    validate_that(check_exists(path, fs::path("site", "README.md")))
+    validate_that(check_exists(path, "README.md"))
   )
+
+  if (not_overview) {
+    ## append to checklist if not overview
+    checklist <- c(
+      checklist,
+      validate_that(check_dir(path, "episodes"))
+      # if rebuilding, why check these?
+      # validate_that(check_dir(path, "site")),
+      # validate_that(check_exists(path, fs::path("site", "README.md")))
+    )
+  }
 
   # Reporting ------------------------------------------------------------------
   report_validation(
@@ -56,6 +69,12 @@ check_lesson <- function(path = ".") {
 }
 
 check_site_rendered <- function(path = ".") {
+  # create site folder if it doesn't exist
+  if (!fs::dir_exists(path_site(path))) {
+    cli::cli_alert_info("Creating site folder")
+    fs::dir_create(path_site(path))
+  }
+
   path <- path_site(path)
   list(
     site        = validate_that(check_dir(path, ".")),
