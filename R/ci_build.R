@@ -63,8 +63,11 @@ ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origi
   built <- path_built(path)
 
   has_withr <- requireNamespace("withr", quietly = TRUE)
+  if (!has_git() || !requireNamespace("withr", quietly = TRUE)) {
+    stop(cli::format_error("{.fn ci_build_markdown} requires {.pkg git} and {.pkg withr}"), call. = FALSE)
+  }
 
-  if (has_git() && has_withr) { withr::with_dir(path, {
+  withr::with_dir(path, {
     # Set up the worktrees and make sure to remove them when the function exits
     # (gracefully or ungracefully so)
     del_md <- git_worktree_setup(path, built,
@@ -87,7 +90,7 @@ ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origi
     )
     cli::cat_line("::endgroup::")
 
-  })}
+  })
 
   return(del_md)
 }
@@ -123,8 +126,11 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
   html  <- fs::path(path_site(path), "docs")
 
   has_withr <- requireNamespace("withr", quietly = TRUE)
+  if (!has_git() || !requireNamespace("withr", quietly = TRUE)) {
+    stop(cli::format_error("{.fn ci_build_site} requires {.pkg git} and {.pkg withr}"), call. = FALSE)
+  }
 
-  if (has_git() && has_withr) { withr::with_dir(path, {
+  withr::with_dir(path, {
 
     # ------------ markdown worktree
     # We need to first check if the markdown source files exist locally. If they
@@ -163,5 +169,5 @@ ci_build_site <- function(path = ".", branch = "gh-pages", md = "md-outputs", re
       remote, branch
     )
     cli::cat_line("::endgroup::")
-  })}
+  })
 }
