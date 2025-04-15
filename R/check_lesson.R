@@ -24,7 +24,7 @@
 #' unlink(tmp)
 #' @importFrom assertthat validate_that
 #' @keywords internal
-check_lesson <- function(path = ".") {
+check_lesson <- function(path = ".", quiet = TRUE) {
 
   x      <- fs::dir_info(path, all = TRUE)
   files  <- fs::path_file(x$path)
@@ -33,10 +33,9 @@ check_lesson <- function(path = ".") {
   theirs <- if (fs::file_exists(g)) readLines(g) else character(0)
   theirs <- theirs[!grepl("^([#].+?|)$", trimws(theirs))]
 
-  lsn <- this_lesson(path)
-  not_overview <- !(lsn$overview && length(lsn$episodes) == 0L)
+  not_overview <- (get_config(path)$overview %||% FALSE)
 
-  if (!not_overview) {
+  if (!not_overview && !quiet) {
     cli::cli_alert_info("This is an overview lesson - skipping episode checks")
   }
 
@@ -51,7 +50,6 @@ check_lesson <- function(path = ".") {
   )
 
   if (not_overview) {
-    ## append to checklist if not overview
     checklist <- c(
       checklist,
       validate_that(check_dir(path, "episodes"))
@@ -68,10 +66,12 @@ check_lesson <- function(path = ".") {
   )
 }
 
-check_site_rendered <- function(path = ".") {
+check_site_rendered <- function(path = ".", quiet = TRUE) {
   # create site folder if it doesn't exist
   if (!fs::dir_exists(path_site(path))) {
-    cli::cli_alert_info("Creating site folder")
+    if (!quiet) {
+        cli::cli_alert_info("Creating site folder")
+    }
     fs::dir_create(path_site(path))
   }
 
