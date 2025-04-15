@@ -8,6 +8,7 @@ check_lesson(path = ".")
 }
 \arguments{
 \item{path}{the path to your lesson}
+\item{quiet}{if quiet (default \code{TRUE}) then no info messages printed to stdout}
 }
 \value{
 \code{TRUE} (invisibly) if the lesson is cromulent, otherwise, it will
@@ -27,7 +28,7 @@ check_lesson(tmp)
 # what has failed you
 unlink(file.path(tmp, ".gitignore"))
 unlink(file.path(tmp, "site"), recursive = TRUE)
-try(check_lesson(tmp))
+try(check_lesson(tmp, quiet = FALSE))
 
 unlink(tmp)
 }

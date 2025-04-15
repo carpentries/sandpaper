@@ -3,6 +3,7 @@
 #' This function is now deprecated in favour of [validate_lesson()].
 #'
 #' @param path the path to your lesson
+#' @param quiet if quiet (default TRUE) then no info messages printed to stdout
 #'
 #' @return `TRUE` (invisibly) if the lesson is cromulent, otherwise, it will
 #'   error with a list of things to fix.
