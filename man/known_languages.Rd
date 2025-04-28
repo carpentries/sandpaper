@@ -24,6 +24,7 @@ details of how to do so in the source code for \code{{sandpaper}}.
 #> - de
 #> - es
 #> - fr
+#> - it
 #> - ja
 #> - uk
 }\if{html}{\out{</div>}}
