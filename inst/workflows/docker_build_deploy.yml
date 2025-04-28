@@ -1,0 +1,139 @@
+name: "DOCKER Build and Deploy Site"
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: '0 0 * * 2'
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Who triggered this build?'
+        required: true
+        default: 'Maintainer (via GitHub)'
+      CACHE_VERSION:
+        description: 'Optional renv cache version override'
+        required: false
+        default: ''
+      reset:
+        description: 'Reset cached markdown files'
+        required: false
+        default: false
+        type: boolean
+jobs:
+  prepare:
+    name: "Grab renv.lock hash"
+    runs-on: ubuntu-latest
+    outputs:
+      renv-cache-hashsum: ${{ steps.set-hash.outputs.renv-cache-hashsum }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check if renv Exists
+        id: prep-check-renv
+        run: |
+          if [ -d "$GITHUB_WORKSPACE/renv" ]; then
+            echo "RENV_EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "RENV_EXISTS=false" >> $GITHUB_ENV
+          fi
+
+      - name: Calculate renv hash
+        id: set-hash
+        if: env.RENV_EXISTS == 'true'
+        run: |
+          CACHE_VERSION_INPUT="${{ github.event.inputs.CACHE_VERSION }}"
+          if [ -z "$CACHE_VERSION_INPUT" ]; then
+            echo "renv-cache-hashsum=${{ hashFiles('renv/profiles/lesson-requirements/renv.lock') }}" >> $GITHUB_OUTPUT
+          else
+            echo "renv-cache-hashsum=$CACHE_VERSION_INPUT" >> $GITHUB_OUTPUT
+          fi
+
+  full-build:
+    name: "Build Full Site"
+    runs-on: ubuntu-latest
+    needs: prepare
+    permissions:
+      checks: write
+      contents: write
+      pages: write
+    container:
+      image: carpentries/workbench-docker:${{ vars.WORKBENCH_TAG || 'latest' }}
+      env:
+        WORKBENCH_PROFILE: "ci"
+        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        RENV_PATHS_ROOT: /home/rstudio/lesson/renv
+        RENV_VERSION: ${{ needs.prepare.outputs.renv-cache-hashsum }}
+      volumes:
+        - ${{ github.workspace }}:/home/rstudio/lesson
+      options: --cpus 1
+    steps:
+      - name: "Checkout Lesson"
+        uses: actions/checkout@v4
+
+      - name: Check if renv Exists
+        id: check-renv
+        run: |
+          if [ -d "/home/rstudio/lesson/renv" ]; then
+            echo "RENV_EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "RENV_EXISTS=false" >> $GITHUB_ENV
+          fi
+
+      - name: "Grabbed renv.lock hash"
+        if: env.RENV_EXISTS == 'true'
+        run: echo "RENV_VERSION is $RENV_VERSION"
+
+      - name: Current env
+        run: env | sort
+
+      - name: Debugging Info
+        run: |
+          cd /home/rstudio/lesson
+          echo "Current Directory: $(pwd)"
+          ls -lah /home/rstudio/.workbench
+          ls -lah $(pwd)
+          Rscript -e 'sessionInfo()'
+
+      - name: Mark Repository as Safe
+        run: |
+          git config --global --add safe.directory $(pwd)
+
+      - name: Setup Lesson Dependencies
+        run: |
+          Rscript /home/rstudio/.workbench/setup_lesson_deps.R
+
+      - name: Restore renv from cache
+        id: restore-renv-cache
+        uses: actions/cache@v4
+        if: env.RENV_EXISTS == 'true'
+        with:
+          path: /home/rstudio/lesson/renv
+          key: ${{ runner.os }}-${{ inputs.cache-version }}-renv-${{ needs.prepare.outputs.renv-cache-hashsum }}
+          restore-keys:
+            ${{ runner.os }}-${{ inputs.cache-version }}-renv-
+
+      - name: Restore renv Dependencies
+        if: env.RENV_EXISTS == 'true' && steps.restore-renv-cache.outputs.cache-hit == 'true'
+        run: |
+          lsn_path <- fs::path("/home/rstudio/lesson")
+          renv::load(project = lsn_path)
+          renv_lib  <- renv::paths$library(project = lsn_path)
+          renv_lock <- renv::paths$lockfile(project = lsn_path)
+          renv::restore(project = lsn_path, library = renv_lib, lockfile = renv_lock, prompt = FALSE)
+        shell: Rscript {0}
+
+      - name: Fail on renv cache miss
+        if: env.RENV_EXISTS == 'true' && steps.restore-renv-cache.outputs.cache-hit != 'true'
+        run: |
+          echo "❌ renv cache required but none available. Please run the 'DOCKER Apply Package Cache' workflow."
+          exit 1
+
+      - name: Run Container and Build Site
+        run: |
+          library(sandpaper)
+          sandpaper::package_cache_trigger(TRUE)
+          sandpaper:::ci_deploy(reset = TRUE)
+        shell: Rscript {0}
