@@ -8,6 +8,7 @@
   fixed @froggleston #647)
 * Improve YAML parsing and provide warnings/errors when logging issues (@froggleston)
 * Explicit language setting required for Ubuntu 24.04 (#630, @froggleston #632)
+* Improve checks that lessons are overviews, including when full rebuilds (@froggleston #648)
 
 ## LANGUAGES
 

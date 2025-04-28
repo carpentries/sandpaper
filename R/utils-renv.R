@@ -235,6 +235,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   options(renv.config.user.profile = FALSE)
   renv_lib  <- renv::paths$library(project = path)
   renv_lock <- renv::paths$lockfile(project = path)
+
   # Steps to update a `{renv}` environment regardless of whether or not the user
   # has initiated `{renv}` in the first place
   #
