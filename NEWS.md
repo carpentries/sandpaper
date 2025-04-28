@@ -1,3 +1,19 @@
+# sandpaper (0.16.12.9000)
+
+## BUG FIXES
+
+* Fix tests and snapshots for bioschemas type PR [649](https://github.com/carpentries/sandpaper/pull/649)
+  (@froggleston)
+* Improve error message when git and/or withr is not installed (reported @fmarotta #638,
+  fixed @froggleston #647)
+* Improve YAML parsing and provide warnings/errors when logging issues (@froggleston)
+* Explicit language setting required for Ubuntu 24.04 (#630, @froggleston #632)
+
+## LANGUAGES
+
+* Provide Italian translation (@Lisanna #631)
+
+
 # sandpaper (0.16.11)
 
 ## BUG FIXES

@@ -1,10 +1,10 @@
 {{=<% %>=}}
 {
   "@context": "https://schema.org",
-  "@type": "TrainingMaterial",
+  "@type": "LearningResource",
   "@id": "<% url %>",
   "inLanguage": "<% lang %>",
-  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
+  "dct:conformsTo": "https://bioschemas.org/profiles/LearningResource/1.0-RELEASE",
   "description": "<% desc %><% ^desc %>A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide<% /desc %>",
   "keywords": "<% keywords %><% ^keywords %>software,data,lesson,The Carpentries<% /keywords %>",
   "name": "<% &pagetitle %>",
