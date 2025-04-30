@@ -19,9 +19,24 @@ on:
     - cron: '0 0 * * 2'
 
 jobs:
+  check_token:
+    name: "Check SANDPAPER_WORKFLOW token"
+    runs-on: ubuntu-22.04
+    outputs:
+      workflow: ${{ steps.validate.outputs.wf }}
+      repo: ${{ steps.validate.outputs.repo }}
+    steps:
+      - name: "validate token"
+        id: validate
+        uses: carpentries/actions/check-valid-credentials@main
+        with:
+          token: ${{ secrets.SANDPAPER_WORKFLOW }}
+
   update_workflow:
     name: "Update Workflow"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    needs: check_token
+    if: ${{ needs.check_token.outputs.workflow == 'true' }}
     steps:
       - name: "Checkout Repository"
         uses: actions/checkout@v4
@@ -38,7 +53,7 @@ jobs:
         if: "${{ steps.update.outputs.new }}"
         uses: carpentries/create-pull-request@main
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SANDPAPER_WORKFLOW }}
           delete-branch: true
           branch: "update/workflows"
           commit-message: "[actions] update sandpaper workflow to version ${{ steps.update.outputs.new }}"
