@@ -1,4 +1,4 @@
-name: "03 Maintain: Update Package Cache"
+name: "02 Maintain: Update Package Cache"
 
 on:
   workflow_dispatch:

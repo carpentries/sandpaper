@@ -1,4 +1,4 @@
-name: "02 Maintain: Update Workflow Files"
+name: "04 Maintain: Update Workflow Files"
 
 on:
   workflow_dispatch:
@@ -14,14 +14,11 @@ on:
         description: 'Workflow files/file extensions to clean (no wildcards, enter "" for none)'
         required: false
         default: '.yaml'
-  schedule:
-    # Run every Tuesday
-    - cron: '0 0 * * 2'
 
 jobs:
   check_token:
     name: "Check SANDPAPER_WORKFLOW token"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       workflow: ${{ steps.validate.outputs.wf }}
       repo: ${{ steps.validate.outputs.repo }}
@@ -34,7 +31,7 @@ jobs:
 
   update_workflow:
     name: "Update Workflow"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: check_token
     if: ${{ needs.check_token.outputs.workflow == 'true' }}
     steps:

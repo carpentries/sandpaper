@@ -1,12 +1,30 @@
 # Carpentries Workflows
 
-This directory contains workflows to be used for Lessons using the {sandpaper}
-lesson infrastructure. Two of these workflows require R (`sandpaper-main.yaml`
-and `pr-receive.yaml`) and the rest are bots to handle pull request management.
+This directory contains workflows to be used for Lessons using the Carpentries Workbench lesson infrastructure. 
 
-These workflows will likely change as {sandpaper} evolves, so it is important to
-keep them up-to-date. To do this in your lesson you can do the following in your
-R console:
+The three `docker-` workflows build lessons and maintain packages.
+The workflows run using the [workbench-docker](https://github.com/carpentries/workbench-docker) container. 
+This container comprises prebuilt and installed dependencies of the core Workbench packages, i.e. sandpaper, pegboard and varnish.
+
+Two `update-` workflows handle:
+  - checking for new renv packages and creating a Pull Request (PR) when a renv.lock file updates (`update-cache.yaml`)
+  - checking for updated versions of these workflow files (`update-workflows.yaml`)
+
+The rest of the `pr-` workflows handle pull request management via base GitHub Actions.
+
+For Carpentries Core Curriculum lessons across our lesson programmes, maintenance of these workflows should be minimal.
+For your own lesson repositories, it is important to understand the different workflows and what they do.
+
+## Managing Updates
+
+By using prebuilt Docker containers that are managed by the Carpentries core Workbench maintainers, these workflows are designed to be rarely updated.
+
+However, is important to be able to keep them up-to-date when appropriate.
+You can do this locally using your own R and Workbench installation, or via the "04 Maintain: Update Workflow Files" (`update-workflows.yaml`) GitHub Action.
+
+### Updating locally
+
+In your R console:
 
 ```r
 # Install/Update sandpaper
@@ -19,50 +37,95 @@ library("sandpaper")
 update_github_workflows()
 ```
 
-Inside this folder, you will find a file called `sandpaper-version.txt`, which
-will contain a version number for sandpaper. This will be used in the future to
-alert you if a workflow update is needed.
+### Updating using GitHub
 
-What follows are the descriptions of the workflow files:
+This presumes you:
+  - already have a lesson repository available on GitHub
+  - have enabled workflows in the lesson repo
+  - have set up a SANDPAPER_WORKFLOW personal access token (PAT) in the lesson repo
 
-## Deployment
+To go through these steps, please follow the [Forking a Workbench Lesson](https://docs.carpentries.org/resources/curriculum/lesson-forks.html#forking-a-workbench-lesson-repository)
+documentation.
 
-### 01 Build and Deploy (sandpaper-main.yaml)
+Once set up, run the "04 Maintain: Update Workflow Files" (`update-workflows.yaml`) action.
 
-This is the main driver that will only act on the main branch of the repository.
+This will raise a PR with any changes to the workflows that are needed.
+If you are happy with the changes made, you can merge the PR into your lesson repository.
+
+## Lesson Builds and Deployment
+
+### 01 Maintain: Build and Deploy Site (docker_build_deploy.yaml)
+
+This is the main workflow that you will encounter most often.
+
+It will only act on the main branch of the lesson repository.
+
 This workflow does the following:
-
  1. checks out the lesson
  2. provisions the following resources
-   - R
-   - pandoc
-   - lesson infrastructure (stored in a cache)
-   - lesson dependencies if needed (stored in a cache)
+    - the Workbench Docker container
+    - lesson dependencies if needed (stored in a cache)
  3. builds the lesson via `sandpaper:::ci_deploy()`
+
+If your lesson contains rendered content using RMarkdown and/or any associated R package dependencies, you will need to generate and apply the renv cache.
+Please read the [Caching](#caching) section below.
 
 #### Caching
 
-This workflow has two caches; one cache is for the lesson infrastructure and 
-the other is for the lesson dependencies if the lesson contains rendered
-content. These caches are invalidated by new versions of the infrastructure and
-the `renv.lock` file, respectively. If there is a problem with the cache, 
-manual invaliation is necessary. You will need maintain access to the repository
-and you can either go to the actions tab and [click on the caches button to find
-and invalidate the failing cache](https://github.blog/changelog/2022-10-20-manage-caches-in-your-actions-workflows-from-web-interface/) 
-or by setting the `CACHE_VERSION` secret to the current date (which will
-invalidate all of the caches).
+In summary, generating a reusable package cache is achieved by running the "02 Maintain: Update Package Cache" workflow, and then the "03 Maintain: Apply Package Cache" workflow.
+
+These workflows are separated to ensure that once you have a successful build with a working renv cache, this cache is stored within GitHub's infrastructure, and will be reused by the Workbench Docker container.
+
+You can keep using this cache indefinitely to build your lesson.
+If and when you want to perform an update to the cache, you can re-run the "02 Maintain: Update Package Cache" and verify that your lesson still builds with the new packages.
+If all looks good, re-run the "03 Maintain: Apply Package Cache" workflow, and this will write a new renv cache file to GitHub.
+
+In any case, the renv cache is invalidated by new versions of the `renv.lock` file.
+This happens:
+  - if you update your lockfile locally by using the `sandpaper::update_cache()` function, and then push it to the lesson repository
+  - when you run the "02 Maintain: Update Package Cache" and there are new packages to install
+
+More information on managing local renv caches for lessons can be found in the [Sandpaper packages vignettes](https://carpentries.github.io/sandpaper/articles/building-with-renv.html).
+
+#### Using different package cache versions
+
+There are times when you may want to go back to a previous renv package cache file:
+  - if you run "02 Maintain: Update Package Cache" and "03 Maintain: Apply Package Cache" and the cache generation fails for some reason
+  - if there is a new R package that produces incorrect or broken lesson output
+
+To choose a previous cache file version for your builds, go to the Actions tab, and click Caches in the left hand pane.
+
+Cache files should have the following name format:
+
+```
+  OS                                 HASHSUM
+[ | ]       [                           |                                  ]
+Linux--renv-2e499eb706112971b2cffceb49b55a6efe49f3ed75cd6579b10ff224489daca4
+```
+
+Once you have 2 or more cache files, you can choose which one you want to use.
+
+Copy the hashsum part of the desired cache file you want to use, e.g. `2e499eb706112971b2cffceb49b55a6efe49f3ed75cd6579b10ff224489daca4`.
+
+Then either:
+ 1. Add a repository variable called CACHE_VERSION, and paste in the hash
+    - Go to ...
+ 2. Run the "01 Maintain: Build and Deploy Site" manually, supplying the CACHE_VERSION input
+    - Go to ...
+
+If you have no caches listed, make sure to run the "02 Maintain: Update Package Cache" and "03 Maintain: Apply Package Cache" to create a new renv cache file.
 
 ## Updates
 
 ### Setup Information
 
-These workflows run on a schedule and at the maintainer's request. Because they
-create pull requests that update workflows/require the downstream actions to run,
+These workflows run on a mix of schedules, automatic triggers, and at the maintainer's request.
+Because they create pull requests that update workflows/require the downstream actions to run,
 they need a special repository/organization secret token called 
 `SANDPAPER_WORKFLOW` and it must have the `public_repo` and `workflow` scope. 
 
 This can be an individual user token, OR it can be a trusted bot account. If you
-have a repository in one of the official Carpentries accounts, then you do not
+have a repository in one of the official Carpentries organisations, then you do not
 need to worry about this token being present because the Carpentries Core Team
 will take care of supplying this token.
 
@@ -73,7 +136,7 @@ clipboard and then go to your repository's settings > secrets > actions and
 create or edit the `SANDPAPER_WORKFLOW` secret, pasting in the generated token.
 
 If you do not specify your token correctly, the runs will not fail and they will
-give you instructions to provide the token for your repository. 
+give you instructions to provide the token for your repository.
 
 ### 02 Maintain: Update Workflow Files (update-workflow.yaml)
 
