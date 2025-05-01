@@ -34,7 +34,8 @@ jobs:
           # - {os: windows-latest, cache: '~\AppData\Local\renv', r: '3.6'}
 
           # use 4.1 to check with rtools40's older compiler
-          - {os: windows-latest, r: '4.1'}
+          # as of 2025-05-01, Windows builds with R4.1 and RTools40/41 fail
+          # - {os: windows-latest, r: '4.1'}
           
           - {os: ubuntu-22.04, cache: '~/.local/share/renv', r: 'release', cov: 'true'}
           
