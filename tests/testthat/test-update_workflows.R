@@ -48,8 +48,6 @@ cli::test_that_cli("github workflows can be updated", {
 
   fs::dir_delete(fs::path(tmp, ".github"))
   expect_silent(update_github_workflows(tmp, quiet = TRUE))
-  gert::git_add("*", repo = tmp)
-  gert::git_commit("second", repo = tmp)
 
 })
 
