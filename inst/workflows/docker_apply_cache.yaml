@@ -12,6 +12,22 @@ on:
       - closed
 
 jobs:
+
+  check-merge:
+    name: "Check if PR was merged"
+    runs-on: ubuntu-latest
+    outputs:
+      merged: ${{ steps.check.outputs.merged }}
+    steps:
+      - name: "Check if PR was merged"
+        id: check
+        run: |
+          if [[ ${{ github.event.action }} == 'closed' && ${{ github.event.pull_request.merged }} == true ]]; then
+            echo "merged=true" >> $GITHUB_OUTPUT
+          else
+            echo "merged=false" >> $GITHUB_OUTPUT
+          fi
+
   check-renv:
     name: "Check if We Need {renv}"
     runs-on: ubuntu-latest
@@ -103,3 +119,15 @@ jobs:
           key: ${{ runner.os }}-${{ inputs.cache-version }}-renv-${{ needs.prepare.outputs.renv-cache-hashsum }}
           restore-keys:
             ${{ runner.os }}-${{ inputs.cache-version }}-renv-
+
+  not-merged:
+    name: "Cache Not Applied"
+    runs-on: ubuntu-latest
+    needs: check-merge
+    if: ${{ needs.check-merge.outputs.merged == 'false' }}
+    steps:
+      - name: "Not Merged"
+        run: |
+          echo "This PR was not merged. No action taken."
+          echo "ok=false" >> $GITHUB_OUTPUT
+          echo "renv cache not applied"
