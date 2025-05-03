@@ -7,6 +7,11 @@ on:
         description: 'Who triggered this build (enter github username to tag yourself)?'
         required: true
         default: 'monthly run'
+      update-packages:
+        description: 'Install any package updates?'
+        required: false
+        default: true
+        type: boolean
   schedule:
     # Run every tuesday
     - cron: '0 0 * * 2'
@@ -77,6 +82,7 @@ jobs:
         id: update
         uses: carpentries/actions/update-lockfile@main
         with:
+          update: ${{ github.event.inputs.update-packages }}
           cache-version: ${{ secrets.CACHE_VERSION }}
 
       - name: Create Pull Request
