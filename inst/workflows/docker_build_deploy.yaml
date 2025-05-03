@@ -137,7 +137,7 @@ jobs:
       - name: Fail on renv cache miss
         if: env.RENV_EXISTS == 'true' && steps.restore-renv-cache.outputs.cache-hit != 'true'
         run: |
-          echo "❌ renv cache required but none available. Please run the 'DOCKER Apply Package Cache' workflow."
+          echo "❌ renv cache required but none available. Please run the "02 Maintain: Update Package Cache" then the "03 Maintain: Apply Package Cache" workflows."
           exit 1
 
       - name: Run Container and Build Site

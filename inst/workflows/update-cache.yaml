@@ -58,6 +58,7 @@ jobs:
       contents: write
       pull-requests: write
       actions: write
+      issues: write
     if: ${{ needs.check-renv.outputs.renv-needed == 'true' }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
