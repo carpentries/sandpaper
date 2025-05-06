@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Building and Deployment of a {sandpaper} lesson • sandpaper</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -27,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.16.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.16.12</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -129,7 +128,7 @@ for the lessons, but I think this will need to happen after things are
 released on CRAN to avoid maxing out the github api requests.</p>
 </div>
 <div class="float">
-<img src="img%2Flocal-flow.dot.svg" alt='diagram of three folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML". The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'><div class="figcaption">Thr local two-step model of deployment into
+<img src="img/local-flow.dot.svg" alt='diagram of three folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML". The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'><div class="figcaption">Thr local two-step model of deployment into
 local folders</div>
 </div>
 <p>Now, the first reaction you may have is, “Why do we need a two step
@@ -158,7 +157,7 @@ not on your computer.</p>
 <h2 id="i-deployment-github">[i] Deployment (GitHub)<a class="anchor" aria-label="anchor" href="#i-deployment-github"></a>
 </h2>
 <div class="float">
-<img src="img%2Fbranch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><div class="figcaption">Two-step deployment model on continuous
+<img src="img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><div class="figcaption">Two-step deployment model on continuous
 integration</div>
 </div>
 <p>Because some lesson content will be auto-generated from an ecosystem
@@ -189,7 +188,7 @@ the workflows. Lavender workflows only have the ability to check out
 code and compare it. Wheat/yellow colored workflows have full
 permissions to push to the repository:</p>
 <div class="float">
-<img src="img%2Fpr-flow.dot.svg" alt="Representation of PR deployment cycle"><div class="figcaption">Representation of PR deployment cycle</div>
+<img src="img/pr-flow.dot.svg" alt="Representation of PR deployment cycle"><div class="figcaption">Representation of PR deployment cycle</div>
 </div>
 <p>Because we only track the source files of the lesson and not the
 output from the maintainer’s computer, we need to rely on Continuous
@@ -201,7 +200,7 @@ called <code>md-sources</code> and <code>gh-pages</code>. The latter is
 familiar to most lesson maintainers, and the former serves as a staging
 and evaluation area for changes in generated content.</p>
 <div class="float">
-<img src="img%2Findependent-components.dot.svg" alt="Dependency relationship between components of the Lesson Template"><div class="figcaption">Dependency relationship between components of
+<img src="img/independent-components.dot.svg" alt="Dependency relationship between components of the Lesson Template"><div class="figcaption">Dependency relationship between components of
 the Lesson Template</div>
 </div>
 <blockquote>
@@ -266,7 +265,7 @@ that come from pull requests (which have previously been vetted).
 <h3 id="pull-requests">Pull requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a>
 </h3>
 <div class="float">
-<img src="img%2Fpr-branch.svg" alt='diagram showing five branches, two of which are highlighted: "md-outputs", and "md-outputs-PR-1" where the latter is an orphan branch starting from the last commit of the former and applying the changes from the "my-edit" branch on top, showing that the output has changed'><div class="figcaption">The Pull Request flow</div>
+<img src="img/pr-branch.svg" alt='diagram showing five branches, two of which are highlighted: "md-outputs", and "md-outputs-PR-1" where the latter is an orphan branch starting from the last commit of the former and applying the changes from the "my-edit" branch on top, showing that the output has changed'><div class="figcaption">The Pull Request flow</div>
 </div>
 <p>Each time a pull request is added, the maintainer should be informed
 of what changes in the lesson (if anything), so the process goes like
@@ -286,7 +285,7 @@ master, the site is rebuilt from source, and the pr branch is
 removed.</li>
 </ol>
 <div class="float">
-<img src="img%2Fpr-merge.svg" alt='diagram showing four branches, where "my-edit" is merged into "main" and that drives the two-step process of rendering "md-outputs" and then "gh-pages". The changes from the "my-edit" branch are reflected in the "md-outputs" branch output.'><div class="figcaption">A successfully merged Pull Request</div>
+<img src="img/pr-merge.svg" alt='diagram showing four branches, where "my-edit" is merged into "main" and that drives the two-step process of rendering "md-outputs" and then "gh-pages". The changes from the "my-edit" branch are reflected in the "md-outputs" branch output.'><div class="figcaption">A successfully merged Pull Request</div>
 </div>
 </div>
 <div class="section level3">
@@ -335,7 +334,7 @@ a Pull Request is created.</li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer>
