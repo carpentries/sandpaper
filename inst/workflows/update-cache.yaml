@@ -1,4 +1,4 @@
-name: "02 Maintain: Update Package Cache"
+name: "02 Maintain: Check for Updated Packages"
 
 on:
   workflow_dispatch:
@@ -12,9 +12,17 @@ on:
         required: false
         default: true
         type: boolean
+      generate-cache:
+        description: 'Generate separate package cache?'
+        required: false
+        default: false
+        type: boolean
   schedule:
     # Run every tuesday
     - cron: '0 0 * * 2'
+
+env:
+  LOCKFILE_CACHE_GEN: ${{ github.event.inputs.generate-cache || 'false' }}
 
 jobs:
   preflight:
@@ -83,6 +91,7 @@ jobs:
         uses: carpentries/actions/update-lockfile@main
         with:
           update: ${{ github.event.inputs.update-packages }}
+          generate-cache: ${{ env.LOCKFILE_CACHE_GEN }}
           cache-version: ${{ secrets.CACHE_VERSION }}
 
       - name: Create Pull Request
