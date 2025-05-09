@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.16.12.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.16.13.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,44 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.16.10" id="sandpaper-01610-2024-11-11">sandpaper 0.16.10 (2024-11-11)<a class="anchor" aria-label="anchor" href="#sandpaper-01610-2024-11-11"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.16.13.9000" id="sandpaper-016139000">sandpaper 0.16.13.9000<a class="anchor" aria-label="anchor" href="#sandpaper-016139000"></a></h2>
+<div class="section level3">
+<h3 id="misc-0-16-13-9000">MISC<a class="anchor" aria-label="anchor" href="#misc-0-16-13-9000"></a></h3>
+<ul><li>Fix pak install when trying to parse .editorconfig files (1)</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.16.12" id="sandpaper-01612-2025-05-06">sandpaper 0.16.12 [2025-05-06]<a class="anchor" aria-label="anchor" href="#sandpaper-01612-2025-05-06"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-0-16-12">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-16-12"></a></h3>
+<ul><li>Fix tests and snapshots for bioschemas type PR <a href="https://github.com/carpentries/sandpaper/pull/649" class="external-link">649</a>
+<ol class="example" style="list-style-type: decimal"><li>
+</li></ol></li>
+<li>Improve error message when git and/or withr is not installed (reported <a href="https://github.com/fmarotta" class="external-link">@fmarotta</a> <a href="https://github.com/carpentries/sandpaper/issues/638" class="external-link">#638</a>, fixed 1 <a href="https://github.com/carpentries/sandpaper/issues/647" class="external-link">#647</a>)</li>
+<li>Improve YAML parsing and provide warnings/errors when logging issues (1)</li>
+<li>Explicit language setting required for Ubuntu 24.04 (<a href="https://github.com/carpentries/sandpaper/issues/630" class="external-link">#630</a>, 1 <a href="https://github.com/carpentries/sandpaper/issues/632" class="external-link">#632</a>)</li>
+<li>Improve checks that lessons are overviews, including when full rebuilds (1 <a href="https://github.com/carpentries/sandpaper/issues/648" class="external-link">#648</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="languages-0-16-12">LANGUAGES<a class="anchor" aria-label="anchor" href="#languages-0-16-12"></a></h3>
+<ul><li>Provide Italian translation (<a href="https://github.com/Lisanna" class="external-link">@Lisanna</a> <a href="https://github.com/carpentries/sandpaper/issues/631" class="external-link">#631</a>)</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.16.11" id="sandpaper-01611-2025-01-17">sandpaper 0.16.11 [2025-01-17]<a class="anchor" aria-label="anchor" href="#sandpaper-01611-2025-01-17"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-0-16-11">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-16-11"></a></h3>
+<ul><li>The website preview feature which automatically opens a web browser after running <code><a href="../reference/build_lesson.html">build_lesson()</a></code> has been fixed to work with the latest version of pkgdown (<a href="https://github.com/Bisaloo" class="external-link">@Bisaloo</a>, <a href="https://github.com/carpentries/sandpaper/issues/627" class="external-link">#627</a>)</li>
+<li>Fix build failures if <code>instructor-notes.[R]md</code> is missing or not listed in the <code>config.yaml</code> (reported <a href="https://github.com/jhidding" class="external-link">@jhidding</a> <a href="https://github.com/carpentries/sandpaper/issues/622" class="external-link">#622</a>, fixed 1 <a href="https://github.com/carpentries/sandpaper/issues/626" class="external-link">#626</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-0-16-11">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-16-11"></a></h3>
+<ul><li>Users can now provide a <code>disable_sidebar_numbering</code> option in a lesson <code>config.yaml</code> to turn off automatic episode numbering if they want to use their own, e.g. specifying their own numbering manually in episode title blocks (reported <a href="https://github.com/anenadic" class="external-link">@anenadic</a> <a href="https://github.com/carpentries/sandpaper/issues/623" class="external-link">#623</a>, implemented 1 <a href="https://github.com/carpentries/sandpaper/issues/624" class="external-link">#624</a>)</li>
+<li>Add a new <code>config_yaml</code> option <code>license_url</code> so that users can supply custom license URLs for lesson footers (reported <a href="https://github.com/chrbknudsen" class="external-link">@chrbknudsen</a> <a href="https://github.com/carpentries/sandpaper/issues/619" class="external-link">#619</a>, implemented 1 <a href="https://github.com/carpentries/sandpaper/issues/620" class="external-link">#620</a>)</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.16.10" id="sandpaper-01610-2024-11-11">sandpaper 0.16.10 [2024-11-11]<a class="anchor" aria-label="anchor" href="#sandpaper-01610-2024-11-11"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-16-10">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-16-10"></a></h3>
 <ul><li>Add caution callout (<a href="https://github.com/MttArmstrong" class="external-link">@MttArmstrong</a> <a href="https://github.com/carpentries/sandpaper/issues/613" class="external-link">#613</a>)</li>
