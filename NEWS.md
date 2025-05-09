@@ -1,3 +1,10 @@
+# sandpaper 0.16.13.9000
+
+## MISC
+
+* Fix pak install when trying to parse .editorconfig files (@froggleston)
+
+
 # sandpaper 0.16.12 [2025-05-06]
 
 ## BUG FIXES
