@@ -7,6 +7,11 @@ on:
         description: 'Who triggered this build (enter github username to tag yourself)?'
         required: true
         default: 'monthly run'
+      skip-restore:
+        description: 'Force lockfile update?'
+        required: false
+        default: false
+        type: boolean
       update-packages:
         description: 'Install any package updates?'
         required: false
@@ -23,6 +28,7 @@ on:
 
 env:
   LOCKFILE_CACHE_GEN: ${{ github.event.inputs.generate-cache || 'false' }}
+  SKIP_RENV_RESTORE: ${{ github.event.inputs.skip-restore || 'false' }}
 
 jobs:
   preflight:
@@ -88,9 +94,10 @@ jobs:
 
       - name: "Update {renv} deps and determine if a PR is needed"
         id: update
-        uses: carpentries/actions/update-lockfile@main
+        uses: froggleston/actions/update-lockfile@main
         with:
           update: ${{ github.event.inputs.update-packages }}
+          skip-restore: ${{ env.SKIP_RENV_RESTORE }}
           generate-cache: ${{ env.LOCKFILE_CACHE_GEN }}
           cache-version: ${{ secrets.CACHE_VERSION }}
 
