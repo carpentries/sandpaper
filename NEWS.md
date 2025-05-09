@@ -1,4 +1,11 @@
-# sandpaper (0.16.12.9000)
+# sandpaper 0.16.13.9000
+
+## MISC
+
+* Fix pak install when trying to parse .editorconfig files (@froggleston)
+
+
+# sandpaper 0.16.12 [2025-05-06]
 
 ## BUG FIXES
 
@@ -15,7 +22,7 @@
 * Provide Italian translation (@Lisanna #631)
 
 
-# sandpaper (0.16.11)
+# sandpaper 0.16.11 [2025-01-17]
 
 ## BUG FIXES
 
@@ -36,7 +43,7 @@
   implemented @froggleston #620)
 
 
-# sandpaper 0.16.10 (2024-11-11)
+# sandpaper 0.16.10 [2024-11-11]
 
 ## NEW FEATURES
 
