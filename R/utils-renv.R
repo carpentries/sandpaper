@@ -251,6 +251,12 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
     deps <- unique(renv::dependencies(path = path, root = path, dev = TRUE)$Package)
     pkgs <- setdiff(deps, installed)
     needs_hydration <- length(pkgs) > 0
+    if (packageVersion("renv") >= "1.0.0") {
+      # We only need to hydrate the packages that do not exist in the lockfile
+      # and that are not installed
+      lock <- renv::lockfile_read(renv_lock)
+      pkgs <- setdiff(pkgs, names(lock$Packages))
+    }
   } else {
     # If there is not a lockfile, we need to run a fully hydration
     pkgs <- NULL
