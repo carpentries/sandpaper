@@ -85,7 +85,7 @@ following features:
 
 ### Rendering locally
 
-![The local two-step model of deployment into local folders](vignettes/articles/img/local-flow.dot.svg){alt='diagram of three
+![The local two-step model of deployment into local folders](articles/img/local-flow.dot.svg){alt='diagram of three
 folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow
 (labelled as hash episodes) pointing to "site/built/", labelled as Markdown.
 The Markdown folder has an arrow (labelled as "apply template") pointing to
@@ -109,7 +109,7 @@ long-running lessons can be updated and previewed quickly.
 
 ### Rendering on continuous integration
 
-![Two-step deployment model on continuous integration](vignettes/articles/img/branch-flow.svg){alt='Diagrammatic representation of the GitHub
+![Two-step deployment model on continuous integration](articles/img/branch-flow.svg){alt='Diagrammatic representation of the GitHub
 deployment cycle showing four branches, gh-pages, md-outputs, main, and
 my-edit. The my-edit branch is a direct descendent of the main branch, while
 the gh-pages and md-outputs branches are orphans. Each commit of the main
@@ -287,7 +287,7 @@ your computer's Desktop.
 ```{r}
 usethis::create_from_github(
   repo = "swcarpentry/r-novice-gapminder", 
-  destdir = "~/Desktop/r-novice-gampinder",
+  destdir = "~/Desktop/r-novice-gapminder",
   fork = TRUE
 )
 ```
