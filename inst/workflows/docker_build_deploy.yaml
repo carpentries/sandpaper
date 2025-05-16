@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
   schedule:
     - cron: '0 0 * * 2'
   workflow_dispatch:
@@ -22,10 +21,32 @@ on:
         required: false
         default: false
         type: boolean
+  workflow_run:
+    workflows: ["03 Maintain: Apply Package Cache"]
+    types:
+      - completed
+
 jobs:
+  preflight:
+    name: "Preflight: Push or build stage PR?"
+    runs-on: ubuntu-latest
+    outputs:
+      do-build: ${{ steps.check.outputs.push_or_pr }}
+    steps:
+      - name: "Should we run build and deploy?"
+        id: check
+        run: |
+          if ${{ github.event_name }} == 'workflow_dispatch' || ((${{ github.event_name }} == 'push' && ${{ github.ref }} == 'refs/heads/main') && (${{ github.workflow }} != "02 Maintain: Check for Updated Packages")); then
+            echo "push_or_pr=true" >> $GITHUB_OUTPUT
+          else
+            echo "This was not a manual trigger or PR was package check. No action taken."
+            echo "push_or_pr=false" >> $GITHUB_OUTPUT
+          fi
+
   check-renv:
     name: "Check if We Need {renv}"
     runs-on: ubuntu-latest
+    if: ${{ needs.preflight.outputs.do-build == 'true' }}
     outputs:
       renv-needed: ${{ steps.check-for-renv.outputs.exists }}
     steps:
@@ -137,7 +158,7 @@ jobs:
       - name: Fail on renv cache miss
         if: env.RENV_EXISTS == 'true' && steps.restore-renv-cache.outputs.cache-hit != 'true'
         run: |
-          echo "❌ renv cache required but none available. Please run the "02 Maintain: Update Package Cache" then the "03 Maintain: Apply Package Cache" workflows."
+          echo "❌ renv cache required but none available. Please run the "02 Maintain: Check for Updated Packages" then the "03 Maintain: Apply Package Cache" workflows."
           exit 1
 
       - name: Run Container and Build Site

@@ -13,25 +13,26 @@ on:
 
 jobs:
 
-  check-merge:
-    name: "Check if PR was merged"
+  preflight:
+    name: "Preflight: PR or Manual Trigger?"
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_dispatch'
     outputs:
-      merged: ${{ steps.check.outputs.merged }}
+      do-apply: ${{ steps.check.outputs.merged_or_manual }}
     steps:
-      - name: "Check if PR was merged"
+      - name: "Should we run cache application?"
         id: check
         run: |
-          if [[ ${{ github.event.action }} == 'closed' && ${{ github.event.pull_request.merged }} == true ]]; then
-            echo "merged=true" >> $GITHUB_OUTPUT
+          if ${{ github.event_name }} == 'workflow_dispatch' || ([[ ${{ github.event.action }} == 'closed' && ${{ github.event.pull_request.merged }} == true ]]); then
+            echo "merged_or_manual=true" >> $GITHUB_OUTPUT
           else
-            echo "merged=false" >> $GITHUB_OUTPUT
+            echo "This was not a manual trigger and no PR was merged. No action taken."
+            echo "merged_or_manual=false" >> $GITHUB_OUTPUT
           fi
 
   check-renv:
     name: "Check if We Need {renv}"
     runs-on: ubuntu-latest
+    if: ${{ needs.preflight.outputs.do-apply == 'true' }}
     outputs:
       renv-needed: ${{ steps.check-for-renv.outputs.exists }}
     steps:
@@ -121,14 +122,14 @@ jobs:
           restore-keys:
             ${{ runner.os }}-${{ inputs.cache-version }}-renv-
 
-  not-merged:
-    name: "Cache Not Applied"
-    runs-on: ubuntu-latest
-    needs: check-merge
-    if: github.event_name != 'workflow_dispatch' && ${{ needs.check-merge.outputs.merged == 'false' }}
-    steps:
-      - name: "Not Merged"
-        run: |
-          echo "This PR was not merged. No action taken."
-          echo "ok=false" >> $GITHUB_OUTPUT
-          echo "renv cache not applied"
+  # nothing-to-do:
+  #   name: "Nothing to Do"
+  #   runs-on: ubuntu-latest
+  #   needs: preflight
+  #   if: ${{ needs.preflight.outputs.do-apply == 'false' }}
+  #   steps:
+  #     - name: "Not Merged"
+  #       run: |
+  #         echo "This was not a manual trigger and no PR was merged. No action taken."
+  #         echo "ok=false" >> $GITHUB_OUTPUT
+  #         echo "Caching of packages not needed."

@@ -21,11 +21,18 @@ jobs:
     outputs:
       is_valid: ${{ steps.check-pr.outputs.VALID }}
     steps:
-      - name: "Record PR number"
-        id: record
-        if: ${{ always() }}
+      - name: "Auto: Grab PR number"
+        if: ${{ github.event_name == 'pull_request' }}
         run: |
           echo ${{ github.event.number }} > ${{ github.workspace }}/NR # 2022-03-02: artifact name fixed to be NR
+          echo "NR=${{ github.event.number }}" >> $GITHUB_ENV
+
+      - name: "Manual: Grab PR number"
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          echo ${{ inputs.pr_number }} > ${{ github.workspace }}/NR
+          echo "NR=${{ inputs.pr_number }}" >> $GITHUB_ENV
+
       - name: "Upload PR number"
         id: upload
         if: ${{ always() }}
@@ -33,15 +40,18 @@ jobs:
         with:
           name: pr
           path: ${{ github.workspace }}/NR
+
       - name: "Get Invalid Hashes File"
         id: hash
         run: |
           echo "json<<EOF
           $(curl -sL https://files.carpentries.org/invalid-hashes.json)
           EOF" >> $GITHUB_OUTPUT
+
       - name: "echo output"
         run: |
           echo "${{ steps.hash.outputs.json }}"
+
       - name: "Check PR"
         id: check-pr
         uses: carpentries/actions/check-valid-pr@main
