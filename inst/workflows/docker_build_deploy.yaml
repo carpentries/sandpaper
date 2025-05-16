@@ -36,7 +36,7 @@ jobs:
       - name: "Should we run build and deploy?"
         id: check
         run: |
-          if ${{ github.event_name }} == 'workflow_dispatch' || ((${{ github.event_name }} == 'push' && ${{ github.ref }} == 'refs/heads/main') && (${{ github.workflow }} != "02 Maintain: Check for Updated Packages")); then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "${{ github.event_name }}" == "workflow_run" || ("${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" && "${{ github.workflow }}" != "02 Maintain: Check for Updated Packages") ]]; then
             echo "push_or_pr=true" >> $GITHUB_OUTPUT
           else
             echo "This was not a manual trigger or PR was package check. No action taken."
@@ -46,6 +46,7 @@ jobs:
   check-renv:
     name: "Check if We Need {renv}"
     runs-on: ubuntu-latest
+    needs: preflight
     if: ${{ needs.preflight.outputs.do-build == 'true' }}
     outputs:
       renv-needed: ${{ steps.check-for-renv.outputs.exists }}

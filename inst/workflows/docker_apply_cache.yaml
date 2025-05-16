@@ -22,7 +22,7 @@ jobs:
       - name: "Should we run cache application?"
         id: check
         run: |
-          if ${{ github.event_name }} == 'workflow_dispatch' || ([[ ${{ github.event.action }} == 'closed' && ${{ github.event.pull_request.merged }} == true ]]); then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || ("${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true") ]]; then
             echo "merged_or_manual=true" >> $GITHUB_OUTPUT
           else
             echo "This was not a manual trigger and no PR was merged. No action taken."
@@ -30,8 +30,9 @@ jobs:
           fi
 
   check-renv:
-    name: "Check if We Need {renv}"
+    name: "Check If We Need {renv}"
     runs-on: ubuntu-latest
+    needs: preflight
     if: ${{ needs.preflight.outputs.do-apply == 'true' }}
     outputs:
       renv-needed: ${{ steps.check-for-renv.outputs.exists }}
