@@ -24,18 +24,40 @@ You can do this locally using your own R and Workbench installation, or via the 
 
 ### Updating locally
 
-In your R console:
+In a terminal/git bash, navigate to the lesson folder where you want to update the workflows.
+
+Then, start an R session and:
 
 ```r
 # Install/Update sandpaper
-options(repos = c(carpentries = "https://carpentries.r-universe.dev/", 
-  CRAN = "https://cloud.r-project.org"))
+options(repos = c(carpentries = "https://carpentries.r-universe.dev/", CRAN = "https://cloud.r-project.org"))
 install.packages("sandpaper")
 
 # update the workflows in your lesson
 library("sandpaper")
-update_github_workflows()
+sandpaper::update_github_workflows()
+quit()
 ```
+
+And then in a bash prompt/git bash terminal:
+
+```bash
+$ git add .github/workflows
+$ git commit -m "Manual update to docker workflows"
+$ git push origin main
+```
+
+This will automatically start the "01 Maintain: Build and Deploy Site" workflow.
+
+This will be the extent of requirements for non-renv lessons.
+
+#### Lessons that use Rmd and {renv}
+
+For renv-enabled lessons:
+- Cancel the "01 Maintain: Build and Deploy Site" run that automatically started following the push to main
+- Run the "02 Maintain: Check for Updated Packages"
+- Run the "03 Maintain: Apply Package Cache"
+- Run the "01 Maintain: Build and Deploy Site"
 
 ### Updating using GitHub
 
@@ -72,25 +94,33 @@ Please read the [Caching](#caching) section below.
 
 #### Caching
 
-In summary, generating a reusable package cache is achieved by running the "02 Maintain: Update Package Cache" workflow, and then the "03 Maintain: Apply Package Cache" workflow.
+> [!NOTE]
+> Caching is only relevant for lessons that use Rmd files and renv to manage R packages.
+> If you are building basic markdown documents, caching will not apply to you, and the only
+> workflow that needs to be run is "01 Maintain: Build and Deploy Site".
+
+In summary, generating a reusable package cache is achieved by running the "02 Maintain: Check for Updated Packages" workflow, and then the "03 Maintain: Apply Package Cache" workflow.
 
 These workflows are separated to ensure that once you have a successful build with a working renv cache, this cache is stored within GitHub's infrastructure, and will be reused by the Workbench Docker container.
+This means that lesson builds will be faster once an renv cache is created and reused by the Docker container.
 
-You can keep using this cache indefinitely to build your lesson.
-If and when you want to perform an update to the cache, you can re-run the "02 Maintain: Update Package Cache" and verify that your lesson still builds with the new packages.
+Another major bonus of this setup is that you can keep using this cache indefinitely to build your lesson.
+This is important if you need very specific versions of R packages ("pinning").
+
+If and when you want to perform an update to the cache, you can re-run the "02 Maintain: Check for Updated Packages" and verify that your lesson still builds with the new packages.
 If all looks good, re-run the "03 Maintain: Apply Package Cache" workflow, and this will write a new renv cache file to GitHub.
 
 In any case, the renv cache is invalidated by new versions of the `renv.lock` file.
 This happens:
   - if you update your lockfile locally by using the `sandpaper::update_cache()` function, and then push it to the lesson repository
-  - when you run the "02 Maintain: Update Package Cache" and there are new packages to install
+  - when you run the "02 Maintain: Check for Updated Packages" and there are new packages to install
 
 More information on managing local renv caches for lessons can be found in the [Sandpaper packages vignettes](https://carpentries.github.io/sandpaper/articles/building-with-renv.html).
 
 #### Using different package cache versions
 
 There are times when you may want to go back to a previous renv package cache file:
-  - if you run "02 Maintain: Update Package Cache" and "03 Maintain: Apply Package Cache" and the cache generation fails for some reason
+  - if you run "02 Maintain: Check for Updated Packages" and "03 Maintain: Apply Package Cache" and the cache generation fails for some reason
   - if there is a new R package that produces incorrect or broken lesson output
 
 To choose a previous cache file version for your builds, go to the Actions tab, and click Caches in the left hand pane.
@@ -113,7 +143,7 @@ Then either:
  2. Run the "01 Maintain: Build and Deploy Site" manually, supplying the CACHE_VERSION input
     - Go to ...
 
-If you have no caches listed, make sure to run the "02 Maintain: Update Package Cache" and "03 Maintain: Apply Package Cache" to create a new renv cache file.
+If you have no caches listed, make sure to run the "02 Maintain: Check for Updated Packages" and "03 Maintain: Apply Package Cache" to create a new renv cache file.
 
 ## Updates
 
@@ -138,42 +168,66 @@ create or edit the `SANDPAPER_WORKFLOW` secret, pasting in the generated token.
 If you do not specify your token correctly, the runs will not fail and they will
 give you instructions to provide the token for your repository.
 
-### 02 Maintain: Update Workflow Files (update-workflow.yaml)
-
-The {sandpaper} repository was designed to do as much as possible to separate 
-the tools from the content. For local builds, this is absolutely true, but 
-there is a minor issue when it comes to workflow files: they must live inside 
-the repository. 
-
-This workflow ensures that the workflow files are up-to-date. The way it work is
-to download the update-workflows.sh script from GitHub and run it. The script 
-will do the following:
-
-1. check the recorded version of sandpaper against the current version on github
-2. update the files if there is a difference in versions
-
-After the files are updated, if there are any changes, they are pushed to a
-branch called `update/workflows` and a pull request is created. Maintainers are
-encouraged to review the changes and accept the pull request if the outputs
-are okay.
-
-This update is run weekly or on demand.
-
-### 03 Maintain: Update Package Cache (update-cache.yaml)
+### "02 Maintain: Check for Updated Packages" (update-cache.yaml)
 
 For lessons that have generated content, we use {renv} to ensure that the output
 is stable. This is controlled by a single lockfile which documents the packages
 needed for the lesson and the version numbers. This workflow is skipped in 
 lessons that do not have generated content.
 
-Because the lessons need to remain current with the package ecosystem, it's a
-good idea to make sure these packages can be updated periodically. The 
-update cache workflow will do this by checking for updates, applying them in a
-branch called `updates/packages` and creating a pull request with _only the
-lockfile changed_. 
+Packages are frequently updated, fixing bugs or introducing new features. It's a
+good idea to make sure these packages can be both: updated periodically, or; or left 
+static to ensure consistent lesson builds.
+
+The update cache workflow will do this by:
+- checking repositories for updates
+- updating the renv lockfile
+- summarising the updated packages and their versions in a branch called `updates/packages`
+- creating a pull request with _only the renv lockfile changed_
 
 From here, the markdown documents will be rebuilt and you can inspect what has
-changed based on how the packages have updated. 
+changed based on how the packages have updated.
+
+If all steps pass in this workflow, you can safely merge the PR that is raised.
+Once the PR is merged, the "03 Maintain: Apply Package Cache" workflow will run
+automatically.
+
+### 03 Maintain: Apply Package Cache (docker_apply_cache.yaml)
+
+This workflow takes the updated lockfile produced in "02 Maintain: Check for Updated Packages"
+and uses it to produce a cached file stored within GitHub's infrastructure.
+
+This cached file can then be reused repeatedly by the "01 Maintain: Build and Deploy Site"
+workflow.
+
+This workflow is run automatically when the PR generated by "02 Maintain: Check for Updated Packages"
+is closed and merged.
+
+You would only ever need to run this workflow manually:
+- if your cache gets removed by GitHub due to age or non-use
+- if your cache file contains packages that cannot be used by a Workbench Docker container's newer R version
+
+### "04 Maintain: Update Workflow Files" (update-workflows.yaml)
+
+The {sandpaper} repository was designed to do as much as possible to separate 
+the tools from the content. For local builds, this is absolutely true as you 
+can develop and build lessons without any GitHub workflows. When it comes to 
+workflow files on GitHub itself for managed builds online, the workflows must 
+live inside the lesson repository.
+
+This workflow ensures that the workflow files are up-to-date. It downloads the
+`update-workflows.sh` script from GitHub and runs it. The script will do the 
+following:
+
+1. check the recorded version of sandpaper against the current version on GitHub
+2. update the files if there is a difference in versions
+
+After the files are updated, and if there are any changes, they are pushed to a
+branch called `update/workflows` and a pull request is created. Maintainers are
+encouraged to review the changes and accept the pull request if the outputs
+are okay.
+
+This update is run weekly or on demand.
 
 ## Pull Request and Review Management
 
@@ -203,11 +257,11 @@ Once the checks are finished, a comment is issued to the pull request, which
 will allow maintainers to determine if it is safe to run the 
 "Receive Pull Request" workflow from new contributors.
 
-### Receive Pull Request (pr-receive.yaml)
+### Receive Pull Request (docker_pr_receive.yaml)
 
 **Note of caution:** This workflow runs arbitrary code by anyone who creates a
 pull request. GitHub has safeguarded the token used in this workflow to have no
-priviledges in the repository, but we have taken precautions to protect against
+privileges in the repository, but we have taken precautions to protect against
 spoofing.
 
 This workflow is triggered with every push to a pull request. If this workflow
@@ -227,14 +281,11 @@ request. This builds the content and uploads three artifacts:
 2. A summary of changes after the rendering process (diff)
 3. The rendered files (build)
 
-Because this workflow builds generated content, it follows the same general 
-process as the `sandpaper-main` workflow with the same caching mechanisms.
-
-The artifacts produced are used by the next workflow.
+The artifacts produced are used by the "Comment on Pull Request" workflow.
 
 ### Comment on Pull Request (pr-comment.yaml)
 
-This workflow is triggered if the `pr-receive.yaml` workflow is successful.
+This workflow is triggered if the `docker_pr_receive.yaml` workflow is successful.
 The steps in this workflow are:
 
 1. Test if the workflow is valid and comment the validity of the workflow to the
