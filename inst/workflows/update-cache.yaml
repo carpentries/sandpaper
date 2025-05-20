@@ -39,7 +39,7 @@ jobs:
     steps:
       - id: check
         run: |
-          if [[ ${{ github.event_name }} == 'workflow_dispatch' ]]; then
+          if [[ "${{ github.event_name }}" == 'workflow_dispatch' ]]; then
             echo "ok=true" >> $GITHUB_OUTPUT
             echo "Running on request"
           # using single brackets here to avoid 08 being interpreted as octal
