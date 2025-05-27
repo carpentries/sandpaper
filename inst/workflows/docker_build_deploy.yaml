@@ -55,27 +55,25 @@ jobs:
           if [[ "${{ github.event_name }}" == "schedule" ||
                 "${{ github.event_name }}" == "workflow_dispatch" ||
                 "${{ github.event_name }}" == "workflow_run" ]]; then
-            echo ":shipit: Schedule, manual, or auto trigger. Build will run."
+            echo "::shipit:: Schedule, manual, or auto trigger. Build will run."
             echo "push_or_pr=true" >> $GITHUB_OUTPUT
           elif [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
-            if [[ -n "$PRE_PR" ]]; then
-              LABELS=$(gh pr view "$PRE_PR" --repo "${{ github.repository }}" --json labels -q ".labels[].name")
+            if [[ -n "${{ env.PRE_PR }}" ]]; then
+              LABELS=$(gh pr view "${{ env.PRE_PR }}" --repo "${{ github.repository }}" --json labels -q ".labels[].name")
               if echo "$LABELS" | grep -q "type: package cache"; then
                 echo "❗Package Cache PR merged. Please run '03 Maintain: Apply Package Cache' first!"
                 echo "push_or_pr=false" >> $GITHUB_OUTPUT
-                exit 1
               else
-                echo ":shipit: Valid PR merged. Build will run."
+                echo "::shipit:: Valid PR merged. Build will run."
                 echo "push_or_pr=true" >> $GITHUB_OUTPUT
               fi
             else
-              echo ":shipit: Direct push to main. Build will run."
+              echo "::shipit:: Direct push to main. Build will run."
               echo "push_or_pr=true" >> $GITHUB_OUTPUT
             fi
           else
             echo "❗This was not a schedule or valid trigger. No build will run."
             echo "push_or_pr=false" >> $GITHUB_OUTPUT
-            exit 1
           fi
 
   check-renv:
