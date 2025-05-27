@@ -41,6 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       do-build: ${{ steps.check.outputs.push_or_pr }}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: "Check if push was result of a PR"
         id: preflight-pr
