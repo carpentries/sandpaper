@@ -10,6 +10,7 @@ on:
       tarball:
         description: 'Absolute URL to the desired sandpaper repo tarball'
         required: false
+        default: ''
       clean:
         description: 'Workflow files/file extensions to clean (no wildcards, enter "" for none)'
         required: false
@@ -42,8 +43,8 @@ jobs:
         id: update
         uses: froggleston/actions/update-workflows@main
         with:
-          repo: ${{ github.event.inputs.tarball }}
-          clean: ${{ github.event.inputs.clean }}
+          repo: ${{ github.event.inputs.tarball }} || "https://carpentries.r-universe.dev"
+          clean: ${{ github.event.inputs.clean }} || ".yaml"
 
       - name: Create Pull Request
         id: cpr
