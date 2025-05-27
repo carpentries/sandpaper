@@ -54,11 +54,11 @@ jobs:
             echo "push_or_pr=true" >> $GITHUB_OUTPUT
           elif [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
             PRE_PR=$(gh pr list --repo "${{ github.repository }}" --state merged --search "${{ github.sha }}" --json number -q ".[0].number") >> $GITHUB_ENV
-            echo "Got PR number: $PRE_PR"
+
             if [[ -n "$PRE_PR" ]]; then
               LABELS=$(gh pr view "$PRE_PR" --repo "${{ github.repository }}" --json labels -q ".labels[].name")
               if echo "$LABELS" | grep -q "type: package cache"; then
-                echo "❗Package Cache PR merged. Please run '03 Maintain: Apply Package Cache' first!"
+                echo "❗Package Cache PR merged. Please run '03 Maintain: Apply Package Cache' if not already running!"
                 echo "push_or_pr=false" >> $GITHUB_OUTPUT
                 exit 1
               else
