@@ -24,7 +24,7 @@ jobs:
       - name: "Check if md-outputs branch exists"
         id: check
         run: |
-          if git ls-remote --exit-code --heads origin md-outputs; then
+          if [[ -n $(git ls-remote --exit-code --heads origin md-outputs) ]]; then
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "exists=false" >> $GITHUB_OUTPUT
