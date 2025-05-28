@@ -21,6 +21,9 @@ jobs:
     outputs:
       branch-exists: ${{ steps.check.outputs.exists }}
     steps:
+      - name: "Checkout Lesson"
+        uses: actions/checkout@v4
+
       - name: "Check if md-outputs branch exists"
         id: check
         run: |
