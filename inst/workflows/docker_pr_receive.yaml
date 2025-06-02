@@ -42,13 +42,14 @@ jobs:
     needs: preflight
     outputs:
       is_valid: ${{ steps.check-pr.outputs.VALID }}
+      pr_branch: ${{ env.PR_BRANCH }}
     steps:
       - name: "Auto: Grab PR"
         if: ${{ github.event_name == 'pull_request' }}
         run: |
           echo ${{ github.event.number }} > ${{ github.workspace }}/NR
           echo "NR=${{ github.event.number }}" >> $GITHUB_ENV
-          echo "PR_BRANCH=main" >> $GITHUB_ENV
+          echo "PR_BRANCH=$(gh -R ${{ github.repository }} pr view ${{ github.event.number }} --json headRefName --jq '.headRefName')" >> $GITHUB_ENV
 
       - name: "Manual: Grab PR"
         if: ${{ github.event_name == 'workflow_dispatch' }}
@@ -57,7 +58,7 @@ jobs:
         run: |
           echo ${{ inputs.pr_number }} > ${{ github.workspace }}/NR
           echo "NR=${{ inputs.pr_number }}" >> $GITHUB_ENV
-          echo "PR_BRANCH=$(gh -R ${{ github.repository }} pr view ${{ env.NR }} --json headRefName --jq '.headRefName')" >> $GITHUB_ENV
+          echo "PR_BRANCH=$(gh -R ${{ github.repository }} pr view ${{ inputs.pr_number }} --json headRefName --jq '.headRefName')" >> $GITHUB_ENV
 
       - name: "Upload PR number"
         id: upload
@@ -127,6 +128,7 @@ jobs:
       CHIVE: ${{ github.workspace }}/site/chive
       PR: ${{ github.workspace }}/site/pr
       GHWMD: ${{ github.workspace }}/site/built
+      PR_BRANCH: ${{ needs.test-pr.outputs.pr_branch }}
     permissions:
       checks: write
       contents: write
@@ -137,11 +139,13 @@ jobs:
         WORKBENCH_PROFILE: "ci"
         GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         RENV_PATHS_ROOT: /home/rstudio/lesson/renv
+        RENV_PROFILE: "lesson-requirements"
+        RENV_CONFIG_EXTERNAL_LIBRARIES: "/usr/local/lib/R/site-library"
       volumes:
         - ${{ github.workspace }}:/home/rstudio/lesson
       options: --cpus 2
     steps:
-      - name: "Check Out Main Branch"
+      - name: "Check Out PR Branch"
         uses: actions/checkout@v4
         with:
           ref: ${{ env.PR_BRANCH }}
@@ -155,6 +159,12 @@ jobs:
       - name: Mark Repository as Safe
         run: |
           git config --global --add safe.directory $(pwd)
+
+      - name: "Ensure sandpaper is loadable"
+        run: |
+          .libPaths()
+          library(sandpaper)
+        shell: Rscript {0}
 
       - name: Setup Lesson Dependencies
         run: |

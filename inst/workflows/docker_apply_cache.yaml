@@ -85,7 +85,9 @@ jobs:
         WORKBENCH_PROFILE: "ci"
         GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         RENV_PATHS_ROOT: /home/rstudio/lesson/renv
+        RENV_PROFILE: "lesson-requirements"
         RENV_VERSION: ${{ needs.prepare.outputs.renv-cache-hashsum }}
+        RENV_CONFIG_EXTERNAL_LIBRARIES: "/usr/local/lib/R/site-library"
       volumes:
         - ${{ github.workspace }}:/home/rstudio/lesson
       options: --cpus 2
@@ -106,6 +108,12 @@ jobs:
       - name: Mark Repository as Safe
         run: |
           git config --global --add safe.directory $(pwd)
+
+      - name: "Ensure sandpaper is loadable"
+        run: |
+          .libPaths()
+          library(sandpaper)
+        shell: Rscript {0}
 
       - name: Setup Lesson Dependencies
         run: |

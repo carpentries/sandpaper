@@ -158,6 +158,8 @@ jobs:
         WORKBENCH_PROFILE: "ci"
         GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         RENV_PATHS_ROOT: /home/rstudio/lesson/renv
+        RENV_PROFILE: "lesson-requirements"
+        RENV_CONFIG_EXTERNAL_LIBRARIES: "/usr/local/lib/R/site-library"
         RENV_VERSION: ${{ needs.prepare-renv.outputs.renv-cache-hashsum }}
         VARNISH_VER: ${{ needs.prepare-wb-package-override.outputs.varnish-version }}
         SANDPAPER_VER: ${{ needs.prepare-wb-package-override.outputs.sandpaper-version }}
