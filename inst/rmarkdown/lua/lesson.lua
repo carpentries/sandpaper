@@ -491,6 +491,7 @@ tab_block = function(el)
   tab_buttons = {}
   this_tab_tabpanel = {}
   tabpanels = {}
+  group_tab_titles = {}
 
   return tabs
 end
