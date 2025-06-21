@@ -99,6 +99,12 @@ add_code_heading <- function(codes = NULL, labels = "OUTPUT") {
     xml2::xml_add_child(head, "i",
       "aria-hidden" = "true", "data-feather" = "chevron-right")
   }
+  buttons <- xml2::xml_add_sibling(codes, "button",
+    class = "copy-button", .where = "before"
+  )
+  for (button in buttons) {
+    xml2::xml_add_child(button, "i", "data-feather" = "copy")
+  }
   invisible(codes)
 }
 
