@@ -278,6 +278,7 @@ jobs:
       - name: Run Container and Build Site
         run: |
           library(sandpaper)
+          reset <- "${{ github.event.inputs.reset }}" == "true"
           sandpaper::package_cache_trigger(TRUE)
-          sandpaper:::ci_deploy(reset = TRUE)
+          sandpaper:::ci_deploy(reset = reset)
         shell: Rscript {0}
