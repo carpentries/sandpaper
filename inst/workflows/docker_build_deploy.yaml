@@ -90,21 +90,25 @@ jobs:
         id: check-for-renv
         run: |
           if [[ -d renv ]]; then
+            echo "✅ renv requirement found."
             echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "❗No renv requirement found. Skipping..."
+            echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
   prepare-renv:
     name: "Grab renv.lock hash"
     runs-on: ubuntu-latest
     needs: check-renv
-    if: ${{ needs.check-renv.outputs.renv-needed == 'true' }}
     outputs:
-      renv-cache-hashsum: ${{ steps.set-hash.outputs.renv-cache-hashsum }}
+      renv-cache-hashsum: ${{ steps.set-hash.outputs.renv-cache-hashsum || '' }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Calculate renv hash
         id: set-hash
+        if: ${{ needs.check-renv.outputs.renv-needed == 'true' }}
         run: |
           CACHE_VERSION_INPUT="${{ github.event.inputs.CACHE_VERSION || vars.CACHE_VERSION }}"
           if [ -z "$CACHE_VERSION_INPUT" ]; then
