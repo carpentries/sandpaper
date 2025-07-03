@@ -58,9 +58,8 @@ jobs:
             if [[ -n "$PRE_PR" ]]; then
               LABELS=$(gh pr view "$PRE_PR" --repo "${{ github.repository }}" --json labels -q ".labels[].name")
               if echo "$LABELS" | grep -q "type: package cache"; then
-                echo "❗Package Cache PR merged. Please run '03 Maintain: Apply Package Cache' if not already running!"
+                echo "❗Package cache update PR merged. Build will not run."
                 echo "push_or_pr=false" >> $GITHUB_OUTPUT
-                exit 1
               else
                 echo "✅ Valid PR merged. Build will run."
                 echo "push_or_pr=true" >> $GITHUB_OUTPUT
@@ -72,7 +71,6 @@ jobs:
           else
             echo "❗This was not a schedule or valid trigger. No build will run."
             echo "push_or_pr=false" >> $GITHUB_OUTPUT
-            exit 1
           fi
 
   check-renv:
