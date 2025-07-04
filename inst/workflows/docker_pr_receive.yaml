@@ -42,6 +42,7 @@ jobs:
     needs: preflight
     outputs:
       is_valid: ${{ steps.check-pr.outputs.VALID }}
+      pr_number: ${{ env.NR }}
       pr_branch: ${{ env.PR_BRANCH }}
     steps:
       - name: "Auto: Grab PR"
@@ -129,6 +130,7 @@ jobs:
       PR: ${{ github.workspace }}/site/pr
       GHWMD: ${{ github.workspace }}/site/built
       PR_BRANCH: ${{ needs.test-pr.outputs.pr_branch }}
+      PR_NUMBER: ${{ needs.test-pr.outputs.pr_number }}
     permissions:
       checks: write
       contents: write
@@ -188,7 +190,7 @@ jobs:
         run: |
           sandpaper:::ci_bundle_pr_artifacts(
             repo         = '${{ github.repository }}',
-            pr_number    = '${{ github.event.number }}',
+            pr_number    = '${{ env.PR_NUMBER }}',
             path_md      = '/home/rstudio/lesson/site/built',
             path_pr      = '/home/rstudio/lesson/site/pr',
             path_archive = '/home/rstudio/lesson/site/chive',

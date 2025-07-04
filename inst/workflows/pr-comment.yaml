@@ -14,6 +14,15 @@ concurrency:
 
 
 jobs:
+
+  debug:
+    name: "Debug event info"
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    steps:
+      - name: Dump event
+        run: cat $GITHUB_EVENT_PATH
+
   # Pull requests are valid if:
   #  - they match the sha of the workflow run head commit
   #  - they are open
@@ -22,8 +31,15 @@ jobs:
     name: "Test if pull request is valid"
     runs-on: ubuntu-latest
     if: >
-      github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success'
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event_name == 'workflow_run' &&
+        (
+          github.event.workflow_run.event == 'pull_request' ||
+          github.event.workflow_run.event == 'workflow_dispatch'
+        ) &&
+        github.event.workflow_run.conclusion == 'success'
+      )
     outputs:
       is_valid: ${{ steps.check-pr.outputs.VALID }}
       payload: ${{ steps.check-pr.outputs.payload }}
