@@ -44,14 +44,40 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - name: Debug workflow_run event
+        run: cat $GITHUB_EVENT_PATH
+
       - name: "Should we run build and deploy?"
         id: check
         run: |
           if [[ "${{ github.event_name }}" == "schedule" ||
-                "${{ github.event_name }}" == "workflow_dispatch" ||
-                "${{ github.event_name }}" == "workflow_run" ]]; then
-            echo "✅ Schedule, manual, or auto trigger. Build will run."
+                "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "✅ Scheduled or manual trigger. Build will run."
             echo "push_or_pr=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "workflow_run" &&
+                  "${{ github.event.workflow_run.conclusion }}" == "success" ]]; then
+            if [[ "${{ github.event.workflow_run.event }}" == "pull_request" ]] ; then
+              PRE_PR="${{ github.event.workflow_run.pull_requests[0].number }}"
+              if [[ -n "$PRE_PR" ]]; then
+                PR_DATA=$(gh pr view "$PRE_PR" --repo "${{ github.repository }}" --json merged,state)
+                MERGED=$(echo "$PR_DATA" | jq -r '.merged')
+                STATE=$(echo "$PR_DATA" | jq -r '.state')
+
+                if [[ "$MERGED" == "false" || "$STATE" != "MERGED" ]]; then
+                  echo "❗PR not merged or in an invalid state. No build will run."
+                  echo "push_or_pr=false" >> $GITHUB_OUTPUT
+                else
+                  echo "✅ PR merged successfully. Build will run."
+                  echo "push_or_pr=true" >> $GITHUB_OUTPUT
+                fi
+              else
+                "✅ PR merged successfully. Build will run."
+                echo "push_or_pr=true" >> $GITHUB_OUTPUT
+              fi
+            else
+              echo "✅ PR merged successfully. Build will run."
+              echo "push_or_pr=true" >> $GITHUB_OUTPUT
+            fi
           elif [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
             PRE_PR=$(gh pr list --repo "${{ github.repository }}" --state merged --search "${{ github.sha }}" --json number -q ".[0].number") >> $GITHUB_ENV
 
