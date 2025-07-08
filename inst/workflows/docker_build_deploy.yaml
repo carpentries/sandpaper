@@ -71,7 +71,7 @@ jobs:
                   echo "push_or_pr=true" >> $GITHUB_OUTPUT
                 fi
               else
-                "✅ PR merged successfully. Build will run."
+                echo "✅ PR merged successfully. Build will run."
                 echo "push_or_pr=true" >> $GITHUB_OUTPUT
               fi
             else
@@ -211,9 +211,6 @@ jobs:
       - name: "Grabbed renv.lock hash"
         if: env.RENV_EXISTS == 'true'
         run: echo "RENV_VERSION is $RENV_VERSION"
-
-      - name: Current env
-        run: env | sort
 
       - name: Debugging Info
         run: |

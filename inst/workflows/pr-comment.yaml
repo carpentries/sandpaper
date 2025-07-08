@@ -12,9 +12,7 @@ concurrency:
   group: pr-${{ github.event.workflow_run.pull_requests[0].number }}
   cancel-in-progress: true
 
-
 jobs:
-
   debug:
     name: "Debug event info"
     runs-on: ubuntu-latest

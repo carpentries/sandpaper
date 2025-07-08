@@ -53,12 +53,11 @@ jobs:
             echo "ok=false" >> $GITHUB_OUTPUT
             echo "Not Running Today"
           fi
-
   check-renv:
     name: "Check If We Need {renv}"
     runs-on: ubuntu-latest
     needs: preflight
-    if: ${{ needs.preflight.outputs.ok == 'true'}}
+    if: ${{ needs.preflight.outputs.ok == 'true' }}
     outputs:
       renv-needed: ${{ steps.check-for-renv.outputs.exists }}
     steps:
@@ -79,6 +78,7 @@ jobs:
       pull-requests: write
       actions: write
       issues: write
+      id-token: write # OIDC permission required
     if: ${{ needs.check-renv.outputs.renv-needed == 'true' }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -102,12 +102,44 @@ jobs:
           generate-cache: ${{ env.LOCKFILE_CACHE_GEN }}
           cache-version: ${{ secrets.CACHE_VERSION }}
 
+      - name: "Validate Current Org and Workflow"
+        id: validate-org-workflow
+        uses: carpentries/actions/validate-org-workflow@main
+        with:
+          repo: ${{ github.repository }}
+          workflow: ${{ github.workflow }}
+
+      - name: Configure AWS credentials via OIDC
+        if: steps.validate-org-workflow.outputs.is_valid == 'true'
+        uses: aws-actions/configure-aws-credentials@v4.1.0
+        with:
+          role-to-assume: arn:aws:iam::860325783027:role/carpentries-github-oidc-auth
+          aws-region: us-east-1
+
+      - name: Set PAT from AWS Secrets Manager
+        if: steps.validate-org-workflow.outputs.is_valid == 'true'
+        id: set-pat
+        shell: bash
+        run: |
+          SECRET=$(aws secretsmanager get-secret-value \
+                   --secret-id carpentries-bot/github-pat \
+                   --query SecretString --output text)
+          PAT=$(echo "$SECRET" | jq -r .[])
+          echo "::add-mask::$PAT"
+          echo "pat=$PAT" >> "$GITHUB_OUTPUT"
+
+      - name: "Validate token"
+        id: validate-token
+        uses: carpentries/actions/check-valid-credentials@main
+        with:
+          token: ${{ secrets.SANDPAPER_WORKFLOW || steps.set-pat.outputs.pat }}
+
       - name: Create Pull Request
         id: cpr
-        if: ${{ steps.update.outputs.n > 0 }}
+        if: steps.update.outputs.n > 0 && steps.validate-token.outputs.wf == 'true'
         uses: carpentries/create-pull-request@main
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SANDPAPER_WORKFLOW || steps.set-pat.outputs.pat }}
           delete-branch: true
           branch: "update/packages"
           commit-message: "[actions] update ${{ steps.update.outputs.n }} packages"
