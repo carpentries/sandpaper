@@ -228,15 +228,28 @@ jobs:
         run: |
           Rscript /home/rstudio/.workbench/setup_lesson_deps.R
 
+      - name: Get Container Version Used
+        run: |
+          tag=${{ vars.WORKBENCH_TAG || 'latest' }}
+          digest=$(curl -s "https://hub.docker.com/v2/repositories/carpentries/workbench-docker/tags?name=$tag" | jq -r '.results[] | select(.name == "'$tag'") | .digest')
+          if [[ "$tag" == "latest" ]]; then
+            vers=$(curl -s "https://hub.docker.com/v2/repositories/carpentries/workbench-docker/tags" | jq -r '.results[] | select(.digest == "'$digest'") | .name')
+            ver=$(echo "$vers" | grep -Po "^v.*")
+          else
+            ver="$tag"
+          fi
+          echo "CONTAINER_VER=$ver" >> $GITHUB_ENV
+        shell: bash
+
       - name: Restore renv from cache
         id: restore-renv-cache
         uses: actions/cache@v4
         if: env.RENV_EXISTS == 'true'
         with:
           path: /home/rstudio/lesson/renv
-          key: ${{ runner.os }}-${{ inputs.cache-version }}-renv-${{ needs.prepare-renv.outputs.renv-cache-hashsum }}
+          key: ${{ env.CONTAINER_VER }}-${{ inputs.cache-version }}-renv-${{ needs.prepare-renv.outputs.renv-cache-hashsum }}
           restore-keys:
-            ${{ runner.os }}-${{ inputs.cache-version }}-renv-
+            ${{ env.CONTAINER_VER }}-${{ inputs.cache-version }}-renv-
 
       - name: Restore renv Dependencies
         if: env.RENV_EXISTS == 'true' && steps.restore-renv-cache.outputs.cache-hit == 'true'
