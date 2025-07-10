@@ -117,7 +117,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Calculate renv hash
+      - name: "Calculate renv hash"
         id: set-hash
         run: |
           echo "renv-cache-hashsum=${{ hashFiles('renv/profiles/lesson-requirements/renv.lock') }}" >> $GITHUB_OUTPUT
@@ -176,7 +176,7 @@ jobs:
         run: |
           Rscript /home/rstudio/.workbench/setup_lesson_deps.R
 
-      - name: Fortify renv Cache
+      - name: "Fortify renv Cache"
         if: ${{ needs.check-renv.outputs.renv-needed == 'true' }}
         run: |
           Rscript /home/rstudio/.workbench/fortify_renv_cache.R
@@ -226,3 +226,9 @@ jobs:
       - name: "Teardown"
         run: sandpaper::reset_site()
         shell: Rscript {0}
+
+      - name: "Trigger PR checks"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run pr-comment.yaml --field workflow_id=${{ github.run_id }}

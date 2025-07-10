@@ -1,8 +1,10 @@
 name: "Bot: Comment on the Pull Request"
 
-# read-write repo token
-# access to secrets
 on:
+  workflow_dispatch:
+    inputs:
+      workflow_id:
+        required: true
   workflow_run:
     workflows: ["Bot: Receive Pull Request"]
     types:
@@ -13,14 +15,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  debug:
-    name: "Debug event info"
-    runs-on: ubuntu-latest
-    if: ${{ always() }}
-    steps:
-      - name: Dump event
-        run: cat $GITHUB_EVENT_PATH
-
   # Pull requests are valid if:
   #  - they match the sha of the workflow run head commit
   #  - they are open
@@ -48,7 +42,7 @@ jobs:
         id: dl
         uses: carpentries/actions/download-workflow-artifact@main
         with:
-          run: ${{ github.event.workflow_run.id }}
+          run: ${{ github.event.workflow_run.id || inputs.workflow_id }}
           name: 'pr'
 
       - name: "Get PR Number"
@@ -64,12 +58,14 @@ jobs:
         run: |
           echo '::error::A pull request number was not recorded. The pull request that triggered this workflow is likely malicious.'
           exit 1
+
       - name: "Get Invalid Hashes File"
         id: hash
         run: |
           echo "json<<EOF
           $(curl -sL https://files.carpentries.org/invalid-hashes.json)
           EOF" >> $GITHUB_OUTPUT
+
       - name: "Check PR"
         id: check-pr
         if: ${{ steps.dl.outputs.success == 'true' }}
@@ -80,6 +76,14 @@ jobs:
           headroom: 3 # if it's within the last three commits, we can keep going, because it's likely rapid-fire
           invalid: ${{ fromJSON(steps.hash.outputs.json)[github.repository] }}
           fail_on_error: true
+
+      - name: "Comment result of validation"
+        id: comment-diff
+        if: ${{ always() }}
+        uses: carpentries/actions/comment-diff@main
+        with:
+          pr: ${{ steps.get-pr.outputs.NUM }}
+          body: ${{ steps.check-pr.outputs.MSG }}
 
   # Create an orphan branch on this repository with two commits
   #  - the current HEAD of the md-outputs branch
@@ -106,7 +110,7 @@ jobs:
         id: dl
         uses: carpentries/actions/download-workflow-artifact@main
         with:
-          run: ${{ github.event.workflow_run.id }}
+          run: ${{ github.event.workflow_run.id || inputs.workflow_id }}
           name: 'built'
 
       - if: ${{ steps.dl.outputs.success == 'true' }}
@@ -145,7 +149,7 @@ jobs:
         id: dl
         uses: carpentries/actions/download-workflow-artifact@main
         with:
-          run: ${{ github.event.workflow_run.id }}
+          run: ${{ github.event.workflow_run.id || inputs.workflow_id }}
           name: 'diff'
 
       - if: ${{ steps.dl.outputs.success == 'true' }}
@@ -167,7 +171,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ always() && needs.test-pr.outputs.is_valid == 'false' }}
     env:
-      NR: ${{ github.event.workflow_run.pull_requests[0].number }}
+      NR: ${{ needs.test-pr.outputs.number }}
       body: ${{ needs.test-pr.outputs.msg }}
     permissions:
       pull-requests: write
@@ -176,7 +180,7 @@ jobs:
         id: dl
         uses: carpentries/actions/download-workflow-artifact@main
         with:
-          run: ${{ github.event.workflow_run.id }}
+          run: ${{ github.event.workflow_run.id || inputs.workflow_id }}
           name: 'built'
 
       - name: 'Alert if spoofed'

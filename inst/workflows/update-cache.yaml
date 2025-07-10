@@ -116,7 +116,7 @@ jobs:
           role-to-assume: arn:aws:iam::860325783027:role/carpentries-github-oidc-auth
           aws-region: us-east-1
 
-      - name: Set PAT from AWS Secrets Manager
+      - name: "Set PAT from AWS Secrets Manager"
         if: steps.validate-org-workflow.outputs.is_valid == 'true'
         id: set-pat
         shell: bash
@@ -134,12 +134,16 @@ jobs:
         with:
           token: ${{ secrets.SANDPAPER_WORKFLOW || steps.set-pat.outputs.pat }}
 
-      - name: Create Pull Request
+      # Create the PR with the following roles in order of preference:
+      # - repo-scoped SANDPAPER_WORKFLOW classic PAT (will work in all scenarios)
+      # - Carpentries Bot classic PAT fetched from AWS (will only work in official Carpentries repos)
+      # - default GITHUB_TOKEN (will work suitably, but PR preflight checks will not occur)
+      - name: "Create Pull Request"
         id: cpr
         if: steps.update.outputs.n > 0 && steps.validate-token.outputs.wf == 'true'
         uses: carpentries/create-pull-request@main
         with:
-          token: ${{ secrets.SANDPAPER_WORKFLOW || steps.set-pat.outputs.pat }}
+          token: ${{ secrets.SANDPAPER_WORKFLOW || steps.set-pat.outputs.pat || secrets.GITHUB_TOKEN }}
           delete-branch: true
           branch: "update/packages"
           commit-message: "[actions] update ${{ steps.update.outputs.n }} packages"
@@ -168,13 +172,13 @@ jobs:
           labels: "type: package cache"
           draft: false
 
-      - name: Skip PR creation
+      - name: "Skip PR creation"
         if: ${{ steps.update.outputs.n == 0 }}
         run: |
           echo "No updates needed, skipping PR creation"
 
       # thanks @Bisaloo! - https://github.com/carpentries/sandpaper/issues/646#issuecomment-2829578435
-      - name: Trigger checks
+      - name: "Trigger checks"
         if: ${{ steps.cpr.outputs.pull-request-number != '' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
