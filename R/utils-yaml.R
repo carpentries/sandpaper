@@ -1,7 +1,9 @@
 # Query only the yaml header. This is faster than slurping the entire file...
 # useful for determining timings :)
 politely_get_yaml <- function(path) {
+  file_len <- R.utils::countLines(path)
   header <- readLines(path, n = 10, encoding = "UTF-8")
+
   barriers <- grep("^---$", header)
   if (length(barriers) == 0) {
     # we don't need to warn if they are scanning an index.md with no yaml
@@ -12,10 +14,17 @@ politely_get_yaml <- function(path) {
     }
     return(character(0))
   }
+
+  # got at least one YAML header in the first 10 lines so check that the first line of a lesson is header open
+  if (barriers[1] != 1) {
+    cli::cli_alert_danger("First line is invalid - [expected ---, got {header[1]}] - in episode {path}")
+    return(character(0))
+  }
+
   if (length(barriers) == 1) {
     to_skip <- 10L
     next_ten <- vector(mode = "character", length = 10)
-    while (length(barriers) < 2) {
+    while (length(barriers) < 2 && to_skip < file_len) {
       next_ten <- scan(
         path,
         what = character(),
@@ -32,7 +41,31 @@ politely_get_yaml <- function(path) {
       to_skip <- to_skip + 10L
     }
   }
-  return(header[barriers[1]:barriers[2]])
+
+  # validate at the end of scanning
+  if (is.na(barriers[1]) || is.na(barriers[2]) || barriers[2] <= barriers[1]) {
+    cli::cli_alert_danger("Cannot find valid open and close of YAML frontmatter in episode {path}")
+    return(character(0))
+  }
+
+  # if the second line is blank
+  if (header[1] == "---" && header[2] == "") {
+    cli::cli_alert_danger("Blank line after first YAML block line in episode {path}")
+    return(character(0))
+  }
+
+  header <- header[barriers[1]:barriers[2]]
+
+  # actually validate the final header
+  yaml_header <- paste(header, collapse = "\n")
+  tryCatch({
+    yaml::yaml.load(yaml_header)
+  }, error = function(e) {
+    cli::cli_alert_danger("YAML header is invalid in episode {path}")
+    return(character(0))
+  })
+
+  return(header)
 }
 
 siQuote <- function(string) {
@@ -158,32 +191,43 @@ create_pkgdown_yaml <- function(path) {
   # The user does not interact with this and {{mustache}} is logic-less, so we
   # can be super-verbose here and create any logic we need on the R-side.
   usr <- yaml::read_yaml(path_config(path), eval.expr = FALSE)
+  handout <- if (is.null(usr$handout)) "~" else siQuote(usr$handout)
+  handout <- if (isTRUE(handout)) "files/code-handout.R" else handout
   yaml <- get_yaml_text(template_pkgdown())
+  # Should we display DOI info? If so, parse the URL and return the doi
+  # note that a missing doi will return nothing
+  doi <- sub("^[/]", "", xml2::url_parse(usr$doi)$path)
+  doi <- if (length(doi) == 1L && nzchar(doi)) siQuote(doi) else "~"
   yaml <- whisker::whisker.render(yaml,
     data = list(
       # Basic information
       version = siQuote(utils::packageVersion("sandpaper")),
       config  = siQuote(path_config(path)),
       title   = siQuote(usr$title),
+      lang    = if (is.null(usr$lang)) NULL else siQuote(usr$lang),
       time    = UTC_timestamp(Sys.time()),
       source  = siQuote(sub("/$", "", usr$source)),
       branch  = siQuote(usr$branch),
       contact = siQuote(usr$contact),
       # What carpentry are we dealing with?
-      carpentry_name = siQuote(which_carpentry(usr$carpentry)),
+      carpentry_name = siQuote(which_carpentry(usr$carpentry, usr$carpentry_description)),
       carpentry      = siQuote(usr$carpentry),
       carpentry_icon = siQuote(which_icon_carpentry(usr$carpentry)),
       license        = siQuote(usr$license),
-      handout        = if (getOption("sandpaper.handout", default = FALSE)) "'files/code-handout.R'" else "~",
+      handout        = handout,
       cp             = usr$carpentry == 'cp',
       lc             = usr$carpentry == 'lc',
       dc             = usr$carpentry == 'dc',
       swc            = usr$carpentry == 'swc',
       # Should we display a lifecycle banner?
-      life_cycle = if (usr$life_cycle == "stable")    "~"  else siQuote(usr$life_cycle),
-      pre_alpha  = if (usr$life_cycle == "pre-alpha") TRUE else "~",
-      alpha      = if (usr$life_cycle == "alpha")     TRUE else "~",
-      beta       = if (usr$life_cycle == "beta")      TRUE else "~",
+      life_cycle = siQuote(usr$life_cycle),
+      pre_alpha  = usr$life_cycle == "pre-alpha",
+      alpha      = usr$life_cycle == "alpha",
+      beta       = usr$life_cycle == "beta",
+      stable     = usr$life_cycle == "stable",
+      doi        = doi,
+      # Enable tracking?
+      analytics  = if (is.null(usr$analytics)) NULL else (siQuote(usr$analytics)),
       NULL
     )
   )
@@ -236,4 +280,3 @@ quote_config_items <- function(yaml) {
   }
   yaml
 }
-

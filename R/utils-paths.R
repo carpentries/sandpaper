@@ -33,6 +33,10 @@ enforce_dir <- function(paths) {
 }
 
 path_site <- function(path = NULL) {
+  sitepath <- Sys.getenv("SANDPAPER_SITE")
+  if (nzchar(sitepath)) {
+    return(fs::path_real(sitepath))
+  }
   if (is.null(path)) {
     fs::path(.build_paths$source, "site")
   } else {

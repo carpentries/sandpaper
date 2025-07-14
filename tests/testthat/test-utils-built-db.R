@@ -20,6 +20,79 @@ test_that("get_lineages() will return a list equal to the files in the lesson", 
   expect_equal(get_lineages(lsn), expected)
 })
 
+test_that("(#536) SANDPAPER_SITE enviornment variable will move the database path", {
+
+  # setup: create our new site folder
+  orig_outdir <- path_built(res)
+  tmp <- withr::local_tempdir("site")
+  withr::local_envvar(list("SANDPAPER_SITE" = tmp))
+  # NOTE: for Windows and Mac, the realised temp paths and the actual temp
+  # paths will differ, so we need to do this weird relative path comparison BS
+  # >:(
+  rel <- fs::path_dir(tmp)
+  outdir <- path_built(res)
+  expect_equal(fs::path_dir(outdir), unclass(path_site(res)))
+  rel_site <- fs::path_file(fs::path_dir(outdir))
+  rel_env  <- fs::path_file(Sys.getenv("SANDPAPER_SITE"))
+  expect_equal(rel_site, rel_env)
+
+
+  # the original outdir should not exist
+  expect_false(identical(orig_outdir, outdir))
+
+  # setting the envvar doesn't actually create the built folder
+  expect_false(fs::dir_exists(outdir))
+  create_site(res)
+  expect_true(fs::dir_exists(outdir))
+
+  orig_db_path <- fs::path(orig_outdir, "md5sum.txt")
+  db_path <- fs::path(outdir, "md5sum.txt")
+
+  # database should not exist
+  expect_false(fs::file_exists(db_path))
+  withr::defer({
+    if (fs::file_exists(db_path)) {
+      fs::file_delete(db_path)
+    }
+  })
+
+  # the table starts out empty
+  db <- get_built_db(db_path)
+  expect_s3_class(db, "data.frame")
+  expect_equal(nrow(db), 0L)
+  expect_named(db, c("file", "checksum", "built"))
+
+  sources <- get_build_sources(res, outdir, slug = NULL, quiet = TRUE)
+  stat <- build_status(sources, db_path, rebuild = FALSE, write = TRUE)
+
+  # the database now exists in the SANDPAPER_SITE path
+  expect_true(fs::file_exists(db_path))
+  expect_false(fs::file_exists(orig_db_path))
+
+
+  # the output of the build status is a list with files to build and the
+  # database of changed files
+  expect_type(stat, "list")
+  expect_named(stat, c("build", "new"))
+  expect_type(stat$build, "character")
+  expect_s3_class(stat$new, "data.frame")
+  expect_named(stat$new, c("file", "checksum", "built", "date"))
+
+
+  # the resulting data is what we expect
+  db <- get_built_db(db_path, "Rmd")
+  expect_s3_class(db, "data.frame")
+  expect_equal(nrow(db), 1L)
+  expect_named(db, c("file", "checksum", "built", "date"))
+  md5 <- unname(tools::md5sum(fs::path(res, db$file)))
+  expect_equal(md5, db$checksum)
+  expect_true(md5 %in% stat$new$checksum)
+  expect_named(stat, c("build", "new"))
+  expect_type(stat$build, "character")
+  expect_s3_class(stat$new, "data.frame")
+  expect_named(stat$new, c("file", "checksum", "built", "date"))
+})
+
 
 test_that("build_status() will record new entries", {
   outdir <- path_built(res)

@@ -25,44 +25,53 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   cache: '~/Library/Application Support/renv', r: 'release'}
+          - {os: macOS-latest, cache: '~/Library/Application Support/renv', r: 'release'}
 
           - {os: windows-latest, r: 'release'}
-          # Use 3.6 to trigger usage of RTools35
-          - {os: windows-latest, cache: '~\AppData\Local\renv', r: '3.6'}
-          # use 4.1 to check with rtools40's older compiler
-          - {os: windows-latest, r: '4.1'}
 
-          - {os: ubuntu-latest,   cache: '~/.local/share/renv', r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   cache: '~/.local/share/renv', r: 'release', cov: 'true'}
-          - {os: ubuntu-latest,   cache: '~/.local/share/renv', r: 'oldrel-1'}
-          - {os: ubuntu-latest,   cache: '~/.local/share/renv', r: 'oldrel-2'}
-          - {os: ubuntu-latest,   cache: '~/.local/share/renv', r: 'oldrel-3'}
-          - {os: ubuntu-latest,   cache: '~/.local/share/renv', r: 'oldrel-4'}
+          # Use 3.6 to trigger usage of RTools35
+          # As of 2024-06, downlit now requires R >4.0.0 so this should be deprecated.
+          # - {os: windows-latest, cache: '~\AppData\Local\renv', r: '3.6'}
+
+          # use 4.1 to check with rtools40's older compiler
+          # as of 2025-05-01, Windows builds with R4.1 and RTools40/41 fail
+          # - {os: windows-latest, r: '4.1'}
+          
+          - {os: ubuntu-22.04, cache: '~/.local/share/renv', r: 'release', cov: 'true'}
+          
+          - {os: ubuntu-latest, cache: '~/.local/share/renv', r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-latest, cache: '~/.local/share/renv', r: 'release', cov: 'true'}
+          - {os: ubuntu-latest, cache: '~/.local/share/renv', r: 'oldrel-1'}
+          - {os: ubuntu-latest, cache: '~/.local/share/renv', r: 'oldrel-2'}
+          - {os: ubuntu-latest, cache: '~/.local/share/renv', r: 'oldrel-3'}
+          - {os: ubuntu-latest, cache: '~/.local/share/renv', r: 'oldrel-4'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RENV_PATHS_ROOT: ${{ matrix.config.cache }}
+      LANG: "en_US.UTF-8"
 
     steps:
-      - name: Record Linux Version
+      - name: Setup Linux Environment
         if: runner.os == 'Linux'
         run: |
           echo "OS_VERSION=`lsb_release -sr`" >> $GITHUB_ENV
           mkdir -p "${{ runner.temp }}/sandbox/"
           echo "RENV_PATHS_SANDBOX=${{ runner.temp }}/sandbox/" >> $GITHUB_ENV
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+        shell: bash
 
       - name: "Windows: prevent autocrlf"
         if: runner.os == 'Windows'
         run: git config --global core.autocrlf false
         shell: bash
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
-        if: runner.os != 'Windows'
 
       - name: "Windows: setup TMPDIR"
         if: runner.os == 'Windows'
@@ -70,10 +79,6 @@ jobs:
           git config --global core.autocrlf true # reset setting to prevent errors downstream
           echo "TMPDIR=${{ runner.temp }}" >> $GITHUB_ENV
         shell: bash
-
-      - name: "Setup devel pandoc windows"
-        uses: cderv/actions/setup-pandoc-nightly@nightly-pandoc
-        if: runner.os == 'Windows'
 
       - name: "Setup R"
         uses: r-lib/actions/setup-r@v2
@@ -90,7 +95,7 @@ jobs:
 
       - name: "Restore {renv} cache"
         if: runner.os != 'Windows'
-        uses: actions/cache@v3.0.11
+        uses: actions/cache@v4
         with:
           path: ${{ env.RENV_PATHS_ROOT }}
           key: ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ runner.r }}-${{ hashFiles('.github/workflows/R-CMD-check.yaml') }}

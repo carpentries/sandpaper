@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-varnish.R
 \name{set_globals}
 \alias{set_globals}
-\title{Set the necessary common global variables for use in the {varnish} template.}
+\title{Set the necessary common global variables for use in the \code{{varnish}} template.}
 \usage{
 set_globals(path)
 }
@@ -24,7 +24,7 @@ The things that are added:
 \itemize{
 \item \code{sidebar} This is generated from \code{\link[=create_sidebar]{create_sidebar()}} and is the same in the
 learner and instructor globals with the exception of the first element.
-\item \code{more} This is the "More" dorpdown menu, which is created via \code{\link[=create_resources_dropdown]{create_resources_dropdown()}}.
+\item \code{more} This is the "More" dropdown menu, which is created via \code{\link[=create_resources_dropdown]{create_resources_dropdown()}}.
 \item \code{resources} The same as "More", but positioned on the mobile sidebar.
 \item \verb{\{sandpaper,varnish,pegboard\}_version} package versions of each package.
 }

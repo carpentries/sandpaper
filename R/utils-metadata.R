@@ -13,6 +13,7 @@ fill_metadata_template <- function(meta) {
   if (endsWith(local_meta$url, "/")) {
     local_meta$url <- paste0(local_meta$url, "index.html")
   }
+  local_meta$lang <- sub("_", "-", local_meta$lang %||% "en")
   title <- local_meta$pagetitle
   if (grepl("<", title, fixed = TRUE)) {
     local_meta$pagetitle <- xml2::xml_text(xml2::read_html(title))
@@ -35,6 +36,8 @@ initialise_metadata <- function(path = ".") {
     this_metadata$set("metadata_template", readLines(template_metadata()))
     this_metadata$set("pagetitle", cfg$title)
     this_metadata$set("keywords", cfg$keywords)
+    this_metadata$set("license", cfg$license)
+    this_metadata$set("license_url", cfg$license_url %||% "LICENSE.html")
     created <- cfg$created %||% tail(gert::git_log(max = 1e6, repo = path)$time, 1)
     this_metadata$set(c("date", "created"), format(as.Date(created), "%F"))
     # TODO: implement custom DESCRIPTION
@@ -46,6 +49,9 @@ initialise_metadata <- function(path = ".") {
   this_metadata$set("url", metadata_url(cfg))
   this_metadata$set(c("date", "modified"), format(Sys.Date(), "%F"))
   this_metadata$set(c("date", "published"), format(Sys.Date(), "%F"))
+  this_metadata$set("citation", path_citation(path))
+
+  this_metadata$set("analytics", cfg$analytics)
 }
 
 

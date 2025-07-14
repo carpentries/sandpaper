@@ -2,17 +2,29 @@
 #' @param built a vector of markdown documents that have recently been rebuilt
 #'   (for future use)
 build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
-  path <- root_path(pkg$src_path)
+  path <- get_source_path() %||% root_path(pkg$src_path)
   lsn <- this_lesson(path)
   outpath <- fs::path(pkg$dst_path, "instructor-notes.html")
+
+  instructor_notes_exists <- any(grepl("instructor-notes[.]R?md$", list.files(path=path_instructors(path))))
+  if (!instructor_notes_exists) {
+    cli::cli_alert_danger("WARNING: instructors/instructor-notes.[R]md does not exist!")
+    return(invisible(NULL))
+  }
+
   already_built <- template_check$valid() &&
     fs::file_exists(outpath) &&
     !is.null(built) &&
     !"instructor-notes" %in% get_slug(built)
   if (!already_built) {
     page_globals <- setup_page_globals()
-    inote <- .resources$get()[["instructors"]]
-    inote <- inote[get_slug(inote) == "instructor-notes"]
+    inote_resc <- .resources$get()[["instructors"]]
+    inote <- inote_resc[get_slug(inote_resc) == "instructor-notes"]
+    if (length(inote) == 0) {
+      cli::cli_alert_danger("WARNING: instructors/instructor-notes.[R]md exists but is not referenced in your config.yaml `instructors` section.")
+      return(invisible(NULL))
+    }
+
     html <- render_html(inote)
     if (html != "") {
       html <- xml2::read_html(html)
@@ -24,7 +36,7 @@ build_instructor_notes <- function(pkg, pages = NULL, built = NULL, quiet) {
     this_dat <- list(
       this_page = "instructor-notes.html",
       body = use_instructor(html),
-      pagetitle = "Instructor Notes"
+      pagetitle = tr_varnish("InstructorNotes")
     )
 
     page_globals$instructor$update(this_dat)
@@ -135,7 +147,8 @@ make_instructor_note_linkback <- function(node, name) {
   title <- trimws(xml2::xml_text(node))
   id <- xml2::xml_attr(node, "id")
   newid <- glue::glue("{name}-{id}")
-  anchor <- glue::glue("<a class='anchor' aria-label='anchor' href='#{newid}'></a>")
+  tranchor <- tr_computed("Anchor")
+  anchor <- glue::glue("<a class='anchor' aria-label='{tranchor}' href='#{newid}'></a>")
   new <- "<h3><a href='{name}.html#{id}'>{title}</a>{anchor}</h3>"
   node <- xml2::read_xml(glue::glue(new))
   xml2::xml_set_attr(node, "id", newid)

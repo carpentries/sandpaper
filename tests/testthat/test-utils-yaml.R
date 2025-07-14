@@ -17,10 +17,23 @@ test_that("siQuote works for normally escaped strings", {
 })
 
 cli::test_that_cli("polite yaml throws a message when there is no yaml", {
-  
+
   withr::local_file(tmp <- tempfile())
+  cat("A malformed YAML header\n---\n", file = tmp)
+  expect_message(politely_get_yaml(tmp), "First line is invalid")
+
+  cat("foo---\nAnother malformed YAML header\n---\n", file = tmp)
+  expect_message(politely_get_yaml(tmp), "First line is invalid")
+
+  cat("---\nYet another malformed YAML header\n# Start of markdown\n\nFoo bar baz\n", file = tmp)
+  expect_message(politely_get_yaml(tmp), "Cannot find valid open and close of YAML frontmatter")
+
+  cat("---\n\nA malformed YAML block\n---\n", file = tmp)
+  expect_message(politely_get_yaml(tmp), "Blank line after first YAML block line")
+
   cat("# A header\n\nbut no yaml :/\n", file = tmp)
   expect_message(politely_get_yaml(tmp), "No yaml header found in the first 10 lines")
+
 
 })
 
@@ -30,27 +43,27 @@ test_that("polite yaml works", {
 yaml <- "---
 a: |
   this
-  
-  
+
+
   is some
-   
-   
-   
-   
-    
-    
-    
-    
+
+
+
+
+
+
+
+
    poetry?
-   
-   
-   
-   
-   
-   
-   
-   
-   
+
+
+
+
+
+
+
+
+
 b: is it?
 ---
 
@@ -72,7 +85,7 @@ This is not poetry
 
 
 test_that("yaml_list() processes nested lists", {
-  
+
   x <- letters[1:3]
   nester <- list(b = x, a = list(hello = x, jello = as.list(setNames(x, rev(x)))))
   expect_snapshot_output(writeLines(yaml_list(nester)))

@@ -41,7 +41,7 @@ set_config(c(title = "Absolutely Free Lesson", license = "CC0"),
   path = tmp,
   write = TRUE
 )
-create_episode("using-R", path = tmp)
+create_episode("using-R", path = tmp, open = FALSE)
 print(sched <- get_episodes(tmp))
 
 # reverse the schedule

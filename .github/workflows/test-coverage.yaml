@@ -16,9 +16,13 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PATHS_ROOT: ~/.local/share/renv
       OS_VERSION: 1
+      LANG: "en_US-UTF.8"
+      LANGUAGE: "en_US.UTF-8"
+      LC_ALL: "en_US.UTF-8"
+      LC_MESSAGES: "en_US.UTF-8"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-r@v2
         with:
@@ -27,11 +31,13 @@ jobs:
       - name: "Set up pandoc"
         uses: r-lib/actions/setup-pandoc@v2
 
-      - name: "Install sysreqs"
+      - name: "Setup System Environment"
         id: run-apt
         shell: bash
         run: |
           sudo apt update || exit 0
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 LC_MESSAGES=en_US.UTF-8 LANG=en_US.UTF-8
           curl https://carpentries.r-universe.dev/stats/sysdeps 2> /dev/null \
           | jq -r '.headers[0] | select(. != null)' 2> /dev/null \
           > ${{ runner.temp }}/sysdeps.txt
@@ -58,7 +64,7 @@ jobs:
           needs: coverage
 
       - name: Restore {renv} cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ env.RENV_PATHS_ROOT }}
           key: ${{ runner.os }}-${{ env.OS_VERSION }}-renv-${{ runner.r }}-${{ hashFiles('.github/workflows/R-CMD-check.yaml') }}
@@ -92,7 +98,7 @@ jobs:
 
       - name: Upload test results
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-test-failures
           path: ${{ runner.temp }}/package

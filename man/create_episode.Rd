@@ -8,15 +8,44 @@
 \alias{draft_episode_rmd}
 \title{Create an Episode from a template}
 \usage{
-create_episode(title, ext = "Rmd", make_prefix = FALSE, add = TRUE, path = ".")
+create_episode(
+  title,
+  ext = "Rmd",
+  make_prefix = FALSE,
+  add = TRUE,
+  path = ".",
+  open = rlang::is_interactive()
+)
 
-create_episode_md(title, make_prefix = FALSE, add = TRUE, path = ".")
+create_episode_md(
+  title,
+  make_prefix = FALSE,
+  add = TRUE,
+  path = ".",
+  open = rlang::is_interactive()
+)
 
-create_episode_rmd(title, make_prefix = FALSE, add = TRUE, path = ".")
+create_episode_rmd(
+  title,
+  make_prefix = FALSE,
+  add = TRUE,
+  path = ".",
+  open = rlang::is_interactive()
+)
 
-draft_episode_md(title, make_prefix = FALSE, path = ".")
+draft_episode_md(
+  title,
+  make_prefix = FALSE,
+  path = ".",
+  open = rlang::is_interactive()
+)
 
-draft_episode_rmd(title, make_prefix = FALSE, path = ".")
+draft_episode_rmd(
+  title,
+  make_prefix = FALSE,
+  path = ".",
+  open = rlang::is_interactive()
+)
 }
 \arguments{
 \item{title}{the title of the episode}
@@ -33,7 +62,9 @@ automatically determined by the files already present. When \code{FALSE}
 episode should be added. If \code{TRUE}, the episode is added to the end of the
 schedule. If \code{FALSE}, the episode is added as a draft episode.}
 
-\item{path}{the path to the {sandpaper} lesson.}
+\item{path}{the path to the \code{{sandpaper}} lesson.}
+
+\item{open}{if interactive, the episode will open in a new editor window.}
 }
 \description{
 These functions allow you to create an episode that will be added to the

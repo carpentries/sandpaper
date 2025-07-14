@@ -18,7 +18,7 @@
 #'   path = tmp,
 #'   write = TRUE
 #' )
-#' create_episode("using-R", path = tmp)
+#' create_episode("using-R", path = tmp, open = FALSE)
 #' print(sched <- get_episodes(tmp))
 #'
 #' # reverse the schedule
@@ -100,6 +100,15 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #'
 #' The following keypairs are known by sandpaper, but are optional:
 #'
+#' - **lang** `[character]` the [language
+#'   code](https://www.gnu.org/software/gettext/manual/html_node/Usual-Language-Codes.html)
+#'   that matches the language of the lesson content. This defaults to `"en"`,
+#'   but can be any language code (e.g. "ja" specifying Japanese) or
+#'   combination language code and [country
+#'   code](https://www.gnu.org/software/gettext/manual/html_node/Country-Codes.html)
+#'   (e.g. "pt_BR" specifies Pourtugese used in Brazil). For more information
+#'   on how this is used, see [the Locale Names section of the gettext
+#'   manual](https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html)
 #' - **url** `[character]` custom URL if you are deploying to a URL that is not
 #'   the default github pages io domain.
 #' - **fail_on_error** `[boolean]` for R Markdown lessons; fail the build if any
@@ -110,6 +119,12 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #' - **overview** `[boolean]` All lessons must have episodes with the exception
 #'   of overview lessons. To indicate that your lesson serves as an overview for
 #'   other lessons, use `overview: true`
+#' - **handout** `[boolean]` or `[character]` This option instructs `{sandpaper}`
+#'   to create a handout of all RMarkdown files via `{pegboard}`, which uses
+#'   [knitr::purl()] in the background after removing everything but the
+#'   challenges (without solutions) and any code blocks where `purl = TRUE`. The
+#'   default path for the handout is `files/code-handout.R`
+#'
 #'
 #' As the workbench becomes more developed, some of these optional keys may
 #' disappear.

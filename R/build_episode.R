@@ -1,7 +1,7 @@
 #' Build a single episode html file
 #'
 #' This is a Carpentries-specific wrapper around [pkgdown::render_page()] with
-#' templates from {varnish}. This function is largely for internal use and will
+#' templates from `{varnish}`. This function is largely for internal use and will
 #' likely change.
 #'
 #' @param path_md the path to the episode markdown (not RMarkdown) file
@@ -73,7 +73,7 @@ build_episode_html <- function(path_md, path_src = NULL,
                                page_back = "index.md", page_forward = "index.md",
                                pkg, quiet = FALSE, page_progress = NULL,
                                sidebar = NULL, date = NULL) {
-  home <- root_path(path_md)
+  home <- get_source_path() %||% root_path(path_md)
   this_lesson(home)
   page_globals <- setup_page_globals()
   slug <- get_slug(path_md)
@@ -118,7 +118,7 @@ build_episode_html <- function(path_md, path_src = NULL,
 get_nav_data <- function(path_md, path_src = NULL, home = NULL,
   this_page = NULL, page_back = NULL, page_forward = NULL) {
   if (is.null(home)) {
-    home <- root_path(path_md)
+    home <- get_source_path() %||% root_path(path_md)
   }
   if (is.null(this_page)) {
     this_page <- as_html(path_md)
@@ -131,7 +131,8 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
   pf_title <- NULL
 
   if (!is.null(page_back)) {
-    pb_title <- if (page_back == "index.md") "Home" else get_trimmed_title(page_back)
+    trhome <- tr_varnish("Home")
+    pb_title <- if (page_back == "index.md") trhome else get_trimmed_title(page_back)
     page_back <- as_html(page_back)
   }
   if (!is.null(page_forward)) {
@@ -164,7 +165,7 @@ get_nav_data <- function(path_md, path_src = NULL, home = NULL,
 #' @param workenv an environment to use for evaluation. Defaults to the global
 #'   environment, which evaluates to the environment from [callr::r()].
 #' @param quiet if `TRUE`, output is suppressed, default is `FALSE` to show
-#'   {knitr} output.
+#'   `{knitr}` output.
 #' @param error if `TRUE` (default) errors do not make an invalid build.
 #'   This can be set to false to cause the build to fail if an error occurs.
 #'   This is generally controlled via the `fail_on_error` config option.

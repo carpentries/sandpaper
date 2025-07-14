@@ -1,6 +1,6 @@
 build_profiles <- function(pkg, quiet) {
   page_globals <- setup_page_globals()
-  path <- root_path(pkg$src_path)
+  path <- get_source_path() %||% root_path(pkg$src_path)
   profs <- get_profiles(path, trim = FALSE)
   html <- paste(vapply(profs, render_html, character(1)), collapse = "<hr>")
   if (html != '') {
@@ -13,7 +13,7 @@ build_profiles <- function(pkg, quiet) {
   this_dat <- list(
     this_page = "profiles.html",
     body = use_instructor(html),
-    pagetitle = "Learner Profiles"
+    pagetitle = tr_varnish("LearnerProfiles")
   )
   page_globals$instructor$update(this_dat)
 

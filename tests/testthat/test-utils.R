@@ -33,3 +33,15 @@ test_that("a sitemap can be generated for urls", {
   urls <- c("https://example.com/one", "https://example.com/two")
   expect_snapshot(urls_to_sitemap(urls))
 })
+
+test_that("which_carpentry_workshop works for default carpentries", {
+  expect_equal(which_carpentry("swc"), "Software Carpentry")
+  expect_equal(which_carpentry("dc"), "Data Carpentry")
+  expect_equal(which_carpentry("lc"), "Library Carpentry")
+  expect_equal(which_carpentry("cp"), "The Carpentries")
+})
+
+test_that("which_carpentry can take a custom description", {
+  expect_equal(which_carpentry("ice-cream", "Ice Cream Carpentry"), "Ice Cream Carpentry")
+  expect_equal(which_carpentry("mexican-guitars"), "mexican-guitars")
+})

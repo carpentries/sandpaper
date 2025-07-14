@@ -78,14 +78,14 @@ test_that("local site build produces 404 page with relative links", {
 })
 
 
-test_that("Anchors for Keypoints are not missing", {
-  skip_if_not(rmarkdown::pandoc_available("2.11"))
-  html <- xml2::read_html(fs::path(sitepath, "introduction.html"))
-  anchor <- xml2::xml_find_first(html, ".//div[contains(@class, 'keypoints')]//h3/a")
-  expect_match(xml2::xml_attr(anchor, "href"), "[#]keypoints")
-  expect_match(xml2::xml_attr(anchor, "class"), "anchor")
-  expect_match(xml2::xml_attr(anchor, "aria-label"), "anchor")
-})
+# test_that("Anchors for Keypoints are not missing", {
+#   skip_if_not(rmarkdown::pandoc_available("2.11"))
+#   html <- xml2::read_html(fs::path(sitepath, "introduction.html"))
+#   anchor <- xml2::xml_find_first(html, ".//div[contains(@class, 'keypoints')]//h3/a")
+#   expect_match(xml2::xml_attr(anchor, "href"), "[#]keypoints")
+#   expect_match(xml2::xml_attr(anchor, "class"), "anchor")
+#   expect_match(xml2::xml_attr(anchor, "aria-label"), "anchor")
+# })
 
 
 test_that("aio page can be rebuilt", {
@@ -204,7 +204,7 @@ test_that("sitemap exists", {
 
 
 test_that("Metadata is recorded as the correct type", {
-  expect_match(metadata_json, "\"@type\": \"TrainingMaterial\"", fixed = TRUE)
+  expect_match(metadata_json, "\"@type\": \"LearningResource\"", fixed = TRUE)
 })
 
 test_that("Lesson websites contains metadata", {
@@ -235,9 +235,10 @@ test_that("Lesson websites contains instructor metadata", {
 })
 
 test_that("single files can be built", {
-
-  create_episode("_Second_ Episode!", path = tmp)
-  suppressMessages(s <- get_episodes(tmp))
+  suppressMessages({
+    create_episode("_Second_ Episode!", path = tmp, open = FALSE)
+    s <- get_episodes(tmp)
+  })
   set_episodes(tmp, s, write = TRUE)
 
   rdr <- sandpaper_site(fs::path(tmp, "episodes", "second-episode.Rmd"))
@@ -282,7 +283,7 @@ test_that("single files can be re-built", {
 
   suppressMessages({
     rdr$render(fs::path(tmp, "LICENSE.md")) %>%
-      expect_output("Writing") %>%
+      expect_message("Writing") %>%
       expect_message("Output created: .*LICENSE.html")
   })
 

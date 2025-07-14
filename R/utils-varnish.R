@@ -21,7 +21,7 @@ varnish_vars <- function() {
     res <- paste0(user, "/", repo, "/tree/", ref)
     return(res)
   }
-  list(
+  res <- list(
     sandpaper_version = ver("sandpaper"),
     sandpaper_cfg     = cfg("sandpaper"),
     pegboard_version  = ver("pegboard"),
@@ -29,9 +29,21 @@ varnish_vars <- function() {
     varnish_version   = ver("varnish"),
     varnish_cfg       = cfg("varnish")
   )
+  carpurl <- function(res, pkg) {
+    config <- res[[paste0(pkg, "_cfg")]] %||% paste0("carpentries/", pkg)
+    version <- res[[paste0(pkg, "_version")]]
+    glue::glue('<a href="https://github.com/{config}">{pkg}{version}</a>')
+  }
+  urls <- list(
+    sandpaper_link = carpurl(res, "sandpaper"),
+    pegboard_link = carpurl(res, "pegboard"),
+    varnish_link = carpurl(res, "varnish")
+  )
+  return(c(res, urls))
+
 }
 
-#' Set the necessary common global variables for use in the {varnish} template.
+#' Set the necessary common global variables for use in the `{varnish}` template.
 #'
 #' This will enforce four global lists:
 #'
@@ -44,7 +56,7 @@ varnish_vars <- function() {
 #'
 #'  - `sidebar` This is generated from [create_sidebar()] and is the same in the
 #'    learner and instructor globals with the exception of the first element.
-#'  - `more` This is the "More" dorpdown menu, which is created via [create_resources_dropdown()].
+#'  - `more` This is the "More" dropdown menu, which is created via [create_resources_dropdown()].
 #'  - `resources` The same as "More", but positioned on the mobile sidebar.
 #'  - `{sandpaper,varnish,pegboard}_version` package versions of each package.
 #'
@@ -54,6 +66,8 @@ varnish_vars <- function() {
 set_globals <- function(path) {
   template_check$set()
   initialise_metadata(path)
+  # set the translations
+  set_language(this_metadata$get()[["lang"]])
   # get the resources if they exist (but do not destroy the global environment)
   old <- .resources$get()
   on.exit(.resources$set(key = NULL, old))
@@ -64,27 +78,52 @@ set_globals <- function(path) {
   # that is different is the name of the index node.
   idx <- these_resources[["."]]
   idx <- idx[as_html(idx) == "index.html"]
-  instructor_sidebar <- create_sidebar(c(idx, these_resources[["episodes"]]))
+
+  # get sidebar numbering disable option from config, if null set FALSE
+  disable_numbering <- this_metadata$get()[["disable_sidebar_numbering"]] %||% FALSE
+
+  instructor_sidebar <- create_sidebar(
+    c(idx, these_resources[["episodes"]]),
+    disable_numbering = disable_numbering
+  )
   # check if we have a title in the index sidebar and replace with
   # "summary and schedule" if it does not exist.
   idx_item <- xml2::read_html(instructor_sidebar[[1]])
   idx_link <- xml2::xml_find_first(idx_item, ".//a")
   idx_text <- xml2::xml_contents(idx_link)
-  if (length(idx_text) == 1 && xml2::xml_text(idx_text) == "0. ") {
-    xml2::xml_set_text(idx_link, "Summary and Schedule")
+  href <- xml2::xml_attr(idx_link, "href")
+
+  no_index_title <- (
+      length(idx_text) == 1 &&
+      xml2::xml_text(idx_text) == "0. "
+    ) ||
+    (
+      disable_numbering &&
+      length(idx_text) == 0 &&
+      href == "index.html"
+  )
+
+  if (no_index_title) {
+    xml2::xml_set_text(idx_link, tr_computed("SummaryAndSchedule"))
   } else {
     xml2::xml_set_text(idx_text, sub("^0[.] ", "", xml2::xml_text(idx_text)))
   }
   sindex <- create_sidebar_item(nodes = NULL, as.character(idx_link), 1)
   learner_sidebar <- instructor_sidebar
   instructor_sidebar[[1]] <- sindex
-  learner_sidebar[[1]] <- sub("Schedule", "Setup", sindex)
+  if (no_index_title) {
+    xml2::xml_set_text(idx_link, tr_computed("SummaryAndSetup"))
+    sindex <- create_sidebar_item(nodes = NULL, as.character(idx_link), 1)
+  }
+  learner_sidebar[[1]] <- sindex
 
   # Resources
   learner <- create_resources_dropdown(these_resources[["learners"]],
     "learners")
   instructor <- create_resources_dropdown(these_resources[["instructors"]],
     "instructors")
+  instructor$extras <- c(instructor$extras, "<hr>", learner$extras)
+  instructor$resources <- c(instructor$resources, "<hr>", learner$extras)
   pkg_versions <- varnish_vars()
 
   learner_globals$set(key = NULL,
@@ -93,7 +132,10 @@ set_globals <- function(path) {
       instructor = FALSE,
       sidebar = learner_sidebar,
       more = paste(learner$extras, collapse = ""),
-      resources = paste(learner$resources, collapse = "")
+      resources = paste(learner$resources, collapse = ""),
+      translate = tr_varnish(),
+      license = this_metadata$get()[["license"]],
+      license_url = this_metadata$get()[["license_url"]]
     ), pkg_versions)
   )
   instructor_globals$set(key = NULL,
@@ -102,7 +144,10 @@ set_globals <- function(path) {
       instructor = TRUE,
       sidebar = instructor_sidebar,
       more = paste(instructor$extras, collapse = ""),
-      resources = paste(instructor$resources, collapse = "")
+      resources = paste(instructor$resources, collapse = ""),
+      translate = tr_varnish(),
+      license = this_metadata$get()[["license"]],
+      license_url = this_metadata$get()[["license_url"]]
     ), pkg_versions)
   )
 }
@@ -124,4 +169,3 @@ clear_globals <- function() {
   instructor_globals$clear()
   this_metadata$clear()
 }
-

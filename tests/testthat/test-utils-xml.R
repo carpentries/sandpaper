@@ -51,14 +51,17 @@ test_that("fix figures account for inline images and do not clobber them into fi
 
 
 
-test_that("callout ids are processed correctly", {
+test_that("(#556) (#454) callout are processed correctly", {
   html_test <- xml2::read_html(test_path("examples/callout-ids.html"))
   fix_callouts(html_test)
   anchors <- xml2::xml_find_all(html_test, ".//a")
   headings <- xml2::xml_find_all(html_test, ".//h3")
   callouts <- xml2::xml_find_all(html_test,
     ".//div[starts-with(@class, 'callout ')]")
-  expect_length(anchors, 2)
+
+  # temporarily removed as a result of https://github.com/r-lib/pkgdown/issues/2737
+  # expect_length(anchors, 2)
+
   expect_length(callouts, 2)
   expect_length(headings, 2)
   # headings should not have IDS
@@ -68,8 +71,16 @@ test_that("callout ids are processed correctly", {
   # The IDs should be what we expect
   ids <- xml2::xml_attr(callouts, "id")
   expect_equal(ids, c("discussion1", "wait-what"))
+
+  # temporarily removed as a result of https://github.com/r-lib/pkgdown/issues/2737
   # The IDs should match the anchors
-  expect_equal(paste0("#", ids), xml2::xml_attr(anchors, "href"))
+  # expect_equal(paste0("#", ids), xml2::xml_attr(anchors, "href"))
+
+  # The headings should match what we expect
+  # (https://github.com/carpentries/sandpaper/issues/556)
+  htext <- xml2::xml_find_all(headings, ".//text()")
+  expect_equal(xml2::xml_text(htext),
+    c("Challenge (", "this is code", ")", "Wait what?"))
 })
 
 
@@ -105,6 +116,60 @@ test_that("setup links with anchors are respected", {
   expect_equal(as.character(html), as.character(expect))
 
 })
+
+
+test_that("code block languages are in the correct order", {
+
+  # SETUP ---------------------------------------------------
+  html <- '<div class="sourceCode" id="cb1">
+  <pre class="sourceCode bash">
+  <code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">shello</span></span>
+  </code>
+  </pre>
+  </div>
+  <div class="sourceCode" id="cb2">
+  <pre class="sourceCode r">
+  <code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>letters</span>
+  </code>
+  </pre>
+  </div>'
+
+  nodes <- xml2::read_html(html)
+
+  # ABSENCE TESTS -------------------------------------------
+  # By default, there are no h3 headings
+  expect_length(xml2::xml_find_all(nodes, ".//h3"), 0L)
+  xpath_codewrap <- ".//div[@class='codewrapper sourceCode']"
+  expect_length(xml2::xml_find_all(nodes, xpath_codewrap), 0L)
+  xpath_pre_tabindex <- ".//pre[@tabindex]"
+  expect_length(xml2::xml_find_all(nodes, xpath_pre_tabindex), 0L)
+
+  fix_codeblocks(nodes)
+
+  # PRESENCE TESTS ------------------------------------------
+  expect_length(xml2::xml_find_all(nodes, ".//h3"), 2L)
+  expect_length(xml2::xml_find_all(nodes, xpath_codewrap), 2L)
+  expect_length(xml2::xml_find_all(nodes, xpath_pre_tabindex), 2L)
+
+  # after fixing, the h3 headings should be in the correct order
+  heading_text <- xml2::xml_text(xml2::xml_find_all(nodes, ".//h3"))
+  expect_equal(heading_text, c("BASH", "R"))
+
+  # divs now have two children
+  first_div <- xml2::xml_find_first(nodes, ".//div")
+  expect_equal(xml2::xml_name(xml2::xml_children(first_div)), c("h3", "pre"))
+
+  # the first pre block is a child of the first div
+  first_pre <- xml2::xml_find_first(nodes, ".//pre")
+  # the parent is _identical_ to the first_div because of how the xml2 package
+  # works
+  expect_identical(xml2::xml_parent(first_pre), first_div)
+  expect_equal(xml2::xml_attr(first_pre, "class"), "sourceCode bash")
+  # a tabindex attribute is added
+  expect_equal(xml2::xml_attr(first_pre, "tabindex"), "0")
+
+})
+
 
 
 test_that("empty args result in nothing happening", {

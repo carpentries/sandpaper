@@ -1,6 +1,6 @@
 #' Build instructor and learner HTML page
 #'
-#' @param template the name of the {varnish} template to use. Defaults to
+#' @param template the name of the `{varnish}` template to use. Defaults to
 #'   "chapter"
 #' @param pkg an object created from  [pkgdown::as_pkgdown()]
 #' @param nodes an `xml_document` object. `nodes` will be a list of two
@@ -9,7 +9,7 @@
 #'   and learner page, it will be a single `xml_document` object.
 #' @param global_data a list store object that contains copies of the global
 #'   variables for the page, including metadata, navigation, and variables for
-#'   the {varnish} templates.
+#'   the `{varnish}` templates.
 #' @param path_md the path (absolute, relative, or filename) the current
 #'   markdown file being processed.
 #' @param quiet This parameter is passed to [pkgdown::render_page()] and will
@@ -20,7 +20,7 @@
 #'
 #' @details This function is a central workhorse that connects the global
 #' lesson metadata and the global variables for each page to the rendering
-#' engine: {pkgdown}. It will perform the global operations that includes
+#' engine: `{pkgdown}`. It will perform the global operations that includes
 #' setting up the navigation (via [update_sidebar()]), adding metadata, and
 #' building both the instructor and learner versions of the page (via
 #' [pkgdown::render_page()]).
@@ -60,7 +60,14 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
   # Process instructor page ----------------------------------------------------
   update_sidebar(global_data$instructor, instructor_nodes, fs::path_file(this_page))
   meta$set("url", paste0(base_url, this_page))
+  translated <- fill_translation_vars(global_data$instructor$get())
   global_data$instructor$set("json", fill_metadata_template(meta))
+  global_data$instructor$set("translate", translated)
+  global_data$instructor$set("citation", meta$get()$citation)
+
+  # add tracker script
+  global_data$instructor$set("analytics", processTracker(meta$get()$analytics))
+
   modified <- pkgdown::render_page(pkg,
     template,
     data = global_data$instructor$get(),
@@ -71,10 +78,16 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
 
   # Process learner page if needed ---------------------------------------------
   if (modified) {
+    global_data$learner$set("translate", translated)
     this_page <- as_html(this_page)
     update_sidebar(global_data$learner, learner_nodes, fs::path_file(this_page))
     meta$set("url", paste0(base_url, this_page))
     global_data$learner$set("json", fill_metadata_template(meta))
+    global_data$learner$set("citation", meta$get()$citation)
+
+    # add tracker script
+    global_data$learner$set("analytics", processTracker(meta$get()$analytics))
+
     pkgdown::render_page(pkg,
       template,
       data = global_data$learner$get(),

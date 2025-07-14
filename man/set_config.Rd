@@ -48,6 +48,12 @@ information about the lesson
 
 The following keypairs are known by sandpaper, but are optional:
 \itemize{
+\item \strong{lang} \verb{[character]} the \href{https://www.gnu.org/software/gettext/manual/html_node/Usual-Language-Codes.html}{language code}
+that matches the language of the lesson content. This defaults to \code{"en"},
+but can be any language code (e.g. "ja" specifying Japanese) or
+combination language code and \href{https://www.gnu.org/software/gettext/manual/html_node/Country-Codes.html}{country code}
+(e.g. "pt_BR" specifies Pourtugese used in Brazil). For more information
+on how this is used, see \href{https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html}{the Locale Names section of the gettext manual}
 \item \strong{url} \verb{[character]} custom URL if you are deploying to a URL that is not
 the default github pages io domain.
 \item \strong{fail_on_error} \verb{[boolean]} for R Markdown lessons; fail the build if any
@@ -58,6 +64,11 @@ site that indicates the site is in the workbench beta phase.
 \item \strong{overview} \verb{[boolean]} All lessons must have episodes with the exception
 of overview lessons. To indicate that your lesson serves as an overview for
 other lessons, use \code{overview: true}
+\item \strong{handout} \verb{[boolean]} or \verb{[character]} This option instructs \code{{sandpaper}}
+to create a handout of all RMarkdown files via \code{{pegboard}}, which uses
+\code{\link[knitr:knit]{knitr::purl()}} in the background after removing everything but the
+challenges (without solutions) and any code blocks where \code{purl = TRUE}. The
+default path for the handout is \code{files/code-handout.R}
 }
 
 As the workbench becomes more developed, some of these optional keys may

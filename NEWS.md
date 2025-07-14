@@ -1,3 +1,266 @@
+# sandpaper 0.16.13.9000
+
+## MISC
+
+* Fix pak install when trying to parse .editorconfig files (@froggleston)
+
+
+# sandpaper 0.16.12 [2025-05-06]
+
+## BUG FIXES
+
+* Fix tests and snapshots for bioschemas type PR [649](https://github.com/carpentries/sandpaper/pull/649)
+  (@froggleston)
+* Improve error message when git and/or withr is not installed (reported @fmarotta #638,
+  fixed @froggleston #647)
+* Improve YAML parsing and provide warnings/errors when logging issues (@froggleston)
+* Explicit language setting required for Ubuntu 24.04 (#630, @froggleston #632)
+* Improve checks that lessons are overviews, including when full rebuilds (@froggleston #648)
+
+## LANGUAGES
+
+* Provide Italian translation (@Lisanna #631)
+
+
+# sandpaper 0.16.11 [2025-01-17]
+
+## BUG FIXES
+
+* The website preview feature which automatically opens a web browser after 
+  running `build_lesson()` has been fixed to work with the latest version of 
+  pkgdown (@Bisaloo, #627)
+* Fix build failures if `instructor-notes.[R]md` is missing or not listed in 
+  the `config.yaml` (reported @jhidding #622, fixed @froggleston #626)
+
+## NEW FEATURES
+
+* Users can now provide a `disable_sidebar_numbering` option in a lesson 
+  `config.yaml` to turn off automatic episode numbering if they want to 
+  use their own, e.g. specifying their own numbering manually in episode
+  title blocks (reported @anenadic #623, implemented @froggleston #624)
+* Add a new `config_yaml` option `license_url` so that users can supply
+  custom license URLs for lesson footers (reported @chrbknudsen #619, 
+  implemented @froggleston #620)
+
+
+# sandpaper 0.16.10 [2024-11-11]
+
+## NEW FEATURES
+
+* Add caution callout (@MttArmstrong #613)
+
+## MISC
+
+* Add @MttArmstrong as a contributor - welcome!
+
+
+# sandpaper 0.16.9 (2024-10-15)
+
+## BUG FIXES
+
+* Pin remaining workflows to ubuntu-22.04 instead of ubuntu-latest
+  (@froggleston #610)
+* Add compiled potools translation for German
+
+
+# sandpaper 0.16.8 (2024-10-11)
+
+## BUG FIXES
+
+* Pin workflow to ubuntu-22.04 instead of ubuntu-latest
+  (reported @chrbknudsen #605, fixed @froggleston #606)
+* Update notes to remove excessive build warnings
+  (@milanmlft #599)
+
+## LANGUAGES
+
+* Add `R-de.po` for German translations of lesson elements
+  (@martin-raden #607)
+
+## MISC
+
+* Added @martin-raden as a contributor and translator - welcome!
+
+
+# sandpaper 0.16.7 (2024-09-04)
+
+## BUG FIXES
+
+* Add overwrite option to pr workflow to fix change in default from 
+  [update-artifact action v3 to v4](https://github.com/actions/upload-artifact#breaking-changes)
+  (@milanmlft #602)
+
+
+# sandpaper 0.16.6 (2024-08-23)
+
+## BUG FIXES
+
+* Regression fix for update to pkgdown resulting in 
+  duplicated untranslated h2 anchors for sections (@froggleston #600)
+* Fix various action warnings and issues relating to 
+  old Node.js versions (@jhlegarreta #596)
+* Update core actions to v4 (@Bisaloo #577)
+
+## NEW FEATURES
+
+* Allow custom carpentry config types, and associated alt-text descriptions to 
+  support alternative logos/theming of lessons (@milanmlft #585, @ErinBecker)
+* Add support for French translations of core lesson components/sections (@Bisaloo #595)
+
+
+# sandpaper 0.16.5 (2024-06-18)
+
+## BUG FIXES
+
+* Fix for empty divs when checking for headers
+  (reported: @dmgatti, #581; fixed @froggleston)
+* Fix for spacing in callout titles when they have
+  inner tags, e.g. `<code>`
+  (reported: @abostroem, #562; fixed @froggleston)
+
+## NEW FEATURES
+
+* Add support for including the Carpentries matomo
+  tracker, a custom user-supplied tracker script, or
+  no tracking 
+  (reported: @tbyhdgs, @fiveop https://github.com/carpentries/varnish/issues/37,
+   @zkamvar https://github.com/carpentries/sandpaper/issues/438,
+   implemented: @froggleston
+  )
+
+
+# sandpaper 0.16.4 (2024-04-10)
+
+## NEW FEATURES
+
+* The lesson page footer now supports either a CITATION or CITATION.cff file
+  (reported: @tobyhodges, implemented: @froggleston, #572; @tobyhodges, 
+  https://github.com/carpentries/varnish/pull/122)
+* Add support for tabbed content in lessons
+  (reported: @astroDimitrios,
+   implemented: @astroDimitrios, @froggleston,
+   https://github.com/carpentries/sandpaper/pull/571,
+   https://github.com/carpentries/varnish/pull/121,
+   https://github.com/carpentries/pegboard/pull/148
+  ). 
+
+
+# sandpaper 0.16.3 (2024-03-12)
+
+## BUG FIX
+
+* Hotfix for pandoc2-to-pandoc3 bump that resulted in CSS deduplication
+  of section classes for callout blocks
+  (reported: @bencomp, #470; @ndporter https://github.com/carpentries/workbench/issues/81; 
+  fixed: @froggleston, #574)
+
+# sandpaper 0.16.2 (2023-12-19)
+
+## MISC
+
+* JSON metadata now contains the `inLanguage` key.
+
+## DOCUMENTATION
+
+* A list of translatable strings has now been added to 
+  `vignette("translations", package = "sandpaper")`
+
+## INTERNAL
+
+* Translation strings now are unduplicated and live in a single file
+  (`R/utils-translate.R`). This will make finding and updating these strings
+  easier for maintainer and translators.
+* Translations now live in the global environment called `these$translations`
+* A new documentation page called `?translate` contains details of how
+  translations of template elements are rendered.
+- `tr_src()` helper function provides access to the source strings of the
+  translations.
+- `tr_get()`, `tr_varnish()`, and `tr_computed()` helper functions provide
+  access top the lists of translated strings. These have replaced the `tr_()`
+  strings at the point of generation.
+
+# sandpaper 0.16.1 (2023-12-14)
+
+## BUG FIX
+
+* Callout headings with markup in the titles will no longer have text duplicated
+  (reported: @zkamvar, #556; fixed: @zkamvar, #557)
+
+# sandpaper 0.16.0 (2023-12-13)
+
+## NEW FEATURES
+
+* It is now possible to build lessons in languages other than English so that
+  the website elements are also localised to that language (reported: @zkamvar,
+  #205, @joelnitta, #544; fixed: @joelnitta and @zkamvar, #546). 
+* `known_languages()` is a function that will return the language codes that are
+  known by {sandpaper}. 
+
+## DOCUMENTATION
+
+* A new vignette `vignette("translation", package = "sandpaper")` describes how
+  translation of template components works and how to submit new/update
+  translations (added: @zkamvar, #546).
+- A new vignette about data flow `vignette("data-flow", package = "sandpaper")`
+  describes how templating, translations, and lesson metadata flows from
+  {sandpaper} to {varnish} (added: @zkamvar, #553)
+
+## BUG FIX
+
+* The spelling of keypoints is now consistent between the menu item and the
+  callout blocks (reported: @clarallebot, 
+  https://github.com/carpentries/workbench/issues/44; fixed: @zkamvar, #546)
+
+## DEPENDENCIES
+
+* The {withr} package has been upgraded to an import from a suggested package.
+
+## LANGUAGES
+
+* Japanese (ja) (added: @joelnitta, #546)
+* Spanish (es) (added: @yabellini, #552)
+
+## MISC
+
+* Added @yabellini as a contributor and translator
+* Added @joelnitta as an author and translator
+
+
+# sandpaper 0.15.0 (2023-11-29)
+
+## NEW FEATURES
+
+* Using `handout: true` in `config.yaml` will cause a handout to be generated
+  for the lesson website under `/files/code-handout.R`. At the moment, this is
+  only relevant for R-based lessons (implemented: @froggleston, #527,
+  reviewed: @zkamvar) and supersedes the need for specifying
+  `options(sandpaper.handout = TRUE)`
+* Content for learners now accessible through instructor view. The instructor
+  view "More" dropdown menu item will now have links to learner view items
+  appended. Note that when clicking these links, the user will remain in
+  instructor view. This behaviour may change in future iterations (reported:
+  @karenword, #394; fixed: @ErinBecker, #530, reviewed: @zkamvar)
+* `create_episode()` will now open new episodes for editing in interactive
+  sessions (implemented: @milanmlft, #534, reviewed: @zkamvar)
+* The `site/` folder is now customisable to any writable directory on your
+  system by setting the experimental `SANDPAPER_SITE` environment variable to
+  any valid and empty folder. This is most useful in the context of Docker
+  containers, where file permissions to mounted volumes are not always
+  guaranteed (reported: @fherreazcue #536; implemented: @zkamvar, #537)
+* DOI badges can now be displayed when paired with {varnish} version 0.4.0 by
+  adding the `doi:` key to the `config.yaml` file with either the raw DOI or
+  the URL to the DOI (reported: @tobyhodges, carpentries/workbench#67;
+  fixed: @tobyhodges, #535).
+
+## BUG FIX
+
+* Internal `build_status()` function: make sure `root_path()` always points 
+  to lesson root (reported: @milanmlft, #531; fixed: @milanmlft, #532)
+
+## MISC
+
+* Added @milanmlft as contributor
+
 # sandpaper 0.14.1 (2023-11-09)
 
 ## BUG FIX

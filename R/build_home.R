@@ -15,11 +15,11 @@
 #'   2. learners/setup.md
 #'
 #' This function uses [render_html()] to convert the page into HTML, which gets
-#' passed on to the "syllabus" or "overview" templates in {varnish} (via the
+#' passed on to the "syllabus" or "overview" templates in `{varnish}` (via the
 #' [build_html()] function as the `{{{ readme }}}` and `{{{ setup }}}` keys.
 build_home <- function(pkg, quiet, next_page = NULL) {
   page_globals <- setup_page_globals()
-  path  <- root_path(pkg$src_path)
+  path  <- get_source_path() %||% root_path(pkg$src_path)
   syl   <- format_syllabus(get_syllabus(path, questions = TRUE),
     use_col = FALSE)
   idx      <- fs::path(pkg$src_path, "built", "index.md")
@@ -46,7 +46,7 @@ build_home <- function(pkg, quiet, next_page = NULL) {
   needs_title <- nav$pagetitle == ""
 
   if (needs_title) {
-    nav$pagetitle <- "Summary and Schedule"
+    nav$pagetitle <- tr_computed("SummaryAndSchedule")
   }
   nav$page_forward <- as_html(nav$page_forward, instructor = TRUE)
   page_globals$instructor$update(nav)
@@ -55,7 +55,7 @@ build_home <- function(pkg, quiet, next_page = NULL) {
   page_globals$instructor$set("setup", use_instructor(setup))
 
   if (needs_title) {
-    nav$pagetitle <- "Summary and Setup"
+    nav$pagetitle <- tr_computed("SummaryAndSetup")
   }
   nav$page_forward <- as_html(nav$page_forward)
   page_globals$learner$update(nav)
@@ -97,7 +97,8 @@ format_syllabus <- function(syl, use_col = TRUE) {
     )
   }
   td1 <- glue::glue(td_template, cls = "col-md-2", thing = syl$timings)
-  td2 <- glue::glue(td_template, cls = "col-md-3", thing = c(links, "Finish"))
+  td2 <- glue::glue(td_template, cls = "col-md-3",
+    thing = c(links, tr_computed("Finish")))
   td3 <- glue::glue(td_template, cls = "col-md-7", thing = syl$questions)
   out <- glue::glue_collapse(glue::glue("<tr>{td1}{td2}{td3}</tr>"), sep = "\n")
   tmp <- tempfile(fileext = ".md")

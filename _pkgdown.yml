@@ -96,6 +96,8 @@ reference:
      of a lesson assuming that the markdown components have been built.
      (this is non-exhaustive)
  - contents:
+   - known_languages
+   - translations
    - render_html
    - build_site
    - build_episode_html
@@ -139,8 +141,10 @@ articles:
     - building-with-renv
     - automated-pull-requests
     - include-child-documents
+    - translations
  - title: "Developer Guides"
    contents:
+    - data-flow
     - articles/landscape
     - articles/deployment
     - articles/toolchain

@@ -23,7 +23,7 @@ clear_resource_list(path)
 }
 \description{
 A storage cache for \link[pegboard:Lesson]{pegboard::Lesson} objects and other pre-computed items
-for use by other internal functions while {sandpaper} is working.
+for use by other internal functions while \code{{sandpaper}} is working.
 }
 \section{Lesson Object Storage}{
 
@@ -45,7 +45,7 @@ cached, the lesson is loaded into memory, otherwise, it is fetched from the
 previously stored lesson.
 
 The storage cache is in a global package object called \code{.store}, which is
-initialised when {sandpaper} is loaded via \code{.lesson_store()}
+initialised when \code{{sandpaper}} is loaded via \code{.lesson_store()}
 
 If there have been no changes git is aware of, the lesson remains the same.
 }

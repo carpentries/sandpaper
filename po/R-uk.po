@@ -1,0 +1,384 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: sandpaper 0.16.1.9000\n"
+"POT-Creation-Date: 2025-03-18 11:33-0700\n"
+"PO-Revision-Date: 2023-12-19 09:37-0800\n"
+"Last-Translator: Olexandr Konovalov\n"
+"Language-Team: none\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: utils-translate.R:74
+msgid "Skip to main content"
+msgstr "Перейти до основного вмісту"
+
+#: utils-translate.R:75
+msgid "Pre-Alpha"
+msgstr "Пре-альфа"
+
+#: utils-translate.R:76
+msgid ""
+"This lesson is in the pre-alpha phase, which means that it is in early "
+"development, but has not yet been taught."
+msgstr ""
+"Цей урок знаходиться в пре-альфа-фазі, що означає, що він знаходиться на "
+"ранній стадії розробки, та ще не викладався."
+
+#: utils-translate.R:77
+msgid ""
+"This lesson is in the alpha phase, which means that it has been taught once "
+"and lesson authors are iterating on feedback."
+msgstr ""
+"Цей урок знаходиться в альфа-фазі, що означає, що він викладався один раз, і "
+"перероблюється згідно з отриманими відгуками."
+
+#: utils-translate.R:78
+msgid "Alpha"
+msgstr "Альфа"
+
+#: utils-translate.R:79
+msgid ""
+"This lesson is in the beta phase, which means that it is ready for teaching "
+"by instructors outside of the original author team."
+msgstr ""
+"Цей урок знаходиться на стадії бета-тестування, що означає, що він готовий "
+"для викладання інструкторами, які не належать до початкової команди авторів."
+
+#: utils-translate.R:80
+msgid "Beta"
+msgstr "Бета"
+
+#: utils-translate.R:81
+msgid "This lesson has passed peer review."
+msgstr "Цей урок пройшов експертну перевірку."
+
+#: utils-translate.R:82
+msgid "Instructor View"
+msgstr "Версія для інструктора"
+
+#: utils-translate.R:83
+msgid "Learner View"
+msgstr "Версія для слухача"
+
+#: utils-translate.R:84
+msgid "Main Navigation"
+msgstr "Головна навігація"
+
+#: utils-translate.R:85
+msgid "Toggle Navigation"
+msgstr "Переключити навігацію"
+
+#: utils-translate.R:86
+msgid "Toggle theme (auto)"
+msgstr ""
+
+#: utils-translate.R:87
+msgid "Menu"
+msgstr "Меню"
+
+#: utils-translate.R:88
+msgid "Search the All In One page"
+msgstr "Пошук на сторінці «All In One»."
+
+#: utils-translate.R:89
+msgid "Setup"
+msgstr "Налаштування"
+
+#: utils-translate.R:90
+msgid "Key Points"
+msgstr "Ключові моменти"
+
+#: utils-translate.R:91
+msgid "Instructor Notes"
+msgstr "Примітки для викладача"
+
+#: utils-translate.R:92
+msgid "Glossary"
+msgstr "Глосарій"
+
+#: utils-translate.R:93
+msgid "Learner Profiles"
+msgstr "Профілі учнів"
+
+#: utils-translate.R:94
+msgid "More"
+msgstr "Більше"
+
+#: utils-translate.R:96
+msgid "Lesson Progress"
+msgstr "Хід уроку"
+
+#: utils-translate.R:98
+msgid "close menu"
+msgstr "закрити меню"
+
+#: utils-translate.R:99
+msgid "EPISODES"
+msgstr "ЕПІЗОДИ"
+
+#: utils-translate.R:100
+msgid "Home"
+msgstr "Додому"
+
+#: utils-translate.R:101
+msgid "Home Page Navigation"
+msgstr "Навігація на домашній сторінці"
+
+#: utils-translate.R:102
+msgid "RESOURCES"
+msgstr "РЕСУРСИ"
+
+#: utils-translate.R:103
+msgid "Extract All Images"
+msgstr "Переглянути усі зображення"
+
+#: utils-translate.R:104
+msgid "See all in one page"
+msgstr "Все в одній сторінці"
+
+#: utils-translate.R:105
+msgid "Download Lesson Handout"
+msgstr "Завантажити роздатковий матеріал уроку"
+
+#: utils-translate.R:106
+msgid "Export Chapter Slides"
+msgstr "Експорт слайдів розділу"
+
+#: utils-translate.R:108
+msgid "Previous and Next Chapter"
+msgstr "Попередній і наступний розділ"
+
+#: utils-translate.R:109
+msgid "Previous"
+msgstr "Попередній"
+
+#: utils-translate.R:110
+msgid "Estimated time: {icons$clock} {minutes} minutes"
+msgstr "Приблизний час: {icons$clock} {minutes} хвилин"
+
+#: utils-translate.R:111
+msgid "Next"
+msgstr "Далі"
+
+#: utils-translate.R:112
+msgid "Next Chapter"
+msgstr "Наступний розділ"
+
+#: utils-translate.R:113
+msgid "Last updated on {updated}"
+msgstr "Останнє оновлення {updated}"
+
+#: utils-translate.R:114
+msgid "Edit this page"
+msgstr "Редагувати цю сторінку"
+
+#: utils-translate.R:115 utils-translate.R:136
+msgid "Expand All Solutions"
+msgstr "Розгорнути всі відповіді"
+
+#: utils-translate.R:117
+msgid "Setup Instructions"
+msgstr "Інструкції з налаштування"
+
+#: utils-translate.R:118
+msgid "Download files required for the lesson"
+msgstr "Завантажити файли, необхідні для уроку"
+
+#: utils-translate.R:119
+msgid ""
+"The actual schedule may vary slightly depending on the topics and exercises "
+"chosen by the instructor."
+msgstr ""
+"Фактичний розклад може дещо відрізнятися залежно від тем і вправ, обраних "
+"інструктором."
+
+#: utils-translate.R:121
+msgid "Back To Top"
+msgstr "Догори"
+
+#: utils-translate.R:122
+msgid "<(Back)> To Top"
+msgstr "<(Назад)> Догори"
+
+#: utils-translate.R:123
+msgid "This lesson is subject to the <(Code of Conduct)>"
+msgstr "Цей урок регулюється <(Кодексом поведінки)>"
+
+#: utils-translate.R:124
+msgid "Code of Conduct"
+msgstr "Кодекс поведінки"
+
+#: utils-translate.R:125
+msgid "Edit on GitHub"
+msgstr "Редагувати на GitHub"
+
+#: utils-translate.R:126
+msgid "Contributing"
+msgstr "Як допомогти?"
+
+#: utils-translate.R:127
+msgid "Source"
+msgstr "Вихідні файли уроку"
+
+#: utils-translate.R:128
+msgid "Cite"
+msgstr "Цитувати"
+
+#: utils-translate.R:129
+msgid "Contact"
+msgstr "Контакти"
+
+#: utils-translate.R:130
+msgid "About"
+msgstr "Інформація"
+
+#: utils-translate.R:131
+#, fuzzy
+#| msgid "Materials licensed under {license} by {authors}"
+msgid "Materials licensed under <({license})> by the authors"
+msgstr "Матеріали ліцензовані за {license}. Автори: {authors}"
+
+#: utils-translate.R:132
+msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
+msgstr ""
+"Шаблон ліцензовано за <(CC-BY 4.0)>. Автори шаблону: {template_authors}"
+
+#: utils-translate.R:133
+msgid "The Carpentries"
+msgstr "The Carpentries"
+
+#: utils-translate.R:134
+msgid "Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}"
+msgstr ""
+"Створено за допомогою {sandpaper_link}, {pegboard_link} та {varnish_link}"
+
+#: utils-translate.R:137
+msgid "Collapse All Solutions"
+msgstr "Згорнути всі відповіді"
+
+#: utils-translate.R:138
+msgid "Collapse"
+msgstr "Згорнути"
+
+#: utils-translate.R:139
+msgid "Episodes"
+msgstr "Епізоди"
+
+#: utils-translate.R:141
+msgid "Give Feedback"
+msgstr "Надати відгук"
+
+#: utils-translate.R:142
+msgid "Learn More"
+msgstr "Вивчайте більше"
+
+#: utils-translate.R:148
+msgid "OUTPUT"
+msgstr "ВИХІД"
+
+#: utils-translate.R:149
+msgid "WARNING"
+msgstr "УВАГА"
+
+#: utils-translate.R:150
+msgid "ERROR"
+msgstr "ПОМИЛКА"
+
+#: utils-translate.R:152
+msgid "Overview"
+msgstr "Огляд"
+
+#: utils-translate.R:153
+msgid "Questions"
+msgstr "Питання"
+
+#: utils-translate.R:154
+msgid "Objectives"
+msgstr "Цілі"
+
+#: utils-translate.R:155
+msgid "Callout"
+msgstr "Виноска"
+
+#: utils-translate.R:156
+msgid "Challenge"
+msgstr "Вправа"
+
+#: utils-translate.R:157
+msgid "Prerequisite"
+msgstr "Передумова"
+
+#: utils-translate.R:158
+msgid "Checklist"
+msgstr "Контрольний список"
+
+#: utils-translate.R:159
+msgid "Discussion"
+msgstr "Обговорення"
+
+#: utils-translate.R:160
+msgid "Testimonial"
+msgstr "Відгук"
+
+#: utils-translate.R:161
+msgid "Caution"
+msgstr "осторожность"
+
+#: utils-translate.R:164
+msgid "Show me the solution"
+msgstr "Показати відповіді"
+
+#: utils-translate.R:165
+msgid "Give me a hint"
+msgstr "Отримати підказку"
+
+#: utils-translate.R:166
+msgid "Show details"
+msgstr "Показати деталі"
+
+#: utils-translate.R:167
+msgid "Instructor Note"
+msgstr "Примітка для викладача"
+
+#: utils-translate.R:169
+msgid "Summary and Setup"
+msgstr "Передмова і налаштування"
+
+#: utils-translate.R:170
+msgid "Summary and Schedule"
+msgstr "Передмова і розклад"
+
+#: utils-translate.R:171
+msgid "All in One View"
+msgstr "Все на одній сторінці"
+
+#: utils-translate.R:172
+msgid "Page not found"
+msgstr "Сторінку не знайдено"
+
+#: utils-translate.R:173
+msgid "All Images"
+msgstr "Усі зображення"
+
+#: utils-translate.R:175
+msgid "anchor"
+msgstr "якір"
+
+#: utils-translate.R:176
+msgid "Figure {element}"
+msgstr "Малюнок {element}"
+
+#: utils-translate.R:177
+msgid "Image {i} of {n}: {sQuote(txt)}"
+msgstr "Зображення {i} з {n}: {sQuote(txt)}"
+
+#: utils-translate.R:178
+msgid "Finish"
+msgstr "Кінець"
+
+#~ msgid "Search"
+#~ msgstr "Пошук"

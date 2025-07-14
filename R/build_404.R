@@ -4,10 +4,10 @@
 #'
 #' During the lesson build process, a 404 page with absolute links back to the
 #' source pages must be generated otherwise, subsequent attempts to escape the
-#' 404 page will be futile. 
-#' 
+#' 404 page will be futile.
+#'
 #' This function is intended to be run on a lesson website that has already
-#' been built and is called for its side-effect of creating a 404 page. 
+#' been built and is called for its side-effect of creating a 404 page.
 #'
 #'
 #' @param pkg a list object generated from [pkgdown::as_pkgdown()]
@@ -30,7 +30,6 @@ build_404 <- function(pkg, quiet = FALSE) {
     page_globals$instructor$set(c("site", "root"), url)
     page_globals$learner$set(c("site", "root"), url)
   }
-  path  <- root_path(pkg$src_path)
 
   fof <- fs::path_package("sandpaper", "templates", "404-template.txt")
   html <- xml2::read_html(render_html(fof))
@@ -55,7 +54,7 @@ build_404 <- function(pkg, quiet = FALSE) {
   this_dat <- list(
     this_page = "404.html",
     body = html,
-    pagetitle = "Page not found"
+    pagetitle = tr_computed("PageNotFound")
   )
   page_globals$instructor$update(this_dat)
   page_globals$learner$update(this_dat)

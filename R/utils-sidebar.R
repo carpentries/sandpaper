@@ -144,6 +144,9 @@ create_sidebar_headings <- function(nodes) {
 #' @param name the name of the current chapter
 #' @param html the html of the current chapter. defaults to a link that will
 #'   produce a sidebar with no links to headings.
+#' @param disable_numbering a boolean indicating if the sidebar should not automatically
+#'   number the chapters. Defaults to `FALSE`. If `TRUE`, developers should consider
+#'   adding their own custom numbering to the chapter titles in the frontmatter.
 #' @return a character vector of HTML divs that can be appended to display the
 #'   sidebar.
 #' @keywords internal
@@ -151,15 +154,29 @@ create_sidebar_headings <- function(nodes) {
 #'   [set_globals()] for where `create_sidebar()` is called and
 #'   [build_html()] for where `update_sidebar()` is called.
 #' @rdname create_sidebar
-create_sidebar <- function(chapters, name = "", html = "<a href='https://carpentries.org'/>") {
+create_sidebar <- function(
+    chapters,
+    name = "",
+    html = "<a href='https://carpentries.org'/>",
+    disable_numbering = FALSE) {
   res <- character(length(chapters))
+
   for (i in seq(chapters)) {
     position <- if (name == chapters[i]) "current" else i
     info <- get_navbar_info(chapters[i])
-    # We use zero index to count the index page (which is removed later)
+
+    numbering_prefix = paste0(i - 1, ". ")
+    # if numbering is disabled, remove list numbering prefix
+    if (disable_numbering) {
+      numbering_prefix = ""
+    }
+
+    # We use zero index to count the index page
+    # (which is removed later if automated numbering is enabled)
     page_link <- paste0(
       "<a href='", info$href, "'>",
-      i - 1, ". ", parse_title(info$pagetitle),
+      numbering_prefix,
+      parse_title(info$pagetitle),
       "</a>"
     )
     res[i] <- create_sidebar_item(html, page_link, position)
@@ -253,7 +270,7 @@ update_sidebar <- function(
 #'
 #' # Add an anchor to the links
 #' snd$fix_sidebar_href(my_links, scheme = "https", fragment = "anchor")
-#' 
+#'
 #' # NOTE: this will _always_ return a character vector, even if the input is
 #' # incorrect
 #' snd$fix_sidebar_href(list(), server = "example.com")

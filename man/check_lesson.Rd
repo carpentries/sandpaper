@@ -4,10 +4,12 @@
 \alias{check_lesson}
 \title{\link{deprecated} Check the lesson structure for errors}
 \usage{
-check_lesson(path = ".")
+check_lesson(path = ".", quiet = TRUE)
 }
 \arguments{
 \item{path}{the path to your lesson}
+
+\item{quiet}{if quiet (default TRUE) then no info messages printed to stdout}
 }
 \value{
 \code{TRUE} (invisibly) if the lesson is cromulent, otherwise, it will

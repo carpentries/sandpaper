@@ -42,7 +42,7 @@ copy_template <- function(template, path = NULL, name = NULL, values = NULL) {
 #' @export
 #' @keywords internal
 #' @return a character string with the path to the template within the
-#'   {sandpaper} repo. 
+#'   `{sandpaper}` repo. 
 #' @examples
 #'
 #' cat(readLines(template_gitignore(), n = 6), sep = "\n")
@@ -55,6 +55,10 @@ template_episode <- generate_template_function("episode")
 #' @rdname template
 #' @export
 template_links <- generate_template_function("links")
+
+#' @rdname template
+#' @export
+template_citation <- generate_template_function("citation")
 
 #' @rdname template
 #' @export

@@ -41,6 +41,7 @@ create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio 
   copy_template("conduct", path, "CODE_OF_CONDUCT.md")
   copy_template("license", path, "LICENSE.md")
   copy_template("contributing", path, "CONTRIBUTING.md")
+  copy_template("citation", path, "CITATION.cff")
   copy_template("setup", fs::path(path, "learners"), "setup.md")
   copy_template("index", path, "index.md")
   copy_template("links", path, "links.md")
@@ -75,7 +76,7 @@ create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio 
   create_site(path)
 
   cli::cli_status_update("{cli::symbol$arrow_right} Creating first episode ...")
-  ep <- create_episode("introduction", ext = if (rmd) "Rmd" else "md", path = path)
+  ep <- create_episode("introduction", ext = if (rmd) "Rmd" else "md", path = path, open = FALSE)
   cli::cli_alert_success("First episode created in {.file {ep}}")
 
   if (rstudio) {
@@ -96,7 +97,7 @@ create_lesson <- function(path, name = fs::path_file(path), rmd = TRUE, rstudio 
 
   cli::cli_status_update("{cli::symbol$arrow_right} Committing ...")
   gert::git_add(".", repo = path)
-  gert::git_commit(message = "Initial commit [via {sandpaper}]", repo = path)
+  gert::git_commit(message = "Initial commit [via `{sandpaper}`]", repo = path)
   enforce_main_branch(path)
   reset_git_user(path)
 
