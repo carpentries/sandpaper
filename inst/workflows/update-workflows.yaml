@@ -31,17 +31,13 @@ jobs:
 
       - name: "Validate Current Org and Workflow"
         id: validate-org-workflow
-        uses: carpentries/actions/validate-org-workflow@main
+        uses: froggleston/actions/validate-org-workflow@main
         with:
           repo: ${{ github.repository }}
           workflow: ${{ github.workflow }}
-
-      - name: Configure AWS credentials via OIDC
-        if: ${{ steps.validate-org-workflow.outputs.is_valid == 'true' }}
-        uses: aws-actions/configure-aws-credentials@v4.1.0
-        with:
-          role-to-assume: arn:aws:iam::860325783027:role/carpentries-github-oidc-auth
-          aws-region: us-east-1
+        secrets:
+          aws_gh_oidc_arn: ${{ secrets.AWS_GH_OIDC_ARN }}
+          aws_gh_oidc_region: ${{ secrets.AWS_GH_OIDC_REGION }}
 
       - name: Set PAT from AWS Secrets Manager
         if: ${{ steps.validate-org-workflow.outputs.is_valid == 'true' }}
