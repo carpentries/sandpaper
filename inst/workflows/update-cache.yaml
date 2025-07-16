@@ -104,13 +104,17 @@ jobs:
 
       - name: "Validate Current Org and Workflow"
         id: validate-org-workflow
-        uses: froggleston/actions/validate-org-workflow@main
+        uses: carpentries/actions/validate-org-workflow@main
         with:
           repo: ${{ github.repository }}
           workflow: ${{ github.workflow }}
-        secrets:
-          aws_gh_oidc_arn: ${{ secrets.AWS_GH_OIDC_ARN }}
-          aws_gh_oidc_region: ${{ secrets.AWS_GH_OIDC_REGION }}
+
+      - name: Configure AWS credentials via OIDC
+        if: ${{ steps.validate-org-workflow.outputs.is_valid == 'true' }}
+        uses: aws-actions/configure-aws-credentials@v4.1.0
+        with:
+          role-to-assume: ${{ secrets.AWS_GH_OIDC_ARN }}
+          aws-region: ${{ secrets.AWS_GH_OIDC_REGION }}
 
       - name: "Set PAT from AWS Secrets Manager"
         if: ${{ steps.validate-org-workflow.outputs.is_valid == 'true' }}
@@ -128,11 +132,11 @@ jobs:
         id: validate-token
         uses: carpentries/actions/check-valid-credentials@main
         with:
-          token: ${{ secrets.SANDPAPER_WORKFLOW || steps.set-pat.outputs.pat }}
+          token: ${{ steps.set-pat.outputs.pat || secrets.SANDPAPER_WORKFLOW }}
 
       # Create the PR with the following roles in order of preference:
-      # - repo-scoped SANDPAPER_WORKFLOW classic PAT (will work in all scenarios)
       # - Carpentries Bot classic PAT fetched from AWS (will only work in official Carpentries repos)
+      # - repo-scoped SANDPAPER_WORKFLOW classic PAT (will work in all scenarios)
       # - default GITHUB_TOKEN (will work suitably, but PR preflight checks will not occur)
       - name: "Create Pull Request"
         id: cpr
@@ -144,7 +148,7 @@ jobs:
           )
         uses: carpentries/create-pull-request@main
         with:
-          token: ${{ secrets.SANDPAPER_WORKFLOW || steps.set-pat.outputs.pat || secrets.GITHUB_TOKEN }}
+          token: ${{ steps.set-pat.outputs.pat || secrets.SANDPAPER_WORKFLOW || secrets.GITHUB_TOKEN }}
           delete-branch: true
           branch: "update/packages"
           commit-message: "[actions] update ${{ steps.update.outputs.n }} packages"
@@ -185,3 +189,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh workflow run docker_pr_receive.yaml --field pr_number=${{ steps.cpr.outputs.pull-request-number }}
+        shell: bash

@@ -20,27 +20,28 @@ jobs:
   update_workflow:
     name: "Update Workflow"
     runs-on: ubuntu-latest
-    needs: check_token
     permissions:
       contents: write
       pull-requests: write
-      id-token: write # OIDC permission required
     steps:
       - name: "Checkout Repository"
         uses: actions/checkout@v4
 
       - name: "Validate Current Org and Workflow"
         id: validate-org-workflow
-        uses: froggleston/actions/validate-org-workflow@main
+        uses: carpentries/actions/validate-org-workflow@main
         with:
           repo: ${{ github.repository }}
           workflow: ${{ github.workflow }}
-        secrets:
-          aws_gh_oidc_arn: ${{ secrets.AWS_GH_OIDC_ARN }}
-          aws_gh_oidc_region: ${{ secrets.AWS_GH_OIDC_REGION }}
+
+      - name: Configure AWS credentials via OIDC
+        if: ${{ steps.validate-org-workflow.outputs.is_valid == 'true' }}
+        uses: aws-actions/configure-aws-credentials@v4.1.0
+        with:
+          role-to-assume: ${{ secrets.AWS_GH_OIDC_ARN }}
+          aws-region: ${{ secrets.AWS_GH_OIDC_REGION }}
 
       - name: Set PAT from AWS Secrets Manager
-        if: ${{ steps.validate-org-workflow.outputs.is_valid == 'true' }}
         id: set-pat
         shell: bash
         run: |
@@ -55,7 +56,11 @@ jobs:
         id: validate-token
         uses: carpentries/actions/check-valid-credentials@main
         with:
-          token: ${{ secrets.SANDPAPER_WORKFLOW || steps.set-pat.outputs.pat }}
+          token: ${{ steps.set-pat.outputs.pat || secrets.SANDPAPER_WORKFLOW }}
+
+      - name: "No Token Found: Skipping Workflow Update"
+        if: ${{ steps.validate-token.outputs.wf == 'false' }}
+        run: echo "❗No valid SANDPAPER_WORKFLOW token found, skipping workflow update."
 
       - name: Update Workflows
         id: update
@@ -70,7 +75,7 @@ jobs:
         if: ${{ steps.update.outputs.new > 0 && steps.validate-token.outputs.wf == 'true' }}
         uses: carpentries/create-pull-request@main
         with:
-          token: ${{ secrets.SANDPAPER_WORKFLOW || steps.set-pat.outputs.pat }}
+          token: ${{ steps.set-pat.outputs.pat || secrets.SANDPAPER_WORKFLOW }}
           delete-branch: true
           branch: "update/workflows"
           commit-message: "[actions] update sandpaper workflow to version ${{ steps.update.outputs.new }}"
