@@ -14,26 +14,32 @@ read_glosario_yaml <- function(glosario) {
       glos_dict <- setNames(glosario, sapply(glosario, function(x) x$slug))
       return(glos_dict)
     } else {
+      cli::cli_alert_danger(paste0("Failed to load Glosario YAML file from [", glosario_url, "]. Please check the URL or your internet connection."))
       return(NULL)
     }
   }
 }
 
 # Function to generate the link if the term exists in the glossary
-create_glosario_link <- function(ename, term, slugs) {
+create_glosario_link <- function(ename, slug, lslug, en_slugs) {
   current_lang <- this_metadata$get()[["lang"]]
 
-  if (term %in% slugs) {
-    url <- paste0("https://glosario.carpentries.org/", current_lang, "/#", term)
-    return(paste0("[^", term, "^](", url, ")"))
-  } else {
-    cli::cli_alert_info(paste0(" WARNING: [ ", ename, " ] '", term, "' not found in [", current_lang, "] Glosario."))
-    return(term)  # Return the term as-is if not found in the glossary
+  if (slug %in% en_slugs) {
+    # do not include glosario links that do not resolve to a term
+    if (is.null(lslug)) {
+      invisible(cli::cli_alert_danger(paste0(" WARNING: [ ", ename, " ] '", slug, "' not found in [", current_lang, "] Glosario.")))
+      return("")
+    }
+    else {
+      url <- paste0("https://glosario.carpentries.org/", current_lang, "/#", slug)
+      return(paste0("[^", gsub(" ", "\u00A0", as.character(lslug)), "^](", url, ")"))
+    }
   }
 }
 
 render_glosario_links <- function(path_in, glosario = NULL, quiet = FALSE) {
   if (!is.null(glosario)) {
+    current_lang <- this_metadata$get()[["lang"]]
     content <- readLines(path_in)
 
     slugs <- lapply(glosario, function(x) x$slug)
@@ -44,8 +50,9 @@ render_glosario_links <- function(path_in, glosario = NULL, quiet = FALSE) {
         content,
         pattern = glos_pattern,
         replacement = function(match) {
-          term <- stringr::str_match(match, glos_pattern)[[2]]
-          create_glosario_link(basename(path_in), term, slugs)
+          mterm <- stringr::str_match(match, glos_pattern)[[2]]
+          lterm <- glosario[[mterm]][[current_lang]]$term
+          create_glosario_link(basename(path_in), mterm, lterm, slugs)
         }
       )
 
@@ -157,13 +164,13 @@ build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = "re
     link_term <- stringr::str_extract(link, "#(.*)")
     link_term <- stringr::str_replace(link_term, "#", "")
 
+    term <- glosario[[link_term]][[lang]]$term
     # do not include glosario links that do not resolve to a term
-    if (is.null(glosario[[link_term]])) {
-      cli::cli_text(paste0("[ ", ename, " ]: '", link_term, "' not found in Glosario, not including in glossary."))
+    if (is.null(term)) {
+      # cli::cli_text(paste0("'", link_term, "' not found in [", lang, "] Glosario, not including in glossary page."))
       next
     }
 
-    term <- glosario[[link_term]][[lang]]$term
     agg_li <- xml2::xml_add_child(agg_ul, "li")
     xml2::xml_add_child(agg_li, "a", term, href = link)
 
