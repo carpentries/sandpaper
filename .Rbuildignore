@@ -13,7 +13,6 @@
 ^testthat-problems.rds$
 ^testthat.Rout.fail$
 ^renv/sandbox$
-^.editorconfig
-
+^.editorconfig$
 ^doc$
 ^Meta$

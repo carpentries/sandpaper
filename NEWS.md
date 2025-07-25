@@ -1,4 +1,49 @@
-# sandpaper 0.16.10 (2024-11-11)
+# sandpaper 0.16.13.9000
+
+## MISC
+
+* Fix pak install when trying to parse .editorconfig files (@froggleston)
+
+
+# sandpaper 0.16.12 [2025-05-06]
+
+## BUG FIXES
+
+* Fix tests and snapshots for bioschemas type PR [649](https://github.com/carpentries/sandpaper/pull/649)
+  (@froggleston)
+* Improve error message when git and/or withr is not installed (reported @fmarotta #638,
+  fixed @froggleston #647)
+* Improve YAML parsing and provide warnings/errors when logging issues (@froggleston)
+* Explicit language setting required for Ubuntu 24.04 (#630, @froggleston #632)
+* Improve checks that lessons are overviews, including when full rebuilds (@froggleston #648)
+
+## LANGUAGES
+
+* Provide Italian translation (@Lisanna #631)
+
+
+# sandpaper 0.16.11 [2025-01-17]
+
+## BUG FIXES
+
+* The website preview feature which automatically opens a web browser after 
+  running `build_lesson()` has been fixed to work with the latest version of 
+  pkgdown (@Bisaloo, #627)
+* Fix build failures if `instructor-notes.[R]md` is missing or not listed in 
+  the `config.yaml` (reported @jhidding #622, fixed @froggleston #626)
+
+## NEW FEATURES
+
+* Users can now provide a `disable_sidebar_numbering` option in a lesson 
+  `config.yaml` to turn off automatic episode numbering if they want to 
+  use their own, e.g. specifying their own numbering manually in episode
+  title blocks (reported @anenadic #623, implemented @froggleston #624)
+* Add a new `config_yaml` option `license_url` so that users can supply
+  custom license URLs for lesson footers (reported @chrbknudsen #619, 
+  implemented @froggleston #620)
+
+
+# sandpaper 0.16.10 [2024-11-11]
 
 ## NEW FEATURES
 
