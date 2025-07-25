@@ -20,11 +20,14 @@ read_glosario_yaml <- function(glosario) {
 }
 
 # Function to generate the link if the term exists in the glossary
-create_glosario_link <- function(term, slugs) {
+create_glosario_link <- function(ename, term, slugs) {
+  current_lang <- this_metadata$get()[["lang"]]
+
   if (term %in% slugs) {
-    url <- paste0("https://glosario.carpentries.org/", this_metadata$get()[["lang"]], "/#", term)
+    url <- paste0("https://glosario.carpentries.org/", current_lang, "/#", term)
     return(paste0("[^", term, "^](", url, ")"))
   } else {
+    cli::cli_alert_info(paste0(" WARNING: [ ", ename, " ] '", term, "' not found in [", current_lang, "] Glosario."))
     return(term)  # Return the term as-is if not found in the glossary
   }
 }
@@ -42,7 +45,7 @@ render_glosario_links <- function(path_in, glosario = NULL, quiet = FALSE) {
         pattern = glos_pattern,
         replacement = function(match) {
           term <- stringr::str_match(match, glos_pattern)[[2]]
-          create_glosario_link(term, slugs)
+          create_glosario_link(basename(path_in), term, slugs)
         }
       )
 
@@ -156,7 +159,7 @@ build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = "re
 
     # do not include glosario links that do not resolve to a term
     if (is.null(glosario[[link_term]])) {
-      cli::cli_text("WARNING: Term not found in Glosario, not including: ", link_term)
+      cli::cli_text(paste0("[ ", ename, " ]: '", link_term, "' not found in Glosario, not including in glossary."))
       next
     }
 
