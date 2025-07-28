@@ -27,7 +27,7 @@ create_glosario_link <- function(ename, slug, lslug, en_slugs) {
   if (slug %in% en_slugs) {
     # do not include glosario links that do not resolve to a term
     if (is.null(lslug)) {
-      invisible(cli::cli_alert_danger(paste0(" WARNING: [ ", ename, " ] '", slug, "' not found in [", current_lang, "] Glosario.")))
+      invisible(cli::cli_alert_danger(paste0(" WARNING: [ ", tools::file_path_sans_ext(ename), " ] '", slug, "' not found in [", current_lang, "] Glosario.")))
       return("")
     }
     else {
@@ -137,13 +137,24 @@ build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = "re
     names(ename) <- paste(ep_title, collapse = "")
 
     ep_learn <- get_content(ep_learn, content = aggregate, pkg = pkg)
-    ep_learn_glinks <- get_glossary_links(ep_learn)
+    ep_learn_glinks <- get_glossary_links(ep_learn, ename, glosario)
 
     ep_instruct <- get_content(ep_instruct, content = aggregate, pkg = pkg, instructor = TRUE)
-    ep_instruct_glinks <- get_glossary_links(ep_instruct)
+    ep_instruct_glinks <- get_glossary_links(ep_instruct, ename, glosario)
 
     # get unique set of links from both learner and instructor
     ep_glinks <- unique(c(ep_learn_glinks, ep_instruct_glinks))
+
+    # validate
+    for (link in ep_glinks) {
+      link_term <- stringr::str_extract(link, "#(.*)")
+      link_term <- stringr::str_replace(link_term, "#", "")
+
+      term <- glosario[[link_term]][[lang]]$term
+      if (is.null(term)) {
+        cli::cli_alert_danger(paste0(" WARNING: [ ", ename, " ] '", link_term, "' not found in [", lang, "] Glosario."))
+      }
+    }
 
     # append unique episode glinks to global glinks
     glinks <- unique(c(ep_glinks, glinks))
@@ -165,21 +176,22 @@ build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = "re
     link_term <- stringr::str_replace(link_term, "#", "")
 
     term <- glosario[[link_term]][[lang]]$term
-    # do not include glosario links that do not resolve to a term
+
     if (is.null(term)) {
-      # cli::cli_text(paste0("'", link_term, "' not found in [", lang, "] Glosario, not including in glossary page."))
-      next
+        term <- link_term
     }
 
     agg_li <- xml2::xml_add_child(agg_ul, "li")
     xml2::xml_add_child(agg_li, "a", term, href = link)
 
     if (is.null(glosario[[link_term]][[lang]]$def)) {
+        eng_def <- glosario[[link_term]][["en"]]$def
         def <- markdown::markdownToHTML(
-            text = "_Definition not found in Glosario_",
+            text = paste0("_Definition not found in [", lang ,"] Glosario_\n\n", eng_def),
             fragment.only = TRUE
         )
         def <- xml2::read_html(def)
+        def <- replace_def_inline_anchors(def, "en")
     }
     else {
         def <- markdown::markdownToHTML(
@@ -188,25 +200,9 @@ build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = "re
         )
 
         def <- xml2::read_html(def)
-
-        # find all hrefs in the def fragment
-        anchors <- xml2::xml_find_all(def, ".//a")
-
-        for (anchor in anchors) {
-            href <- xml2::xml_attr(anchor, "href")
-            # check if the href is a relative glosario link
-            if (stringr::str_detect(href, "^#.*")) {
-                # replace the href with the full URL
-                url <- paste0(
-                    "https://glosario.carpentries.org/",
-                    this_metadata$get()[["lang"]],
-                    "/",
-                    href
-                )
-                xml2::xml_attr(anchor, "href") <- url
-            }
-        }
+        def <- replace_def_inline_anchors(def, lang)
     }
+
     xml2::xml_add_child(agg_li, def)
   }
 
@@ -244,7 +240,7 @@ build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = "re
   writeLines(as.character(ref_html), outpath)
 }
 
-get_glossary_links <- function(episode) {
+get_glossary_links <- function(episode, episode_name, glosario) {
   lang <- this_metadata$get()[["lang"]]
   links <- xml2::xml_find_all(episode, ".//a")
   hrefs <- xml2::xml_attr(links, "href")
@@ -253,10 +249,37 @@ get_glossary_links <- function(episode) {
   clean_links <- character()
   for (link in glos_links) {
     href <- xml2::xml_attr(link, "href")
-    xml2::xml_attr(link, "href") <- stringr::str_replace_all(href, "en/", lang)
+    link_term <- stringr::str_extract(href, "#(.*)")
+    link_term <- stringr::str_replace(link_term, "#", "")
+    term <- glosario[[link_term]][[lang]]$term
+    if (!is.null(term)) {
+      href <- stringr::str_replace_all(href, "en/", paste0(lang, "/"))
+      xml2::xml_attr(link, "href") <- href
+    }
     clean_links <- c(clean_links, href)
   }
-  invisible(clean_links)
+  clean_links
+}
+
+replace_def_inline_anchors <- function(def, lang) {
+  # find all hrefs in the def fragment
+  anchors <- xml2::xml_find_all(def, ".//a")
+
+  for (anchor in anchors) {
+    href <- xml2::xml_attr(anchor, "href")
+    # check if the href is a relative glosario link
+    if (stringr::str_detect(href, "^#.*")) {
+      # replace the href with the full URL
+      url <- paste0(
+        "https://glosario.carpentries.org/",
+        lang,
+        "/",
+        href
+      )
+      xml2::xml_attr(anchor, "href") <- url
+    }
+  }
+  def
 }
 
 get_title <- function(doc) {
