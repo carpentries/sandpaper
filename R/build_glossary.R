@@ -47,7 +47,7 @@ read_glosario_yaml <- function(glosario, lsn_path = ".") {
     # Load the glossary YAML file
     if (!is.null(glosario)) {
       # Convert the list into a named list using the 'slug' as the name for each entry
-      glos_dict <- setNames(glosario, sapply(glosario, function(x) x$slug))
+      glos_dict <- stats::setNames(glosario, sapply(glosario, function(x) x$slug))
       return(glos_dict)
     } else {
       cli::cli_alert_danger(paste0("Failed to load Glosario YAML file. Skipping Glosario link generation."))
