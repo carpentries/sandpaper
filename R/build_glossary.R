@@ -11,6 +11,7 @@ read_glosario_yaml <- function(glosario, lsn_path = ".") {
       }
 
       if (fs::file_exists(glosario)) {
+        # Attempt to fetch the YAML file from the specified path
         cli::cli_text(paste0("Fetching Glosario YAML file from [", glosario, "] ..."))
         glosario_url <- fs::path_abs(glosario)
         glosario <- yaml::yaml.load_file(glosario_url)
@@ -23,9 +24,6 @@ read_glosario_yaml <- function(glosario, lsn_path = ".") {
         }
 
         ## httr2 fails on older versions of libcurl (e.g. Ubuntu 20.04)
-        # # Attempt to fetch the YAML file from the specified URL
-        # cli::cli_text(paste0("Fetching Glosario YAML file from [", glosario_url, "] ..."))
-
         # glosario_response <- httr2::request(glosario_url) |> httr2::req_perform()
         # if (glosario_response$status_code == 200) {
         #   glosario <- yaml::yaml.load(httr2::resp_body_string(glosario_response$body))
@@ -47,7 +45,7 @@ read_glosario_yaml <- function(glosario, lsn_path = ".") {
       }
     }
 
-    # Load the glossary YAML file from the GitHub repository
+    # Load the glossary YAML file
     if (!is.null(glosario)) {
       # Convert the list into a named list using the 'slug' as the name for each entry
       glos_dict <- setNames(glosario, sapply(glosario, function(x) x$slug))
