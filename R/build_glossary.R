@@ -5,16 +5,15 @@ read_glosario_yaml <- function(glosario, lsn_path = ".") {
   else {
     if (is.character(glosario) || glosario == TRUE) {
       if (xfun::is_abs_path(glosario)) {
-        glosario <- fs::path_abs(glosario)
+        glosario_url <- fs::path_abs(glosario)
       } else {
-        glosario <- fs::path_join(c(lsn_path, glosario))
+        glosario_url <- fs::path_join(c(lsn_path, glosario))
       }
 
-      if (fs::file_exists(glosario)) {
+      if (fs::file_exists(glosario_url)) {
         # Attempt to fetch the YAML file from the specified path
-        cli::cli_text(paste0("Fetching Glosario YAML file from [", glosario, "] ..."))
-        glosario_url <- fs::path_abs(glosario)
-        glosario <- yaml::yaml.load_file(glosario_url)
+        cli::cli_text(paste0("Fetching Glosario YAML file from [", glosario_url, "] ..."))
+        glosario <- yaml::read_yaml(glosario_url)
       } else {
         if (!is_valid_url(glosario)) {
           glosario_url <- "https://raw.githubusercontent.com/carpentries/glosario/main/glossary.yml"
