@@ -1,20 +1,59 @@
-read_glosario_yaml <- function(glosario) {
+read_glosario_yaml <- function(glosario, lsn_path = ".") {
   if (is.null(glosario) || glosario == FALSE) {
     return(NULL)
   }
   else {
+    if (is.character(glosario) || glosario == TRUE) {
+      if (xfun::is_abs_path(glosario)) {
+        glosario <- fs::path_abs(glosario)
+      } else {
+        glosario <- fs::path_join(c(lsn_path, glosario))
+      }
+
+      if (fs::file_exists(glosario)) {
+        cli::cli_text(paste0("Fetching Glosario YAML file from [", glosario, "] ..."))
+        glosario_url <- fs::path_abs(glosario)
+        glosario <- yaml::yaml.load_file(glosario_url)
+      } else {
+        if (!is_valid_url(glosario)) {
+          glosario_url <- "https://raw.githubusercontent.com/carpentries/glosario/main/glossary.yml"
+        }
+        else {
+          glosario_url <- glosario
+        }
+
+        ## httr2 fails on older versions of libcurl (e.g. Ubuntu 20.04)
+        # # Attempt to fetch the YAML file from the specified URL
+        # cli::cli_text(paste0("Fetching Glosario YAML file from [", glosario_url, "] ..."))
+
+        # glosario_response <- httr2::request(glosario_url) |> httr2::req_perform()
+        # if (glosario_response$status_code == 200) {
+        #   glosario <- yaml::yaml.load(httr2::resp_body_string(glosario_response$body))
+        # } else {
+        #   cli::cli_alert_danger(paste0("Failed to get Glosario YAML file from [", glosario, "]. Please check the URL or your internet connection."))
+        #   return(NULL)
+        # }
+
+        # Use httr instead of httr2 for compatibility with older systems
+        # Attempt to fetch the YAML file from the specified URL
+        cli::cli_text(paste0("Fetching Glosario YAML file from [", glosario_url, "] ..."))
+        glosario_response <- httr::GET(glosario_url)
+        if (httr::status_code(glosario_response) == 200) {
+          glosario <- yaml::yaml.load(httr::content(glosario_response, as = "text"))
+        } else {
+          cli::cli_alert_danger(paste0("Failed to get Glosario YAML file from [", glosario, "]. Please check the URL or your internet connection."))
+          return(NULL)
+        }
+      }
+    }
+
     # Load the glossary YAML file from the GitHub repository
-    glosario_url <- "https://raw.githubusercontent.com/carpentries/glosario/main/glossary.yml"
-    glosario_response <- httr::GET(glosario_url)
-
-    if (httr::status_code(glosario_response) == 200) {
-      glosario <- yaml::yaml.load(httr::content(glosario_response, as = "text"))
-
+    if (!is.null(glosario)) {
       # Convert the list into a named list using the 'slug' as the name for each entry
       glos_dict <- setNames(glosario, sapply(glosario, function(x) x$slug))
       return(glos_dict)
     } else {
-      cli::cli_alert_danger(paste0("Failed to load Glosario YAML file from [", glosario_url, "]. Please check the URL or your internet connection."))
+      cli::cli_alert_danger(paste0("Failed to load Glosario YAML file. Skipping Glosario link generation."))
       return(NULL)
     }
   }
