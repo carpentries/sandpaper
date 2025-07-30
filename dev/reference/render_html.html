@@ -56,7 +56,7 @@ Carpentries such as <code>markdown_in_html_blocks</code>, <code>tex_math_dollars
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">render_html</span><span class="op">(</span><span class="va">path_in</span>, <span class="va">...</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">render_html</span><span class="op">(</span><span class="va">path_in</span>, <span class="va">...</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span>, glosario <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -74,6 +74,10 @@ Carpentries such as <code>markdown_in_html_blocks</code>, <code>tex_math_dollars
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
 <dd><p>if <code>TRUE</code>, no output is produced. Default is <code>FALSE</code>, which
 reports the markdown build via pandoc</p></dd>
+
+
+<dt id="arg-glosario">glosario<a class="anchor" aria-label="anchor" href="#arg-glosario"></a></dt>
+<dd><p>a named list of glosario terms and definitions. Defaults to NULL.</p></dd>
 
 </dl></div>
     <div class="section level2">
