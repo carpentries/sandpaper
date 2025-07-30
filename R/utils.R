@@ -250,6 +250,15 @@ check_order <- function(order, what) {
   }
 }
 
+is_valid_url <- function(string) {
+  tryCatch({
+    # parsed <- httr2::url_parse(string)
+    parsed <- httr::parse_url(string)
+    !is.null(parsed$scheme) && !is.null(parsed$hostname)
+  }, error = function(e) {
+    return(FALSE)
+  })
+}
 
 #nocov start
 # Make it easy to contribute to our gitignore template, but also avoid having
