@@ -99,7 +99,10 @@ Imports:
     servr,
     utils,
     tools,
-    R.utils
+    stringr,
+    httr,
+    R.utils,
+    xfun
 Suggests:
     testthat (>= 3.0.0),
     covr,
