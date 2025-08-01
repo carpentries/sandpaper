@@ -67,10 +67,12 @@
                   (Format "html")
                   "<i class='callout-icon' data-feather='zap'></i>"
               ]
+          , RawBlock
+              (Format "html") "<h2 class='callout-header'>Challenge</h2>"
           , Div
               ( "" , [ "callout-inner" ] , [] )
               [ Header
-                  3 ( "" , [ "callout-title" ] , [] ) [ Str "Challenge" ]
+                  3 ( "" , [ "callout-title" ] , [] ) [ Str "A Lovely Challenge" ]
               , Div
                   ( "" , [ "callout-content" ] , [] )
                   [ Para
@@ -380,8 +382,9 @@
       <div class="callout-square">
       <i class='callout-icon' data-feather='zap'></i>
       </div>
+      <h2 class="callout-header">Challenge</h2>
       <div class="section level3 callout-title callout-inner">
-      <h3 class="callout-title">Challenge</h3>
+      <h3 class="callout-title">A Lovely Challenge</h3>
       <div class="callout-content">
       <p>How do you write markdown divs?</p>
       <p>This <a href="Setup.html">link should be transformed</a></p>
