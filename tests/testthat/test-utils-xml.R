@@ -1,4 +1,4 @@
-
+tmp <- res <- restore_fixture()
 
 test_that("paths in instructor view that are nested or not HTML get diverted", {
   html_test <- xml2::read_html(commonmark::markdown_html(c(
