@@ -222,7 +222,6 @@ fix_callouts <- function(nodes = NULL) {
 
     # if inner_div is null, use parent of callout-header
     if (length(inner_div) == 0) {
-      print("No inner div found, using parent of h2_translate")
       outer_div <- xml2::xml_parent(h2_translate)
       inner_div <- xml2::xml_find_all(outer_div, ".//div[contains(@class, 'callout-inner')]")
     }

@@ -339,7 +339,7 @@ test_that("Lessons can be translated with lang setting", {
   )
 
   # Keypoints are always the last block and should be auto-translated
-  xpath_keypoints <- ".//div[@class='callout keypoints']//h3[@class='callout-title']"
+  xpath_keypoints <- ".//div[@class='callout keypoints']//h2[@class='callout-header']"
   keypoints <- xml2::xml_find_first(xml, xpath_keypoints)
   expect_set_translated(keypoints,
     tr_src("computed", "Keypoints")

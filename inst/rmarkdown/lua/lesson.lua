@@ -543,6 +543,10 @@ challenge_block = function(el)
   -- If the challenge contains multiple solutions or hints, we need to indicate
   -- that the following challenges/solutions are continuations.
   local this_head = get_header(el, 3)
+  if this_head == nil then
+    -- If there is no header, we create a default one
+    this_head = pandoc.Header(3, "Challenge", {class = "callout-title"})
+  end
   local next_head = this_head:clone()
   next_head.content:insert(pandoc.Emph(" (continued)"))
   next_head.classes = {"callout-title"}
