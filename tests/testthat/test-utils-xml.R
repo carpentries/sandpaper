@@ -55,7 +55,7 @@ test_that("(#556) (#454) callout are processed correctly", {
   html_test <- xml2::read_html(test_path("examples/callout-ids.html"))
   fix_callouts(html_test)
   anchors <- xml2::xml_find_all(html_test, ".//a")
-  headings <- xml2::xml_find_all(html_test, ".//h3")
+  headings <- xml2::xml_find_all(html_test, ".//h2")
   callouts <- xml2::xml_find_all(html_test,
     ".//div[starts-with(@class, 'callout ')]")
 

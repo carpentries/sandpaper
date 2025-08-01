@@ -207,11 +207,11 @@ fix_callouts <- function(nodes = NULL) {
   # https://github.com/carpentries/sandpaper/issues/556
   translations <- get_callout_translations()
 
-  # process only h3 titles with no child tags for translation
+  # process only h2 with callout-header class with no child tags for translation
   # https://github.com/carpentries/sandpaper/issues/562
-  h3_translate <- xml2::xml_find_all(callouts, "./div/h3[not(*)]")
-  h3_text <- xml2::xml_find_all(h3_translate, ".//text()")
-  xml_text_translate(h3_text, translations)
+  h2_translate <- xml2::xml_find_all(callouts, ".//h2[@class='callout-header' and not(*)]")
+  h2_text <- xml2::xml_find_all(h2_translate, ".//text()")
+  xml_text_translate(h2_text, translations)
 
   h3 <- xml2::xml_find_all(callouts, "./div/h3")
   xml2::xml_set_attr(h3, "class", "callout-title")
