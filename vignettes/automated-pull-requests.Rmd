@@ -65,7 +65,7 @@ On a weekly basis, the workflow located in
 `.github/workflows/update-workflows.yaml` will run and update the workflow files
 with the current versions from {sandpaper}. This will then create a pull request
 with the title "Update Workflows to Version X.Y.Z" from the [Carpentries 
-Apprentice Bot](https://github.com/znk-machine). _A pull request is only created
+Apprentice Bot](https://github.com/carpentries-bot). _A pull request is only created
 if there are updates to be had, otherwise, it will report that there are no
 updates at this time._
 
@@ -89,7 +89,7 @@ updating their expectations or dependencies.
 ### Setting up a Pull Request Bot
 
 Both of these pull requests are provided with the help of [The Carpentries 
-Apprentice Bot](https://github.com/znk-machine). This bot is available across
+Apprentice Bot](https://github.com/carpentries-bot). This bot is available across
 The Carpentries github organisations and if you have a lesson hosted on one of
 these organisations, then you do not need to worry about this section.
 
