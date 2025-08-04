@@ -207,39 +207,49 @@ fix_callouts <- function(nodes = NULL) {
   # https://github.com/carpentries/sandpaper/issues/556
   translations <- get_callout_translations()
 
-  # process only h2 with callout-header class with no child tags for translation
-  # https://github.com/carpentries/sandpaper/issues/562
-  h2_translate <- xml2::xml_find_all(callouts, ".//h2[@class='callout-header' and not(*)]")
-  h2_text <- xml2::xml_find_all(h2_translate, ".//text()")
-  xml_text_translate(h2_text, translations)
-
   for (i in seq_along(callouts)) {
     callout <- callouts[[i]]
-    # if an h3 exists in the callout, we need to set the class
-    h3 <- xml2::xml_find_all(callout, "./div/h3")
-    xml2::xml_set_attr(h3, "class", "callout-title")
-    inner_div <- xml2::xml_parent(h3)
+
+    # process only h2 with callout-header class with no child tags for translation
+    # https://github.com/carpentries/sandpaper/issues/562
+    header_translate <- xml2::xml_find_all(callout, ".//span[@class='callout-header' and not(*)]")
+    header_text <- xml2::xml_find_all(header_translate, ".//text()")
+    xml_text_translate(header_text, translations)
+
+    # if an h3 exists in the callout that isn't a callout-header class, we need to set the class
+    h3_title <- xml2::xml_find_all(callout, "./div/h3")
 
     # if inner_div is null, use parent of callout-header
-    if (length(inner_div) == 0) {
-      outer_div <- xml2::xml_parent(h2_translate)
+    if (length(h3_title) == 0) {
+      outer_div <- xml2::xml_parent(header_translate)
       inner_div <- xml2::xml_find_all(outer_div, ".//div[contains(@class, 'callout-inner')]")
+      ids <- xml2::xml_attr(inner_div, "id")
+    }
+    else {
+      xml2::xml_set_attr(h3_title, "class", "callout-title")
+      inner_div <- xml2::xml_parent(h3_title)
+      ids <- xml2::xml_attr(inner_div, "id")
+
+      # Get the heading IDS (because we use section headings, the IDs are anchored
+      # to the section div and not the heading element)
+      # <div class="section level3 callout-title callout-inner">
+      #   <h3>Heading for this callout</h3>
+      # </div>
+      if (is.na(ids)) {
+        ids <- xml2::xml_attr(h3_title, "id")
+      }
     }
 
     # remove the "section level3 callout-title" attrs
     xml2::xml_set_attr(inner_div, "class", "callout-inner")
-    # Get the heading IDS (because we use section headings, the IDs are anchored
-    # to the section div and not the heading element)
-    # <div class="section level3 callout-title callout-inner">
-    #   <h3>Heading for this callout</h3>
-    # </div>
-    ids <- xml2::xml_attr(inner_div, "id")
+
     # get the callout ID in the cases where they are missing
     replacements <- xml2::xml_attr(callout, "id")
     ids <- ifelse(is.na(ids), replacements, ids)
+
     # add the anchors and then set the attributes in the correct places.
-    add_anchors(h3, ids)
-    xml2::xml_set_attr(h3, "id", NULL)
+    add_anchors(h3_title, ids)
+    xml2::xml_set_attr(h3_title, "id", NULL)
     # we replace the callout ID with the correct ID
     xml2::xml_set_attr(callout, "id", ids)
   }

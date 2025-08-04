@@ -55,7 +55,7 @@ test_that("(#556) (#454) callout are processed correctly", {
   html_test <- xml2::read_html(test_path("examples/callout-ids.html"))
   fix_callouts(html_test)
   anchors <- xml2::xml_find_all(html_test, ".//a")
-  headings <- xml2::xml_find_all(html_test, ".//h2[@class='callout-header']")
+  headings <- xml2::xml_find_all(html_test, ".//span[@class='callout-header']")
   callouts <- xml2::xml_find_all(html_test,
     ".//div[starts-with(@class, 'callout ')]")
 
@@ -70,7 +70,7 @@ test_that("(#556) (#454) callout are processed correctly", {
   expect_equal(xml2::xml_has_attr(callouts, "id"), c(TRUE, TRUE, TRUE))
   # The IDs should be what we expect
   ids <- xml2::xml_attr(callouts, "id")
-  expect_equal(ids, c("discussion1", "wait-what", "keypoints1"))
+  expect_equal(ids, c("code-title", "wait-what", "keypoints"))
 
   # temporarily removed as a result of https://github.com/r-lib/pkgdown/issues/2737
   # The IDs should match the anchors

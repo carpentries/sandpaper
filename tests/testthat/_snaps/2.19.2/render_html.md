@@ -68,7 +68,7 @@
                   "<i class='callout-icon' data-feather='zap'></i>"
               ]
           , RawBlock
-              (Format "html") "<h2 class='callout-header'>Challenge</h2>"
+              (Format "html") "<span class='callout-header'>Challenge</span>"
           , Div
               ( "" , [ "callout-inner" ] , [] )
               [ Header
@@ -382,7 +382,7 @@
       <div class="callout-square">
       <i class='callout-icon' data-feather='zap'></i>
       </div>
-      <h2 class="callout-header">Challenge</h2>
+      <span class="callout-header">Challenge</span>
       <div class="section level3 callout-title callout-inner">
       <h3 class="callout-title">A Lovely Challenge</h3>
       <div class="callout-content">

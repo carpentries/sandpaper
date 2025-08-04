@@ -517,7 +517,7 @@ callout_block = function(el)
   local lass = text.sub(hclass, 2, -1)
   local header_text = C..lass
   local callout_header = pandoc.RawBlock("html",
-  "<h2 class='callout-header'>"..header_text.."</h2>")
+  "<span class='callout-header'>"..header_text.."</span>")
 
   local callout_square = pandoc.Div(icon, {class = "callout-square"})
 
