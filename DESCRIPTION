@@ -68,6 +68,11 @@ Authors@R: c(
            role = c("ctb"),
            email = "phil.reed@manchester.ac.uk",
            comment = c(ORCID = "0000-0002-4479-715X")),
+    person(given = "Sarah",
+           family = "Brown",
+           role = c("ctb"),
+           email = "brownsarahm@uri.edu",
+           comment = c(ORCID = "0000-0001-5728-0822")),
     person())
 Description: We provide tools to build a Carpentries-themed lesson repository
   into an accessible standalone static website. These include local tools and
