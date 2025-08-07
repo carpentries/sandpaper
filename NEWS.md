@@ -1,4 +1,4 @@
-# sandpaper 0.17.0
+# sandpaper 0.17.0 [2025-08-07]
 
 ## NEW FEATURES
 
