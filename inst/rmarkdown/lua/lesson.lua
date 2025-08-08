@@ -122,8 +122,7 @@ function get_header(el, level)
   -- check if the header exists
   local header = el.content[1]
   if header == nil or header.level == nil then
-    -- capitalize the first letter and insert it at the top of the block
-    header = pandoc.Header(3, upper_case(class))
+    return(nil)
   else
     header.level = 3
     el.content:remove(1)
@@ -157,14 +156,6 @@ function level_head(el, level)
   -- fix for https://github.com/carpentries/sandpaper/issues/581
   if header == nil then
     return el
-  end
-
-  if level ~= 0 and header.level == nil then
-    -- capitalize the first letter and insert it at the top of the block
-    local C = text.upper(text.sub(class, 1, 1))
-    local lass = text.sub(class, 2, -1)
-    local header = pandoc.Header(level, C..lass)
-    table.insert(el.content, id, header)
   end
 
   if level == 0 and header.level ~= nil then
@@ -239,9 +230,14 @@ accordion = function(el, class)
   local CLASS = upper_case(class)
   local label = CLASS..id
   local title = ""
-  for _, ing in ipairs(get_header(el, 4).content) do
-    title = title..pandoc.utils.stringify(ing)
+
+  header = get_header(el, 4)
+  if not (header == nil) then
+    for _, ing in ipairs(header.content) do
+        title = title..pandoc.utils.stringify(ing)
+    end
   end
+
   if title == CLASS or title == nil or title == "" then
     title = accordion_titles[class]
   end
@@ -511,14 +507,27 @@ callout_block = function(el)
 
   local icon = pandoc.RawBlock("html",
   "<i class='callout-icon' data-feather='"..this_icon.."'></i>")
+
+  local hclass = classes[2]
+  if hclass == nil then
+    hclass = classes[1]
+  end
+
+  local C = text.upper(text.sub(hclass, 1, 1))
+  local lass = text.sub(hclass, 2, -1)
+  local header_text = C..lass
+  local callout_header = pandoc.RawBlock("html",
+  "<span class='callout-header'>"..header_text.."</span>")
+
   local callout_square = pandoc.Div(icon, {class = "callout-square"})
 
-  local callout_inner = pandoc.Div({header}, {class = "callout-inner"})
+  local callout_inner = pandoc.Div({header})
+  callout_inner.classes = {"callout-inner"}
 
   el.classes = {"callout-content"}
   table.insert(callout_inner.content, el)
 
-  local block = pandoc.Div({callout_square, callout_inner})
+  local block = pandoc.Div({callout_square, callout_header, callout_inner})
   block.identifier = callout_id
   block.classes = classes
   return block
@@ -534,6 +543,10 @@ challenge_block = function(el)
   -- If the challenge contains multiple solutions or hints, we need to indicate
   -- that the following challenges/solutions are continuations.
   local this_head = get_header(el, 3)
+  if this_head == nil then
+    -- If there is no header, we create a default one
+    this_head = pandoc.Header(3, "Challenge", {class = "callout-title"})
+  end
   local next_head = this_head:clone()
   next_head.content:insert(pandoc.Emph(" (continued)"))
   next_head.classes = {"callout-title"}
