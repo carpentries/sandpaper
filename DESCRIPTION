@@ -118,7 +118,7 @@ Suggests:
     jsonlite,
     sessioninfo,
     mockr,
-    varnish (>= 0.3.0)
+    varnish (>= 1.0.7)
 Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
   carpentries/pegboard,
