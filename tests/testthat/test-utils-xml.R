@@ -1,4 +1,4 @@
-
+tmp <- res <- restore_fixture()
 
 test_that("paths in instructor view that are nested or not HTML get diverted", {
   html_test <- xml2::read_html(commonmark::markdown_html(c(
@@ -55,22 +55,22 @@ test_that("(#556) (#454) callout are processed correctly", {
   html_test <- xml2::read_html(test_path("examples/callout-ids.html"))
   fix_callouts(html_test)
   anchors <- xml2::xml_find_all(html_test, ".//a")
-  headings <- xml2::xml_find_all(html_test, ".//h3")
+  headings <- xml2::xml_find_all(html_test, ".//span[@class='callout-header']")
   callouts <- xml2::xml_find_all(html_test,
     ".//div[starts-with(@class, 'callout ')]")
 
   # temporarily removed as a result of https://github.com/r-lib/pkgdown/issues/2737
   # expect_length(anchors, 2)
 
-  expect_length(callouts, 2)
-  expect_length(headings, 2)
+  expect_length(callouts, 3)
+  expect_length(headings, 3)
   # headings should not have IDS
-  expect_equal(xml2::xml_has_attr(headings, "id"), c(FALSE, FALSE))
+  expect_equal(xml2::xml_has_attr(headings, "id"), c(FALSE, FALSE, FALSE))
   # callouts should have these IDS
-  expect_equal(xml2::xml_has_attr(callouts, "id"), c(TRUE, TRUE))
+  expect_equal(xml2::xml_has_attr(callouts, "id"), c(TRUE, TRUE, TRUE))
   # The IDs should be what we expect
   ids <- xml2::xml_attr(callouts, "id")
-  expect_equal(ids, c("discussion1", "wait-what"))
+  expect_equal(ids, c("code-title", "wait-what", "keypoints"))
 
   # temporarily removed as a result of https://github.com/r-lib/pkgdown/issues/2737
   # The IDs should match the anchors
@@ -80,7 +80,7 @@ test_that("(#556) (#454) callout are processed correctly", {
   # (https://github.com/carpentries/sandpaper/issues/556)
   htext <- xml2::xml_find_all(headings, ".//text()")
   expect_equal(xml2::xml_text(htext),
-    c("Challenge (", "this is code", ")", "Wait what?"))
+    c("Challenge", "Wait what?", "Key Points"))
 })
 
 
