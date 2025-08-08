@@ -1,3 +1,14 @@
+# sandpaper 0.17.1 [2025-08-08]
+
+## HOTFIX
+
+* {varnish} minimum version is now 1.0.7 due to callout header changes (reported and fixed @matthewfeickert #668)
+
+## MISC
+
+* Add @matthewfeickert and @brownsarahm as contributors - welcome!
+
+
 # sandpaper 0.17.0 [2025-08-07]
 
 ## NEW FEATURES
@@ -5,10 +16,6 @@
 * Initial implementation of Glosario integration - PR [612](https://github.com/carpentries/sandpaper/pull/612) (@froggleston)
 * Support pages with multiple tab groups - PR [658](https://github.com/carpentries/sandpaper/pull/658) (@astroDimitrios)
 * Add distintive callout headers - PR [663](https://github.com/carpentries/sandpaper/pull/663) ([reported](https://github.com/carpentries/varnish/issues/160) @jfrost-mo, implemented @froggleston)
-
-## DEPENDENCIES
-
-* {varnish} minimum version is now 1.0.7
 
 ## MISC
 
