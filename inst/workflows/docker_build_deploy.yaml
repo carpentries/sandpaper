@@ -1,0 +1,118 @@
+name: "01 Maintain: Build and Deploy Site"
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * 2'
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Who triggered this build?'
+        required: true
+        default: 'Maintainer (via GitHub)'
+      CACHE_VERSION:
+        description: 'Optional renv cache version override'
+        required: false
+        default: ''
+      reset:
+        description: 'Reset cached markdown files'
+        required: false
+        default: false
+        type: boolean
+      sandpaper-version:
+        description: 'The version of sandpaper to use. You can use the remotes syntax to specify a version to use. Defaults to latest on the r-universe.'
+        default: 'latest'
+      pegboard-version:
+        description: 'The version of pegboard to use. You can use the remotes syntax to specify a version to use. Defaults to latest on the r-universe.'
+        default: 'latest'
+      varnish-version:
+        description: 'The version of varnish to use. You can use the remotes syntax to specify a version to use. Defaults to latest on the r-universe.'
+        default: 'latest'
+  workflow_run:
+    workflows: ["03 Maintain: Apply Package Cache"]
+    types:
+      - completed
+
+jobs:
+  preflight:
+    name: "Preflight: Schedule, Push, or PR?"
+    runs-on: ubuntu-latest
+    outputs:
+      do-build: ${{ steps.build-check.outputs.do-build }}
+      renv-needed: ${{ steps.build-check.outputs.renv-needed }}
+      renv-cache-hashsum: ${{ steps.build-check.outputs.renv-cache-hashsum || '' }}
+      varnish-version: ${{ steps.build-check.outputs.varnish-version-override }}
+      sandpaper-version: ${{ steps.build-check.outputs.sandpaper-version-override }}
+      pegboard-version: ${{ steps.build-check.outputs.pegboard-version-override }}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: "Should we run build and deploy?"
+        id: build-check
+        uses: carpentries/actions/build-preflight@main
+        with:
+          sandpaper-version: ${{ vars.SANDPAPER_VER || github.event.inputs.sandpaper-version || 'latest' }}
+          pegboard-version: ${{ vars.PEGBOARD_VER || github.event.inputs.pegboard-version || 'latest' }}
+          varnish-version: ${{ vars.VARNISH_VER || github.event.inputs.varnish-version || 'latest' }}
+          CACHE_VERSION: ${{ secrets.CACHE_VERSION || vars.CACHE_VERSION || github.event.inputs.CACHE_VERSION || '' }}
+
+  full-build:
+    name: "Build Full Site"
+    runs-on: ubuntu-latest
+    needs: [preflight]
+    if: ${{ needs.preflight.outputs.do-build == 'true' }}
+    env:
+        RENV_EXISTS: ${{ needs.preflight.outputs.renv-needed }}
+        RENV_HASH: ${{ needs.preflight.outputs.renv-cache-hashsum }}
+        VARNISH_VER: ${{ needs.preflight.outputs.varnish-version }}
+        SANDPAPER_VER: ${{ needs.preflight.outputs.sandpaper-version }}
+        PEGBOARD_VER: ${{ needs.preflight.outputs.pegboard-version }}
+    permissions:
+      checks: write
+      contents: write
+      pages: write
+    container:
+      image: carpentries/workbench-docker:${{ vars.WORKBENCH_TAG || 'latest' }}
+      env:
+        WORKBENCH_PROFILE: "ci"
+        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        RENV_PATHS_ROOT: /home/rstudio/lesson/renv
+        RENV_PROFILE: "lesson-requirements"
+        RENV_CONFIG_EXTERNAL_LIBRARIES: "/usr/local/lib/R/site-library"
+      volumes:
+        - ${{ github.workspace }}:/home/rstudio/lesson
+      options: --cpus 1
+    steps:
+      - name: "Checkout Lesson"
+        uses: actions/checkout@v4
+
+      - name: "Debugging Info"
+        run: |
+          cd /home/rstudio/lesson
+          echo "Current Directory: $(pwd)"
+          echo "RENV_HASH is $RENV_HASH"
+          ls -lah /home/rstudio/.workbench
+          ls -lah $(pwd)
+          Rscript -e 'sessionInfo()'
+
+      - name: "Mark Repository as Safe"
+        run: |
+          git config --global --add safe.directory $(pwd)
+
+      - name: "Setup Lesson Dependencies"
+        id: build-container-deps
+        uses: carpentries/actions/build-container-deps@main
+        with:
+          WORKBENCH_TAG: ${{ vars.WORKBENCH_TAG || 'latest' }}
+          LESSON_PATH: ${{ vars.LESSON_PATH || '/home/rstudio/lesson' }}
+
+      - name: Run Container and Build Site
+        run: |
+          library(sandpaper)
+          reset <- "${{ github.event.inputs.reset }}" == "true"
+          sandpaper::package_cache_trigger(TRUE)
+          sandpaper:::ci_deploy(reset = reset)
+        shell: Rscript {0}
