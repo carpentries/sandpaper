@@ -217,7 +217,7 @@ renv_cache_available <- function() {
   }
 }
 
-callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
+callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, use_site_libs = FALSE) {
   wd        <- getwd()
   old_repos <- getOption("repos")
   user_prof <- getOption("renv.config.user.profile")
@@ -236,6 +236,17 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   renv_lib  <- renv::paths$library(project = path)
   renv_lock <- renv::paths$lockfile(project = path)
 
+  # mostly for Workbench dockerised environment where using the R_LIBS_SITE is OK
+  site_libs <- strsplit(Sys.getenv("R_LIBS_SITE"), ":")[[1]]
+  site_libs <- site_libs[site_libs != ""]
+
+  if (use_site_libs && !is.null(site_libs) && length(site_libs) > 0) {
+    cli::cli_alert("Bootstrapping site libraries")
+    options(renv.settings.external.libraries = site_libs)
+    .libPaths(c(site_libs, .libPaths()))
+    renv::load(path = path, profile = "lesson-requirements")
+  }
+
   # Steps to update a `{renv}` environment regardless of whether or not the user
   # has initiated `{renv}` in the first place
   #
@@ -251,7 +262,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
     deps <- unique(renv::dependencies(path = path, root = path, dev = TRUE)$Package)
     pkgs <- setdiff(deps, installed)
     needs_hydration <- length(pkgs) > 0
-    if (packageVersion("renv") >= "1.0.0") {
+    if (packageVersion("renv") >= "1.0.0" && !use_site_libs) {
       # We only need to hydrate the packages that do not exist in the lockfile
       # and that are not installed
       lock <- renv::lockfile_read(renv_lock)
@@ -277,6 +288,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
       # library paths before calling hydrate()
       .libPaths(character())
     }
+    cli::cli_alert("Hydrating")
     #nocov end
     hydra <- renv::hydrate(packages = pkgs, library = renv_lib, update = FALSE,
       sources = .libPaths(), project = path, prompt = FALSE)
@@ -298,6 +310,9 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists) {
   #    recorded.
   if (lockfile_exists) {
     cli::cli_alert("Restoring any dependency versions")
+    site_libs <- strsplit(Sys.getenv("R_LIBS"), ":")[[1]]
+    .libPaths(c(site_libs, .libPaths()))
+    print(.libPaths())
     res <- renv::restore(project = path, library = renv_lib,
       lockfile = renv_lock, prompt = FALSE)
   }
