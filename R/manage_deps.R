@@ -70,6 +70,13 @@ manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = 
   # Enforce absolute path here
   path <- fs::path_abs(root_path(path))
 
+  if (!fs::dir_exists(fs::path(path, "renv/profiles", profile))) {
+    renv_setup_profile(path, profile)
+    lockfile_exists <- FALSE
+  } else {
+    lockfile_exists <- TRUE
+  }
+
   args <- list(
     path = path,
     repos = renv_carpentries_repos(),
