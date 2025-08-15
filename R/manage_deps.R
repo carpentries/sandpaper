@@ -28,6 +28,8 @@
 #' @param quiet if `TRUE`, output will be suppressed, defaults to `FALSE`,
 #'   providing output about different steps in the process of updating the local
 #'   dependencies.
+#' @param use_site_libs if `TRUE`, renv will include R_LIBS_SITE packages, defaults
+#'   to `FALSE`. This is mostly useful when using the Workbench Docker container.
 #'
 #' @details The \pkg{renv} package provides a very useful interface to bring one
 #'   aspect of reproducibility to R projects. Because people working on
@@ -62,7 +64,7 @@
 #'   off the package cache, respectively.
 #' @return if `snapshot = TRUE`, a nested list representing the lockfile will be
 #'   returned.
-manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = TRUE, quiet = FALSE) {
+manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = TRUE, quiet = FALSE, use_site_libs = FALSE) {
 
   use_package_cache(quiet = quiet)
   # Enforce absolute path here
@@ -79,7 +81,8 @@ manage_deps <- function(path = ".", profile = "lesson-requirements", snapshot = 
     path = path,
     repos = renv_carpentries_repos(),
     snapshot = snapshot,
-    lockfile_exists = lockfile_exists
+    lockfile_exists = lockfile_exists,
+    use_site_libs = use_site_libs
   )
 
   sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
