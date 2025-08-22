@@ -68,7 +68,17 @@ create_glosario_link <- function(ename, slug, lslug, en_slugs) {
     }
     else {
       url <- paste0("https://glosario.carpentries.org/", current_lang, "/#", slug)
-      return(paste0("[^", gsub(" ", "\u00A0", as.character(lslug)), "^](", url, ")"))
+      # return(paste0("[^", gsub(" ", "\u00A0", as.character(lslug)), "^](", url, ")"))
+
+      return(
+        paste0(
+          "<a href='", url, "'>",
+          "<sup><img class='parrot' src='assets/images/parrot_icon_colour.svg' height='20' width='20' ",
+          "alt='Glosario: ", lslug, "' title='Glosario: ", lslug, "' ",
+          "></sup>",
+          "</a>"
+        )
+      )
     }
   }
 }
