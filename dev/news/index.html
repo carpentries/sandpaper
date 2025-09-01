@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.16.13.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.17.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,10 +41,35 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.16.13.9000" id="sandpaper-016139000">sandpaper 0.16.13.9000<a class="anchor" aria-label="anchor" href="#sandpaper-016139000"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.17.2.9000" id="sandpaper-01729000">sandpaper 0.17.2.9000<a class="anchor" aria-label="anchor" href="#sandpaper-01729000"></a></h2>
 <div class="section level3">
-<h3 id="misc-0-16-13-9000">MISC<a class="anchor" aria-label="anchor" href="#misc-0-16-13-9000"></a></h3>
+<h3 id="misc-0-17-2-9000">MISC<a class="anchor" aria-label="anchor" href="#misc-0-17-2-9000"></a></h3>
+<ul><li>Add use_site_libs option to manage_deps - allows environments to use any preinstalled site library packages by adding those paths to .libPaths(). This is envisaged to be of use where already constrained environments are in use, e.g. Workbench Docker containers, including GHA builds (which should be faster as a result).</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.17.1" id="sandpaper-0171-2025-08-08">sandpaper 0.17.1 [2025-08-08]<a class="anchor" aria-label="anchor" href="#sandpaper-0171-2025-08-08"></a></h2>
+<div class="section level3">
+<h3 id="hotfix-0-17-1">HOTFIX<a class="anchor" aria-label="anchor" href="#hotfix-0-17-1"></a></h3>
+<ul><li>{varnish} minimum version is now 1.0.7 due to callout header changes (reported and fixed <a href="https://github.com/matthewfeickert" class="external-link">@matthewfeickert</a> <a href="https://github.com/carpentries/sandpaper/issues/668" class="external-link">#668</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="misc-0-17-1">MISC<a class="anchor" aria-label="anchor" href="#misc-0-17-1"></a></h3>
+<ul><li>Add <a href="https://github.com/matthewfeickert" class="external-link">@matthewfeickert</a> and <a href="https://github.com/brownsarahm" class="external-link">@brownsarahm</a> as contributors - welcome!</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.17.0" id="sandpaper-0170-2025-08-07">sandpaper 0.17.0 [2025-08-07]<a class="anchor" aria-label="anchor" href="#sandpaper-0170-2025-08-07"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-17-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-17-0"></a></h3>
+<ul><li>Initial implementation of Glosario integration - PR <a href="https://github.com/carpentries/sandpaper/pull/612" class="external-link">612</a> (1)</li>
+<li>Support pages with multiple tab groups - PR <a href="https://github.com/carpentries/sandpaper/pull/658" class="external-link">658</a> (<a href="https://github.com/astroDimitrios" class="external-link">@astroDimitrios</a>)</li>
+<li>Add distintive callout headers - PR <a href="https://github.com/carpentries/sandpaper/pull/663" class="external-link">663</a> (<a href="https://github.com/carpentries/varnish/issues/160" class="external-link">reported</a> <a href="https://github.com/jfrost-mo" class="external-link">@jfrost-mo</a>, implemented 1)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="misc-0-17-0">MISC<a class="anchor" aria-label="anchor" href="#misc-0-17-0"></a></h3>
 <ul><li>Fix pak install when trying to parse .editorconfig files (1)</li>
+<li>Update machine user links - PR <a href="https://github.com/carpentries/sandpaper/pull/664" class="external-link">664</a> (<a href="https://github.com/brownsarahm" class="external-link">@brownsarahm</a>)</li>
 </ul></div>
 </div>
     <div class="section level2">

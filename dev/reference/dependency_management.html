@@ -51,7 +51,7 @@ upgrade or downgrade a specific package."><meta property="og:image" content="htt
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.16.13.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.17.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,7 +111,8 @@ upgrade or downgrade a specific package.</p>
 <span>  path <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  profile <span class="op">=</span> <span class="st">"lesson-requirements"</span>,</span>
 <span>  snapshot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  use_site_libs <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_cache</span><span class="op">(</span></span>
@@ -148,6 +149,11 @@ snapshot them.</p></dd>
 <dd><p>if <code>TRUE</code>, output will be suppressed, defaults to <code>FALSE</code>,
 providing output about different steps in the process of updating the local
 dependencies.</p></dd>
+
+
+<dt id="arg-use-site-libs">use_site_libs<a class="anchor" aria-label="anchor" href="#arg-use-site-libs"></a></dt>
+<dd><p>if <code>TRUE</code>, renv will include R_LIBS_SITE packages, defaults
+to <code>FALSE</code>. This is mostly useful when using the Workbench Docker container.</p></dd>
 
 
 <dt id="arg-prompt">prompt<a class="anchor" aria-label="anchor" href="#arg-prompt"></a></dt>
