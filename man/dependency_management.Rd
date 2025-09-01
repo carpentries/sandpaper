@@ -10,7 +10,8 @@ manage_deps(
   path = ".",
   profile = "lesson-requirements",
   snapshot = TRUE,
-  quiet = FALSE
+  quiet = FALSE,
+  use_site_libs = FALSE
 )
 
 update_cache(
@@ -36,6 +37,9 @@ snapshot them.}
 \item{quiet}{if \code{TRUE}, output will be suppressed, defaults to \code{FALSE},
 providing output about different steps in the process of updating the local
 dependencies.}
+
+\item{use_site_libs}{if \code{TRUE}, renv will include R_LIBS_SITE packages, defaults
+to \code{FALSE}. This is mostly useful when using the Workbench Docker container.}
 
 \item{prompt}{if \code{TRUE}, a message will show you the packages that will be
 updated in your lockfile and ask for your permission. This is the default
