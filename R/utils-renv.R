@@ -237,14 +237,16 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, use_site_l
   renv_lock <- renv::paths$lockfile(project = path)
 
   # mostly for Workbench dockerised environment where using the R_LIBS_SITE is OK
-  site_libs <- strsplit(Sys.getenv("R_LIBS_SITE"), ":")[[1]]
-  site_libs <- site_libs[site_libs != ""]
+  if (use_site_libs) {
+    site_libs <- strsplit(Sys.getenv("R_LIBS_SITE"), ":")[[1]]
+    site_libs <- site_libs[site_libs != ""]
 
-  if (use_site_libs && !is.null(site_libs) && length(site_libs) > 0) {
-    cli::cli_alert("Bootstrapping site libraries")
-    options(renv.settings.external.libraries = site_libs)
-    .libPaths(c(site_libs, .libPaths()))
-    renv::load(path = path, profile = "lesson-requirements")
+    if (!is.null(site_libs) && length(site_libs) > 0) {
+        cli::cli_alert("Bootstrapping site libraries")
+        options(renv.settings.external.libraries = site_libs)
+        .libPaths(c(site_libs, .libPaths()))
+        renv::load(path = path, profile = "lesson-requirements")
+    }
   }
 
   # Steps to update a `{renv}` environment regardless of whether or not the user
@@ -310,9 +312,6 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, use_site_l
   #    recorded.
   if (lockfile_exists) {
     cli::cli_alert("Restoring any dependency versions")
-    site_libs <- strsplit(Sys.getenv("R_LIBS"), ":")[[1]]
-    .libPaths(c(site_libs, .libPaths()))
-    print(.libPaths())
     res <- renv::restore(project = path, library = renv_lib,
       lockfile = renv_lock, prompt = FALSE)
   }
