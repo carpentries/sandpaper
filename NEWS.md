@@ -1,3 +1,12 @@
+# sandpaper 0.17.2.9000
+
+## MISC
+
+* Add use_site_libs option to manage_deps - allows environments to use any preinstalled site library packages
+  by adding those paths to .libPaths(). This is envisaged to be of use where already constrained environments
+  are in use, e.g. Workbench Docker containers, including GHA builds (which should be faster as a result).
+
+
 # sandpaper 0.17.1 [2025-08-08]
 
 ## HOTFIX
