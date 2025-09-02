@@ -42,6 +42,9 @@ Other contributors:
   \item Yanina Bellini Saibene (\href{https://orcid.org/0000-0002-4522-7466}{ORCID}) [contributor, translator]
   \item Martin Raden (\href{https://orcid.org/0000-0002-7926-5911}{ORCID}) [contributor, translator]
   \item Matthew Armstrong \email{cs.matthewarmstrong@gmail.com} [contributor]
+  \item Phil Reed \email{phil.reed@manchester.ac.uk} (\href{https://orcid.org/0000-0002-4479-715X}{ORCID}) [contributor]
+  \item Sarah Brown \email{brownsarahm@uri.edu} (\href{https://orcid.org/0000-0001-5728-0822}{ORCID}) [contributor]
+  \item Matthew Feickert \email{matthew.feickert@cern.ch} (\href{https://orcid.org/0000-0003-4124-7862}{ORCID}) [contributor]
 }
 
 }
