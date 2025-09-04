@@ -107,6 +107,11 @@ render_glosario_links <- function(path_in, glosario = NULL, quiet = FALSE) {
         pattern = glos_pattern,
         replacement = function(match) {
           mterm <- stringr::str_match(match, glos_pattern)[[2]]
+          if (is.null(mterm) || !(mterm %in% slugs)) {
+            # remove the placeholder if the term is not found in the glossary
+            cli::cli_alert_danger(paste0(" WARNING: [ ", basename(path_in), " ] '", mterm, "' not in Glosario slug list."))
+            return("")
+          }
           lterm <- glosario[[mterm]][[current_lang]]$term
           ldef <- glosario[[mterm]][[current_lang]]$def
           create_glosario_link(basename(path_in), mterm, lterm, ldef, slugs)

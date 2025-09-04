@@ -1,5 +1,9 @@
 # sandpaper 0.17.2.9000
 
+## BUG FIXES
+
+* Fix glosario placeholders using non-existent slugs (reported @ErinBecker #674, fixed @froggleston #676)
+
 ## MISC
 
 * Add use_site_libs option to manage_deps - allows environments to use any preinstalled site library packages
