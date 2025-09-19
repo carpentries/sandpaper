@@ -58,6 +58,13 @@ create_syllabus <- function(episodes, lesson, path, questions = TRUE) {
   # NOTE: This assumes a flat file structure for the website.
   paths <- fs::path_ext_set(sched, "html")
 
+  if (any(titles == "")) {
+    bad <- which(titles == "")
+    msg <- c("There are missing titles from {length(bad)} episode{?s}.",
+      "*" = "{.file {sched[bad]}}")
+    cli::cli_warn(msg)
+  }
+
   start <- as.POSIXlt("00:00", format = "%H:%M", tz = "UTC")
   # Note: we are creating a start time of 0 and adding "Finish" to the end.
   if (any(timings < 0)) {
@@ -84,7 +91,7 @@ create_syllabus <- function(episodes, lesson, path, questions = TRUE) {
 
 get_titles <- function(ep) {
   yaml <- ep$get_yaml()
-  yaml$title
+  yaml$title %||% as.character(fs::path_file(ep$path))
 }
 
 get_timings <- function(ep) {

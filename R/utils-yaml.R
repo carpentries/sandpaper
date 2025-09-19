@@ -9,7 +9,7 @@ politely_get_yaml <- function(path) {
     # we don't need to warn if they are scanning an index.md with no yaml
     if (fs::path_file(path) != "index.md") {
       thm <- cli::cli_div(theme = sandpaper_cli_theme())
-      cli::cli_alert_danger("No yaml header found in the first 10 lines of {path}")
+      cli::cli_alert_danger("No yaml header found in the first 10 lines of {.file {fs::path_file(path)}}")
       cli::cli_end(thm)
     }
     return(character(0))
@@ -17,7 +17,7 @@ politely_get_yaml <- function(path) {
 
   # got at least one YAML header in the first 10 lines so check that the first line of a lesson is header open
   if (barriers[1] != 1) {
-    cli::cli_alert_danger("First line is invalid - [expected ---, got {header[1]}] - in episode {path}")
+    cli::cli_alert_danger("First line is invalid - [expected ---, got {header[1]}] - in episode {.file {fs::path_file(path)}}")
     return(character(0))
   }
 
@@ -44,13 +44,13 @@ politely_get_yaml <- function(path) {
 
   # validate at the end of scanning
   if (is.na(barriers[1]) || is.na(barriers[2]) || barriers[2] <= barriers[1]) {
-    cli::cli_alert_danger("Cannot find valid open and close of YAML frontmatter in episode {path}")
+    cli::cli_alert_danger("Cannot find valid open and close of YAML frontmatter in episode {.file {fs::path_file(path)}}")
     return(character(0))
   }
 
   # if the second line is blank
   if (header[1] == "---" && header[2] == "") {
-    cli::cli_alert_danger("Blank line after first YAML block line in episode {path}")
+    cli::cli_alert_danger("Blank line after first YAML block line in episode {.file {fs::path_file(path)}}")
     return(character(0))
   }
 
@@ -61,7 +61,7 @@ politely_get_yaml <- function(path) {
   tryCatch({
     yaml::yaml.load(yaml_header)
   }, error = function(e) {
-    cli::cli_alert_danger("YAML header is invalid in episode {path}")
+    cli::cli_alert_danger("YAML header is invalid in episode {.file {fs::path_file(path)}}")
     return(character(0))
   })
 
