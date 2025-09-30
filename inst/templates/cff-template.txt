@@ -1,0 +1,16 @@
+---
+title: "Cite This Lesson"
+---
+
+## Cite This Lesson
+
+This lesson was developed collaboratively by the following authors:
+
+
+## Cite The Workbench
+
+This lesson was built using the [Carpentries Workbench][wb] software.
+To support the Workbench and its developers and community, please [cite the project][ctwb]!
+
+[wb]: https://carpentries.org/workbench
+[ctwb]: https://carpentries.org/workbench/#cite-the-workbench
