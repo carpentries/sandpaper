@@ -9,7 +9,8 @@ ci_deploy(
   md_branch = "md-outputs",
   site_branch = "gh-pages",
   remote = "origin",
-  reset = FALSE
+  reset = FALSE,
+  skip_manage_deps = TRUE
 )
 }
 \arguments{
@@ -24,6 +25,11 @@ ci_deploy(
 \item{reset}{if \code{TRUE}, the markdown cache is cleared before rebuilding,
 this defaults to \code{FALSE} meaning the markdown cache will be provisioned
 and used.}
+
+\item{skip_manage_deps}{if \code{FALSE}, dependency management will be processed.
+This defaults to \code{TRUE} because it is assumed that dependency management
+is handled in the separate package cache update and apply steps in the
+CI workflow, and therefore can be skipped.}
 }
 \value{
 Nothing, invisibly. This is used for it's side-effect
