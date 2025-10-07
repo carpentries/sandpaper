@@ -151,4 +151,3 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
 
   invisible()
 }
-
