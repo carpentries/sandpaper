@@ -38,9 +38,9 @@ in \code{\link[=ci_deploy]{ci_deploy()}}
 this defaults to \code{FALSE} meaning the markdown cache will be provisioned
 and used.}
 
-\item{skip_manage_deps}{if \code{FALSE}, dependency management will be processed.
-This defaults to \code{TRUE} because it is assumed that dependency management
-is handled in the separate package cache update and apply steps in the
+\item{skip_manage_deps}{if \code{TRUE}, dependency management will NOT be processed.
+This defaults to \code{FALSE}. Set this to TRUE to force dependency management
+to be handled in the separate package cache update and apply steps in the
 CI workflow, and therefore can be skipped.}
 
 \item{md}{the branch name that contains the markdown outputs}

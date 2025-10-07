@@ -13,9 +13,9 @@
 #' @param reset if `TRUE`, the markdown cache is cleared before rebuilding,
 #'   this defaults to `FALSE` meaning the markdown cache will be provisioned
 #'   and used.
-#' @param skip_manage_deps if `FALSE`, dependency management will be processed.
-#'   This defaults to `TRUE` because it is assumed that dependency management
-#'   is handled in the separate package cache update and apply steps in the
+#' @param skip_manage_deps if `TRUE`, dependency management will NOT be processed.
+#'   This defaults to `FALSE`. Set this to TRUE to force dependency management
+#'   to be handled in the separate package cache update and apply steps in the
 #'   CI workflow, and therefore can be skipped.
 #' @return Nothing, invisibly. This is used for it's side-effect
 #'
@@ -127,7 +127,7 @@
 #' tryCatch(fs::dir_delete(res), error = function() FALSE)
 #' tok <- Sys.time()
 #' cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
-ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pages", remote = "origin", reset = FALSE, skip_manage_deps = TRUE) {
+ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pages", remote = "origin", reset = FALSE, skip_manage_deps = FALSE) {
 
   if (interactive() && is.null(getOption('sandpaper.test_fixture'))) {
     stop("This function is for use on continuous integration only", call. = FALSE)
