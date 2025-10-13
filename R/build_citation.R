@@ -203,7 +203,6 @@ generate_author_names <- function(authors, env, output_html = TRUE) {
   return(output)
 }
 
-#' @rdname build_citation
 #' Create a citation page for a lesson from a CITATION.CFF file
 #'
 #' @export
