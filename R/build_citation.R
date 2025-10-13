@@ -9,7 +9,8 @@ parse_cff <- function(cff_file, lesson) {
   affiliations <- ""
   if (!is.null(authors)) {
     auth_env <- parse_authors(authors)
-    authors <- auth_env$authors
+    html_authors <- auth_env$html_authors
+    pre_authors <- auth_env$pre_authors
     affiliations <- auth_env$affiliations
   }
   title <- cff_data$title %||% lesson$title %||% "Untitled Lesson"
@@ -28,7 +29,7 @@ parse_cff <- function(cff_file, lesson) {
 
   url <- cff_data$url %||% lesson$url %||% NULL
 
-  citation <- paste0(authors, " (", format(as.Date(date_released), "%Y"), "). <em>",
+  citation <- paste0(html_authors, " (", format(as.Date(date_released), "%Y"), "). <em>",
                      title, "</em>. Version ", version, ".")
 
   citation <- paste0(citation, affiliations)
@@ -54,14 +55,15 @@ parse_cff <- function(cff_file, lesson) {
     pc_affiliations <- ""
     if (!is.null(pc_authors)) {
       pc_auth_env <- parse_authors(pc_authors)
-      pc_authors <- pc_auth_env$authors
+      pc_html_authors <- pc_auth_env$html_authors
+      pc_pre_authors <- pc_auth_env$pre_authors
       pc_affiliations <- pc_auth_env$affiliations
     }
     pc_type <- cf_pc$type %||% NULL
     pc_version <- cf_pc$version %||% version
     if (pc_type == "article") {
       pc_journal <- cf_pc$journal %||% ""
-      citation <- paste0(pc_authors, " (", cf_pc$year, "). <em>",
+      citation <- paste0(pc_html_authors, " (", cf_pc$year, "). <em>",
                          cf_pc$title, "</em>. ", pc_journal)
       if (!is.null(cf_pc$volume)) {
         citation <- paste0(citation, ", ", cf_pc$volume)
@@ -77,7 +79,7 @@ parse_cff <- function(cff_file, lesson) {
       }
     } else {
       # Fallback to preferred citation details if type is not article
-      citation <- paste0(pc_authors, " (", cf_pc$year, "). <em>",
+      citation <- paste0(pc_html_authors, " (", cf_pc$year, "). <em>",
                          pc_title, "</em>. Version [", pc_version, "].")
       if (!is.null(pc_doi)) {
         citation <- paste0(citation, " https://doi.org/", pc_doi)
@@ -89,6 +91,15 @@ parse_cff <- function(cff_file, lesson) {
     citation <- paste0(citation, pc_affiliations)
   }
 
+  # add code block for easy copy paste
+  pre_authors <- paste0(pre_authors, " (", format(as.Date(date_released), "%Y"), "). ",
+                        title, ". Version ", version, ".")
+  citation <- paste0(citation, "<p>",
+    "Copy the following into your bibliography:",
+    "<br/><code style='display:block; white-space:pre-wrap'>", pre_authors,
+    "</code></p>"
+  )
+
   return(citation)
 }
 
@@ -99,21 +110,86 @@ read_cff <- function(cff_file) {
     cff_file <- fs::path_abs(cff_file)
 
     if (requireNamespace("cffr", quietly = TRUE)) {
-      valid <- cffr::cff_validate(cff_file)
-      if (!valid) {
-        cli::cli_alert_warning("CITATION.CFF file is not valid according to CFF schema.")
-        return(NULL)
-      }
 
-      cff_data <- cffr::cff_read_cff_citation(cff_file)
-      if (!is.null(cff_data)) {
-        # return link to the citation.html page
-        return(cff_data)
-      }
+      # surround with tryCatch to handle potential errors
+      tryCatch({
+        valid <- cffr::cff_validate(cff_file)
+        if (!valid) {
+            cli::cli_alert_warning("CITATION.CFF file is not valid according to CFF schema.")
+            return(NULL)
+        }
+
+        cff_data <- cffr::cff_read_cff_citation(cff_file)
+        if (!is.null(cff_data)) {
+            # return link to the citation.html page
+            return(cff_data)
+        }
+      }, error = function(e) {
+        cli::cli_alert_warning("Error reading CITATION.CFF file: {e$message}")
+        return(NULL)
+      })
     }
   }
 
   return(NULL)
+}
+
+generate_author_names <- function(authors, env, output_html = TRUE) {
+  if (is.null(authors) || length(authors) == 0) {
+    return("Unknown Author")
+  }
+
+  author_names <- sapply(authors, function(author) {
+    if (is.list(author)) {
+      given <- author[["given-names"]] %||% ""
+      family <- author[["family-names"]] %||% ""
+      affiliation <- author[["affiliation"]] %||% ""
+      orcid <- author[["orcid"]] %||% ""
+
+      if (output_html) {
+        # produce HTML friendly author list with affiliations and orcid links
+        name <- paste(given, family) |> stringr::str_trim()
+
+        affil_num <- ""
+        # add affiliation to unique list for use as links
+        if (affiliation != "") {
+            env$unique_affiliations <- union(env$unique_affiliations, c(affiliation))
+            affil_num <- which(env$unique_affiliations == affiliation)[[1]] %||% ""
+        }
+
+        # add superscripted affiliation number and orcid link if available
+        name <- paste0(name, "<span class='author-info'>")
+        if (affil_num != "") {
+            name <- paste0(name, " <a href='#aff", affil_num, "'><sup>", affil_num, "</sup></a> ")
+        }
+        if (orcid != "") {
+            name <- paste0(name, " <a href='", orcid, "' target='_blank'><sup><img src='assets/images/orcid_icon.png' height='12' width='12'/></sup></a>")
+        }
+        name <- paste0(name, "</span>")
+      }
+      else {
+        # abbreviate given names to initials for bibliography style reference
+        given_names <- unlist(strsplit(given, " "))
+        initials <- sapply(given_names, function(x) {
+          paste0(substr(x, 1, 1))
+        })
+        name <- paste0(family, " ", paste0(initials, collapse = ""), ".") |> stringr::str_trim()
+      }
+    } else {
+      as.character(author)
+    }
+  })
+
+  if (length(author_names) == 1) {
+    output <- author_names[1]
+  } else if (length(author_names) == 2) {
+    output <- paste(author_names, collapse = " and ")
+  } else {
+    output <- paste(paste(author_names[-length(author_names)], collapse = ", "),
+                 "and", author_names[length(author_names)])
+  }
+
+  return(output)
 }
 
 #' Create a citation page for a lesson from a CITATION.CFF file
@@ -212,43 +288,8 @@ parse_authors <- function(authors) {
   env <- new.env()
   env$unique_affiliations <- c()
 
-  author_names <- sapply(authors, function(author) {
-    if (is.list(author)) {
-      given <- author[["given-names"]] %||% ""
-      family <- author[["family-names"]] %||% ""
-      affiliation <- author[["affiliation"]] %||% ""
-      orcid <- author[["orcid"]] %||% ""
-      name <- paste(given, family) |> stringr::str_trim()
-
-      affil_num <- ""
-      # add affiliation to unique list for use as links
-      if (affiliation != "") {
-        env$unique_affiliations <- union(env$unique_affiliations, c(affiliation))
-        affil_num <- which(env$unique_affiliations == affiliation)[[1]] %||% ""
-      }
-
-      # add superscript number for affiliation and orcid if available
-      name <- paste0(name, "<span class='author-info'>")
-      if (affil_num != "") {
-        name <- paste0(name, " <a href='#aff", affil_num, "'><sup>", affil_num, "</sup></a> ")
-      }
-      if (orcid != "") {
-        name <- paste0(name, " <a href='", orcid, "' target='_blank'><sup><img src='assets/images/orcid_icon.png' height='12' width='12'/></sup></a>")
-      }
-      name <- paste0(name, "</span>")
-    } else {
-      as.character(author)
-    }
-  })
-
-  if (length(author_names) == 1) {
-    output <- author_names[1]
-  } else if (length(author_names) == 2) {
-    output <- paste(author_names, collapse = " and ")
-  } else {
-    output <- paste(paste(author_names[-length(author_names)], collapse = ", "),
-                 "and", author_names[length(author_names)])
-  }
+  html_author_names <- generate_author_names(authors, env, output_html = TRUE)
+  pre_author_names <- generate_author_names(authors, env, output_html = FALSE)
 
   # generate a numbered list of affiliations
   affil_list <- ""
@@ -260,7 +301,9 @@ parse_authors <- function(authors) {
     affil_list <- paste0(affil_list, "</ol></p>")
   }
 
-  env$authors <- output
+  env$html_authors <- html_author_names
+  env$pre_authors <- pre_author_names
   env$affiliations <- affil_list
+
   return(env)
 }
