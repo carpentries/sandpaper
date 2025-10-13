@@ -16,7 +16,7 @@ parse_cff <- function(cff_file) {
     title <- cff_data$title %||% this_metadata$get()$pagetitle %||% "Untitled Lesson"
     abstract <- cff_data$abstract %||% ""
     version <- cff_data$version %||% "unversioned"
-    date_released <- cff_data$`date-released` %||% Sys.Date()
+    date_released <- cff_data$`date-released` %||% this_metadata$get()$created %||% Sys.Date()
     identifiers <- cff_data$identifiers %||% list()
 
     identifiers <- sapply(identifiers, function(identifier) {
@@ -30,11 +30,14 @@ parse_cff <- function(cff_file) {
     url <- cff_data$url %||% this_metadata$get()$url %||% NULL
 
     citation <- paste0(html_authors, " (", format(as.Date(date_released), "%Y"), "). <em>",
-                       title, "</em>. Version ", version, ".")
+                       title, "</em>. Version [", version, "].")
+
+    if (!is.null(url) && url != "") {
+      citation <- paste(citation, "<a href='", url, "'>", url, "</a>")
+    }
 
     citation <- paste0(citation, affiliations)
 
-    # citation <- paste("<ul>")
     doi <- cff_data$doi %||% NULL
     if (!is.null(doi)) {
       citation <- paste(" https://doi.org/", doi)
@@ -59,12 +62,18 @@ parse_cff <- function(cff_file) {
         pc_pre_authors <- pc_auth_env$pre_authors
         pc_affiliations <- pc_auth_env$affiliations
       }
+      pc_title <- cf_pc$title %||% title
       pc_type <- cf_pc$type %||% NULL
+      pc_date_released <- cf_pc$`date-released` %||% this_metadata$get()$created %||% Sys.Date()
       pc_version <- cf_pc$version %||% version
+      pc_url <- cf_pc$url %||% this_metadata$get()$url %||% NULL
+
       if (pc_type == "article") {
         pc_journal <- cf_pc$journal %||% ""
-        citation <- paste0(pc_html_authors, " (", cf_pc$year, "). <em>",
-                           cf_pc$title, "</em>. ", pc_journal)
+        pc_doi <- cf_pc$doi %||% NULL
+
+        citation <- paste0(pc_html_authors, " (", pc_date_released, "). <em>",
+                           pc_title, "</em>. ", pc_journal)
         if (!is.null(cf_pc$volume)) {
           citation <- paste0(citation, ", ", cf_pc$volume)
         }
@@ -74,17 +83,18 @@ parse_cff <- function(cff_file) {
         if (!is.null(cf_pc$pages)) {
           citation <- paste0(citation, ", ", cf_pc$pages)
         }
-        if (!is.null(cf_pc$doi)) {
-          citation <- paste0(citation, ". https://doi.org/", cf_pc$doi)
+        if (!is.null(pc_doi)) {
+          citation <- paste0(citation, ". https://doi.org/", pc_doi)
         }
-        } else {
+      } else {
         # Fallback to preferred citation details if type is not article
-        citation <- paste0(pc_html_authors, " (", cf_pc$year, "). <em>",
+        citation <- paste0(pc_html_authors, " (", pc_date_released, "). <em>",
                            pc_title, "</em>. Version [", pc_version, "].")
         if (!is.null(pc_doi)) {
           citation <- paste0(citation, " https://doi.org/", pc_doi)
-        } else if (!is.null(url)) {
-          citation <- paste0(citation, " ", url)
+        }
+        if (!is.null(pc_url) && pc_url != "") {
+          citation <- paste(citation, "<a href='", pc_url, "'>", pc_url, "</a>")
         }
       }
 
@@ -93,7 +103,7 @@ parse_cff <- function(cff_file) {
 
     # add code block for easy copy paste
     pre_authors <- paste0(pre_authors, " (", format(as.Date(date_released), "%Y"), "). ",
-                          title, ". Version ", version, ".")
+                          title, ". Version [", version, "].")
     citation <- paste0(citation, "<p>",
       "Copy the following into your bibliography:",
       "<br/><code style='display:block; white-space:pre-wrap'>", pre_authors,
