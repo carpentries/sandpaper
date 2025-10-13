@@ -199,6 +199,8 @@ generate_author_names <- function(authors, env, output_html = TRUE) {
 #' @param out the path to the citation page. When this is `NULL` (default)
 #'   or `TRUE`, the output will be `site/built/citation.html`.
 #' @return NULL
+#'
+#' @keywords internal
 build_citation <- function(pkg, quiet = FALSE) {
   page_globals <- setup_page_globals()
   calls <- sys.calls()
