@@ -33,7 +33,7 @@ parse_cff <- function(cff_file) {
                        title, "</em>. Version [", version, "].")
 
     if (!is.null(url) && url != "") {
-      citation <- paste(citation, "<a href='", url, "'>", url, "</a>")
+      citation <- paste(citation, "<br/><a href='", url, "'>", url, "</a>")
     }
 
     citation <- paste0(citation, affiliations)
@@ -94,7 +94,7 @@ parse_cff <- function(cff_file) {
           citation <- paste0(citation, " https://doi.org/", pc_doi)
         }
         if (!is.null(pc_url) && pc_url != "") {
-          citation <- paste(citation, "<a href='", pc_url, "'>", pc_url, "</a>")
+          citation <- paste(citation, "<br/><a href='", pc_url, "'>", pc_url, "</a>")
         }
       }
 
