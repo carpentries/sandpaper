@@ -94,8 +94,8 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
 
   # build citation page if needed
   describe_progress("Creating citation page", quiet = quiet)
-  cff_file <- this_metadata$get()[["cff"]]
-  if (!is.null(cff_file)) {
+  cff_file <- this_metadata$get()$cff
+  if (!is.null(cff_file) && cff_file != "CITATION") {
     build_citation(pkg, quiet = quiet)
   }
 

@@ -19,10 +19,12 @@ test_that("parse_authors returns correct HTML for multiple authors and affiliati
 })
 
 test_that("read_cff returns NULL for missing file", {
+  skip_if_not_installed("cffr")
   expect_null(suppressMessages(read_cff(withr::local_tempfile(fileext = ".cff"))))
 })
 
 test_that("read_cff returns error for malformed CFF file", {
+  skip_if_not_installed("cffr")
   tmp_cff <- withr::local_tempfile(fileext = ".cff")
   writeLines("invalid cff content", tmp_cff)
   # check that a warning is issued for invalid CFF

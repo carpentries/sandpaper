@@ -1,106 +1,107 @@
-parse_cff <- function(cff_file, lesson) {
+parse_cff <- function(cff_file) {
   cff_data <- read_cff(cff_file)
   if (is.null(cff_data)) {
-    cli::cli_alert_warning("No citation information available. Returning link to CITATION.CFF file.")
+    cli::cli_alert_warning("No valid citation information available.")
     return(NULL)
   }
-
-  authors <- cff_data$authors %||% NULL
-  affiliations <- ""
-  if (!is.null(authors)) {
-    auth_env <- parse_authors(authors)
-    html_authors <- auth_env$html_authors
-    pre_authors <- auth_env$pre_authors
-    affiliations <- auth_env$affiliations
-  }
-  title <- cff_data$title %||% lesson$title %||% "Untitled Lesson"
-  abstract <- cff_data$abstract %||% lesson$description %||% ""
-  version <- cff_data$version %||% "unversioned"
-  date_released <- cff_data$`date-released` %||% Sys.Date()
-  identifiers <- cff_data$identifiers %||% list()
-
-  identifiers <- sapply(identifiers, function(identifier) {
-    if (is.list(identifiers)) {
-      if (identifier$type == "doi") {
-        identifier$value |> stringr::str_trim()
-      }
+  else {
+    authors <- cff_data$authors %||% NULL
+    affiliations <- ""
+    if (!is.null(authors)) {
+      auth_env <- parse_authors(authors)
+      html_authors <- auth_env$html_authors
+      pre_authors <- auth_env$pre_authors
+      affiliations <- auth_env$affiliations
     }
-  })
+    title <- cff_data$title %||% this_metadata$get()$pagetitle %||% "Untitled Lesson"
+    abstract <- cff_data$abstract %||% ""
+    version <- cff_data$version %||% "unversioned"
+    date_released <- cff_data$`date-released` %||% Sys.Date()
+    identifiers <- cff_data$identifiers %||% list()
 
-  url <- cff_data$url %||% lesson$url %||% NULL
+    identifiers <- sapply(identifiers, function(identifier) {
+      if (is.list(identifiers)) {
+        if (identifier$type == "doi") {
+          identifier$value |> stringr::str_trim()
+        }
+      }
+    })
 
-  citation <- paste0(html_authors, " (", format(as.Date(date_released), "%Y"), "). <em>",
-                     title, "</em>. Version ", version, ".")
+    url <- cff_data$url %||% this_metadata$get()$url %||% NULL
 
-  citation <- paste0(citation, affiliations)
+    citation <- paste0(html_authors, " (", format(as.Date(date_released), "%Y"), "). <em>",
+                       title, "</em>. Version ", version, ".")
 
-  # citation <- paste("<ul>")
-  doi <- cff_data$doi %||% NULL
-  if (!is.null(doi)) {
-    citation <- paste(" https://doi.org/", doi)
-  }
-#   else if (!is.null(identifiers) && length(identifiers) > 0) {
-#     dois <- sapply(identifiers, function(identifier) {
-#       paste("<li>https://doi.org/", identifier, "</li>")
-#     })
-#     citation <- paste(dois)
-#   } else if (!is.null(url)) {
-#     citation <- paste("<li>", url, "</li>")
-#   }
-#   citation <- paste("<ul>")
+    citation <- paste0(citation, affiliations)
 
-  cf_pc <- cff_data$`preferred-citation` %||% NULL
-  if (!is.null(cf_pc)) {
-    pc_authors <- cf_pc$authors %||% NULL
-    pc_affiliations <- ""
-    if (!is.null(pc_authors)) {
-      pc_auth_env <- parse_authors(pc_authors)
-      pc_html_authors <- pc_auth_env$html_authors
-      pc_pre_authors <- pc_auth_env$pre_authors
-      pc_affiliations <- pc_auth_env$affiliations
+    # citation <- paste("<ul>")
+    doi <- cff_data$doi %||% NULL
+    if (!is.null(doi)) {
+      citation <- paste(" https://doi.org/", doi)
     }
-    pc_type <- cf_pc$type %||% NULL
-    pc_version <- cf_pc$version %||% version
-    if (pc_type == "article") {
-      pc_journal <- cf_pc$journal %||% ""
-      citation <- paste0(pc_html_authors, " (", cf_pc$year, "). <em>",
-                         cf_pc$title, "</em>. ", pc_journal)
-      if (!is.null(cf_pc$volume)) {
-        citation <- paste0(citation, ", ", cf_pc$volume)
+    #   else if (!is.null(identifiers) && length(identifiers) > 0) {
+    #     dois <- sapply(identifiers, function(identifier) {
+    #       paste("<li>https://doi.org/", identifier, "</li>")
+    #     })
+    #     citation <- paste(dois)
+    #   } else if (!is.null(url)) {
+    #     citation <- paste("<li>", url, "</li>")
+    #   }
+    #   citation <- paste("<ul>")
+
+    cf_pc <- cff_data$`preferred-citation` %||% NULL
+    if (!is.null(cf_pc)) {
+      pc_authors <- cf_pc$authors %||% NULL
+      pc_affiliations <- ""
+      if (!is.null(pc_authors)) {
+        pc_auth_env <- parse_authors(pc_authors)
+        pc_html_authors <- pc_auth_env$html_authors
+        pc_pre_authors <- pc_auth_env$pre_authors
+        pc_affiliations <- pc_auth_env$affiliations
       }
-      if (!is.null(cf_pc$issue)) {
-        citation <- paste0(citation, "(", cf_pc$issue, ")")
+      pc_type <- cf_pc$type %||% NULL
+      pc_version <- cf_pc$version %||% version
+      if (pc_type == "article") {
+        pc_journal <- cf_pc$journal %||% ""
+        citation <- paste0(pc_html_authors, " (", cf_pc$year, "). <em>",
+                           cf_pc$title, "</em>. ", pc_journal)
+        if (!is.null(cf_pc$volume)) {
+          citation <- paste0(citation, ", ", cf_pc$volume)
+        }
+        if (!is.null(cf_pc$issue)) {
+          citation <- paste0(citation, "(", cf_pc$issue, ")")
+        }
+        if (!is.null(cf_pc$pages)) {
+          citation <- paste0(citation, ", ", cf_pc$pages)
+        }
+        if (!is.null(cf_pc$doi)) {
+          citation <- paste0(citation, ". https://doi.org/", cf_pc$doi)
+        }
+        } else {
+        # Fallback to preferred citation details if type is not article
+        citation <- paste0(pc_html_authors, " (", cf_pc$year, "). <em>",
+                           pc_title, "</em>. Version [", pc_version, "].")
+        if (!is.null(pc_doi)) {
+          citation <- paste0(citation, " https://doi.org/", pc_doi)
+        } else if (!is.null(url)) {
+          citation <- paste0(citation, " ", url)
+        }
       }
-      if (!is.null(cf_pc$pages)) {
-        citation <- paste0(citation, ", ", cf_pc$pages)
-      }
-      if (!is.null(cf_pc$doi)) {
-        citation <- paste0(citation, ". https://doi.org/", cf_pc$doi)
-      }
-    } else {
-      # Fallback to preferred citation details if type is not article
-      citation <- paste0(pc_html_authors, " (", cf_pc$year, "). <em>",
-                         pc_title, "</em>. Version [", pc_version, "].")
-      if (!is.null(pc_doi)) {
-        citation <- paste0(citation, " https://doi.org/", pc_doi)
-      } else if (!is.null(url)) {
-        citation <- paste0(citation, " ", url)
-      }
+
+      citation <- paste0(citation, pc_affiliations)
     }
 
-    citation <- paste0(citation, pc_affiliations)
+    # add code block for easy copy paste
+    pre_authors <- paste0(pre_authors, " (", format(as.Date(date_released), "%Y"), "). ",
+                          title, ". Version ", version, ".")
+    citation <- paste0(citation, "<p>",
+      "Copy the following into your bibliography:",
+      "<br/><code style='display:block; white-space:pre-wrap'>", pre_authors,
+      "</code></p>"
+    )
+
+    return(citation)
   }
-
-  # add code block for easy copy paste
-  pre_authors <- paste0(pre_authors, " (", format(as.Date(date_released), "%Y"), "). ",
-                        title, ". Version ", version, ".")
-  citation <- paste0(citation, "<p>",
-    "Copy the following into your bibliography:",
-    "<br/><code style='display:block; white-space:pre-wrap'>", pre_authors,
-    "</code></p>"
-  )
-
-  return(citation)
 }
 
 # Function to read and parse CFF files
@@ -192,6 +193,7 @@ generate_author_names <- function(authors, env, output_html = TRUE) {
   return(output)
 }
 
+#' @rdname build_citation
 #' Create a citation page for a lesson from a CITATION.CFF file
 #'
 #' @export
@@ -233,52 +235,63 @@ build_citation <- function(pkg, quiet = FALSE) {
   }
   fix_nodes(html)
 
-  ct <- xml2::read_html(parse_cff(this_metadata$get()$cff))
-  this_metadata$set("citation", ct)
-
-  this_dat <- list(
-    this_page = "citation.html",
-    body = html,
-    pagetitle = tr_computed("CiteThisLesson")
-  )
-  page_globals$instructor$update(this_dat)
-  page_globals$learner$update(this_dat)
-  page_globals$metadata$update(this_dat)
-
-  outpath <- fs::path(pkg$dst_path, "citation.html")
-  inst_outpath <- fs::path(pkg$dst_path, "instructor/citation.html")
-  out <- fs::path_rel(inst_outpath, pkg$dst_path)
-
-  already_built <- template_check$valid() && fs::file_exists(inst_outpath)
-
-  if (already_built) {
-    report <- "Rebuilding '{.file {out}}'"
-    if (!quiet) cli::cli_text(report)
-
-    # delete the existing instructors/citation.html file
-    fs::file_delete(inst_outpath)
-
-    built_path <- fs::path(pkg$src_path, "built")
+  cff_meta <- this_metadata$get()$cff
+  if (is.null(cff_meta) || cff_meta == "CITATION") {
+    cli::cli_alert_warning("No CITATION.CFF file found. Falling back to default behaviour.")
   }
   else {
-    report <- "Appending to '{.file {out}}'"
-    if (!quiet) cli::cli_text(report)
+    cff <- parse_cff(cff_meta)
+    if (is.null(cff)) {
+      return(NULL)
+    }
+    ct <- xml2::read_html(cff)
+    this_metadata$set("citation", ct)
+
+    this_dat <- list(
+      this_page = "citation.html",
+      body = html,
+      pagetitle = tr_computed("CiteThisLesson")
+    )
+    page_globals$instructor$update(this_dat)
+    page_globals$learner$update(this_dat)
+    page_globals$metadata$update(this_dat)
+
+    outpath <- fs::path(pkg$dst_path, "citation.html")
+    inst_outpath <- fs::path(pkg$dst_path, "instructor/citation.html")
+    out <- fs::path_rel(inst_outpath, pkg$dst_path)
+
+    already_built <- template_check$valid() && fs::file_exists(inst_outpath)
+
+    if (already_built) {
+      report <- "Rebuilding '{.file {out}}'"
+      if (!quiet) cli::cli_text(report)
+
+      # delete the existing instructors/citation.html file
+      fs::file_delete(inst_outpath)
+
+      built_path <- fs::path(pkg$src_path, "built")
+    }
+    else {
+      report <- "Appending to '{.file {out}}'"
+      if (!quiet) cli::cli_text(report)
+    }
+
+    build_html(template = "extra", pkg = pkg, nodes = html,
+               global_data = page_globals, path_md = "citation.html", quiet = quiet)
+
+    ref_html <- xml2::read_html(outpath)
+    ref_sect <- xml2::xml_find_first(ref_html, ".//section/h2[@id='cite-this-lesson']/parent::section")
+    cit_sect <- xml2::xml_add_child(ref_sect, "p", id="citation")
+    xml2::xml_add_child(cit_sect, ct)
+    writeLines(as.character(ref_html), outpath)
+
+    ref_html <- xml2::read_html(inst_outpath)
+    ref_sect <- xml2::xml_find_first(ref_html, ".//section/h2[@id='cite-this-lesson']/parent::section")
+    cit_sect <- xml2::xml_add_child(ref_sect, "p", id="citation")
+    xml2::xml_add_child(cit_sect, ct)
+    writeLines(as.character(ref_html), inst_outpath)
   }
-
-  build_html(template = "extra", pkg = pkg, nodes = html,
-    global_data = page_globals, path_md = "citation.html", quiet = quiet)
-
-  ref_html <- xml2::read_html(outpath)
-  ref_sect <- xml2::xml_find_first(ref_html, ".//section/h2[@id='cite-this-lesson']/parent::section")
-  cit_sect <- xml2::xml_add_child(ref_sect, "p", id="citation")
-  xml2::xml_add_child(cit_sect, ct)
-  writeLines(as.character(ref_html), outpath)
-
-  ref_html <- xml2::read_html(inst_outpath)
-  ref_sect <- xml2::xml_find_first(ref_html, ".//section/h2[@id='cite-this-lesson']/parent::section")
-  cit_sect <- xml2::xml_add_child(ref_sect, "p", id="citation")
-  xml2::xml_add_child(cit_sect, ct)
-  writeLines(as.character(ref_html), inst_outpath)
+  invisible(NULL)
 }
 
 # Function to process CFF author list
