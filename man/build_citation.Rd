@@ -15,3 +15,4 @@ or \code{TRUE}, the output will be \code{site/built/citation.html}.}
 \description{
 Create a citation page for a lesson from a CITATION.CFF file
 }
+\keyword{internal}
