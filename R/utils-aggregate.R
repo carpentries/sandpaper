@@ -256,6 +256,12 @@ build_agg_page <- function(pkg, pages, title = NULL, slug = NULL, aggregate = "s
       ep_learn <- pages$learner[[name]]
       ep_instruct <- pages$instructor[[name]]
     }
+    
+    # skip empty episodes content
+    if (is.null(get_content(ep_learn))) {
+      next
+    }
+
     ep_title <- as.character(xml2::xml_contents(get_content(ep_learn, ".//h1")))
     names(ename) <- paste(ep_title, collapse = "")
     ep_learn <- get_content(ep_learn, content = aggregate, pkg = pkg)
@@ -320,12 +326,18 @@ get_content <- function(
     episode, content = "*", label = FALSE, pkg = NULL,
     instructor = FALSE) {
   if (!inherits(episode, "xml_document")) {
-    if (instructor) {
-      path <- fs::path(pkg$dst_path, "instructor", as_html(episode))
-    } else {
-      path <- fs::path(pkg$dst_path, as_html(episode))
+    ep_html <- as_html(episode)
+    if (!is.null(ep_html)) {
+      if (instructor) {
+        path <- fs::path(pkg$dst_path, "instructor", ep_html)
+      } else {
+        path <- fs::path(pkg$dst_path, ep_html)
+      }
+      episode <- xml2::read_html(path)
     }
-    episode <- xml2::read_html(path)
+    else {
+      return(ep_html)
+    }
   }
   XPath <- ".//main/div[contains(@class, 'lesson-content')]/{content}"
   res <- xml2::xml_find_all(episode, glue::glue(XPath))

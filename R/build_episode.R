@@ -83,6 +83,7 @@ build_episode_html <- function(path_md, path_src = NULL,
 
   if (body == "") {
     # if there is nothing in the page then we build nothing.
+    cli::cli_alert_warning("Episode {.file {fs::path_rel(path_md, start = home)}} has no content")
     return(NULL)
   }
   nodes <- xml2::read_html(body)

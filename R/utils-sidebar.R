@@ -162,6 +162,11 @@ create_sidebar <- function(
   res <- character(length(chapters))
 
   for (i in seq(chapters)) {
+    # don't add empty markdown files to the sidebar
+    if (fs::file_exists(chapters[i]) && file.size(chapters[i]) == 0) {
+      next
+    }
+
     position <- if (name == chapters[i]) "current" else i
     info <- get_navbar_info(chapters[i])
 

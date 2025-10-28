@@ -4,7 +4,7 @@
 `%nin%` <- Negate("%in%")
 
 as_html <- function(i, instructor = FALSE) {
-  if (length(i) == 0) return(i)
+  if (length(i) == 0 || is.null(i)) return(NULL)
   res <- fs::path_ext_set(fs::path_file(i), "html")
   if (instructor) fs::path("instructor", res) else res
 }

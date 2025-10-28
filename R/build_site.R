@@ -96,6 +96,12 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
   for (i in files_to_render) {
     location <- page_location(i, abs_md, er)
     progress <- if (not_overview) pct[db$file[i]] else pct
+
+    if (file.size(abs_md[i]) == 0) {
+      cli::cli_alert_warning("Episode {.file {fs::path_file(abs_md[i])}} is empty - skipping...")
+      next
+    }
+
     build_episode_html(
       path_md       = abs_md[i],
       path_src      = abs_src[i],
