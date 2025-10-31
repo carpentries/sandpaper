@@ -92,6 +92,13 @@ build_site <- function(path = ".", quiet = !interactive(), preview = TRUE, overr
     on.exit(eval(when_done), add = TRUE)
   }
 
+  # build citation page if needed
+  describe_progress("Creating citation page", quiet = quiet)
+  cff_file <- this_metadata$get()$cff
+  if (!is.null(cff_file) && cff_file != "CITATION") {
+    build_citation(pkg, quiet = quiet)
+  }
+
   # ------------------------ end downlit shim ----------------------------
   for (i in files_to_render) {
     location <- page_location(i, abs_md, er)

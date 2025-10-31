@@ -11,9 +11,9 @@ generate_template_function <- function(f) {
 
 #' copy a sandpaper template file to a path with data
 #'
-#' @param template the base of a valid template function (e.g. "episode" for 
+#' @param template the base of a valid template function (e.g. "episode" for
 #'   [template_episode()])
-#' @param path the folder in which to write the file. Defaults to `NULL`, which 
+#' @param path the folder in which to write the file. Defaults to `NULL`, which
 #'   will return the filled template as a character vector
 #' @param name the name of the file. Defaults to `NULL`
 #' @param values the values to fill in the template (if any). Consult the
@@ -42,7 +42,7 @@ copy_template <- function(template, path = NULL, name = NULL, values = NULL) {
 #' @export
 #' @keywords internal
 #' @return a character string with the path to the template within the
-#'   `{sandpaper}` repo. 
+#'   `{sandpaper}` repo.
 #' @examples
 #'
 #' cat(readLines(template_gitignore(), n = 6), sep = "\n")
@@ -55,6 +55,10 @@ template_episode <- generate_template_function("episode")
 #' @rdname template
 #' @export
 template_links <- generate_template_function("links")
+
+#' @rdname template
+#' @export
+template_cff <- generate_template_function("cff")
 
 #' @rdname template
 #' @export

@@ -170,6 +170,7 @@ establish_translation_vars <- function() {
       SummaryAndSchedule = tr_("Summary and Schedule"),
       AllInOneView = tr_("All in One View"),
       PageNotFound = tr_("Page not found"),
+      CiteThisLesson = tr_("Acknowledgements and Citations"),
       AllImages = tr_("All Images"),
       # Misc -----------------------------------------------------------------
       Anchor = tr_("anchor"), # alt text

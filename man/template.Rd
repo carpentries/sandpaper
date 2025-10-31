@@ -4,6 +4,7 @@
 \alias{template_gitignore}
 \alias{template_episode}
 \alias{template_links}
+\alias{template_cff}
 \alias{template_citation}
 \alias{template_config}
 \alias{template_conduct}
@@ -23,6 +24,8 @@ template_gitignore()
 template_episode()
 
 template_links()
+
+template_cff()
 
 template_citation()
 
