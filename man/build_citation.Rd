@@ -7,13 +7,10 @@
 build_citation(pkg, quiet = FALSE)
 }
 \arguments{
-\item{pkg}{an object created via \code{\link[pkgdown:as_pkgdown]{pkgdown::as_pkgdown()}} of a lesson.}
+\item{path}{the path to the lesson. Defaults to current working directory}
 
-\item{quiet}{if \code{TRUE}, no messages will be emitted. If FALSE, pkgdown will
-report creation of the temporary file.}
-}
-\value{
-NULL, invisibly. This is called for its side-effect
+\item{out}{the path to the citation page. When this is \code{NULL} (default)
+or \code{TRUE}, the output will be \code{site/built/citation.html}.}
 }
 \description{
 Create a citation page for a lesson from a CITATION.CFF file

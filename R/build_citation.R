@@ -29,6 +29,7 @@ parse_cff <- function(cff_file) {
 
     url <- cff_data$url %||% this_metadata$get()$url %||% NULL
 
+    html_authors <- paste(html_authors, collapse = ", ")
     citation <- paste0(html_authors, " (", format(as.Date(date_released), "%Y"), "). <em>",
                        title, "</em>. Version [", version, "].")
 
@@ -101,16 +102,15 @@ parse_cff <- function(cff_file) {
       citation <- paste0(citation, pc_affiliations)
     }
 
-    # add code block for easy copy paste
+    # unlist pre_authors to a single string
+    pre_authors <- paste(pre_authors, collapse = ", ")
     pre_authors <- paste0(pre_authors, " (", format(as.Date(date_released), "%Y"), "). ",
                           title, ". Version [", version, "].")
-    citation <- paste0(citation, "<p>",
-      "Copy the following into your bibliography:",
-      "<br/><code style='display:block; white-space:pre-wrap'>", pre_authors,
-      "</code></p>"
-    )
 
-    return(citation)
+    auth_env$formatted_pre_authors <- pre_authors
+    auth_env$citation_html <- citation
+
+    return(auth_env)
   }
 }
 
@@ -191,16 +191,7 @@ generate_author_names <- function(authors, env, output_html = TRUE) {
     }
   })
 
-  if (length(author_names) == 1) {
-    output <- author_names[1]
-  } else if (length(author_names) == 2) {
-    output <- paste(author_names, collapse = " and ")
-  } else {
-    output <- paste(paste(author_names[-length(author_names)], collapse = ", "),
-                 "and", author_names[length(author_names)])
-  }
-
-  return(output)
+  return(author_names)
 }
 
 #' Create a citation page for a lesson from a CITATION.CFF file
@@ -224,8 +215,7 @@ build_citation <- function(pkg, quiet = FALSE) {
     page_globals$learner$set(c("site", "root"), url)
   }
 
-  fof <- fs::path_package("sandpaper", "templates", "cff-template.txt")
-  html <- xml2::read_html(render_html(fof))
+  html <- xml2::read_html(render_html(template_cff()))
   if (is_prod) {
     # make sure index links back to the original root
     lnk <- xml2::xml_find_first(html, ".//a[@href='index.html']")
@@ -249,12 +239,23 @@ build_citation <- function(pkg, quiet = FALSE) {
     cli::cli_alert_warning("No CITATION.CFF file found. Falling back to default behaviour.")
   }
   else {
-    cff <- parse_cff(cff_meta)
-    if (is.null(cff)) {
+    cff_env <- parse_cff(cff_meta)
+    if (is.null(cff_env)) {
       return(NULL)
     }
-    ct <- xml2::read_html(cff)
+
+    # add the pretty author list
+    ct <- xml2::read_html(cff_env$citation_html)
+    cit_p <- xml2::xml_find_first(html, ".//h2/following-sibling::p")
+    xml2::xml_add_child(cit_p, ct)
+
+    # set the metadata citation field to control footer "Cite" link href
     this_metadata$set("citation", ct)
+
+    # add the copy-pasteable citation to the callout
+    callout_citation <- cff_env$formatted_pre_authors
+    cit_callout <- xml2::xml_find_first(html, ".//pre[@class='citation']/code")
+    xml2::xml_set_text(cit_callout, callout_citation)
 
     this_dat <- list(
       this_page = "citation.html",
@@ -265,42 +266,9 @@ build_citation <- function(pkg, quiet = FALSE) {
     page_globals$learner$update(this_dat)
     page_globals$metadata$update(this_dat)
 
-    outpath <- fs::path(pkg$dst_path, "citation.html")
-    inst_outpath <- fs::path(pkg$dst_path, "instructor/citation.html")
-    out <- fs::path_rel(inst_outpath, pkg$dst_path)
-
-    already_built <- template_check$valid() && fs::file_exists(inst_outpath)
-
-    if (already_built) {
-      report <- "Rebuilding '{.file {out}}'"
-      if (!quiet) cli::cli_text(report)
-
-      # delete the existing instructors/citation.html file
-      fs::file_delete(inst_outpath)
-
-      built_path <- fs::path(pkg$src_path, "built")
-    }
-    else {
-      report <- "Appending to '{.file {out}}'"
-      if (!quiet) cli::cli_text(report)
-    }
-
-    build_html(template = "extra", pkg = pkg, nodes = html,
+    build_html(template = "citation", pkg = pkg, nodes = html,
                global_data = page_globals, path_md = "citation.html", quiet = quiet)
-
-    ref_html <- xml2::read_html(outpath)
-    ref_sect <- xml2::xml_find_first(ref_html, ".//section/h2[@id='cite-this-lesson']/parent::section")
-    cit_sect <- xml2::xml_add_child(ref_sect, "p", id="citation")
-    xml2::xml_add_child(cit_sect, ct)
-    writeLines(as.character(ref_html), outpath)
-
-    ref_html <- xml2::read_html(inst_outpath)
-    ref_sect <- xml2::xml_find_first(ref_html, ".//section/h2[@id='cite-this-lesson']/parent::section")
-    cit_sect <- xml2::xml_add_child(ref_sect, "p", id="citation")
-    xml2::xml_add_child(cit_sect, ct)
-    writeLines(as.character(ref_html), inst_outpath)
   }
-  invisible(NULL)
 }
 
 # Function to process CFF author list

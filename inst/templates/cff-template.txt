@@ -8,6 +8,16 @@ This lesson was developed collaboratively by the following authors:
 
 
 
+::::::::::::::::::: callout
+
+### Copy-Pasteable Citation
+
+```citation
+
+```
+
+:::::::::::::::::::::::::::
+
 ## Cite The Workbench
 
 This lesson was built using the [Carpentries Workbench][wb] software.
