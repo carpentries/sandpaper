@@ -236,8 +236,8 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, use_site_l
   renv_lib  <- renv::paths$library(project = path)
   renv_lock <- renv::paths$lockfile(project = path)
 
+  # mostly for Workbench dockerised environment where using the R_LIBS_SITE is OK
   if (use_site_libs) {
-    # mostly for Workbench dockerised environment where using the R_LIBS_SITE is OK
     site_libs <- strsplit(Sys.getenv("R_LIBS_SITE"), ":")[[1]]
     site_libs <- site_libs[site_libs != ""]
 
