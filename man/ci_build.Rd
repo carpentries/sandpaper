@@ -10,7 +10,7 @@ ci_build_markdown(
   branch = "md-outputs",
   remote = "origin",
   reset = FALSE,
-  skip_manage_deps = TRUE
+  skip_manage_deps = FALSE
 )
 
 ci_build_site(
