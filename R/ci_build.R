@@ -44,7 +44,7 @@
 #'
 #' @keywords internal
 #' @rdname ci_build
-ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origin", reset = FALSE, skip_manage_deps = TRUE) {
+ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origin", reset = FALSE, skip_manage_deps = FALSE) {
 
   options(sandpaper.use_renv = renv_is_allowed())
 
