@@ -57,7 +57,7 @@ read_glosario_yaml <- function(glosario, lsn_path = ".") {
 }
 
 # Function to generate the link if the term exists in the glossary
-create_glosario_link <- function(ename, slug, lslug, en_slugs) {
+create_glosario_link <- function(ename, slug, lslug, ldef, en_slugs) {
   current_lang <- this_metadata$get()[["lang"]]
 
   if (slug %in% en_slugs) {
@@ -68,7 +68,27 @@ create_glosario_link <- function(ename, slug, lslug, en_slugs) {
     }
     else {
       url <- paste0("https://glosario.carpentries.org/", current_lang, "/#", slug)
-      return(paste0("[^", gsub(" ", "\u00A0", as.character(lslug)), "^](", url, ")"))
+
+      ldef <- stringr::str_replace_all(ldef, "\\s+", " ")
+      def_link_pattern <- "\\[([\\-\\s\\w]+)\\]\\(\\#[a-z\\-\\_]+\\)"
+      ldef <- stringr::str_replace_all(
+        ldef,
+        pattern = def_link_pattern,
+        replacement = function(match) {
+          stringr::str_match(match, def_link_pattern)[[2]]
+        }
+      )
+
+      # replace {{ glosario.term }} placeholders with parrots
+      return(
+        paste0(
+          "<a href='", url, "'>",
+          "<sup><img class='parrot' src='assets/images/parrot_icon_colour.svg' height='18' width='18' ",
+          "alt='Glosario: ", ldef, "' title='Glosario: ", ldef, "'",
+          "></sup>",
+          "</a>"
+        )
+      )
     }
   }
 }
@@ -87,8 +107,14 @@ render_glosario_links <- function(path_in, glosario = NULL, quiet = FALSE) {
         pattern = glos_pattern,
         replacement = function(match) {
           mterm <- stringr::str_match(match, glos_pattern)[[2]]
+          if (is.null(mterm) || !(mterm %in% slugs)) {
+            # remove the placeholder if the term is not found in the glossary
+            cli::cli_alert_danger(paste0(" WARNING: [ ", basename(path_in), " ] '", mterm, "' not in Glosario slug list."))
+            return("")
+          }
           lterm <- glosario[[mterm]][[current_lang]]$term
-          create_glosario_link(basename(path_in), mterm, lterm, slugs)
+          ldef <- glosario[[mterm]][[current_lang]]$def
+          create_glosario_link(basename(path_in), mterm, lterm, ldef, slugs)
         }
       )
 

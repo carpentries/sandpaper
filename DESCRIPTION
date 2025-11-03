@@ -99,6 +99,7 @@ Imports:
     yaml,
     desc,
     knitr (>= 1.33),
+    markdown,
     rmarkdown (>= 2.4),
     renv (>= 0.14.0),
     rprojroot,
@@ -115,8 +116,8 @@ Imports:
     xfun
 Suggests:
     testthat (>= 3.0.0),
+    cffr,
     covr,
-    markdown,
     brio,
     xml2,
     xslt,

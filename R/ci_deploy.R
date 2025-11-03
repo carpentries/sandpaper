@@ -13,6 +13,10 @@
 #' @param reset if `TRUE`, the markdown cache is cleared before rebuilding,
 #'   this defaults to `FALSE` meaning the markdown cache will be provisioned
 #'   and used.
+#' @param skip_manage_deps if `TRUE`, dependency management will NOT be processed.
+#'   This defaults to `FALSE`. Set this to TRUE to force dependency management
+#'   to be handled in the separate package cache update and apply steps in the
+#'   CI workflow, and therefore can be skipped.
 #' @return Nothing, invisibly. This is used for it's side-effect
 #'
 #' @details
@@ -123,7 +127,7 @@
 #' tryCatch(fs::dir_delete(res), error = function() FALSE)
 #' tok <- Sys.time()
 #' cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
-ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pages", remote = "origin", reset = FALSE) {
+ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pages", remote = "origin", reset = FALSE, skip_manage_deps = FALSE) {
 
   if (interactive() && is.null(getOption('sandpaper.test_fixture'))) {
     stop("This function is for use on continuous integration only", call. = FALSE)
@@ -136,7 +140,7 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
 
   # Step 1: build markdown source files
   del_md <- ci_build_markdown(path, branch = md_branch, remote = remote,
-    reset = reset)
+    reset = reset, skip_manage_deps = skip_manage_deps)
   # NOTE: we delete the markdown worktree at the end because we need it for the
   # site to build from the markdown files.
   on.exit(eval(del_md), add = TRUE)
@@ -147,4 +151,3 @@ ci_deploy <- function(path = ".", md_branch = "md-outputs", site_branch = "gh-pa
 
   invisible()
 }
-

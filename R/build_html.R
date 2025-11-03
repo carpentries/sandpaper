@@ -63,7 +63,7 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
   translated <- fill_translation_vars(global_data$instructor$get())
   global_data$instructor$set("json", fill_metadata_template(meta))
   global_data$instructor$set("translate", translated)
-  global_data$instructor$set("citation", meta$get()$citation)
+  global_data$instructor$set("citation", this_metadata$get()[["citation"]])
 
   # add tracker script
   global_data$instructor$set("analytics", processTracker(meta$get()$analytics))
@@ -76,6 +76,8 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
     quiet = quiet
   )
 
+  # print(this_metadata$get())
+
   # Process learner page if needed ---------------------------------------------
   if (modified) {
     global_data$learner$set("translate", translated)
@@ -83,7 +85,7 @@ build_html <- function(template = "chapter", pkg, nodes, global_data, path_md, q
     update_sidebar(global_data$learner, learner_nodes, fs::path_file(this_page))
     meta$set("url", paste0(base_url, this_page))
     global_data$learner$set("json", fill_metadata_template(meta))
-    global_data$learner$set("citation", meta$get()$citation)
+    global_data$learner$set("citation", this_metadata$get()[["citation"]])
 
     # add tracker script
     global_data$learner$set("analytics", processTracker(meta$get()$analytics))

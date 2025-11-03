@@ -22,29 +22,28 @@ test_that("sidebar headings can contain html within", {
     c("#plotting", "#building"))
 })
 
+# # NOTE: 2023-05-29 I believe this test is sort of defunct because we are
+# # testing here how to create a sidebar given a specific episode, but we no
+# # longer use this pattern in the lesson, so this test and the `name` option
+# # for `create_sidebar()` should be removed.
+# # NOTE: 2025-09-19 This test has been commented out for future removal
+# test_that("a sidebar can be created with a specific episode and will have sequential numbers", {
+#   mockr::local_mock(get_navbar_info = function(i) {
+#     list(pagetitle = toupper(i), text = paste("text", i), href = as_html(i))
+#   })
+#   html <- "<section id='plotting'>
+#   <h2 class='section-heading'>Plotting with <strong><code>ggplot2</code></strong>
+#   <p>This is how you plot with <code>ggplot2</code></p>
+#   </section>
+#   <section id='building'>
+#   <h2 class='section-heading'>Building your plots iteratively</h2>
+#   <p>This is how you build your plots iteratively</p>
+#   </section>"
+#   chapters <- c("index.md", "one.md", "two.md", "three.md")
+#   sb <- create_sidebar(chapters, name = "two.md", html = html)
+#   expect_snapshot(writeLines(sb))
 
-test_that("a sidebar can be created with a specific episode and will have sequential numbers", {
-
-  # NOTE: 2023-05-29 I believe this test is sort of defunct because we are
-  # testing here how to create a sidebar given a specific episode, but we no
-  # longer use this pattern in the lesson, so this test and the `name` option
-  # for `create_sidebar()` should be removed.
-  mockr::local_mock(get_navbar_info = function(i) {
-    list(pagetitle = toupper(i), text = paste("text", i), href = as_html(i))
-  })
-  html <- "<section id='plotting'>
-  <h2 class='section-heading'>Plotting with <strong><code>ggplot2</code></strong>
-  <p>This is how you plot with <code>ggplot2</code></p>
-  </section>
-  <section id='building'>
-  <h2 class='section-heading'>Building your plots iteratively</h2>
-  <p>This is how you build your plots iteratively</p>
-  </section>"
-  chapters <- c("index.md", "one.md", "two.md", "three.md")
-  sb <- create_sidebar(chapters, name = "two.md", html = html)
-  expect_snapshot(writeLines(sb))
-
-})
+# })
 
 
 test_that("updating a sidebar for all pages modifies appropriately", {

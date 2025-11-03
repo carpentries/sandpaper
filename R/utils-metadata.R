@@ -14,6 +14,7 @@ fill_metadata_template <- function(meta) {
     local_meta$url <- paste0(local_meta$url, "index.html")
   }
   local_meta$lang <- sub("_", "-", local_meta$lang %||% "en")
+
   title <- local_meta$pagetitle
   if (grepl("<", title, fixed = TRUE)) {
     local_meta$pagetitle <- xml2::xml_text(xml2::read_html(title))
@@ -49,7 +50,7 @@ initialise_metadata <- function(path = ".") {
   this_metadata$set("url", metadata_url(cfg))
   this_metadata$set(c("date", "modified"), format(Sys.Date(), "%F"))
   this_metadata$set(c("date", "published"), format(Sys.Date(), "%F"))
-  this_metadata$set("citation", path_citation(path))
+  this_metadata$set("cff", path_citation(path))
   this_metadata$set("glosario", read_glosario_yaml(cfg$glosario, path))
 
   this_metadata$set("analytics", cfg$analytics)
