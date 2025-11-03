@@ -44,7 +44,7 @@
 #'
 #' @keywords internal
 #' @rdname ci_build
-ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origin", reset = FALSE) {
+ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origin", reset = FALSE, skip_manage_deps = FALSE) {
 
   options(sandpaper.use_renv = renv_is_allowed())
 
@@ -80,7 +80,7 @@ ci_build_markdown <- function(path = ".", branch = "md-outputs", remote = "origi
     }
 
     ci_group("Build Markdown Sources")
-    build_markdown(path = path, quiet = FALSE, rebuild = FALSE)
+    build_markdown(path = path, quiet = FALSE, rebuild = FALSE, skip_manage_deps = skip_manage_deps)
     cli::cat_line("::endgroup::")
 
     ci_group("Commit Markdown Sources")

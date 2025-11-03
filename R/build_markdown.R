@@ -16,7 +16,7 @@
 #'
 #' @keywords internal
 #' @seealso [build_episode_md()]
-build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NULL) {
+build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NULL, skip_manage_deps = FALSE) {
 
   # step 1: build the markdown vignettes and site (if it doesn't exist)
   if (rebuild) {
@@ -74,7 +74,7 @@ build_markdown <- function(path = ".", rebuild = FALSE, quiet = FALSE, slug = NU
   needs_building <- fs::path_ext(db$build) %in% c("md", "Rmd")
   if (any(needs_building)) {
     # Render the episode files to the built directory --------------------------
-    renv_check_consent(path, quiet, sources)
+    renv_check_consent(path, quiet, sources, skip_manage_deps)
     # determine if we need to fail when errors are triggered
     fail_on_error <- this_metadata$get()[["fail_on_error"]]
     # this is `error` in the knitr sense of `error = TRUE` means

@@ -9,7 +9,8 @@ ci_build_markdown(
   path = ".",
   branch = "md-outputs",
   remote = "origin",
-  reset = FALSE
+  reset = FALSE,
+  skip_manage_deps = FALSE
 )
 
 ci_build_site(
@@ -36,6 +37,11 @@ in \code{\link[=ci_deploy]{ci_deploy()}}
 \item{reset}{if \code{TRUE}, the markdown cache is cleared before rebuilding,
 this defaults to \code{FALSE} meaning the markdown cache will be provisioned
 and used.}
+
+\item{skip_manage_deps}{if \code{TRUE}, dependency management will NOT be processed.
+This defaults to \code{FALSE}. Set this to TRUE to force dependency management
+to be handled in the separate package cache update and apply steps in the
+CI workflow, and therefore can be skipped.}
 
 \item{md}{the branch name that contains the markdown outputs}
 }
