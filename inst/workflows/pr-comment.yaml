@@ -34,29 +34,6 @@ jobs:
       number: ${{ steps.get-pr.outputs.NUM }}
       msg: ${{ steps.check-pr.outputs.MSG }}
     steps:
-      - name: Verify committed files
-        id: changed-files
-        run: |
-          ## Get list of changed files in the PR ##
-          FILES=$(gh pr view ${{ github.event.pull_request.number }} \
-            --json files --jq '.files[].path')
-          FILE_COUNT=$(echo "$FILES" | wc -l)
-
-          # Check if only docker-version.txt changed
-          if [ "$FILE_COUNT" -eq 1 ] && echo "$FILES" | grep -q "^workbench-docker-version\.txt$"; then
-            echo "only_version_file=true" >> $GITHUB_OUTPUT
-          else
-            echo "only_version_file=false" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Skip checks for Workbench version file updates
-        if: steps.changed-files.outputs.only_version_file == 'true'
-        run: |
-          echo "Only workbench-docker-version.txt changed, skipping preflight checks"
-          exit 0
-
       - name: 'Download PR artifact'
         id: dl
         uses: carpentries/actions/download-workflow-artifact@main
@@ -77,6 +54,31 @@ jobs:
         run: |
           echo '::error::A pull request number was not recorded. The pull request that triggered this workflow is likely malicious.'
           exit 1
+
+      - name: "Checkout Lesson"
+        uses: actions/checkout@v4
+
+      - name: Verify committed files
+        id: changed-files
+        run: |
+          ## Get list of changed files in the PR ##
+          FILES=$(gh pr view ${{ steps.get-pr.outputs.NUM }} --json files --jq '.files[].path')
+          FILE_COUNT=$(echo "$FILES" | wc -l)
+
+          # Check if only docker-version.txt changed
+          if [ "$FILE_COUNT" -eq 1 ] && echo "$FILES" | grep -q "^workbench-docker-version\.txt$"; then
+            echo "only_version_file=true" >> $GITHUB_OUTPUT
+          else
+            echo "only_version_file=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip checks for Workbench version file updates
+        if: steps.changed-files.outputs.only_version_file == 'true'
+        run: |
+          echo "Only workbench-docker-version.txt changed, skipping preflight checks"
+          exit 0
 
       - name: "Get Invalid Hashes File"
         id: hash

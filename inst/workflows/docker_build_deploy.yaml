@@ -50,6 +50,10 @@ jobs:
         id: build-check
         uses: carpentries/actions/build-preflight@frog-s3-test-1
 
+      - name: Checkout Lesson
+        if: ${{ steps.build-check.outputs.do-build == 'true' }}
+        uses: actions/checkout@v4
+
       - name: Get container version info
         id: wb-vers
         if: ${{ steps.build-check.outputs.do-build == 'true' }}

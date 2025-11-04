@@ -51,6 +51,8 @@ jobs:
     steps:
       - name: "Auto: Grab PR"
         if: ${{ github.event_name == 'pull_request' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo ${{ github.event.number }} > ${{ github.workspace }}/NR
           echo "NR=${{ github.event.number }}" >> $GITHUB_ENV
@@ -140,8 +142,8 @@ jobs:
     steps:
       - name: "Check Out PR Branch"
         uses: actions/checkout@v4
-        with:
-          ref: ${{ env.PR_BRANCH }}
+        # with:
+        #   ref: ${{ env.PR_BRANCH }}
 
       - name: "Check Out Staging Branch"
         uses: actions/checkout@v4
@@ -183,7 +185,7 @@ jobs:
       - name: Configure AWS credentials via OIDC
         id: aws-creds
         if: ${{ steps.validate-org-workflow.outputs.is_valid == 'true' && needs.check-renv.outputs.renv-needed == 'true' }}
-        uses: aws-actions/configure-aws-credentials@v4.1.0
+        uses: aws-actions/configure-aws-credentials@v5.0.0
         with:
           role-to-assume: ${{ secrets.AWS_GH_OIDC_ARN }}
           aws-region: ${{ secrets.AWS_GH_OIDC_REGION }}
