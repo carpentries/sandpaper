@@ -188,7 +188,7 @@ jobs:
       - name: "Trigger Apply Cache Workflow"
         if: ${{ steps.update.outputs.n == 0 }}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh workflow run docker_apply_cache.yaml
         shell: bash
@@ -198,7 +198,7 @@ jobs:
       - name: "Trigger checks"
         if: ${{ steps.cpr.outputs.pull-request-number != '' && steps.validate-token.outputs.wf != 'true'}}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh workflow run docker_pr_receive.yaml --field pr_number=${{ steps.cpr.outputs.pull-request-number }}
         shell: bash

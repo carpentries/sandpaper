@@ -44,7 +44,7 @@ jobs:
       last-wb-vers: ${{ steps.wb-vers.outputs.last-container-version }}
       workbench-update: ${{ steps.wb-vers.outputs.workbench-update }}
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: "Should we run build and deploy?"
         id: build-check

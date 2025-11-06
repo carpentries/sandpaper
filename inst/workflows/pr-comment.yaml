@@ -60,6 +60,8 @@ jobs:
 
       - name: Verify committed files
         id: changed-files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ## Get list of changed files in the PR ##
           FILES=$(gh pr view ${{ steps.get-pr.outputs.NUM }} --json files --jq '.files[].path')
@@ -71,8 +73,6 @@ jobs:
           else
             echo "only_version_file=false" >> $GITHUB_OUTPUT
           fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Skip checks for Workbench version file updates
         if: steps.changed-files.outputs.only_version_file == 'true'

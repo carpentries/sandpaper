@@ -52,7 +52,7 @@ jobs:
       - name: "Auto: Grab PR"
         if: ${{ github.event_name == 'pull_request' }}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo ${{ github.event.number }} > ${{ github.workspace }}/NR
           echo "NR=${{ github.event.number }}" >> $GITHUB_ENV
@@ -61,7 +61,7 @@ jobs:
       - name: "Manual: Grab PR"
         if: ${{ github.event_name == 'workflow_dispatch' }}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo ${{ inputs.pr_number }} > ${{ github.workspace }}/NR
           echo "NR=${{ inputs.pr_number }}" >> $GITHUB_ENV
@@ -267,17 +267,15 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.test-pr.outputs.is_valid == 'true' }}
     permissions:
-      contents: read
       actions: write
       checks: write
-      pull-requests: write
     steps:
       - name: "Checkout Lesson"
         uses: actions/checkout@v4
 
       - name: "Trigger PR Checks"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh workflow run pr-comment.yaml --field workflow_id=${{ github.run_id }}
+          gh workflow run pr-comment.yaml --ref main --field workflow_id=${{ github.run_id }}
         shell: bash

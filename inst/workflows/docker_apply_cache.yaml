@@ -178,7 +178,8 @@ jobs:
       needs.update-renv-cache.outcome == 'success'
     steps:
       - name: "Trigger Build and Deploy Workflow"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh workflow run docker_build_deploy.yaml --ref main
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
