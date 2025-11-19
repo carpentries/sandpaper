@@ -31,6 +31,10 @@ on:
     types:
       - completed
 
+concurrency:
+  group: docker-build-deploy
+  cancel-in-progress: true
+
 jobs:
   preflight:
     name: "Preflight: Schedule, Push, or PR?"
@@ -131,7 +135,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [preflight]
     permissions:
-      actions: write  # This is critical!
+      actions: write
       contents: write
       pull-requests: write
       id-token: write # OIDC permission required

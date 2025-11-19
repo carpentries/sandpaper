@@ -9,6 +9,7 @@ on:
       pr_number:
         type: number
         required: true
+
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true

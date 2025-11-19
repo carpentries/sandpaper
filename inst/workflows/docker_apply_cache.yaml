@@ -13,6 +13,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: docker-apply-cache
+  cancel-in-progress: true
+
 jobs:
   preflight:
     name: "Preflight: PR or Manual Trigger?"
@@ -24,7 +28,7 @@ jobs:
         id: check
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ||
-                ("${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true") ]]; then
+                ("${{ github.ref }}" == "refs/heads/main" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true") ]]; then
             echo "merged_or_manual=true" >> $GITHUB_OUTPUT
           else
             echo "This was not a manual trigger and no PR was merged. No action taken."
