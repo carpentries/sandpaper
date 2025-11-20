@@ -115,14 +115,26 @@ jobs:
           workflow: ${{ github.workflow }}
 
       - name: "Configure AWS credentials via OIDC"
-        if: steps.validate-org-workflow.outputs.is_valid == 'true'
-        uses: aws-actions/configure-aws-credentials@v5.0.0
-        with:
+        env:
           role-to-assume: ${{ secrets.AWS_GH_OIDC_ARN }}
           aws-region: ${{ secrets.AWS_GH_OIDC_REGION }}
+        if: |
+          steps.validate-org-workflow.outputs.is_valid == 'true' &&
+          env.role-to-assume != '' &&
+          env.aws-region != ''
+        uses: aws-actions/configure-aws-credentials@v5.0.0
+        with:
+          role-to-assume: ${{ env.role-to-assume }}
+          aws-region: ${{ env.aws-region }}
 
       - name: "Set PAT from AWS Secrets Manager"
-        if: steps.validate-org-workflow.outputs.is_valid == 'true'
+        env:
+          role-to-assume: ${{ secrets.AWS_GH_OIDC_ARN }}
+          aws-region: ${{ secrets.AWS_GH_OIDC_REGION }}
+        if: |
+          steps.validate-org-workflow.outputs.is_valid == 'true' &&
+          env.role-to-assume != '' &&
+          env.aws-region != ''
         id: set-pat
         run: |
           SECRET=$(aws secretsmanager get-secret-value \
@@ -133,11 +145,11 @@ jobs:
           echo "pat=$PAT" >> "$GITHUB_OUTPUT"
         shell: bash
 
-      - name: "Validate token"
-        id: validate-token
-        uses: carpentries/actions/check-valid-credentials@main
-        with:
-          token: ${{ steps.set-pat.outputs.pat || secrets.SANDPAPER_WORKFLOW }}
+      # - name: "Validate token"
+      #   id: validate-token
+      #   uses: carpentries/actions/check-valid-credentials@main
+      #   with:
+      #     token: ${{ steps.set-pat.outputs.pat || secrets.SANDPAPER_WORKFLOW || secrets.GITHUB_TOKEN }}
 
       # Create the PR with the following roles in order of preference:
       # - Carpentries Bot classic PAT fetched from AWS (will only work in official Carpentries repos)
@@ -146,11 +158,7 @@ jobs:
       - name: "Create Pull Request"
         id: cpr
         if: |
-          steps.update.outputs.n > 0 &&
-          (
-            steps.validate-token.outputs.wf == 'true' ||
-            steps.validate-org-workflow.outputs.is_valid == 'false'
-          )
+          steps.update.outputs.n > 0
         uses: carpentries/create-pull-request@main
         with:
           token: ${{ steps.set-pat.outputs.pat || secrets.SANDPAPER_WORKFLOW || secrets.GITHUB_TOKEN }}
