@@ -297,17 +297,43 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, use_site_l
     #nocov end
     hydra <- renv::hydrate(packages = pkgs, library = renv_lib, update = FALSE,
       sources = .libPaths(), project = path, prompt = FALSE)
+
     #nocov start
-    # NOTE: I am not testing this now because this code requires yet another
-    # step to install packages. I will rely on the integration tests to help
-    # me out here.
-    #
     # When we have missing packages, this will help to search for and install
     # missing bioconductor packages, if this is the actual problem.
     if (length(hydra$missing)) {
       pkgs <- vapply(hydra$missing, function(pkg) pkg$package, character(1))
-      cli::cli_alert_warning("Attempting to install missing packages assuming bioc")
-      renv::install(paste0("bioc::", pkgs), library = renv_lib, project = path)
+      if (lockfile_exists) {
+        installed <- utils::installed.packages(lib.loc = renv_lib)[, "Package"]
+        lock <- renv::lockfile_read(renv_lock)
+        missing <- setdiff(names(lock$Packages), installed)
+
+        if (length(missing) > 0) {
+          # try github first for missing packages
+          cli::cli_alert_warning("Attempting to install missing packages [GitHub]")
+          for (pkg_name in missing) {
+            pkg_info <- lock$Packages[[pkg_name]]
+
+            if (!is.null(pkg_info$Source) && pkg_info$Source == "GitHub") {
+              cat("Trying GitHub for:", paste(pkg_name, collapse = ", "), "\n")
+              ref <- sprintf("%s/%s", pkg_info$RemoteUsername, pkg_info$RemoteRepo)
+              rem_ref <- pkg_info$RemoteRef %||% ""
+              if (nzchar(rem_ref)) {
+                ref <- paste0(ref, "@", rem_ref)
+              }
+              renv::install(ref, library = renv_lib, project = path)
+            }
+          }
+
+          # if any packages still missing try bioc for missing packages
+          installed <- utils::installed.packages(lib.loc = renv_lib)[, "Package"]
+          missing <- setdiff(names(lock$Packages), installed)
+          if (length(missing) > 0) {
+            cli::cli_alert_warning("Attempting to install missing packages [BioConductor]")
+            renv::install(paste0("bioc::", missing), library = renv_lib, project = path)
+          }
+        }
+      }
     }
     #nocov end
   }
