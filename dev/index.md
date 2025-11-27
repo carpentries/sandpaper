@@ -1,0 +1,408 @@
+# {sandpaper}: User Interface to The Carpentries Workbench
+
+The {sandpaper} package was created by [The
+Carpentries](https://carpentries.org) to re-imagine our method of
+creating lesson websites for our workshops. This package will take a
+series of [Markdown](https://www.markdownguide.org/getting-started/) or
+[RMarkdown](https://rmarkdown.rstudio.com/) files and generate a static
+website with the features and styling of The Carpentries lessons
+including customized layouts and callout blocks. Much of the
+functionality in this package is inspired by [Jenny
+Bryan’s](https://jennybryan.org/) work with the
+[{usethis}](https://usethis.r-lib.org/) package.
+
+## Documentation
+
+**Want to know how this works in a lesson format? Head over to
+<https://carpentries.github.io/sandpaper-docs/>.**
+
+If, instead, you already know how a lesson is built and are interested
+in understanding how the functions in {sandpaper} work, you can visit
+this package documentation site at
+<https://carpentries.github.io/sandpaper/>.
+
+## Installation
+
+{sandpaper} is not currently on CRAN, but it can be installed from our
+[Carpentries Universe](https://carpentries.r-universe.dev/ui#builds)
+(updated every hour) with the following commands:
+
+``` r
+options(repos = c(
+  carpentries = "https://carpentries.r-universe.dev/", 
+  CRAN = "https://cran.rstudio.com/"
+))
+install.packages("sandpaper", dep = TRUE)
+```
+
+Note that this will also install development versions of the following
+packages:
+
+| package                                                    | What it does                                                                 |
+|------------------------------------------------------------|------------------------------------------------------------------------------|
+| [{varnish}](https://github.com/carpentries/varnish#readme) | html, css, and javascript templates for The Carpentries (in progress)        |
+| [{tinkr}](https://docs.ropensci.org/tinkr/)                | manipulation of knitr markdown documents built on the commonmark xml library |
+| [{pegboard}](https://carpentries.github.io/pegboard)       | programmatic interface to lesson components for validation (in progress)     |
+
+## Design
+
+This package is designed to make the life of the lesson contributors and
+maintainers easier by separating the tools needed to build the site from
+the user-defined content of the site itself. It will no longer rely on
+Jekyll or any of the other [\>450 static site
+generators](https://staticsitegenerators.net), but instead rely on R,
+RStudio, and [{pkgdown}](https://github.com/r-lib/pkgdown#readme) to
+generate a site with the following features:
+
+optional offline use
+
+filename-agnostic episode arrangements
+
+clear definitions of package versions needed to build the lesson
+
+lesson versioning (e.g. I can navigate to
+<https://swcarpentry.github.io/python-novice-gapminder> for the current
+version and
+<https://swcarpentry.github.io/python-novice-gapminder/2020-11> for the
+release in 2020-11)
+
+seamless updates to the Carpentries’ style
+
+caching of rendered content for rapid deployment
+
+packaging of [{learnr}](https://rstudio.github.io/learnr/index.html)
+materials
+
+validation of lesson structure
+
+git aware, but does not require contributors to have git installed
+
+### Rendering locally
+
+![diagram of three folders. The first folder, "episodes/", labelled as
+RMarkdown, has an arrow (labelled as hash episodes) pointing to
+"site/built/", labelled as Markdown. The Markdown folder has an arrow
+(labelled as "apply template") pointing to "site/docs/", labelled as
+"HTML". The first folder is labelled in pale yellow, indicating that it
+is the only one tracked by
+git.](articles/articles/img/local-flow.dot.svg)
+
+The local two-step model of deployment into local folders
+
+In a repository generated via {sandpaper}, only the source is committed
+to avoid issues surrounding out-of-date artefacts and directory
+structure confusion.
+
+The website is generated in two steps:
+
+1.  markdown files from the source files are rendered containing a hash
+    for the source file so that these need only be re-rendered when they
+    change.
+2.  html files are generated from the rendered markdown files and the
+    CSS and JS sources in the
+    [{varnish}](https://github.com/carpentries/varnish#readme) package
+    for the preview.
+
+To ensure there are no clashes between minor differences in the user
+setup, no artifacts are committed to the main branch of the repository.
+Because of the caching mechanism between the website and the rendered
+markdown files, long-running lessons can be updated and previewed
+quickly.
+
+### Rendering on continuous integration
+
+![Diagrammatic representation of the GitHub deployment cycle showing
+four branches, gh-pages, md-outputs, main, and my-edit. The my-edit
+branch is a direct descendent of the main branch, while the gh-pages and
+md-outputs branches are orphans. Each commit of the main branch has a
+process represented by a dashed arrow that builds a commit of the
+subsequent orphan branches](articles/articles/img/branch-flow.svg)
+
+Two-step deployment model on continuous integration
+
+Continuous integration will act as the single source-of-truth for how
+the outputs of the lessons are rendered. For this, we want the resulting
+website to be:
+
+- CI agnostic (but currently set up with GitHub)
+- easy to set up
+- auditable (e.g. I can see changes between the content of two commits)
+- versionable (e.g. I can instruct learners to go to `<WEBSITE>/1.1`.
+  This is inspired from the python documentation style)
+
+To acheive this, there will be two branches created: `md-outputs` and
+`gh-pages` that will inerit like so main -\> `md-outputs` -\>
+`gh-pages`. Because the build time from main to `md-outputs` can be time
+intensive, this will default to updating only files that were changed.
+
+- `md-outputs`: this branch will contain the files and artifacts
+  generated from rmarkdown in the vignettes directory of a thin package
+  skeleton.
+- `gh-pages`: this branch is generated via `md-outputs` and bundles the
+  html, css, and js for the website. This will contain a single
+  `index.html` file with several subfolders with different versions of
+  the site. The `index.html` file will redirect to the `current/`
+  directory, which contains the up-to-date site.
+
+#### Scheduled builds
+
+- `gh-pages` website: Because we are designing the lessons to have
+  content separated from the styling, we will set up the CI to generate
+  the webpage from the pre-built sources on a weekly basis, which will
+  check if there has been an update to the styles (which I have in the
+  [{varnish}](https://github.com/carpentries/varnish#readme) package)
+  and then rebuild the site without rebuilding the content.
+- `md-outputs` branch: This will be rerun every month from scratch with
+  the most recent version of R and R packages. If there is a change, a
+  pull request can be generated to update the `renv.lock` file with a
+  link to the changed markdown files in this branch.
+
+### Function syntax
+
+The functions in {sandpaper} have the following prefixes:
+
+- `create_` will create/amend files or folders in your workspace
+- `update_` will update build resources in the lesson
+- `build_` will build files from your source
+- `check_` validates either the elements of the lesson and/or episodes
+- `fetch_` will download files or resources from the internet
+- `reset_` removes files or information
+- `get_` will retrieve information from your source files as an R object
+- `set_` will update information in files.
+- `ci_` interacts with continous integration to build the website
+
+Here is a working list of user-facing functions:
+
+**Lesson and Episode Creation**
+
+- [`create_lesson()`](https://carpentries.github.io/sandpaper/dev/reference/create_lesson.md)
+  creates a lesson from scratch
+- [`create_episode()`](https://carpentries.github.io/sandpaper/dev/reference/create_episode.md)
+  creates a new episode with the correct number prefix
+- `create_dataset()` creates a csv or text data set from an R object
+- [`set_episodes()`](https://carpentries.github.io/sandpaper/dev/reference/set_dropdown.md)
+  arranges the episodes in a user-specified order
+
+Accessors
+
+- [`get_config()`](https://carpentries.github.io/sandpaper/dev/reference/get_config.md)
+  reads the contents of `config.yaml` as a list
+- [`get_drafts()`](https://carpentries.github.io/sandpaper/dev/reference/get_drafts.md)
+  reports files that are not listed in `config.yaml`
+- [`get_episodes()`](https://carpentries.github.io/sandpaper/dev/reference/get_dropdown.md)
+  returns the episode filenames as a vector
+- [`get_syllabus()`](https://carpentries.github.io/sandpaper/dev/reference/get_syllabus.md)
+  returns the syllabus with timings, titles, and questions
+
+**Website Creation and Validation**
+
+- [`check_lesson()`](https://carpentries.github.io/sandpaper/dev/reference/check_lesson.md)
+  checks and validates the source files and lesson structure
+- [`build_episode_md()`](https://carpentries.github.io/sandpaper/dev/reference/build_episode_md.md)
+  renders an individual file to markdown (internal use)
+- [`build_episode_html()`](https://carpentries.github.io/sandpaper/dev/reference/build_episode_html.md)
+  renders a built markdown file to html (internal use)
+- [`build_lesson()`](https://carpentries.github.io/sandpaper/dev/reference/build_lesson.md)
+  builds the lesson into a static website
+- `build_portable_lesson()` builds the lesson into a portable static
+  website
+- `fetch_lesson()` fetches the static website from the lesson repository
+
+**Continuous Integration Utilities**
+
+- [`ci_deploy()`](https://carpentries.github.io/sandpaper/dev/reference/ci_deploy.md)
+  builds and deploys the lesson on CI from the source files
+- [`ci_build_markdown()`](https://carpentries.github.io/sandpaper/dev/reference/ci_build.md)
+  builds the markdown files on CI from the source and deploys them to
+  the markdown branch.
+- [`ci_build_site()`](https://carpentries.github.io/sandpaper/dev/reference/ci_build.md)
+  deploys the lesson on CI from pre-rendered markdown files
+- `ci_release()` builds and deploys the lesson on CI from the source
+  files and adds a release tag
+- [`update_github_workflows()`](https://carpentries.github.io/sandpaper/dev/reference/update_github_workflows.md)
+  updates GitHub workflows
+
+Cleanup
+
+- [`reset_episodes()`](https://carpentries.github.io/sandpaper/dev/reference/reset_episodes.md)
+  removes the schedule from the config.yaml file
+- [`reset_site()`](https://carpentries.github.io/sandpaper/dev/reference/reset_site.md)
+  clears the website and cache
+
+## Usage
+
+There are five use-cases for {sandpaper}:
+
+1.  Creating lessons
+2.  Contributing to lessons
+3.  Maintaining lessons
+4.  Rendering a portable site
+5.  Rendering a site with GitHub actions.
+
+### Creating a lesson
+
+To create a lesson with {sandpaper}, use the
+[`create_lesson()`](https://carpentries.github.io/sandpaper/dev/reference/create_lesson.md)
+function:
+
+``` r
+sandpaper::create_lesson("~/Desktop/r-intermediate-penguins")
+```
+
+This will create folder on your desktop called `r-intermediate-penguins`
+with the following structure:
+
+``` R
+|-- .gitignore               # - Ignore everything in the site/ folder
+|-- .github/                 # - Scripts used for continuous integration
+|   `-- workflows/           #
+|       |-- deploy-site.yaml # -   Build the source files on github pages
+|       |-- build-md.yaml    # -   Build the markdown files on github pages
+|       `-- cron.yaml        # -   reset package cache and test
+|-- episodes/                # - PUT YOUR MARKDOWN FILES IN THIS FOLDER
+|   |-- data/                # -   Data for your lesson goes here
+|   |-- figures/             # -   All static figures and diagrams are here
+|   |-- files/               # -   Additional files (e.g. handouts) 
+|   `-- 00-introducition.Rmd # -   Lessons start with a two-digit number
+|-- instructors/             # - Information for Instructors
+|-- learners/                # - Information for Learners
+|   `-- setup.md             # -   setup instructions (REQUIRED)
+|-- profiles/                # - Learner and/or Instructor Profiles
+|-- site/                    # - This folder is where the rendered markdown files and static site will live
+|   `-- README.md            # -   placeholder
+|-- config.yaml              # - Use this to configure commonly used variables
+|-- CONTRIBUTING.md          # - Carpentries Rules for Contributions (REQUIRED)
+|-- CODE_OF_CONDUCT.md       # - Carpentries Code of Conduct (REQUIRED)
+|-- LICENSE.md               # - Carpentries Licenses (REQUIRED)
+`-- README.md                # - Introduces folks how to use this lesson and where they can find more information.
+```
+
+Once you have your site set up, you can add your RMarkdown files in the
+episodes folder. By default, they will be built in alphabetical order,
+but you can use the
+[`set_episodes()`](https://carpentries.github.io/sandpaper/dev/reference/set_dropdown.md)
+command to build the schedule in your `config.yaml` file:
+
+``` r
+s <- sandpaper::get_episodes()
+sandpaper::set_episodes(order = s, write = TRUE)
+```
+
+When you want to preview your site, use the following:
+
+``` r
+sandpaper::build_lesson()
+```
+
+> #### Working in RStudio?
+>
+> If you are using RStudio, you can preview the lesson site using the
+> keyboard shortcut ctrl + shift + B (which corresponds to the “Build
+> Website” button in the “Build” tab. To preview individual files, you
+> can use ctrl + shift + K (This corresponds to the “Knit” button in the
+> editor pane)
+
+This will create the website structure inside of the the `site/` folder,
+render the RMarkdown files to markdown (for inspection and quick
+rendering), render the markdown files to HTML, and then enable a preview
+within your browser window.
+
+### Contributing to a Lesson
+
+To contribute to a lesson, you can either fork the lesson to your own
+repository and clone it to your computer manually from GitHub, or you
+can use the {usethis} package to automate it. For example, This is how
+you can create a copy of [**Programming With
+R**](http://swcarpentry.github.io/r-novice-inflammation/) to your
+computer’s Desktop.
+
+``` r
+usethis::create_from_github(
+  repo = "swcarpentry/r-novice-gapminder", 
+  destdir = "~/Desktop/r-novice-gampinder",
+  fork = TRUE
+)
+```
+
+This will copy all of the source files to your computer and move you to
+the directory.
+
+Note that the rendered website will not be immediately available. To
+download the site as it currently appears on the web, use:
+
+``` r
+sandpaper::fetch_lesson(markdown = TRUE, site = TRUE)
+```
+
+This will download the site and the rendered markdown files into the
+`site/` folder. To save bandwidth, you can choose to just download the
+markdown files and artifacts by settin `site = FALSE`. Now, you can edit
+the Rmarkdown files in `episodes/` and quickly render the site.
+
+To upload changes to the lesson repository, you can use the follow
+
+### Maintaining a Lesson
+
+When you are maintaining a lesson, there is a high likelihood that you
+will already have a copy on your machine. If not, follow the
+instructions in the [contributing to a
+lesson](#contributing-to-a-lesson) section above.
+
+The typical workflow will look like this:
+
+1.  open the sandpaper project in RStudio and make edits to files in the
+    `episodes/` folder
+2.  in the R console run the following
+
+``` r
+sandpaper::check_lesson() # validates the structure of the input files
+sandpaper::build_lesson() # builds and validates lesson
+```
+
+### Rendering a portable site
+
+To render a portable site, you can follow the instructions for
+[contributing to a lesson](#contributing-to-a-lesson) or [maintaining a
+lesson](#maintaining-a-lesson) to set up. Once you have the lesson set
+up, you can use the following command:
+
+``` r
+sandpaper::build_portable_lesson(version = "current")
+```
+
+This will render a fully portable lesson site as a zip file in the
+`site/` folder. You can distribute this lesson to learners who do not
+have reliable internet access for use offline without sacrificing any of
+the styling.
+
+### Rendering with GitHub actions
+
+Ultimately, there should be a minimal number of functions that handle
+this situation because writing CI configuration files is maddening. The
+most straightforward function is:
+
+``` r
+sandpaper::ci_deploy(md_branch = "md-outputs", site_branch = "gh-pages")
+```
+
+This function will create [git
+worktrees](https://git-scm.com/docs/git-worktree) for the orphan
+`md-outputs` branch in the `site/built` folder and the orphan `gh-pages`
+branch in the `site/docs` folder. After that, we generate the site as
+normal.
+
+Because css and js libraries may need updating before any lesson
+material does, a step can be created just for rebuilding the site that
+uses:
+
+``` r
+sandpaper::ci_build_site(branch = "gh-pages")
+```
+
+When a lesson is given a release, the current site folder needs to be
+duplicated to a versioned folder and a tag needs to be added to the
+`md-outputs` branch:
+
+``` r
+sandpaper::ci_release(tag = "0.1", md_branch = "md-outputs", site_branch = "gh-pages")
+```

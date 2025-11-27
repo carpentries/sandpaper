@@ -1,0 +1,422 @@
+# Landscape View of New Lesson Template
+
+## Introduction
+
+The new lesson infrastructure has a lot of moving parts, but it is built
+on a solid foundation that clearly separates the content from the
+tooling needed. Importantly, in order to use the infrastructure, you do
+not need to know very much about how it works under the hood.
+
+Importantly: **this is not a beginner’s guide.** If you are looking that
+resource, then head over to [The sandpaper documentation
+site](https://carpentries.github.io/sandpaper-docs). This document
+serves as a kind of “nerd’s guide” to the lesson infrastructure. It
+steps back and takes a landscape-level view of how the infrastructure
+works and how it differs from the previous infrastructure.
+
+### Motivation
+
+Our lesson maintainers and contributors are all volunteers, which means
+that they only have a very limited amount of time to work on lessons.
+The lesson infrastructure should be a simple framework for contributors
+and maintainers to write lessons in a way that maximizes their attention
+on the lesson content.
+
+### Difficulties with the previous infrastructure
+
+The [Jekyll-based lesson
+template](https://github.com/carpentries/styles/) has been showing its
+age recently and it’s been clear for a while that a refresh is sorely
+needed. Chief among the issues with the Jekyll template is that it
+currently requires 4 languages (on top of Git) at a minimum to be
+installed in order to preview locally: [Ruby, Python, Bash, and
+Make](https://github.com/carpentries/styles/issues/480). This setup
+represents a large barrier for people who are coming in to lesson
+maintenance for the first time and is clearly an issue when [we have to
+include videos for people to use a github-based workaround to preview
+their lessons](https://www.youtube.com/watch?v=0XoEdznJARc).
+
+Beyond the initial setup for contributors, another pain point is the
+reliance of the styles inside of the lesson itself and the convoluted
+manner in which a lesson must be created: it must be imported from the
+[carpentries/styles](https://github.com/carpentries/styles) repository
+so that the history is preserved and then the maintainer can initialize
+the lesson. When the time comes to update the lesson, we expect that the
+maintainer has not touched any of the styling elements or machinery so
+that the merge happens with no conflicts, but this is rarely the case
+and we have to initiate the merge and fix conflicts.
+
+When we inspect the process of adding or updating content in a lesson,
+we find that there are still more places of frustration. The
+configuration file contains several pieces of information that are
+necessary for the site, but must never be touched. Moreover, the header
+yaml of the lesson contains three lists, objectives, keypoints, and
+questions, all formatted as strings and included in the body of the
+rendered lesson. The issue with these is that it’s easy for these to
+become invalid due to misplaced punctuation. Linking to images that
+lived at the top of the repository was difficult and authoring special
+block quotes was challenging because writing content always preceded by
+`>` proved to be error prone.
+
+### What the new infrastructure will bring
+
+With the new lesson infrastructure, we strive to clear the template
+clutter and allow contributors to focus on what is important: lesson
+content written in clear and easy-to-read markdown. Importantly, the
+lessons will still be portable and customisable because the engine,
+validator, and styling will all live in separate independent software
+packages. Lessons in the official Carpentries GitHub accounts will also
+benefit from automation that will provide timely updates to the elements
+needed to build the lessons (in the case for lessons with generated
+output).
+
+This document will outline the aspects of the new lesson template to
+describe how it is organized in all aspects including folder structure
+of a lesson, content specifications for an episode, content
+specifications for extra-episode files (e.g. references), toolchain
+landscape, local build requirements, deployment specifications, and
+internationalization (i18n) specifications.
+
+## Notation
+
+This document is intended to be extensive and is targeted for both
+lesson maintainers and the infrastructure team. Because there are
+overly-detailed descriptions of the infrastructure that maintainers are
+not required to know, I will label these points with `[i]` so that
+maintainers can skip these sections if needed.
+
+## Foundation: Structure of the Lesson Template
+
+This section will discuss the structure of the template in terms of file
+organization and will not go into the aspects of specific tools.
+
+The new lesson template is **not** designed to mimic aspects of the
+previous template. This template is designed primarily for use in The
+Carpentries, but should theoretically be extensible to other contexts.
+Most importantly, **contributors should only be expected to know
+`markdown` and *very* minimal `yaml` syntax.** in order to contribute to
+lessons.
+
+Thus, there are a few rules that the new template should follow:
+
+1.  The main branch is the source of truth and should be protected
+2.  Accessibility is a priority for the lesson [based on the WCAG 2.1
+    guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+3.  The style of the lessons should not live in the template
+4.  The only committed content should be content directly by the
+    maintainer/contributor and configuration files
+5.  Episodes should not depend on the lesson template to be rendered
+6.  The generated lesson web page should exist as a stand-alone
+    directory that can be shared offline
+
+## Accessibility
+
+With a few exceptions, our lessons have shown to be largely accessible
+thanks to the reliance on modern frameworks for hosting our lessons.
+That being said, there are the occasional issues and the [WCAG 2.1
+accessibility guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+provides a roadmap to ensure that our lessons are Perceivable, Operable,
+Understandable, and Robust.
+
+## Lesson Folder Organization
+
+The lesson template will be organized such that it clearly separates the
+lesson content from the lesson style:
+
+    |-- .gitignore               # - Ignore everything in the site/ folder
+    |-- .github/                 # - Scripts used for continuous integration
+    |-- episodes/                # - PUT YOUR MARKDOWN FILES IN THIS FOLDER
+    |   |-- data/                # -- Data for your lesson goes here
+    |   |-- figures/             # -- All static figures and diagrams are here
+    |   |-- files/               # -- Additional files (e.g. handouts) 
+    |   `-- 00-introducition.Rmd # -- Lessons start with a two-digit number
+    |-- instructors/             # - Information for Instructors
+    |   `-- instructor-notes.md  # -- placeholder
+    |-- learners/                # - Information for Learners
+    |   `-- setup.md             # -- setup instructions (REQUIRED)
+    |-- profiles/                # - Learner and/or Instructor Profiles
+    |   `-- learner-profiles.md  # -- placeholder
+    |-- renv/                    # - Local package cache
+    |-- site/                    # - This folder is where the rendered markdown
+    |   |                            files and static site will live
+    |   `-- README.md            # --  placeholder
+    |-- config.yaml              # - Use this to configure commonly used variables
+    |-- index.md                 # - Front page for the site
+    |-- CONTRIBUTING.md          # - Carpentries Rules for Contributions (REQUIRED)
+    |-- CODE_OF_CONDUCT.md       # - Carpentries Code of Conduct (REQUIRED)
+    |-- LICENSE.md               # - Carpentries Licenses (REQUIRED)
+    `-- README.md                # - Introduces folks how to use this lesson and
+                                 #   where they can find more information.
+
+### Episodes
+
+All of the episodes and any content required for the episodes go in the
+`episodes/` folder (note no underscore prefix) such that if I were to
+extract the episodes folder and give it to someone else, they should be
+able to execute the RMarkdown documents in their own project using any
+method they see fit.
+
+### Configuration
+
+The file `config.yaml` will be a minimal yaml file that contains
+metadata about lesson-wide aspects (Author, Carpentry, Licence, Title,
+etc.) along with specifications for episodes and extras to be included
+in the dropdown menus.
+
+### Generated Files
+
+There are two sources of generated files in the template that are
+explicitly **not tracked by git**, which both live in the `site/`
+directory: the static markdown cache generated from the source files and
+the local preview of HTML files, which are generated from the static
+markdown files.
+
+Separating the content generation from the episode from the assembly of
+the HTML site gives us a couple of advantages:
+
+1.  We can cache the episodes between content generation and HTML
+    styling
+2.  The tools needed to generate the static markdown documents do not
+    need to be the same as the tools needed to apply the HTML template
+    (e.g. it is potentially feasible to have a workflow that renders
+    Jupyter Notebook -\> Markdown instead of RMarkdown -\> Markdown).
+3.  If an error occurs, assess which process was the source of the error
+    does not require sifting through HTML diffs.
+
+This two step process is explained in [The Two-Step: Building
+Locally](https://carpentries.github.io/sandpaper/dev/articles/deployment.html#the-two-step-building-locally).
+
+#### \[i\] Static Markdown Cache
+
+The static markdown cache of files will live in `site/built` and will
+contain static markdown documents with generated output and a special
+item in the yaml header called `sandpaper-digest`. The value for this
+item will be the md5 sum of the corresponding source file so that the
+tool chain can determine which files need to be rebuilt.
+
+#### Local Preview HTML
+
+The local preview of the generated website will live in the `site/docs`
+folder. This site is ONLY generated from the static markdown cache in
+`site/built` and no other source.
+
+The `site/docs` folder can be shared anywhere as a fully-functional
+static website. Many of the javascript and CSS elements are sourced from
+CDNs, but these can also be bundled directly with the site itself (which
+increases the size of storage).
+
+#### Portable HTML Lesson
+
+The only thing preventing these lessons from being used offline is the
+fact that they rely on the CSS/JS framework being delivered by a CDN,
+but this may not be feasible for workshops taught in regions where
+internet connectivity is limited (though the browser cache takes care of
+this for the most part). To accomodate this, there will be a procedure
+that creates a standalone folder of the lesson and writes it outside of
+the repository so that it can be copied to a flash drive or delivered
+via a local WiFi router.
+
+## Episode Structure
+
+All episodes for the Carpentries should be stand-alone markdown
+documents that can render to valid HTML via
+[pandoc](https://pandoc.org/) without external dependencies. The
+structure of an episode is largely free-form, but there are certain
+elements that should be included to ensure a valid episode in the form
+of yaml content, required information blocks, instructor notes, and
+properly closed fenced div tags.
+
+As a refresher, a fenced div tag is a line that starts with *at least*
+three colons followed by the name of the tag. The tag is closed by
+adding another line that starts with *at least* three colons with no tag
+at the end:
+
+``` markdown
+::::::::::::::::::::::::::: challenge
+
+This is a *challenge block*
+
+::::::::::::::::::::::::::::::::::::::
+```
+
+By convention, we use much more than 3 `:` characters to clearly
+indicate that a block is being created.
+
+### YAML metadata
+
+The YAML metadata should contain three elements, title, teaching, and
+exercises. The `title` is a character string for the title. Markdown can
+be used in the title. Both `teaching` and `exercises` are the number of
+cumulative minutes required to teach the lesson and complete the
+exercises, respectively. This is used to populate the syllabus at the
+beginning of the lesson
+
+``` yaml
+title: "Creating Examples: Yes, These *Are* Difficult"
+teaching: 20
+exercises: 10
+```
+
+### Required Information Blocks
+
+1.  Objectives (top) - One to three statements that describes broad
+    concepts that the learners should get out of the lesson
+2.  Questions (top) - One to three questions for the learners to ask
+    themselves before they start the lesson
+3.  Keypoints (bottom) - point-by-point reinforcement of what was
+    covered in the lesson
+
+To reduce the amount of friction between what contributors write and
+what is displayed on the lesson, placement will be enforced during the
+validation procedure and will be validated by checking the proximity of
+these blocks to other elements of the document in the XML
+representation. If the blocks do not comply, a human-readable alert will
+be generated indicating where the block is and where it should be moved
+(example error):
+
+    Error:
+        File: '/path/to/episode.Rmd'
+        
+        The Questions block should be at the top of the document (lines AA--BB).
+        Instead, they are located at lines XX--YY. Please edit
+        '/path/to/episode.Rmd'
+        and move the block at lines XX--YY to the top of the document (lines
+        AA--BB).
+
+### Instructor Notes
+
+Carpentries lessons have traditionally kept instructor notes as a
+separate page from the lessons, but this lead to the notes not being
+used and some confusion about HOW to use them. It has been proposed that
+we keep the instructor notes inside of the lessons themselves at the
+risk of creating a longer and even more complicated structure for
+maintainers to keep track of. To acommodate this, we propose a new class
+of tag called `instructor`, which will be hidden by default and have a
+toggle that can display the notes alongside the lesson.
+
+The `instructor` tag will be the same as the other tags, starting with
+at least three colons and ending with at least three colons:
+
+``` markdown
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+## SLOW DOWN
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+```
+
+Practically, when there are instructor notes in a lesson, they will be
+rendered as separate pages and placed in a file called `instructor/`
+that can be accessed via `/path/to/lesson/instructor/page.html`
+
+### Fenced Div Tags
+
+All open tags must be balanced by a closing tag.
+
+While [the specification](https://pandoc.org/MANUAL.html#divs-and-spans)
+for fenced divs are fairly loose, for clarity’s sake, we have a few
+rules of thumb. Because the tags will not necessarily be color-coded,
+it’s a good idea to differentiate between these tags with length. It
+does not need to be any specific length, but it’s a good idea to make
+sure that the different level tags should be clearly visible.
+
+1.  Instructor tags should be the largest. Aim to have these fences span
+    across the document (~80 characters).
+2.  Top-level tags should span at least half the document (~50
+    characters).
+3.  Nested tags (e.g. solution) should span a quarter of the document
+    (~25 characters).
+
+``` markdown
+# Lesson 1
+
+
+This is an example lesson.
+
+:::::::::::::::::::::::::::::::::::::: objectives
+
+ - Write good 
+
+:::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::: questions
+
+ - Is it okay if the number of colons don't match up?
+ - Are the sections visible?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+Writing tags looks like a bunch of `:` elements.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+### Example
+
+This is an example of how you write an instructor tag
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+Let's try a challenge.
+
+:::::::::::::::::::::::::::::::::::::: challenge
+
+Write a solution
+
+::::::::::::::: solution
+
+NaCl + H2O
+
+::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+```
+
+### Links
+
+For Carpentries Lessons, contributors need to have ways of specifying
+links that can access any part of the lesson online or offline. We also
+need to make sure that these links preserve the integrity of incoming
+links because people who have linked to lessons in the past will not
+want to discover that their links are suffering from rot.
+
+The ultimate goal is to make sure that lesson contributors and authors
+do not have to think much beyond what they see in order to create a
+link. The simplest way to do this is to have the authors use relative
+links with an html tag at the end:
+
+- Link to other episodes: use `[link text](episode-name.html)`
+- Link to figure for episode: use `![Alt text](fig/figure-name.png)`
+- Link to references in extras folder:
+  `[link text](../extras/references.html)`
+
+### Code Blocks
+
+Code Blocks in a lesson are formatted the same way as code blocks
+formatted in commonmark. They are represented by three backtics followed
+by the language you want to use for syntax highlighting in that block.
+
+#### Evaluation
+
+Because we are encouraging the use of RMarkdown, you can have code
+blocks that actually evaluate code using the RMarkdown chunk syntax of
+three backtics followed by a pair of curly braces with the name of the
+language engine you want to use for executing the code blocks.
+
+At the moment, we explicitly support evaluation for R and BASH, but we
+will be gathering input from maintainers about processes to expand. One
+promising project is [Quarto](https://quarto.org/), which extends the
+functionality of R Markdown to other languages in a cross-platform,
+stand-alone binary program.
+
+There is [a large list of language engines that RMarkdown
+supports](https://bookdown.org/yihui/rmarkdown/language-engines.html).
+Most engines require that you have the language available on your PATH
+and do not share variables and values between chunks, so lesson authors
+will need to be explicit about the installation requirements for these
+lessons. Some languages like Python, Julia, and SQL can share data and
+variables between chunks with the help of specific packages (e.g.
+[{reticulate}](https://rstudio.github.io/reticulate) for Python,
+[{JuliaCall}](https://non-contradiction.github.io/JuliaCall/index.html)
+for Julia, and [{DBI}](https://dbi.r-dbi.org/) for SQL databases).
