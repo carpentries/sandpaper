@@ -306,9 +306,6 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, use_site_l
     # missing bioconductor packages, if this is the actual problem.
     if (length(hydra$missing)) {
       pkgs <- vapply(hydra$missing, function(pkg) pkg$package, character(1))
-      cli::cli_alert_warning("Attempting to install missing packages assuming bioc")
-      renv::install(paste0("bioc::", pkgs), library = renv_lib, project = path)
-
       if (lockfile_exists) {
         installed <- utils::installed.packages(lib.loc = renv_lib)[, "Package"]
         missing <- setdiff(names(renv_lock$Packages), installed)
@@ -322,6 +319,9 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, use_site_l
             renv::install(ref, library = lib, project = path)
           }
         }
+      } else {
+        cli::cli_alert_warning("Attempting to install missing packages assuming bioc")
+        renv::install(paste0("bioc::", pkgs), library = renv_lib, project = path)
       }
     }
     #nocov end
