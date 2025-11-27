@@ -317,7 +317,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, use_site_l
           if (!is.null(pkg_info$Source) && pkg_info$Source == "GitHub") {
             cat("Trying GitHub for:", paste(pkg_name, collapse = ", "), "\n")
             ref <- sprintf("%s/%s", pkg_info$RemoteUsername, pkg_info$RemoteRepo)
-            renv::install(ref, library = lib, project = path)
+            renv::install(ref, library = renv_lib, project = path)
           }
         }
       } else {
