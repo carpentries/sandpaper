@@ -312,7 +312,7 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, use_site_l
         missing <- setdiff(names(lock$Packages), installed)
 
         for (pkg_name in missing) {
-          pkg_info <- renv_lock$Packages[[pkg_name]]
+          pkg_info <- lock$Packages[[pkg_name]]
 
           if (!is.null(pkg_info$Source) && pkg_info$Source == "GitHub") {
             cat("Trying GitHub for:", paste(pkg_name, collapse = ", "), "\n")
