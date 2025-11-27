@@ -308,7 +308,8 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, use_site_l
       pkgs <- vapply(hydra$missing, function(pkg) pkg$package, character(1))
       if (lockfile_exists) {
         installed <- utils::installed.packages(lib.loc = renv_lib)[, "Package"]
-        missing <- setdiff(names(renv_lock$Packages), installed)
+        lock <- renv::lockfile_read(renv_lock)
+        missing <- setdiff(names(lock$Packages), installed)
 
         for (pkg_name in missing) {
           pkg_info <- renv_lock$Packages[[pkg_name]]
