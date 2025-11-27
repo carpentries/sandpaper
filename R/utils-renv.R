@@ -308,6 +308,21 @@ callr_manage_deps <- function(path, repos, snapshot, lockfile_exists, use_site_l
       pkgs <- vapply(hydra$missing, function(pkg) pkg$package, character(1))
       cli::cli_alert_warning("Attempting to install missing packages assuming bioc")
       renv::install(paste0("bioc::", pkgs), library = renv_lib, project = path)
+
+      if (lockfile_exists) {
+        installed <- utils::installed.packages(lib.loc = renv_lib)[, "Package"]
+        missing <- setdiff(names(renv_lock$Packages), installed)
+
+        for (pkg_name in missing) {
+          pkg_info <- renv_lock$Packages[[pkg_name]]
+
+          if (!is.null(pkg_info$Source) && pkg_info$Source == "GitHub") {
+            cat("Trying GitHub for:", paste(pkg_name, collapse = ", "), "\n")
+            ref <- sprintf("%s/%s", pkg_info$RemoteUsername, pkg_info$RemoteRepo)
+            renv::install(ref, library = lib, project = path)
+          }
+        }
+      }
     }
     #nocov end
   }
