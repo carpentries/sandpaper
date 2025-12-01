@@ -64,7 +64,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ## Get list of changed files in the PR ##
-          ONLY_VERSION=$(gh pr view 10 --json files --jq '
+          ONLY_VERSION=$(gh pr view ${{ steps.get-pr.outputs.NUM }} --json files --jq '
             .files |
             length == 1 and
             .[0].path == ".github/workbench-docker-version.txt"
