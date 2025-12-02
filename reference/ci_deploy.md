@@ -142,7 +142,7 @@ cli::cli_h2("Create Lesson")
 #> 
 restore_fixture <- snd$create_test_lesson()
 #> → Bootstrapping example lesson
-#> ℹ Lesson bootstrapped in 3.136708 secs
+#> ℹ Lesson bootstrapped in 3.185749 secs
 #> → Bootstrapping example lesson
 res <- getOption("sandpaper.test_fixture")
 cli::cli_h2("Create Remote")
@@ -151,10 +151,10 @@ cli::cli_h2("Create Remote")
 #> 
 rmt <- fs::file_temp(pattern = "REMOTE-")
 snd$setup_local_remote(repo = res, remote = rmt, verbose = FALSE)
-#> ℹ Remote set up in 0.01363873 secs
+#> ℹ Remote set up in 0.01404166 secs
 tok <- Sys.time()
 cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
-#> ℹ Elapsed time: 3.18 seconds
+#> ℹ Elapsed time: 3.23 seconds
 
 # reporting -----
 # The repository should only have one branch and the remote should be in
@@ -167,8 +167,8 @@ gert::git_branch_list(repo = res)[c('name', 'commit', 'updated')]
 #> # A tibble: 2 × 3
 #>   name                 commit                        updated            
 #>   <chr>                <chr>                         <dttm>             
-#> 1 main                 0bf46ece425c400e8b2fc75cc18c… 2025-12-02 16:59:00
-#> 2 sandpaper-local/main 0bf46ece425c400e8b2fc75cc18c… 2025-12-02 16:59:00
+#> 1 main                 2e77dbb18b00b4cc30ca5b989762… 2025-12-02 17:03:41
+#> 2 sandpaper-local/main 2e77dbb18b00b4cc30ca5b989762… 2025-12-02 17:03:41
 cli::cli_h2("First episode status")
 #> ── First episode status ──
 #> 
@@ -176,12 +176,12 @@ gert::git_stat_files("episodes/introduction.Rmd", repo = res)
 #> # A tibble: 1 × 5
 #>   file             created             modified            commits head 
 #> * <chr>            <dttm>              <dttm>                <int> <chr>
-#> 1 episodes/introd… 2025-12-02 16:59:00 2025-12-02 16:59:00       1 0bf4…
+#> 1 episodes/introd… 2025-12-02 17:03:41 2025-12-02 17:03:41       1 2e77…
 gert::git_stat_files("episodes/introduction.Rmd", repo = rmt)
 #> # A tibble: 1 × 5
 #>   file             created             modified            commits head 
 #> * <chr>            <dttm>              <dttm>                <int> <chr>
-#> 1 episodes/introd… 2025-12-02 16:59:00 2025-12-02 16:59:00       1 0bf4…
+#> 1 episodes/introd… 2025-12-02 17:03:41 2025-12-02 17:03:41       1 2e77…
 
 # DEPLOY ------------------------------------------------------------------
 tik <- Sys.time()
@@ -195,9 +195,9 @@ sandpaper:::ci_deploy(path = res, remote = "sandpaper-local")
 #> Switched to a new branch 'md-outputs'
 #> Running git rm -rf --quiet .
 #> Running git commit --allow-empty -m 'Initializing md-outputs branch'
-#> [md-outputs (root-commit) a762d70] Initializing md-outputs branch
+#> [md-outputs (root-commit) 4340906] Initializing md-outputs branch
 #> Running git push sandpaper-local 'HEAD:md-outputs'
-#> To /tmp/RtmpW7Mbc5/REMOTE-199d47046a3f
+#> To /tmp/Rtmpy7dRDl/REMOTE-1942262f680a
 #>  * [new branch]      HEAD -> md-outputs
 #> Running git checkout main
 #> Switched to branch 'main'
@@ -206,17 +206,17 @@ sandpaper:::ci_deploy(path = res, remote = "sandpaper-local")
 #> ::group::Fetch sandpaper-local/md-outputs
 #> Running git remote set-branches sandpaper-local md-outputs
 #> Running git fetch sandpaper-local md-outputs
-#> From /tmp/RtmpW7Mbc5/REMOTE-199d47046a3f
+#> From /tmp/Rtmpy7dRDl/REMOTE-1942262f680a
 #>  * branch            md-outputs -> FETCH_HEAD
 #> Running git remote set-branches sandpaper-local '*'
 #> ::endgroup::
 #> ::group::Add worktree for sandpaper-local/md-outputs in site/built
 #> Running git worktree add --track -B md-outputs \
-#>   /tmp/RtmpW7Mbc5/file199dff73888/lesson-example/site/built \
+#>   /tmp/Rtmpy7dRDl/file19422d206ad6/lesson-example/site/built \
 #>   sandpaper-local/md-outputs
-#> Preparing worktree (resetting branch 'md-outputs'; was at a762d70)
+#> Preparing worktree (resetting branch 'md-outputs'; was at 4340906)
 #> branch 'md-outputs' set up to track 'sandpaper-local/md-outputs'.
-#> HEAD is now at a762d70 Initializing md-outputs branch
+#> HEAD is now at 4340906 Initializing md-outputs branch
 #> ::endgroup::
 #> ::group::Build Markdown Sources
 #> ℹ Checking renv dependencies
@@ -230,11 +230,11 @@ sandpaper:::ci_deploy(path = res, remote = "sandpaper-local")
 #> ℹ Using package cache in /home/runner/.cache/R/renv
 #> 
 #> 
-#> processing file: /tmp/RtmpW7Mbc5/file199dff73888/lesson-example/episodes/introduction.Rmd
+#> processing file: /tmp/Rtmpy7dRDl/file19422d206ad6/lesson-example/episodes/introduction.Rmd
 #> 1/3          
 #> 2/3 [pyramid]
 #> 3/3          
-#> output file: /tmp/RtmpW7Mbc5/file199dff73888/lesson-example/site/built/introduction.md
+#> output file: /tmp/Rtmpy7dRDl/file19422d206ad6/lesson-example/site/built/introduction.md
 #> 
 #> ::endgroup::
 #> ::group::Commit Markdown Sources
@@ -242,13 +242,13 @@ sandpaper:::ci_deploy(path = res, remote = "sandpaper-local")
 #>   'markdown source builds
 #> 
 #> Auto-generated via `{sandpaper}`
-#> Source  : 0bf46ece425c400e8b2fc75cc18c137662a19515
+#> Source  : 2e77dbb18b00b4cc30ca5b9897629ae92eefe74c
 #> Branch  : main
 #> Author  : carpenter <team@carpentries.org>
-#> Time    : 2025-12-02 16:59:00 +0000
+#> Time    : 2025-12-02 17:03:41 +0000
 #> Message : Initial commit [via `{sandpaper}`]
 #> '
-#> [md-outputs 5ce0371] markdown source builds
+#> [md-outputs 3f807f1] markdown source builds
 #>  13 files changed, 1397 insertions(+)
 #>  create mode 100644 CODE_OF_CONDUCT.md
 #>  create mode 100644 LICENSE.md
@@ -264,20 +264,20 @@ sandpaper:::ci_deploy(path = res, remote = "sandpaper-local")
 #>  create mode 100644 renv.lock
 #>  create mode 100644 setup.md
 #> Running git remote -v
-#> sandpaper-local  /tmp/RtmpW7Mbc5/REMOTE-199d47046a3f (fetch)
-#> sandpaper-local  /tmp/RtmpW7Mbc5/REMOTE-199d47046a3f (push)
+#> sandpaper-local  /tmp/Rtmpy7dRDl/REMOTE-1942262f680a (fetch)
+#> sandpaper-local  /tmp/Rtmpy7dRDl/REMOTE-1942262f680a (push)
 #> Running git push --force sandpaper-local 'HEAD:md-outputs'
-#> To /tmp/RtmpW7Mbc5/REMOTE-199d47046a3f
-#>    a762d70..5ce0371  HEAD -> md-outputs
+#> To /tmp/Rtmpy7dRDl/REMOTE-1942262f680a
+#>    4340906..3f807f1  HEAD -> md-outputs
 #> ::endgroup::
 #> ::group::Create New Branch
 #> Running git checkout --orphan gh-pages
 #> Switched to a new branch 'gh-pages'
 #> Running git rm -rf --quiet .
 #> Running git commit --allow-empty -m 'Initializing gh-pages branch'
-#> [gh-pages (root-commit) dbf6025] Initializing gh-pages branch
+#> [gh-pages (root-commit) 67529eb] Initializing gh-pages branch
 #> Running git push sandpaper-local 'HEAD:gh-pages'
-#> To /tmp/RtmpW7Mbc5/REMOTE-199d47046a3f
+#> To /tmp/Rtmpy7dRDl/REMOTE-1942262f680a
 #>  * [new branch]      HEAD -> gh-pages
 #> Running git checkout main
 #> Switched to branch 'main'
@@ -286,17 +286,17 @@ sandpaper:::ci_deploy(path = res, remote = "sandpaper-local")
 #> ::group::Fetch sandpaper-local/gh-pages
 #> Running git remote set-branches sandpaper-local gh-pages
 #> Running git fetch sandpaper-local gh-pages
-#> From /tmp/RtmpW7Mbc5/REMOTE-199d47046a3f
+#> From /tmp/Rtmpy7dRDl/REMOTE-1942262f680a
 #>  * branch            gh-pages   -> FETCH_HEAD
 #> Running git remote set-branches sandpaper-local '*'
 #> ::endgroup::
 #> ::group::Add worktree for sandpaper-local/gh-pages in site/docs
 #> Running git worktree add --track -B gh-pages \
-#>   /tmp/RtmpW7Mbc5/file199dff73888/lesson-example/site/docs \
+#>   /tmp/Rtmpy7dRDl/file19422d206ad6/lesson-example/site/docs \
 #>   sandpaper-local/gh-pages
-#> Preparing worktree (resetting branch 'gh-pages'; was at dbf6025)
+#> Preparing worktree (resetting branch 'gh-pages'; was at 67529eb)
 #> branch 'gh-pages' set up to track 'sandpaper-local/gh-pages'.
-#> HEAD is now at dbf6025 Initializing gh-pages branch
+#> HEAD is now at 67529eb Initializing gh-pages branch
 #> ::endgroup::
 #> ::group::Build Lesson Website
 #> ◉ pandoc found
@@ -749,7 +749,7 @@ sandpaper:::ci_deploy(path = res, remote = "sandpaper-local")
 #> ── Scanning episodes to rebuild ────────────────────────────────────────
 #> ── Creating citation page ──────────────────────────────────────────────
 #> ══ Validating cff ══════════════════════════════════════════════════════
-#> ✔ Congratulations! /tmp/RtmpW7Mbc5/file199dff73888/lesson-example/CITATION.cff is valid
+#> ✔ Congratulations! /tmp/Rtmpy7dRDl/file19422d206ad6/lesson-example/CITATION.cff is valid
 #> Writing `instructor/citation.html`
 #> Writing `citation.html`
 #> Writing `instructor/CODE_OF_CONDUCT.html`
@@ -783,27 +783,27 @@ sandpaper:::ci_deploy(path = res, remote = "sandpaper-local")
 #> Writing 'instructor-notes.html'
 #> ── Creating sitemap.xml ────────────────────────────────────────────────
 #> 
-#> Output created: /tmp/RtmpW7Mbc5/file199dff73888/lesson-example/site/docs/index.html
+#> Output created: /tmp/Rtmpy7dRDl/file19422d206ad6/lesson-example/site/docs/index.html
 #> ::endgroup::
 #> ::group::Commit Lesson Website
 #> Running git commit --allow-empty -m \
 #>   'site deploy
 #> 
 #> Auto-generated via `{sandpaper}`
-#> Source  : 5ce0371885689a3baa36de4b8b35bbfd7f3b6ea7
+#> Source  : 3f807f11bc60d4d60cf73b25f8a52a25b4f6af6b
 #> Branch  : md-outputs
 #> Author  : GitHub Actions <actions@github.com>
-#> Time    : 2025-12-02 16:59:04 +0000
+#> Time    : 2025-12-02 17:03:45 +0000
 #> Message : markdown source builds
 #> 
 #> Auto-generated via `{sandpaper}`
-#> Source  : 0bf46ece425c400e8b2fc75cc18c137662a19515
+#> Source  : 2e77dbb18b00b4cc30ca5b9897629ae92eefe74c
 #> Branch  : main
 #> Author  : carpenter <team@carpentries.org>
-#> Time    : 2025-12-02 16:59:00 +0000
+#> Time    : 2025-12-02 17:03:41 +0000
 #> Message : Initial commit [via `{sandpaper}`]
 #> '
-#> [gh-pages 5e8aeab] site deploy
+#> [gh-pages 6001435] site deploy
 #>  236 files changed, 153303 insertions(+)
 #>  create mode 100644 .nojekyll
 #>  create mode 100644 404.html
@@ -1042,19 +1042,19 @@ sandpaper:::ci_deploy(path = res, remote = "sandpaper-local")
 #>  create mode 100644 site.webmanifest
 #>  create mode 100644 sitemap.xml
 #> Running git remote -v
-#> sandpaper-local  /tmp/RtmpW7Mbc5/REMOTE-199d47046a3f (fetch)
-#> sandpaper-local  /tmp/RtmpW7Mbc5/REMOTE-199d47046a3f (push)
+#> sandpaper-local  /tmp/Rtmpy7dRDl/REMOTE-1942262f680a (fetch)
+#> sandpaper-local  /tmp/Rtmpy7dRDl/REMOTE-1942262f680a (push)
 #> Running git push --force sandpaper-local 'HEAD:gh-pages'
-#> To /tmp/RtmpW7Mbc5/REMOTE-199d47046a3f
-#>    dbf6025..5e8aeab  HEAD -> gh-pages
+#> To /tmp/Rtmpy7dRDl/REMOTE-1942262f680a
+#>    67529eb..6001435  HEAD -> gh-pages
 #> ::endgroup::
 #> Running git worktree remove --force \
-#>   /tmp/RtmpW7Mbc5/file199dff73888/lesson-example/site/docs
+#>   /tmp/Rtmpy7dRDl/file19422d206ad6/lesson-example/site/docs
 #> Running git worktree remove --force \
-#>   /tmp/RtmpW7Mbc5/file199dff73888/lesson-example/site/built
+#>   /tmp/Rtmpy7dRDl/file19422d206ad6/lesson-example/site/built
 tok <- Sys.time()
 cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
-#> ℹ Elapsed time: 16.36 seconds
+#> ℹ Elapsed time: 15.96 seconds
 
 # reporting -----
 # The repository and remote should both have three branches
@@ -1066,12 +1066,12 @@ gert::git_branch_list(repo = res)[c('name', 'commit', 'updated')]
 #> # A tibble: 6 × 3
 #>   name                       commit                  updated            
 #>   <chr>                      <chr>                   <dttm>             
-#> 1 gh-pages                   5e8aeab75a6efbc9fd9693… 2025-12-02 16:59:16
-#> 2 main                       0bf46ece425c400e8b2fc7… 2025-12-02 16:59:00
-#> 3 md-outputs                 5ce0371885689a3baa36de… 2025-12-02 16:59:04
-#> 4 sandpaper-local/gh-pages   5e8aeab75a6efbc9fd9693… 2025-12-02 16:59:16
-#> 5 sandpaper-local/main       0bf46ece425c400e8b2fc7… 2025-12-02 16:59:00
-#> 6 sandpaper-local/md-outputs 5ce0371885689a3baa36de… 2025-12-02 16:59:04
+#> 1 gh-pages                   60014357c23c77dcdee79e… 2025-12-02 17:03:56
+#> 2 main                       2e77dbb18b00b4cc30ca5b… 2025-12-02 17:03:41
+#> 3 md-outputs                 3f807f11bc60d4d60cf73b… 2025-12-02 17:03:45
+#> 4 sandpaper-local/gh-pages   60014357c23c77dcdee79e… 2025-12-02 17:03:56
+#> 5 sandpaper-local/main       2e77dbb18b00b4cc30ca5b… 2025-12-02 17:03:41
+#> 6 sandpaper-local/md-outputs 3f807f11bc60d4d60cf73b… 2025-12-02 17:03:45
 
 # An indicator this worked: the first episode should be represented as
 # different files across the branches:
@@ -1085,14 +1085,14 @@ gert::git_stat_files("episodes/introduction.Rmd", repo = rmt)
 #> # A tibble: 1 × 5
 #>   file             created             modified            commits head 
 #> * <chr>            <dttm>              <dttm>                <int> <chr>
-#> 1 episodes/introd… 2025-12-02 16:59:00 2025-12-02 16:59:00       1 0bf4…
+#> 1 episodes/introd… 2025-12-02 17:03:41 2025-12-02 17:03:41       1 2e77…
 cli::cli_h3("rendered markdown")
 #> ── rendered markdown 
 gert::git_stat_files("introduction.md", repo = rmt, ref = "md-outputs")
 #> # A tibble: 1 × 5
 #>   file            created             modified            commits head  
 #> * <chr>           <dttm>              <dttm>                <int> <chr> 
-#> 1 introduction.md 2025-12-02 16:59:04 2025-12-02 16:59:04       1 5ce03…
+#> 1 introduction.md 2025-12-02 17:03:45 2025-12-02 17:03:45       1 3f807…
 cli::cli_h3("html file")
 #> 
 #> ── html file 
@@ -1100,7 +1100,7 @@ gert::git_stat_files("introduction.html", repo = rmt, ref = "gh-pages")
 #> # A tibble: 1 × 5
 #>   file             created             modified            commits head 
 #> * <chr>            <dttm>              <dttm>                <int> <chr>
-#> 1 introduction.ht… 2025-12-02 16:59:16 2025-12-02 16:59:16       1 5e8a…
+#> 1 introduction.ht… 2025-12-02 17:03:56 2025-12-02 17:03:56       1 6001…
 
 # CLEAN -------------------------------------------------------------------
 tik <- Sys.time()
@@ -1108,8 +1108,8 @@ cli::cli_h1("Clean Up")
 #> 
 #> ── Clean Up ────────────────────────────────────────────────────────────
 snd$remove_local_remote(repo = res)
-#> ℹ removing 'sandpaper-local' (/tmp/RtmpW7Mbc5/REMOTE-199d47046a3f)
-#> /tmp/RtmpW7Mbc5/REMOTE-199d47046a3f
+#> ℹ removing 'sandpaper-local' (/tmp/Rtmpy7dRDl/REMOTE-1942262f680a)
+#> /tmp/Rtmpy7dRDl/REMOTE-1942262f680a
 snd$reset_git_user(res)
 # remove the test fixture and report
 tryCatch(fs::dir_delete(res), error = function() FALSE)
