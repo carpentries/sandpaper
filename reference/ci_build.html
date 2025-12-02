@@ -15,7 +15,7 @@ remote."><meta property="og:image" content="https://carpentries.github.io/sandpa
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.17.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.17.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,8 @@ remote</strong>.</p>
 <span>  path <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  branch <span class="op">=</span> <span class="st">"md-outputs"</span>,</span>
 <span>  remote <span class="op">=</span> <span class="st">"origin"</span>,</span>
-<span>  reset <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  reset <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  skip_manage_deps <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ci_build_site</span><span class="op">(</span></span>
@@ -99,6 +100,13 @@ in <code><a href="ci_deploy.html">ci_deploy()</a></code></p></li>
 <dd><p>if <code>TRUE</code>, the markdown cache is cleared before rebuilding,
 this defaults to <code>FALSE</code> meaning the markdown cache will be provisioned
 and used.</p></dd>
+
+
+<dt id="arg-skip-manage-deps">skip_manage_deps<a class="anchor" aria-label="anchor" href="#arg-skip-manage-deps"></a></dt>
+<dd><p>if <code>TRUE</code>, dependency management will NOT be processed.
+This defaults to <code>FALSE</code>. Set this to TRUE to force dependency management
+to be handled in the separate package cache update and apply steps in the
+CI workflow, and therefore can be skipped.</p></dd>
 
 
 <dt id="arg-md">md<a class="anchor" aria-label="anchor" href="#arg-md"></a></dt>
@@ -163,7 +171,7 @@ package cache if the lesson uses R Markdown.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

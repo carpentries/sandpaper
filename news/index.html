@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.17.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.17.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,29 @@
       <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.17.2" id="sandpaper-0172-2025-12-02">sandpaper 0.17.2 [2025-12-02]<a class="anchor" aria-label="anchor" href="#sandpaper-0172-2025-12-02"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-17-2">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-17-2"></a></h3>
+<ul><li>Check for packages on GitHub if the renv lockfile specifies them. Previously, packages that weren’t linked through hydration would only be attempted to be installed through a repo, and not checked on GitHub - PR <a href="https://github.com/carpentries/sandpaper/pull/682" class="external-link">682</a> (<a href="https://github.com/carpentries/sandpaper/issues/680" class="external-link">reported</a> <a href="https://github.com/chrbknudsen" class="external-link">@chrbknudsen</a>)</li>
+<li>Implementation of Cite This Lesson pages, built dynamically from CITATION.cff files in a lesson repo. Current brehaviour is unchanged if CITATION file exists (links to GitHub), or no file exists - PR <a href="https://github.com/carpentries/sandpaper/pull/679" class="external-link">679</a> (<a href="https://github.com/carpentries/sandpaper/issues/508" class="external-link">reported</a> <a href="https://github.com/apirogov" class="external-link">@apirogov</a>)</li>
+<li>Add cute parrot icons for referenced Glosario terms - PR <a href="https://github.com/carpentries/sandpaper/pull/673" class="external-link">673</a>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-17-2">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-17-2"></a></h3>
+<ul><li>Fix glosario placeholders using non-existent slugs (reported <a href="https://github.com/ErinBecker" class="external-link">@ErinBecker</a> <a href="https://github.com/carpentries/sandpaper/issues/674" class="external-link">#674</a>, fixed 1 <a href="https://github.com/carpentries/sandpaper/issues/676" class="external-link">#676</a>)</li>
+<li>Fix empty md processing, and improve md header detection (<a href="https://github.com/carpentries/workbench/issues/80" class="external-link">reported</a> <a href="https://github.com/tobyhodges" class="external-link">@tobyhodges</a>, fixed 1 <a href="https://github.com/carpentries/sandpaper/issues/677" class="external-link">#677</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="misc-0-17-2">MISC<a class="anchor" aria-label="anchor" href="#misc-0-17-2"></a></h3>
+<ul><li>Add use_site_libs option to manage_deps - allows environments to use any preinstalled site library packages by adding those paths to .libPaths(). This is envisaged to be of use where already constrained environments are in use, e.g. Workbench Docker containers, including GHA builds (which should be faster as a result) - PR <a href="https://github.com/carpentries/sandpaper/pull/675" class="external-link">675</a>
+</li>
+<li>Allow CI to bypass the forced manage_deps in renv consent - adds the skip_manage_deps flag to <code><a href="../reference/build_markdown.html">build_markdown()</a></code> and also to <code><a href="../reference/ci_deploy.html">ci_deploy()</a></code>. This is in preparation for the Dockerised Workbench workflows, where dependency management happens before this part of the codebase is run, so is superfluous. In the dockerised version of the workflows, this will be set to TRUE, but in the normal sandpaper workflows this will be FALSE, so current behaviour is maintained - PR <a href="https://github.com/carpentries/sandpaper/pull/678" class="external-link">678</a>
+</li>
+<li>Add test snapshots for pandoc 3.1.11</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.17.1" id="sandpaper-0171-2025-08-08">sandpaper 0.17.1 [2025-08-08]<a class="anchor" aria-label="anchor" href="#sandpaper-0171-2025-08-08"></a></h2>
 <div class="section level3">
@@ -1785,7 +1808,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

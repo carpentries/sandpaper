@@ -1,0 +1,691 @@
+# {sandpaper}: User Interface to The Carpentries Workbench
+
+The {sandpaper} package was created by [The
+Carpentries](https://carpentries.org) to re-imagine our method of
+creating lesson websites for our workshops. This package will take a
+series of [Markdown](https://www.markdownguide.org/getting-started/) or
+[RMarkdown](https://rmarkdown.rstudio.com/) files and generate a static
+website with the features and styling of The Carpentries lessons
+including customized layouts and callout blocks. Much of the
+functionality in this package is inspired by [Jenny
+Bryan’s](https://jennybryan.org/) work with the
+[{usethis}](https://usethis.r-lib.org/) package.
+
+## Documentation
+
+**Want to know how this works in a lesson format? Head over to
+<https://carpentries.github.io/sandpaper-docs/>.**
+
+If, instead, you already know how a lesson is built and are interested
+in understanding how the functions in {sandpaper} work, you can visit
+this package documentation site at
+<https://carpentries.github.io/sandpaper/>.
+
+## Installation
+
+{sandpaper} is not currently on CRAN, but it can be installed from our
+[Carpentries Universe](https://carpentries.r-universe.dev/ui#builds)
+(updated every hour) with the following commands:
+
+``` r
+options(repos = c(
+  carpentries = "https://carpentries.r-universe.dev/", 
+  CRAN = "https://cran.rstudio.com/"
+))
+install.packages("sandpaper", dep = TRUE)
+```
+
+Note that this will also install development versions of the following
+packages:
+
+| package                                                    | What it does                                                                 |
+|------------------------------------------------------------|------------------------------------------------------------------------------|
+| [{varnish}](https://github.com/carpentries/varnish#readme) | html, css, and javascript templates for The Carpentries (in progress)        |
+| [{tinkr}](https://docs.ropensci.org/tinkr/)                | manipulation of knitr markdown documents built on the commonmark xml library |
+| [{pegboard}](https://carpentries.github.io/pegboard)       | programmatic interface to lesson components for validation (in progress)     |
+
+## Design
+
+This package is designed to make the life of the lesson contributors and
+maintainers easier by separating the tools needed to build the site from
+the user-defined content of the site itself. It will no longer rely on
+Jekyll or any of the other [\>450 static site
+generators](https://staticsitegenerators.net), but instead rely on R,
+RStudio, and [{pkgdown}](https://github.com/r-lib/pkgdown#readme) to
+generate a site with the following features:
+
+optional offline use
+
+filename-agnostic episode arrangements
+
+clear definitions of package versions needed to build the lesson
+
+lesson versioning (e.g. I can navigate to
+<https://swcarpentry.github.io/python-novice-gapminder> for the current
+version and
+<https://swcarpentry.github.io/python-novice-gapminder/2020-11> for the
+release in 2020-11)
+
+seamless updates to the Carpentries’ style
+
+caching of rendered content for rapid deployment
+
+packaging of [{learnr}](https://rstudio.github.io/learnr/index.html)
+materials
+
+validation of lesson structure
+
+git aware, but does not require contributors to have git installed
+
+### Rendering locally
+
+![diagram of three folders. The first folder, "episodes/", labelled as
+RMarkdown, has an arrow (labelled as hash episodes) pointing to
+"site/built/", labelled as Markdown. The Markdown folder has an arrow
+(labelled as "apply template") pointing to "site/docs/", labelled as
+"HTML". The first folder is labelled in pale yellow, indicating that it
+is the only one tracked by
+git.](articles/articles/img/local-flow.dot.svg)
+
+The local two-step model of deployment into local folders
+
+In a repository generated via {sandpaper}, only the source is committed
+to avoid issues surrounding out-of-date artefacts and directory
+structure confusion.
+
+The website is generated in two steps:
+
+1.  markdown files from the source files are rendered containing a hash
+    for the source file so that these need only be re-rendered when they
+    change.
+2.  html files are generated from the rendered markdown files and the
+    CSS and JS sources in the
+    [{varnish}](https://github.com/carpentries/varnish#readme) package
+    for the preview.
+
+To ensure there are no clashes between minor differences in the user
+setup, no artifacts are committed to the main branch of the repository.
+Because of the caching mechanism between the website and the rendered
+markdown files, long-running lessons can be updated and previewed
+quickly.
+
+### Rendering on continuous integration
+
+![Diagrammatic representation of the GitHub deployment cycle showing
+four branches, gh-pages, md-outputs, main, and my-edit. The my-edit
+branch is a direct descendent of the main branch, while the gh-pages and
+md-outputs branches are orphans. Each commit of the main branch has a
+process represented by a dashed arrow that builds a commit of the
+subsequent orphan branches](articles/articles/img/branch-flow.svg)
+
+Two-step deployment model on continuous integration
+
+Continuous integration will act as the single source-of-truth for how
+the outputs of the lessons are rendered. For this, we want the resulting
+website to be:
+
+- CI agnostic (but currently set up with GitHub)
+- easy to set up
+- auditable (e.g. I can see changes between the content of two commits)
+- versionable (e.g. I can instruct learners to go to `<WEBSITE>/1.1`.
+  This is inspired from the python documentation style)
+
+To acheive this, there will be two branches created: `md-outputs` and
+`gh-pages` that will inerit like so main -\> `md-outputs` -\>
+`gh-pages`. Because the build time from main to `md-outputs` can be time
+intensive, this will default to updating only files that were changed.
+
+- `md-outputs`: this branch will contain the files and artifacts
+  generated from rmarkdown in the vignettes directory of a thin package
+  skeleton.
+- `gh-pages`: this branch is generated via `md-outputs` and bundles the
+  html, css, and js for the website. This will contain a single
+  `index.html` file with several subfolders with different versions of
+  the site. The `index.html` file will redirect to the `current/`
+  directory, which contains the up-to-date site.
+
+#### Scheduled builds
+
+- `gh-pages` website: Because we are designing the lessons to have
+  content separated from the styling, we will set up the CI to generate
+  the webpage from the pre-built sources on a weekly basis, which will
+  check if there has been an update to the styles (which I have in the
+  [{varnish}](https://github.com/carpentries/varnish#readme) package)
+  and then rebuild the site without rebuilding the content.
+- `md-outputs` branch: This will be rerun every month from scratch with
+  the most recent version of R and R packages. If there is a change, a
+  pull request can be generated to update the `renv.lock` file with a
+  link to the changed markdown files in this branch.
+
+### Function syntax
+
+The functions in {sandpaper} have the following prefixes:
+
+- `create_` will create/amend files or folders in your workspace
+- `update_` will update build resources in the lesson
+- `build_` will build files from your source
+- `check_` validates either the elements of the lesson and/or episodes
+- `fetch_` will download files or resources from the internet
+- `reset_` removes files or information
+- `get_` will retrieve information from your source files as an R object
+- `set_` will update information in files.
+- `ci_` interacts with continous integration to build the website
+
+Here is a working list of user-facing functions:
+
+**Lesson and Episode Creation**
+
+- [`create_lesson()`](https://carpentries.github.io/sandpaper/reference/create_lesson.md)
+  creates a lesson from scratch
+- [`create_episode()`](https://carpentries.github.io/sandpaper/reference/create_episode.md)
+  creates a new episode with the correct number prefix
+- `create_dataset()` creates a csv or text data set from an R object
+- [`set_episodes()`](https://carpentries.github.io/sandpaper/reference/set_dropdown.md)
+  arranges the episodes in a user-specified order
+
+Accessors
+
+- [`get_config()`](https://carpentries.github.io/sandpaper/reference/get_config.md)
+  reads the contents of `config.yaml` as a list
+- [`get_drafts()`](https://carpentries.github.io/sandpaper/reference/get_drafts.md)
+  reports files that are not listed in `config.yaml`
+- [`get_episodes()`](https://carpentries.github.io/sandpaper/reference/get_dropdown.md)
+  returns the episode filenames as a vector
+- [`get_syllabus()`](https://carpentries.github.io/sandpaper/reference/get_syllabus.md)
+  returns the syllabus with timings, titles, and questions
+
+**Website Creation and Validation**
+
+- [`check_lesson()`](https://carpentries.github.io/sandpaper/reference/check_lesson.md)
+  checks and validates the source files and lesson structure
+- [`build_episode_md()`](https://carpentries.github.io/sandpaper/reference/build_episode_md.md)
+  renders an individual file to markdown (internal use)
+- [`build_episode_html()`](https://carpentries.github.io/sandpaper/reference/build_episode_html.md)
+  renders a built markdown file to html (internal use)
+- [`build_lesson()`](https://carpentries.github.io/sandpaper/reference/build_lesson.md)
+  builds the lesson into a static website
+- `build_portable_lesson()` builds the lesson into a portable static
+  website
+- `fetch_lesson()` fetches the static website from the lesson repository
+
+**Continuous Integration Utilities**
+
+- [`ci_deploy()`](https://carpentries.github.io/sandpaper/reference/ci_deploy.md)
+  builds and deploys the lesson on CI from the source files
+- [`ci_build_markdown()`](https://carpentries.github.io/sandpaper/reference/ci_build.md)
+  builds the markdown files on CI from the source and deploys them to
+  the markdown branch.
+- [`ci_build_site()`](https://carpentries.github.io/sandpaper/reference/ci_build.md)
+  deploys the lesson on CI from pre-rendered markdown files
+- `ci_release()` builds and deploys the lesson on CI from the source
+  files and adds a release tag
+- [`update_github_workflows()`](https://carpentries.github.io/sandpaper/reference/update_github_workflows.md)
+  updates GitHub workflows
+
+Cleanup
+
+- [`reset_episodes()`](https://carpentries.github.io/sandpaper/reference/reset_episodes.md)
+  removes the schedule from the config.yaml file
+- [`reset_site()`](https://carpentries.github.io/sandpaper/reference/reset_site.md)
+  clears the website and cache
+
+## Usage
+
+There are five use-cases for {sandpaper}:
+
+1.  Creating lessons
+2.  Contributing to lessons
+3.  Maintaining lessons
+4.  Rendering a portable site
+5.  Rendering a site with GitHub actions.
+
+### Creating a lesson
+
+To create a lesson with {sandpaper}, use the
+[`create_lesson()`](https://carpentries.github.io/sandpaper/reference/create_lesson.md)
+function:
+
+``` r
+sandpaper::create_lesson("~/Desktop/r-intermediate-penguins")
+```
+
+This will create folder on your desktop called `r-intermediate-penguins`
+with the following structure:
+
+``` R
+|-- .gitignore               # - Ignore everything in the site/ folder
+|-- .github/                 # - Scripts used for continuous integration
+|   `-- workflows/           #
+|       |-- deploy-site.yaml # -   Build the source files on github pages
+|       |-- build-md.yaml    # -   Build the markdown files on github pages
+|       `-- cron.yaml        # -   reset package cache and test
+|-- episodes/                # - PUT YOUR MARKDOWN FILES IN THIS FOLDER
+|   |-- data/                # -   Data for your lesson goes here
+|   |-- figures/             # -   All static figures and diagrams are here
+|   |-- files/               # -   Additional files (e.g. handouts) 
+|   `-- 00-introducition.Rmd # -   Lessons start with a two-digit number
+|-- instructors/             # - Information for Instructors
+|-- learners/                # - Information for Learners
+|   `-- setup.md             # -   setup instructions (REQUIRED)
+|-- profiles/                # - Learner and/or Instructor Profiles
+|-- site/                    # - This folder is where the rendered markdown files and static site will live
+|   `-- README.md            # -   placeholder
+|-- config.yaml              # - Use this to configure commonly used variables
+|-- CONTRIBUTING.md          # - Carpentries Rules for Contributions (REQUIRED)
+|-- CODE_OF_CONDUCT.md       # - Carpentries Code of Conduct (REQUIRED)
+|-- LICENSE.md               # - Carpentries Licenses (REQUIRED)
+`-- README.md                # - Introduces folks how to use this lesson and where they can find more information.
+```
+
+Once you have your site set up, you can add your RMarkdown files in the
+episodes folder. By default, they will be built in alphabetical order,
+but you can use the
+[`set_episodes()`](https://carpentries.github.io/sandpaper/reference/set_dropdown.md)
+command to build the schedule in your `config.yaml` file:
+
+``` r
+s <- sandpaper::get_episodes()
+sandpaper::set_episodes(order = s, write = TRUE)
+```
+
+When you want to preview your site, use the following:
+
+``` r
+sandpaper::build_lesson()
+```
+
+> #### Working in RStudio?
+>
+> If you are using RStudio, you can preview the lesson site using the
+> keyboard shortcut ctrl + shift + B (which corresponds to the “Build
+> Website” button in the “Build” tab. To preview individual files, you
+> can use ctrl + shift + K (This corresponds to the “Knit” button in the
+> editor pane)
+
+This will create the website structure inside of the the `site/` folder,
+render the RMarkdown files to markdown (for inspection and quick
+rendering), render the markdown files to HTML, and then enable a preview
+within your browser window.
+
+### Contributing to a Lesson
+
+To contribute to a lesson, you can either fork the lesson to your own
+repository and clone it to your computer manually from GitHub, or you
+can use the {usethis} package to automate it. For example, This is how
+you can create a copy of [**Programming With
+R**](http://swcarpentry.github.io/r-novice-inflammation/) to your
+computer’s Desktop.
+
+``` r
+usethis::create_from_github(
+  repo = "swcarpentry/r-novice-gapminder", 
+  destdir = "~/Desktop/r-novice-gampinder",
+  fork = TRUE
+)
+```
+
+This will copy all of the source files to your computer and move you to
+the directory.
+
+Note that the rendered website will not be immediately available. To
+download the site as it currently appears on the web, use:
+
+``` r
+sandpaper::fetch_lesson(markdown = TRUE, site = TRUE)
+```
+
+This will download the site and the rendered markdown files into the
+`site/` folder. To save bandwidth, you can choose to just download the
+markdown files and artifacts by settin `site = FALSE`. Now, you can edit
+the Rmarkdown files in `episodes/` and quickly render the site.
+
+To upload changes to the lesson repository, you can use the follow
+
+### Maintaining a Lesson
+
+When you are maintaining a lesson, there is a high likelihood that you
+will already have a copy on your machine. If not, follow the
+instructions in the [contributing to a
+lesson](#contributing-to-a-lesson) section above.
+
+The typical workflow will look like this:
+
+1.  open the sandpaper project in RStudio and make edits to files in the
+    `episodes/` folder
+2.  in the R console run the following
+
+``` r
+sandpaper::check_lesson() # validates the structure of the input files
+sandpaper::build_lesson() # builds and validates lesson
+```
+
+### Rendering a portable site
+
+To render a portable site, you can follow the instructions for
+[contributing to a lesson](#contributing-to-a-lesson) or [maintaining a
+lesson](#maintaining-a-lesson) to set up. Once you have the lesson set
+up, you can use the following command:
+
+``` r
+sandpaper::build_portable_lesson(version = "current")
+```
+
+This will render a fully portable lesson site as a zip file in the
+`site/` folder. You can distribute this lesson to learners who do not
+have reliable internet access for use offline without sacrificing any of
+the styling.
+
+### Rendering with GitHub actions
+
+Ultimately, there should be a minimal number of functions that handle
+this situation because writing CI configuration files is maddening. The
+most straightforward function is:
+
+``` r
+sandpaper::ci_deploy(md_branch = "md-outputs", site_branch = "gh-pages")
+```
+
+This function will create [git
+worktrees](https://git-scm.com/docs/git-worktree) for the orphan
+`md-outputs` branch in the `site/built` folder and the orphan `gh-pages`
+branch in the `site/docs` folder. After that, we generate the site as
+normal.
+
+Because css and js libraries may need updating before any lesson
+material does, a step can be created just for rebuilding the site that
+uses:
+
+``` r
+sandpaper::ci_build_site(branch = "gh-pages")
+```
+
+When a lesson is given a release, the current site folder needs to be
+duplicated to a versioned folder and a tag needs to be added to the
+`md-outputs` branch:
+
+``` r
+sandpaper::ci_release(tag = "0.1", md_branch = "md-outputs", site_branch = "gh-pages")
+```
+
+# Package index
+
+## Lesson Creation
+
+Provision new lessons and/or episodes. These functions will likely only
+be used once.
+
+- [`create_lesson()`](https://carpentries.github.io/sandpaper/reference/create_lesson.md)
+  : Create a carpentries lesson
+- [`create_episode()`](https://carpentries.github.io/sandpaper/reference/create_episode.md)
+  [`create_episode_md()`](https://carpentries.github.io/sandpaper/reference/create_episode.md)
+  [`create_episode_rmd()`](https://carpentries.github.io/sandpaper/reference/create_episode.md)
+  [`draft_episode_md()`](https://carpentries.github.io/sandpaper/reference/create_episode.md)
+  [`draft_episode_rmd()`](https://carpentries.github.io/sandpaper/reference/create_episode.md)
+  : Create an Episode from a template
+
+## Building Lessons
+
+Functions to work build, audit, and preview lesson content. These will
+be used with regularity in your work.
+
+- [`serve()`](https://carpentries.github.io/sandpaper/reference/serve.md)
+  : Build your lesson and work on it at the same time
+- [`build_lesson()`](https://carpentries.github.io/sandpaper/reference/build_lesson.md)
+  : Build your lesson site
+- [`sandpaper_site()`](https://carpentries.github.io/sandpaper/reference/sandpaper_site.md)
+  : Site generator for sandpaper
+- [`validate_lesson()`](https://carpentries.github.io/sandpaper/reference/validate_lesson.md)
+  : Pre-build validation of lesson elements
+
+## Lesson Development Helpers
+
+Functions to programmatically assess and modify configuration and source
+elements of a lesson. These are often used when developing a lesson.
+
+- [`get_drafts()`](https://carpentries.github.io/sandpaper/reference/get_drafts.md)
+  : Show files in draft form
+- [`get_config()`](https://carpentries.github.io/sandpaper/reference/get_config.md)
+  : Get the configuration parameters for the lesson
+- [`set_config()`](https://carpentries.github.io/sandpaper/reference/set_config.md)
+  : Set individual keys in a configuration file
+- [`set_dropdown()`](https://carpentries.github.io/sandpaper/reference/set_dropdown.md)
+  [`set_episodes()`](https://carpentries.github.io/sandpaper/reference/set_dropdown.md)
+  [`set_learners()`](https://carpentries.github.io/sandpaper/reference/set_dropdown.md)
+  [`set_instructors()`](https://carpentries.github.io/sandpaper/reference/set_dropdown.md)
+  [`set_profiles()`](https://carpentries.github.io/sandpaper/reference/set_dropdown.md)
+  : Set the order of items in a dropdown menu
+- [`get_dropdown()`](https://carpentries.github.io/sandpaper/reference/get_dropdown.md)
+  [`get_episodes()`](https://carpentries.github.io/sandpaper/reference/get_dropdown.md)
+  [`get_learners()`](https://carpentries.github.io/sandpaper/reference/get_dropdown.md)
+  [`get_instructors()`](https://carpentries.github.io/sandpaper/reference/get_dropdown.md)
+  [`get_profiles()`](https://carpentries.github.io/sandpaper/reference/get_dropdown.md)
+  : Helpers to extract contents of dropdown menus on the site
+- [`move_episode()`](https://carpentries.github.io/sandpaper/reference/move_episode.md)
+  : Move an episode in the schedule
+- [`get_syllabus()`](https://carpentries.github.io/sandpaper/reference/get_syllabus.md)
+  : Create a syllabus for the lesson
+- [`reset_episodes()`](https://carpentries.github.io/sandpaper/reference/reset_episodes.md)
+  : Clear the schedule in the lesson
+- [`reset_site()`](https://carpentries.github.io/sandpaper/reference/reset_site.md)
+  : Remove all files associated with the site
+- [`strip_prefix()`](https://carpentries.github.io/sandpaper/reference/strip_prefix.md)
+  : This will strip existing episode prefixes and set the schedule
+
+## The Package Cache
+
+Lessons with generated content (R Markdown lessons) have an extra file
+called `renv/profiles/lesson-requirments/renv.lock` that records the
+package versions used to build the lesson. These functions provide ways
+for you to manage these packages and turn it on or off while previewing
+the lesson.
+
+- [`use_package_cache()`](https://carpentries.github.io/sandpaper/reference/package_cache.md)
+  [`no_package_cache()`](https://carpentries.github.io/sandpaper/reference/package_cache.md)
+  [`package_cache_trigger()`](https://carpentries.github.io/sandpaper/reference/package_cache.md)
+  : Give Consent to Use Package Cache
+- [`manage_deps()`](https://carpentries.github.io/sandpaper/reference/dependency_management.md)
+  [`update_cache()`](https://carpentries.github.io/sandpaper/reference/dependency_management.md)
+  [`pin_version()`](https://carpentries.github.io/sandpaper/reference/dependency_management.md)
+  : Lesson Runtime Dependency Management
+
+## Updating Lesson Tools
+
+Lesson updates will happen automatically on a regular schedule on
+GitHub. If you want to expediate those updates or update the components
+on your own computer, these functions will help you with that.
+
+- [`update_varnish()`](https://carpentries.github.io/sandpaper/reference/update_varnish.md)
+  : Update the local version of the carpentries style
+- [`manage_deps()`](https://carpentries.github.io/sandpaper/reference/dependency_management.md)
+  [`update_cache()`](https://carpentries.github.io/sandpaper/reference/dependency_management.md)
+  [`pin_version()`](https://carpentries.github.io/sandpaper/reference/dependency_management.md)
+  : Lesson Runtime Dependency Management
+- [`update_github_workflows()`](https://carpentries.github.io/sandpaper/reference/update_github_workflows.md)
+  : Update github workflows
+
+## \[Internal\] Continous Integration Functions
+
+Internal functions for deploying on continuous integration. Users are
+not intended to work with these.
+
+- [`ci_deploy()`](https://carpentries.github.io/sandpaper/reference/ci_deploy.md)
+  : (INTERNAL) Build and deploy the site with continous integration
+- [`ci_build_markdown()`](https://carpentries.github.io/sandpaper/reference/ci_build.md)
+  [`ci_build_site()`](https://carpentries.github.io/sandpaper/reference/ci_build.md)
+  : Build and deploy individual site components to a remote branch
+- [`ci_session_info()`](https://carpentries.github.io/sandpaper/reference/ci_session_info.md)
+  : Report session information to the user
+- [`git_worktree_setup()`](https://carpentries.github.io/sandpaper/reference/git_worktree.md)
+  [`github_worktree_commit()`](https://carpentries.github.io/sandpaper/reference/git_worktree.md)
+  [`github_worktree_remove()`](https://carpentries.github.io/sandpaper/reference/git_worktree.md)
+  : Setup a git worktree for concurrent manipulation of a separate
+  branch
+
+## \[Internal\] Markdown Build Components
+
+Internal functions used to provision and build the markdown components
+of a lesson.
+
+- [`this_lesson()`](https://carpentries.github.io/sandpaper/reference/lesson_storage.md)
+  [`clear_this_lesson()`](https://carpentries.github.io/sandpaper/reference/lesson_storage.md)
+  [`set_this_lesson()`](https://carpentries.github.io/sandpaper/reference/lesson_storage.md)
+  [`set_resource_list()`](https://carpentries.github.io/sandpaper/reference/lesson_storage.md)
+  [`clear_resource_list()`](https://carpentries.github.io/sandpaper/reference/lesson_storage.md)
+  : Internal cache for storing pre-computed lesson objects
+- [`build_handout()`](https://carpentries.github.io/sandpaper/reference/build_handout.md)
+  : Create a code handout of challenges without solutions
+- [`build_markdown()`](https://carpentries.github.io/sandpaper/reference/build_markdown.md)
+  : Build plain markdown from the RMarkdown episodes
+- [`build_episode_md()`](https://carpentries.github.io/sandpaper/reference/build_episode_md.md)
+  : Build an episode to markdown
+- [`sandpaper.options`](https://carpentries.github.io/sandpaper/reference/sandpaper.options.md)
+  : Global Options
+
+## \[Internal\] HTML Build Components
+
+Internal functions used to provision and build the HTML components of a
+lesson assuming that the markdown components have been built. (this is
+non-exhaustive)
+
+- [`known_languages()`](https://carpentries.github.io/sandpaper/reference/known_languages.md)
+  :
+
+  Show a list of languages known by
+  [sandpaper](https://carpentries.github.io/sandpaper/)
+
+- [`these`](https://carpentries.github.io/sandpaper/reference/translations.md)
+  [`establish_translation_vars()`](https://carpentries.github.io/sandpaper/reference/translations.md)
+  [`set_language()`](https://carpentries.github.io/sandpaper/reference/translations.md)
+  [`tr_src()`](https://carpentries.github.io/sandpaper/reference/translations.md)
+  [`tr_get()`](https://carpentries.github.io/sandpaper/reference/translations.md)
+  [`tr_varnish()`](https://carpentries.github.io/sandpaper/reference/translations.md)
+  [`tr_computed()`](https://carpentries.github.io/sandpaper/reference/translations.md)
+  : Establish and Manage Translation Strings
+
+- [`render_html()`](https://carpentries.github.io/sandpaper/reference/render_html.md)
+  : Render html from a markdown file
+
+- [`build_site()`](https://carpentries.github.io/sandpaper/reference/build_site.md)
+  : Wrapper for site builder
+
+- [`build_episode_html()`](https://carpentries.github.io/sandpaper/reference/build_episode_html.md)
+  : Build a single episode html file
+
+- [`build_home()`](https://carpentries.github.io/sandpaper/reference/build_home.md)
+  : Build a home page for a lesson
+
+- [`build_404()`](https://carpentries.github.io/sandpaper/reference/build_404.md)
+  : Build the 404 page for a lesson
+
+- [`build_html()`](https://carpentries.github.io/sandpaper/reference/build_html.md)
+  : Build instructor and learner HTML page
+
+- [`create_resources_dropdown()`](https://carpentries.github.io/sandpaper/reference/create_sidebar.md)
+  [`create_sidebar()`](https://carpentries.github.io/sandpaper/reference/create_sidebar.md)
+  [`update_sidebar()`](https://carpentries.github.io/sandpaper/reference/create_sidebar.md)
+  : Create the sidebar for varnish
+
+- [`create_sidebar_item()`](https://carpentries.github.io/sandpaper/reference/create_sidebar_item.md)
+  [`create_sidebar_headings()`](https://carpentries.github.io/sandpaper/reference/create_sidebar_item.md)
+  : Create a single item that appears in the sidebar
+
+## \[Internal\] Post-build Aggregation Components
+
+Components to build aggregate pages such as All in One and Keypoints
+
+- [`read_all_html()`](https://carpentries.github.io/sandpaper/reference/read_all_html.md)
+  : read all HTML files in a folder
+- [`provision_agg_page()`](https://carpentries.github.io/sandpaper/reference/provision.md)
+  [`provision_extra_template()`](https://carpentries.github.io/sandpaper/reference/provision.md)
+  : Provision an aggregate page in a lesson
+- [`get_content()`](https://carpentries.github.io/sandpaper/reference/get_content.md)
+  : Get sections from an episode's HTML page
+- [`make_aio_section()`](https://carpentries.github.io/sandpaper/reference/make_aio_section.md)
+  : Make a section and place it inside the All In One page
+- [`make_images_section()`](https://carpentries.github.io/sandpaper/reference/make_images_section.md)
+  : Make a section of aggregated images
+- [`build_aio()`](https://carpentries.github.io/sandpaper/reference/build_agg.md)
+  [`build_images()`](https://carpentries.github.io/sandpaper/reference/build_agg.md)
+  [`build_instructor_notes()`](https://carpentries.github.io/sandpaper/reference/build_agg.md)
+  [`build_keypoints()`](https://carpentries.github.io/sandpaper/reference/build_agg.md)
+  [`build_agg_page()`](https://carpentries.github.io/sandpaper/reference/build_agg.md)
+  : Build a page for aggregating common elements
+
+## \[Internal\] Resource Discovery/Management
+
+Tools for discovering resources and managing their hashes in a text file
+database.
+
+- [`get_resource_list()`](https://carpentries.github.io/sandpaper/reference/get_resource_list.md)
+  : Get the full resource list of markdown files
+- [`parse_file_matches()`](https://carpentries.github.io/sandpaper/reference/parse_file_matches.md)
+  : Subset file matches to the order they appear in the config file
+- [`get_hash()`](https://carpentries.github.io/sandpaper/reference/build_status.md)
+  [`get_built_db()`](https://carpentries.github.io/sandpaper/reference/build_status.md)
+  [`build_status()`](https://carpentries.github.io/sandpaper/reference/build_status.md)
+  : Identify what files need to be rebuilt and what need to be removed
+- [`hash_children()`](https://carpentries.github.io/sandpaper/reference/hash_children.md)
+  [`get_lineages()`](https://carpentries.github.io/sandpaper/reference/hash_children.md)
+  : Update file checksums to account for child documents
+- [`template_gitignore()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_episode()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_links()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_cff()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_citation()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_config()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_conduct()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_index()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_license()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_contributing()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_setup()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_pkgdown()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_placeholder()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_pr_diff()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_sidebar_item()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  [`template_metadata()`](https://carpentries.github.io/sandpaper/reference/template.md)
+  : Template files
+- [`yaml_list()`](https://carpentries.github.io/sandpaper/reference/yaml_list.md)
+  : Create a valid, opinionated yaml list for insertion into a whisker
+  template
+
+## \[Developer\] Lesson Test Fixture
+
+Internal documentation for the temporary lesson and remote used as a
+test fixture created and destroyed before and after tests.
+
+- [`create_test_lesson()`](https://carpentries.github.io/sandpaper/reference/fixtures.md)
+  [`generate_restore_fixture()`](https://carpentries.github.io/sandpaper/reference/fixtures.md)
+  [`setup_local_remote()`](https://carpentries.github.io/sandpaper/reference/fixtures.md)
+  [`make_branch()`](https://carpentries.github.io/sandpaper/reference/fixtures.md)
+  [`clean_branch()`](https://carpentries.github.io/sandpaper/reference/fixtures.md)
+  [`remove_local_remote()`](https://carpentries.github.io/sandpaper/reference/fixtures.md)
+  : Test fixture functions for sandpaper
+
+# Articles
+
+### How to…
+
+- [Building Lessons With A Package
+  Cache](https://carpentries.github.io/sandpaper/articles/building-with-renv.md):
+- [Working with Automated Pull
+  Requests](https://carpentries.github.io/sandpaper/articles/automated-pull-requests.md):
+- [Including Child
+  Documents](https://carpentries.github.io/sandpaper/articles/include-child-documents.md):
+- [Translating The
+  Workbench](https://carpentries.github.io/sandpaper/articles/translations.md):
+
+### Developer Guides
+
+- [Data and Flow from Source to
+  Website](https://carpentries.github.io/sandpaper/articles/data-flow.md):
+- [Landscape View of New Lesson
+  Template](https://carpentries.github.io/sandpaper/articles/landscape.md):
+- [Building and Deployment of a {sandpaper}
+  lesson](https://carpentries.github.io/sandpaper/articles/deployment.md):
+- [The nerd's guide to the lesson
+  toolchain](https://carpentries.github.io/sandpaper/articles/toolchain.md):
+
+### In Progress
+
+- [Internationalisation (i18n) and Localisation
+  (l10n)](https://carpentries.github.io/sandpaper/articles/internationalisation.md):

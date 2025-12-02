@@ -1,0 +1,63 @@
+# Internationalisation (i18n) and Localisation (l10n)
+
+> NOTE: This is currently a WIP and several things ahve changed since
+> it’s initial writing
+
+Internationalization of the lessons have always been a priority for The
+Carpentries given the fact that we are a global organization. There are
+three levels at which translations can be added:
+
+1.  The structural elements for the page (e.g. dropdown menu headings
+    and navigation tooltips)
+2.  References and definitions
+3.  Page content
+
+## Structural Elements (l10n)
+
+The first issue is common for all websites and has several available
+solutions that exits in several languages.
+
+At the moment, [The Carpentries website](https://carpentries.org)
+supports l10n in a low-rent manner by including a yaml dictionary in the
+`_data` directory and switching languages via the `site.data.language`
+variable ([as shown in this example that translates “This content is
+open
+source”](https://github.com/carpentries/carpentries.org/blob/ea3395f7001d05420e9a6e0a2ef735c4f940c8d7/_includes/_improve_content.html#L13)).
+Though, how exactly this is accessible via the main site is not clear.
+
+To make sure that the translations are compatible no matter what tooling
+we use (R, Python, JavaScript, PhP), we should store the translations in
+the `*.po` (portable object) so that each language can use its own
+[`gettext()`](https://rdrr.io/r/base/gettext.html) utility to swap out
+the translations.
+
+Because it will be associated with the lesson template itself, the `*po`
+files will live in the [{varnish}](https://github.com/zkamvar/varnish)
+package and be used from R to translate messages when the website is
+being generated.
+
+## References and Definitions
+
+References for definitions is achieved via the
+[{glosario}](https://glosario.carpentries.org/) project where the
+glossary is formatted as a yaml file and there are python, and R
+libraries that can be used to extract specific translations for these
+glossaries.
+
+## Page Content (i18n)
+
+This is a topic that is currently not well addressed and is quite hard
+to do because translating prose is much harder than translating
+individual messages because the context of an individual paragraph in a
+section is important. David Pérez-Suárez has proposed to use a
+`{gettext}` solution because this is a standard for translating messages
+in several computer programs. He found a python + BASH project called
+[po4gitbook](https://github.com/carpentries-i18n/po4gitbook) that will
+convert markdown content to po files for translation and back again.
+However, he’s finding that it breaks down a lot with parsing markdown
+elements like lists and R chunks. I’m thinking that a solution is to use
+parse the markdown with the commonmark XML spec and then use that to
+extract the paragraph elements, recast them into markdown and use those
+for basis of the translated messages. This way, parsing won’t be an
+issue. The big challenge is that the library has to be re-written for
+that to happen.
