@@ -1,5 +1,13 @@
 # Changelog
 
+## sandpaper 0.17.3 \[2025-12-03\]
+
+### HOTFIX RELEASE
+
+- Make {cffr} an Import not Suggests, improve warning message when cffr
+  not available - PR
+  [684](https://github.com/carpentries/sandpaper/pull/684)
+
 ## sandpaper 0.17.2 \[2025-12-02\]
 
 ### NEW FEATURES

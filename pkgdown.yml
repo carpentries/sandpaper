@@ -11,7 +11,7 @@ articles:
   articles/landscape: landscape.html
   articles/toolchain: toolchain.html
   translations: translations.html
-last_built: 2025-12-03T16:01Z
+last_built: 2025-12-03T16:16Z
 urls:
   reference: https://carpentries.github.io/sandpaper/reference
   article: https://carpentries.github.io/sandpaper/articles
