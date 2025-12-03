@@ -1,6 +1,6 @@
 Package: sandpaper
 Title: Create and Curate Carpentries Lessons
-Version: 0.17.2
+Version: 0.17.3
 Authors@R: c(
     person(given = "Robert",
            family = "Davey",
@@ -107,6 +107,7 @@ Imports:
     withr,
     whisker,
     callr,
+    cffr,
     servr,
     utils,
     tools,
@@ -116,7 +117,6 @@ Imports:
     xfun
 Suggests:
     testthat (>= 3.0.0),
-    cffr,
     covr,
     brio,
     xml2,
