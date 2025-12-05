@@ -75,25 +75,25 @@ if (interactive() || Sys.getenv("CI") != "") {
     move_episode("experimental.md", path = tmp)
   }
 }
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e51e67b64...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f972128b37...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e51e67b64...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f972128b37...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e51e67b64...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f972128b37...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e51e67b64...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f972128b37...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e51e67b64...
-#> ☐ Edit /tmp/RtmpjJX7eW/file199e51e67b64/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e51e67b64...
-#> ✔ First episode created in /tmp/RtmpjJX7eW/file199e51e67b64/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e51e67b64...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f972128b37...
+#> ☐ Edit /tmp/RtmpPxAdba/file19f972128b37/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f972128b37...
+#> ✔ First episode created in /tmp/RtmpPxAdba/file19f972128b37/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f972128b37...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e51e67b64...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f972128b37...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e51e67b64...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f972128b37...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -112,7 +112,7 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> - fs            1.6.6
 #> - glue          1.8.0
 #> - highr         0.11
-#> - htmltools     0.5.8.1
+#> - htmltools     0.5.9
 #> - jquerylib     0.1.4
 #> - jsonlite      2.0.0
 #> - knitr         1.50
@@ -125,7 +125,7 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> - sass          0.4.10
 #> - tinytex       0.58
 #> - xfun          0.54
-#> - yaml          2.3.10
+#> - yaml          2.3.11
 #> 
 #> They will be copied into the project library.
 #> 
@@ -148,7 +148,7 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> - fs            [* -> 1.6.6]
 #> - glue          [* -> 1.8.0]
 #> - highr         [* -> 0.11]
-#> - htmltools     [* -> 0.5.8.1]
+#> - htmltools     [* -> 0.5.9]
 #> - jquerylib     [* -> 0.1.4]
 #> - jsonlite      [* -> 2.0.0]
 #> - knitr         [* -> 1.50]
@@ -162,17 +162,17 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> - sass          [* -> 0.4.10]
 #> - tinytex       [* -> 0.58]
 #> - xfun          [* -> 0.54]
-#> - yaml          [* -> 2.3.10]
+#> - yaml          [* -> 2.3.11]
 #> 
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.5.2]
 #> 
-#> - Lockfile written to "/tmp/RtmpjJX7eW/file199e51e67b64/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/RtmpjJX7eW/file199e51e67b64
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e51e67b64...
-#> ☐ Edit /tmp/RtmpjJX7eW/file199e51e67b64/episodes/getting-started.md.
-#> ☐ Edit /tmp/RtmpjJX7eW/file199e51e67b64/episodes/plotting.Rmd.
-#> ☐ Edit /tmp/RtmpjJX7eW/file199e51e67b64/episodes/experimental.md.
+#> - Lockfile written to "/tmp/RtmpPxAdba/file19f972128b37/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/RtmpPxAdba/file19f972128b37
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f972128b37...
+#> ☐ Edit /tmp/RtmpPxAdba/file19f972128b37/episodes/getting-started.md.
+#> ☐ Edit /tmp/RtmpPxAdba/file19f972128b37/episodes/plotting.Rmd.
+#> ☐ Edit /tmp/RtmpPxAdba/file19f972128b37/episodes/experimental.md.
 #> episodes:
 #> - introduction.Rmd
 #> - getting-started.md

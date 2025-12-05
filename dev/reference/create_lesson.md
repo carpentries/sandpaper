@@ -50,25 +50,25 @@ the path to the new lesson
 tmp <- tempfile()
 on.exit(unlink(tmp))
 lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e78753807...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f91815bcef...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e78753807...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f91815bcef...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e78753807...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f91815bcef...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e78753807...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f91815bcef...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e78753807...
-#> ☐ Edit /tmp/RtmpjJX7eW/file199e78753807/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e78753807...
-#> ✔ First episode created in /tmp/RtmpjJX7eW/file199e78753807/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e78753807...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f91815bcef...
+#> ☐ Edit /tmp/RtmpPxAdba/file19f91815bcef/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f91815bcef...
+#> ✔ First episode created in /tmp/RtmpPxAdba/file19f91815bcef/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f91815bcef...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e78753807...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f91815bcef...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e78753807...
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f91815bcef...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -87,7 +87,7 @@ lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #> - fs            1.6.6
 #> - glue          1.8.0
 #> - highr         0.11
-#> - htmltools     0.5.8.1
+#> - htmltools     0.5.9
 #> - jquerylib     0.1.4
 #> - jsonlite      2.0.0
 #> - knitr         1.50
@@ -100,7 +100,7 @@ lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #> - sass          0.4.10
 #> - tinytex       0.58
 #> - xfun          0.54
-#> - yaml          2.3.10
+#> - yaml          2.3.11
 #> 
 #> They will be copied into the project library.
 #> 
@@ -123,7 +123,7 @@ lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #> - fs            [* -> 1.6.6]
 #> - glue          [* -> 1.8.0]
 #> - highr         [* -> 0.11]
-#> - htmltools     [* -> 0.5.8.1]
+#> - htmltools     [* -> 0.5.9]
 #> - jquerylib     [* -> 0.1.4]
 #> - jsonlite      [* -> 2.0.0]
 #> - knitr         [* -> 1.50]
@@ -137,14 +137,14 @@ lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #> - sass          [* -> 0.4.10]
 #> - tinytex       [* -> 0.58]
 #> - xfun          [* -> 0.54]
-#> - yaml          [* -> 2.3.10]
+#> - yaml          [* -> 2.3.11]
 #> 
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.5.2]
 #> 
-#> - Lockfile written to "/tmp/RtmpjJX7eW/file199e78753807/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/RtmpjJX7eW/file199e78753807
-#> → Creating Lesson in /tmp/RtmpjJX7eW/file199e78753807...
+#> - Lockfile written to "/tmp/RtmpPxAdba/file19f91815bcef/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/RtmpPxAdba/file19f91815bcef
+#> → Creating Lesson in /tmp/RtmpPxAdba/file19f91815bcef...
 lsn
-#> /tmp/RtmpjJX7eW/file199e78753807
+#> /tmp/RtmpPxAdba/file19f91815bcef
 ```
