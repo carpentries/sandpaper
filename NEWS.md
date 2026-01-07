@@ -1,14 +1,48 @@
-# sandpaper 0.17.2.9000
+# sandpaper 0.17.3 [2025-12-03]
+
+## HOTFIX RELEASE
+
+* Make {cffr} an Import not Suggests, improve warning message when cffr not available - 
+  PR [684](https://github.com/carpentries/sandpaper/pull/684)
+
+
+# sandpaper 0.17.2 [2025-12-02]
+
+## NEW FEATURES
+
+* Check for packages on GitHub if the renv lockfile specifies them. Previously, packages that 
+  weren't linked through hydration would only be attempted to be installed through a repo, and 
+  not checked on GitHub - PR [682](https://github.com/carpentries/sandpaper/pull/682) 
+  ([reported](https://github.com/carpentries/sandpaper/issues/680) @chrbknudsen)
+* Implementation of Cite This Lesson pages, built dynamically from CITATION.cff files in a 
+  lesson repo. Current brehaviour is unchanged if CITATION file exists (links to GitHub), or no 
+  file exists - PR [679](https://github.com/carpentries/sandpaper/pull/679) 
+  ([reported](https://github.com/carpentries/sandpaper/issues/508) @apirogov)
+* Add cute parrot icons for referenced Glosario terms - 
+  PR [673](https://github.com/carpentries/sandpaper/pull/673)
 
 ## BUG FIXES
 
-* Fix glosario placeholders using non-existent slugs (reported @ErinBecker #674, fixed @froggleston #676)
+* Fix glosario placeholders using non-existent slugs (reported @ErinBecker #674, fixed 
+  @froggleston #676)
+* Fix empty md processing, and improve md header detection 
+  ([reported](https://github.com/carpentries/workbench/issues/80) @tobyhodges, fixed 
+  @froggleston #677)
 
 ## MISC
 
-* Add use_site_libs option to manage_deps - allows environments to use any preinstalled site library packages
-  by adding those paths to .libPaths(). This is envisaged to be of use where already constrained environments
-  are in use, e.g. Workbench Docker containers, including GHA builds (which should be faster as a result).
+* Add use_site_libs option to manage_deps - allows environments to use any preinstalled site 
+  library packages by adding those paths to .libPaths(). This is envisaged to be of use where 
+  already constrained environments are in use, e.g. Workbench Docker containers, including GHA 
+  builds (which should be faster as a result) - 
+  PR [675](https://github.com/carpentries/sandpaper/pull/675)
+* Allow CI to bypass the forced manage_deps in renv consent - adds the skip_manage_deps flag to 
+  `build_markdown()` and also to `ci_deploy()`. This is in preparation for the Dockerised 
+  Workbench workflows, where dependency management happens before this part of the codebase is 
+  run, so is superfluous. In the dockerised version of the workflows, this will be set to TRUE, 
+  but in the normal sandpaper workflows this will be FALSE, so current behaviour is maintained - 
+  PR [678](https://github.com/carpentries/sandpaper/pull/678)
+* Add test snapshots for pandoc 3.1.11
 
 
 # sandpaper 0.17.1 [2025-08-08]

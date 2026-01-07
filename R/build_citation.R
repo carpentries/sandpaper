@@ -121,12 +121,11 @@ read_cff <- function(cff_file) {
     cff_file <- fs::path_abs(cff_file)
 
     if (requireNamespace("cffr", quietly = TRUE)) {
-
       # surround with tryCatch to handle potential errors
       tryCatch({
         valid <- cffr::cff_validate(cff_file)
         if (!valid) {
-            cli::cli_alert_warning("CITATION.CFF file is not valid according to CFF schema.")
+            cli::cli_alert_warning("CITATION.cff file is not valid according to CFF schema.")
             return(NULL)
         }
 
@@ -136,9 +135,12 @@ read_cff <- function(cff_file) {
             return(cff_data)
         }
       }, error = function(e) {
-        cli::cli_alert_warning("Error reading CITATION.CFF file: {e$message}")
+        cli::cli_alert_warning("Error reading CITATION.cff file: {e$message}")
         return(NULL)
       })
+    } else {
+      cli::cli_alert_warning("{cffr} is required but not installed - cannot parse CITATION.cff file.")
+      return(NULL)
     }
   }
 
@@ -174,7 +176,7 @@ generate_author_names <- function(authors, env, output_html = TRUE) {
             name <- paste0(name, " <a href='#aff", affil_num, "'><sup>", affil_num, "</sup></a> ")
         }
         if (orcid != "") {
-            name <- paste0(name, " <a href='", orcid, "' target='_blank'><sup><img src='assets/images/orcid_icon.png' height='12' width='12'/></sup></a>")
+            name <- paste0(name, " <a href='", orcid, "' target='_blank'><sup><img src='/assets/images/orcid_icon.png' height='12' width='12'/></sup></a>")
         }
         name <- paste0(name, "</span>")
       }
@@ -236,7 +238,7 @@ build_citation <- function(pkg, quiet = FALSE) {
 
   cff_meta <- this_metadata$get()$cff
   if (is.null(cff_meta) || cff_meta == "CITATION") {
-    cli::cli_alert_warning("No CITATION.CFF file found. Falling back to default behaviour.")
+    cli::cli_alert_warning("No CITATION.cff file found. Falling back to default behaviour.")
   }
   else {
     cff_env <- parse_cff(cff_meta)
