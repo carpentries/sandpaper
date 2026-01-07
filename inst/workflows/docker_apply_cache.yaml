@@ -173,9 +173,9 @@ jobs:
           output-credentials: true
 
       - name: "Upload cache object to S3"
+        id: upload-cache
         uses: carpentries/actions-cache@frog-matchedkey-1
         with:
-          # insecure: false # optional, use http instead of https. default false
           accessKey: ${{ steps.aws-creds.outputs.aws-access-key-id }}
           secretKey: ${{ steps.aws-creds.outputs.aws-secret-access-key }}
           sessionToken: ${{ steps.aws-creds.outputs.aws-session-token }}
@@ -186,6 +186,23 @@ jobs:
           key: ${{ github.repository }}/${{ steps.wb-vers.outputs.container-version }}_renv-${{ needs.check-renv.outputs.renv-cache-hashsum }}
           restore-keys:
             ${{ github.repository }}/${{ steps.wb-vers.outputs.container-version }}_renv-
+
+      - name: "List current cache objects in S3 bucket"
+        uses: gsaraf/aws-s3-github-action@master
+        env:
+          role-to-assume: ${{ secrets.AWS_GH_OIDC_ARN }}
+          aws-region: ${{ secrets.AWS_GH_OIDC_REGION }}
+        if: |
+          steps.upload-cache.outcome == 'success' &&
+          steps.validate-org-workflow.outputs.is_valid == 'true' &&
+          env.role-to-assume != '' &&
+          env.aws-region != ''
+        with:
+          command: ls
+          source: s3://workbench-docker-caches/${{ github.repository }}/
+          aws_access_key_id: ${{ steps.aws-creds.outputs.aws-access-key-id }}
+          aws_secret_access_key: ${{ steps.aws-creds.outputs.aws-secret-access-key }}
+          aws_region: ${{ env.aws-region }}
 
   # trigger the build deploy workflow if update-renv-cache was successful
   trigger-build-deploy:
