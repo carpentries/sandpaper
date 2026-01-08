@@ -1,5 +1,5 @@
 name: "03 Maintain: Apply Package Cache"
-
+description: "Generate the package cache for the lesson after a pull request has been merged or via manual trigger, and cache in S3 or GitHub"
 on:
   workflow_dispatch:
     inputs:

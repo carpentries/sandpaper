@@ -1,5 +1,5 @@
 name: "Bot: Receive Pull Request"
-
+description: "Receive a pull request and build the markdown source files"
 on:
   pull_request:
     types:

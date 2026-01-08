@@ -1,5 +1,5 @@
 name: "02 Maintain: Check for Updated Packages"
-
+description: "Check for updated R packages and create a pull request to update the lesson's renv lockfile and package cache"
 on:
   workflow_dispatch:
     inputs:
@@ -144,12 +144,6 @@ jobs:
           echo "::add-mask::$PAT"
           echo "pat=$PAT" >> "$GITHUB_OUTPUT"
         shell: bash
-
-      # - name: "Validate token"
-      #   id: validate-token
-      #   uses: carpentries/actions/check-valid-credentials@main
-      #   with:
-      #     token: ${{ steps.set-pat.outputs.pat || secrets.SANDPAPER_WORKFLOW || secrets.GITHUB_TOKEN }}
 
       # Create the PR with the following roles in order of preference:
       # - Carpentries Bot classic PAT fetched from AWS (will only work in official Carpentries repos)

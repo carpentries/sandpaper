@@ -1,5 +1,5 @@
 name: "01 Maintain: Build and Deploy Site"
-
+description: "Build and deploy the lesson site using the carpentries/workbench-docker container"
 on:
   push:
     branches:
