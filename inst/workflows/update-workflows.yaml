@@ -23,6 +23,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      id-token: write
     steps:
       - name: "Checkout Repository"
         uses: actions/checkout@v4
@@ -80,12 +81,18 @@ jobs:
         if: ${{ steps.validate-token.outputs.wf == 'true' }}
         uses: carpentries/actions/update-workflows@main
         with:
-          repo: ${{ github.event.inputs.tarball }} || "https://carpentries.r-universe.dev"
-          clean: ${{ github.event.inputs.clean }} || ".yaml"
+          repo: ${{ github.event.inputs.tarball || "https://carpentries.r-universe.dev" }}
+          clean: ${{ github.event.inputs.clean || ".yaml" }}
 
       - name: Create Pull Request
         id: cpr
-        if: ${{ steps.update.outputs.new > 0 && steps.validate-token.outputs.wf == 'true' }}
+        if: |
+          steps.update.outputs.new != '' &&
+          steps.validate-token.outputs.wf == 'true' &&
+          (
+            (endsWith(steps.update.outputs.new, 'tar.gz') || endsWith(steps.update.outputs.new, 'zip')) ||
+            (steps.update.outputs.new > 0)
+          )
         uses: carpentries/create-pull-request@main
         with:
           token: ${{ steps.set-pat.outputs.pat || secrets.SANDPAPER_WORKFLOW }}
