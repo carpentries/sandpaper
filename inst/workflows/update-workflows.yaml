@@ -81,8 +81,8 @@ jobs:
         if: ${{ steps.validate-token.outputs.wf == 'true' }}
         uses: carpentries/actions/update-workflows@main
         with:
-          repo: ${{ github.event.inputs.tarball || "https://carpentries.r-universe.dev" }}
-          clean: ${{ github.event.inputs.clean || ".yaml" }}
+          repo: ${{ github.event.inputs.tarball || 'https://carpentries.r-universe.dev' }}
+          clean: ${{ github.event.inputs.clean || '.yaml' }}
 
       - name: Create Pull Request
         id: cpr
