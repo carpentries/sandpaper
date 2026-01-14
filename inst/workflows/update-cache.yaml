@@ -82,7 +82,7 @@ jobs:
       pull-requests: write
       actions: write
       issues: write
-      id-token: write # OIDC permission required
+      id-token: write
     if: needs.check-renv.outputs.renv-needed == 'true'
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

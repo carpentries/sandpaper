@@ -135,7 +135,7 @@ jobs:
       checks: write
       contents: write
       pages: write
-      id-token: write # OIDC permission required
+      id-token: write
     container:
       image: carpentries/workbench-docker:${{ vars.WORKBENCH_TAG || 'latest' }}
       env:

@@ -43,7 +43,7 @@ jobs:
     needs: preflight
     if: needs.preflight.outputs.do-apply == 'true'
     permissions:
-      id-token: write # OIDC permission required
+      id-token: write
     outputs:
       renv-needed: ${{ steps.check-for-renv.outputs.renv-needed }}
       renv-cache-hashsum: ${{ steps.check-for-renv.outputs.renv-cache-hashsum }}
@@ -110,7 +110,7 @@ jobs:
       checks: write
       contents: write
       pages: write
-      id-token: write # OIDC permission required
+      id-token: write
     container:
       image: carpentries/workbench-docker:${{ vars.WORKBENCH_TAG || 'latest' }}
       env:
