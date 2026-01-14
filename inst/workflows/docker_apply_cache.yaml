@@ -87,9 +87,22 @@ jobs:
         github.event_name == 'workflow_dispatch' ||
         (
           github.event.pull_request.merged == true &&
-          contains(
-            join(github.event.pull_request.labels.*.name, ','),
-            'type: package cache'
+          (
+            (
+              contains(
+                join(github.event.pull_request.labels.*.name, ','),
+                'type: package cache'
+              ) &&
+              github.event.pull_request.head.ref == 'update/packages'
+            )
+            ||
+            (
+              contains(
+                join(github.event.pull_request.labels.*.name, ','),
+                'type: template and tools'
+              ) &&
+              github.event.pull_request.head.ref == 'update/workflows'
+            )
           )
         )
       )
@@ -105,7 +118,7 @@ jobs:
         GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         RENV_PATHS_ROOT: /home/rstudio/lesson/renv
         RENV_PROFILE: "lesson-requirements"
-        RENV_VERSION: ${{ needs.prepare.outputs.renv-cache-hashsum }}
+        RENV_VERSION: ${{ needs.check-renv.outputs.renv-cache-hashsum }}
         RENV_CONFIG_EXTERNAL_LIBRARIES: "/usr/local/lib/R/site-library"
       volumes:
         - ${{ github.workspace }}:/home/rstudio/lesson
@@ -186,23 +199,6 @@ jobs:
           key: ${{ github.repository }}/${{ steps.wb-vers.outputs.container-version }}_renv-${{ needs.check-renv.outputs.renv-cache-hashsum }}
           restore-keys:
             ${{ github.repository }}/${{ steps.wb-vers.outputs.container-version }}_renv-
-
-      - name: "List current cache objects in S3 bucket"
-        uses: gsaraf/aws-s3-github-action@master
-        env:
-          role-to-assume: ${{ secrets.AWS_GH_OIDC_ARN }}
-          aws-region: ${{ secrets.AWS_GH_OIDC_REGION }}
-        if: |
-          steps.upload-cache.outcome == 'success' &&
-          steps.validate-org-workflow.outputs.is_valid == 'true' &&
-          env.role-to-assume != '' &&
-          env.aws-region != ''
-        with:
-          command: ls
-          source: s3://workbench-docker-caches/${{ github.repository }}/
-          aws_access_key_id: ${{ steps.aws-creds.outputs.aws-access-key-id }}
-          aws_secret_access_key: ${{ steps.aws-creds.outputs.aws-secret-access-key }}
-          aws_region: ${{ env.aws-region }}
 
   # trigger the build deploy workflow if update-renv-cache was successful
   trigger-build-deploy:
