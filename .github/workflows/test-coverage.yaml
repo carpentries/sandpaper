@@ -38,22 +38,23 @@ jobs:
           sudo apt update || exit 0
           sudo locale-gen en_US.UTF-8
           sudo update-locale LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 LC_MESSAGES=en_US.UTF-8 LANG=en_US.UTF-8
-          curl https://carpentries.r-universe.dev/stats/sysdeps 2> /dev/null \
-          | jq -r '.headers[0] | select(. != null)' 2> /dev/null \
-          > ${{ runner.temp }}/sysdeps.txt
-          if [[ `wc -l < ${{ runner.temp }}/sysdeps.txt` -gt 0 ]]; then
-            echo 'sysdeps acquired'
-          else
-            echo 'fetching sysdeps from descriptions'
-            curl https://carpentries.r-universe.dev/stats/descriptions \
-            | jq -r '._builder.sysdeps | .[].headers | select(. != null)' 2> /dev/null \
-            > ${{ runner.temp }}/sysdeps.txt
-          fi
-          if [[ `wc -l < ${{ runner.temp }}/sysdeps.txt` -eq 0 ]]; then
-            echo "::warn::System dependencies could not be acquired. Builds may fail"
+          sudo apt update || exit 0
+          pkgs=$(curl -Ls https://carpentries.r-universe.dev/api/packages)
+          if [[ $? -ne 0 ]]; then
+            echo "::error::Could not fetch package list from r-universe."
             exit 1
+          fi
+
+          echo $pkgs \
+          | jq -r '[.[]._sysdeps | select(.) | .[].headers | select(.)] | unique | .[]' \
+          2> /dev/null \
+          > ${{ runner.temp }}/sysdeps.txt
+
+          if [[ `wc -l < ${{ runner.temp }}/sysdeps.txt` -eq 0 ]]; then
+            echo "::warn::No system dependencies acquired. Builds may fail."
+            exit 0
           else
-            echo "found sysdeps: $(cat ${{ runner.temp }}/sysdeps.txt)"
+            echo -e "Found sysdeps:\n$(cat ${{ runner.temp }}/sysdeps.txt)"
           fi
           printf "libxslt-dev\n" >> ${{ runner.temp }}/sysdeps.txt
           sudo xargs apt-get install --fix-missing -y < ${{ runner.temp }}/sysdeps.txt || echo "Not on Ubuntu"
