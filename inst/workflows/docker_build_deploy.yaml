@@ -3,7 +3,9 @@ description: "Build and deploy the lesson site using the carpentries/workbench-d
 on:
   push:
     branches:
-      - main
+      - 'main'
+    paths-ignore:
+      - '.github/workflows/**.yaml'
   schedule:
     - cron: '0 0 * * 2'
   workflow_dispatch:

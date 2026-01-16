@@ -99,7 +99,7 @@ jobs:
             (
               contains(
                 join(github.event.pull_request.labels.*.name, ','),
-                'type: template and tools'
+                'type: workflows'
               ) &&
               github.event.pull_request.head.ref == 'update/workflows'
             )
