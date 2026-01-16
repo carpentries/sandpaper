@@ -100,28 +100,28 @@ accordingly, removing entries missing from the sources.
 # setup -----------------------------------------------------------------
 tmp <- tempfile()
 on.exit(fs::dir_delete(tmp), add = TRUE)
-#> Error: [ENOENT] Failed to search directory '/tmp/Rtmp9MemTm/file199e4a8c9a88': no such file or directory
+#> Error: [ENOENT] Failed to search directory '/tmp/RtmpukkbJ4/file1bfd69b1978b': no such file or directory
 create_lesson(tmp, rmd = FALSE, open = FALSE)
-#> → Creating Lesson in /tmp/Rtmp9MemTm/file199e4a8c9a88...
+#> → Creating Lesson in /tmp/RtmpukkbJ4/file1bfd69b1978b...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/Rtmp9MemTm/file199e4a8c9a88...
+#> → Creating Lesson in /tmp/RtmpukkbJ4/file1bfd69b1978b...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/Rtmp9MemTm/file199e4a8c9a88...
+#> → Creating Lesson in /tmp/RtmpukkbJ4/file1bfd69b1978b...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/Rtmp9MemTm/file199e4a8c9a88...
+#> → Creating Lesson in /tmp/RtmpukkbJ4/file1bfd69b1978b...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/Rtmp9MemTm/file199e4a8c9a88...
-#> ☐ Edit /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.md.
-#> → Creating Lesson in /tmp/Rtmp9MemTm/file199e4a8c9a88...
-#> ✔ First episode created in /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.md
-#> → Creating Lesson in /tmp/Rtmp9MemTm/file199e4a8c9a88...
+#> → Creating Lesson in /tmp/RtmpukkbJ4/file1bfd69b1978b...
+#> ☐ Edit /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.md.
+#> → Creating Lesson in /tmp/RtmpukkbJ4/file1bfd69b1978b...
+#> ✔ First episode created in /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.md
+#> → Creating Lesson in /tmp/RtmpukkbJ4/file1bfd69b1978b...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/Rtmp9MemTm/file199e4a8c9a88...
-#> ✔ Lesson successfully created in /tmp/Rtmp9MemTm/file199e4a8c9a88
-#> → Creating Lesson in /tmp/Rtmp9MemTm/file199e4a8c9a88...
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88
+#> → Creating Lesson in /tmp/RtmpukkbJ4/file1bfd69b1978b...
+#> ✔ Lesson successfully created in /tmp/RtmpukkbJ4/file1bfd69b1978b
+#> → Creating Lesson in /tmp/RtmpukkbJ4/file1bfd69b1978b...
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b
 
 # show build status -----------------------------------------------------
 # get namespace to use internal functions
@@ -131,22 +131,22 @@ resources <- fs::path(tmp, c("episodes/introduction.md", "index.md"))
 # first run, everything needs to be built and no build file exists
 sp$build_status(resources, db, write = TRUE)
 #> $build
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.md
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/index.md
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.md
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/index.md
 #> 
 #> $new
 #>                                                                               file
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.md episodes/introduction.md
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/index.md                                 index.md
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.md episodes/introduction.md
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/index.md                                 index.md
 #>                                                                                   checksum
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/index.md                 a02c9c785ed98ddd84fe3d34ddb12fcd
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/index.md                 a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                                                                                built
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.md site/built/introduction.md
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/index.md                        site/built/index.md
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.md site/built/introduction.md
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/index.md                        site/built/index.md
 #>                                                                 date
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.md 2025-12-05
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/index.md                 2025-12-05
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.md 2026-01-16
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/index.md                 2026-01-16
 #> 
 # second run, everything is identical and nothing to be rebuilt
 sp$build_status(resources, db, write = TRUE)
@@ -161,16 +161,16 @@ sp$build_status(resources, db, write = TRUE)
 #> 1 episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a
 #> 2                 index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 1 site/built/introduction.md 2025-12-05
-#> 2        site/built/index.md 2025-12-05
+#> 1 site/built/introduction.md 2026-01-16
+#> 2        site/built/index.md 2026-01-16
 #> 
 #> $old
 #>                       file                         checksum
 #> 1 episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a
 #> 2                 index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 1 site/built/introduction.md 2025-12-05
-#> 2        site/built/index.md 2025-12-05
+#> 1 site/built/introduction.md 2026-01-16
+#> 2        site/built/index.md 2026-01-16
 #> 
 # this is because the db exists on disk and you can query it
 sp$get_built_db(db, filter = "*")
@@ -178,18 +178,18 @@ sp$get_built_db(db, filter = "*")
 #> 1 episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a
 #> 2                 index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 1 site/built/introduction.md 2025-12-05
-#> 2        site/built/index.md 2025-12-05
+#> 1 site/built/introduction.md 2026-01-16
+#> 2        site/built/index.md 2026-01-16
 sp$get_built_db(db, filter = "*R?md")
 #>                       file                         checksum
 #> 1 episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a
 #> 2                 index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 1 site/built/introduction.md 2025-12-05
-#> 2        site/built/index.md 2025-12-05
+#> 1 site/built/introduction.md 2026-01-16
+#> 2        site/built/index.md 2026-01-16
 # if you get the hash of the file, it's equal to the expected:
 print(actual <- tools::md5sum(resources[[1]]))
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.md 
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.md 
 #>                        "fd46501f174bb7e6cc280a1436fbc12a" 
 print(expected <- sp$get_hash(resources[[1]], db))
 #> [1] "fd46501f174bb7e6cc280a1436fbc12a"
@@ -206,26 +206,26 @@ resources[[1]] <- fs::path_ext_set(resources[[1]], "Rmd")
 set_episodes(tmp, fs::path_file(resources[[1]]), write = TRUE)
 sp$build_status(resources, db, write = TRUE)
 #> $build
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.Rmd
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.Rmd
 #> 
 #> $remove
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/site/built/introduction.md
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/site/built/introduction.md
 #> 
 #> $new
 #>                        file                         checksum
 #> 2 episodes/introduction.Rmd 42f28ae9ac714f87eb912bfccf614cab
 #> 1                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 2 site/built/introduction.md 2025-12-05
-#> 1        site/built/index.md 2025-12-05
+#> 2 site/built/introduction.md 2026-01-16
+#> 1        site/built/index.md 2026-01-16
 #> 
 #> $old
 #>                       file                         checksum
 #> 1 episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a
 #> 2                 index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 1 site/built/introduction.md 2025-12-05
-#> 2        site/built/index.md 2025-12-05
+#> 1 site/built/introduction.md 2026-01-16
+#> 2        site/built/index.md 2026-01-16
 #> 
 
 # modified files need to be rebuilt -------------------------------------
@@ -233,7 +233,7 @@ cat("We are using `r R.version.string`\n",
   file = resources[[1]], append = TRUE)
 sp$build_status(resources, db, write = TRUE)
 #> $build
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.Rmd
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.Rmd
 #> 
 #> $remove
 #> character(0)
@@ -243,16 +243,16 @@ sp$build_status(resources, db, write = TRUE)
 #> 1 episodes/introduction.Rmd 700f007bdd7e8fd6e3f7011f80dacf7b
 #> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 1 site/built/introduction.md 2025-12-05
-#> 2        site/built/index.md 2025-12-05
+#> 1 site/built/introduction.md 2026-01-16
+#> 2        site/built/index.md 2026-01-16
 #> 
 #> $old
 #>                        file                         checksum
 #> 1 episodes/introduction.Rmd 42f28ae9ac714f87eb912bfccf614cab
 #> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 1 site/built/introduction.md 2025-12-05
-#> 2        site/built/index.md 2025-12-05
+#> 1 site/built/introduction.md 2026-01-16
+#> 2        site/built/index.md 2026-01-16
 #> 
 
 # child files require rebuilding ----------------------------------------
@@ -262,7 +262,7 @@ cat("\n\n```{r child='files/hi.md'}\n```\n",
   file = resources[[1]], append = TRUE)
 sp$build_status(resources, db, write = TRUE)
 #> $build
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.Rmd
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.Rmd
 #> 
 #> $remove
 #> character(0)
@@ -272,16 +272,16 @@ sp$build_status(resources, db, write = TRUE)
 #> 1 episodes/introduction.Rmd 4a0b39645c21579d9992ad3b50d623e4
 #> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 1 site/built/introduction.md 2025-12-05
-#> 2        site/built/index.md 2025-12-05
+#> 1 site/built/introduction.md 2026-01-16
+#> 2        site/built/index.md 2026-01-16
 #> 
 #> $old
 #>                        file                         checksum
 #> 1 episodes/introduction.Rmd 700f007bdd7e8fd6e3f7011f80dacf7b
 #> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 1 site/built/introduction.md 2025-12-05
-#> 2        site/built/index.md 2025-12-05
+#> 1 site/built/introduction.md 2026-01-16
+#> 2        site/built/index.md 2026-01-16
 #> 
 # NOTE: for child files, the checksums are the checksum of the checksums
 # of the parent and children, so the file checksum may not make sense
@@ -291,7 +291,7 @@ cat("Goodbye!\n", append = TRUE,
   file = fs::path(tmp, "episodes", "files", "hi.md"))
 sp$build_status(resources, db, write = TRUE)
 #> $build
-#> /tmp/Rtmp9MemTm/file199e4a8c9a88/episodes/introduction.Rmd
+#> /tmp/RtmpukkbJ4/file1bfd69b1978b/episodes/introduction.Rmd
 #> 
 #> $remove
 #> character(0)
@@ -301,15 +301,15 @@ sp$build_status(resources, db, write = TRUE)
 #> 1 episodes/introduction.Rmd 2ab510dfa3fbd1f224ab3c20547391ea
 #> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 1 site/built/introduction.md 2025-12-05
-#> 2        site/built/index.md 2025-12-05
+#> 1 site/built/introduction.md 2026-01-16
+#> 2        site/built/index.md 2026-01-16
 #> 
 #> $old
 #>                        file                         checksum
 #> 1 episodes/introduction.Rmd 4a0b39645c21579d9992ad3b50d623e4
 #> 2                  index.md a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                        built       date
-#> 1 site/built/introduction.md 2025-12-05
-#> 2        site/built/index.md 2025-12-05
+#> 1 site/built/introduction.md 2026-01-16
+#> 2        site/built/index.md 2026-01-16
 #> 
 ```
