@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.17.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.18.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Including Child Documents</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/0.17.3/vignettes/include-child-documents.Rmd" class="external-link"><code>vignettes/include-child-documents.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/main/vignettes/include-child-documents.Rmd" class="external-link"><code>vignettes/include-child-documents.Rmd</code></a></small>
       <div class="d-none name"><code>include-child-documents.Rmd</code></div>
     </div>
 
@@ -156,42 +156,42 @@ which is the episodes folder). The entire document of
 <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code>. So the resulting markdown document will look
 like this:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="in">`$\alpha = \dfrac{1}{(1 - \beta)^2}$`</span> becomes: $<span class="sc">\\</span>alpha = <span class="sc">\\</span>dfrac{1}{(1 - <span class="sc">\\</span>beta)^2}$</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>Cool, right?</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="fu">## Session Information</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>The following is the session information of this R session</span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="in">```output</span></span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="in">R version 4.5.2 (2025-10-31)</span></span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="in">Platform: x86_64-pc-linux-gnu</span></span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="in">Running under: Ubuntu 24.04.3 LTS</span></span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="in">Matrix products: default</span></span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="in">BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
-<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="in">LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span></span>
-<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="in">locale:</span></span>
-<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="in"> [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
-<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="in"> [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
-<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="in"> [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
-<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="in">[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
-<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="in">time zone: UTC</span></span>
-<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="in">tzcode source: system (glibc)</span></span>
-<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a></span>
-<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="in">attached base packages:</span></span>
-<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="in">[1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a></span>
-<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="in">loaded via a namespace (and not attached):</span></span>
-<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="in">[1] compiler_4.5.2 tools_4.5.2    knitr_1.50     xfun_0.54      evaluate_1.0.5</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="in">`$\alpha = \dfrac{1}{(1 - \beta)^2}$`</span> becomes: $<span class="sc">\\</span>alpha = <span class="sc">\\</span>dfrac{1}{(1 - <span class="sc">\\</span>beta)^2}$</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>Cool, right?</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="fu">## Session Information</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>The following is the session information of this R session</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="in">```output</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="in">R version 4.5.2 (2025-10-31)</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="in">Platform: x86_64-pc-linux-gnu</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="in">Running under: Ubuntu 24.04.3 LTS</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="in">Matrix products: default</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="in">BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="in">LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="in">locale:</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="in"> [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="in"> [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="in"> [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="in">[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="in">time zone: UTC</span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="in">tzcode source: system (glibc)</span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="in">attached base packages:</span></span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="in">[1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="in">loaded via a namespace (and not attached):</span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="in">[1] compiler_4.5.2 cli_3.6.5      tools_4.5.2    otel_0.2.0     knitr_1.51    </span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="in">[6] xfun_0.55      rlang_1.1.7    evaluate_1.0.5</span></span>
 <span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a></span>
 <span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>
@@ -275,7 +275,7 @@ with all of the other files in the lesson</em>:</p>
 <span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>---</span>
 <span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a></span>
 <span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="in">```output</span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="in">The time is: 2025-12-03 16:23:16</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="in">The time is: 2026-01-16 16:19:07</span></span>
 <span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -363,45 +363,45 @@ those stripped in the final version of the site.&lt;/p&gt;"><sup>1</sup></a>:</p
 <span><span class="co"># └── setup.md</span></span></code></pre>
 <p>Which makes sense in <code>site/built/introduction.md</code>:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a></span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="in">`$\alpha = \dfrac{1}{(1 - \beta)^2}$`</span> becomes: $<span class="sc">\\</span>alpha = <span class="sc">\\</span>dfrac{1}{(1 - <span class="sc">\\</span>beta)^2}$</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>Cool, right?</span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>Here is a link to <span class="co">[</span><span class="ot">the info document</span><span class="co">](../learners/info.md)</span></span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="al">![example](fig/one.png)</span>{alt='example figure'}</span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="fu">## Session Information</span></span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>The following is the session information of this R session</span>
-<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a></span>
-<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="in">```output</span></span>
-<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="in">R version 4.5.2 (2025-10-31)</span></span>
-<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="in">Platform: x86_64-pc-linux-gnu</span></span>
-<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="in">Running under: Ubuntu 24.04.3 LTS</span></span>
-<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a></span>
-<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="in">Matrix products: default</span></span>
-<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="in">BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
-<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a><span class="in">LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span></span>
-<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a></span>
-<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="in">locale:</span></span>
-<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a><span class="in"> [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
-<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a><span class="in"> [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
-<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a><span class="in"> [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
-<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a><span class="in">[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
-<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a></span>
-<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a><span class="in">time zone: UTC</span></span>
-<span id="cb14-34"><a href="#cb14-34" tabindex="-1"></a><span class="in">tzcode source: system (glibc)</span></span>
-<span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a></span>
-<span id="cb14-36"><a href="#cb14-36" tabindex="-1"></a><span class="in">attached base packages:</span></span>
-<span id="cb14-37"><a href="#cb14-37" tabindex="-1"></a><span class="in">[1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span id="cb14-38"><a href="#cb14-38" tabindex="-1"></a></span>
-<span id="cb14-39"><a href="#cb14-39" tabindex="-1"></a><span class="in">loaded via a namespace (and not attached):</span></span>
-<span id="cb14-40"><a href="#cb14-40" tabindex="-1"></a><span class="in">[1] compiler_4.5.2 tools_4.5.2    knitr_1.50     xfun_0.54      evaluate_1.0.5</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>Cool, right?</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>Here is a link to <span class="co">[</span><span class="ot">the info document</span><span class="co">](../learners/info.md)</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="al">![example](fig/one.png)</span>{alt='example figure'}</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="fu">## Session Information</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>The following is the session information of this R session</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="in">```output</span></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="in">R version 4.5.2 (2025-10-31)</span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="in">Platform: x86_64-pc-linux-gnu</span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="in">Running under: Ubuntu 24.04.3 LTS</span></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a><span class="in">Matrix products: default</span></span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="in">BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="in">LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span></span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a><span class="in">locale:</span></span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="in"> [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a><span class="in"> [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a><span class="in"> [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
+<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a><span class="in">[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
+<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a><span class="in">time zone: UTC</span></span>
+<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a><span class="in">tzcode source: system (glibc)</span></span>
+<span id="cb14-34"><a href="#cb14-34" tabindex="-1"></a></span>
+<span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a><span class="in">attached base packages:</span></span>
+<span id="cb14-36"><a href="#cb14-36" tabindex="-1"></a><span class="in">[1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb14-37"><a href="#cb14-37" tabindex="-1"></a></span>
+<span id="cb14-38"><a href="#cb14-38" tabindex="-1"></a><span class="in">loaded via a namespace (and not attached):</span></span>
+<span id="cb14-39"><a href="#cb14-39" tabindex="-1"></a><span class="in">[1] compiler_4.5.2 cli_3.6.5      tools_4.5.2    otel_0.2.0     knitr_1.51    </span></span>
+<span id="cb14-40"><a href="#cb14-40" tabindex="-1"></a><span class="in">[6] xfun_0.55      rlang_1.1.7    evaluate_1.0.5</span></span>
 <span id="cb14-41"><a href="#cb14-41" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb14-42"><a href="#cb14-42" tabindex="-1"></a></span>
 <span id="cb14-43"><a href="#cb14-43" tabindex="-1"></a>::::::::::::::::::::::::::::::::::::: keypoints</span>

@@ -89,7 +89,6 @@ This means that when `episodes/introduction.Rmd` is built,
 resulting markdown document will look like this:
 
 ```` markdown
-
 `$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\\alpha = \\dfrac{1}{(1 - \\beta)^2}$
 
 Cool, right?
@@ -124,7 +123,8 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
-[1] compiler_4.5.2 tools_4.5.2    knitr_1.50     xfun_0.54      evaluate_1.0.5
+[1] compiler_4.5.2 cli_3.6.5      tools_4.5.2    otel_0.2.0     knitr_1.51    
+[6] xfun_0.55      rlang_1.1.7    evaluate_1.0.5
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints
@@ -212,7 +212,7 @@ exercises: 2
 ---
 
 ```output
-The time is: 2025-12-03 16:23:16
+The time is: 2026-01-16 16:19:07
 ```
 ````
 
@@ -309,7 +309,6 @@ directory[¹](#fn1):
 Which makes sense in `site/built/introduction.md`:
 
 ```` markdown
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\\alpha = \\dfrac{1}{(1 - \\beta)^2}$
 
 Cool, right?
 
@@ -347,7 +346,8 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
-[1] compiler_4.5.2 tools_4.5.2    knitr_1.50     xfun_0.54      evaluate_1.0.5
+[1] compiler_4.5.2 cli_3.6.5      tools_4.5.2    otel_0.2.0     knitr_1.51    
+[6] xfun_0.55      rlang_1.1.7    evaluate_1.0.5
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints

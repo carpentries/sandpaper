@@ -1,5 +1,12 @@
 # Changelog
 
+## sandpaper 0.18.0 \[2026-01-16\]
+
+### DOCKER WORKFLOWS RELEASE
+
+- Replace the existing GitHub Actions workflows with Docker versions -
+  PR [650](https://github.com/carpentries/sandpaper/pull/650)
+
 ## sandpaper 0.17.3 \[2025-12-03\]
 
 ### HOTFIX RELEASE

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.17.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.18.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +37,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Create a valid, opinionated yaml list for insertion into a whisker template</h1>
-      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/0.17.3/R/utils-yaml.R" class="external-link"><code>R/utils-yaml.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/carpentries/sandpaper/blob/main/R/utils-yaml.R" class="external-link"><code>R/utils-yaml.R</code></a></small>
       <div class="d-none name"><code>yaml_list.Rd</code></div>
     </div>
 
@@ -68,7 +68,7 @@ whisker templates for these, but the drawback for whisker is that it does not
 know how to handle lists, so it concatenates them with commas:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span></span>
 <span><span class="va">hx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>hello <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/as.yaml.html" class="external-link">as.yaml</a></span><span class="op">(</span><span class="va">hx</span><span class="op">)</span><span class="op">)</span> <span class="co"># representation in yaml</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://yaml.r-lib.org/reference/as.yaml.html" class="external-link">as.yaml</a></span><span class="op">(</span><span class="va">hx</span><span class="op">)</span><span class="op">)</span> <span class="co"># representation in yaml</span></span>
 <span><span class="co">#&gt; hello:</span></span>
 <span><span class="co">#&gt; - a</span></span>
 <span><span class="co">#&gt; - b</span></span>
@@ -101,7 +101,7 @@ https://github.com/rstudio/blogdown/issues/560</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">hx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>hello <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/as.yaml.html" class="external-link">as.yaml</a></span><span class="op">(</span><span class="va">hx</span><span class="op">)</span><span class="op">)</span> <span class="co"># representation in yaml</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://yaml.r-lib.org/reference/as.yaml.html" class="external-link">as.yaml</a></span><span class="op">(</span><span class="va">hx</span><span class="op">)</span><span class="op">)</span> <span class="co"># representation in yaml</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> hello:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - b</span>

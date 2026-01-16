@@ -48,16 +48,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/carpentries/sandpaper/blob/0.17.3/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/carpentries/sandpaper/blob/main/DESCRIPTION)
 
-Davey R, Becker E, Kamvar Z, Nitta J (2025). *sandpaper: Create and
-Curate Carpentries Lessons*. R package version 0.17.3,
+Davey R, Becker E, Kamvar Z, Nitta J (2026). *sandpaper: Create and
+Curate Carpentries Lessons*. R package version 0.18.0,
 <https://carpentries.github.io/sandpaper/>.
 
     @Manual{,
       title = {sandpaper: Create and Curate Carpentries Lessons},
       author = {Robert Davey and Erin Becker and Zhian N. Kamvar and Joel H. Nitta},
-      year = {2025},
-      note = {R package version 0.17.3},
+      year = {2026},
+      note = {R package version 0.18.0},
       url = {https://carpentries.github.io/sandpaper/},
     }
