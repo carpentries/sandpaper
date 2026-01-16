@@ -48,7 +48,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/carpentries/sandpaper/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/carpentries/sandpaper/blob/0.18.0/DESCRIPTION)
 
 Davey R, Becker E, Kamvar Z, Nitta J (2026). *sandpaper: Create and
 Curate Carpentries Lessons*. R package version 0.18.0,
