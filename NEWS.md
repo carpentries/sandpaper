@@ -1,3 +1,13 @@
+# sandpaper 0.18.1 [2026-01-17]
+
+## HOTFIX RELEASE
+
+* Due to high chance of Dockerhub rate limiting the pulling of the workbench-docker image
+  by anonymous accounts when building lessons (all on a Tuesday at the same time!), move
+  to GHCR for workflows. GHCR has no rate limits for public packages.
+* Fix some problematic trigger logic in workflows.
+
+
 # sandpaper 0.18.0 [2026-01-16]
 
 ## DOCKER WORKFLOWS RELEASE
