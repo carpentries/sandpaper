@@ -61,25 +61,25 @@ test can be found at
 ``` r
 tmp <- tempfile()
 lsn <- create_lesson(tmp, open = FALSE)
-#> → Creating Lesson in /tmp/Rtmp2oQNAm/file1c254e131f14...
+#> → Creating Lesson in /tmp/RtmpcTm5wz/file1c011ca07c82...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/Rtmp2oQNAm/file1c254e131f14...
+#> → Creating Lesson in /tmp/RtmpcTm5wz/file1c011ca07c82...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/Rtmp2oQNAm/file1c254e131f14...
+#> → Creating Lesson in /tmp/RtmpcTm5wz/file1c011ca07c82...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/Rtmp2oQNAm/file1c254e131f14...
+#> → Creating Lesson in /tmp/RtmpcTm5wz/file1c011ca07c82...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/Rtmp2oQNAm/file1c254e131f14...
-#> ☐ Edit /tmp/Rtmp2oQNAm/file1c254e131f14/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/Rtmp2oQNAm/file1c254e131f14...
-#> ✔ First episode created in /tmp/Rtmp2oQNAm/file1c254e131f14/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/Rtmp2oQNAm/file1c254e131f14...
+#> → Creating Lesson in /tmp/RtmpcTm5wz/file1c011ca07c82...
+#> ☐ Edit /tmp/RtmpcTm5wz/file1c011ca07c82/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/RtmpcTm5wz/file1c011ca07c82...
+#> ✔ First episode created in /tmp/RtmpcTm5wz/file1c011ca07c82/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/RtmpcTm5wz/file1c011ca07c82...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/Rtmp2oQNAm/file1c254e131f14...
+#> → Creating Lesson in /tmp/RtmpcTm5wz/file1c011ca07c82...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/Rtmp2oQNAm/file1c254e131f14...
+#> → Creating Lesson in /tmp/RtmpcTm5wz/file1c011ca07c82...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -115,7 +115,7 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> They will be copied into the project library.
 #> 
 #> - Copying packages into the project library ... Done!
-#> - Hydrated 25 packages in 0.17 seconds.
+#> - Hydrated 25 packages in 0.18 seconds.
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Recording changes in lockfile
 #> The following package(s) will be updated in the lockfile:
@@ -140,7 +140,7 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> - memoise       [* -> 2.0.1]
 #> - mime          [* -> 0.13]
 #> - rappdirs      [* -> 0.3.3]
-#> - renv          [* -> 1.1.5]
+#> - renv          [* -> 1.1.6]
 #> - rlang         [* -> 1.1.7]
 #> - rmarkdown     [* -> 2.30]
 #> - sass          [* -> 0.4.10]
@@ -151,9 +151,9 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.5.2]
 #> 
-#> - Lockfile written to "/tmp/Rtmp2oQNAm/file1c254e131f14/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/Rtmp2oQNAm/file1c254e131f14
-#> → Creating Lesson in /tmp/Rtmp2oQNAm/file1c254e131f14...
+#> - Lockfile written to "/tmp/RtmpcTm5wz/file1c011ca07c82/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/RtmpcTm5wz/file1c011ca07c82
+#> → Creating Lesson in /tmp/RtmpcTm5wz/file1c011ca07c82...
 validate_lesson(lsn, headings = TRUE)
 #> ── Validating Headings ─────────────────────────────────────────────────
 #> ── Validating Fenced Divs ──────────────────────────────────────────────
