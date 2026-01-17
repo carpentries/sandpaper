@@ -103,6 +103,14 @@ jobs:
               ) &&
               github.event.pull_request.head.ref == 'update/workflows'
             )
+            ||
+            (
+              contains(
+                join(github.event.pull_request.labels.*.name, ','),
+                'type: docker version'
+              ) &&
+              github.event.pull_request.head.ref == 'update/workbench-docker-version'
+            )
           )
         )
       )
@@ -112,7 +120,7 @@ jobs:
       pages: write
       id-token: write
     container:
-      image: carpentries/workbench-docker:${{ vars.WORKBENCH_TAG || 'latest' }}
+      image: ghcr.io/carpentries/workbench-docker:${{ vars.WORKBENCH_TAG || 'latest' }}
       env:
         WORKBENCH_PROFILE: "ci"
         GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -200,7 +208,6 @@ jobs:
           restore-keys:
             ${{ github.repository }}/${{ steps.wb-vers.outputs.container-version }}_renv-
 
-  # trigger the build deploy workflow if update-renv-cache was successful
   trigger-build-deploy:
     name: "Trigger Build and Deploy Workflow"
     runs-on: ubuntu-latest

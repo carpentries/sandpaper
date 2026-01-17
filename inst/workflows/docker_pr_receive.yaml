@@ -38,10 +38,10 @@ jobs:
           else
             echo "exists=false" >> $GITHUB_OUTPUT
             echo "::error::md-outputs branch required but does not exist."
-            echo "::error::Please merge any open package update PRs, and run the '03 Maintain: Apply Package Cache' and '01: Maintain: Build and Deploy Site' workflows."
+            echo "::error::Please merge any open package update PRs to trigger the '03 Maintain: Apply Package Cache' and '01: Maintain: Build and Deploy Site' workflows."
 
             echo "## ❌ ERROR: md-outputs branch required" >> $GITHUB_STEP_SUMMARY
-            echo "Please merge any open package update PRs, and run the '03 Maintain: Apply Package Cache' and '01: Maintain: Build and Deploy Site' workflows." >> $GITHUB_STEP_SUMMARY
+            echo "Please merge any open package update PRs to trigger the '03 Maintain: Apply Package Cache' and '01: Maintain: Build and Deploy Site' workflows." >> $GITHUB_STEP_SUMMARY
 
             exit 1
           fi
@@ -135,9 +135,8 @@ jobs:
       checks: write
       contents: write
       pages: write
-      id-token: write
     container:
-      image: carpentries/workbench-docker:${{ vars.WORKBENCH_TAG || 'latest' }}
+      image: image: ghcr.io/carpentries/workbench-docker:${{ vars.WORKBENCH_TAG || 'latest' }}
       env:
         WORKBENCH_PROFILE: "ci"
         GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

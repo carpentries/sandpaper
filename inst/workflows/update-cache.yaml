@@ -1,6 +1,8 @@
 name: "02 Maintain: Check for Updated Packages"
 description: "Check for updated R packages and create a pull request to update the lesson's renv lockfile and package cache"
 on:
+  schedule:
+    - cron: '0 0 * * 2'
   workflow_dispatch:
     inputs:
       name:
@@ -22,9 +24,6 @@ on:
         required: false
         default: false
         type: boolean
-  schedule:
-    # Run every tuesday
-    - cron: '0 0 * * 2'
 
 env:
   LOCKFILE_CACHE_GEN: ${{ vars.LOCKFILE_CACHE_GEN || github.event.inputs.generate-cache || 'false' }}
