@@ -6,6 +6,7 @@ on:
       - 'main'
     paths-ignore:
       - '.github/workflows/**.yaml'
+      - '.github/workbench-docker-version.txt'
   schedule:
     - cron: '0 0 * * 2'
   workflow_dispatch:
@@ -83,7 +84,7 @@ jobs:
       pages: write
       id-token: write
     container:
-      image: carpentries/workbench-docker:${{ vars.WORKBENCH_TAG || 'latest' }}
+      image: ghcr.io/carpentries/workbench-docker:${{ vars.WORKBENCH_TAG || 'latest' }}
       env:
         WORKBENCH_PROFILE: "ci"
         GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
