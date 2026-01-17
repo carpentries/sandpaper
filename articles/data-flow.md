@@ -338,7 +338,7 @@ lsn <- create_lesson(tempfile(), name = "An Example Lesson",
   rstudio = TRUE, open = FALSE, rmd = FALSE)
 # add a new episode
 create_episode_md(title = "First Example", add = TRUE, path = lsn, open = FALSE)
-## /tmp/RtmpaxHjGn/file315241095cdb/episodes/first-example.md
+## /tmp/RtmpCpu6Hc/file30f4214bd30c/episodes/first-example.md
 ```
 
 Within {sandpaper}, there are environments that contain metadata related
@@ -398,12 +398,12 @@ system.time(validate_lesson(lsn))
 ## ── Validating Fenced Divs ──────────────────────────────────────────────
 ## ── Validating Internal Links and Images ────────────────────────────────
 ##    user  system elapsed 
-##   0.515   0.018   0.533
+##   0.520   0.013   0.532
 system.time(validate_lesson(lsn))
 ## ── Validating Fenced Divs ──────────────────────────────────────────────
 ## ── Validating Internal Links and Images ────────────────────────────────
 ##    user  system elapsed 
-##   0.113   0.003   0.116
+##   0.112   0.001   0.114
 ```
 
 The
@@ -472,7 +472,7 @@ print(snd$.store$get())
 ##     load_built: function () 
 ##     n_problems: active binding
 ##     overview: FALSE
-##     path: /tmp/RtmpaxHjGn/file315241095cdb
+##     path: /tmp/RtmpCpu6Hc/file30f4214bd30c
 ##     reset: function () 
 ##     rmd: FALSE
 ##     sandpaper: TRUE
@@ -504,7 +504,7 @@ reset:
 
 ``` r
 set_config(c(handout = TRUE), path = lsn, write = TRUE, create = TRUE)
-## ℹ Writing to /tmp/RtmpaxHjGn/file315241095cdb/config.yaml
+## ℹ Writing to /tmp/RtmpCpu6Hc/file30f4214bd30c/config.yaml
 ## → NA -> handout: true
 snd$.store$valid(lsn)
 ## [1] FALSE
@@ -543,7 +543,7 @@ snd$this_metadata$get()
 ## [1] "CC-BY 4.0"
 ## 
 ## $source
-## [1] "https://github.com/carpentries/file315241095cdb"
+## [1] "https://github.com/carpentries/file30f4214bd30c"
 ## 
 ## $branch
 ## [1] "main"
@@ -592,7 +592,7 @@ snd$this_metadata$get()
 ## 
 ## 
 ## $url
-## [1] "https://carpentries.github.io/file315241095cdb/"
+## [1] "https://carpentries.github.io/file30f4214bd30c/"
 ## 
 ## $cff
 ## [1] "CITATION.cff"
@@ -612,15 +612,15 @@ writeLines(snd$fill_metadata_template(snd$this_metadata))
 ## {
 ##   "@context": "https://schema.org",
 ##   "@type": "LearningResource",
-##   "@id": "https://carpentries.github.io/file315241095cdb/index.html",
+##   "@id": "https://carpentries.github.io/file30f4214bd30c/index.html",
 ##   "inLanguage": "en",
 ##   "dct:conformsTo": "https://bioschemas.org/profiles/LearningResource/1.0-RELEASE",
 ##   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
 ##   "keywords": "software, data, lesson, The Carpentries",
 ##   "name": "An Example Lesson",
 ##   "creativeWorkStatus": "active",
-##   "url": "https://carpentries.github.io/file315241095cdb/index.html",
-##   "identifier": "https://carpentries.github.io/file315241095cdb/index.html",
+##   "url": "https://carpentries.github.io/file30f4214bd30c/index.html",
+##   "identifier": "https://carpentries.github.io/file30f4214bd30c/index.html",
 ##   "dateCreated": "2026-01-17",
 ##   "dateModified": "2026-01-17",
 ##   "datePublished": "2026-01-17"
@@ -637,40 +637,40 @@ system:
 snd <- asNamespace("sandpaper")
 snd$.resources$get()
 ## $.
-##   /tmp/RtmpaxHjGn/file315241095cdb/CODE_OF_CONDUCT.md 
-## "/tmp/RtmpaxHjGn/file315241095cdb/CODE_OF_CONDUCT.md" 
-##           /tmp/RtmpaxHjGn/file315241095cdb/LICENSE.md 
-##         "/tmp/RtmpaxHjGn/file315241095cdb/LICENSE.md" 
-##          /tmp/RtmpaxHjGn/file315241095cdb/config.yaml 
-##        "/tmp/RtmpaxHjGn/file315241095cdb/config.yaml" 
-##             /tmp/RtmpaxHjGn/file315241095cdb/index.md 
-##           "/tmp/RtmpaxHjGn/file315241095cdb/index.md" 
-##             /tmp/RtmpaxHjGn/file315241095cdb/links.md 
-##           "/tmp/RtmpaxHjGn/file315241095cdb/links.md" 
+##   /tmp/RtmpCpu6Hc/file30f4214bd30c/CODE_OF_CONDUCT.md 
+## "/tmp/RtmpCpu6Hc/file30f4214bd30c/CODE_OF_CONDUCT.md" 
+##           /tmp/RtmpCpu6Hc/file30f4214bd30c/LICENSE.md 
+##         "/tmp/RtmpCpu6Hc/file30f4214bd30c/LICENSE.md" 
+##          /tmp/RtmpCpu6Hc/file30f4214bd30c/config.yaml 
+##        "/tmp/RtmpCpu6Hc/file30f4214bd30c/config.yaml" 
+##             /tmp/RtmpCpu6Hc/file30f4214bd30c/index.md 
+##           "/tmp/RtmpCpu6Hc/file30f4214bd30c/index.md" 
+##             /tmp/RtmpCpu6Hc/file30f4214bd30c/links.md 
+##           "/tmp/RtmpCpu6Hc/file30f4214bd30c/links.md" 
 ## 
 ## $episodes
-##    /tmp/RtmpaxHjGn/file315241095cdb/episodes/introduction.md 
-##  "/tmp/RtmpaxHjGn/file315241095cdb/episodes/introduction.md" 
-##   /tmp/RtmpaxHjGn/file315241095cdb/episodes/first-example.md 
-## "/tmp/RtmpaxHjGn/file315241095cdb/episodes/first-example.md" 
+##    /tmp/RtmpCpu6Hc/file30f4214bd30c/episodes/introduction.md 
+##  "/tmp/RtmpCpu6Hc/file30f4214bd30c/episodes/introduction.md" 
+##   /tmp/RtmpCpu6Hc/file30f4214bd30c/episodes/first-example.md 
+## "/tmp/RtmpCpu6Hc/file30f4214bd30c/episodes/first-example.md" 
 ## 
 ## $instructors
-##   /tmp/RtmpaxHjGn/file315241095cdb/instructors/instructor-notes.md 
-## "/tmp/RtmpaxHjGn/file315241095cdb/instructors/instructor-notes.md" 
+##   /tmp/RtmpCpu6Hc/file30f4214bd30c/instructors/instructor-notes.md 
+## "/tmp/RtmpCpu6Hc/file30f4214bd30c/instructors/instructor-notes.md" 
 ## 
 ## $learners
-##   /tmp/RtmpaxHjGn/file315241095cdb/learners/reference.md 
-## "/tmp/RtmpaxHjGn/file315241095cdb/learners/reference.md" 
-##       /tmp/RtmpaxHjGn/file315241095cdb/learners/setup.md 
-##     "/tmp/RtmpaxHjGn/file315241095cdb/learners/setup.md" 
+##   /tmp/RtmpCpu6Hc/file30f4214bd30c/learners/reference.md 
+## "/tmp/RtmpCpu6Hc/file30f4214bd30c/learners/reference.md" 
+##       /tmp/RtmpCpu6Hc/file30f4214bd30c/learners/setup.md 
+##     "/tmp/RtmpCpu6Hc/file30f4214bd30c/learners/setup.md" 
 ## 
 ## $profiles
-##   /tmp/RtmpaxHjGn/file315241095cdb/profiles/learner-profiles.md 
-## "/tmp/RtmpaxHjGn/file315241095cdb/profiles/learner-profiles.md" 
+##   /tmp/RtmpCpu6Hc/file30f4214bd30c/profiles/learner-profiles.md 
+## "/tmp/RtmpCpu6Hc/file30f4214bd30c/profiles/learner-profiles.md" 
 ## 
 ## $`renv/profiles/lesson-requirements`
 ##                                                                                
-## "/tmp/RtmpaxHjGn/file315241095cdb/renv/profiles/lesson-requirements/renv.lock"
+## "/tmp/RtmpCpu6Hc/file30f4214bd30c/renv/profiles/lesson-requirements/renv.lock"
 ```
 
 ## Global and Local Variables
@@ -1253,7 +1253,7 @@ does not modify the language of the user session:
 ``` r
 snd <- asNamespace("sandpaper")
 snd$set_config(c(lang = "es"), path = lsn, create = TRUE, write = TRUE)
-## ℹ Writing to /tmp/RtmpaxHjGn/file315241095cdb/config.yaml
+## ℹ Writing to /tmp/RtmpCpu6Hc/file30f4214bd30c/config.yaml
 ## → NA -> lang: 'es'
 snd$this_lesson(lsn)
 whisker::whisker.render("Edit this page: {{ translate.EditThisPage }}",
@@ -1269,7 +1269,7 @@ config:
 
 ``` r
 snd$set_config(c(lang = "en"), path = lsn, create = TRUE, write = TRUE)
-## ℹ Writing to /tmp/RtmpaxHjGn/file315241095cdb/config.yaml
+## ℹ Writing to /tmp/RtmpCpu6Hc/file30f4214bd30c/config.yaml
 ## → lang: 'es' -> lang: 'en'
 snd$this_lesson(lsn)
 whisker::whisker.render("Edit this page: {{ translate.EditThisPage }}",
@@ -1392,7 +1392,7 @@ called `site/_pkgdown.yaml`.
 ``` yaml
 # ------------------------------------------------------------------ information
 # This file was generated by sandpaper version '0.18.1'
-# If you want to make changes, please edit '/tmp/RtmpaxHjGn/file315241095cdb/config.yaml'
+# If you want to make changes, please edit '/tmp/RtmpCpu6Hc/file30f4214bd30c/config.yaml'
 # ------------------------------------------------------------------ information
 
 title: An Example Lesson
@@ -1404,8 +1404,8 @@ home:
 template:
   package: varnish
   params:
-    time: 2026-01-17 14:47:54 +0000
-    source: https://github.com/carpentries/file315241095cdb
+    time: 2026-01-17 23:02:22 +0000
+    source: https://github.com/carpentries/file30f4214bd30c
     branch: main
     contact: team@carpentries.org
     license: CC-BY 4.0
@@ -1459,10 +1459,10 @@ pkg[c("lang", "src_path", "dst_path", "meta")]
 ## [1] "en"
 ## 
 ## $src_path
-## /tmp/RtmpaxHjGn/file315241095cdb/site
+## /tmp/RtmpCpu6Hc/file30f4214bd30c/site
 ## 
 ## $dst_path
-## /tmp/RtmpaxHjGn/file315241095cdb/site/docs
+## /tmp/RtmpCpu6Hc/file30f4214bd30c/site/docs
 ## 
 ## $meta
 ## $meta$title
@@ -1488,10 +1488,10 @@ pkg[c("lang", "src_path", "dst_path", "meta")]
 ## 
 ## $meta$template$params
 ## $meta$template$params$time
-## [1] "2026-01-17 14:47:54 +0000"
+## [1] "2026-01-17 23:02:22 +0000"
 ## 
 ## $meta$template$params$source
-## [1] "https://github.com/carpentries/file315241095cdb"
+## [1] "https://github.com/carpentries/file30f4214bd30c"
 ## 
 ## $meta$template$params$branch
 ## [1] "main"
@@ -1580,8 +1580,8 @@ writeLines(yaml::as.yaml(dat[c("lang", "site", "yaml")]))
 ##   root: ''
 ##   title: An Example Lesson
 ## yaml:
-##   time: 2026-01-17 14:47:54 +0000
-##   source: https://github.com/carpentries/file315241095cdb
+##   time: 2026-01-17 23:02:22 +0000
+##   source: https://github.com/carpentries/file30f4214bd30c
 ##   branch: main
 ##   contact: team@carpentries.org
 ##   license: CC-BY 4.0
