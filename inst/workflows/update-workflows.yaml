@@ -94,12 +94,8 @@ jobs:
       - name: Create Pull Request
         id: cpr
         if: |
-          steps.update.outputs.new != '' &&
-          steps.validate-token.outputs.wf == 'true' &&
-          (
-            (endsWith(steps.update.outputs.new, 'tar.gz') || endsWith(steps.update.outputs.new, 'zip')) ||
-            (steps.update.outputs.new > 0)
-          )
+          steps.update.outputs.new &&
+          steps.validate-token.outputs.wf == 'true'
         uses: carpentries/create-pull-request@main
         with:
           token: ${{ steps.set-pat.outputs.pat || secrets.SANDPAPER_WORKFLOW }}
