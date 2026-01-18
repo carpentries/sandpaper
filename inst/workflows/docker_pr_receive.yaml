@@ -149,6 +149,7 @@ jobs:
       options: --cpus 2
     outputs:
       workbench-update: ${{ steps.wb-vers.outputs.workbench-update }}
+      build-site: ${{ steps.build-site.outcome == 'success' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -309,7 +310,7 @@ jobs:
     if: |
       needs.check-renv.outputs.renv-needed == 'true' &&
       needs.build-md-source.outputs.workbench-update == 'true' &&
-      needs.build-md-source.build-site.outcome == 'success'
+      needs.build-md-source.outputs.build-site == 'true'
     permissions:
       actions: write
       checks: write
