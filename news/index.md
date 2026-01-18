@@ -1,5 +1,11 @@
 # Changelog
 
+## sandpaper 0.18.2 \[2026-01-17\]
+
+### HOTFIX RELEASE
+
+- Fixing workflow typos
+
 ## sandpaper 0.18.1 \[2026-01-17\]
 
 ### HOTFIX RELEASE

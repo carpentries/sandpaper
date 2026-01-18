@@ -75,25 +75,25 @@ if (interactive() || Sys.getenv("CI") != "") {
     move_episode("experimental.md", path = tmp)
   }
 }
-#> → Creating Lesson in /tmp/Rtmpfmukg6/file1bf357c8c5c7...
+#> → Creating Lesson in /tmp/Rtmpgc9t3l/file1c0824903cd8...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/Rtmpfmukg6/file1bf357c8c5c7...
+#> → Creating Lesson in /tmp/Rtmpgc9t3l/file1c0824903cd8...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/Rtmpfmukg6/file1bf357c8c5c7...
+#> → Creating Lesson in /tmp/Rtmpgc9t3l/file1c0824903cd8...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/Rtmpfmukg6/file1bf357c8c5c7...
+#> → Creating Lesson in /tmp/Rtmpgc9t3l/file1c0824903cd8...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/Rtmpfmukg6/file1bf357c8c5c7...
-#> ☐ Edit /tmp/Rtmpfmukg6/file1bf357c8c5c7/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/Rtmpfmukg6/file1bf357c8c5c7...
-#> ✔ First episode created in /tmp/Rtmpfmukg6/file1bf357c8c5c7/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/Rtmpfmukg6/file1bf357c8c5c7...
+#> → Creating Lesson in /tmp/Rtmpgc9t3l/file1c0824903cd8...
+#> ☐ Edit /tmp/Rtmpgc9t3l/file1c0824903cd8/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/Rtmpgc9t3l/file1c0824903cd8...
+#> ✔ First episode created in /tmp/Rtmpgc9t3l/file1c0824903cd8/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/Rtmpgc9t3l/file1c0824903cd8...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/Rtmpfmukg6/file1bf357c8c5c7...
+#> → Creating Lesson in /tmp/Rtmpgc9t3l/file1c0824903cd8...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/Rtmpfmukg6/file1bf357c8c5c7...
+#> → Creating Lesson in /tmp/Rtmpgc9t3l/file1c0824903cd8...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -118,7 +118,7 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> - lifecycle     1.0.5
 #> - memoise       2.0.1
 #> - mime          0.13
-#> - rappdirs      0.3.3
+#> - rappdirs      0.3.4
 #> - rlang         1.1.7
 #> - rmarkdown     2.30
 #> - sass          0.4.10
@@ -129,7 +129,7 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> They will be copied into the project library.
 #> 
 #> - Copying packages into the project library ... Done!
-#> - Hydrated 25 packages in 0.17 seconds.
+#> - Hydrated 25 packages in 0.18 seconds.
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Recording changes in lockfile
 #> The following package(s) will be updated in the lockfile:
@@ -153,7 +153,7 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> - lifecycle     [* -> 1.0.5]
 #> - memoise       [* -> 2.0.1]
 #> - mime          [* -> 0.13]
-#> - rappdirs      [* -> 0.3.3]
+#> - rappdirs      [* -> 0.3.4]
 #> - renv          [* -> 1.1.6]
 #> - rlang         [* -> 1.1.7]
 #> - rmarkdown     [* -> 2.30]
@@ -165,12 +165,12 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.5.2]
 #> 
-#> - Lockfile written to "/tmp/Rtmpfmukg6/file1bf357c8c5c7/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/Rtmpfmukg6/file1bf357c8c5c7
-#> → Creating Lesson in /tmp/Rtmpfmukg6/file1bf357c8c5c7...
-#> ☐ Edit /tmp/Rtmpfmukg6/file1bf357c8c5c7/episodes/getting-started.md.
-#> ☐ Edit /tmp/Rtmpfmukg6/file1bf357c8c5c7/episodes/plotting.Rmd.
-#> ☐ Edit /tmp/Rtmpfmukg6/file1bf357c8c5c7/episodes/experimental.md.
+#> - Lockfile written to "/tmp/Rtmpgc9t3l/file1c0824903cd8/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/Rtmpgc9t3l/file1c0824903cd8
+#> → Creating Lesson in /tmp/Rtmpgc9t3l/file1c0824903cd8...
+#> ☐ Edit /tmp/Rtmpgc9t3l/file1c0824903cd8/episodes/getting-started.md.
+#> ☐ Edit /tmp/Rtmpgc9t3l/file1c0824903cd8/episodes/plotting.Rmd.
+#> ☐ Edit /tmp/Rtmpgc9t3l/file1c0824903cd8/episodes/experimental.md.
 #> episodes:
 #> - introduction.Rmd
 #> - getting-started.md
