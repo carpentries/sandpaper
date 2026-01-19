@@ -300,24 +300,3 @@ jobs:
         run: |
           gh workflow run pr-comment.yaml --ref main --field workflow_id=${{ github.run_id }}
         shell: bash
-
-  cache-update:
-    name: "Trigger Update Cache Workflow?"
-    needs:
-      - check-renv
-      - build-md-source
-    runs-on: ubuntu-latest
-    if: |
-      needs.check-renv.outputs.renv-needed == 'true' &&
-      needs.build-md-source.outputs.workbench-update == 'true' &&
-      needs.build-md-source.outputs.build-site == 'success'
-    permissions:
-      actions: write
-      checks: write
-    steps:
-      - name: "Trigger renv rebuild"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh workflow run update-cache.yaml
-        shell: bash

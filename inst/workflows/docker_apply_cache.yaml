@@ -213,7 +213,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: update-renv-cache
     if: |
-      needs.update-renv-cache.result == 'success'
+      needs.update-renv-cache.result == 'success' ||
+      needs.update-renv-cache.outputs.renv-cache-available == 'true'
     steps:
       - uses: actions/checkout@v4
 
