@@ -214,7 +214,7 @@ jobs:
     needs: update-renv-cache
     if: |
       needs.update-renv-cache.result == 'success' ||
-      needs.update-renv-cache.outputs.renv-cache-available == 'true'
+      needs.check-renv.outputs.renv-cache-available == 'true'
     steps:
       - uses: actions/checkout@v4
 
