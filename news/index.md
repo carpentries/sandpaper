@@ -1,10 +1,11 @@
 # Changelog
 
-## sandpaper 0.18.2 \[2026-01-17\]
+## sandpaper 0.18.2 \[2026-01-19\]
 
 ### HOTFIX RELEASE
 
-- Fixing workflow typos
+- Fix remaining workflow typos
+- Improve workflow trigger conditions
 
 ## sandpaper 0.18.1 \[2026-01-17\]
 
