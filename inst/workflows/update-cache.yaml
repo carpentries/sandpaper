@@ -189,12 +189,6 @@ jobs:
           echo "No updates needed, skipping PR creation"
         shell: bash
 
-      - name: "Trigger Apply Cache Workflow"
-        if: steps.update.outputs.n == 0
-        run: |
-          gh workflow run docker_apply_cache.yaml
-        shell: bash
-
       # thanks @Bisaloo! - https://github.com/carpentries/sandpaper/issues/646#issuecomment-2829578435
       # only trigger checks manually if the validate-token step had no valid AWS or SANDPAPER_WORKFLOW token
       - name: "Trigger checks"
