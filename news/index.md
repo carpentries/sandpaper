@@ -1,5 +1,11 @@
 # Changelog
 
+## sandpaper 0.18.3 \[2026-01-19\]
+
+### HOTFIX RELEASE
+
+- Fix more triggers
+
 ## sandpaper 0.18.2 \[2026-01-19\]
 
 ### HOTFIX RELEASE
