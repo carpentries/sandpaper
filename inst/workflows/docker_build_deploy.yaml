@@ -150,6 +150,7 @@ jobs:
         uses: carpentries/actions/record-container-version@main
         with:
           CONTAINER_VER: ${{ needs.preflight.outputs.wb-vers }}
+          AUTO_MERGE: ${{ vars.AUTO_MERGE_CONTAINER_VERSION_UPDATE || 'true' }}
           token: ${{ secrets.GITHUB_TOKEN }}
           role-to-assume: ${{ secrets.AWS_GH_OIDC_ARN }}
           aws-region: ${{ secrets.AWS_GH_OIDC_REGION }}
