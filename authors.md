@@ -51,13 +51,13 @@ Source:
 [`DESCRIPTION`](https://github.com/carpentries/sandpaper/blob/main/DESCRIPTION)
 
 Davey R, Becker E, Kamvar Z, Nitta J (2026). *sandpaper: Create and
-Curate Carpentries Lessons*. R package version 0.18.3,
+Curate Carpentries Lessons*. R package version 0.18.4,
 <https://carpentries.github.io/sandpaper/>.
 
     @Manual{,
       title = {sandpaper: Create and Curate Carpentries Lessons},
       author = {Robert Davey and Erin Becker and Zhian N. Kamvar and Joel H. Nitta},
       year = {2026},
-      note = {R package version 0.18.3},
+      note = {R package version 0.18.4},
       url = {https://carpentries.github.io/sandpaper/},
     }
