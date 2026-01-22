@@ -1,3 +1,15 @@
+# sandpaper 0.18.4 [2026-01-22]
+
+## NEW DOCKER WORKFLOW OPTIONS
+
+* Add support for a BUILD_RESET repo variable to docker_build_deploy, where `true` 
+  will force sandpaper to reset any previous built markdown every build step.
+  Default/omitted is `false`.
+* Add support for a AUTO_MERGE_CONTAINER_VERSION_UPDATE repo variable to 
+  docker_build_deploy, where `false` will stop auto-merging the 
+  workbench-docker-version.txt file update PR. Default/omitted is `true`.
+
+
 # sandpaper 0.18.3 [2026-01-19]
 
 ## HOTFIX RELEASE
