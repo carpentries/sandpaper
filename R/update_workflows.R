@@ -1,9 +1,11 @@
+#nocov start
+
 #' Update github workflows
 #'
-#' This function copies and updates the workflows to run `{sandpaper}`. 
+#' This function copies and updates the workflows to run `{sandpaper}`.
 #'
 #' @param path path to the current lesson.
-#' @param files the files to include in the update. Defaults to an empty string, 
+#' @param files the files to include in the update. Defaults to an empty string,
 #'   which will update all files
 #' @param overwrite if `TRUE` (default), the file(s) will be overwritten.
 #' @param clean glob of files to be cleaned before writing. Defaults to
@@ -13,13 +15,18 @@
 #'   do not want to clean, set this to `NULL`.
 #' @param quiet if `TRUE`, the process will not output any messages, default is
 #'   `FALSE`, which will report on the progress of each step.
-#' @return the paths to the new files. 
+#' @return the paths to the new files.
 #' @export
 update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, clean = "*.yaml", quiet = FALSE) {
 
   wf <- fs::path(path, ".github", "workflows")
-  version_file <- fs::path(wf, "sandpaper-version.txt")
-  this_version <- package_version(utils::packageDescription("sandpaper")$Version)
+
+  # get latest version from github carpentries/workbench-workflows releases list
+  version_file <- fs::path(wf, "workflows-version.txt")
+  releases_url <- "https://api.github.com/repos/carpentries/workbench-workflows/releases/latest"
+  releases_json <- jsonlite::fromJSON(releases_url)
+  latest_version_tag <- releases_json$tag_name
+  latest_version <- package_version(gsub("^v", "", latest_version_tag))
 
   need_dir <- !fs::dir_exists(wf)
   if (need_dir) {
@@ -31,18 +38,22 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, cl
     oldvers <- package_version("0.0.0")
   }
 
-  if (overwrite || oldvers < this_version) {
+  if (overwrite || oldvers < latest_version) {
     if (files == "" && !is.null(clean)) {
       fs::file_delete(fs::dir_ls(wf, glob = clean))
     }
     # we update the files
-    our_files <- system.file("workflows", files, package = "sandpaper")
-    if (length(our_files) == 1L && fs::is_dir(our_files)) {
-      our_files <- fs::dir_ls(our_files)
-    }
-    new_files <- character(length(our_files))
-    names(new_files) <- our_files
-    for (file in our_files) {
+    zip_url <- releases_json$zipball_url
+    temp_zip <- fs::file_temp(ext = ".zip")
+    httr::GET(zip_url, httr::write_disk(temp_zip, overwrite = TRUE))
+    temp_dir <- fs::dir_create(fs::file_temp())
+    utils::unzip(temp_zip, exdir = temp_dir)
+    latest_files <- fs::dir_ls(temp_dir, recurse = TRUE, glob = "*workflows/*")
+
+    our_files <- fs::dir_ls(wf)
+    new_files <- character(length(latest_files))
+    names(new_files) <- latest_files
+    for (file in latest_files) {
       is_present <- fs::file_exists(fs::path(wf, fs::path_file(file)))
       if (!is_present || overwrite) {
         new_files[file] <- fs::file_copy(file, wf, overwrite = overwrite)
@@ -51,7 +62,7 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, cl
   } else {
     new_files <- character(0)
   }
-  writeLines(as.character(this_version), con = version_file)
+  writeLines(as.character(latest_version), con = version_file)
   if (!quiet) {
     thm <- cli::cli_div(theme = sandpaper_cli_theme())
     if (length(new_files) && !all(new_files == "")) {
@@ -72,5 +83,4 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, cl
   }
   return(invisible(new_files[new_files != ""]))
 }
-
-
+#nocov end
