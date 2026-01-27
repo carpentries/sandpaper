@@ -10,7 +10,7 @@ on:
         required: true
         default: 'weekly run'
       version:
-        description: 'Workflows version number (e.g. 0.0.1) or branch name (e.g. main)'
+        description: 'Workflows version number (e.g. 0.0.1), branch name (e.g. main), or "latest"'
         required: false
         default: 'latest'
       clean:
