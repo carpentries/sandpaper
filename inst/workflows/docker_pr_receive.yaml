@@ -49,7 +49,9 @@ jobs:
 
   test-pr:
     name: "Record PR number"
-    if: ${{ github.event.action != 'closed' }} && ${{ needs.preflight.outputs.branch-exists == 'true' }}
+    if: |
+      github.event.action != 'closed' &&
+      needs.preflight.outputs.branch-exists == 'true'
     runs-on: ubuntu-latest
     needs: preflight
     outputs:
@@ -135,6 +137,7 @@ jobs:
       checks: write
       contents: write
       pages: write
+      id-token: write
     container:
       image: ghcr.io/carpentries/workbench-docker:${{ vars.WORKBENCH_TAG || 'latest' }}
       env:
