@@ -245,7 +245,9 @@ build_episode_md <- function(path, hash = NULL, outdir = path_built(path),
     spinner = sho,
     env = c(callr::rcmd_safe_env(),
       "RENV_PROFILE" = profile,
-      "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available())
+      "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available(),
+      "LANGUAGE" = get_config()$lang,
+    )
   )
 
   invisible(outpath)
