@@ -17,33 +17,57 @@
 #'   `FALSE`, which will report on the progress of each step.
 #' @return the paths to the new files.
 #' @export
-update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, clean = "*.yaml", quiet = FALSE) {
+update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, clean = "*.yaml", quiet = FALSE, branch = "") {
 
   wf <- fs::path(path, ".github", "workflows")
 
   # get latest version from github carpentries/workbench-workflows releases list
   version_file <- fs::path(wf, "workflows-version.txt")
-  releases_url <- "https://api.github.com/repos/carpentries/workbench-workflows/releases/latest"
-  releases_json <- jsonlite::fromJSON(releases_url)
-  latest_version_tag <- releases_json$tag_name
-  latest_version <- package_version(gsub("^v", "", latest_version_tag))
+
+  if (branch != "") {
+    releases_url <- paste0("https://api.github.com/repos/carpentries/workbench-workflows/branches/", branch)
+    releases_json <- jsonlite::fromJSON(releases_url)
+    latest_version_sha <- releases_json$commit$sha
+    latest_version <- strtrim(latest_version_sha, 6)
+  } else {
+    releases_url <- "https://api.github.com/repos/carpentries/workbench-workflows/releases/latest"
+    releases_json <- jsonlite::fromJSON(releases_url)
+    latest_version_tag <- releases_json$tag_name
+    latest_version <- package_version(gsub("^v", "", latest_version_tag))
+  }
 
   need_dir <- !fs::dir_exists(wf)
   if (need_dir) {
     fs::dir_create(wf, recurse = TRUE)
   }
   if (fs::file_exists(version_file)) {
-    oldvers <- package_version(readLines(version_file))
+    # if version is not semver, set to 0.0.0 to force update
+    oldvers <- tryCatch(
+      package_version(readLines(version_file)),
+      error = function(e) package_version("0.0.0")
+    )
   } else {
     oldvers <- package_version("0.0.0")
   }
 
-  if (overwrite || oldvers < latest_version) {
+  if (overwrite || branch != "" || oldvers < latest_version) {
     if (files == "" && !is.null(clean)) {
       fs::file_delete(fs::dir_ls(wf, glob = clean))
+
+      # if sandpaper-version.txt file exists, delete it
+      sandpaper_version_file <- fs::path(wf, "sandpaper-version.txt")
+      if (fs::file_exists(sandpaper_version_file)) {
+        fs::file_delete(sandpaper_version_file)
+      }
     }
     # we update the files
-    zip_url <- releases_json$zipball_url
+    if (branch != "") {
+      zip_url <- paste0("https://github.com/carpentries/workbench-workflows/archive/refs/heads/", branch, ".zip")
+    }
+    else {
+      zip_url <- releases_json$zipball_url
+    }
+    cli::cli_alert_info("Downloading workflows from {zip_url}")
     temp_zip <- fs::file_temp(ext = ".zip")
     httr::GET(zip_url, httr::write_disk(temp_zip, overwrite = TRUE))
     temp_dir <- fs::dir_create(fs::file_temp())
