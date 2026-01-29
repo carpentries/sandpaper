@@ -209,12 +209,15 @@ jobs:
             ${{ github.repository }}/${{ steps.wb-vers.outputs.container-version }}_renv-
 
   record-cache-result:
+    name: "Record Caching Status"
     runs-on: ubuntu-latest
     needs: [check-renv, update-renv-cache]
+    if: always()
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: "Record cache result"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
         run: |
           echo "${{ needs.update-renv-cache.result == 'success' || needs.check-renv.outputs.renv-cache-available == 'true' || 'false' }}" > ${{ github.workspace }}/apply-cache-result
         shell: bash

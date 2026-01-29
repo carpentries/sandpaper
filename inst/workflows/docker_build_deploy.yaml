@@ -76,7 +76,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: preflight
     if: |
-      always() &&
       needs.preflight.outputs.do-build == 'true' &&
       needs.preflight.outputs.workbench-update != 'true'
     env:
