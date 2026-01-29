@@ -4,6 +4,10 @@ on:
   pull_request:
     types:
       [opened, synchronize, reopened]
+  workflow_run:
+    workflows: ["02 Maintain: Check for Updated Packages"]
+    types:
+      - completed
   workflow_dispatch:
     inputs:
       pr_number:
@@ -19,6 +23,31 @@ permissions:
   pull-requests: write
 
 jobs:
+
+  duplicate-check:
+    name: "Duplicate Trigger Check"
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check.outputs.skip }}
+    steps:
+      - name: Exit if bot raised PR on update/packages branch
+        id: check
+        run: |
+          # 💡 Avoid duplicate triggers from package update PRs #
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            pr_author="${{ github.event.pull_request.user.login }}"
+            pr_branch="${{ github.event.pull_request.head.ref }}"
+
+            # Skip if PR was created by github-actions bot from a specific branch pattern
+            if [[ "$pr_author" == "github-actions[bot]" ]] && [[ "$pr_branch" == "update/packages" ]]; then
+              echo "Skipping: PR from github-actions on update/packages branch - workflow_run will handle this"
+
+              echo "## 💡 Avoid duplicate triggers from package update PRs" >> $GITHUB_STEP_SUMMARY
+              echo "Skipping: PR from github-actions on update/packages branch - workflow_run will handle this" >> $GITHUB_STEP_SUMMARY
+              exit 0
+            fi
+          fi
+        shell: bash
 
   preflight:
     name: "Preflight: md-outputs exists?"
@@ -71,6 +100,9 @@ jobs:
           echo "NR=$PR_NUMBER" >> $GITHUB_ENV
           echo "PR_BRANCH=$(gh -R ${{ github.repository }} pr view $PR_NUMBER --json headRefName --jq '.headRefName')" >> $GITHUB_ENV
         shell: bash
+
+      - name: "Skip if PR Already Handled"
+        if: steps.trigger.outputs.skip != 'true'
 
       - name: "Upload PR number"
         id: upload

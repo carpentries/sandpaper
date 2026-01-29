@@ -188,13 +188,3 @@ jobs:
         run: |
           echo "No updates needed, skipping PR creation"
         shell: bash
-
-      # thanks @Bisaloo! - https://github.com/carpentries/sandpaper/issues/646#issuecomment-2829578435
-      # only trigger checks manually if the validate-token step had no valid AWS or SANDPAPER_WORKFLOW token
-      - name: "Trigger checks"
-        if: |
-          steps.cpr.outputs.pull-request-number != '' &&
-          steps.validate-org-workflow.outputs.is_valid != 'true'
-        run: |
-          gh workflow run docker_pr_receive.yaml --field pr_number=${{ steps.cpr.outputs.pull-request-number }}
-        shell: bash
