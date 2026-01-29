@@ -101,9 +101,6 @@ jobs:
           echo "PR_BRANCH=$(gh -R ${{ github.repository }} pr view $PR_NUMBER --json headRefName --jq '.headRefName')" >> $GITHUB_ENV
         shell: bash
 
-      - name: "Skip if PR Already Handled"
-        if: steps.trigger.outputs.skip != 'true'
-
       - name: "Upload PR number"
         id: upload
         if: always()
