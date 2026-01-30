@@ -34,9 +34,15 @@ jobs:
       - name: "Skip duplicate trigger from bot on update/packages branch"
         run: |
           echo "## ⏭️ Skipped: Duplicate Trigger Detected" >> $GITHUB_STEP_SUMMARY
+          echo "**Event:** \`pull_request\` (opened)" >> $GITHUB_STEP_SUMMARY
+          echo "**PR:** #${{ github.event.pull_request.number }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Author:** \`${{ github.event.pull_request.user.login }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** \`${{ github.event.pull_request.head.ref }}\` → \`${{ github.event.pull_request.base.ref }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "This workflow run was skipped because this PR was created by a GITHUB_TOKEN automated workflow." >> $GITHUB_STEP_SUMMARY
-          echo "The \`workflow_run\` trigger will handle processing this PR instead." >> $GITHUB_STEP_SUMMARY
+          echo "### ❔ Why was this skipped?" >> $GITHUB_STEP_SUMMARY
+          echo "This PR was created by the \`02 Maintain: Check for Updated Packages\` workflow using a PAT, which triggers both:" >> $GITHUB_STEP_SUMMARY
+          echo "1. ✅ \`pull_request\` event (this run)" >> $GITHUB_STEP_SUMMARY
+          echo "2. ✅ \`workflow_run\` event (will run after workflow completes)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ No action needed - this is expected behavior." >> $GITHUB_STEP_SUMMARY
 
@@ -95,7 +101,11 @@ jobs:
             PR_NUMBER=${{ inputs.pr_number }}
           elif [[ "${{ github.event_name }}" == "workflow_run" &&
             github.event.workflow_run.event == 'pull_request' ]] ; then
-              PR_NUMBER=${{ github.event.workflow_run.pull_requests[0].number }}
+              PR_NUMBER=$(gh pr list \
+                          --repo "${{ github.repository }}" \
+                          --search "${{ github.event.workflow_run.head_sha }}" \
+                          --json number \
+                          --jq '.[0].number')
           fi
 
           echo $PR_NUMBER > ${{ github.workspace }}/NR
