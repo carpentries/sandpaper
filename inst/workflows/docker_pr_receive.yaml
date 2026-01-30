@@ -29,7 +29,6 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       github.event_name == 'pull_request' &&
-      github.event.pull_request.user.login == 'github-actions[bot]' &&
       github.event.pull_request.head.ref == 'update/packages'
     steps:
       - name: "Skip duplicate trigger from bot on update/packages branch"
@@ -48,8 +47,7 @@ jobs:
       github.event_name == 'workflow_run' ||
       (
         github.event_name == 'pull_request' &&
-        !(github.event.pull_request.user.login == 'github-actions[bot]' &&
-          github.event.pull_request.head.ref == 'update/packages')
+        github.event.pull_request.head.ref != 'update/packages'
       )
     outputs:
       branch-exists: ${{ steps.check.outputs.exists }}
