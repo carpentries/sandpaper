@@ -25,34 +25,32 @@ permissions:
 jobs:
 
   duplicate-check:
-    name: "Duplicate Trigger Check"
+    name: "Preflight: duplicate triggers?"
     runs-on: ubuntu-latest
-    outputs:
-      skip: ${{ steps.check.outputs.skip }}
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.user.login == 'github-actions[bot]' &&
+      github.event.pull_request.head.ref == 'update/packages'
     steps:
-      - name: Exit if bot raised PR on update/packages branch
-        id: check
+      - name: "Skip duplicate trigger from bot on update/packages branch"
         run: |
-          # 💡 Avoid duplicate triggers from package update PRs #
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            pr_author="${{ github.event.pull_request.user.login }}"
-            pr_branch="${{ github.event.pull_request.head.ref }}"
-
-            # Skip if PR was created by github-actions bot from a specific branch pattern
-            if [[ "$pr_author" == "github-actions[bot]" &&
-                  "$pr_branch" == "update/packages" ]]; then
-              echo "Skipping: PR from github-actions on update/packages branch - workflow_run will handle this"
-
-              echo "## 💡 Avoid duplicate triggers from package update PRs" >> $GITHUB_STEP_SUMMARY
-              echo "Skipping: PR from github-actions on update/packages branch - workflow_run will handle this" >> $GITHUB_STEP_SUMMARY
-              exit 0
-            fi
-          fi
-        shell: bash
+          echo "## ⏭️ Skipped: Duplicate Trigger Detected" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This workflow run was skipped because this PR was created by a GITHUB_TOKEN automated workflow." >> $GITHUB_STEP_SUMMARY
+          echo "The \`workflow_run\` trigger will handle processing this PR instead." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ No action needed - this is expected behavior." >> $GITHUB_STEP_SUMMARY
 
   preflight:
     name: "Preflight: md-outputs exists?"
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_run' ||
+      (
+        github.event_name == 'pull_request' &&
+        !(github.event.pull_request.user.login == 'github-actions[bot]' &&
+          github.event.pull_request.head.ref == 'update/packages')
+      )
     outputs:
       branch-exists: ${{ steps.check.outputs.exists }}
     steps:
@@ -97,6 +95,9 @@ jobs:
             PR_NUMBER=${{ github.event.number }}
           elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]] ; then
             PR_NUMBER=${{ inputs.pr_number }}
+          elif [[ "${{ github.event_name }}" == "workflow_run" &&
+            github.event.workflow_run.event == 'pull_request' ]] ; then
+              PR_NUMBER=${{ github.event.workflow_run.pull_requests[0].number }}
           fi
 
           echo $PR_NUMBER > ${{ github.workspace }}/NR
