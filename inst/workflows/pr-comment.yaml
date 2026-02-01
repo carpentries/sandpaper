@@ -122,7 +122,7 @@ jobs:
         id: dl
         uses: carpentries/actions/download-workflow-artifact@main
         with:
-          run: ${{ github.event.workflow_run.id || inputs.workflow_id }}
+          run: ${{ github.event.workflow_run.id }}
           name: 'built'
 
       - if: steps.dl.outputs.success == 'true'
@@ -161,7 +161,7 @@ jobs:
         id: dl
         uses: carpentries/actions/download-workflow-artifact@main
         with:
-          run: ${{ github.event.workflow_run.id || inputs.workflow_id }}
+          run: ${{ github.event.workflow_run.id }}
           name: 'diff'
 
       - if: steps.dl.outputs.success == 'true'
@@ -194,7 +194,7 @@ jobs:
         id: dl
         uses: carpentries/actions/download-workflow-artifact@main
         with:
-          run: ${{ github.event.workflow_run.id || inputs.workflow_id }}
+          run: ${{ github.event.workflow_run.id }}
           name: 'built'
 
       - name: "Alert if spoofed"
