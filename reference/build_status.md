@@ -100,28 +100,28 @@ accordingly, removing entries missing from the sources.
 # setup -----------------------------------------------------------------
 tmp <- tempfile()
 on.exit(fs::dir_delete(tmp), add = TRUE)
-#> Error: [ENOENT] Failed to search directory '/tmp/Rtmp4syuyP/file1cc747e8483d': no such file or directory
+#> Error: [ENOENT] Failed to search directory '/tmp/RtmpRhwHL2/file1ccf1b75112e': no such file or directory
 create_lesson(tmp, rmd = FALSE, open = FALSE)
-#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc747e8483d...
+#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf1b75112e...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc747e8483d...
+#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf1b75112e...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc747e8483d...
+#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf1b75112e...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc747e8483d...
+#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf1b75112e...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc747e8483d...
-#> ☐ Edit /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.md.
-#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc747e8483d...
-#> ✔ First episode created in /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.md
-#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc747e8483d...
+#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf1b75112e...
+#> ☐ Edit /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.md.
+#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf1b75112e...
+#> ✔ First episode created in /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.md
+#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf1b75112e...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc747e8483d...
-#> ✔ Lesson successfully created in /tmp/Rtmp4syuyP/file1cc747e8483d
-#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc747e8483d...
-#> /tmp/Rtmp4syuyP/file1cc747e8483d
+#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf1b75112e...
+#> ✔ Lesson successfully created in /tmp/RtmpRhwHL2/file1ccf1b75112e
+#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf1b75112e...
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e
 
 # show build status -----------------------------------------------------
 # get namespace to use internal functions
@@ -131,22 +131,22 @@ resources <- fs::path(tmp, c("episodes/introduction.md", "index.md"))
 # first run, everything needs to be built and no build file exists
 sp$build_status(resources, db, write = TRUE)
 #> $build
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.md
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/index.md
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.md
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/index.md
 #> 
 #> $new
 #>                                                                               file
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.md episodes/introduction.md
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/index.md                                 index.md
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.md episodes/introduction.md
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/index.md                                 index.md
 #>                                                                                   checksum
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/index.md                 a02c9c785ed98ddd84fe3d34ddb12fcd
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.md fd46501f174bb7e6cc280a1436fbc12a
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/index.md                 a02c9c785ed98ddd84fe3d34ddb12fcd
 #>                                                                                built
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.md site/built/introduction.md
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/index.md                        site/built/index.md
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.md site/built/introduction.md
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/index.md                        site/built/index.md
 #>                                                                 date
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.md 2026-02-02
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/index.md                 2026-02-02
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.md 2026-02-02
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/index.md                 2026-02-02
 #> 
 # second run, everything is identical and nothing to be rebuilt
 sp$build_status(resources, db, write = TRUE)
@@ -189,7 +189,7 @@ sp$get_built_db(db, filter = "*R?md")
 #> 2        site/built/index.md 2026-02-02
 # if you get the hash of the file, it's equal to the expected:
 print(actual <- tools::md5sum(resources[[1]]))
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.md 
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.md 
 #>                        "fd46501f174bb7e6cc280a1436fbc12a" 
 print(expected <- sp$get_hash(resources[[1]], db))
 #> [1] "fd46501f174bb7e6cc280a1436fbc12a"
@@ -206,10 +206,10 @@ resources[[1]] <- fs::path_ext_set(resources[[1]], "Rmd")
 set_episodes(tmp, fs::path_file(resources[[1]]), write = TRUE)
 sp$build_status(resources, db, write = TRUE)
 #> $build
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.Rmd
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.Rmd
 #> 
 #> $remove
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/site/built/introduction.md
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/site/built/introduction.md
 #> 
 #> $new
 #>                        file                         checksum
@@ -233,7 +233,7 @@ cat("We are using `r R.version.string`\n",
   file = resources[[1]], append = TRUE)
 sp$build_status(resources, db, write = TRUE)
 #> $build
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.Rmd
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.Rmd
 #> 
 #> $remove
 #> character(0)
@@ -262,7 +262,7 @@ cat("\n\n```{r child='files/hi.md'}\n```\n",
   file = resources[[1]], append = TRUE)
 sp$build_status(resources, db, write = TRUE)
 #> $build
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.Rmd
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.Rmd
 #> 
 #> $remove
 #> character(0)
@@ -291,7 +291,7 @@ cat("Goodbye!\n", append = TRUE,
   file = fs::path(tmp, "episodes", "files", "hi.md"))
 sp$build_status(resources, db, write = TRUE)
 #> $build
-#> /tmp/Rtmp4syuyP/file1cc747e8483d/episodes/introduction.Rmd
+#> /tmp/RtmpRhwHL2/file1ccf1b75112e/episodes/introduction.Rmd
 #> 
 #> $remove
 #> character(0)
