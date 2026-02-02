@@ -68,28 +68,28 @@ child files will cause the source file to change as well.
 # The setup needs to include an R Markdown file with a child file.
 tmp <- tempfile()
 on.exit(fs::dir_delete(tmp), add = TRUE)
-#> Error: [ENOENT] Failed to search directory '/tmp/RtmpzqWdxf/file1cab69848e70': no such file or directory
+#> Error: [ENOENT] Failed to search directory '/tmp/Rtmp4syuyP/file1cc7198b71a8': no such file or directory
 create_lesson(tmp, rmd = FALSE, open = FALSE)
-#> → Creating Lesson in /tmp/RtmpzqWdxf/file1cab69848e70...
+#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc7198b71a8...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpzqWdxf/file1cab69848e70...
+#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc7198b71a8...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpzqWdxf/file1cab69848e70...
+#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc7198b71a8...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpzqWdxf/file1cab69848e70...
+#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc7198b71a8...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpzqWdxf/file1cab69848e70...
-#> ☐ Edit /tmp/RtmpzqWdxf/file1cab69848e70/episodes/introduction.md.
-#> → Creating Lesson in /tmp/RtmpzqWdxf/file1cab69848e70...
-#> ✔ First episode created in /tmp/RtmpzqWdxf/file1cab69848e70/episodes/introduction.md
-#> → Creating Lesson in /tmp/RtmpzqWdxf/file1cab69848e70...
+#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc7198b71a8...
+#> ☐ Edit /tmp/Rtmp4syuyP/file1cc7198b71a8/episodes/introduction.md.
+#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc7198b71a8...
+#> ✔ First episode created in /tmp/Rtmp4syuyP/file1cc7198b71a8/episodes/introduction.md
+#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc7198b71a8...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpzqWdxf/file1cab69848e70...
-#> ✔ Lesson successfully created in /tmp/RtmpzqWdxf/file1cab69848e70
-#> → Creating Lesson in /tmp/RtmpzqWdxf/file1cab69848e70...
-#> /tmp/RtmpzqWdxf/file1cab69848e70
+#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc7198b71a8...
+#> ✔ Lesson successfully created in /tmp/Rtmp4syuyP/file1cc7198b71a8
+#> → Creating Lesson in /tmp/Rtmp4syuyP/file1cc7198b71a8...
+#> /tmp/Rtmp4syuyP/file1cc7198b71a8
 # get namespace to use internal functions
 sp <- asNamespace("sandpaper")
 db <- fs::path(tmp, "site/built/md5sum.txt")
@@ -113,38 +113,38 @@ class(lsn)
 children <- sp$get_lineages(lsn)
 print(children)
 #> $`episodes/introduction.Rmd`
-#> [1] "/tmp/RtmpzqWdxf/file1cab69848e70/episodes/introduction.Rmd"
-#> [2] "/tmp/RtmpzqWdxf/file1cab69848e70/episodes/files/hi.md"     
+#> [1] "/tmp/Rtmp4syuyP/file1cc7198b71a8/episodes/introduction.Rmd"
+#> [2] "/tmp/Rtmp4syuyP/file1cc7198b71a8/episodes/files/hi.md"     
 #> 
 #> $CODE_OF_CONDUCT.md
-#> /tmp/RtmpzqWdxf/file1cab69848e70/CODE_OF_CONDUCT.md
+#> /tmp/Rtmp4syuyP/file1cc7198b71a8/CODE_OF_CONDUCT.md
 #> 
 #> $CONTRIBUTING.md
-#> /tmp/RtmpzqWdxf/file1cab69848e70/CONTRIBUTING.md
+#> /tmp/Rtmp4syuyP/file1cc7198b71a8/CONTRIBUTING.md
 #> 
 #> $LICENSE.md
-#> /tmp/RtmpzqWdxf/file1cab69848e70/LICENSE.md
+#> /tmp/Rtmp4syuyP/file1cc7198b71a8/LICENSE.md
 #> 
 #> $README.md
-#> /tmp/RtmpzqWdxf/file1cab69848e70/README.md
+#> /tmp/Rtmp4syuyP/file1cc7198b71a8/README.md
 #> 
 #> $index.md
-#> /tmp/RtmpzqWdxf/file1cab69848e70/index.md
+#> /tmp/Rtmp4syuyP/file1cc7198b71a8/index.md
 #> 
 #> $links.md
-#> /tmp/RtmpzqWdxf/file1cab69848e70/links.md
+#> /tmp/Rtmp4syuyP/file1cc7198b71a8/links.md
 #> 
 #> $`instructors/instructor-notes.md`
-#> /tmp/RtmpzqWdxf/file1cab69848e70/instructors/instructor-notes.md
+#> /tmp/Rtmp4syuyP/file1cc7198b71a8/instructors/instructor-notes.md
 #> 
 #> $`learners/reference.md`
-#> /tmp/RtmpzqWdxf/file1cab69848e70/learners/reference.md
+#> /tmp/Rtmp4syuyP/file1cc7198b71a8/learners/reference.md
 #> 
 #> $`learners/setup.md`
-#> /tmp/RtmpzqWdxf/file1cab69848e70/learners/setup.md
+#> /tmp/Rtmp4syuyP/file1cc7198b71a8/learners/setup.md
 #> 
 #> $`profiles/learner-profiles.md`
-#> /tmp/RtmpzqWdxf/file1cab69848e70/profiles/learner-profiles.md
+#> /tmp/Rtmp4syuyP/file1cc7198b71a8/profiles/learner-profiles.md
 #> 
 
 # hash_children ---------------------------------------------------

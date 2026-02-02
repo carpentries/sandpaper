@@ -1,5 +1,13 @@
 # Changelog
 
+## sandpaper 0.18.5 \[2026-02-02\]
+
+### WORKFLOW HOTFIXES
+
+- Revert to previous PAT requirement due to complexity of managing the
+  manual vs automated triggers. Whilst this is frustrating to revert
+  changes, it’s more reliable and less confusing for repo maintainers.
+
 ## sandpaper 0.18.4 \[2026-01-22\]
 
 ### NEW DOCKER WORKFLOW OPTIONS
