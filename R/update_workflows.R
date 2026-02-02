@@ -15,6 +15,7 @@
 #'   do not want to clean, set this to `NULL`.
 #' @param quiet if `TRUE`, the process will not output any messages, default is
 #'   `FALSE`, which will report on the progress of each step.
+#' @param branch if specified, the branch from which to pull the workflows.
 #' @return the paths to the new files.
 #' @export
 update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, clean = "*.yaml", quiet = FALSE, branch = "") {
@@ -67,7 +68,9 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, cl
     else {
       zip_url <- releases_json$zipball_url
     }
-    cli::cli_alert_info("Downloading workflows from {zip_url}")
+    if (!quiet) {
+      cli::cli_alert_info("Downloading workflows from {zip_url}")
+    }
     temp_zip <- fs::file_temp(ext = ".zip")
     httr::GET(zip_url, httr::write_disk(temp_zip, overwrite = TRUE))
     temp_dir <- fs::dir_create(fs::file_temp())
