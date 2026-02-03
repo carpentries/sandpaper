@@ -34,6 +34,7 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, cl
     releases_url <- "https://api.github.com/repos/carpentries/workbench-workflows/releases/latest"
     releases_json <- jsonlite::fromJSON(releases_url)
     latest_version_tag <- releases_json$tag_name
+    body <- releases_json$body
     latest_version <- package_version(gsub("^v", "", latest_version_tag))
   }
 
