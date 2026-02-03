@@ -72,6 +72,7 @@ test_that("github workflows are recognized as up-to-date", {
   utils::unzip(temp_zip, exdir = temp_dir)
 
   files_we_need <- fs::dir_ls(temp_dir, recurse = TRUE, regexp = ".*workflows/.*\\.(md|yaml)$")
+  files_we_need <- c(files_we_need, fs::path(temp_dir, "workflows-version.txt"))
   new_files <- character(length(files_we_need))
   names(new_files) <- basename(files_we_need)
 
