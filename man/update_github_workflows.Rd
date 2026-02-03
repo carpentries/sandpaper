@@ -9,7 +9,8 @@ update_github_workflows(
   files = "",
   overwrite = TRUE,
   clean = "*.yaml",
-  quiet = FALSE
+  quiet = FALSE,
+  branch = ""
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ do not want to clean, set this to \code{NULL}.}
 
 \item{quiet}{if \code{TRUE}, the process will not output any messages, default is
 \code{FALSE}, which will report on the progress of each step.}
+
+\item{branch}{if specified, the branch from which to pull the workflows.}
 }
 \value{
 the paths to the new files.
