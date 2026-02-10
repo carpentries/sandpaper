@@ -264,9 +264,15 @@ build_citation <- function(pkg, quiet = FALSE) {
       body = html,
       pagetitle = tr_computed("CiteThisLesson")
     )
-    page_globals$instructor$update(this_dat)
     page_globals$learner$update(this_dat)
     page_globals$metadata$update(this_dat)
+
+    page_globals$instructor$update(list(
+      this_page = "citation.html",
+      body = use_instructor(html),
+      pagetitle = tr_computed("CiteThisLesson")
+    ))
+
 
     build_html(template = "citation", pkg = pkg, nodes = html,
                global_data = page_globals, path_md = "citation.html", quiet = quiet)
