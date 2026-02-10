@@ -83,7 +83,7 @@ create_glosario_link <- function(ename, slug, lslug, ldef, en_slugs) {
       return(
         paste0(
           "<a href='", url, "'>",
-          "<sup><img class='parrot' src='assets/images/parrot_icon_colour.svg' height='18' width='18' ",
+          "<sup><img class='parrot' src='./assets/images/parrot_icon_colour.svg' height='18' width='18' ",
           "alt='Glosario: ", ldef, "' title='Glosario: ", ldef, "'",
           "></sup>",
           "</a>"

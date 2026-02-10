@@ -176,7 +176,7 @@ generate_author_names <- function(authors, env, output_html = TRUE) {
             name <- paste0(name, " <a href='#aff", affil_num, "'><sup>", affil_num, "</sup></a> ")
         }
         if (orcid != "") {
-            name <- paste0(name, " <a href='", orcid, "' target='_blank'><sup><img src='/assets/images/orcid_icon.png' height='12' width='12'/></sup></a>")
+            name <- paste0(name, " <a href='", orcid, "' target='_blank'><sup><img src='./assets/images/orcid_icon.png' height='12' width='12'/></sup></a>")
         }
         name <- paste0(name, "</span>")
       }
