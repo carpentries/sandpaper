@@ -233,6 +233,10 @@ build_citation <- function(pkg, quiet = FALSE) {
       page_globals$learner$set(item, new)
       page_globals$instructor$set(item, new)
     }
+    this_dat <- list(
+      body = use_instructor(html)
+    )
+    page_globals$instructor$update(this_dat)
   }
   fix_nodes(html)
 
