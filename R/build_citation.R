@@ -207,24 +207,9 @@ generate_author_names <- function(authors, env, output_html = TRUE) {
 #' @keywords internal
 build_citation <- function(pkg, quiet = FALSE) {
   page_globals <- setup_page_globals()
+  path  <- get_source_path() %||% root_path(pkg$src_path)
 
   html <- xml2::read_html(render_html(template_cff()))
-  if (is_prod) {
-    # make sure index links back to the original root
-    lnk <- xml2::xml_find_first(html, ".//a[@href='index.html']")
-    xml2::xml_set_attr(lnk, "href", url)
-    # update navigation so that we have full URL
-    nav <- page_globals$learner$get()[c("sidebar", "more", "resources")]
-    for (item in names(nav)) {
-      # replace the relative index with
-      new <- fix_sidebar_href(nav[[item]], server = url)
-      if (length(nav[[item]]) == 1L) {
-        new <- paste(new, collapse = "")
-      }
-      page_globals$learner$set(item, new)
-      page_globals$instructor$set(item, new)
-    }
-  }
   fix_nodes(html)
 
   cff_meta <- this_metadata$get()$cff
