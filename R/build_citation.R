@@ -207,15 +207,6 @@ generate_author_names <- function(authors, env, output_html = TRUE) {
 #' @keywords internal
 build_citation <- function(pkg, quiet = FALSE) {
   page_globals <- setup_page_globals()
-  calls <- sys.calls()
-  # When the page is in production (e.g. built with one of the `ci_` functions,
-  # then we need to set the absolute paths to the site
-  is_prod <- in_production(calls)
-  if (is_prod) {
-    url  <- page_globals$metadata$get()$url
-    page_globals$instructor$set(c("site", "root"), url)
-    page_globals$learner$set(c("site", "root"), url)
-  }
 
   html <- xml2::read_html(render_html(template_cff()))
   if (is_prod) {
