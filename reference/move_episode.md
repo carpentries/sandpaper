@@ -75,25 +75,25 @@ if (interactive() || Sys.getenv("CI") != "") {
     move_episode("experimental.md", path = tmp)
   }
 }
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccfb63ad12...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c386d921d9b...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccfb63ad12...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c386d921d9b...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccfb63ad12...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c386d921d9b...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccfb63ad12...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c386d921d9b...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccfb63ad12...
-#> ☐ Edit /tmp/RtmpRhwHL2/file1ccfb63ad12/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccfb63ad12...
-#> ✔ First episode created in /tmp/RtmpRhwHL2/file1ccfb63ad12/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccfb63ad12...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c386d921d9b...
+#> ☐ Edit /tmp/RtmprvyUoW/file1c386d921d9b/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c386d921d9b...
+#> ✔ First episode created in /tmp/RtmprvyUoW/file1c386d921d9b/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c386d921d9b...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccfb63ad12...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c386d921d9b...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccfb63ad12...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c386d921d9b...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -101,7 +101,7 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> 
 #> # ~/work/_temp/Library -------------------------------------------------------
 #> - R6            2.6.1
-#> - base64enc     0.1-3
+#> - base64enc     0.1-6
 #> - bslib         0.10.0
 #> - cachem        1.1.0
 #> - cli           3.6.5
@@ -136,7 +136,7 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> 
 #> # https://packagemanager.posit.co/cran/__linux__/noble/latest ----------------
 #> - R6            [* -> 2.6.1]
-#> - base64enc     [* -> 0.1-3]
+#> - base64enc     [* -> 0.1-6]
 #> - bslib         [* -> 0.10.0]
 #> - cachem        [* -> 1.1.0]
 #> - cli           [* -> 3.6.5]
@@ -165,12 +165,12 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.5.2]
 #> 
-#> - Lockfile written to "/tmp/RtmpRhwHL2/file1ccfb63ad12/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/RtmpRhwHL2/file1ccfb63ad12
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccfb63ad12...
-#> ☐ Edit /tmp/RtmpRhwHL2/file1ccfb63ad12/episodes/getting-started.md.
-#> ☐ Edit /tmp/RtmpRhwHL2/file1ccfb63ad12/episodes/plotting.Rmd.
-#> ☐ Edit /tmp/RtmpRhwHL2/file1ccfb63ad12/episodes/experimental.md.
+#> - Lockfile written to "/tmp/RtmprvyUoW/file1c386d921d9b/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/RtmprvyUoW/file1c386d921d9b
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c386d921d9b...
+#> ☐ Edit /tmp/RtmprvyUoW/file1c386d921d9b/episodes/getting-started.md.
+#> ☐ Edit /tmp/RtmprvyUoW/file1c386d921d9b/episodes/plotting.Rmd.
+#> ☐ Edit /tmp/RtmprvyUoW/file1c386d921d9b/episodes/experimental.md.
 #> episodes:
 #> - introduction.Rmd
 #> - getting-started.md

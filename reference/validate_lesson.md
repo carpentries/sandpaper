@@ -61,25 +61,25 @@ test can be found at
 ``` r
 tmp <- tempfile()
 lsn <- create_lesson(tmp, open = FALSE)
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf56bedfe8...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c3848f93252...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf56bedfe8...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c3848f93252...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf56bedfe8...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c3848f93252...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf56bedfe8...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c3848f93252...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf56bedfe8...
-#> ☐ Edit /tmp/RtmpRhwHL2/file1ccf56bedfe8/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf56bedfe8...
-#> ✔ First episode created in /tmp/RtmpRhwHL2/file1ccf56bedfe8/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf56bedfe8...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c3848f93252...
+#> ☐ Edit /tmp/RtmprvyUoW/file1c3848f93252/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c3848f93252...
+#> ✔ First episode created in /tmp/RtmprvyUoW/file1c3848f93252/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c3848f93252...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf56bedfe8...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c3848f93252...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf56bedfe8...
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c3848f93252...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -87,7 +87,7 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> 
 #> # ~/work/_temp/Library -------------------------------------------------------
 #> - R6            2.6.1
-#> - base64enc     0.1-3
+#> - base64enc     0.1-6
 #> - bslib         0.10.0
 #> - cachem        1.1.0
 #> - cli           3.6.5
@@ -122,7 +122,7 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> 
 #> # https://packagemanager.posit.co/cran/__linux__/noble/latest ----------------
 #> - R6            [* -> 2.6.1]
-#> - base64enc     [* -> 0.1-3]
+#> - base64enc     [* -> 0.1-6]
 #> - bslib         [* -> 0.10.0]
 #> - cachem        [* -> 1.1.0]
 #> - cli           [* -> 3.6.5]
@@ -151,9 +151,9 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.5.2]
 #> 
-#> - Lockfile written to "/tmp/RtmpRhwHL2/file1ccf56bedfe8/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/RtmpRhwHL2/file1ccf56bedfe8
-#> → Creating Lesson in /tmp/RtmpRhwHL2/file1ccf56bedfe8...
+#> - Lockfile written to "/tmp/RtmprvyUoW/file1c3848f93252/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/RtmprvyUoW/file1c3848f93252
+#> → Creating Lesson in /tmp/RtmprvyUoW/file1c3848f93252...
 validate_lesson(lsn, headings = TRUE)
 #> ── Validating Headings ─────────────────────────────────────────────────
 #> ── Validating Fenced Divs ──────────────────────────────────────────────
