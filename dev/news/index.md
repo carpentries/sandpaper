@@ -1,5 +1,56 @@
 # Changelog
 
+## sandpaper 0.18.6.9000 \[\]
+
+### BUG FIXES
+
+- Fix ORCiD image display on both learner and instructor citation.html
+  pages (reported, fixed [@tobyhodges](https://github.com/tobyhodges) PR
+  [705](https://github.com/carpentries/sandpaper/pull/705)
+
+## sandpaper 0.18.5 \[2026-02-02\]
+
+### WORKFLOW HOTFIXES
+
+- Revert to previous PAT requirement due to complexity of managing the
+  manual vs automated triggers. Whilst this is frustrating to revert
+  changes, it’s more reliable and less confusing for repo maintainers.
+
+## sandpaper 0.18.4 \[2026-01-22\]
+
+### NEW DOCKER WORKFLOW OPTIONS
+
+- Add support for a BUILD_RESET repo variable to docker_build_deploy,
+  where `true` will force sandpaper to reset any previous built markdown
+  every build step. Default/omitted is `false`.
+- Add support for a AUTO_MERGE_CONTAINER_VERSION_UPDATE repo variable to
+  docker_build_deploy, where `false` will stop auto-merging the
+  workbench-docker-version.txt file update PR. Default/omitted is
+  `true`.
+
+## sandpaper 0.18.3 \[2026-01-19\]
+
+### HOTFIX RELEASE
+
+- Fix more triggers
+
+## sandpaper 0.18.2 \[2026-01-19\]
+
+### HOTFIX RELEASE
+
+- Fix remaining workflow typos
+- Improve workflow trigger conditions
+
+## sandpaper 0.18.1 \[2026-01-17\]
+
+### HOTFIX RELEASE
+
+- Due to high chance of Dockerhub rate limiting the pulling of the
+  workbench-docker image by anonymous accounts when building lessons
+  (all on a Tuesday at the same time!), move to GHCR for workflows. GHCR
+  has no rate limits for public packages.
+- Fix some problematic trigger logic in workflows.
+
 ## sandpaper 0.18.0 \[2026-01-16\]
 
 ### DOCKER WORKFLOWS RELEASE

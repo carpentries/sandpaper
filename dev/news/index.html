@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.18.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.18.6.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,52 @@
       <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.18.6.9000" id="sandpaper-01869000-">sandpaper 0.18.6.9000 []<a class="anchor" aria-label="anchor" href="#sandpaper-01869000-"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-0-18-6-9000">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-18-6-9000"></a></h3>
+<ul><li>Fix ORCiD image display on both learner and instructor citation.html pages (reported, fixed <a href="https://github.com/tobyhodges" class="external-link">@tobyhodges</a> PR <a href="https://github.com/carpentries/sandpaper/pull/705" class="external-link">705</a>
+</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.18.5" id="sandpaper-0185-2026-02-02">sandpaper 0.18.5 [2026-02-02]<a class="anchor" aria-label="anchor" href="#sandpaper-0185-2026-02-02"></a></h2>
+<div class="section level3">
+<h3 id="workflow-hotfixes-0-18-5">WORKFLOW HOTFIXES<a class="anchor" aria-label="anchor" href="#workflow-hotfixes-0-18-5"></a></h3>
+<ul><li>Revert to previous PAT requirement due to complexity of managing the manual vs automated triggers. Whilst this is frustrating to revert changes, it’s more reliable and less confusing for repo maintainers.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.18.4" id="sandpaper-0184-2026-01-22">sandpaper 0.18.4 [2026-01-22]<a class="anchor" aria-label="anchor" href="#sandpaper-0184-2026-01-22"></a></h2>
+<div class="section level3">
+<h3 id="new-docker-workflow-options-0-18-4">NEW DOCKER WORKFLOW OPTIONS<a class="anchor" aria-label="anchor" href="#new-docker-workflow-options-0-18-4"></a></h3>
+<ul><li>Add support for a BUILD_RESET repo variable to docker_build_deploy, where <code>true</code> will force sandpaper to reset any previous built markdown every build step. Default/omitted is <code>false</code>.</li>
+<li>Add support for a AUTO_MERGE_CONTAINER_VERSION_UPDATE repo variable to docker_build_deploy, where <code>false</code> will stop auto-merging the workbench-docker-version.txt file update PR. Default/omitted is <code>true</code>.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.18.3" id="sandpaper-0183-2026-01-19">sandpaper 0.18.3 [2026-01-19]<a class="anchor" aria-label="anchor" href="#sandpaper-0183-2026-01-19"></a></h2>
+<div class="section level3">
+<h3 id="hotfix-release-0-18-3">HOTFIX RELEASE<a class="anchor" aria-label="anchor" href="#hotfix-release-0-18-3"></a></h3>
+<ul><li>Fix more triggers</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.18.2" id="sandpaper-0182-2026-01-19">sandpaper 0.18.2 [2026-01-19]<a class="anchor" aria-label="anchor" href="#sandpaper-0182-2026-01-19"></a></h2>
+<div class="section level3">
+<h3 id="hotfix-release-0-18-2">HOTFIX RELEASE<a class="anchor" aria-label="anchor" href="#hotfix-release-0-18-2"></a></h3>
+<ul><li>Fix remaining workflow typos</li>
+<li>Improve workflow trigger conditions</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.18.1" id="sandpaper-0181-2026-01-17">sandpaper 0.18.1 [2026-01-17]<a class="anchor" aria-label="anchor" href="#sandpaper-0181-2026-01-17"></a></h2>
+<div class="section level3">
+<h3 id="hotfix-release-0-18-1">HOTFIX RELEASE<a class="anchor" aria-label="anchor" href="#hotfix-release-0-18-1"></a></h3>
+<ul><li>Due to high chance of Dockerhub rate limiting the pulling of the workbench-docker image by anonymous accounts when building lessons (all on a Tuesday at the same time!), move to GHCR for workflows. GHCR has no rate limits for public packages.</li>
+<li>Fix some problematic trigger logic in workflows.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.18.0" id="sandpaper-0180-2026-01-16">sandpaper 0.18.0 [2026-01-16]<a class="anchor" aria-label="anchor" href="#sandpaper-0180-2026-01-16"></a></h2>
 <div class="section level3">
