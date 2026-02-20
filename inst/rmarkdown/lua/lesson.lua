@@ -199,9 +199,9 @@ local button_headings = {
   {{title}}
   </h3>]],
   ["tab"] = [[
-  <h3 class="tab-header" id="nav-tab-heading-{{id}}">
+  <h{{heading_level}} class="tab-header" id="nav-tab-heading-{{id}}">
   {{title}}
-  </h3>]],
+  </h{{heading_level}}>]],
 }
 
 local accordion_titles = {
@@ -363,55 +363,52 @@ end
 
 tab_filter = {
   Header = function(el)
-    -- Level 3 headers mark the tab titles
-    -- all other headers in a tab block are ignored
-    if el.level == 3 then
+    -- Insert the title for the add_to_tabpanel to access
+    local tab_button_heading_level = pandoc.utils.stringify(el.level)
+    local title = pandoc.utils.stringify(el)
 
-      -- Insert the title for the add_to_tabpanel to access
-      local title = pandoc.utils.stringify(el)
-
-      local id
-      local name
-      if group_tab then
-        local tab_id = block_counts["group-tab"]
-        local title_no_spaces = title:gsub("%s+", "")
-        id = tab_id.."-"..title_no_spaces
-        -- The JS for the group tabs selects buttons
-        -- to show based on the name attribute.
-        -- Here we set it to the button title.
-        name = 'name="'..title_no_spaces..'"'
-        -- Store the title so it can be used in the tabpanel id
-        table.insert(group_tab_titles, title_no_spaces)
-      else
-        local tab_id = block_counts["tab"]
-        id = tab_id.."-"..tab_button_num+1
-        -- Non group tabs don't need a name attribute.
-        name = ""
-      end
-
-      -- Found another button so increment the
-      -- current tab_button_num
-      tab_button_num = tab_button_num + 1
-
-      -- Create the button, if this is the first
-      -- button it needs to be active
-      local this_button
-      if tab_button_num == 1 then
-        this_button = tab_button_active
-      else
-        this_button = tab_button
-      end
-
-      -- Substitute in the button information
-      this_button = this_button:gsub("{{heading}}", button_headings["tab"])
-      this_button = this_button:gsub("{{title}}", title)
-      this_button = this_button:gsub("{{id}}", id)
-      this_button = this_button:gsub("{{name}}", name)
-
-      -- Convert the tab button to a raw block and store
-      local button = pandoc.RawBlock("html", this_button)
-      table.insert(tab_buttons, button)
+    local id
+    local name
+    if group_tab then
+      local tab_id = block_counts["group-tab"]
+      local title_no_spaces = title:gsub("%s+", "")
+      id = tab_id.."-"..title_no_spaces
+      -- The JS for the group tabs selects buttons
+      -- to show based on the name attribute.
+      -- Here we set it to the button title.
+      name = 'name="'..title_no_spaces..'"'
+      -- Store the title so it can be used in the tabpanel id
+      table.insert(group_tab_titles, title_no_spaces)
+    else
+      local tab_id = block_counts["tab"]
+      id = tab_id.."-"..tab_button_num+1
+      -- Non group tabs don't need a name attribute.
+      name = ""
     end
+
+    -- Found another button so increment the
+    -- current tab_button_num
+    tab_button_num = tab_button_num + 1
+
+    -- Create the button, if this is the first
+    -- button it needs to be active
+    local this_button
+    if tab_button_num == 1 then
+      this_button = tab_button_active
+    else
+      this_button = tab_button
+    end
+
+    -- Substitute in the button information
+    this_button = this_button:gsub("{{heading}}", button_headings["tab"])
+    this_button = this_button:gsub("{{title}}", title)
+    this_button = this_button:gsub("{{id}}", id)
+    this_button = this_button:gsub("{{name}}", name)
+    this_button = this_button:gsub("{{heading_level}}", tab_button_heading_level)
+
+    -- Convert the tab button to a raw block and store
+    local button = pandoc.RawBlock("html", this_button)
+    table.insert(tab_buttons, button)
   end,
   -- for all other elements process them using
   -- the add_to_tabpanel function
