@@ -124,6 +124,7 @@ Suggests:
     jsonlite,
     sessioninfo,
     mockr,
+    pak,
     varnish (>= 1.0.7)
 Additional_repositories: https://carpentries.r-universe.dev/
 Remotes:
