@@ -1,5 +1,6 @@
 name: "04 Maintain: Update Workflow Files"
 description: "Update workflow files from the carpentries/sandpaper repository"
+
 on:
   schedule:
     - cron: '0 0 * * 2'
@@ -86,7 +87,7 @@ jobs:
       - name: Update Workflows
         id: update
         if: ${{ steps.validate-token.outputs.wf == 'true' }}
-        uses: carpentries/actions/update-workflows@frog-exile-workflows-1
+        uses: carpentries/actions/update-workflows@main
         with:
           version: ${{ github.event.inputs.version || 'latest' }}
           clean: ${{ github.event.inputs.clean || '.yaml' }}
