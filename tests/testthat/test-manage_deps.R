@@ -141,9 +141,16 @@ test_that("pin_version() will use_specific versions", {
     "RENV_CONFIG_CACHE_SYMLINKS" = renv_cache_available()
   ))
 
+  if (!requireNamespace("pak", quietly = TRUE)) {
+    install.packages("pak", repos = renv_carpentries_repos())
+  }
+
+  vs <- pak::pkg_history("sessioninfo")
+  prev_vs <-sort(vs$Version, decreasing=TRUE)[2]
+
   writeLines("library(sessioninfo)", con = fs::path(lsn, "episodes", "si.R"))
   expect_output({
-    pin_version("sessioninfo@1.1.0", path = fs::path(lsn, "episodes")) # old version of sessioninfo
+    pin_version(paste0("sessioninfo@", prev_vs), path = fs::path(lsn, "episodes")) # previous version of sessioninfo
   }, "Updated 1 record in")
 
   # Need to consider this because there is something happening inside of covr
@@ -155,10 +162,10 @@ test_that("pin_version() will use_specific versions", {
     capture.output(res <- manage_deps(lsn))
   })
 
-  # sessioninfo 1.2.0 dropped withr as a dependency, so we should
-  # expect it to appear here
-  expect_false(is.null(res$Packages$withr))
-  expect_equal(res$Packages$sessioninfo$Version, "1.1.0")
+  # sessioninfo >1.2.0 dropped withr as a dependency, so we should
+  # expect it to not appear here
+  expect_true(is.null(res$Packages$withr))
+  expect_equal(res$Packages$sessioninfo$Version, prev_vs)
 
 })
 

@@ -1,3 +1,13 @@
+# sandpaper 0.18.6.9000 []
+
+## BUG FIXES
+
+* Fix ORCiD image display on both learner and instructor citation.html pages
+  (reported, fixed @tobyhodges PR [705](https://github.com/carpentries/sandpaper/pull/705))
+* Add lang-code input to build-and-deploy workflow, in preparation for harmonising 
+  workflows across translated and non-translated lessons.
+
+
 # sandpaper 0.18.5 [2026-02-02]
 
 ## WORKFLOW HOTFIXES
