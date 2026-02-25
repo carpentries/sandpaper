@@ -70,7 +70,7 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, cl
       zip_url <- releases_json$zipball_url
     }
     if (!quiet) {
-      cli::cli_alert_info("Downloading workflows from {zip_url}")
+      cli::cli_alert_info("Downloading workflows from {releases_url}")
     }
     temp_zip <- fs::file_temp(ext = ".zip")
     httr::GET(zip_url, httr::write_disk(temp_zip, overwrite = TRUE))
