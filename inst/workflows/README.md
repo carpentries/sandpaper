@@ -1,3 +1,10 @@
+# DEPRECATION NOTICE
+
+As of release 0.20.0, these workflows are now stored in their own repository for ease of maintenance: https://github.com/carpentries/workbench-workflows
+
+{sandpaper} will now use the workbench-workflows repository when checking and updating lesson repository workflows. As such, these workflows are considered deprecated and will be removed from this repository in an upcoming release.
+
+
 # Carpentries Workflows
 
 This directory contains workflows to be used for Lessons using the Carpentries Workbench lesson infrastructure. 
