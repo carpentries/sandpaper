@@ -1,11 +1,27 @@
-# sandpaper 0.18.6.9000 []
+# sandpaper 0.20.0 [2026-02-28]
+
+## WORKFLOWS
+
+* Workflows in `inst/workflows` are considered deprecated and will be removed in 
+  a subsequent release. Workflows are now held in a separate repository: 
+  https://github.com/carpentries/workbench-workflows. 
+  Sandpaper will pull workflows from this repository in normal operation. This 
+  means that full sandpaper releases are no longer required for workflow updates 
+  and bug fixes, improving maintainability and reducing version confusion.
+* Add lang-code input to build-and-deploy workflow (and associated carpentries/actions) to
+  support the use of @joelnitta {dovetail} package for lesson translations. Repositories
+  wishing to use translated content in `locale/` folders are now supported by 
+  the main sandpaper workflows by supplying a repo environment variable `LANG_CODE`.
 
 ## BUG FIXES
 
 * Fix ORCiD image display on both learner and instructor citation.html pages
   (reported, fixed @tobyhodges PR [705](https://github.com/carpentries/sandpaper/pull/705))
-* Add lang-code input to build-and-deploy workflow, in preparation for harmonising 
-  workflows across translated and non-translated lessons.
+
+## MISC
+
+* Add support for group-tabs at different heading levels (reported @matthewfeickert #708,
+  implemented @astroDimitrios PR [709](https://github.com/carpentries/sandpaper/pull/709))
 
 
 # sandpaper 0.18.5 [2026-02-02]
