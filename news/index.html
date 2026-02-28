@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.18.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.20.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,22 @@
       <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.20.0" id="sandpaper-0200-2026-02-28">sandpaper 0.20.0 [2026-02-28]<a class="anchor" aria-label="anchor" href="#sandpaper-0200-2026-02-28"></a></h2>
+<div class="section level3">
+<h3 id="workflows-0-20-0">WORKFLOWS<a class="anchor" aria-label="anchor" href="#workflows-0-20-0"></a></h3>
+<ul><li>Workflows in <code>inst/workflows</code> are considered deprecated and will be removed in a subsequent release. Workflows are now held in a separate repository: <a href="https://github.com/carpentries/workbench-workflows" class="external-link uri">https://github.com/carpentries/workbench-workflows</a>. Sandpaper will pull workflows from this repository in normal operation. This means that full sandpaper releases are no longer required for workflow updates and bug fixes, improving maintainability and reducing version confusion.</li>
+<li>Add lang-code input to build-and-deploy workflow (and associated carpentries/actions) to support the use of <a href="https://github.com/joelnitta" class="external-link">@joelnitta</a> {dovetail} package for lesson translations. Repositories wishing to use translated content in <code>locale/</code> folders are now supported by the main sandpaper workflows by supplying a repo environment variable <code>LANG_CODE</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-20-0">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-20-0"></a></h3>
+<ul><li>Fix ORCiD image display on both learner and instructor citation.html pages (reported, fixed <a href="https://github.com/tobyhodges" class="external-link">@tobyhodges</a> PR <a href="https://github.com/carpentries/sandpaper/pull/705" class="external-link">705</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="misc-0-20-0">MISC<a class="anchor" aria-label="anchor" href="#misc-0-20-0"></a></h3>
+<ul><li>Add support for group-tabs at different heading levels (reported <a href="https://github.com/matthewfeickert" class="external-link">@matthewfeickert</a> <a href="https://github.com/carpentries/sandpaper/issues/708" class="external-link">#708</a>, implemented <a href="https://github.com/astroDimitrios" class="external-link">@astroDimitrios</a> PR <a href="https://github.com/carpentries/sandpaper/pull/709" class="external-link">709</a>)</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.18.5" id="sandpaper-0185-2026-02-02">sandpaper 0.18.5 [2026-02-02]<a class="anchor" aria-label="anchor" href="#sandpaper-0185-2026-02-02"></a></h2>
 <div class="section level3">

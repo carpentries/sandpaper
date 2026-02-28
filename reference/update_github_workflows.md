@@ -10,7 +10,8 @@ update_github_workflows(
   files = "",
   overwrite = TRUE,
   clean = "*.yaml",
-  quiet = FALSE
+  quiet = FALSE,
+  branch = ""
 )
 ```
 
@@ -41,6 +42,10 @@ update_github_workflows(
 
   if `TRUE`, the process will not output any messages, default is
   `FALSE`, which will report on the progress of each step.
+
+- branch:
+
+  if specified, the branch from which to pull the workflows.
 
 ## Value
 

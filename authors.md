@@ -45,19 +45,22 @@
 - **Matthew Feickert**. Contributor.
   [](https://orcid.org/0000-0003-4124-7862)
 
+- **Dimitrios Theodorakis**. Contributor.
+  [](https://orcid.org/0000-0001-9288-1332)
+
 ## Citation
 
 Source:
 [`DESCRIPTION`](https://github.com/carpentries/sandpaper/blob/main/DESCRIPTION)
 
 Davey R, Becker E, Kamvar Z, Nitta J (2026). *sandpaper: Create and
-Curate Carpentries Lessons*. R package version 0.18.5,
+Curate Carpentries Lessons*. R package version 0.20.0,
 <https://carpentries.github.io/sandpaper/>.
 
     @Manual{,
       title = {sandpaper: Create and Curate Carpentries Lessons},
       author = {Robert Davey and Erin Becker and Zhian N. Kamvar and Joel H. Nitta},
       year = {2026},
-      note = {R package version 0.18.5},
+      note = {R package version 0.20.0},
       url = {https://carpentries.github.io/sandpaper/},
     }
