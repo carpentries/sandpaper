@@ -45,6 +45,7 @@ Other contributors:
   \item Phil Reed \email{phil.reed@manchester.ac.uk} (\href{https://orcid.org/0000-0002-4479-715X}{ORCID}) [contributor]
   \item Sarah Brown \email{brownsarahm@uri.edu} (\href{https://orcid.org/0000-0001-5728-0822}{ORCID}) [contributor]
   \item Matthew Feickert \email{matthew.feickert@cern.ch} (\href{https://orcid.org/0000-0003-4124-7862}{ORCID}) [contributor]
+  \item Dimitrios Theodorakis \email{astrodimitrios@gmail.com} (\href{https://orcid.org/0000-0001-9288-1332}{ORCID}) [contributor]
 }
 
 }

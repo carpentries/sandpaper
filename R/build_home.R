@@ -29,6 +29,12 @@ build_home <- function(pkg, quiet, next_page = NULL) {
   index <- render_html(idx_file)
   if (fs::file_exists(setup)) {
     setup <- render_html(setup)
+    if (setup == "") {
+      # if there is nothing in the page then we build nothing.
+      setup_path <- fs::path(pkg$src_path, "built", "setup.md")
+      cli::cli_alert_warning("Setup {.file {fs::path_rel(setup_path, start = path)}} has no content")
+      setup <- "<p></p>"
+    }
   } else {
     setup <- "<p></p>"
   }
