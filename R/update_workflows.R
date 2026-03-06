@@ -22,21 +22,13 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, cl
 
   wf <- fs::path(path, ".github", "workflows")
 
-  # get latest version from github carpentries/workbench-workflows releases list
+  # get latest version info from github carpentries/workbench-workflows releases list
   version_file <- fs::path(wf, "workflows-version.txt")
-
-  if (branch != "") {
-    releases_url <- paste0("https://api.github.com/repos/carpentries/workbench-workflows/branches/", branch)
-    releases_json <- jsonlite::fromJSON(releases_url)
-    latest_version_sha <- releases_json$commit$sha
-    latest_version <- strtrim(latest_version_sha, 6)
-  } else {
-    releases_url <- "https://api.github.com/repos/carpentries/workbench-workflows/releases/latest"
-    releases_json <- jsonlite::fromJSON(releases_url)
-    latest_version_tag <- releases_json$tag_name
-    body <- releases_json$body
-    latest_version <- package_version(gsub("^v", "", latest_version_tag))
-  }
+  release_info <- fetch_latest_workflows_release_info(branch=branch, quiet = quiet)
+  latest_version <- release_info$latest_version
+  releases_url <- release_info$releases_url
+  body <- release_info$body
+  zip_url <- release_info$zip_url
 
   need_dir <- !fs::dir_exists(wf)
   if (need_dir) {
@@ -62,13 +54,7 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, cl
         fs::file_delete(sandpaper_version_file)
       }
     }
-    # we update the files
-    if (branch != "") {
-      zip_url <- paste0("https://github.com/carpentries/workbench-workflows/archive/refs/heads/", branch, ".zip")
-    }
-    else {
-      zip_url <- releases_json$zipball_url
-    }
+
     if (!quiet) {
       cli::cli_alert_info("Downloading workflows from {releases_url}")
     }
@@ -112,3 +98,53 @@ update_github_workflows <- function(path = ".", files = "", overwrite = TRUE, cl
   return(invisible(new_files[new_files != ""]))
 }
 #nocov end
+
+fetch_latest_workflows_release_info <- function(branch = "", quiet = FALSE) {
+  if (branch != "") {
+    releases_url <- paste0("https://api.github.com/repos/carpentries/workbench-workflows/branches/", branch)
+    releases_json <- auth_get(releases_url, quiet = quiet)
+    latest_version_sha <- releases_json$commit$sha
+    body <- ""
+    latest_version <- strtrim(latest_version_sha, 6)
+    zip_url <- paste0("https://github.com/carpentries/workbench-workflows/archive/refs/heads/", branch, ".zip")
+  } else {
+    releases_url <- "https://api.github.com/repos/carpentries/workbench-workflows/releases/latest"
+    releases_json <- auth_get(releases_url, quiet = quiet)
+    latest_version_tag <- releases_json$tag_name
+    body <- releases_json$body
+    latest_version <- package_version(gsub("^v", "", latest_version_tag))
+    zip_url <- releases_json$zipball_url
+  }
+  return(list(
+    latest_version = latest_version,
+    releases_url = releases_url,
+    zip_url = zip_url,
+    body = body
+  ))
+}
+
+auth_get <- function(api_url, quiet = FALSE) {
+  token <- NULL
+  if (nzchar(Sys.getenv("GITHUB_PAT"))) {
+    token <- Sys.getenv("GITHUB_PAT")
+  } else if (nzchar(Sys.getenv("GITHUB_TOKEN"))) {
+    token <- Sys.getenv("GITHUB_TOKEN")
+  }
+
+  if (is.null(token)) {
+    if (!quiet) {
+      cli::cli_alert_warning("No GitHub token available. API rate limits may apply.")
+    }
+    return(jsonlite::fromJSON(api_url))
+  } else {
+    if (!quiet) {
+      cli::cli_alert_info("Using GitHub token for authenticated API request.")
+    }
+    req <-httr::GET(
+      api_url,
+      httr::add_headers(Authorization = paste("token", token))
+    )
+    httr::stop_for_status(req)
+    return(jsonlite::fromJSON(httr::content(req, as = "text", encoding = "UTF-8")))
+  }
+}

@@ -60,11 +60,11 @@ test_that("github workflows are recognized as up-to-date", {
     expect_snapshot(update_github_workflows(tmp))
   })
 
-  releases_url <- "https://api.github.com/repos/carpentries/workbench-workflows/releases/latest"
-  releases_json <- jsonlite::fromJSON(releases_url)
-  latest_version_tag <- releases_json$tag_name
-  latest_version <- package_version(gsub("^v", "", latest_version_tag))
-  zip_url <- releases_json$zipball_url
+  release_info <- sandpaper:::fetch_latest_workflows_release_info()
+  latest_version <- release_info$latest_version
+  releases_url <- release_info$releases_url
+  body <- release_info$body
+  zip_url <- release_info$zip_url
 
   temp_zip <- fs::file_temp(ext = ".zip")
   httr::GET(zip_url, httr::write_disk(temp_zip, overwrite = TRUE))
