@@ -26,6 +26,7 @@ created: {{ created }}{{ ^created }}~ # FIXME {{ /created }}
 keywords: {{keywords}}{{^keywords}}software, data, lesson, The Carpentries # FIXME{{/keywords}}
 
 # Life cycle stage of the lesson
+# refer to <https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html> for details
 # possible values: pre-alpha, alpha, beta, stable
 life_cycle: {{ life_cycle }}
 
