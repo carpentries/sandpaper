@@ -1,3 +1,11 @@
+# sandpaper 0.20.1.9000 []
+
+## HOTFIXES
+
+* Use GITHUB_PAT, GITHUB_TOKEN for fetching JSON from GitHub API URLs when
+  updating workflows (@froggleston)
+
+
 # sandpaper 0.20.0 [2026-02-28]
 
 ## WORKFLOWS
