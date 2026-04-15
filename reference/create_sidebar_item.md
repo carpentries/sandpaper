@@ -66,7 +66,7 @@ writeLines(snd$create_sidebar_item(nodes, link, position = "current"))
 #>       </button>
 #>     </div><!--/div.accordion-header-->
 #>         
-#>     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+#>     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
 #>       <div class="accordion-body">
 #>         <ul>
 #>           <li><a href='#one'>Section 1</a></li>

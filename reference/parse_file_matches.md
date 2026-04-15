@@ -44,7 +44,7 @@ snd <- asNamespace("sandpaper")
 print(need <- c("a", "bunch", "of", "silly", "files"))
 #> [1] "a"     "bunch" "of"    "silly" "files"
 print(exists <- fs::path("path", "to", sample(need)))
-#> path/to/bunch path/to/of    path/to/files path/to/a     path/to/silly 
+#> path/to/files path/to/of    path/to/silly path/to/a     path/to/bunch 
 
 # Rearrange files ------------------------------------------
 snd$parse_file_matches(reality = exists, hopes = need,

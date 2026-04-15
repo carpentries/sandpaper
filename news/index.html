@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sandpaper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.20.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.20.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,9 +37,22 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/0.20.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/carpentries/sandpaper/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.20.1" id="sandpaper-0201-2026-04-15">sandpaper 0.20.1 [2026-04-15]<a class="anchor" aria-label="anchor" href="#sandpaper-0201-2026-04-15"></a></h2>
+<div class="section level3">
+<h3 id="accessibility-0-20-1">ACCESSIBILITY<a class="anchor" aria-label="anchor" href="#accessibility-0-20-1"></a></h3>
+<ul><li>Alongside a range of {varnish} accessibility updates, this version fixes the unintended removal of h1 elements in overview/aggregate pages, removes the aria-labelledby attribute from progress bars, and adjusts the aria-label on pandoc/downlit code blocks. Thanks to <a href="https://github.com/josenino95" class="external-link">@josenino95</a> for all the WCAG issue reports!</li>
+</ul></div>
+<div class="section level3">
+<h3 id="fixes-0-20-1">FIXES<a class="anchor" aria-label="anchor" href="#fixes-0-20-1"></a></h3>
+<ul><li>Use GITHUB_PAT, GITHUB_TOKEN for fetching JSON from GitHub API URLs when updating workflows to avoid rate limits (1)</li>
+<li>Fix tab behaviour when parenthesis were used within tab admonition (reported <a href="https://github.com/matthewfeickert" class="external-link">@matthewfeickert</a>, fixed <a href="https://github.com/astroDimitrios" class="external-link">@astroDimitrios</a>)</li>
+<li>Do not fail when setup.md is empty, but warn instead (fixed 1)</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.20.0" id="sandpaper-0200-2026-02-28">sandpaper 0.20.0 [2026-02-28]<a class="anchor" aria-label="anchor" href="#sandpaper-0200-2026-02-28"></a></h2>
 <div class="section level3">

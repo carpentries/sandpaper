@@ -70,3 +70,6 @@ Other contributors:
 
 - Matthew Feickert <matthew.feickert@cern.ch>
   ([ORCID](https://orcid.org/0000-0003-4124-7862)) \[contributor\]
+
+- Dimitrios Theodorakis <astrodimitrios@gmail.com>
+  ([ORCID](https://orcid.org/0000-0001-9288-1332)) \[contributor\]
