@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.16.1.9000\n"
-"POT-Creation-Date: 2025-03-18 11:33-0700\n"
+"POT-Creation-Date: 2026-05-02 12:19+0100\n"
 "PO-Revision-Date: 2023-12-19 09:37-0800\n"
 "Last-Translator: Olexandr Konovalov\n"
 "Language-Team: none\n"
@@ -9,8 +9,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: utils-translate.R:74
 msgid "Skip to main content"
@@ -54,7 +54,7 @@ msgstr "Бета"
 
 #: utils-translate.R:81
 msgid "This lesson has passed peer review."
-msgstr "Цей урок пройшов експертну перевірку."
+msgstr "Цей урок пройшов рецензування."
 
 #: utils-translate.R:82
 msgid "Instructor View"
@@ -74,7 +74,7 @@ msgstr "Переключити навігацію"
 
 #: utils-translate.R:86
 msgid "Toggle theme (auto)"
-msgstr ""
+msgstr "Переключити тему (автоматично)"
 
 #: utils-translate.R:87
 msgid "Menu"
@@ -82,7 +82,7 @@ msgstr "Меню"
 
 #: utils-translate.R:88
 msgid "Search the All In One page"
-msgstr "Пошук на сторінці «All In One»."
+msgstr "Все в одній сторінці"
 
 #: utils-translate.R:89
 msgid "Setup"
@@ -102,7 +102,7 @@ msgstr "Глосарій"
 
 #: utils-translate.R:93
 msgid "Learner Profiles"
-msgstr "Профілі учнів"
+msgstr "Профілі слухачів"
 
 #: utils-translate.R:94
 msgid "More"
@@ -114,7 +114,7 @@ msgstr "Хід уроку"
 
 #: utils-translate.R:98
 msgid "close menu"
-msgstr "закрити меню"
+msgstr "Закрити меню"
 
 #: utils-translate.R:99
 msgid "EPISODES"
@@ -150,7 +150,7 @@ msgstr "Експорт слайдів розділу"
 
 #: utils-translate.R:108
 msgid "Previous and Next Chapter"
-msgstr "Попередній і наступний розділ"
+msgstr "Попередній і наступний розділи"
 
 #: utils-translate.R:109
 msgid "Previous"
@@ -186,7 +186,7 @@ msgstr "Інструкції з налаштування"
 
 #: utils-translate.R:118
 msgid "Download files required for the lesson"
-msgstr "Завантажити файли, необхідні для уроку"
+msgstr "Завантажити необхідні для уроку файли"
 
 #: utils-translate.R:119
 msgid ""
@@ -198,11 +198,11 @@ msgstr ""
 
 #: utils-translate.R:121
 msgid "Back To Top"
-msgstr "Догори"
+msgstr "Вгору"
 
 #: utils-translate.R:122
 msgid "<(Back)> To Top"
-msgstr "<(Назад)> Догори"
+msgstr "<(Назад)> вгору"
 
 #: utils-translate.R:123
 msgid "This lesson is subject to the <(Code of Conduct)>"
@@ -218,7 +218,7 @@ msgstr "Редагувати на GitHub"
 
 #: utils-translate.R:126
 msgid "Contributing"
-msgstr "Як допомогти?"
+msgstr "Як долучитися до проєкту?"
 
 #: utils-translate.R:127
 msgid "Source"
@@ -240,12 +240,12 @@ msgstr "Інформація"
 #, fuzzy
 #| msgid "Materials licensed under {license} by {authors}"
 msgid "Materials licensed under <({license})> by the authors"
-msgstr "Матеріали ліцензовані за {license}. Автори: {authors}"
+msgstr "Матеріали ліцензовані за <({license})>. Автори: {authors}"
 
 #: utils-translate.R:132
 msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
 msgstr ""
-"Шаблон ліцензовано за <(CC-BY 4.0)>. Автори шаблону: {template_authors}"
+"Шаблон ліцензовано згідно з <(CC-BY 4.0)>. Автори шаблону: {template_authors}"
 
 #: utils-translate.R:133
 msgid "The Carpentries"
@@ -274,11 +274,11 @@ msgstr "Надати відгук"
 
 #: utils-translate.R:142
 msgid "Learn More"
-msgstr "Вивчайте більше"
+msgstr "Дізнатися більше"
 
 #: utils-translate.R:148
 msgid "OUTPUT"
-msgstr "ВИХІД"
+msgstr "ВИВІД"
 
 #: utils-translate.R:149
 msgid "WARNING"
@@ -302,7 +302,7 @@ msgstr "Цілі"
 
 #: utils-translate.R:155
 msgid "Callout"
-msgstr "Виноска"
+msgstr "Примітка"
 
 #: utils-translate.R:156
 msgid "Challenge"
@@ -326,11 +326,11 @@ msgstr "Відгук"
 
 #: utils-translate.R:161
 msgid "Caution"
-msgstr "осторожность"
+msgstr "Обережно!"
 
 #: utils-translate.R:164
 msgid "Show me the solution"
-msgstr "Показати відповіді"
+msgstr "Показати відповідь"
 
 #: utils-translate.R:165
 msgid "Give me a hint"
@@ -361,22 +361,26 @@ msgid "Page not found"
 msgstr "Сторінку не знайдено"
 
 #: utils-translate.R:173
+msgid "Acknowledgements and Citations"
+msgstr ""
+
+#: utils-translate.R:174
 msgid "All Images"
 msgstr "Усі зображення"
 
-#: utils-translate.R:175
+#: utils-translate.R:176
 msgid "anchor"
 msgstr "якір"
 
-#: utils-translate.R:176
-msgid "Figure {element}"
-msgstr "Малюнок {element}"
-
 #: utils-translate.R:177
+msgid "Figure {element}"
+msgstr "Рисунок {element}"
+
+#: utils-translate.R:178
 msgid "Image {i} of {n}: {sQuote(txt)}"
 msgstr "Зображення {i} з {n}: {sQuote(txt)}"
 
-#: utils-translate.R:178
+#: utils-translate.R:179
 msgid "Finish"
 msgstr "Кінець"
 

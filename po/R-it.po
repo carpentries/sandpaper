@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.16.9.9000\n"
-"POT-Creation-Date: 2025-01-16 10:50+0100\n"
+"POT-Creation-Date: 2026-05-02 12:19+0100\n"
 "PO-Revision-Date: 2025-01-16 13:00+0100\n"
 "Last-Translator: Lisanna Paladin <lisanna.paladin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,9 +19,13 @@ msgid "Pre-Alpha"
 msgstr "Pre-Alpha"
 
 #: utils-translate.R:76
+#, fuzzy
+#| msgid ""
+#| "This lesson is in the pre-alpha phase, which means it is being developed, "
+#| "but it has not yet been taught."
 msgid ""
-"This lesson is in the pre-alpha phase, which means it is being developed, "
-"but it has not yet been taught."
+"This lesson is in the pre-alpha phase, which means that it is in early "
+"development, but has not yet been taught."
 msgstr ""
 "Questa lezione è in fase pre-alpha, il che significa che è in fase di "
 "sviluppo, ma non è ancora stata insegnata."
@@ -235,7 +239,9 @@ msgid "About"
 msgstr "Informazioni"
 
 #: utils-translate.R:131
-msgid "Materials licensed under {license} by the authors"
+#, fuzzy
+#| msgid "Materials licensed under {license} by the authors"
+msgid "Materials licensed under <({license})> by the authors"
 msgstr "Materiali concessi in licenza sotto {license} dagli autori"
 
 #: utils-translate.R:132
@@ -318,58 +324,62 @@ msgstr "Discussione"
 msgid "Testimonial"
 msgstr "Testimonianza"
 
-#: utils-translate.R:163
+#: utils-translate.R:161
+msgid "Caution"
+msgstr "Attenzione"
+
+#: utils-translate.R:164
 msgid "Show me the solution"
 msgstr "Mostrami la soluzione"
 
-#: utils-translate.R:164
+#: utils-translate.R:165
 msgid "Give me a hint"
 msgstr "Dammi un suggerimento"
 
-#: utils-translate.R:165
+#: utils-translate.R:166
 msgid "Show details"
 msgstr "Mostra dettagli"
 
-#: utils-translate.R:166
+#: utils-translate.R:167
 msgid "Instructor Note"
 msgstr "Nota per l'Istruttore"
 
-#: utils-translate.R:168
+#: utils-translate.R:169
 msgid "Summary and Setup"
 msgstr "Riepilogo e Configurazione"
 
-#: utils-translate.R:169
+#: utils-translate.R:170
 msgid "Summary and Schedule"
 msgstr "Riepilogo e Programma"
 
-#: utils-translate.R:170
+#: utils-translate.R:171
 msgid "All in One View"
 msgstr "Visualizzazione Tutto in Uno"
 
-#: utils-translate.R:171
+#: utils-translate.R:172
 msgid "Page not found"
 msgstr "Pagina non trovata"
 
-#: utils-translate.R:172
+#: utils-translate.R:173
+msgid "Acknowledgements and Citations"
+msgstr ""
+
+#: utils-translate.R:174
 msgid "All Images"
 msgstr "Tutte le Immagini"
 
-#: utils-translate.R:174
+#: utils-translate.R:176
 msgid "anchor"
 msgstr "ancora"
 
-#: utils-translate.R:175
+#: utils-translate.R:177
 msgid "Figure {element}"
 msgstr "Figura {element}"
 
-#: utils-translate.R:176
+#: utils-translate.R:178
 msgid "Image {i} of {n}: {sQuote(txt)}"
 msgstr "Immagine {i} di {n}: {sQuote(txt)}"
 
-#: utils-translate.R:177
+#: utils-translate.R:179
 msgid "Finish"
 msgstr "Fine"
-
-#: utils-translate.R:178
-msgid "Caution"
-msgstr "Attenzione"
