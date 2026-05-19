@@ -31,7 +31,7 @@ two top-level elements:
 ``` r
 tmpdir <- tempfile()
 on.exit(fs::dir_delete(tmpdir))
-#> Error: [ENOENT] Failed to search directory '/tmp/Rtmpf7ur3n/file1c5326b12c44': no such file or directory
+#> Error: [ENOENT] Failed to search directory '/tmp/RtmpFQ2hak/file1a5d700834cd': no such file or directory
 fs::dir_create(tmpdir)
 fs::dir_create(fs::path(tmpdir, "instructor"))
 writeLines("<p>Instructor</p>", fs::path(tmpdir, "instructor", "index.html"))
@@ -52,7 +52,7 @@ sandpaper:::read_all_html(tmpdir)
 #> 
 #> 
 #> $paths
-#> /tmp/Rtmpf7ur3n/file1c5326b12c44/index.html
-#> /tmp/Rtmpf7ur3n/file1c5326b12c44/instructor/index.html
+#> /tmp/RtmpFQ2hak/file1a5d700834cd/index.html
+#> /tmp/RtmpFQ2hak/file1a5d700834cd/instructor/index.html
 #> 
 ```

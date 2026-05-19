@@ -94,9 +94,9 @@ writeLines(txt, fun_file)
 res <- build_episode_md(fun_file, outdir = fun_dir, workdir = fun_dir)
 #> 
 #> 
-#> processing file: /tmp/Rtmpf7ur3n/file1c534d2d7854/episodes/fun.Rmd
+#> processing file: /tmp/RtmpFQ2hak/file1a5d7c4995f2/episodes/fun.Rmd
 #> 1/1
-#> output file: /tmp/Rtmpf7ur3n/file1c534d2d7854/fun.md
+#> output file: /tmp/RtmpFQ2hak/file1a5d7c4995f2/fun.md
 #> 
 #> 
 ```
