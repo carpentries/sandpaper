@@ -91,6 +91,9 @@ build_episode_html <- function(path_md, path_src = NULL,
 
   # setup varnish data
   this_page <- as_html(path_md)
+  if (page_back == page_forward) {
+    page_forward <- NULL
+  }
   nav_list <- get_nav_data(path_md, path_src, home,
     this_page, page_back, page_forward)
 
