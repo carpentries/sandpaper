@@ -46,6 +46,7 @@ a character string with the path to the template within the
 ## Examples
 
 ``` r
+
 cat(readLines(template_gitignore(), n = 6), sep = "\n")
 #> # sandpaper files
 #> episodes/*html

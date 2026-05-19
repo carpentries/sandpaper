@@ -34,6 +34,7 @@ There are two kinds of templating we use:
 ## Examples
 
 ``` r
+
 dat <- list(
   a = "a barn",
   b = "a bee",

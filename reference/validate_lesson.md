@@ -61,29 +61,29 @@ test can be found at
 ``` r
 tmp <- tempfile()
 lsn <- create_lesson(tmp, open = FALSE)
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
-#> ☐ Edit /tmp/Rtmpw9vtxi/file1aa297a1064/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
-#> ✔ First episode created in /tmp/Rtmpw9vtxi/file1aa297a1064/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
+#> ☐ Edit /tmp/Rtmpf7ur3n/file1c533647f6c0/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
+#> ✔ First episode created in /tmp/Rtmpf7ur3n/file1c533647f6c0/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -92,14 +92,14 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> # ~/work/_temp/Library -------------------------------------------------------
 #> - R6            2.6.1
 #> - base64enc     0.1-6
-#> - bslib         0.10.0
+#> - bslib         0.11.0
 #> - cachem        1.1.0
 #> - cli           3.6.6
 #> - digest        0.6.39
 #> - evaluate      1.0.5
 #> - fastmap       1.2.0
 #> - fontawesome   0.5.3
-#> - fs            2.0.1
+#> - fs            2.1.0
 #> - highr         0.12
 #> - htmltools     0.5.9
 #> - jquerylib     0.1.4
@@ -119,7 +119,7 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> They will be copied into the project library.
 #> 
 #> - Copying packages into the project library ... Done!
-#> - Hydrated 25 packages in 0.18 seconds.
+#> - Hydrated 25 packages in 0.17 seconds.
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Recording changes in lockfile
 #> The following package(s) will be updated in the lockfile:
@@ -127,14 +127,14 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> # https://packagemanager.posit.co/cran/__linux__/noble/latest ----------------
 #> - R6            [* -> 2.6.1]
 #> - base64enc     [* -> 0.1-6]
-#> - bslib         [* -> 0.10.0]
+#> - bslib         [* -> 0.11.0]
 #> - cachem        [* -> 1.1.0]
 #> - cli           [* -> 3.6.6]
 #> - digest        [* -> 0.6.39]
 #> - evaluate      [* -> 1.0.5]
 #> - fastmap       [* -> 1.2.0]
 #> - fontawesome   [* -> 0.5.3]
-#> - fs            [* -> 2.0.1]
+#> - fs            [* -> 2.1.0]
 #> - highr         [* -> 0.12]
 #> - htmltools     [* -> 0.5.9]
 #> - jquerylib     [* -> 0.1.4]
@@ -144,7 +144,7 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> - memoise       [* -> 2.0.1]
 #> - mime          [* -> 0.13]
 #> - rappdirs      [* -> 0.3.4]
-#> - renv          [* -> 1.2.1]
+#> - renv          [* -> 1.2.3]
 #> - rlang         [* -> 1.2.0]
 #> - rmarkdown     [* -> 2.31]
 #> - sass          [* -> 0.4.10]
@@ -153,11 +153,11 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> - yaml          [* -> 2.3.12]
 #> 
 #> The version of R recorded in the lockfile will be updated:
-#> - R             [* -> 4.5.3]
+#> - R             [* -> 4.6.0]
 #> 
-#> - Lockfile written to "/tmp/Rtmpw9vtxi/file1aa297a1064/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/Rtmpw9vtxi/file1aa297a1064
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa297a1064...
+#> - Lockfile written to "/tmp/Rtmpf7ur3n/file1c533647f6c0/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/Rtmpf7ur3n/file1c533647f6c0
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c533647f6c0...
 validate_lesson(lsn, headings = TRUE)
 #> ── Validating Headings ─────────────────────────────────────────────────
 #> ── Validating Fenced Divs ──────────────────────────────────────────────

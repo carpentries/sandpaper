@@ -36,13 +36,13 @@ check_pandoc(quiet = TRUE, pv = "2.11", rv = "1.4")
 # Check for pandoc ----------------------
 asNamespace("sandpaper")$check_pandoc(quiet = FALSE)
 #> ◉ pandoc found
-#>   version : 3.1.11
-#>   path    : /opt/hostedtoolcache/pandoc/3.1.11/x64
+#>   version : 3.8.3
+#>   path    : /opt/hostedtoolcache/pandoc/3.8.3/x64
 
 # Message emitted when pandoc cannot be found --------
 try(asNamespace("sandpaper")$check_pandoc(quiet = FALSE, pv = "999"))
 #>  sandpaper requires pandoc version 999 or higher.
-#> ! You have pandoc version 3.1.11 in /opt/hostedtoolcache/pandoc/3.1.11/x64
+#> ! You have pandoc version 3.8.3 in /opt/hostedtoolcache/pandoc/3.8.3/x64
 #> → Please visit <https://pandoc.org/installing.html> to install the latest version.
 #> Error : Incorrect pandoc version
 ```

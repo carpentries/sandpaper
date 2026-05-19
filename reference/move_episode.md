@@ -75,29 +75,29 @@ if (interactive() || Sys.getenv("CI") != "") {
     move_episode("experimental.md", path = tmp)
   }
 }
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
-#> ☐ Edit /tmp/Rtmpw9vtxi/file1aa25cba901f/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
-#> ✔ First episode created in /tmp/Rtmpw9vtxi/file1aa25cba901f/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
+#> ☐ Edit /tmp/Rtmpf7ur3n/file1c5375a656ec/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
+#> ✔ First episode created in /tmp/Rtmpf7ur3n/file1c5375a656ec/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -106,14 +106,14 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> # ~/work/_temp/Library -------------------------------------------------------
 #> - R6            2.6.1
 #> - base64enc     0.1-6
-#> - bslib         0.10.0
+#> - bslib         0.11.0
 #> - cachem        1.1.0
 #> - cli           3.6.6
 #> - digest        0.6.39
 #> - evaluate      1.0.5
 #> - fastmap       1.2.0
 #> - fontawesome   0.5.3
-#> - fs            2.0.1
+#> - fs            2.1.0
 #> - highr         0.12
 #> - htmltools     0.5.9
 #> - jquerylib     0.1.4
@@ -141,14 +141,14 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> # https://packagemanager.posit.co/cran/__linux__/noble/latest ----------------
 #> - R6            [* -> 2.6.1]
 #> - base64enc     [* -> 0.1-6]
-#> - bslib         [* -> 0.10.0]
+#> - bslib         [* -> 0.11.0]
 #> - cachem        [* -> 1.1.0]
 #> - cli           [* -> 3.6.6]
 #> - digest        [* -> 0.6.39]
 #> - evaluate      [* -> 1.0.5]
 #> - fastmap       [* -> 1.2.0]
 #> - fontawesome   [* -> 0.5.3]
-#> - fs            [* -> 2.0.1]
+#> - fs            [* -> 2.1.0]
 #> - highr         [* -> 0.12]
 #> - htmltools     [* -> 0.5.9]
 #> - jquerylib     [* -> 0.1.4]
@@ -158,7 +158,7 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> - memoise       [* -> 2.0.1]
 #> - mime          [* -> 0.13]
 #> - rappdirs      [* -> 0.3.4]
-#> - renv          [* -> 1.2.1]
+#> - renv          [* -> 1.2.3]
 #> - rlang         [* -> 1.2.0]
 #> - rmarkdown     [* -> 2.31]
 #> - sass          [* -> 0.4.10]
@@ -167,14 +167,14 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> - yaml          [* -> 2.3.12]
 #> 
 #> The version of R recorded in the lockfile will be updated:
-#> - R             [* -> 4.5.3]
+#> - R             [* -> 4.6.0]
 #> 
-#> - Lockfile written to "/tmp/Rtmpw9vtxi/file1aa25cba901f/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/Rtmpw9vtxi/file1aa25cba901f
-#> → Creating Lesson in /tmp/Rtmpw9vtxi/file1aa25cba901f...
-#> ☐ Edit /tmp/Rtmpw9vtxi/file1aa25cba901f/episodes/getting-started.md.
-#> ☐ Edit /tmp/Rtmpw9vtxi/file1aa25cba901f/episodes/plotting.Rmd.
-#> ☐ Edit /tmp/Rtmpw9vtxi/file1aa25cba901f/episodes/experimental.md.
+#> - Lockfile written to "/tmp/Rtmpf7ur3n/file1c5375a656ec/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/Rtmpf7ur3n/file1c5375a656ec
+#> → Creating Lesson in /tmp/Rtmpf7ur3n/file1c5375a656ec...
+#> ☐ Edit /tmp/Rtmpf7ur3n/file1c5375a656ec/episodes/getting-started.md.
+#> ☐ Edit /tmp/Rtmpf7ur3n/file1c5375a656ec/episodes/plotting.Rmd.
+#> ☐ Edit /tmp/Rtmpf7ur3n/file1c5375a656ec/episodes/experimental.md.
 #> episodes:
 #> - introduction.Rmd
 #> - getting-started.md

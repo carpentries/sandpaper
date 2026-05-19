@@ -38,6 +38,7 @@ a character containing the rendred HTML file
 ## Examples
 
 ``` r
+
 if (rmarkdown::pandoc_available("2.11")) {
 # first example---markdown to HTML
 tmp <- tempfile()

@@ -204,6 +204,7 @@ The list store acts like a persistent list that has
 and [`update()`](https://rdrr.io/r/stats/update.html) methods.
 
 ``` r
+
 snd <- asNamespace("sandpaper")
 this_list <- snd$.list_store()
 names(this_list)
@@ -316,6 +317,7 @@ created and live in the {sandpaper} namespace as long as the session is
 active.
 
 ``` r
+
 snd <- asNamespace("sandpaper")
 some_lesson <- snd$.lesson_store()
 names(some_lesson)
@@ -336,17 +338,19 @@ functions are not guaranteed to be stable outside of the context of
 create a method for accessing the internal functions:
 
 ``` r
+
 library("sandpaper")
 snd <- asNamespace("sandpaper")
 ```
 
 ``` r
+
 # create a new lesson
 lsn <- create_lesson(tempfile(), name = "An Example Lesson",
   rstudio = TRUE, open = FALSE, rmd = FALSE)
 # add a new episode
 create_episode_md(title = "First Example", add = TRUE, path = lsn, open = FALSE)
-## /tmp/Rtmpnx953i/file2fa0666483c8/episodes/first-example.md
+## /tmp/RtmpQBe0To/file31693e3cd1c7/episodes/first-example.md
 ```
 
 Within {sandpaper}, there are environments that contain metadata related
@@ -355,6 +359,7 @@ to the whole lesson called `.store`, `.resources`, `instructor_globals`,
 these values are empty:
 
 ``` r
+
 snd <- asNamespace("sandpaper")
 class(snd$.store)
 ## [1] "list"
@@ -401,17 +406,18 @@ the first time, all the metadata is collected and parsed from the
 `config.yaml`, and the individual episodes and cached.
 
 ``` r
+
 # first run is always longer than the second
 system.time(validate_lesson(lsn))
 ## ── Validating Fenced Divs ──────────────────────────────────────────────
 ## ── Validating Internal Links and Images ────────────────────────────────
 ##    user  system elapsed 
-##   0.536   0.015   0.551
+##   0.478   0.013   0.491
 system.time(validate_lesson(lsn))
 ## ── Validating Fenced Divs ──────────────────────────────────────────────
 ## ── Validating Internal Links and Images ────────────────────────────────
 ##    user  system elapsed 
-##   0.115   0.003   0.119
+##   0.105   0.003   0.107
 ```
 
 The
@@ -458,6 +464,7 @@ object and is responsible for initialising and resetting the variable
 cache.
 
 ``` r
+
 snd <- asNamespace("sandpaper")
 class(snd$.store)
 ## [1] "list"
@@ -480,7 +487,7 @@ print(snd$.store$get())
 ##     load_built: function () 
 ##     n_problems: active binding
 ##     overview: FALSE
-##     path: /tmp/Rtmpnx953i/file2fa0666483c8
+##     path: /tmp/RtmpQBe0To/file31693e3cd1c7
 ##     reset: function () 
 ##     rmd: FALSE
 ##     sandpaper: TRUE
@@ -502,6 +509,7 @@ git diff as a global check of the lesson contents. When nothing changes,
 it returns TRUE:
 
 ``` r
+
 snd$.store$valid(lsn)
 ## [1] TRUE
 ```
@@ -511,8 +519,9 @@ config variable, it will be `FALSE`, indicating that it needs to be
 reset:
 
 ``` r
+
 set_config(c(handout = TRUE), path = lsn, write = TRUE, create = TRUE)
-## ℹ Writing to /tmp/Rtmpnx953i/file2fa0666483c8/config.yaml
+## ℹ Writing to /tmp/RtmpQBe0To/file31693e3cd1c7/config.yaml
 ## → NA -> handout: true
 snd$.store$valid(lsn)
 ## [1] FALSE
@@ -530,6 +539,7 @@ must be duplicated for each page to give the correct URL and
 identifiers.
 
 ``` r
+
 snd <- asNamespace("sandpaper")
 snd$this_metadata$get()
 ## $carpentry
@@ -539,7 +549,7 @@ snd$this_metadata$get()
 ## [1] "An Example Lesson"
 ## 
 ## $created
-## [1] "2026-04-15"
+## [1] "2026-05-19"
 ## 
 ## $keywords
 ## [1] "software, data, lesson, The Carpentries"
@@ -551,7 +561,7 @@ snd$this_metadata$get()
 ## [1] "CC-BY 4.0"
 ## 
 ## $source
-## [1] "https://github.com/carpentries/file2fa0666483c8"
+## [1] "https://github.com/carpentries/file31693e3cd1c7"
 ## 
 ## $branch
 ## [1] "main"
@@ -590,17 +600,17 @@ snd$this_metadata$get()
 ## 
 ## $date
 ## $date$created
-## [1] "2026-04-15"
+## [1] "2026-05-19"
 ## 
 ## $date$modified
-## [1] "2026-04-15"
+## [1] "2026-05-19"
 ## 
 ## $date$published
-## [1] "2026-04-15"
+## [1] "2026-05-19"
 ## 
 ## 
 ## $url
-## [1] "https://carpentries.github.io/file2fa0666483c8/"
+## [1] "https://carpentries.github.io/file31693e3cd1c7/"
 ## 
 ## $cff
 ## [1] "CITATION.cff"
@@ -616,22 +626,23 @@ This metadata is rendered as JSON-LD and passed as a new variable to
 {varnish} using the internal `fill_metadata_template()` function:
 
 ``` r
+
 writeLines(snd$fill_metadata_template(snd$this_metadata))
 ## {
 ##   "@context": "https://schema.org",
 ##   "@type": "LearningResource",
-##   "@id": "https://carpentries.github.io/file2fa0666483c8/index.html",
+##   "@id": "https://carpentries.github.io/file31693e3cd1c7/index.html",
 ##   "inLanguage": "en",
 ##   "dct:conformsTo": "https://bioschemas.org/profiles/LearningResource/1.0-RELEASE",
 ##   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
 ##   "keywords": "software, data, lesson, The Carpentries",
 ##   "name": "An Example Lesson",
 ##   "creativeWorkStatus": "active",
-##   "url": "https://carpentries.github.io/file2fa0666483c8/index.html",
-##   "identifier": "https://carpentries.github.io/file2fa0666483c8/index.html",
-##   "dateCreated": "2026-04-15",
-##   "dateModified": "2026-04-15",
-##   "datePublished": "2026-04-15"
+##   "url": "https://carpentries.github.io/file31693e3cd1c7/index.html",
+##   "identifier": "https://carpentries.github.io/file31693e3cd1c7/index.html",
+##   "dateCreated": "2026-05-19",
+##   "dateModified": "2026-05-19",
+##   "datePublished": "2026-05-19"
 ## }
 ```
 
@@ -642,43 +653,44 @@ the lesson. This allows us to avoid needing to constantly read the file
 system:
 
 ``` r
+
 snd <- asNamespace("sandpaper")
 snd$.resources$get()
 ## $.
-##   /tmp/Rtmpnx953i/file2fa0666483c8/CODE_OF_CONDUCT.md 
-## "/tmp/Rtmpnx953i/file2fa0666483c8/CODE_OF_CONDUCT.md" 
-##           /tmp/Rtmpnx953i/file2fa0666483c8/LICENSE.md 
-##         "/tmp/Rtmpnx953i/file2fa0666483c8/LICENSE.md" 
-##          /tmp/Rtmpnx953i/file2fa0666483c8/config.yaml 
-##        "/tmp/Rtmpnx953i/file2fa0666483c8/config.yaml" 
-##             /tmp/Rtmpnx953i/file2fa0666483c8/index.md 
-##           "/tmp/Rtmpnx953i/file2fa0666483c8/index.md" 
-##             /tmp/Rtmpnx953i/file2fa0666483c8/links.md 
-##           "/tmp/Rtmpnx953i/file2fa0666483c8/links.md" 
+##   /tmp/RtmpQBe0To/file31693e3cd1c7/CODE_OF_CONDUCT.md 
+## "/tmp/RtmpQBe0To/file31693e3cd1c7/CODE_OF_CONDUCT.md" 
+##           /tmp/RtmpQBe0To/file31693e3cd1c7/LICENSE.md 
+##         "/tmp/RtmpQBe0To/file31693e3cd1c7/LICENSE.md" 
+##          /tmp/RtmpQBe0To/file31693e3cd1c7/config.yaml 
+##        "/tmp/RtmpQBe0To/file31693e3cd1c7/config.yaml" 
+##             /tmp/RtmpQBe0To/file31693e3cd1c7/index.md 
+##           "/tmp/RtmpQBe0To/file31693e3cd1c7/index.md" 
+##             /tmp/RtmpQBe0To/file31693e3cd1c7/links.md 
+##           "/tmp/RtmpQBe0To/file31693e3cd1c7/links.md" 
 ## 
 ## $episodes
-##    /tmp/Rtmpnx953i/file2fa0666483c8/episodes/introduction.md 
-##  "/tmp/Rtmpnx953i/file2fa0666483c8/episodes/introduction.md" 
-##   /tmp/Rtmpnx953i/file2fa0666483c8/episodes/first-example.md 
-## "/tmp/Rtmpnx953i/file2fa0666483c8/episodes/first-example.md" 
+##    /tmp/RtmpQBe0To/file31693e3cd1c7/episodes/introduction.md 
+##  "/tmp/RtmpQBe0To/file31693e3cd1c7/episodes/introduction.md" 
+##   /tmp/RtmpQBe0To/file31693e3cd1c7/episodes/first-example.md 
+## "/tmp/RtmpQBe0To/file31693e3cd1c7/episodes/first-example.md" 
 ## 
 ## $instructors
-##   /tmp/Rtmpnx953i/file2fa0666483c8/instructors/instructor-notes.md 
-## "/tmp/Rtmpnx953i/file2fa0666483c8/instructors/instructor-notes.md" 
+##   /tmp/RtmpQBe0To/file31693e3cd1c7/instructors/instructor-notes.md 
+## "/tmp/RtmpQBe0To/file31693e3cd1c7/instructors/instructor-notes.md" 
 ## 
 ## $learners
-##   /tmp/Rtmpnx953i/file2fa0666483c8/learners/reference.md 
-## "/tmp/Rtmpnx953i/file2fa0666483c8/learners/reference.md" 
-##       /tmp/Rtmpnx953i/file2fa0666483c8/learners/setup.md 
-##     "/tmp/Rtmpnx953i/file2fa0666483c8/learners/setup.md" 
+##   /tmp/RtmpQBe0To/file31693e3cd1c7/learners/reference.md 
+## "/tmp/RtmpQBe0To/file31693e3cd1c7/learners/reference.md" 
+##       /tmp/RtmpQBe0To/file31693e3cd1c7/learners/setup.md 
+##     "/tmp/RtmpQBe0To/file31693e3cd1c7/learners/setup.md" 
 ## 
 ## $profiles
-##   /tmp/Rtmpnx953i/file2fa0666483c8/profiles/learner-profiles.md 
-## "/tmp/Rtmpnx953i/file2fa0666483c8/profiles/learner-profiles.md" 
+##   /tmp/RtmpQBe0To/file31693e3cd1c7/profiles/learner-profiles.md 
+## "/tmp/RtmpQBe0To/file31693e3cd1c7/profiles/learner-profiles.md" 
 ## 
 ## $`renv/profiles/lesson-requirements`
 ##                                                                                
-## "/tmp/Rtmpnx953i/file2fa0666483c8/renv/profiles/lesson-requirements/renv.lock"
+## "/tmp/RtmpQBe0To/file31693e3cd1c7/renv/profiles/lesson-requirements/renv.lock"
 ```
 
 ## Global and Local Variables
@@ -689,6 +701,7 @@ page and updated with local data (e.g. the sidebar needs to include
 headings for the current page).
 
 ``` r
+
 snd <- asNamespace("sandpaper")
 snd$instructor_globals$get()
 ## $aio
@@ -915,10 +928,10 @@ snd$instructor_globals$get()
 ## [1] "carpentries/pegboard/tree/7dc6acfdd6233c0d124a0ecf288325edc40dd96d"
 ## 
 ## $varnish_version
-##  (1.1.0)
+##  (1.1.1)
 ## 
 ## $varnish_cfg
-## [1] "carpentries/varnish/tree/81823aa2c41f35942e9cd6b4a50cabe5c7148f4b"
+## [1] "carpentries/varnish/tree/808601144dc953ba75237b2f4b47922e3b0321de"
 ## 
 ## $sandpaper_link
 ## <a href="https://github.com/carpentries/sandpaper">sandpaper (0.20.1)</a>
@@ -927,7 +940,7 @@ snd$instructor_globals$get()
 ## <a href="https://github.com/carpentries/pegboard/tree/7dc6acfdd6233c0d124a0ecf288325edc40dd96d">pegboard (0.7.9)</a>
 ## 
 ## $varnish_link
-## <a href="https://github.com/carpentries/varnish/tree/81823aa2c41f35942e9cd6b4a50cabe5c7148f4b">varnish (1.1.0)</a>
+## <a href="https://github.com/carpentries/varnish/tree/808601144dc953ba75237b2f4b47922e3b0321de">varnish (1.1.1)</a>
 ## 
 ## $syllabus
 ##                        episode timings               path percents
@@ -1166,10 +1179,10 @@ snd$learner_globals$get()
 ## [1] "carpentries/pegboard/tree/7dc6acfdd6233c0d124a0ecf288325edc40dd96d"
 ## 
 ## $varnish_version
-##  (1.1.0)
+##  (1.1.1)
 ## 
 ## $varnish_cfg
-## [1] "carpentries/varnish/tree/81823aa2c41f35942e9cd6b4a50cabe5c7148f4b"
+## [1] "carpentries/varnish/tree/808601144dc953ba75237b2f4b47922e3b0321de"
 ## 
 ## $sandpaper_link
 ## <a href="https://github.com/carpentries/sandpaper">sandpaper (0.20.1)</a>
@@ -1178,7 +1191,7 @@ snd$learner_globals$get()
 ## <a href="https://github.com/carpentries/pegboard/tree/7dc6acfdd6233c0d124a0ecf288325edc40dd96d">pegboard (0.7.9)</a>
 ## 
 ## $varnish_link
-## <a href="https://github.com/carpentries/varnish/tree/81823aa2c41f35942e9cd6b4a50cabe5c7148f4b">varnish (1.1.0)</a>
+## <a href="https://github.com/carpentries/varnish/tree/808601144dc953ba75237b2f4b47922e3b0321de">varnish (1.1.1)</a>
 ## 
 ## $overview
 ## [1] FALSE
@@ -1243,6 +1256,7 @@ These variables are passed directly to {varnish} templates, which
 eventually get processed by {whisker}:
 
 ``` r
+
 snd <- asNamespace("sandpaper")
 whisker::whisker.render("Edit this page: {{ translate.EditThisPage }}",
   data = snd$instructor_globals$get()
@@ -1259,9 +1273,10 @@ function, which modifies the translations inside the global data, but it
 does not modify the language of the user session:
 
 ``` r
+
 snd <- asNamespace("sandpaper")
 snd$set_config(c(lang = "es"), path = lsn, create = TRUE, write = TRUE)
-## ℹ Writing to /tmp/Rtmpnx953i/file2fa0666483c8/config.yaml
+## ℹ Writing to /tmp/RtmpQBe0To/file31693e3cd1c7/config.yaml
 ## → NA -> lang: 'es'
 snd$this_lesson(lsn)
 whisker::whisker.render("Edit this page: {{ translate.EditThisPage }}",
@@ -1276,8 +1291,9 @@ Switching the language is controlled entirely from within the lesson
 config:
 
 ``` r
+
 snd$set_config(c(lang = "en"), path = lsn, create = TRUE, write = TRUE)
-## ℹ Writing to /tmp/Rtmpnx953i/file2fa0666483c8/config.yaml
+## ℹ Writing to /tmp/RtmpQBe0To/file31693e3cd1c7/config.yaml
 ## → lang: 'es' -> lang: 'en'
 snd$this_lesson(lsn)
 whisker::whisker.render("Edit this page: {{ translate.EditThisPage }}",
@@ -1293,70 +1309,70 @@ There are 62 translations generated by
 that correspond to the following variables in
 [varnish](https://carpentries.github.io/varnish/):
 
-| variable                           | string                                                                                                                              |
-|------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `translate.SkipToMain`             | `'Skip to main content'`                                                                                                            |
-| `translate.iPreAlpha`              | `'Pre-Alpha'`                                                                                                                       |
-| `translate.PreAlphaNote`           | `'This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.'`                |
-| `translate.AlphaNote`              | `'This lesson is in the alpha phase, which means that it has been taught once and lesson authors are iterating on feedback.'`       |
-| `translate.iAlpha`                 | `'Alpha'`                                                                                                                           |
-| `translate.BetaNote`               | `'This lesson is in the beta phase, which means that it is ready for teaching by instructors outside of the original author team.'` |
-| `translate.iBeta`                  | `'Beta'`                                                                                                                            |
-| `translate.PeerReview`             | `'This lesson has passed peer review.'`                                                                                             |
-| `translate.InstructorView`         | `'Instructor View'`                                                                                                                 |
-| `translate.LearnerView`            | `'Learner View'`                                                                                                                    |
-| `translate.MainNavigation`         | `'Main Navigation'`                                                                                                                 |
-| `translate.ToggleNavigation`       | `'Toggle Navigation'`                                                                                                               |
-| `translate.ToggleDarkMode`         | `'Toggle theme (auto)'`                                                                                                             |
-| `translate.Menu`                   | `'Menu'`                                                                                                                            |
-| `translate.SearchButton`           | `'Search the All In One page'`                                                                                                      |
-| `translate.Setup`                  | `'Setup'`                                                                                                                           |
-| `translate.KeyPoints`              | `'Key Points'`                                                                                                                      |
-| `translate.InstructorNotes`        | `'Instructor Notes'`                                                                                                                |
-| `translate.Glossary`               | `'Glossary'`                                                                                                                        |
-| `translate.LearnerProfiles`        | `'Learner Profiles'`                                                                                                                |
-| `translate.More`                   | `'More'`                                                                                                                            |
-| `translate.LessonProgress`         | `'Lesson Progress'`                                                                                                                 |
-| `translate.CloseMenu`              | `'close menu'`                                                                                                                      |
-| `translate.EPISODES`               | `'EPISODES'`                                                                                                                        |
-| `translate.Home`                   | `'Home'`                                                                                                                            |
-| `translate.HomePageNav`            | `'Home Page Navigation'`                                                                                                            |
-| `translate.RESOURCES`              | `'RESOURCES'`                                                                                                                       |
-| `translate.ExtractAllImages`       | `'Extract All Images'`                                                                                                              |
-| `translate.AIO`                    | `'See all in one page'`                                                                                                             |
-| `translate.DownloadHandout`        | `'Download Lesson Handout'`                                                                                                         |
-| `translate.ExportSlides`           | `'Export Chapter Slides'`                                                                                                           |
-| `translate.PreviousAndNext`        | `'Previous and Next Chapter'`                                                                                                       |
-| `translate.Previous`               | `'Previous'`                                                                                                                        |
-| `translate.EstimatedTime`          | `'Estimated time: {icons$clock} {minutes} minutes'`                                                                                 |
-| `translate.Next`                   | `'Next'`                                                                                                                            |
-| `translate.NextChapter`            | `'Next Chapter'`                                                                                                                    |
-| `translate.LastUpdate`             | `'Last updated on {updated}'`                                                                                                       |
-| `translate.EditThisPage`           | `'Edit this page'`                                                                                                                  |
-| `translate.ExpandAllSolutions`     | `'Expand All Solutions'`                                                                                                            |
-| `translate.SetupInstructions`      | `'Setup Instructions'`                                                                                                              |
-| `translate.DownloadFiles`          | `'Download files required for the lesson'`                                                                                          |
-| `translate.ActualScheduleNote`     | `'The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.'`                           |
-| `translate.BackToTop`              | `'Back To Top'`                                                                                                                     |
-| `translate.SpanToTop`              | `'<(Back)> To Top'`                                                                                                                 |
-| `translate.ThisLessonCoC`          | `'This lesson is subject to the <(Code of Conduct)>'`                                                                               |
-| `translate.CoC`                    | `'Code of Conduct'`                                                                                                                 |
-| `translate.EditOnGH`               | `'Edit on GitHub'`                                                                                                                  |
-| `translate.Contributing`           | `'Contributing'`                                                                                                                    |
-| `translate.Source`                 | `'Source'`                                                                                                                          |
-| `translate.Cite`                   | `'Cite'`                                                                                                                            |
-| `translate.Contact`                | `'Contact'`                                                                                                                         |
-| `translate.About`                  | `'About'`                                                                                                                           |
-| `translate.MaterialsLicensedUnder` | `'Materials licensed under <({license})> by the authors'`                                                                           |
-| `translate.TemplateLicense`        | `'Template licensed under <(CC-BY 4.0)> by {template_authors}'`                                                                     |
-| `translate.Carpentries`            | `'The Carpentries'`                                                                                                                 |
-| `translate.BuiltWith`              | `'Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}'`                                                                |
-| `translate.ExpandAllSolutions`     | `'Expand All Solutions'`                                                                                                            |
-| `translate.CollapseAllSolutions`   | `'Collapse All Solutions'`                                                                                                          |
-| `translate.Collapse`               | `'Collapse'`                                                                                                                        |
-| `translate.Episodes`               | `'Episodes'`                                                                                                                        |
-| `translate.GiveFeedback`           | `'Give Feedback'`                                                                                                                   |
-| `translate.LearnMore`              | `'Learn More'`                                                                                                                      |
+| variable | string |
+|----|----|
+| `translate.SkipToMain` | `'Skip to main content'` |
+| `translate.iPreAlpha` | `'Pre-Alpha'` |
+| `translate.PreAlphaNote` | `'This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.'` |
+| `translate.AlphaNote` | `'This lesson is in the alpha phase, which means that it has been taught once and lesson authors are iterating on feedback.'` |
+| `translate.iAlpha` | `'Alpha'` |
+| `translate.BetaNote` | `'This lesson is in the beta phase, which means that it is ready for teaching by instructors outside of the original author team.'` |
+| `translate.iBeta` | `'Beta'` |
+| `translate.PeerReview` | `'This lesson has passed peer review.'` |
+| `translate.InstructorView` | `'Instructor View'` |
+| `translate.LearnerView` | `'Learner View'` |
+| `translate.MainNavigation` | `'Main Navigation'` |
+| `translate.ToggleNavigation` | `'Toggle Navigation'` |
+| `translate.ToggleDarkMode` | `'Toggle theme (auto)'` |
+| `translate.Menu` | `'Menu'` |
+| `translate.SearchButton` | `'Search the All In One page'` |
+| `translate.Setup` | `'Setup'` |
+| `translate.KeyPoints` | `'Key Points'` |
+| `translate.InstructorNotes` | `'Instructor Notes'` |
+| `translate.Glossary` | `'Glossary'` |
+| `translate.LearnerProfiles` | `'Learner Profiles'` |
+| `translate.More` | `'More'` |
+| `translate.LessonProgress` | `'Lesson Progress'` |
+| `translate.CloseMenu` | `'close menu'` |
+| `translate.EPISODES` | `'EPISODES'` |
+| `translate.Home` | `'Home'` |
+| `translate.HomePageNav` | `'Home Page Navigation'` |
+| `translate.RESOURCES` | `'RESOURCES'` |
+| `translate.ExtractAllImages` | `'Extract All Images'` |
+| `translate.AIO` | `'See all in one page'` |
+| `translate.DownloadHandout` | `'Download Lesson Handout'` |
+| `translate.ExportSlides` | `'Export Chapter Slides'` |
+| `translate.PreviousAndNext` | `'Previous and Next Chapter'` |
+| `translate.Previous` | `'Previous'` |
+| `translate.EstimatedTime` | `'Estimated time: {icons$clock} {minutes} minutes'` |
+| `translate.Next` | `'Next'` |
+| `translate.NextChapter` | `'Next Chapter'` |
+| `translate.LastUpdate` | `'Last updated on {updated}'` |
+| `translate.EditThisPage` | `'Edit this page'` |
+| `translate.ExpandAllSolutions` | `'Expand All Solutions'` |
+| `translate.SetupInstructions` | `'Setup Instructions'` |
+| `translate.DownloadFiles` | `'Download files required for the lesson'` |
+| `translate.ActualScheduleNote` | `'The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.'` |
+| `translate.BackToTop` | `'Back To Top'` |
+| `translate.SpanToTop` | `'<(Back)> To Top'` |
+| `translate.ThisLessonCoC` | `'This lesson is subject to the <(Code of Conduct)>'` |
+| `translate.CoC` | `'Code of Conduct'` |
+| `translate.EditOnGH` | `'Edit on GitHub'` |
+| `translate.Contributing` | `'Contributing'` |
+| `translate.Source` | `'Source'` |
+| `translate.Cite` | `'Cite'` |
+| `translate.Contact` | `'Contact'` |
+| `translate.About` | `'About'` |
+| `translate.MaterialsLicensedUnder` | `'Materials licensed under <({license})> by the authors'` |
+| `translate.TemplateLicense` | `'Template licensed under <(CC-BY 4.0)> by {template_authors}'` |
+| `translate.Carpentries` | `'The Carpentries'` |
+| `translate.BuiltWith` | `'Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}'` |
+| `translate.ExpandAllSolutions` | `'Expand All Solutions'` |
+| `translate.CollapseAllSolutions` | `'Collapse All Solutions'` |
+| `translate.Collapse` | `'Collapse'` |
+| `translate.Episodes` | `'Episodes'` |
+| `translate.GiveFeedback` | `'Give Feedback'` |
+| `translate.LearnMore` | `'Learn More'` |
 
 In addition, there are 28 translations that are inserted *before* they
 get to [varnish](https://carpentries.github.io/varnish/):
@@ -1400,7 +1416,7 @@ called `site/_pkgdown.yaml`.
 ``` yaml
 # ------------------------------------------------------------------ information
 # This file was generated by sandpaper version '0.20.1'
-# If you want to make changes, please edit '/tmp/Rtmpnx953i/file2fa0666483c8/config.yaml'
+# If you want to make changes, please edit '/tmp/RtmpQBe0To/file31693e3cd1c7/config.yaml'
 # ------------------------------------------------------------------ information
 
 title: An Example Lesson
@@ -1412,8 +1428,8 @@ home:
 template:
   package: varnish
   params:
-    time: 2026-04-15 10:51:12 +0000
-    source: https://github.com/carpentries/file2fa0666483c8
+    time: 2026-05-19 15:00:02 +0000
+    source: https://github.com/carpentries/file31693e3cd1c7
     branch: main
     contact: team@carpentries.org
     license: CC-BY 4.0
@@ -1432,7 +1448,7 @@ template:
     stable: no
     doi: ~
     title: An Example Lesson
-    created: '2026-04-15'
+    created: '2026-05-19'
     keywords: software, data, lesson, The Carpentries
     episodes: ~
     learners: ~
@@ -1460,6 +1476,7 @@ The important elements we use are
 - `$meta` a list of items passed on to {varnish}
 
 ``` r
+
 snd <- asNamespace("sandpaper")
 pkg <- pkgdown::as_pkgdown(snd$path_site(lsn))
 pkg[c("lang", "src_path", "dst_path", "meta")]
@@ -1467,10 +1484,10 @@ pkg[c("lang", "src_path", "dst_path", "meta")]
 ## [1] "en"
 ## 
 ## $src_path
-## /tmp/Rtmpnx953i/file2fa0666483c8/site
+## /tmp/RtmpQBe0To/file31693e3cd1c7/site
 ## 
 ## $dst_path
-## /tmp/Rtmpnx953i/file2fa0666483c8/site/docs
+## /tmp/RtmpQBe0To/file31693e3cd1c7/site/docs
 ## 
 ## $meta
 ## $meta$title
@@ -1496,10 +1513,10 @@ pkg[c("lang", "src_path", "dst_path", "meta")]
 ## 
 ## $meta$template$params
 ## $meta$template$params$time
-## [1] "2026-04-15 10:51:12 +0000"
+## [1] "2026-05-19 15:00:02 +0000"
 ## 
 ## $meta$template$params$source
-## [1] "https://github.com/carpentries/file2fa0666483c8"
+## [1] "https://github.com/carpentries/file31693e3cd1c7"
 ## 
 ## $meta$template$params$branch
 ## [1] "main"
@@ -1556,7 +1573,7 @@ pkg[c("lang", "src_path", "dst_path", "meta")]
 ## [1] "An Example Lesson"
 ## 
 ## $meta$template$params$created
-## [1] "2026-04-15"
+## [1] "2026-05-19"
 ## 
 ## $meta$template$params$keywords
 ## [1] "software, data, lesson, The Carpentries"
@@ -1581,6 +1598,7 @@ path and title, `yaml` for lesson-wide content, and `lang` to define the
 language. Everything else is not used.
 
 ``` r
+
 dat <- pkgdown::data_template(pkg)
 writeLines(yaml::as.yaml(dat[c("lang", "site", "yaml")]))
 ## lang: en
@@ -1588,8 +1606,8 @@ writeLines(yaml::as.yaml(dat[c("lang", "site", "yaml")]))
 ##   root: ''
 ##   title: An Example Lesson
 ## yaml:
-##   time: 2026-04-15 10:51:12 +0000
-##   source: https://github.com/carpentries/file2fa0666483c8
+##   time: 2026-05-19 15:00:02 +0000
+##   source: https://github.com/carpentries/file31693e3cd1c7
 ##   branch: main
 ##   contact: team@carpentries.org
 ##   license: CC-BY 4.0
@@ -1608,7 +1626,7 @@ writeLines(yaml::as.yaml(dat[c("lang", "site", "yaml")]))
 ##   stable: no
 ##   doi: ~
 ##   title: An Example Lesson
-##   created: '2026-04-15'
+##   created: '2026-05-19'
 ##   keywords: software, data, lesson, The Carpentries
 ##   episodes: ~
 ##   learners: ~

@@ -45,6 +45,7 @@ The last few lines of `episodes/introduction.Rmd` looks like this:
 
 ```` markdown
 
+
 Cool, right?
 
 ```{r si, child="files/child.Rmd"}
@@ -64,6 +65,7 @@ You can see there the declaration of the child document is an empty code
 chunk:
 
 ```` default
+
 ```{r si, child = "files/child.Rmd"}
 ```
 ````
@@ -74,6 +76,7 @@ the episodes folder). The entire document of `episodes/files/child.Rmd`
 looks like this:
 
 ```` markdown
+
 ## Session Information
 
 The following is the session information of this R session
@@ -89,6 +92,7 @@ This means that when `episodes/introduction.Rmd` is built,
 resulting markdown document will look like this:
 
 ```` markdown
+
 `$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\\alpha = \\dfrac{1}{(1 - \\beta)^2}$
 
 Cool, right?
@@ -102,7 +106,7 @@ sessionInfo()
 ```
 
 ```output
-R version 4.5.3 (2026-03-11)
+R version 4.6.0 (2026-04-24)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.4 LTS
 
@@ -123,7 +127,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
-[1] compiler_4.5.3 cli_3.6.6      tools_4.5.3    otel_0.2.0     knitr_1.51    
+[1] compiler_4.6.0 cli_3.6.6      tools_4.6.0    otel_0.2.0     knitr_1.51    
 [6] xfun_0.57      rlang_1.2.0    evaluate_1.0.5
 ```
 
@@ -155,6 +159,7 @@ that will create a file in the `data/` directory called “time.txt” and
 then reads in the contents of that file.
 
 ```` markdown
+
 ---
 title: 'introduction'
 teaching: 10
@@ -205,6 +210,7 @@ You can see in `data/`, it now contains `time.txt`. The rendered
 Markdown file `site/built/introduction.md` reflects the updates:
 
 ```` markdown
+
 ---
 title: 'introduction'
 teaching: 10
@@ -212,7 +218,7 @@ exercises: 2
 ---
 
 ```output
-The time is: 2026-04-15 10:51:22
+The time is: 2026-05-19 15:00:13
 ```
 ````
 
@@ -245,6 +251,7 @@ document would look like this:
 
 ```` markdown
 
+
 Cool, right?
 
 ```{r si, child="files/children/child.Rmd"}
@@ -267,6 +274,7 @@ you you should reference these resources with `fig/one.png` and
 directory (in this case, `episodes/`)*, as demonstrated here:
 
 ```` markdown
+
 Here is a link to [the info document](../learners/info.md)
 
 ![example](fig/one.png){alt='example figure'}
@@ -282,7 +290,7 @@ sessionInfo()
 
 Again, the reason for this is because when the document gets built, the
 result is all in the context of the parent document in the `site/built`
-directory[¹](#fn1):
+directory[^1]:
 
     # ./site/built/
     # ├── CODE_OF_CONDUCT.md
@@ -310,6 +318,7 @@ Which makes sense in `site/built/introduction.md`:
 
 ```` markdown
 
+
 Cool, right?
 
 Here is a link to [the info document](../learners/info.md)
@@ -325,7 +334,7 @@ sessionInfo()
 ```
 
 ```output
-R version 4.5.3 (2026-03-11)
+R version 4.6.0 (2026-04-24)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.4 LTS
 
@@ -346,7 +355,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
-[1] compiler_4.5.3 cli_3.6.6      tools_4.5.3    otel_0.2.0     knitr_1.51    
+[1] compiler_4.6.0 cli_3.6.6      tools_4.6.0    otel_0.2.0     knitr_1.51    
 [6] xfun_0.57      rlang_1.2.0    evaluate_1.0.5
 ```
 
@@ -386,12 +395,11 @@ you want to reference `episodes/files/child-two.md` from
 `episodes/files/child-one.Rmd`:
 
 ```` default
+
 ```{r child='files/child-two.md'}
 ```
 ````
 
-------------------------------------------------------------------------
-
-1.  there is a caveat to this paradigm, on translation to HTML, all
+[^1]: there is a caveat to this paradigm, on translation to HTML, all
     links that begin with `../[folder]/` prefixes have those stripped in
     the final version of the site.
