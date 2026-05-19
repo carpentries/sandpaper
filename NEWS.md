@@ -1,3 +1,14 @@
+# sandpaper 0.20.2 [2026-05-19]
+
+## HOTFIX RELEASE
+
+* Update Ukrainian translations - thanks @olexandr-konovalov!
+* Remove duplicated page forward breadcrumb when both back and forward are pointing to 
+  index ("Home")
+* Fix CFF test
+* Add pandoc 3.8.4 snapshot
+
+
 # sandpaper 0.20.1 [2026-04-15]
 
 ## ACCESSIBILITY
