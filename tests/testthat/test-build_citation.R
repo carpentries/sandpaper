@@ -46,7 +46,7 @@ test_that("read_cff outputs error when field missing from CFF file", {
   ), tmp_cff)
   expect_message(
     read_cff(tmp_cff),
-    "cff.message: is required"
+    "cff/: must have required property 'message'"
   )
 })
 
