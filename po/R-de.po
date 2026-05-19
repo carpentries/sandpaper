@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.16.5\n"
-"POT-Creation-Date: 2025-03-18 11:33-0700\n"
+"POT-Creation-Date: 2026-05-02 12:19+0100\n"
 "PO-Revision-Date: 2024-10-08 20:33+0100\n"
 "Last-Translator: Martin Raden <martin.raden@uni-tuebingen.de>\n"
 "Language-Team: none\n"
@@ -359,21 +359,25 @@ msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
 #: utils-translate.R:173
+msgid "Acknowledgements and Citations"
+msgstr ""
+
+#: utils-translate.R:174
 msgid "All Images"
 msgstr "Alle Bilder"
 
-#: utils-translate.R:175
+#: utils-translate.R:176
 msgid "anchor"
 msgstr "Anker"
 
-#: utils-translate.R:176
+#: utils-translate.R:177
 msgid "Figure {element}"
 msgstr "Abbildung {element}"
 
-#: utils-translate.R:177
+#: utils-translate.R:178
 msgid "Image {i} of {n}: {sQuote(txt)}"
 msgstr "Bild {i} von {n}: {sQuote(txt)}"
 
-#: utils-translate.R:178
+#: utils-translate.R:179
 msgid "Finish"
 msgstr "Fertig"

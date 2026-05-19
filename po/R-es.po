@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.15.0.9000\n"
-"POT-Creation-Date: 2025-03-18 11:33-0700\n"
+"POT-Creation-Date: 2026-05-02 12:19+0100\n"
 "PO-Revision-Date: 2023-12-06 11:03-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -359,22 +359,26 @@ msgid "Page not found"
 msgstr "Página no encontrada"
 
 #: utils-translate.R:173
+msgid "Acknowledgements and Citations"
+msgstr ""
+
+#: utils-translate.R:174
 msgid "All Images"
 msgstr "Todas las imágenes"
 
-#: utils-translate.R:175
+#: utils-translate.R:176
 msgid "anchor"
 msgstr "anclaje"
 
-#: utils-translate.R:176
+#: utils-translate.R:177
 msgid "Figure {element}"
 msgstr "Figura {element}"
 
-#: utils-translate.R:177
+#: utils-translate.R:178
 msgid "Image {i} of {n}: {sQuote(txt)}"
 msgstr "Imagen {i} de {n}: {sQuote(txt)}"
 
-#: utils-translate.R:178
+#: utils-translate.R:179
 msgid "Finish"
 msgstr "Final"
 
