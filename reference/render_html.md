@@ -1,7 +1,7 @@
 # Render html from a markdown file
 
 This uses
-[`rmarkdown::pandoc_convert()`](https://pkgs.rstudio.com/rmarkdown/reference/pandoc_convert.html)
+[`rmarkdown::pandoc_convert()`](https://rdrr.io/pkg/rmarkdown/man/pandoc_convert.html)
 to render HTML from a markdown file. We've specified pandoc extensions
 that align with the features desired in the Carpentries such as
 `markdown_in_html_blocks`, `tex_math_dollars`, and `native_divs`.

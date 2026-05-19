@@ -1,5 +1,16 @@
 # Changelog
 
+## sandpaper 0.20.2 \[2026-05-19\]
+
+### HOTFIX RELEASE
+
+- Update Ukrainian translations - thanks
+  [@olexandr-konovalov](https://github.com/olexandr-konovalov)!
+- Remove duplicated page forward breadcrumb when both back and forward
+  are pointing to index (“Home”)
+- Fix CFF test
+- Add pandoc 3.8.4 snapshot
+
 ## sandpaper 0.20.1 \[2026-04-15\]
 
 ### ACCESSIBILITY
@@ -2604,7 +2615,7 @@ branch.
 - [`sandpaper_site()`](https://carpentries.github.io/sandpaper/reference/sandpaper_site.md)
   is a site generator function that allows {rmarkdown} to use the
   {sandpaper} machinery to build the site from
-  [`rmarkdown::render_site()`](https://pkgs.rstudio.com/rmarkdown/reference/render_site.html)
+  [`rmarkdown::render_site()`](https://rdrr.io/pkg/rmarkdown/man/render_site.html)
 - [`build_site()`](https://carpentries.github.io/sandpaper/reference/build_site.md)
   gains a `slug` argument that tailors the previewed content.
 - [`create_lesson()`](https://carpentries.github.io/sandpaper/reference/create_lesson.md)

@@ -1,7 +1,7 @@
 # Site generator for sandpaper
 
 This is a custom site generator for compatibility with
-[`rmarkdown::site_generator()`](https://pkgs.rstudio.com/rmarkdown/reference/render_site.html).
+[`rmarkdown::site_generator()`](https://rdrr.io/pkg/rmarkdown/man/render_site.html).
 For RStudio users, **placing this in the `index.md` yaml header will
 make the knit button work**:
 
