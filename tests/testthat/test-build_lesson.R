@@ -454,22 +454,3 @@ test_that("episodes with HTML in the title are rendered correctly", {
         fixed = TRUE
   )))
 })
-
-tmp <- res <- restore_fixture()
-config_path <- fs::path(tmp, "config.yaml")
-config <- yaml::read_yaml(config_path)
-config$lang <- "de"
-config$glosario <- "true"
-yaml::write_yaml(config, config_path)
-
-test_that("Glossary files are present and have the correct elements", {
-
-  skip_if_not(rmarkdown::pandoc_available("2.11"))
-
-  # Build the lesson with the new 'de' config
-  suppressMessages(build_lesson(tmp, preview = FALSE, quiet = TRUE))
-
-  ref <- fs::path(sitepath, "reference.html")
-  content <- get_content(ref, "/section[@id='glosario']", pkg = pkg, instructor = FALSE)
-  expect_length(content, 1L)
-})

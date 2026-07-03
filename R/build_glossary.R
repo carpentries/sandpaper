@@ -271,38 +271,41 @@ build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = "re
 
   learner_outpath <- fs::path(pkg$dst_path, "reference.html")
   instructor_outpath <- fs::path(pkg$dst_path, "instructor", "reference.html")
+  outpaths <- c(learner_outpath, instructor_outpath)
 
-  for (outpath in c(learner_outpath, instructor_outpath)) {
+  already_built <- template_check$valid() && any(fs::file_exists(outpaths))
+
+  if (already_built) {
+    built_path <- fs::path(pkg$src_path, "built")
+
+    # delete existing reference files and rebuild once from scratch
+    for (outpath in outpaths[fs::file_exists(outpaths)]) {
+      fs::file_delete(outpath)
+    }
+
+    build_episode_html(
+      path_md = fs::path(built_path, "reference.md"),
+      pkg = pkg,
+      quiet = quiet,
+      glosario = glosario
+    )
+  }
+
+  for (outpath in outpaths) {
     out <- fs::path_rel(outpath, pkg$dst_path)
 
-    already_built <- template_check$valid() && fs::file_exists(outpath)
-
     if (already_built) {
-        report <- "Rebuilding '{.file {out}}'"
-        if (!quiet) cli::cli_text(report)
-
-        # delete the existing reference.html file
-        fs::file_delete(outpath)
-
-        built_path <- fs::path(pkg$src_path, "built")
-
-        # rebuild from scratch using build_episode_html
-        build_episode_html(
-        path_md = fs::path(built_path, "reference.md"),
-        pkg = pkg,
-        quiet = quiet,
-        glosario = glosario
-        )
+      report <- "Rebuilding '{.file {out}}'"
     }
     else {
-        report <- "Appending to '{.file {out}}'"
-        if (!quiet) cli::cli_text(report)
+      report <- "Appending to '{.file {out}}'"
     }
+
+    if (!quiet) cli::cli_text(report)
 
     ref_html <- xml2::read_html(outpath)
     ref_sect <- xml2::xml_find_first(ref_html, ".//main/div[contains(@class, 'lesson-content')]")
-    xml2::xml_add_child(ref_sect, agg_sect)
-    if (!quiet) cli::cli_text(report)
+    xml2::xml_add_child(ref_sect, agg_sect, .copy = TRUE)
     writeLines(as.character(ref_html), outpath)
   }
 }
