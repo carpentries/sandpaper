@@ -2615,7 +2615,7 @@ branch.
 - [`sandpaper_site()`](https://carpentries.github.io/sandpaper/reference/sandpaper_site.md)
   is a site generator function that allows {rmarkdown} to use the
   {sandpaper} machinery to build the site from
-  [`rmarkdown::render_site()`](https://rdrr.io/pkg/rmarkdown/man/render_site.html)
+  [`rmarkdown::render_site()`](https://pkgs.rstudio.com/rmarkdown/reference/render_site.html)
 - [`build_site()`](https://carpentries.github.io/sandpaper/reference/build_site.md)
   gains a `slug` argument that tailors the previewed content.
 - [`create_lesson()`](https://carpentries.github.io/sandpaper/reference/create_lesson.md)

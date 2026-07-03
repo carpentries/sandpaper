@@ -1,7 +1,7 @@
 # Check the existence of pandoc
 
 This function adds context to
-[`rmarkdown::pandoc_available()`](https://rdrr.io/pkg/rmarkdown/man/pandoc_available.html)
+[`rmarkdown::pandoc_available()`](https://pkgs.rstudio.com/rmarkdown/reference/pandoc_available.html)
 and provides an error message directing the user to download the latest
 version of pandoc or RStudio Desktop.
 

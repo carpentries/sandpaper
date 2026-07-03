@@ -1,7 +1,7 @@
 # Render html from a markdown file
 
 This uses
-[`rmarkdown::pandoc_convert()`](https://rdrr.io/pkg/rmarkdown/man/pandoc_convert.html)
+[`rmarkdown::pandoc_convert()`](https://pkgs.rstudio.com/rmarkdown/reference/pandoc_convert.html)
 to render HTML from a markdown file. We've specified pandoc extensions
 that align with the features desired in the Carpentries such as
 `markdown_in_html_blocks`, `tex_math_dollars`, and `native_divs`.
@@ -67,11 +67,11 @@ cat(sandpaper:::render_html(tmp, lf))
 }
 #> <div id="markdown" class="section level1">
 #> <h1>Markdown</h1>
-#> <div id="discussion1" class="callout discussion">
+#> <div id="challenge1" class="callout challenge">
 #> <div class="callout-square">
-#> <i class='callout-icon' data-feather='message-circle'></i>
+#> <i class='callout-icon' data-feather='zap'></i>
 #> </div>
-#> <span class='callout-header'>Discussion</span>
+#> <span class='callout-header'>Challenge</span>
 #> <div class="section level3 callout-title callout-inner">
 #> <h3 class="callout-title">Challenge</h3>
 #> <div class="callout-content">
@@ -81,11 +81,11 @@ cat(sandpaper:::render_html(tmp, lf))
 #> </div>
 #> </div><div id="markdown" class="section level1">
 #> <h1>Markdown</h1>
-#> <div id="discussion1" class="callout discussion">
+#> <div id="challenge1" class="callout challenge">
 #> <div class="callout-square">
-#> <i class='callout-icon' data-feather='message-circle'></i>
+#> <i class='callout-icon' data-feather='zap'></i>
 #> </div>
-#> <span class='callout-header'>Discussion</span>
+#> <span class='callout-header'>Challenge</span>
 #> <div class="section level3 callout-title callout-inner">
 #> <h3 class="callout-title">Challenge</h3>
 #> <div class="callout-content">
