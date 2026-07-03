@@ -184,12 +184,13 @@ test_that("accordion lua filter parses challenge accordions correctly", {
 
 example_challenge2 <- fs::path_abs(test_path("examples", "challenge-multi.md"))
 
-test_that("accordion lua filter parses post-solution text accordingly", {
+test_that("accordion lua filter parses post-solution and no-solution text accordingly", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   res <- render_html(example_challenge2)
   expect_match(res, "<div id=\"accordionHint1\"", fixed = TRUE)
   expect_match(res, "<div id=\"accordionSolution1\"", fixed = TRUE)
   expect_match(res, "<div id=\"discussion1\"", fixed = TRUE)
+  expect_match(res, "<div id=\"challenge2\"", fixed = TRUE)
 })
 
 

@@ -21,3 +21,9 @@ USE THE BARD
 Did you use the resources available to you? Did you lean on your traits?
 
 :::
+
+::: challenge
+
+Repeat the encounter using the cleric instead
+
+:::

@@ -555,9 +555,11 @@ challenge_block = function(el)
   -- Once we hit an accordion block, we no longer need the challenge inserted
   -- and any new challenge items go in a new block
   local needs_challenge = true
+  local accordion_seen = false
   for idx, block in ipairs(el.content) do
     if block.classes ~= nil and block.classes[1] == "accordion" then
       if needs_challenge then
+        accordion_seen = true
         challenge_train:insert(callout_block(this_challenge))
         this_challenge = pandoc.Div({next_head}, {class = "challenge"})
         needs_challenge = false
@@ -575,8 +577,12 @@ challenge_block = function(el)
   end
   -- Fencepost
   if #this_challenge.content > 1 then
-    bookend = pandoc.Div(this_challenge.content, {class = "discussion"})
-    challenge_train:insert(callout_block(bookend))
+    if accordion_seen then
+      bookend = pandoc.Div(this_challenge.content, {class = "discussion"})
+      challenge_train:insert(callout_block(bookend))
+    else
+      challenge_train:insert(callout_block(this_challenge))
+    end
   end
   return(challenge_train)
 end
