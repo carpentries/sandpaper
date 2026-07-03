@@ -43,6 +43,9 @@ test_that("(#536) SANDPAPER_SITE envvar works as expected", {
   tmp <- withr::local_tempdir("site")
   withr::local_envvar(list("SANDPAPER_SITE" = tmp))
 
+  # set explicit source root path rather than relying on the order of tests to set it up
+  set_source_path(res)
+
   # setting the envvar doesn't actually create the built folder
   expect_false(fs::file_exists(fs::path(tmp, "_pkgdown.yaml")))
   create_site(res)
