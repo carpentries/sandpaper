@@ -175,6 +175,7 @@ build_glossary <- function(pkg, pages = NULL, quiet = FALSE) {
 build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = "reference", aggregate = "*", append = "self::node()", quiet = FALSE) {
   path <- get_source_path() %||% root_path(pkg$src_path)
   out_path <- pkg$dst_path
+
   this_lesson(path)
 
   lang <- this_metadata$get()[["lang"]]
@@ -268,38 +269,42 @@ build_glossary_page <- function(pkg, pages, title = "Glosario Links", slug = "re
     xml2::xml_add_child(agg_li, def)
   }
 
-  outpath <- fs::path(pkg$dst_path, "reference.html")
-  out <- fs::path_rel(outpath, pkg$dst_path)
+  learner_outpath <- fs::path(pkg$dst_path, "reference.html")
+  instructor_outpath <- fs::path(pkg$dst_path, "instructor", "reference.html")
 
-  already_built <- template_check$valid() && fs::file_exists(outpath)
+  for (outpath in c(learner_outpath, instructor_outpath)) {
+    out <- fs::path_rel(outpath, pkg$dst_path)
 
-  if (already_built) {
-    report <- "Rebuilding '{.file {out}}'"
+    already_built <- template_check$valid() && fs::file_exists(outpath)
+
+    if (already_built) {
+        report <- "Rebuilding '{.file {out}}'"
+        if (!quiet) cli::cli_text(report)
+
+        # delete the existing reference.html file
+        fs::file_delete(outpath)
+
+        built_path <- fs::path(pkg$src_path, "built")
+
+        # rebuild from scratch using build_episode_html
+        build_episode_html(
+        path_md = fs::path(built_path, "reference.md"),
+        pkg = pkg,
+        quiet = quiet,
+        glosario = glosario
+        )
+    }
+    else {
+        report <- "Appending to '{.file {out}}'"
+        if (!quiet) cli::cli_text(report)
+    }
+
+    ref_html <- xml2::read_html(outpath)
+    ref_sect <- xml2::xml_find_first(ref_html, ".//main/div[contains(@class, 'lesson-content')]")
+    xml2::xml_add_child(ref_sect, agg_sect)
     if (!quiet) cli::cli_text(report)
-
-    # delete the existing reference.html file
-    fs::file_delete(outpath)
-
-    built_path <- fs::path(pkg$src_path, "built")
-
-    # rebuild from scratch using build_episode_html
-    build_episode_html(
-      path_md = fs::path(built_path, "reference.md"),
-      pkg = pkg,
-      quiet = quiet,
-      glosario = glosario
-    )
+    writeLines(as.character(ref_html), outpath)
   }
-  else {
-    report <- "Appending to '{.file {out}}'"
-    if (!quiet) cli::cli_text(report)
-  }
-
-  ref_html <- xml2::read_html(outpath)
-  ref_sect <- xml2::xml_find_first(ref_html, ".//main/div[contains(@class, 'lesson-content')]")
-  xml2::xml_add_child(ref_sect, agg_sect)
-  if (!quiet) cli::cli_text(report)
-  writeLines(as.character(ref_html), outpath)
 }
 
 get_glossary_links <- function(episode, episode_name, glosario) {
