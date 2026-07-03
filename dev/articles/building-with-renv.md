@@ -21,10 +21,12 @@ create and use a cache with the function
 [`use_package_cache()`](https://carpentries.github.io/sandpaper/dev/reference/package_cache.md)
 
 ``` r
+
 library("sandpaper")
 ```
 
 ``` r
+
 use_package_cache()
 ```
 
@@ -88,6 +90,7 @@ say("catfact", "cat")
 When you build your lesson, you will see this kind of output:
 
 ``` r
+
 build_lesson()
 ```
 
@@ -180,11 +183,13 @@ To do this you can use
 and your lesson will default to using your local library.
 
 ``` r
+
 no_package_cache()
 sandpaper:::build_markdown(rebuild = TRUE)
 ```
 
 ``` output
+
 #| ℹ Consent to use package cache not given. Using default library.
 #| → use `use_package_cache()` to enable the package cache for reproducible builds.
 #| → You can switch between using your cache and the default library with `options(sandpaper.use_renv = TRUE)` (`FALSE` for the default library)
@@ -217,6 +222,7 @@ When you want to turn it on again, you can use
 [`use_package_cache()`](https://carpentries.github.io/sandpaper/dev/reference/package_cache.md)
 
 ``` r
+
 use_package_cache()
 ```
 
@@ -295,6 +301,7 @@ when you call it without any arguments, it will report `TRUE` or
 not, respectively:
 
 ``` r
+
 package_cache_trigger()
 #| [1] FALSE
 package_cache_trigger(TRUE) # set the package cache to auto-trigger rebuilds
@@ -342,6 +349,7 @@ function. For example, here’s how you would pin the {cowsay} package to
 version 0.7.0:
 
 ``` r
+
 pin_version("cowsay@0.7.0")
 ```
 
@@ -359,5 +367,6 @@ lesson for any potential updates and ask if you want to update them.
 This will update those packages in your package cache and your lockfile.
 
 ``` r
+
 update_cache(prompt = TRUE)
 ```

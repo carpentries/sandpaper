@@ -119,6 +119,7 @@ If you want to create updates manually without using GitHub Actions,
 there are two functions available:
 
 ``` r
+
 update_github_workflows()  # updates the package workflows
 update_cache()      # uses `renv::update()` to check for updates to the package cache
 ```

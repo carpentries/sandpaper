@@ -28,6 +28,7 @@ this package documentation site at
 (updated every hour) with the following commands:
 
 ``` r
+
 options(repos = c(
   carpentries = "https://carpentries.r-universe.dev/", 
   CRAN = "https://cran.rstudio.com/"
@@ -38,11 +39,11 @@ install.packages("sandpaper", dep = TRUE)
 Note that this will also install development versions of the following
 packages:
 
-| package                                                    | What it does                                                                 |
-|------------------------------------------------------------|------------------------------------------------------------------------------|
-| [{varnish}](https://github.com/carpentries/varnish#readme) | html, css, and javascript templates for The Carpentries (in progress)        |
-| [{tinkr}](https://docs.ropensci.org/tinkr/)                | manipulation of knitr markdown documents built on the commonmark xml library |
-| [{pegboard}](https://carpentries.github.io/pegboard)       | programmatic interface to lesson components for validation (in progress)     |
+| package | What it does |
+|----|----|
+| [{varnish}](https://github.com/carpentries/varnish#readme) | html, css, and javascript templates for The Carpentries (in progress) |
+| [{tinkr}](https://docs.ropensci.org/tinkr/) | manipulation of knitr markdown documents built on the commonmark xml library |
+| [{pegboard}](https://carpentries.github.io/pegboard) | programmatic interface to lesson components for validation (in progress) |
 
 ## Design
 
@@ -246,6 +247,7 @@ To create a lesson with {sandpaper}, use the
 function:
 
 ``` r
+
 sandpaper::create_lesson("~/Desktop/r-intermediate-penguins")
 ```
 
@@ -284,6 +286,7 @@ but you can use the
 command to build the schedule in your `config.yaml` file:
 
 ``` r
+
 s <- sandpaper::get_episodes()
 sandpaper::set_episodes(order = s, write = TRUE)
 ```
@@ -291,6 +294,7 @@ sandpaper::set_episodes(order = s, write = TRUE)
 When you want to preview your site, use the following:
 
 ``` r
+
 sandpaper::build_lesson()
 ```
 
@@ -317,6 +321,7 @@ R**](http://swcarpentry.github.io/r-novice-inflammation/) to your
 computer’s Desktop.
 
 ``` r
+
 usethis::create_from_github(
   repo = "swcarpentry/r-novice-gapminder", 
   destdir = "~/Desktop/r-novice-gampinder",
@@ -331,6 +336,7 @@ Note that the rendered website will not be immediately available. To
 download the site as it currently appears on the web, use:
 
 ``` r
+
 sandpaper::fetch_lesson(markdown = TRUE, site = TRUE)
 ```
 
@@ -355,6 +361,7 @@ The typical workflow will look like this:
 2.  in the R console run the following
 
 ``` r
+
 sandpaper::check_lesson() # validates the structure of the input files
 sandpaper::build_lesson() # builds and validates lesson
 ```
@@ -367,6 +374,7 @@ lesson](#maintaining-a-lesson) to set up. Once you have the lesson set
 up, you can use the following command:
 
 ``` r
+
 sandpaper::build_portable_lesson(version = "current")
 ```
 
@@ -382,6 +390,7 @@ this situation because writing CI configuration files is maddening. The
 most straightforward function is:
 
 ``` r
+
 sandpaper::ci_deploy(md_branch = "md-outputs", site_branch = "gh-pages")
 ```
 
@@ -396,6 +405,7 @@ material does, a step can be created just for rebuilding the site that
 uses:
 
 ``` r
+
 sandpaper::ci_build_site(branch = "gh-pages")
 ```
 
@@ -404,5 +414,6 @@ duplicated to a versioned folder and a tag needs to be added to the
 `md-outputs` branch:
 
 ``` r
+
 sandpaper::ci_release(tag = "0.1", md_branch = "md-outputs", site_branch = "gh-pages")
 ```
