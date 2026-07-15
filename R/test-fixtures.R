@@ -187,14 +187,30 @@ remove_local_remote <- function(repo, name = "sandpaper-local") {
     gert::git_remote_remove(name, repo)
     to_remove <- remotes$url[the_remote]
     cli::cli_alert_info("removing '{name}' ({.file {to_remove}})")
-    # don't error if we can not delete this.
-    res <- tryCatch(fs::dir_delete(to_remove),
-      error = function(e) {
-        cli::cli_alert_danger("Error trying to remove remote")
-        cli::cli_text(e$message)
-        return(FALSE)
+    retries <- if (.Platform$OS.type == "windows") 5L else 1L
+    res <- FALSE
+    err <- NULL
+    for (attempt in seq_len(retries)) {
+      err <- NULL
+      res <- tryCatch(fs::dir_delete(to_remove),
+        error = function(e) {
+          err <<- e
+          FALSE
+        }
+      )
+      if (!identical(res, FALSE) || !fs::dir_exists(to_remove)) {
+        err <- NULL
+        break
       }
-    )
+      gc()
+      cli::cli_alert_info("Remove remote failed, retrying ({attempt}/{retries})")
+      Sys.sleep(1 * attempt)
+    }
+    if (!is.null(err)) {
+      cli::cli_alert_danger("Error trying to remove remote")
+      cli::cli_text(err$message)
+      return(FALSE)
+    }
     return(res)
   }
   return(invisible("(no remote present)"))

@@ -74,7 +74,9 @@ jobs:
         run: git config --global core.autocrlf false
         shell: bash
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          set-safe-directory: false
 
       - uses: r-lib/actions/setup-pandoc@v2
 
