@@ -53,7 +53,7 @@ withr::defer({
   options(sandpaper.test_fixture = NULL)
   rem <- remove_local_remote(repo = tf)
   # remove the test fixture and report
-  res <- tryCatch(fs::dir_delete(tf), error = function() FALSE)
+  res <- tryCatch(fs::dir_delete(tf), error = function(e) FALSE)
   noise <- interactive() || Sys.getenv("CI") == "true"
   if (noise) {
     status <- if (identical(res, FALSE)) "could not be" else "successfully"
