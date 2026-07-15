@@ -61,29 +61,29 @@ test can be found at
 ``` r
 tmp <- tempfile()
 lsn <- create_lesson(tmp, open = FALSE)
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
-#> ☐ Edit /tmp/Rtmps3YM4i/file1aec1c21b454/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
-#> ✔ First episode created in /tmp/Rtmps3YM4i/file1aec1c21b454/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
+#> ☐ Edit /tmp/Rtmp6yLLZk/file1acc275ec3fc/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
+#> ✔ First episode created in /tmp/Rtmp6yLLZk/file1acc275ec3fc/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -109,11 +109,11 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> - memoise       2.0.1
 #> - mime          0.13
 #> - rappdirs      0.3.4
-#> - rlang         1.2.0
+#> - rlang         1.3.0
 #> - rmarkdown     2.31
 #> - sass          0.4.10
 #> - tinytex       0.60
-#> - xfun          0.59
+#> - xfun          0.60
 #> - yaml          2.3.12
 #> 
 #> They will be copied into the project library.
@@ -145,19 +145,19 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> - mime          [* -> 0.13]
 #> - rappdirs      [* -> 0.3.4]
 #> - renv          [* -> 1.2.3]
-#> - rlang         [* -> 1.2.0]
+#> - rlang         [* -> 1.3.0]
 #> - rmarkdown     [* -> 2.31]
 #> - sass          [* -> 0.4.10]
 #> - tinytex       [* -> 0.60]
-#> - xfun          [* -> 0.59]
+#> - xfun          [* -> 0.60]
 #> - yaml          [* -> 2.3.12]
 #> 
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.6.1]
 #> 
-#> - Lockfile written to "/tmp/Rtmps3YM4i/file1aec1c21b454/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/Rtmps3YM4i/file1aec1c21b454
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec1c21b454...
+#> - Lockfile written to "/tmp/Rtmp6yLLZk/file1acc275ec3fc/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/Rtmp6yLLZk/file1acc275ec3fc
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc275ec3fc...
 validate_lesson(lsn, headings = TRUE)
 #> ── Validating Headings ─────────────────────────────────────────────────
 #> ── Validating Fenced Divs ──────────────────────────────────────────────

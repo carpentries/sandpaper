@@ -68,32 +68,32 @@ child files will cause the source file to change as well.
 # The setup needs to include an R Markdown file with a child file.
 tmp <- tempfile()
 on.exit(fs::dir_delete(tmp), add = TRUE)
-#> Error: [ENOENT] Failed to search directory '/tmp/Rtmps3YM4i/file1aec6a8465c7': no such file or directory
+#> Error: [ENOENT] Failed to search directory '/tmp/Rtmp6yLLZk/file1acc69d377db': no such file or directory
 create_lesson(tmp, rmd = FALSE, open = FALSE)
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec6a8465c7...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc69d377db...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec6a8465c7...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc69d377db...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec6a8465c7...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc69d377db...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec6a8465c7...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc69d377db...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec6a8465c7...
-#> ☐ Edit /tmp/Rtmps3YM4i/file1aec6a8465c7/episodes/introduction.md.
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec6a8465c7...
-#> ✔ First episode created in /tmp/Rtmps3YM4i/file1aec6a8465c7/episodes/introduction.md
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec6a8465c7...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc69d377db...
+#> ☐ Edit /tmp/Rtmp6yLLZk/file1acc69d377db/episodes/introduction.md.
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc69d377db...
+#> ✔ First episode created in /tmp/Rtmp6yLLZk/file1acc69d377db/episodes/introduction.md
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc69d377db...
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec6a8465c7...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc69d377db...
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec6a8465c7...
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc69d377db...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec6a8465c7...
-#> ✔ Lesson successfully created in /tmp/Rtmps3YM4i/file1aec6a8465c7
-#> → Creating Lesson in /tmp/Rtmps3YM4i/file1aec6a8465c7...
-#> /tmp/Rtmps3YM4i/file1aec6a8465c7
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc69d377db...
+#> ✔ Lesson successfully created in /tmp/Rtmp6yLLZk/file1acc69d377db
+#> → Creating Lesson in /tmp/Rtmp6yLLZk/file1acc69d377db...
+#> /tmp/Rtmp6yLLZk/file1acc69d377db
 # get namespace to use internal functions
 sp <- asNamespace("sandpaper")
 db <- fs::path(tmp, "site/built/md5sum.txt")
@@ -117,38 +117,38 @@ class(lsn)
 children <- sp$get_lineages(lsn)
 print(children)
 #> $`episodes/introduction.Rmd`
-#> [1] "/tmp/Rtmps3YM4i/file1aec6a8465c7/episodes/introduction.Rmd"
-#> [2] "/tmp/Rtmps3YM4i/file1aec6a8465c7/episodes/files/hi.md"     
+#> [1] "/tmp/Rtmp6yLLZk/file1acc69d377db/episodes/introduction.Rmd"
+#> [2] "/tmp/Rtmp6yLLZk/file1acc69d377db/episodes/files/hi.md"     
 #> 
 #> $CODE_OF_CONDUCT.md
-#> /tmp/Rtmps3YM4i/file1aec6a8465c7/CODE_OF_CONDUCT.md
+#> /tmp/Rtmp6yLLZk/file1acc69d377db/CODE_OF_CONDUCT.md
 #> 
 #> $CONTRIBUTING.md
-#> /tmp/Rtmps3YM4i/file1aec6a8465c7/CONTRIBUTING.md
+#> /tmp/Rtmp6yLLZk/file1acc69d377db/CONTRIBUTING.md
 #> 
 #> $LICENSE.md
-#> /tmp/Rtmps3YM4i/file1aec6a8465c7/LICENSE.md
+#> /tmp/Rtmp6yLLZk/file1acc69d377db/LICENSE.md
 #> 
 #> $README.md
-#> /tmp/Rtmps3YM4i/file1aec6a8465c7/README.md
+#> /tmp/Rtmp6yLLZk/file1acc69d377db/README.md
 #> 
 #> $index.md
-#> /tmp/Rtmps3YM4i/file1aec6a8465c7/index.md
+#> /tmp/Rtmp6yLLZk/file1acc69d377db/index.md
 #> 
 #> $links.md
-#> /tmp/Rtmps3YM4i/file1aec6a8465c7/links.md
+#> /tmp/Rtmp6yLLZk/file1acc69d377db/links.md
 #> 
 #> $`instructors/instructor-notes.md`
-#> /tmp/Rtmps3YM4i/file1aec6a8465c7/instructors/instructor-notes.md
+#> /tmp/Rtmp6yLLZk/file1acc69d377db/instructors/instructor-notes.md
 #> 
 #> $`learners/reference.md`
-#> /tmp/Rtmps3YM4i/file1aec6a8465c7/learners/reference.md
+#> /tmp/Rtmp6yLLZk/file1acc69d377db/learners/reference.md
 #> 
 #> $`learners/setup.md`
-#> /tmp/Rtmps3YM4i/file1aec6a8465c7/learners/setup.md
+#> /tmp/Rtmp6yLLZk/file1acc69d377db/learners/setup.md
 #> 
 #> $`profiles/learner-profiles.md`
-#> /tmp/Rtmps3YM4i/file1aec6a8465c7/profiles/learner-profiles.md
+#> /tmp/Rtmp6yLLZk/file1acc69d377db/profiles/learner-profiles.md
 #> 
 
 # hash_children ---------------------------------------------------
@@ -157,7 +157,7 @@ phash <- tools::md5sum(resources[[1]])
 rel_parent <- fs::path_rel(resources[[1]], start = tmp)
 sp$hash_children(phash, rel_parent, children)
 #>          episodes/introduction.Rmd 
-#> "f0803606fb41fb5ba9d03df618d492ae" 
+#> "d9879be0cbd3f1b5a56cb6792f8a55a1" 
 # demonstrate how this works ----------------
 # the combined hashes have their names removed and then `rlang::hash()`
 # creates the hash of the unnamed hashes.
@@ -167,5 +167,5 @@ print(hashes)
 #> [1] "4c6b9769ec953e27d83c6c707d549b82"
 #> [2] "a649c757324fc9c289e38f3d77c206d5"
 rlang::hash(hashes)
-#> [1] "f0803606fb41fb5ba9d03df618d492ae"
+#> [1] "d9879be0cbd3f1b5a56cb6792f8a55a1"
 ```
