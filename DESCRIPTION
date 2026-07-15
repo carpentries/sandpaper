@@ -119,7 +119,8 @@ Imports:
     stringr,
     httr,
     R.utils,
-    xfun
+    xfun,
+    nanonext (>= 1.8.0),
 Suggests:
     testthat (>= 3.0.0),
     covr,
