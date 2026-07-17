@@ -32,14 +32,14 @@ for use by other internal functions while \code{{sandpaper}} is working.
 previously been stored. There are three values that are cached:
 \itemize{
 \item \code{.this_lesson} a \link[pegboard:Lesson]{pegboard::Lesson} object
-\item \code{.this_diff} a charcter vector from \code{\link[gert:git_diff]{gert::git_diff_patch()}}
-\item \code{.this_status} a data frame from \code{\link[gert:git_commit]{gert::git_status()}}
+\item \code{.this_diff} a charcter vector from \code{\link[gert:git_diff_patch]{gert::git_diff_patch()}}
+\item \code{.this_status} a data frame from \code{\link[gert:git_status]{gert::git_status()}}
 \item \code{.this_commit} the hash of the most recent commit
 }
 
 The function \code{this_lesson()} first checks if \code{.this_diff} is different than
-the output of \code{\link[gert:git_diff]{gert::git_diff_patch()}}, then checks if there are any
-changes to \code{\link[gert:git_commit]{gert::git_status()}}, and then finally checks if the commits are
+the output of \code{\link[gert:git_diff_patch]{gert::git_diff_patch()}}, then checks if there are any
+changes to \code{\link[gert:git_status]{gert::git_status()}}, and then finally checks if the commits are
 identical. If there are differences or the values are not previously
 cached, the lesson is loaded into memory, otherwise, it is fetched from the
 previously stored lesson.

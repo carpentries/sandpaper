@@ -319,6 +319,24 @@ build_status <- function(sources, db = "site/built/md5sum.txt", rebuild = FALSE,
     # using rlang::hash(sumparent, sumchild, ...)
     checksums <- hash_children(checksums, sources, children)
   }
+  # mix in snippets hash for any episode that uses snippet features
+  if (any(is_rmd)) {
+    snippets_hash <- get_snippets_hash(root_path)
+    if (!is.null(snippets_hash)) {
+      rmd_sources_rel <- sources[is_rmd]
+      rmd_sources_abs <- fs::path(root_path, rmd_sources_rel)
+      uses_snippets <- vapply(
+        rmd_sources_abs,
+        valid_snippet_features,
+        logical(1),
+        USE.NAMES = FALSE
+      )
+      affected_abs <- rmd_sources_abs[uses_snippets]
+      for (ep_abs in affected_abs) {
+        checksums[[ep_abs]] <- rlang::hash(c(unname(checksums[[ep_abs]]), snippets_hash))
+      }
+    }
+  }
   md5 = data.frame(
     file     = sources,
     checksum = checksums,

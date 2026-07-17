@@ -55,3 +55,123 @@ test_that("callr_build_episode_md() works with Rmarkdown using renv", {
   expect_match(grep("css", readLines(o2), value = TRUE), "style type=.text/css.")
 
 })
+
+
+test_that("callr_build_episode_md() injects lesson config and snippets", {
+  lsn <- fs::file_temp(pattern = "lesson-")
+  out <- fs::file_temp(pattern = "render-")
+  ep <- fs::path(lsn, "episodes", "example.Rmd")
+  out_md <- fs::path(out, "example.md")
+
+  fs::dir_create(fs::path(lsn, "episodes", "files", "customization", "base", "snippets", "demo"), recurse = TRUE)
+  fs::dir_create(out)
+
+  writeLines(c(
+    "use_snippets: true",
+    "base_snippets: base"
+  ), fs::path(lsn, "config.yaml"))
+
+  writeLines(c(
+    "snippets: base",
+    "remote:",
+    "  prompt: '[user@cluster ~]$'"
+  ), fs::path(lsn, "episodes", "files", "customization", "base", "_config_options.yml"))
+
+  writeLines("Snippet says `r config$remote$prompt`", fs::path(lsn, "episodes", "files", "customization", "base", "snippets", "demo", "line.Rmd"))
+
+  writeLines(c(
+    "---",
+    "title: demo",
+    "---",
+    "",
+    "Prompt: `r config$remote$prompt`",
+    "",
+    "```{r, echo=FALSE, results='asis'}",
+    "snippets('demo/line.Rmd')",
+    "```"
+  ), ep)
+
+  withr::defer(fs::dir_delete(lsn))
+  withr::defer(fs::dir_delete(out))
+
+  callr_build_episode_md(
+    path = ep,
+    hash = NULL,
+    workenv = new.env(),
+    outpath = out_md,
+    workdir = out,
+    root = "",
+    quiet = TRUE,
+    error = TRUE
+  )
+
+  rendered <- paste(readLines(out_md), collapse = "\n")
+  expect_match(rendered, "Prompt: \\[user@cluster ~\\]\\$")
+  expect_match(rendered, "Snippet says \\[user@cluster ~\\]\\$")
+})
+
+
+test_that("callr_build_episode_md() skips customization when snippets are disabled", {
+  lsn <- fs::file_temp(pattern = "lesson-")
+  out <- fs::file_temp(pattern = "render-")
+  ep <- fs::path(lsn, "episodes", "example.Rmd")
+  out_md <- fs::path(out, "example.md")
+
+  fs::dir_create(fs::path(lsn, "episodes"), recurse = TRUE)
+  fs::dir_create(out)
+
+  writeLines("title: demo", fs::path(lsn, "config.yaml"))
+  writeLines(c(
+    "---",
+    "title: demo",
+    "---",
+    "",
+    "Has config object: `r exists('config')`"
+  ), ep)
+
+  withr::defer(fs::dir_delete(lsn))
+  withr::defer(fs::dir_delete(out))
+
+  callr_build_episode_md(
+    path = ep,
+    hash = NULL,
+    workenv = new.env(),
+    outpath = out_md,
+    workdir = out,
+    root = "",
+    quiet = TRUE,
+    error = TRUE
+  )
+
+  rendered <- paste(readLines(out_md), collapse = "\n")
+  expect_match(rendered, "Has config object: FALSE")
+})
+
+
+test_that("build_episode_md() errors clearly when config placeholders are used without snippets settings", {
+  lsn <- fs::file_temp(pattern = "lesson-")
+  out <- fs::file_temp(pattern = "render-")
+  ep <- fs::path(lsn, "episodes", "example.Rmd")
+
+  fs::dir_create(fs::path(lsn, "episodes"), recurse = TRUE)
+  fs::dir_create(out)
+
+  writeLines("title: demo", fs::path(lsn, "config.yaml"))
+  writeLines(c(
+    "---",
+    "title: demo",
+    "---",
+    "",
+    "```bash",
+    "`r config$remote$prompt` `r config$sched$submit$name` `r config$sched$submit$options` example-job.sh",
+    "```"
+  ), ep)
+
+  withr::defer(fs::dir_delete(lsn))
+  withr::defer(fs::dir_delete(out))
+
+  expect_error(
+    build_episode_md(ep, outdir = out, workdir = out, quiet = TRUE, error = TRUE),
+    "must set `use_snippets: true` and a valid `base_snippets`"
+  )
+})

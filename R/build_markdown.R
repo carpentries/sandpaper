@@ -181,9 +181,14 @@ remove_rendered_html <- function(episodes) {
 # Get a vector of markdown files to build with names.
 get_build_sources <- function(path, outdir, slug = NULL, quiet) {
   source_list <- .resources$get() %||% get_resource_list(path, warn = !quiet)
-  # filter out the assets (e.g. child files) from the source list
-  no_asset <- names(source_list) %nin% c("files", "data", "fig")
-  sources <- unlist(source_list[no_asset], use.names = FALSE)
+  sources <- unlist(source_list, use.names = FALSE)
+  # filter out assets nested under files/fig/data paths
+  is_asset_path <- grepl(
+    "(^|[\\\\/])(episodes|learners|instructors|profiles)[\\\\/](files|fig|data)[\\\\/]",
+    sources,
+    perl = TRUE
+  )
+  sources <- sources[!is_asset_path]
   names(sources) <- get_slug(sources)
   if (is.null(slug)) {
     copy_maybe(sources[["config"]], fs::path(outdir, "config.yaml"))

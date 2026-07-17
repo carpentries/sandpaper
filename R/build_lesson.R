@@ -125,6 +125,23 @@ get_build_slug <- function(path, quiet = TRUE) {
   # set the source path and return it
   path <- set_source_path(path)
 
+  get_markdown_sources <- function(path) {
+    sources <- .resources$get() %||% get_resource_list(path)
+    sources <- unlist(sources, use.names = FALSE)
+    # Exclude asset files nested under files/fig/data anywhere in source trees.
+    is_asset_path <- grepl(
+      "(^|[\\\\/])(episodes|learners|instructors|profiles)[\\\\/](files|fig|data)[\\\\/]",
+      sources,
+      perl = TRUE
+    )
+    sources <- sources[!is_asset_path]
+    sources[grepl("[.]R?md$", sources, ignore.case = TRUE)]
+  }
+
+  escape_regex <- function(x) {
+    gsub("([.|()\\^{}+$*?]|\\[|\\]|\\\\)", "\\\\\\1", x, perl = TRUE)
+  }
+
   # CASE 1: path is a directory ---------------------------------------------
   # The base case: if we are building a directory, we don't need a slug and
   # we return early
@@ -132,14 +149,69 @@ get_build_slug <- function(path, quiet = TRUE) {
     return(list(slug = NULL, path = path))
   }
 
+  # CASE 1b: path is under asset trees (files/fig/data) ----------------------
+  rel_original <- fs::path_rel(fs::path_abs(original_path), start = path)
+  rel_original <- gsub("\\\\", "/", rel_original)
+
+  # Snippet markdown files under customization are source-like. Rebuild only
+  # the parent markdown file that reference snippets('<relative-snippet>').
+  # If multiple parents reference the same snippet, rebuild the whole lesson.
+  snippet_rel <- sub(
+    "^episodes/files/customization/[^/]+/snippets/",
+    "",
+    rel_original,
+    perl = TRUE
+  )
+  is_custom_snippet <- !identical(snippet_rel, rel_original) &&
+    grepl("[.]R?md$", snippet_rel, ignore.case = TRUE)
+  if (is_custom_snippet) {
+    sources <- get_markdown_sources(path)
+    snippet_pat <- paste0(
+      "snippets\\s*\\(\\s*['\"]",
+      escape_regex(snippet_rel),
+      "['\"]"
+    )
+    uses_snippet <- vapply(
+      sources,
+      FUN = function(src) {
+        txt <- readLines(src, warn = FALSE, encoding = "UTF-8")
+        any(grepl(snippet_pat, txt, perl = TRUE))
+      },
+      FUN.VALUE = logical(1)
+    )
+    parents <- sources[uses_snippet]
+    if (length(parents) == 1L) {
+      return(list(slug = get_slug(parents), path = path))
+    }
+    if (length(parents) > 1L) {
+      if (!quiet) {
+        cli::cli_alert_info("Snippet used in multiple parents; rebuilding whole lesson")
+      }
+      return(list(slug = NULL, path = path))
+    }
+    if (!quiet) {
+      cli::cli_alert_info("No snippet parent found; rebuilding whole lesson")
+    }
+    return(list(slug = NULL, path = path))
+  }
+
+  # Other assets are not directly buildable markdown sources; rebuild from the
+  # lesson root and let build_status decide which markdown files need updates.
+  is_asset <- grepl(
+    "^(episodes|learners|instructors|profiles)/(files|fig|data)/",
+    rel_original,
+    perl = TRUE
+  )
+  if (is_asset) {
+    return(list(slug = NULL, path = path))
+  }
+
   # CASE 2: path is a source file -------------------------------------------
-  # get the resource list and make it one big vector (use the stored resource
-  # list to reduce lookup time)
-  sources <- .resources$get() %||% get_resource_list(path)
-  no_extra <- names(sources) %nin% c("files", "fig", "data")
-  sources <- unlist(sources[no_extra], use.names = FALSE)
-  # if we find the file in the sources, we can return the original path
-  if (all(fs::path_file(original_path) %in% fs::path_file(sources))) {
+  sources <- get_markdown_sources(path)
+  # if we find the exact file among sources, we can return its slug
+  original_abs <- fs::path_abs(original_path)
+  source_abs <- fs::path_abs(sources)
+  if (original_abs %in% source_abs) {
     return(list(slug = get_slug(original_path), path = path))
   }
 
@@ -153,7 +225,7 @@ get_build_slug <- function(path, quiet = TRUE) {
   }
 
   # CASE 4: we have a child file (maybe) ------------------------------------
-  this_file <- fs::path_abs(original_path, start = path)
+  this_file <- fs::path_abs(original_path)
   if (this_file %in% children) {
     # the child exists and we rejoice!
     if (!quiet) cli::cli_alert_info("Found child document: {.path {this_file}}")

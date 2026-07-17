@@ -1,4 +1,4 @@
-callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, quiet, error = TRUE) {
+callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, quiet, error = TRUE, custom = NULL) {
   # Also taken directly from tools::file_path_sans_ext
   file_path_sans_ext <- function (x) {
     sub("([^.]+)\\.[[:alnum:]]+$", "\\1", x)
@@ -57,6 +57,23 @@ callr_build_episode_md <- function(path, hash, workenv, outpath, workdir, root, 
     # Ensure HTML options like caption are respected by code chunks
     rmarkdown.pandoc.to = "markdown"
   )
+
+  if (is.null(custom) &&
+      exists("has_snippets_config", mode = "function") &&
+      has_snippets_config(path)) {
+    custom <- get_lesson_customization(path)
+  }
+
+  if (is.null(custom) &&
+      exists("valid_snippet_features", mode = "function") &&
+      valid_snippet_features(path)) {
+    stop(missing_snippets_config_error(path), call. = FALSE)
+  }
+
+  if (!is.null(custom)) {
+    assign("config", custom$config, envir = workenv)
+    assign("snippets", custom$snippets, envir = workenv)
+  }
 
   # Set the working directory -----------------------------
   wd <- getwd()

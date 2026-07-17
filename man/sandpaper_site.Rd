@@ -8,7 +8,7 @@ sandpaper_site(input = ".", ...)
 }
 \description{
 This is a custom site generator for compatibility with
-\code{\link[rmarkdown:render_site]{rmarkdown::site_generator()}}. For RStudio users, \strong{placing this in
+\code{\link[rmarkdown:site_generator]{rmarkdown::site_generator()}}. For RStudio users, \strong{placing this in
 the \code{index.md} yaml header will make the knit button work}:
 }
 \details{

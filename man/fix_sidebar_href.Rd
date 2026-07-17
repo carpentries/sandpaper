@@ -46,7 +46,7 @@ update links from a list of HTML node
 }
 \details{
 Repeat after me: parsing HTML with regular expressions is bad.
-This function uses \code{\link[xml2:read_xml]{xml2::read_html()}} to parse incoming HTML content to
+This function uses \code{\link[xml2:read_html]{xml2::read_html()}} to parse incoming HTML content to
 convert the HTML string into an XML document where we can extract all of
 the anchor links, parse them and replace their contents without regex. This
 is acheived via \code{\link[xml2:url_parse]{xml2::url_parse()}} separating the URL into pieces and

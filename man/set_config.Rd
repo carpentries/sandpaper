@@ -66,7 +66,7 @@ of overview lessons. To indicate that your lesson serves as an overview for
 other lessons, use \code{overview: true}
 \item \strong{handout} \verb{[boolean]} or \verb{[character]} This option instructs \code{{sandpaper}}
 to create a handout of all RMarkdown files via \code{{pegboard}}, which uses
-\code{\link[knitr:knit]{knitr::purl()}} in the background after removing everything but the
+\code{\link[knitr:purl]{knitr::purl()}} in the background after removing everything but the
 challenges (without solutions) and any code blocks where \code{purl = TRUE}. The
 default path for the handout is \code{files/code-handout.R}
 }

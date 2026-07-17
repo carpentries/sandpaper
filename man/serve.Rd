@@ -14,10 +14,10 @@ to \code{FALSE} in non-interactive sessions, which allows messages to be
 printed.}
 
 \item{...}{options passed on to \code{\link[servr:server_config]{servr::server_config()}} by way of
-\code{\link[servr:httd]{servr::httw()}}. These can include \strong{port} and \strong{host} configuration.}
+\code{\link[servr:httw]{servr::httw()}}. These can include \strong{port} and \strong{host} configuration.}
 }
 \value{
-the output of \code{\link[servr:httd]{servr::httw()}}, invisibly. This is mainly used for its
+the output of \code{\link[servr:httw]{servr::httw()}}, invisibly. This is mainly used for its
 side-effect
 }
 \description{

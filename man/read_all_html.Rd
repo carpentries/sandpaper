@@ -10,7 +10,7 @@ read_all_html(path)
 \item{path}{the path to a folder with HTML files}
 }
 \value{
-a nested list of \code{html_documents} from \code{\link[xml2:read_xml]{xml2::read_html()}} with two
+a nested list of \code{html_documents} from \code{\link[xml2:read_html]{xml2::read_html()}} with two
 top-level elements:
 \itemize{
 \item \verb{$learner}: contains all of the html pages in the learner view

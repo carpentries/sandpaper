@@ -35,6 +35,10 @@ path_citation <- function(inpath) {
   return("CITATION")
 }
 
+path_customization <- function(inpath) {
+  fs::path(path_episodes(inpath), "files", "customization")
+}
+
 
 provide_setup <- function(cfg, setup = "setup.md") {
   if (is.null(cfg) || is.null(cfg$learners)) {

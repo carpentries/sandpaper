@@ -58,7 +58,7 @@ the All in One page of a small lesson. Creating aggregate pages after all of
 the markdown content has been rendered should not involve re-rendering
 content.
 
-Luckily, reading in content with \code{\link[xml2:read_xml]{xml2::read_html()}} is very quick and using
+Luckily, reading in content with \code{\link[xml2:read_html]{xml2::read_html()}} is very quick and using
 XPath queries, we can take the parts we need from the rendered content and
 insert it into a template, which we store as a character in the \code{.html}
 global object so it can be passed around to other functions without needing
@@ -66,7 +66,7 @@ an argument.
 
 \code{provision_agg_page()} makes a copy of this cache, replaces the FIXME
 values with the appropriate elements, and returns an object created from
-\code{\link[xml2:read_xml]{xml2::read_html()}} for each of the instructor and learner veiws.
+\code{\link[xml2:read_html]{xml2::read_html()}} for each of the instructor and learner veiws.
 }
 \examples{
 if (FALSE) { # only run if you have provisioned a pkgdown site

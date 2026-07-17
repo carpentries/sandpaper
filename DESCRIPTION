@@ -139,12 +139,12 @@ Remotes:
 SystemRequirements: pandoc (>= 2.11.4) - https://pandoc.org
 Encoding: UTF-8
 LazyData: true
-Config/testthat/edition: 3
-Config/testthat/parallel: false
 Config/Needs/check: rstudio/renv
 Config/potools/style: explicit
+Config/roxygen2/version: 8.0.0
+Config/testthat/edition: 3
+Config/testthat/parallel: false
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 URL: https://carpentries.github.io/sandpaper/, https://github.com/carpentries/sandpaper/, https://carpentries.github.io/workbench/
 BugReports: https://github.com/carpentries/sandpaper/issues/
 VignetteBuilder: knitr
