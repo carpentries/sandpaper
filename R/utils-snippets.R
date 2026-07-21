@@ -55,7 +55,7 @@ resolve_snippet_dir <- function(snippets, root) {
   if (!length(exists)) {
     stop(
     "Snippet directory not found for snippets: ", snippets,
-    "\nPaths checked: ", paste(snippet_paths, collapse = "\n"),
+    "\nPaths checked\n: ", paste(snippet_paths),
     call. = FALSE
     )
     return(NULL)
@@ -73,14 +73,14 @@ drop_null_fields <- function(x) {
   x[!vapply(x, is.null, logical(1))]
 }
 
-get_lesson_customization <- function(path, env_var = "HPCC_CUSTOM_CONFIG", quiet = TRUE) {
+get_lesson_customization <- function(path, env_var = "HPCC_CUSTOM_SNIPPETS", quiet = TRUE) {
   root <- tryCatch(root_path(path), error = function(...) NULL)
   if (is.null(root)) {
     return(NULL)
   }
 
   lesson_config <- yaml::read_yaml(path_config(root), eval.expr = FALSE)
-  if (!isTRUE(lesson_config$use_snippets)) {
+  if (is.null(lesson_config$base_snippets) || !nzchar(lesson_config$base_snippets)) {
     return(NULL)
   }
 
@@ -105,7 +105,7 @@ get_lesson_customization <- function(path, env_var = "HPCC_CUSTOM_CONFIG", quiet
 
   base <- read_lesson_yaml(base_cfg, root)
   base_config <- base$config %||% list()
-  base_snippet_dir <- resolve_snippet_dir(base$config$snippets, root)
+  base_snippet_dir <- resolve_snippet_dir(base_name, root)
 
   custom_snippet_dir <- base_snippet_dir
   if (has_custom) {
@@ -122,7 +122,7 @@ get_lesson_customization <- function(path, env_var = "HPCC_CUSTOM_CONFIG", quiet
     custom <- read_lesson_yaml(custom_snippets, root)
     custom_config <- drop_null_fields(custom$config %||% list())
     base_config <- utils::modifyList(base_config, custom_config)
-    custom_snippet_dir <- resolve_snippet_dir(custom$config$snippets, root)
+    custom_snippet_dir <- resolve_snippet_dir(custom_name, root)
   }
 
   list(
@@ -159,13 +159,13 @@ get_snippets_hash <- function(path) {
     yaml::read_yaml(path_config(root), eval.expr = FALSE),
     error = function(...) NULL
   )
-  if (is.null(lesson_config) || !isTRUE(lesson_config$use_snippets)) {
+  if (is.null(lesson_config) || is.null(lesson_config$base_snippets) || !nzchar(lesson_config$base_snippets)) {
     return(NULL)
   }
 
   # Collect the active config YAML files
   base_name   <- normalize_snippets_config_name(lesson_config$base_snippets)
-  custom_name <- normalize_snippets_config_name(Sys.getenv("HPCC_CUSTOM_CONFIG", unset = ""))
+  custom_name <- normalize_snippets_config_name(Sys.getenv("HPCC_CUSTOM_SNIPPETS", unset = ""))
   if (is.null(custom_name)) {
     custom_name <- normalize_snippets_config_name(lesson_config$custom_snippets)
   }
@@ -179,9 +179,8 @@ get_snippets_hash <- function(path) {
   }
 
   # Also include the relevant lines from config.yaml itself so that changing
-  # base_snippets / custom_snippets / use_snippets invalidates the hash
+  # base_snippets / custom_snippets invalidates the hash
   snippet_keys <- paste(
-    lesson_config$use_snippets,
     lesson_config$base_snippets %||% "",
     lesson_config$custom_snippets %||% "",
     sep = "\n"
@@ -214,10 +213,10 @@ missing_snippets_config_error <- function(path) {
   root <- root_path(path)
   paste0(
     "Episode uses snippet/config placeholders (`config$...` or `snippets()`), ",
-    "but top-level lesson config.yaml must set `use_snippets: true` and a valid `base_snippets` folder in ",
+    "but top-level lesson config.yaml must set a valid `base_snippets` folder in ",
     path_customization(root),
     ". Optionally also set `custom_snippets` in config.yaml or use the ",
-    "HPCC_CUSTOM_CONFIG environment variable to override, in ",
+    "HPCC_CUSTOM_SNIPPETS environment variable to override, in ",
     path_config(root)
   )
 }

@@ -67,12 +67,10 @@ test_that("callr_build_episode_md() injects lesson config and snippets", {
   fs::dir_create(out)
 
   writeLines(c(
-    "use_snippets: true",
     "base_snippets: base"
   ), fs::path(lsn, "config.yaml"))
 
   writeLines(c(
-    "snippets: base",
     "remote:",
     "  prompt: '[user@cluster ~]$'"
   ), fs::path(lsn, "episodes", "files", "customization", "base", "_config_options.yml"))
@@ -172,6 +170,6 @@ test_that("build_episode_md() errors clearly when config placeholders are used w
 
   expect_error(
     build_episode_md(ep, outdir = out, workdir = out, quiet = TRUE, error = TRUE),
-    "must set `use_snippets: true` and a valid `base_snippets`"
+    "must set a valid `base_snippets`"
   )
 })

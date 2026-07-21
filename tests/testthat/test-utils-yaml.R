@@ -99,12 +99,10 @@ test_that("get_lesson_customization() process customisation yamls", {
   fs::dir_create(fs::path(lsn, "episodes", "files", "customization", "custom", "snippets", "modules"), recurse = TRUE)
 
   writeLines(c(
-    "use_snippets: true",
     "base_snippets: base"
   ), fs::path(lsn, "config.yaml"))
 
   writeLines(c(
-    "snippets: base",
     "sched:",
     "  name: Slurm",
     "remote:",
@@ -113,7 +111,6 @@ test_that("get_lesson_customization() process customisation yamls", {
 
   writeLines("base text", fs::path(lsn, "episodes", "files", "customization", "base", "snippets", "modules", "example.Rmd"))
   writeLines(c(
-    "snippets: custom",
     "sched: ~",
     "remote:",
     "  prompt: custom"
@@ -121,12 +118,12 @@ test_that("get_lesson_customization() process customisation yamls", {
 
   writeLines("custom text", fs::path(lsn, "episodes", "files", "customization", "custom", "snippets", "modules", "example.Rmd"))
 
-  withr::local_envvar(list(HPCC_CUSTOM_CONFIG = "base"))
+  withr::local_envvar(list(HPCC_CUSTOM_SNIPPETS = "base"))
   cfg_env <- get_lesson_customization(lsn)
   expect_equal(cfg_env$config$remote$prompt, "base")
   expect_match(cfg_env$snippets("modules/example.Rmd", render = FALSE), "base")
 
-  withr::local_envvar(list(HPCC_CUSTOM_CONFIG = "custom"))
+  withr::local_envvar(list(HPCC_CUSTOM_SNIPPETS = "custom"))
   cfg_env_name <- get_lesson_customization(lsn)
   expect_equal(cfg_env_name$config$remote$prompt, "custom")
   expect_equal(cfg_env_name$config$sched$name, "Slurm")
@@ -134,7 +131,7 @@ test_that("get_lesson_customization() process customisation yamls", {
 })
 
 
-test_that("has_snippets_config() requires use_snippets and valid base_snippets", {
+test_that("has_snippets_config() requires a valid base_snippets", {
   lsn <- fs::file_temp(pattern = "lesson-")
   withr::defer(fs::dir_delete(lsn))
   fs::dir_create(fs::path(lsn, "episodes", "files", "customization", "base", "snippets"), recurse = TRUE)
@@ -142,10 +139,10 @@ test_that("has_snippets_config() requires use_snippets and valid base_snippets",
   writeLines("title: demo", fs::path(lsn, "config.yaml"))
   expect_false(has_snippets_config(lsn))
 
-  writeLines(c("use_snippets: true", "base_snippets: does-not-exist"), fs::path(lsn, "config.yaml"))
+  writeLines(c("base_snippets: does-not-exist"), fs::path(lsn, "config.yaml"))
   expect_false(has_snippets_config(lsn))
 
-  writeLines(c("use_snippets: true", "base_snippets: base"), fs::path(lsn, "config.yaml"))
+  writeLines(c("base_snippets: base"), fs::path(lsn, "config.yaml"))
   expect_false(has_snippets_config(lsn))
 
   writeLines("snippets: base", fs::path(lsn, "episodes", "files", "customization", "base", "_config_options.yml"))
@@ -158,12 +155,12 @@ test_that("get_snippets_hash() changes when snippet files or config changes", {
   fs::dir_create(fs::path(lsn, "episodes", "files", "customization", "base", "snippets", "modules"), recurse = TRUE)
   fs::dir_create(fs::path(lsn, "episodes", "files", "customization", "custom", "snippets", "modules"), recurse = TRUE)
 
-  writeLines(c("use_snippets: true", "base_snippets: base"), fs::path(lsn, "config.yaml"))
+  writeLines(c("base_snippets: base"), fs::path(lsn, "config.yaml"))
   writeLines(c("snippets: base", "remote:", "  prompt: v1"),
     fs::path(lsn, "episodes", "files", "customization", "base", "_config_options.yml"))
   writeLines("snippet v1", fs::path(lsn, "episodes", "files", "customization", "base", "snippets", "modules", "example.Rmd"))
 
-  withr::local_envvar(list(HPCC_CUSTOM_CONFIG = ""))
+  withr::local_envvar(list(HPCC_CUSTOM_SNIPPETS = ""))
   hash1 <- get_snippets_hash(lsn)
   expect_type(hash1, "character")
 
@@ -173,10 +170,10 @@ test_that("get_snippets_hash() changes when snippet files or config changes", {
   expect_false(identical(hash1, hash2))
 
   # Switching to a custom snippets folder changes the hash
-  writeLines(c("snippets: custom", "remote:", "  prompt: custom"),
+  writeLines(c("remote:", "  prompt: custom"),
     fs::path(lsn, "episodes", "files", "customization", "custom", "_config_options.yml"))
   writeLines("snippet custom", fs::path(lsn, "episodes", "files", "customization", "custom", "snippets", "modules", "example.Rmd"))
-  writeLines(c("use_snippets: true", "base_snippets: base", "custom_snippets: custom"),
+  writeLines(c("base_snippets: base", "custom_snippets: custom"),
     fs::path(lsn, "config.yaml"))
   hash3 <- get_snippets_hash(lsn)
   expect_false(identical(hash2, hash3))
@@ -194,9 +191,9 @@ test_that("build_status() mixes snippets hash into episode checksums", {
   fs::dir_create(fs::path(lsn, "episodes", "files", "customization", "base", "snippets", "modules"), recurse = TRUE)
 
   # Append snippet keys to existing config so source: is preserved
-  cat(c("use_snippets: true", "base_snippets: base"), sep = "\n",
+  cat(c("base_snippets: base"), sep = "\n",
     file = fs::path(lsn, "config.yaml"), append = TRUE)
-  writeLines(c("snippets: base", "remote:", "  prompt: v1"),
+  writeLines(c("remote:", "  prompt: v1"),
     fs::path(lsn, "episodes", "files", "customization", "base", "_config_options.yml"))
   writeLines("snippet v1", fs::path(lsn, "episodes", "files", "customization", "base", "snippets", "modules", "example.Rmd"))
 
@@ -206,7 +203,7 @@ test_that("build_status() mixes snippets hash into episode checksums", {
   set_episodes(lsn, c("introduction.md", "test.Rmd"), write = TRUE)
   db_path <- fs::path(lsn, "site", "built", "md5sum.txt")
 
-  withr::local_envvar(list(HPCC_CUSTOM_CONFIG = ""))
+  withr::local_envvar(list(HPCC_CUSTOM_SNIPPETS = ""))
   withr::local_options(list(sandpaper.use_renv = FALSE))
 
   sources <- c(

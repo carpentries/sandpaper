@@ -354,16 +354,11 @@ has_snippets_config <- function(path) {
   }
 
   lesson_config <- yaml::read_yaml(cfg_file, eval.expr = FALSE)
-  use_snippets <- isTRUE(lesson_config$use_snippets)
-  if (!use_snippets) {
-    return(FALSE)
-  }
-
   base_snippets <- lesson_config$base_snippets
-  if (!is.character(base_snippets) || length(base_snippets) != 1L || !nzchar(trimws(base_snippets))) {
+  use_snippets <- !is.null(base_snippets) && is.character(base_snippets) && length(base_snippets) == 1L && nzchar(trimws(base_snippets))
+  if (!use_snippets) {
     return(FALSE)
   }
 
   is_valid_snippets_config(base_snippets, root)
 }
-
