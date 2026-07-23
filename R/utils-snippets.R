@@ -73,7 +73,7 @@ drop_null_fields <- function(x) {
   x[!vapply(x, is.null, logical(1))]
 }
 
-get_lesson_customization <- function(path, env_var = "HPCC_CUSTOM_SNIPPETS", quiet = TRUE) {
+get_lesson_customization <- function(path, env_var = "CUSTOM_SNIPPETS", quiet = TRUE) {
   root <- tryCatch(root_path(path), error = function(...) NULL)
   if (is.null(root)) {
     return(NULL)
@@ -165,7 +165,7 @@ get_snippets_hash <- function(path) {
 
   # Collect the active config YAML files
   base_name   <- normalize_snippets_config_name(lesson_config$base_snippets)
-  custom_name <- normalize_snippets_config_name(Sys.getenv("HPCC_CUSTOM_SNIPPETS", unset = ""))
+  custom_name <- normalize_snippets_config_name(Sys.getenv("CUSTOM_SNIPPETS", unset = ""))
   if (is.null(custom_name)) {
     custom_name <- normalize_snippets_config_name(lesson_config$custom_snippets)
   }
@@ -216,7 +216,7 @@ missing_snippets_config_error <- function(path) {
     "but top-level lesson config.yaml must set a valid `base_snippets` folder in ",
     path_customization(root),
     ". Optionally also set `custom_snippets` in config.yaml or use the ",
-    "HPCC_CUSTOM_SNIPPETS environment variable to override, in ",
+    "CUSTOM_SNIPPETS environment variable to override, in ",
     path_config(root)
   )
 }

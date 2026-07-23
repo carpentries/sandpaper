@@ -118,12 +118,12 @@ test_that("get_lesson_customization() process customisation yamls", {
 
   writeLines("custom text", fs::path(lsn, "episodes", "files", "customization", "custom", "snippets", "modules", "example.Rmd"))
 
-  withr::local_envvar(list(HPCC_CUSTOM_SNIPPETS = "base"))
+  withr::local_envvar(list(CUSTOM_SNIPPETS = "base"))
   cfg_env <- get_lesson_customization(lsn)
   expect_equal(cfg_env$config$remote$prompt, "base")
   expect_match(cfg_env$snippets("modules/example.Rmd", render = FALSE), "base")
 
-  withr::local_envvar(list(HPCC_CUSTOM_SNIPPETS = "custom"))
+  withr::local_envvar(list(CUSTOM_SNIPPETS = "custom"))
   cfg_env_name <- get_lesson_customization(lsn)
   expect_equal(cfg_env_name$config$remote$prompt, "custom")
   expect_equal(cfg_env_name$config$sched$name, "Slurm")
@@ -160,7 +160,7 @@ test_that("get_snippets_hash() changes when snippet files or config changes", {
     fs::path(lsn, "episodes", "files", "customization", "base", "_config_options.yml"))
   writeLines("snippet v1", fs::path(lsn, "episodes", "files", "customization", "base", "snippets", "modules", "example.Rmd"))
 
-  withr::local_envvar(list(HPCC_CUSTOM_SNIPPETS = ""))
+  withr::local_envvar(list(CUSTOM_SNIPPETS = ""))
   hash1 <- get_snippets_hash(lsn)
   expect_type(hash1, "character")
 
@@ -203,7 +203,7 @@ test_that("build_status() mixes snippets hash into episode checksums", {
   set_episodes(lsn, c("introduction.md", "test.Rmd"), write = TRUE)
   db_path <- fs::path(lsn, "site", "built", "md5sum.txt")
 
-  withr::local_envvar(list(HPCC_CUSTOM_SNIPPETS = ""))
+  withr::local_envvar(list(CUSTOM_SNIPPETS = ""))
   withr::local_options(list(sandpaper.use_renv = FALSE))
 
   sources <- c(
