@@ -68,32 +68,32 @@ child files will cause the source file to change as well.
 # The setup needs to include an R Markdown file with a child file.
 tmp <- tempfile()
 on.exit(fs::dir_delete(tmp), add = TRUE)
-#> Error: [ENOENT] Failed to search directory '/tmp/RtmpUTI0d7/file1ae35d1a87f7': no such file or directory
+#> Error: [ENOENT] Failed to search directory '/tmp/RtmpgOPyFN/file1a7e44ac75f': no such file or directory
 create_lesson(tmp, rmd = FALSE, open = FALSE)
-#> → Creating Lesson in /tmp/RtmpUTI0d7/file1ae35d1a87f7...
+#> → Creating Lesson in /tmp/RtmpgOPyFN/file1a7e44ac75f...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpUTI0d7/file1ae35d1a87f7...
+#> → Creating Lesson in /tmp/RtmpgOPyFN/file1a7e44ac75f...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpUTI0d7/file1ae35d1a87f7...
+#> → Creating Lesson in /tmp/RtmpgOPyFN/file1a7e44ac75f...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpUTI0d7/file1ae35d1a87f7...
+#> → Creating Lesson in /tmp/RtmpgOPyFN/file1a7e44ac75f...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpUTI0d7/file1ae35d1a87f7...
-#> ☐ Edit /tmp/RtmpUTI0d7/file1ae35d1a87f7/episodes/introduction.md.
-#> → Creating Lesson in /tmp/RtmpUTI0d7/file1ae35d1a87f7...
-#> ✔ First episode created in /tmp/RtmpUTI0d7/file1ae35d1a87f7/episodes/introduction.md
-#> → Creating Lesson in /tmp/RtmpUTI0d7/file1ae35d1a87f7...
+#> → Creating Lesson in /tmp/RtmpgOPyFN/file1a7e44ac75f...
+#> ☐ Edit /tmp/RtmpgOPyFN/file1a7e44ac75f/episodes/introduction.md.
+#> → Creating Lesson in /tmp/RtmpgOPyFN/file1a7e44ac75f...
+#> ✔ First episode created in /tmp/RtmpgOPyFN/file1a7e44ac75f/episodes/introduction.md
+#> → Creating Lesson in /tmp/RtmpgOPyFN/file1a7e44ac75f...
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/RtmpUTI0d7/file1ae35d1a87f7...
+#> → Creating Lesson in /tmp/RtmpgOPyFN/file1a7e44ac75f...
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/RtmpUTI0d7/file1ae35d1a87f7...
+#> → Creating Lesson in /tmp/RtmpgOPyFN/file1a7e44ac75f...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpUTI0d7/file1ae35d1a87f7...
-#> ✔ Lesson successfully created in /tmp/RtmpUTI0d7/file1ae35d1a87f7
-#> → Creating Lesson in /tmp/RtmpUTI0d7/file1ae35d1a87f7...
-#> /tmp/RtmpUTI0d7/file1ae35d1a87f7
+#> → Creating Lesson in /tmp/RtmpgOPyFN/file1a7e44ac75f...
+#> ✔ Lesson successfully created in /tmp/RtmpgOPyFN/file1a7e44ac75f
+#> → Creating Lesson in /tmp/RtmpgOPyFN/file1a7e44ac75f...
+#> /tmp/RtmpgOPyFN/file1a7e44ac75f
 # get namespace to use internal functions
 sp <- asNamespace("sandpaper")
 db <- fs::path(tmp, "site/built/md5sum.txt")
@@ -117,38 +117,38 @@ class(lsn)
 children <- sp$get_lineages(lsn)
 print(children)
 #> $`episodes/introduction.Rmd`
-#> [1] "/tmp/RtmpUTI0d7/file1ae35d1a87f7/episodes/introduction.Rmd"
-#> [2] "/tmp/RtmpUTI0d7/file1ae35d1a87f7/episodes/files/hi.md"     
+#> [1] "/tmp/RtmpgOPyFN/file1a7e44ac75f/episodes/introduction.Rmd"
+#> [2] "/tmp/RtmpgOPyFN/file1a7e44ac75f/episodes/files/hi.md"     
 #> 
 #> $CODE_OF_CONDUCT.md
-#> /tmp/RtmpUTI0d7/file1ae35d1a87f7/CODE_OF_CONDUCT.md
+#> /tmp/RtmpgOPyFN/file1a7e44ac75f/CODE_OF_CONDUCT.md
 #> 
 #> $CONTRIBUTING.md
-#> /tmp/RtmpUTI0d7/file1ae35d1a87f7/CONTRIBUTING.md
+#> /tmp/RtmpgOPyFN/file1a7e44ac75f/CONTRIBUTING.md
 #> 
 #> $LICENSE.md
-#> /tmp/RtmpUTI0d7/file1ae35d1a87f7/LICENSE.md
+#> /tmp/RtmpgOPyFN/file1a7e44ac75f/LICENSE.md
 #> 
 #> $README.md
-#> /tmp/RtmpUTI0d7/file1ae35d1a87f7/README.md
+#> /tmp/RtmpgOPyFN/file1a7e44ac75f/README.md
 #> 
 #> $index.md
-#> /tmp/RtmpUTI0d7/file1ae35d1a87f7/index.md
+#> /tmp/RtmpgOPyFN/file1a7e44ac75f/index.md
 #> 
 #> $links.md
-#> /tmp/RtmpUTI0d7/file1ae35d1a87f7/links.md
+#> /tmp/RtmpgOPyFN/file1a7e44ac75f/links.md
 #> 
 #> $`instructors/instructor-notes.md`
-#> /tmp/RtmpUTI0d7/file1ae35d1a87f7/instructors/instructor-notes.md
+#> /tmp/RtmpgOPyFN/file1a7e44ac75f/instructors/instructor-notes.md
 #> 
 #> $`learners/reference.md`
-#> /tmp/RtmpUTI0d7/file1ae35d1a87f7/learners/reference.md
+#> /tmp/RtmpgOPyFN/file1a7e44ac75f/learners/reference.md
 #> 
 #> $`learners/setup.md`
-#> /tmp/RtmpUTI0d7/file1ae35d1a87f7/learners/setup.md
+#> /tmp/RtmpgOPyFN/file1a7e44ac75f/learners/setup.md
 #> 
 #> $`profiles/learner-profiles.md`
-#> /tmp/RtmpUTI0d7/file1ae35d1a87f7/profiles/learner-profiles.md
+#> /tmp/RtmpgOPyFN/file1a7e44ac75f/profiles/learner-profiles.md
 #> 
 
 # hash_children ---------------------------------------------------
