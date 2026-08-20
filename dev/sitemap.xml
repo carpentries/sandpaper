@@ -17,6 +17,7 @@
 <url><loc>https://carpentries.github.io/sandpaper/dev/authors.html</loc></url>
 <url><loc>https://carpentries.github.io/sandpaper/dev/index.html</loc></url>
 <url><loc>https://carpentries.github.io/sandpaper/dev/news/index.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/bootstrap_snippet_loader.html</loc></url>
 <url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_404.html</loc></url>
 <url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_agg.html</loc></url>
 <url><loc>https://carpentries.github.io/sandpaper/dev/reference/build_citation.html</loc></url>
@@ -52,6 +53,7 @@
 <url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_dropdown.html</loc></url>
 <url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_nav_data.html</loc></url>
 <url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_resource_list.html</loc></url>
+<url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_snippets_hash.html</loc></url>
 <url><loc>https://carpentries.github.io/sandpaper/dev/reference/get_syllabus.html</loc></url>
 <url><loc>https://carpentries.github.io/sandpaper/dev/reference/git_worktree.html</loc></url>
 <url><loc>https://carpentries.github.io/sandpaper/dev/reference/hash_children.html</loc></url>

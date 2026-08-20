@@ -22,10 +22,6 @@ tr_varnish(key = NULL)
 tr_computed(key = NULL)
 ```
 
-## Format
-
-An object of class `environment` of length 1.
-
 ## Arguments
 
 - lang:
@@ -37,9 +33,7 @@ An object of class `environment` of length 1.
 - from:
 
   a single character specifying the translation list to fetch. This
-  defaults to "varnish" but can be one of the following:
-
-  - src
+  defaults to "varnish" but can be one of the following:- src
 
   - varnish
 

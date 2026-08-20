@@ -25,6 +25,9 @@ Useful links:
 
 Authors:
 
+- Robert Davey <robertdavey@carpentries.org>
+  ([ORCID](https://orcid.org/0000-0002-5589-7754))
+
 - Erin Becker <erinbecker@carpentries.org>
   ([ORCID](https://orcid.org/0000-0002-6832-0233))
 
