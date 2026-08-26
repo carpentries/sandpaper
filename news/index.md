@@ -1,5 +1,17 @@
 # Changelog
 
+## sandpaper 0.21.0 \[2026-08-26\]
+
+### NEW FEATURES
+
+- Support HPC Carpentry lesson structure
+
+### IMPROVEMENTS
+
+- Improve breadcrumb UI by lengthening prev and next text and adding
+  ellipsis (implemented in varnish)
+- Fix Windows test fixtures with improved retry
+
 ## sandpaper 0.20.2 \[2026-05-19\]
 
 ### HOTFIX RELEASE
