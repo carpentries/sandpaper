@@ -89,7 +89,7 @@ set_dropdown <- function(path = ".", order = NULL, write = FALSE, folder) {
 #' - **created** `[character]` Date in ISO 8601 format (e.g. `'2021-02-09'`)
 #' - **keywords** `[character]` comma-separated list (e.g `'static site, R,
 #'   tidyverse'`)
-#' - **life_cycle** `[character]` one of pre-alpha, alpha, beta, stable
+#' - **life_cycle** `[character]` one of pre-alpha, alpha, beta, stable, retired
 #' - **license** `[character]` a license for the lesson (e.g. `'CC-BY 4.0'`)
 #' - **source** `[character]` the source repository URL
 #' - **branch** `[character]` the default branch (e.g. `'main'`)

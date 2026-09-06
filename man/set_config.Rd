@@ -35,7 +35,7 @@ the footer are accurate, please modify these values.
 \item \strong{title} \verb{[character]} the lesson title (e.g. \code{'Introduction to R for Plant Pathologists'}
 \item \strong{created} \verb{[character]} Date in ISO 8601 format (e.g. \code{'2021-02-09'})
 \item \strong{keywords} \verb{[character]} comma-separated list (e.g \code{'static site, R, tidyverse'})
-\item \strong{life_cycle} \verb{[character]} one of pre-alpha, alpha, beta, stable
+\item \strong{life_cycle} \verb{[character]} one of pre-alpha, alpha, beta, stable, retired
 \item \strong{license} \verb{[character]} a license for the lesson (e.g. \code{'CC-BY 4.0'})
 \item \strong{source} \verb{[character]} the source repository URL
 \item \strong{branch} \verb{[character]} the default branch (e.g. \code{'main'})

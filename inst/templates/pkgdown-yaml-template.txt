@@ -29,4 +29,5 @@ template:
     alpha: {{ alpha }}
     beta: {{ beta }}
     stable: {{ stable }}
+    retired: {{ retired }}
     doi: {{ doi }}
