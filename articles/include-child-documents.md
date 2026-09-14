@@ -108,7 +108,7 @@ sessionInfo()
 ```output
 R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 24.04.4 LTS
+Running under: Ubuntu 24.04.5 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
@@ -127,7 +127,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
-[1] compiler_4.6.1 cli_3.6.6      tools_4.6.1    otel_0.2.0     knitr_1.51    
+[1] compiler_4.6.1 cli_3.6.6      tools_4.6.1    otel_0.2.0     knitr_1.52    
 [6] xfun_0.60      rlang_1.3.0    evaluate_1.0.5
 ```
 
@@ -218,7 +218,7 @@ exercises: 2
 ---
 
 ```output
-The time is: 2026-08-26 13:57:25
+The time is: 2026-09-14 11:45:21
 ```
 ````
 
@@ -336,7 +336,7 @@ sessionInfo()
 ```output
 R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 24.04.4 LTS
+Running under: Ubuntu 24.04.5 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
@@ -355,7 +355,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
-[1] compiler_4.6.1 cli_3.6.6      tools_4.6.1    otel_0.2.0     knitr_1.51    
+[1] compiler_4.6.1 cli_3.6.6      tools_4.6.1    otel_0.2.0     knitr_1.52    
 [6] xfun_0.60      rlang_1.3.0    evaluate_1.0.5
 ```
 

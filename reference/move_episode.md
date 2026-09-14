@@ -75,29 +75,29 @@ if (interactive() || Sys.getenv("CI") != "") {
     move_episode("experimental.md", path = tmp)
   }
 }
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
-#> ☐ Edit /tmp/RtmpVcV2iC/file1b0e52ceb7bc/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
-#> ✔ First episode created in /tmp/RtmpVcV2iC/file1b0e52ceb7bc/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
+#> ☐ Edit /tmp/RtmppZSt3g/file1be52075e5fa/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
+#> ✔ First episode created in /tmp/RtmppZSt3g/file1be52075e5fa/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -118,13 +118,13 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> - htmltools     0.5.9
 #> - jquerylib     0.1.4
 #> - jsonlite      2.0.0
-#> - knitr         1.51
+#> - knitr         1.52
 #> - lifecycle     1.0.5
 #> - memoise       2.0.1
 #> - mime          0.13
 #> - rappdirs      0.3.4
 #> - rlang         1.3.0
-#> - rmarkdown     2.31
+#> - rmarkdown     2.32
 #> - sass          0.4.10
 #> - tinytex       0.60
 #> - xfun          0.60
@@ -153,14 +153,14 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> - htmltools     [* -> 0.5.9]
 #> - jquerylib     [* -> 0.1.4]
 #> - jsonlite      [* -> 2.0.0]
-#> - knitr         [* -> 1.51]
+#> - knitr         [* -> 1.52]
 #> - lifecycle     [* -> 1.0.5]
 #> - memoise       [* -> 2.0.1]
 #> - mime          [* -> 0.13]
 #> - rappdirs      [* -> 0.3.4]
 #> - renv          [* -> 1.2.4]
 #> - rlang         [* -> 1.3.0]
-#> - rmarkdown     [* -> 2.31]
+#> - rmarkdown     [* -> 2.32]
 #> - sass          [* -> 0.4.10]
 #> - tinytex       [* -> 0.60]
 #> - xfun          [* -> 0.60]
@@ -169,12 +169,12 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.6.1]
 #> 
-#> - Lockfile written to "/tmp/RtmpVcV2iC/file1b0e52ceb7bc/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/RtmpVcV2iC/file1b0e52ceb7bc
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e52ceb7bc...
-#> ☐ Edit /tmp/RtmpVcV2iC/file1b0e52ceb7bc/episodes/getting-started.md.
-#> ☐ Edit /tmp/RtmpVcV2iC/file1b0e52ceb7bc/episodes/plotting.Rmd.
-#> ☐ Edit /tmp/RtmpVcV2iC/file1b0e52ceb7bc/episodes/experimental.md.
+#> - Lockfile written to "/tmp/RtmppZSt3g/file1be52075e5fa/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/RtmppZSt3g/file1be52075e5fa
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be52075e5fa...
+#> ☐ Edit /tmp/RtmppZSt3g/file1be52075e5fa/episodes/getting-started.md.
+#> ☐ Edit /tmp/RtmppZSt3g/file1be52075e5fa/episodes/plotting.Rmd.
+#> ☐ Edit /tmp/RtmppZSt3g/file1be52075e5fa/episodes/experimental.md.
 #> episodes:
 #> - introduction.Rmd
 #> - getting-started.md

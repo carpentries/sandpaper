@@ -50,29 +50,29 @@ the path to the new lesson
 tmp <- tempfile()
 on.exit(unlink(tmp))
 lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
-#> ☐ Edit /tmp/RtmpVcV2iC/file1b0e1d7850b5/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
-#> ✔ First episode created in /tmp/RtmpVcV2iC/file1b0e1d7850b5/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
+#> ☐ Edit /tmp/RtmppZSt3g/file1be55b1d126a/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
+#> ✔ First episode created in /tmp/RtmppZSt3g/file1be55b1d126a/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -93,13 +93,13 @@ lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #> - htmltools     0.5.9
 #> - jquerylib     0.1.4
 #> - jsonlite      2.0.0
-#> - knitr         1.51
+#> - knitr         1.52
 #> - lifecycle     1.0.5
 #> - memoise       2.0.1
 #> - mime          0.13
 #> - rappdirs      0.3.4
 #> - rlang         1.3.0
-#> - rmarkdown     2.31
+#> - rmarkdown     2.32
 #> - sass          0.4.10
 #> - tinytex       0.60
 #> - xfun          0.60
@@ -128,14 +128,14 @@ lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #> - htmltools     [* -> 0.5.9]
 #> - jquerylib     [* -> 0.1.4]
 #> - jsonlite      [* -> 2.0.0]
-#> - knitr         [* -> 1.51]
+#> - knitr         [* -> 1.52]
 #> - lifecycle     [* -> 1.0.5]
 #> - memoise       [* -> 2.0.1]
 #> - mime          [* -> 0.13]
 #> - rappdirs      [* -> 0.3.4]
 #> - renv          [* -> 1.2.4]
 #> - rlang         [* -> 1.3.0]
-#> - rmarkdown     [* -> 2.31]
+#> - rmarkdown     [* -> 2.32]
 #> - sass          [* -> 0.4.10]
 #> - tinytex       [* -> 0.60]
 #> - xfun          [* -> 0.60]
@@ -144,9 +144,9 @@ lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.6.1]
 #> 
-#> - Lockfile written to "/tmp/RtmpVcV2iC/file1b0e1d7850b5/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/RtmpVcV2iC/file1b0e1d7850b5
-#> → Creating Lesson in /tmp/RtmpVcV2iC/file1b0e1d7850b5...
+#> - Lockfile written to "/tmp/RtmppZSt3g/file1be55b1d126a/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/RtmppZSt3g/file1be55b1d126a
+#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55b1d126a...
 lsn
-#> /tmp/RtmpVcV2iC/file1b0e1d7850b5
+#> /tmp/RtmppZSt3g/file1be55b1d126a
 ```

@@ -52,7 +52,8 @@ in the footer are accurate, please modify these values.
 - **keywords** `[character]` comma-separated list (e.g
   `'static site, R, tidyverse'`)
 
-- **life_cycle** `[character]` one of pre-alpha, alpha, beta, stable
+- **life_cycle** `[character]` one of pre-alpha, alpha, beta, stable,
+  retired
 
 - **license** `[character]` a license for the lesson (e.g.
   `'CC-BY 4.0'`)
