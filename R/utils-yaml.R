@@ -226,6 +226,7 @@ create_pkgdown_yaml <- function(path) {
       alpha      = usr$life_cycle == "alpha",
       beta       = usr$life_cycle == "beta",
       stable     = usr$life_cycle == "stable",
+      retired     = usr$life_cycle == "retired",
       doi        = doi,
       # Enable tracking?
       analytics  = if (is.null(usr$analytics)) NULL else (siQuote(usr$analytics)),

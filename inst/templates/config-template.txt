@@ -27,7 +27,7 @@ keywords: {{keywords}}{{^keywords}}software, data, lesson, The Carpentries # FIX
 
 # Life cycle stage of the lesson
 # refer to <https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html> for details
-# possible values: pre-alpha, alpha, beta, stable
+# possible values: pre-alpha, alpha, beta, stable, retired
 life_cycle: {{ life_cycle }}
 
 # License of the lesson materials (recommended CC-BY 4.0)
