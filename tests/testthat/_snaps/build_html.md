@@ -6,14 +6,14 @@
       <li><a href="#data-sets">Data Sets</a></li>
       <li><a href="#software-setup">Software Setup</a></li>
       <li>
-                              <a href="key-points.html">Key Points</a>
-                            </li>
+                                  <a href="key-points.html">Key Points</a>
+                                  </li>
       <li>
-                              <a href="reference.html#glossary">Glossary</a>
-                            </li>
+                                  <a href="reference.html#glossary">Glossary</a>
+                                  </li>
       <li>
-                              <a href="profiles.html">Learner Profiles</a>
-                            </li>
+                                  <a href="profiles.html">Learner Profiles</a>
+                                  </li>
       <li><a href="reference.html">Reference</a></li>
 
 # [build_home()] instructor index file is index and schedule
@@ -22,14 +22,14 @@
       writeLines(as.character(items))
     Output
       <li>
-                              <a href="../instructor/key-points.html">Key Points</a>
-                            </li>
+                                  <a href="../instructor/key-points.html">Key Points</a>
+                                  </li>
       <li>
-                              <a href="../instructor/instructor-notes.html">Instructor Notes</a>
-                            </li>
+                                  <a href="../instructor/instructor-notes.html">Instructor Notes</a>
+                                  </li>
       <li>
-                              <a href="../instructor/images.html">Extract All Images</a>
-                            </li>
+                                  <a href="../instructor/images.html">Extract All Images</a>
+                                  </li>
       <li><a class="dropdown-item" href="reference.html">Reference</a></li>
 
 # [build_profiles()] learner and instructor views are identical
@@ -37,6 +37,7 @@
     Code
       writeLines(sidelinks_instructor)
     Output
+      <a id="search-button-sidebar" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
       <a href="../profiles.html">Learner View</a>
       <a href="index.html"><strong>TEST</strong> title</a>
       <a href="introduction.html">1. introduction</a>
@@ -51,6 +52,7 @@
     Code
       writeLines(sidelinks_learner)
     Output
+      <a id="search-button-sidebar" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
       <a href="instructor/profiles.html">Instructor View</a>
       <a href="index.html"><strong>TEST</strong> title</a>
       <a href="introduction.html">1. introduction</a>
