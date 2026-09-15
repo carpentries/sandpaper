@@ -2,10 +2,11 @@
 # Values for this lesson.
 #------------------------------------------------------------
 
-# Which carpentry is this (swc, dc, lc, or cp)?
-# swc: Software Carpentry
+# Which carpentry is this (dc, hpcc, lc, swc, or cp)?
 # dc: Data Carpentry
+# hpcc: HPC Carpentry
 # lc: Library Carpentry
+# swc: Software Carpentry
 # cp: Carpentries (to use for instructor training for instance)
 # incubator: The Carpentries Incubator
 # Note that you can also use a custom carpentry type. For more info,
