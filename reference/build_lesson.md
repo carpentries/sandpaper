@@ -87,33 +87,33 @@ an interactive way to build and edit lesson content.
 
 tmp <- tempfile()
 create_lesson(tmp, open = FALSE, rmd = FALSE)
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be54d20f0b4...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd48acce0...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be54d20f0b4...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd48acce0...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be54d20f0b4...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd48acce0...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be54d20f0b4...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd48acce0...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be54d20f0b4...
-#> ☐ Edit /tmp/RtmppZSt3g/file1be54d20f0b4/episodes/introduction.md.
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be54d20f0b4...
-#> ✔ First episode created in /tmp/RtmppZSt3g/file1be54d20f0b4/episodes/introduction.md
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be54d20f0b4...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd48acce0...
+#> ☐ Edit /tmp/Rtmpr0Li7l/file1cfd48acce0/episodes/introduction.md.
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd48acce0...
+#> ✔ First episode created in /tmp/Rtmpr0Li7l/file1cfd48acce0/episodes/introduction.md
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd48acce0...
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be54d20f0b4...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd48acce0...
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be54d20f0b4...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd48acce0...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be54d20f0b4...
-#> ✔ Lesson successfully created in /tmp/RtmppZSt3g/file1be54d20f0b4
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be54d20f0b4...
-#> /tmp/RtmppZSt3g/file1be54d20f0b4
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd48acce0...
+#> ✔ Lesson successfully created in /tmp/Rtmpr0Li7l/file1cfd48acce0
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd48acce0...
+#> /tmp/Rtmpr0Li7l/file1cfd48acce0
 create_episode("first-script", path = tmp, open = FALSE)
-#> ☐ Edit /tmp/RtmppZSt3g/file1be54d20f0b4/episodes/first-script.Rmd.
-#> /tmp/RtmppZSt3g/file1be54d20f0b4/episodes/first-script.Rmd
+#> ☐ Edit /tmp/Rtmpr0Li7l/file1cfd48acce0/episodes/first-script.Rmd.
+#> /tmp/Rtmpr0Li7l/file1cfd48acce0/episodes/first-script.Rmd
 check_lesson(tmp)
 build_lesson(tmp)
 #> ── Initialising site ───────────────────────────────────────────────────
@@ -351,6 +351,12 @@ build_lesson(tmp)
 #> assets/images/data-logo.svg
 #> Copying <varnish>/pkgdown/assets/assets/images/dropdown-arrow.svg to
 #> assets/images/dropdown-arrow.svg
+#> Copying
+#> <varnish>/pkgdown/assets/assets/images/high-performance-computing-logo-sm.svg
+#> to assets/images/high-performance-computing-logo-sm.svg
+#> Copying
+#> <varnish>/pkgdown/assets/assets/images/high-performance-computing-logo.svg
+#> to assets/images/high-performance-computing-logo.svg
 #> Copying <varnish>/pkgdown/assets/assets/images/incubator-logo-sm.svg to
 #> assets/images/incubator-logo-sm.svg
 #> Copying <varnish>/pkgdown/assets/assets/images/incubator-logo.svg to
@@ -469,6 +475,22 @@ build_lesson(tmp)
 #> favicons/dc/mstile-310x310.png
 #> Copying <varnish>/pkgdown/assets/favicons/dc/mstile-70x70.png to
 #> favicons/dc/mstile-70x70.png
+#> Copying
+#> <varnish>/pkgdown/assets/favicons/hpcc/android-chrome-192x192.png to
+#> favicons/hpcc/android-chrome-192x192.png
+#> Copying
+#> <varnish>/pkgdown/assets/favicons/hpcc/android-chrome-512x512.png to
+#> favicons/hpcc/android-chrome-512x512.png
+#> Copying <varnish>/pkgdown/assets/favicons/hpcc/apple-touch-icon.png to
+#> favicons/hpcc/apple-touch-icon.png
+#> Copying <varnish>/pkgdown/assets/favicons/hpcc/favicon-16x16.png to
+#> favicons/hpcc/favicon-16x16.png
+#> Copying <varnish>/pkgdown/assets/favicons/hpcc/favicon-32x32.png to
+#> favicons/hpcc/favicon-32x32.png
+#> Copying <varnish>/pkgdown/assets/favicons/hpcc/favicon.ico to
+#> favicons/hpcc/favicon.ico
+#> Copying <varnish>/pkgdown/assets/favicons/hpcc/site.webmanifest to
+#> favicons/hpcc/site.webmanifest
 #> Copying
 #> <varnish>/pkgdown/assets/favicons/lc/apple-touch-icon-114x114.png to
 #> favicons/lc/apple-touch-icon-114x114.png

@@ -19,30 +19,30 @@ reset_site(path = ".")
 ``` r
 tmp <- tempfile()
 create_lesson(tmp, open = FALSE, rmd = FALSE)
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55245169d...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd37007a75...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55245169d...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd37007a75...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55245169d...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd37007a75...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55245169d...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd37007a75...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55245169d...
-#> ☐ Edit /tmp/RtmppZSt3g/file1be55245169d/episodes/introduction.md.
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55245169d...
-#> ✔ First episode created in /tmp/RtmppZSt3g/file1be55245169d/episodes/introduction.md
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55245169d...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd37007a75...
+#> ☐ Edit /tmp/Rtmpr0Li7l/file1cfd37007a75/episodes/introduction.md.
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd37007a75...
+#> ✔ First episode created in /tmp/Rtmpr0Li7l/file1cfd37007a75/episodes/introduction.md
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd37007a75...
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55245169d...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd37007a75...
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55245169d...
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd37007a75...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55245169d...
-#> ✔ Lesson successfully created in /tmp/RtmppZSt3g/file1be55245169d
-#> → Creating Lesson in /tmp/RtmppZSt3g/file1be55245169d...
-#> /tmp/RtmppZSt3g/file1be55245169d
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd37007a75...
+#> ✔ Lesson successfully created in /tmp/Rtmpr0Li7l/file1cfd37007a75
+#> → Creating Lesson in /tmp/Rtmpr0Li7l/file1cfd37007a75...
+#> /tmp/Rtmpr0Li7l/file1cfd37007a75
 build_lesson(tmp, preview = FALSE)
 #> ── Initialising site ───────────────────────────────────────────────────
 #> Copying <pkgdown>/BS3/assets/bootstrap-toc.css to bootstrap-toc.css
@@ -279,6 +279,12 @@ build_lesson(tmp, preview = FALSE)
 #> assets/images/data-logo.svg
 #> Copying <varnish>/pkgdown/assets/assets/images/dropdown-arrow.svg to
 #> assets/images/dropdown-arrow.svg
+#> Copying
+#> <varnish>/pkgdown/assets/assets/images/high-performance-computing-logo-sm.svg
+#> to assets/images/high-performance-computing-logo-sm.svg
+#> Copying
+#> <varnish>/pkgdown/assets/assets/images/high-performance-computing-logo.svg
+#> to assets/images/high-performance-computing-logo.svg
 #> Copying <varnish>/pkgdown/assets/assets/images/incubator-logo-sm.svg to
 #> assets/images/incubator-logo-sm.svg
 #> Copying <varnish>/pkgdown/assets/assets/images/incubator-logo.svg to
@@ -397,6 +403,22 @@ build_lesson(tmp, preview = FALSE)
 #> favicons/dc/mstile-310x310.png
 #> Copying <varnish>/pkgdown/assets/favicons/dc/mstile-70x70.png to
 #> favicons/dc/mstile-70x70.png
+#> Copying
+#> <varnish>/pkgdown/assets/favicons/hpcc/android-chrome-192x192.png to
+#> favicons/hpcc/android-chrome-192x192.png
+#> Copying
+#> <varnish>/pkgdown/assets/favicons/hpcc/android-chrome-512x512.png to
+#> favicons/hpcc/android-chrome-512x512.png
+#> Copying <varnish>/pkgdown/assets/favicons/hpcc/apple-touch-icon.png to
+#> favicons/hpcc/apple-touch-icon.png
+#> Copying <varnish>/pkgdown/assets/favicons/hpcc/favicon-16x16.png to
+#> favicons/hpcc/favicon-16x16.png
+#> Copying <varnish>/pkgdown/assets/favicons/hpcc/favicon-32x32.png to
+#> favicons/hpcc/favicon-32x32.png
+#> Copying <varnish>/pkgdown/assets/favicons/hpcc/favicon.ico to
+#> favicons/hpcc/favicon.ico
+#> Copying <varnish>/pkgdown/assets/favicons/hpcc/site.webmanifest to
+#> favicons/hpcc/site.webmanifest
 #> Copying
 #> <varnish>/pkgdown/assets/favicons/lc/apple-touch-icon-114x114.png to
 #> favicons/lc/apple-touch-icon-114x114.png

@@ -218,7 +218,7 @@ exercises: 2
 ---
 
 ```output
-The time is: 2026-09-14 11:45:21
+The time is: 2026-09-15 15:45:59
 ```
 ````
 
@@ -376,7 +376,7 @@ about missing files during validation:
 
     #> ── Validating Fenced Divs ──────────────────────────────────────────────
     #> ── Validating Internal Links and Images ────────────────────────────────
-    #> ! There were errors in 2/39 links and images
+    #> ! There were errors in 2/40 links and images
     #> ◌ Some linked internal files do not exist <https://carpentries.github.io/sandpaper/articles/include-child-documents.html#workspace-consideration>
     #> 
     #> ::warning file=episodes/files/children/child.Rmd,line=1:: [missing file (relative to episodes/)]: [the info document](../../../learners/info.md)
