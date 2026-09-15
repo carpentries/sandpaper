@@ -35,9 +35,10 @@ test_that("a sitemap can be generated for urls", {
 })
 
 test_that("which_carpentry_workshop works for default carpentries", {
-  expect_equal(which_carpentry("swc"), "Software Carpentry")
   expect_equal(which_carpentry("dc"), "Data Carpentry")
+  expect_equal(which_carpentry("hpcc"), "HPC Carpentry")
   expect_equal(which_carpentry("lc"), "Library Carpentry")
+  expect_equal(which_carpentry("swc"), "Software Carpentry")
   expect_equal(which_carpentry("cp"), "The Carpentries")
 })
 

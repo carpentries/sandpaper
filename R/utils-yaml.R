@@ -216,10 +216,10 @@ create_pkgdown_yaml <- function(path) {
       license        = siQuote(usr$license),
       handout        = handout,
       cp             = usr$carpentry == 'cp',
-      lc             = usr$carpentry == 'lc',
       dc             = usr$carpentry == 'dc',
-      swc            = usr$carpentry == 'swc',
       hpcc           = usr$carpentry == 'hpcc',
+      lc             = usr$carpentry == 'lc',
+      swc            = usr$carpentry == 'swc',
       # Should we display a lifecycle banner?
       life_cycle = siQuote(usr$life_cycle),
       pre_alpha  = usr$life_cycle == "pre-alpha",
