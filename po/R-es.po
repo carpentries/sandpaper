@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sandpaper 0.15.0.9000\n"
-"POT-Creation-Date: 2026-09-14 11:53+0100\n"
+"POT-Creation-Date: 2026-09-14 16:42+0100\n"
 "PO-Revision-Date: 2023-12-06 11:03-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -143,62 +143,66 @@ msgid "RESOURCES"
 msgstr "RECURSOS"
 
 #: utils-translate.R:105
+msgid "LINKS"
+msgstr ""
+
+#: utils-translate.R:106
 msgid "Extract All Images"
 msgstr "Extraer todas las imágenes"
 
-#: utils-translate.R:106
+#: utils-translate.R:107
 msgid "See all in one page"
 msgstr "Todo en una sola página"
 
-#: utils-translate.R:107
+#: utils-translate.R:108
 msgid "Download Lesson Handout"
 msgstr "Descargar el material de la lección"
 
-#: utils-translate.R:108
+#: utils-translate.R:109
 msgid "Export Chapter Slides"
 msgstr "Exportar las diapositivas del capítulo"
 
-#: utils-translate.R:110
+#: utils-translate.R:111
 msgid "Previous and Next Chapter"
 msgstr "Capítulo previo y siguiente"
 
-#: utils-translate.R:111
+#: utils-translate.R:112
 msgid "Previous"
 msgstr "Previo"
 
-#: utils-translate.R:112
+#: utils-translate.R:113
 msgid "Estimated time: {icons$clock} {minutes} minutes"
 msgstr "Tiempo estimado: {icons$clock} {minutes} minutos"
 
-#: utils-translate.R:113
+#: utils-translate.R:114
 msgid "Next"
 msgstr "Siguiente"
 
-#: utils-translate.R:114
+#: utils-translate.R:115
 msgid "Next Chapter"
 msgstr "Capítulo Siguiente"
 
-#: utils-translate.R:115
+#: utils-translate.R:116
 msgid "Last updated on {updated}"
 msgstr "Última actualización: {updated}"
 
-#: utils-translate.R:116
+#: utils-translate.R:117
 msgid "Edit this page"
 msgstr "Mejora esta página"
 
-#: utils-translate.R:117 utils-translate.R:138
+#: utils-translate.R:118 utils-translate.R:139
 msgid "Expand All Solutions"
 msgstr "Mostrar todas las soluciones"
 
-#: utils-translate.R:119
+#: utils-translate.R:120
 msgid "Setup Instructions"
 msgstr "Configuración"
 
-#: utils-translate.R:120
+#: utils-translate.R:121
 msgid "Download files required for the lesson"
 msgstr "Descargar los archivos necesarios para la lección"
 
-#: utils-translate.R:121
+#: utils-translate.R:122
 msgid ""
 "The actual schedule may vary slightly depending on the topics and exercises "
 "chosen by the instructor."
@@ -206,189 +210,189 @@ msgstr ""
 "El horario real puede variar ligeramente dependiendo de los temas y "
 "ejercicios elegidos por la instructora."
 
-#: utils-translate.R:123
+#: utils-translate.R:124
 msgid "Back To Top"
 msgstr "Volver al inicio"
 
-#: utils-translate.R:124
+#: utils-translate.R:125
 msgid "<(Back)> To Top"
 msgstr "<(Volver)> al inicio"
 
-#: utils-translate.R:125
+#: utils-translate.R:126
 msgid "This lesson is subject to the <(Code of Conduct)>"
 msgstr "Esta lección está sujeta al <(Código de Conducta)>"
 
-#: utils-translate.R:126
+#: utils-translate.R:127
 msgid "Code of Conduct"
 msgstr "Código de Conducta"
 
-#: utils-translate.R:127
+#: utils-translate.R:128
 msgid "Edit on GitHub"
 msgstr "Editar en GitHub"
 
-#: utils-translate.R:128
+#: utils-translate.R:129
 msgid "Contributing"
 msgstr "Contribuir"
 
-#: utils-translate.R:129
+#: utils-translate.R:130
 msgid "Source"
 msgstr "Fuente"
 
-#: utils-translate.R:130
+#: utils-translate.R:131
 msgid "Cite"
 msgstr "Cita"
 
-#: utils-translate.R:131
+#: utils-translate.R:132
 msgid "Contact"
 msgstr "Contacto"
 
-#: utils-translate.R:132
+#: utils-translate.R:133
 msgid "About"
 msgstr "Acerca de"
 
-#: utils-translate.R:133
+#: utils-translate.R:134
 #, fuzzy
 #| msgid "Materials licensed under {license} by the authors"
 msgid "Materials licensed under <({license})> by the authors"
 msgstr "Materiales bajo la {license} por las autoras"
 
-#: utils-translate.R:134
+#: utils-translate.R:135
 msgid "Template licensed under <(CC-BY 4.0)> by {template_authors}"
 msgstr "Plantilla compartida bajo <(CC-BY 4.0)> por {template_authors}"
 
-#: utils-translate.R:135
+#: utils-translate.R:136
 msgid "The Carpentries"
 msgstr "The Carpentries"
 
-#: utils-translate.R:136
+#: utils-translate.R:137
 msgid "Built with {sandpaper_link}, {pegboard_link}, and {varnish_link}"
 msgstr "Construido con {sandpaper_link}, {pegboard_link} y {varnish_link}"
 
-#: utils-translate.R:139
+#: utils-translate.R:140
 msgid "Collapse All Solutions"
 msgstr "Cerrar todas las soluciones"
 
-#: utils-translate.R:140
+#: utils-translate.R:141
 msgid "Collapse"
 msgstr "Cerrar"
 
-#: utils-translate.R:141
+#: utils-translate.R:142
 msgid "Episodes"
 msgstr "Episodios"
 
-#: utils-translate.R:143
+#: utils-translate.R:144
 msgid "Give Feedback"
 msgstr "Dar feedback"
 
-#: utils-translate.R:144
+#: utils-translate.R:145
 msgid "Learn More"
 msgstr "Aprender más"
 
-#: utils-translate.R:150
+#: utils-translate.R:151
 msgid "OUTPUT"
 msgstr "SALIDA"
 
-#: utils-translate.R:151
+#: utils-translate.R:152
 msgid "WARNING"
 msgstr "ADVERTENCIA"
 
-#: utils-translate.R:152
+#: utils-translate.R:153
 msgid "ERROR"
 msgstr "ERROR"
 
-#: utils-translate.R:154
+#: utils-translate.R:155
 msgid "Overview"
 msgstr "Hoja de ruta"
 
-#: utils-translate.R:155
+#: utils-translate.R:156
 msgid "Questions"
 msgstr "Preguntas"
 
-#: utils-translate.R:156
+#: utils-translate.R:157
 msgid "Objectives"
 msgstr "Objetivos"
 
-#: utils-translate.R:157
+#: utils-translate.R:158
 msgid "Callout"
 msgstr "Aviso"
 
-#: utils-translate.R:158
+#: utils-translate.R:159
 msgid "Challenge"
 msgstr "Desafío"
 
-#: utils-translate.R:159
+#: utils-translate.R:160
 msgid "Prerequisite"
 msgstr "Pre requisito"
 
-#: utils-translate.R:160
+#: utils-translate.R:161
 msgid "Checklist"
 msgstr "Lista de verificación"
 
-#: utils-translate.R:161
+#: utils-translate.R:162
 msgid "Discussion"
 msgstr "Discusión"
 
-#: utils-translate.R:162
+#: utils-translate.R:163
 msgid "Testimonial"
 msgstr "Testimonio"
 
-#: utils-translate.R:163
+#: utils-translate.R:164
 msgid "Caution"
 msgstr "Precaución"
 
-#: utils-translate.R:166
+#: utils-translate.R:167
 msgid "Show me the solution"
 msgstr "Mostrar la solución"
 
-#: utils-translate.R:167
+#: utils-translate.R:168
 msgid "Give me a hint"
 msgstr "Dar una pista"
 
-#: utils-translate.R:168
+#: utils-translate.R:169
 msgid "Show details"
 msgstr "Mostrar detalles"
 
-#: utils-translate.R:169
+#: utils-translate.R:170
 msgid "Instructor Note"
 msgstr "Notas de la instructora"
 
-#: utils-translate.R:171
+#: utils-translate.R:172
 msgid "Summary and Setup"
 msgstr "Resumen y configuración"
 
-#: utils-translate.R:172
+#: utils-translate.R:173
 msgid "Summary and Schedule"
 msgstr "Resumen y agenda"
 
-#: utils-translate.R:173
+#: utils-translate.R:174
 msgid "All in One View"
 msgstr "Todo en una sola página"
 
-#: utils-translate.R:174
+#: utils-translate.R:175
 msgid "Page not found"
 msgstr "Página no encontrada"
 
-#: utils-translate.R:175
+#: utils-translate.R:176
 msgid "Acknowledgements and Citations"
 msgstr ""
 
-#: utils-translate.R:176
+#: utils-translate.R:177
 msgid "All Images"
 msgstr "Todas las imágenes"
 
-#: utils-translate.R:178
+#: utils-translate.R:179
 msgid "anchor"
 msgstr "anclaje"
 
-#: utils-translate.R:179
+#: utils-translate.R:180
 msgid "Figure {element}"
 msgstr "Figura {element}"
 
-#: utils-translate.R:180
+#: utils-translate.R:181
 msgid "Image {i} of {n}: {sQuote(txt)}"
 msgstr "Imagen {i} de {n}: {sQuote(txt)}"
 
-#: utils-translate.R:181
+#: utils-translate.R:182
 msgid "Finish"
 msgstr "Final"
 
