@@ -37,6 +37,7 @@
     Code
       writeLines(sidelinks_instructor)
     Output
+      <a id="search-button-sidebar" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
       <a href="../profiles.html">Learner View</a>
       <a href="index.html"><strong>TEST</strong> title</a>
       <a href="introduction.html">1. introduction</a>
@@ -51,6 +52,7 @@
     Code
       writeLines(sidelinks_learner)
     Output
+      <a id="search-button-sidebar" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
       <a href="instructor/profiles.html">Instructor View</a>
       <a href="index.html"><strong>TEST</strong> title</a>
       <a href="introduction.html">1. introduction</a>
