@@ -102,6 +102,7 @@ establish_translation_vars <- function() {
       Home = tr_('Home'), # content-chapter.html
       HomePageNav = tr_('Home Page Navigation'), # alt text
       RESOURCES = tr_('RESOURCES'),
+      LINKS = tr_('LINKS'),
       ExtractAllImages = tr_('Extract All Images'),
       AIO = tr_("See all in one page"),
       DownloadHandout = tr_('Download Lesson Handout'),

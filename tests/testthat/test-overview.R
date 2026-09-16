@@ -105,14 +105,14 @@ test_that("Lessons without episodes can be built", {
   # links to home and setup should appear in the navigation
   xpath_home_link_mobi  <- ".//nav//div[starts-with(@class,'accordion ')]/a"
   xpath_setup_link_desk <- ".//nav//a[@class='nav-link']"
-  xpath_setup_link_mobi <- ".//nav//div[@class='accordion-body']/ul/li/a"
+  xpath_setup_link_mobi <- ".//nav//div[contains(@class, 'lesson-resources')]//div[@class='accordion-body']/ul/li/a"
 
   # the home link exists on mobile view
   home_link_mobi <- xml2::xml_find_first(idx, xpath_home_link_mobi)
 
   # the setup link should be prominent in both desktop and mobile view
   setup_link_desk <- xml2::xml_find_first(idx, xpath_setup_link_desk)
-  setup_link_mobi <- xml2::xml_find_first(idx, xpath_setup_link_desk)
+  setup_link_mobi <- xml2::xml_find_first(idx, xpath_setup_link_mobi)
 
   expect_match(xml2::xml_attr(home_link_mobi, "href"), "index.html")
   expect_match(xml2::xml_attr(setup_link_desk, "href"), "index.html#setup")
