@@ -107,7 +107,7 @@ cli::cli_h2("Create Lesson")
 #> 
 restore_fixture <- sandpaper:::create_test_lesson()
 #> → Bootstrapping example lesson
-#> ℹ Lesson bootstrapped in 3.57997 secs
+#> ℹ Lesson bootstrapped in 3.120833 secs
 #> → Bootstrapping example lesson
 res <- getOption("sandpaper.test_fixture")
 sandpaper:::check_git_user(res)
@@ -117,10 +117,10 @@ cli::cli_h2("Create Remote")
 #> 
 rmt <- fs::file_temp(pattern = "REMOTE-")
 sandpaper:::setup_local_remote(repo = res, remote = rmt, verbose = FALSE)
-#> ℹ Remote set up in 0.01260614 secs
+#> ℹ Remote set up in 0.010432 secs
 tok <- Sys.time()
 cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
-#> ℹ Elapsed time: 3.62 seconds
+#> ℹ Elapsed time: 3.15 seconds
 tik <- Sys.time()
 cli::cli_h2("Create Worktrees")
 #> 
@@ -134,9 +134,9 @@ db <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "built"),
 #> Switched to a new branch 'md-outputs'
 #> Running git rm -rf --quiet .
 #> Running git commit --allow-empty -m 'Initializing md-outputs branch'
-#> [md-outputs (root-commit) 72ed617] Initializing md-outputs branch
+#> [md-outputs (root-commit) c245717] Initializing md-outputs branch
 #> Running git push sandpaper-local 'HEAD:md-outputs'
-#> To /tmp/Rtmpr0Li7l/REMOTE-1cfd7efb21eb
+#> To /tmp/RtmpwKFY32/REMOTE-19901c8a0aa2
 #>  * [new branch]      HEAD -> md-outputs
 #> Running git checkout main
 #> Switched to branch 'main'
@@ -145,17 +145,17 @@ db <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "built"),
 #> ::group::Fetch sandpaper-local/md-outputs
 #> Running git remote set-branches sandpaper-local md-outputs
 #> Running git fetch sandpaper-local md-outputs
-#> From /tmp/Rtmpr0Li7l/REMOTE-1cfd7efb21eb
+#> From /tmp/RtmpwKFY32/REMOTE-19901c8a0aa2
 #>  * branch            md-outputs -> FETCH_HEAD
 #> Running git remote set-branches sandpaper-local '*'
 #> ::endgroup::
 #> ::group::Add worktree for sandpaper-local/md-outputs in site/built
 #> Running git worktree add --track -B md-outputs \
-#>   /tmp/Rtmpr0Li7l/file1cfd61d0dd3d/lesson-example/site/built \
+#>   /tmp/RtmpwKFY32/file19903c6dca22/lesson-example/site/built \
 #>   sandpaper-local/md-outputs
-#> Preparing worktree (resetting branch 'md-outputs'; was at 72ed617)
+#> Preparing worktree (resetting branch 'md-outputs'; was at c245717)
 #> branch 'md-outputs' set up to track 'sandpaper-local/md-outputs'.
-#> HEAD is now at 72ed617 Initializing md-outputs branch
+#> HEAD is now at c245717 Initializing md-outputs branch
 #> ::endgroup::
 ds <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "docs"),
   branch = "gh-pages", remote = "sandpaper-local"
@@ -165,9 +165,9 @@ ds <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "docs"),
 #> Switched to a new branch 'gh-pages'
 #> Running git rm -rf --quiet .
 #> Running git commit --allow-empty -m 'Initializing gh-pages branch'
-#> [gh-pages (root-commit) 1856437] Initializing gh-pages branch
+#> [gh-pages (root-commit) c82f3da] Initializing gh-pages branch
 #> Running git push sandpaper-local 'HEAD:gh-pages'
-#> To /tmp/Rtmpr0Li7l/REMOTE-1cfd7efb21eb
+#> To /tmp/RtmpwKFY32/REMOTE-19901c8a0aa2
 #>  * [new branch]      HEAD -> gh-pages
 #> Running git checkout main
 #> Switched to branch 'main'
@@ -176,21 +176,21 @@ ds <- sandpaper:::git_worktree_setup(res, fs::path(res, "site", "docs"),
 #> ::group::Fetch sandpaper-local/gh-pages
 #> Running git remote set-branches sandpaper-local gh-pages
 #> Running git fetch sandpaper-local gh-pages
-#> From /tmp/Rtmpr0Li7l/REMOTE-1cfd7efb21eb
+#> From /tmp/RtmpwKFY32/REMOTE-19901c8a0aa2
 #>  * branch            gh-pages   -> FETCH_HEAD
 #> Running git remote set-branches sandpaper-local '*'
 #> ::endgroup::
 #> ::group::Add worktree for sandpaper-local/gh-pages in site/docs
 #> Running git worktree add --track -B gh-pages \
-#>   /tmp/Rtmpr0Li7l/file1cfd61d0dd3d/lesson-example/site/docs \
+#>   /tmp/RtmpwKFY32/file19903c6dca22/lesson-example/site/docs \
 #>   sandpaper-local/gh-pages
-#> Preparing worktree (resetting branch 'gh-pages'; was at 1856437)
+#> Preparing worktree (resetting branch 'gh-pages'; was at c82f3da)
 #> branch 'gh-pages' set up to track 'sandpaper-local/gh-pages'.
-#> HEAD is now at 1856437 Initializing gh-pages branch
+#> HEAD is now at c82f3da Initializing gh-pages branch
 #> ::endgroup::
 tok <- Sys.time()
 cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
-#> ℹ Elapsed time: 0.4 seconds
+#> ℹ Elapsed time: 0.32 seconds
 tik <- Sys.time()
 cli::cli_h1("Build Lesson into worktrees")
 #> 
@@ -713,16 +713,16 @@ print(gert::git_status(repo = fs::path(res, "site", "docs")))
 #> # ℹ 26 more rows
 tok <- Sys.time()
 cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
-#> ℹ Elapsed time: 13.28 seconds
+#> ℹ Elapsed time: 11 seconds
 tik <- Sys.time()
 cli::cli_h1("Clean Up")
 #> 
 #> ── Clean Up ────────────────────────────────────────────────────────────
 cli::cli_alert_info("object db is an expression that evaluates to {.code {db}}")
-#> ℹ object db is an expression that evaluates to `sandpaper:::github_worktree_remove("/tmp/Rtmpr0Li7l/file1cfd61d0dd3d/lesson-example/site/built", "/tmp/Rtmpr0Li7l/file1cfd61d0dd3d/lesson-example")`
+#> ℹ object db is an expression that evaluates to `sandpaper:::github_worktree_remove("/tmp/RtmpwKFY32/file19903c6dca22/lesson-example/site/built", "/tmp/RtmpwKFY32/file19903c6dca22/lesson-example")`
 eval(db)
 #> Running git worktree remove --force \
-#>   /tmp/Rtmpr0Li7l/file1cfd61d0dd3d/lesson-example/site/built
+#>   /tmp/RtmpwKFY32/file19903c6dca22/lesson-example/site/built
 #> $status
 #> [1] 0
 #> 
@@ -736,10 +736,10 @@ eval(db)
 #> [1] FALSE
 #> 
 cli::cli_alert_info("object ds is an expression that evaluates to {.code {ds}}")
-#> ℹ object ds is an expression that evaluates to `sandpaper:::github_worktree_remove("/tmp/Rtmpr0Li7l/file1cfd61d0dd3d/lesson-example/site/docs", "/tmp/Rtmpr0Li7l/file1cfd61d0dd3d/lesson-example")`
+#> ℹ object ds is an expression that evaluates to `sandpaper:::github_worktree_remove("/tmp/RtmpwKFY32/file19903c6dca22/lesson-example/site/docs", "/tmp/RtmpwKFY32/file19903c6dca22/lesson-example")`
 eval(ds)
 #> Running git worktree remove --force \
-#>   /tmp/Rtmpr0Li7l/file1cfd61d0dd3d/lesson-example/site/docs
+#>   /tmp/RtmpwKFY32/file19903c6dca22/lesson-example/site/docs
 #> $status
 #> [1] 0
 #> 
@@ -753,12 +753,12 @@ eval(ds)
 #> [1] FALSE
 #> 
 sandpaper:::remove_local_remote(repo = res)
-#> ℹ removing 'sandpaper-local' (/tmp/Rtmpr0Li7l/REMOTE-1cfd7efb21eb)
-#> /tmp/Rtmpr0Li7l/REMOTE-1cfd7efb21eb
+#> ℹ removing 'sandpaper-local' (/tmp/RtmpwKFY32/REMOTE-19901c8a0aa2)
+#> /tmp/RtmpwKFY32/REMOTE-19901c8a0aa2
 sandpaper:::reset_git_user(res)
 # remove the test fixture and report
 tryCatch(fs::dir_delete(res), error = function() FALSE)
 tok <- Sys.time()
 cli::cli_alert_info("Elapsed time: {round(tok - tik, 2)} seconds")
-#> ℹ Elapsed time: 0.15 seconds
+#> ℹ Elapsed time: 0.13 seconds
 ```

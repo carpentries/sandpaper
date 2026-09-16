@@ -114,6 +114,7 @@ to the following variables in `{varnish}`:
 | `translate.Home` | `'Home'` |
 | `translate.HomePageNav` | `'Home Page Navigation'` |
 | `translate.RESOURCES` | `'RESOURCES'` |
+| `translate.LINKS` | `'LINKS'` |
 | `translate.ExtractAllImages` | `'Extract All Images'` |
 | `translate.AIO` | `'See all in one page'` |
 | `translate.DownloadHandout` | `'Download Lesson Handout'` |
