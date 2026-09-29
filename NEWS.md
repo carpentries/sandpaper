@@ -1,3 +1,11 @@
+# sandpaper 0.21.1 [2026-09-29]
+
+## IMPROVEMENTS
+
+* Add LINKS accordion in sidebar for mobile view
+* Add "retired" lesson lifecycle option
+
+
 # sandpaper 0.21.0 [2026-08-26]
 
 ## NEW FEATURES
