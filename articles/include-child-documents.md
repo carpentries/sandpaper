@@ -128,7 +128,7 @@ attached base packages:
 
 loaded via a namespace (and not attached):
 [1] compiler_4.6.1 cli_3.6.6      tools_4.6.1    otel_0.2.0     knitr_1.52    
-[6] xfun_0.60      rlang_1.3.0    evaluate_1.0.5
+[6] xfun_0.61      rlang_1.3.0    evaluate_1.0.5
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints
@@ -218,7 +218,7 @@ exercises: 2
 ---
 
 ```output
-The time is: 2026-09-16 10:32:54
+The time is: 2026-09-30 10:59:09
 ```
 ````
 
@@ -356,7 +356,7 @@ attached base packages:
 
 loaded via a namespace (and not attached):
 [1] compiler_4.6.1 cli_3.6.6      tools_4.6.1    otel_0.2.0     knitr_1.52    
-[6] xfun_0.60      rlang_1.3.0    evaluate_1.0.5
+[6] xfun_0.61      rlang_1.3.0    evaluate_1.0.5
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints

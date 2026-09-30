@@ -61,29 +61,29 @@ test can be found at
 ``` r
 tmp <- tempfile()
 lsn <- create_lesson(tmp, open = FALSE)
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
-#> ☐ Edit /tmp/RtmpwKFY32/file1990f45a2db/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
-#> ✔ First episode created in /tmp/RtmpwKFY32/file1990f45a2db/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
+#> ☐ Edit /tmp/RtmpZhQqgx/file1af2c6c4255/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
+#> ✔ First episode created in /tmp/RtmpZhQqgx/file1af2c6c4255/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -112,14 +112,14 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> - rlang         1.3.0
 #> - rmarkdown     2.32
 #> - sass          0.4.10
-#> - tinytex       0.60
-#> - xfun          0.60
+#> - tinytex       0.61
+#> - xfun          0.61
 #> - yaml          2.3.12
 #> 
 #> They will be copied into the project library.
 #> 
 #> - Copying packages into the project library ... Done!
-#> - Hydrated 25 packages in 0.14 seconds.
+#> - Hydrated 25 packages in 0.19 seconds.
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Recording changes in lockfile
 #> The following package(s) will be updated in the lockfile:
@@ -144,20 +144,20 @@ lsn <- create_lesson(tmp, open = FALSE)
 #> - memoise       [* -> 2.0.1]
 #> - mime          [* -> 0.13]
 #> - rappdirs      [* -> 0.3.4]
-#> - renv          [* -> 1.2.4]
+#> - renv          [* -> 1.3.0]
 #> - rlang         [* -> 1.3.0]
 #> - rmarkdown     [* -> 2.32]
 #> - sass          [* -> 0.4.10]
-#> - tinytex       [* -> 0.60]
-#> - xfun          [* -> 0.60]
+#> - tinytex       [* -> 0.61]
+#> - xfun          [* -> 0.61]
 #> - yaml          [* -> 2.3.12]
 #> 
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.6.1]
 #> 
-#> - Lockfile written to "/tmp/RtmpwKFY32/file1990f45a2db/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/RtmpwKFY32/file1990f45a2db
-#> → Creating Lesson in /tmp/RtmpwKFY32/file1990f45a2db...
+#> - Lockfile written to "/tmp/RtmpZhQqgx/file1af2c6c4255/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/RtmpZhQqgx/file1af2c6c4255
+#> → Creating Lesson in /tmp/RtmpZhQqgx/file1af2c6c4255...
 validate_lesson(lsn, headings = TRUE)
 #> ── Validating Headings ─────────────────────────────────────────────────
 #> ── Validating Fenced Divs ──────────────────────────────────────────────
