@@ -50,29 +50,29 @@ the path to the new lesson
 tmp <- tempfile()
 on.exit(unlink(tmp))
 lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
-#> ☐ Edit /tmp/RtmpitXu2m/file19b32442abfc/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
-#> ✔ First episode created in /tmp/RtmpitXu2m/file19b32442abfc/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> ☐ Edit /tmp/RtmpNmnNhm/file1a381f675473/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> ✔ First episode created in /tmp/RtmpNmnNhm/file1a381f675473/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -102,13 +102,13 @@ lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #> - rmarkdown     2.32
 #> - sass          0.4.10
 #> - tinytex       0.61
-#> - xfun          0.61
+#> - xfun          0.62
 #> - yaml          2.3.12
 #> 
 #> They will be copied into the project library.
 #> 
 #> - Copying packages into the project library ... Done!
-#> - Hydrated 25 packages in 0.14 seconds.
+#> - Hydrated 25 packages in 0.18 seconds.
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Recording changes in lockfile
 #> The following package(s) will be updated in the lockfile:
@@ -133,20 +133,20 @@ lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #> - memoise       [* -> 2.0.1]
 #> - mime          [* -> 0.13]
 #> - rappdirs      [* -> 0.3.4]
-#> - renv          [* -> 1.3.0]
+#> - renv          [* -> 1.3.1]
 #> - rlang         [* -> 1.3.0]
 #> - rmarkdown     [* -> 2.32]
 #> - sass          [* -> 0.4.10]
 #> - tinytex       [* -> 0.61]
-#> - xfun          [* -> 0.61]
+#> - xfun          [* -> 0.62]
 #> - yaml          [* -> 2.3.12]
 #> 
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.6.1]
 #> 
-#> - Lockfile written to "/tmp/RtmpitXu2m/file19b32442abfc/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/RtmpitXu2m/file19b32442abfc
-#> → Creating Lesson in /tmp/RtmpitXu2m/file19b32442abfc...
+#> - Lockfile written to "/tmp/RtmpNmnNhm/file1a381f675473/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/RtmpNmnNhm/file1a381f675473
+#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
 lsn
-#> /tmp/RtmpitXu2m/file19b32442abfc
+#> /tmp/RtmpNmnNhm/file1a381f675473
 ```
