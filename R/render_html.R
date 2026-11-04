@@ -100,6 +100,15 @@ construct_pandoc_args <- function(path_in, output, to = "html", ...) {
   )
   from <- paste0("markdown", "-hard_line_breaks", "+", exts)
   lua_filter <- rmarkdown::pkg_file_lua("lesson.lua", "sandpaper")
+
+  # check for pandoc version to insert appropriate option (--mathjax or --math-method=mathjax)
+  this_pandoc <- rmarkdown::find_pandoc()
+  if (this_pandoc$version < "3.11") {
+    math_option <- "--mathjax"
+  } else {
+    math_option <- "--math-method=mathjax"
+  }
+
   list(
     input   = path_in,
     output  = output,
@@ -109,7 +118,7 @@ construct_pandoc_args <- function(path_in, output, to = "html", ...) {
       "--preserve-tabs",
       "--indented-code-classes=sh",
       "--section-divs",
-      "--mathjax",
+      math_option,
       ...,
       "--lua-filter",
       lua_filter
