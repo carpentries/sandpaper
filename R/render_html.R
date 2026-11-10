@@ -67,6 +67,7 @@ render_html <- function(path_in, ..., quiet = FALSE, glosario = NULL) {
 
   args <- construct_pandoc_args(path_in, output = htm, to = "html", ...)
   sho <- !(quiet || identical(Sys.getenv("TESTTHAT"), "true"))
+
   # Ensure we use the _loaded version_ of pandoc in case folks are using
   # the {pandoc} package: https://github.com/carpentries/sandpaper/issues/465
   this_pandoc <- rmarkdown::find_pandoc()
@@ -101,28 +102,35 @@ construct_pandoc_args <- function(path_in, output, to = "html", ...) {
   from <- paste0("markdown", "-hard_line_breaks", "+", exts)
   lua_filter <- rmarkdown::pkg_file_lua("lesson.lua", "sandpaper")
 
-  # check for pandoc version to insert appropriate option (--mathjax or --math-method=mathjax)
+  # Pandoc deprecated the standalone math flags in 3.11 and later; ensure we
+  # always pass the modern option and strip any legacy math flags that may be
+  # present in user-supplied arguments.
+
+  extra_args <- unlist(list(...), recursive = TRUE, use.names = FALSE)
+
   this_pandoc <- rmarkdown::find_pandoc()
-  if (this_pandoc$version < "3.11") {
+  if (utils::compareVersion(as.character(this_pandoc$version), "3.11") < 0) {
     math_option <- "--mathjax"
   } else {
     math_option <- "--math-method=mathjax"
   }
+
+  options = c(
+    "--preserve-tabs",
+    "--indented-code-classes=sh",
+    "--section-divs",
+    math_option,
+    extra_args,
+    "--lua-filter",
+    lua_filter
+  )
 
   list(
     input   = path_in,
     output  = output,
     from    = from,
     to      = to,
-    options = c(
-      "--preserve-tabs",
-      "--indented-code-classes=sh",
-      "--section-divs",
-      math_option,
-      ...,
-      "--lua-filter",
-      lua_filter
-    ),
+    options = options,
     verbose = FALSE
   )
 }

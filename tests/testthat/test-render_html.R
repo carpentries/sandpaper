@@ -112,6 +112,21 @@ test_that("paragraphs after objectives block are parsed correctly", {
 
 })
 
+test_that("legacy math flags are stripped from pandoc arguments", {
+  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  out <- fs::file_temp()
+  withr::local_file(out)
+
+  args <- construct_pandoc_args(example_markdown, out, to = "native", "--mathml", "--mathjax")
+  expected <- if (utils::compareVersion(as.character(rmarkdown::pandoc_version()), "3.11") < 0) {
+    "--mathjax"
+  } else {
+    "--math-method=mathjax"
+  }
+  expect_true(expected %in% args$options)
+  expect_false(any(args$options %in% c("--mathml", "--mathjax")))
+})
+
 test_that("render_html applies the internal lua filter", {
   skip_if_not(rmarkdown::pandoc_available("2.11"))
   res <- as.character(render_html(example_markdown))
