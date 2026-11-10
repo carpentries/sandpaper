@@ -50,29 +50,39 @@ the path to the new lesson
 tmp <- tempfile()
 on.exit(unlink(tmp))
 lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
+
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
+
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
+
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
-#> ☐ Edit /tmp/RtmpNmnNhm/file1a381f675473/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
-#> ✔ First episode created in /tmp/RtmpNmnNhm/file1a381f675473/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
+
+#> ☐ Edit /tmp/Rtmp4w7jK1/file1a811bf73fca/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
+
+#> ✔ First episode created in /tmp/Rtmp4w7jK1/file1a811bf73fca/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
+
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
+
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
+
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
+
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
+
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
 #> → Hydrating
@@ -113,7 +123,7 @@ lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #> → Recording changes in lockfile
 #> The following package(s) will be updated in the lockfile:
 #> 
-#> # https://packagemanager.posit.co/cran/__linux__/noble/latest ----------------
+#> # https://packagemanager.posit.co/cran/__linux__/resolute/latest -------------
 #> - R6            [* -> 2.6.1]
 #> - base64enc     [* -> 0.1-6]
 #> - bslib         [* -> 0.12.0]
@@ -142,11 +152,12 @@ lsn <- create_lesson(tmp, name = "This Lesson", open = FALSE)
 #> - yaml          [* -> 2.3.12]
 #> 
 #> The version of R recorded in the lockfile will be updated:
-#> - R             [* -> 4.6.1]
+#> - R             [* -> 4.6.2]
 #> 
-#> - Lockfile written to "/tmp/RtmpNmnNhm/file1a381f675473/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/RtmpNmnNhm/file1a381f675473
-#> → Creating Lesson in /tmp/RtmpNmnNhm/file1a381f675473...
+#> - Lockfile written to "/tmp/Rtmp4w7jK1/file1a811bf73fca/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/Rtmp4w7jK1/file1a811bf73fca
+#> → Creating Lesson in /tmp/Rtmp4w7jK1/file1a811bf73fca...
+
 lsn
-#> /tmp/RtmpNmnNhm/file1a381f675473
+#> /tmp/Rtmp4w7jK1/file1a811bf73fca
 ```

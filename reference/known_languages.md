@@ -40,5 +40,5 @@ for an overview of providing translations.
 
 ``` r
 known_languages()
-#> [1] "en" "de" "es" "fr" "it" "ja" "uk"
+#> [1] "en" "de" "es" "fr" "it" "ja" "nl" "uk"
 ```

@@ -84,7 +84,7 @@ where it has template variables written in mustache templating. These
 variables define visible menu text such as “Key Points” and
 screen-reader accessible text for buttons such as “close menu”.
 
-There are 7 languages that are known to {sandpaper}:
+There are 8 languages that are known to {sandpaper}:
 
 - en
 - de
@@ -92,6 +92,7 @@ There are 7 languages that are known to {sandpaper}:
 - fr
 - it
 - ja
+- nl
 - uk
 
 If a language is not known to {sandpaper} and a lesson attempts to use
@@ -132,7 +133,7 @@ messages in a specific context. The context for {sandpaper} is known as
 library("withr")
 library("sandpaper")
 known_languages()
-#> [1] "en" "de" "es" "fr" "it" "ja" "uk"
+#> [1] "en" "de" "es" "fr" "it" "ja" "nl" "uk"
 with_language("ja", {
   enc2utf8(gettext("Page not found", domain = "R-sandpaper"))
 })

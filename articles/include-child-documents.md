@@ -106,13 +106,13 @@ sessionInfo()
 ```
 
 ```output
-R version 4.6.1 (2026-06-24)
+R version 4.6.2 (2026-10-29)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 24.04.5 LTS
+Running under: Ubuntu 26.04.1 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
-LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.32.so;  LAPACK version 3.12.0
 
 locale:
  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
@@ -127,7 +127,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
-[1] compiler_4.6.1 cli_3.6.6      tools_4.6.1    otel_0.2.0     knitr_1.52    
+[1] compiler_4.6.2 cli_3.6.6      tools_4.6.2    otel_0.3.0     knitr_1.52    
 [6] xfun_0.62      rlang_1.3.0    evaluate_1.0.5
 ```
 
@@ -218,7 +218,7 @@ exercises: 2
 ---
 
 ```output
-The time is: 2026-10-20 13:37:25
+The time is: 2026-11-10 16:05:08
 ```
 ````
 
@@ -334,13 +334,13 @@ sessionInfo()
 ```
 
 ```output
-R version 4.6.1 (2026-06-24)
+R version 4.6.2 (2026-10-29)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 24.04.5 LTS
+Running under: Ubuntu 26.04.1 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
-LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.32.so;  LAPACK version 3.12.0
 
 locale:
  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
@@ -355,7 +355,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
-[1] compiler_4.6.1 cli_3.6.6      tools_4.6.1    otel_0.2.0     knitr_1.52    
+[1] compiler_4.6.2 cli_3.6.6      tools_4.6.2    otel_0.3.0     knitr_1.52    
 [6] xfun_0.62      rlang_1.3.0    evaluate_1.0.5
 ```
 
