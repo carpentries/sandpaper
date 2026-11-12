@@ -1,5 +1,12 @@
 ---
 title: Building and Deployment of a {sandpaper} lesson
+resource_files:
+  - ../../man/figures/local-flow.dot.svg
+  - ../../man/figures/branch-flow.svg
+  - ../../man/figures/pr-flow.dot.svg
+  - ../../man/figures/independent-components.dot.svg
+  - ../../man/figures/pr-branch.svg
+  - ../../man/figures/pr-merge.svg
 ---
 
 ```{css, setup, echo = FALSE, include = FALSE}
@@ -25,7 +32,7 @@ The broad idea of the deployment strategy is encompassed in three rules:
 > 2. Any elements of the lesson that need to be rendered will be rendered via continuous integration
 > 3. All changes to the final site are purposeful
 
-The process for adding an episode to a lesson should take three steps, total: 
+The process for adding an episode to a lesson should take three steps, total:
 
 1. place Markdown or R Markdown files in the `episodes/` folder
 2. define the order of the episodes in the `config.yaml` file
@@ -62,16 +69,13 @@ to avoid maxing out the github api requests.
 
 </div>
 
-![Thr local two-step model of deployment into local
-folders](img/local-flow.dot.svg){alt='diagram of three folders. The first
-folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash
-episodes) pointing to "site/built/", labelled as Markdown. The Markdown folder
-has an arrow (labelled as "apply template") pointing to "site/docs/", labelled
-as "HTML". The first folder is labelled in pale yellow, indicating that it is
-the only one tracked by git.'}
+![The local two-step model of deployment into local folders](../reference/figures/local-flow.dot.svg){alt='Diagram of three folders.
+The first folder, "episodes/", labelled as RMarkdown, has an arrow (labelled as hash of episodes) pointing to "site/built/", labelled as Markdown.
+The Markdown folder has an arrow (labelled as "apply template") pointing to "site/docs/", labelled as "HTML".
+The first folder is labelled in pale yellow, indicating that it is the only one tracked by git.'}
 
 Now, the first reaction you may have is, "Why do we need a two step process
-when we can generate HTML directly from R Markdown?" The answer is three-fold. 
+when we can generate HTML directly from R Markdown?" The answer is three-fold.
 
 First, if there is R code in the R Markdown document, it takes time to execute
 the code and add it in to the output document. By having an intermediate
@@ -95,7 +99,7 @@ computer.
 
 ## [i] Deployment (GitHub)
 
-![Two-step deployment model on continuous integration](img/branch-flow.svg){alt='Diagrammatic representation of the GitHub
+![Two-step deployment model on continuous integration](../reference/figures/branch-flow.svg){alt='Diagrammatic representation of the GitHub
 deployment cycle showing four branches, gh-pages, md-outputs, main, and
 my-edit. The my-edit branch is a direct descendent of the main branch, while
 the gh-pages and md-outputs branches are orphans. Each commit of the main
@@ -108,7 +112,7 @@ are true:
 
 1. The website is always up and available (barring blackouts from GitHub)
 2. The style of the lessons can be updated on the fly.
-3. The output of the lessons match what the maintainers expect. 
+3. The output of the lessons match what the maintainers expect.
 4. Changes in the lesson output is easily auditable via git diff.
 
 Because we have two sources of entropy (software environment needed to build
@@ -126,7 +130,7 @@ workflows. The color indicates permission levels for the workflows. Lavender
 workflows only have the ability to check out code and compare it. Wheat/yellow
 colored workflows have full permissions to push to the repository:
 
-![Representation of PR deployment cycle](img/pr-flow.dot.svg)
+![Representation of PR deployment cycle](../reference/figures/pr-flow.dot.svg)
 
 Because we only track the source files of the lesson and not the output from
 the maintainer's computer, we need to rely on Continuous Integration to rebuild
@@ -137,15 +141,15 @@ them in orphan branches called `md-sources` and `gh-pages`. The latter is
 familiar to most lesson maintainers, and the former serves as a staging and
 evaluation area for changes in generated content.
 
-![Dependency relationship between components of the Lesson Template](img/independent-components.dot.svg)
+![Dependency relationship between components of the Lesson Template](../reference/figures/independent-components.dot.svg)
 
 > Takeaway from this diagram: Yes, this is complex, but its modularity ensures
 > that we can replace components without needing to significantly modify any of
-> the other components. 
+> the other components.
 
 The diagram above describes the dependency graph of the lesson template. Each
 component in the graph represents either a file (beige files/folders/documents)
-or tools (boxes). The edges (lines connecting the components) are categorized 
+or tools (boxes). The edges (lines connecting the components) are categorized
 with the following labels:
 
 depends
@@ -157,10 +161,10 @@ depends
   state of the downstream component.
 
 uses
-  ~ (e.g. a -> b means component a _uses_ aspects of component b). In this 
+  ~ (e.g. a -> b means component a _uses_ aspects of component b). In this
   relationship, each of these components are independent and they can change
   independent of one another without necessarily affecting the state of the
-  other. 
+  other.
 
 contains
   ~ (e.g. a -> b means component a _contains_ component b). A component that
@@ -184,7 +188,7 @@ Each time a commit is pushed to the main branch, the command
 `sandpaper::ci_deploy()` is run in GitHub actions and it will render any
 changed source files from `main` to `md-source` and then apply the HTML
 template, [{varnish}](https://github.com/zkamvar/varnish) to the files in
-`md-source` to create the website. 
+`md-source` to create the website.
 
 This process assumes that pushes to the main branch will not break the
 rendering process as they will either be cosmetic changes or changes that come
@@ -193,7 +197,7 @@ interaction required.**
 
 ### Pull requests
 
-![The Pull Request flow](img/pr-branch.svg){alt='diagram showing five branches,
+![The Pull Request flow](../reference/figures/pr-branch.svg){alt='diagram showing five branches,
 two of which are highlighted: "md-outputs", and "md-outputs-PR-1" where the
 latter is an orphan branch starting from the last commit of the former and
 applying the changes from the "my-edit" branch on top, showing that the output
@@ -206,14 +210,14 @@ changes in the lesson (if anything), so the process goes like this:
    `md-sources-{pr#}`.
 2. The PR is built into `md-sources-{pr#}`
 3. The diff between `md-sources-{pr#}` and `md-sources` is added to the PR
-   comments as a link. 
+   comments as a link.
 4. Any additional commits to the PR branch will be rebuilt and the changes
    amended to the `md-sources-{pr#}` branch (effectively, a squash merge)
 5. Once the maintainer approves the changes, the PR gets merged into master,
    the site is rebuilt from source, and the pr branch is removed.
 
-![A successfully merged Pull Request](img/pr-merge.svg){alt='diagram showing 
-four branches, where "my-edit" is merged into "main" and that drives the 
+![A successfully merged Pull Request](../reference/figures/pr-merge.svg){alt='diagram showing
+four branches, where "my-edit" is merged into "main" and that drives the
 two-step process of rendering "md-outputs" and then "gh-pages". The changes
 from the "my-edit" branch are reflected in the "md-outputs" branch output.'}
 
@@ -225,7 +229,7 @@ repository. They will live in the
 rendered markdown files. This step will start at the `md-source` branch and
 re-apply a fresh version of the template to bring in any stylistic changes that
 have occurred in the {varnish} repository (e.g. new CSS rules) in the previous
-week. 
+week.
 
 This step will test that our HTML template is working correctly. If an error
 occurs, we know that we need to fix the HTML template and not the lesson. **No
@@ -247,6 +251,6 @@ are six steps in this process, one of which requires a maintainer's input:
 
 
 1. A new branch is created from `main` with the format `YYYY-MM`.
-2. The {renv} configuration file for `YYYY-MM` is reset and a Pull Request is created. 
+2. The {renv} configuration file for `YYYY-MM` is reset and a Pull Request is created.
 3. The maintainer follows the regular pull request protocol.
 

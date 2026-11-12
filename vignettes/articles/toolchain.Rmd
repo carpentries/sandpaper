@@ -1,5 +1,7 @@
 ---
 title: "The nerd's guide to the lesson toolchain"
+resource_files:
+  - ../../man/figures/broad-flow.dot.svg
 ---
 
 This document will explore the tools needed to build the lessons and how they
@@ -36,19 +38,19 @@ publishing reports and web content from markdown, it works on all platforms,
 and we teach it as part of our core curriculum.
 
 Below is a diagram that describes the relationships between different tools in
-our proposed toolchain. 
+our proposed toolchain.
 
 ![
-Diagrammatic representation of the proposed toolchain (excluding GitHub). 
-Lavender rectangles represent R packages, 
-Plum rectangles represent interchangable tools, 
+Diagrammatic representation of the proposed toolchain (excluding GitHub).
+Lavender rectangles represent R packages,
+Plum rectangles represent interchangable tools,
 Powder Blue Ovals represent people.
-](img/broad-flow.dot.svg)
+](../reference/figures/broad-flow.dot.svg)
 
 ## Basic Infrastructure for Maintainers
 
 To manage and render lessons, you need to have the following software
-installed. All dependencies for the R packages should automatically install. 
+installed. All dependencies for the R packages should automatically install.
 
  - Required
    + [R](https://cran.r-project.org/) (>= 3.0.1) and associated packages:
@@ -67,7 +69,7 @@ Both the Python and the R package ecosystem are constantly evolving, which can
 often create different outputs from one maintainer's computer to the other.
 Moreover, if you maintain a lesson, you may not want to update a package that
 you are using for your thesis work. To alleviate these problems, we will use
-the [{renv}] R package for managing dependencies in the lessons. 
+the [{renv}] R package for managing dependencies in the lessons.
 
 When managing dependencies, [{renv}] serves two roles:
 
@@ -79,9 +81,9 @@ Package management
   packages required to build the lesson itself at specific versions, ensuring
   that the lesson can be reliably reproduced across computers.
 
-At this point, we should not that [{renv}] is _not required_ for building a 
+At this point, we should not that [{renv}] is _not required_ for building a
 lesson even if it has generated content. You can find out more about how we use
-[{renv}] in the build process by reading the [Building Lessons with a Package 
+[{renv}] in the build process by reading the [Building Lessons with a Package
 Cache](building-with-renv.html) vignette.
 
 ### For Markdown-Only Lessons
@@ -97,16 +99,16 @@ If your lesson uses RMarkdown to evaluate code and produce output, then it is
 of the utmost importance that the dependencies are managed properly in the
 lesson. Like the Jekyll-based lesson template, we will take care of making sure
 the dependencies are okay, but the only difference here is that we will now ask
-you to approve them so that everyone has the same experience. 
+you to approve them so that everyone has the same experience.
 
 While the {renv} package has a relatively stripped-down interface, we wanted to
 provide an opinionated solution to management. For example, our learners are
 advised to install [anaconda](https://www.anaconda.com/download/#linux), which
-we also encourage and recommend. 
+we also encourage and recommend.
 
 The {renv} package is aware of both R and Python dependencies, so you can
 install and add packages to the lesson as usual and then run a single command
-`sandpaper::deps()` to check and update the dependencies. 
+`sandpaper::deps()` to check and update the dependencies.
 
 Python dependencies will live in an `environment.yml` file at the root of the
 lesson.
@@ -130,7 +132,7 @@ The [{sandpaper}](https://zkamvar.github.io/sandpaper) package creates and
 curates the lesson template. It is the only package that the maintainers of the
 lesson template need to interface with. The majority of maintainers need only
 one function: `build_lesson()`, which will evaluate all new content and render
-it to an HTML page on their local machine. 
+it to an HTML page on their local machine.
 
 #### [i] Key Packages
 
@@ -144,7 +146,7 @@ from their tests:
    able to wrap our HTML (translated from markdown) and metadata in a framework
    that can live separately from the lesson template.
  - [{knitr}](https://yihui.org/knitr/) is the engine that we use to translate
-   RMarkdown to Markdown without styling the output document. 
+   RMarkdown to Markdown without styling the output document.
  - [{rmarkdown}](https://rmarkdown.rstudio.com/) provides functions that give
    us access to pandoc. At the moment, the only function we use from RMarkdown
    is `pandoc_convert()` to transform markdown to HTML.
@@ -158,7 +160,7 @@ from their tests:
 The [{varnish}](https://github.com/zkamvar/varnish#readme) package contains the
 template HTML written in [{{mustache}} templating
 language](https://mustache.github.io/mustache.5.html). It is used by
-{sandpaper}, but not explicitly imported so that updating can be done inside R. 
+{sandpaper}, but not explicitly imported so that updating can be done inside R.
 
 #### Framework
 
