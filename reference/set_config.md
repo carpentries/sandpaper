@@ -41,7 +41,8 @@ When you create a new lesson in sandpaper, there are a set of default
 keypairs that are pre-filled. To make sure contact information and links
 in the footer are accurate, please modify these values.
 
-- **carpentry** `[character]` one of cp, dc, swc, lab, incubator
+- **carpentry** `[character]` one of cp, dc, hpcc, lc, swc, lab,
+  incubator
 
 - **title** `[character]` the lesson title (e.g.
   `'Introduction to R for Plant Pathologists'`

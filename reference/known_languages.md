@@ -29,6 +29,7 @@ for details of how to do so in the source code for `{sandpaper}`.
     #> - fr
     #> - it
     #> - ja
+    #> - nl
     #> - uk
 
 ## See also
