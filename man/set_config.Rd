@@ -31,7 +31,7 @@ When you create a new lesson in sandpaper, there are a set of default
 keypairs that are pre-filled. To make sure contact information and links in
 the footer are accurate, please modify these values.
 \itemize{
-\item \strong{carpentry} \verb{[character]} one of cp, dc, swc, lab, incubator
+\item \strong{carpentry} \verb{[character]} one of cp, dc, hpcc, lc, swc, lab, incubator
 \item \strong{title} \verb{[character]} the lesson title (e.g. \code{'Introduction to R for Plant Pathologists'}
 \item \strong{created} \verb{[character]} Date in ISO 8601 format (e.g. \code{'2021-02-09'})
 \item \strong{keywords} \verb{[character]} comma-separated list (e.g \code{'static site, R, tidyverse'})

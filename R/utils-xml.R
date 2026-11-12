@@ -226,9 +226,16 @@ fix_callouts <- function(nodes = NULL) {
   for (i in seq_along(callouts)) {
     callout <- callouts[[i]]
 
-    # process only h2 with callout-header class with no child tags for translation
+    # process only header tags with the callout-header class and no child tags
+    # for translation. Some callouts render as span elements, while keypoints
+    # render as h2 elements (like the Objectives block).
     # https://github.com/carpentries/sandpaper/issues/562
-    header_translate <- xml2::xml_find_all(callout, ".//span[@class='callout-header' and not(*)]")
+    header_translate <- xml2::xml_find_all(callout,
+      ".//span[@class='callout-header' and not(*)] | .//h2[@class='callout-header' and not(*)]"
+    )
+    if (length(header_translate) == 0) {
+      next
+    }
     header_text <- xml2::xml_find_all(header_translate, ".//text()")
     xml_text_translate(header_text, translations)
 
