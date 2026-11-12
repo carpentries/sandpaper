@@ -515,8 +515,15 @@ callout_block = function(el)
   local C = text.upper(text.sub(hclass, 1, 1))
   local lass = text.sub(hclass, 2, -1)
   local header_text = C..lass
+
+  -- if callout block is "keypoints" then output a h3 instead of a span
+  local callout_header_tag = "span"
+  if hclass == "keypoints" then
+    callout_header_tag = "h2"
+  end
+
   local callout_header = pandoc.RawBlock("html",
-  "<span class='callout-header'>"..header_text.."</span>")
+  "<"..callout_header_tag.." class='callout-header'>"..header_text.."</"..callout_header_tag..">")
 
   local callout_square = pandoc.Div(icon, {class = "callout-square"})
 

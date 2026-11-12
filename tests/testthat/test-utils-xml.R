@@ -55,7 +55,9 @@ test_that("(#556) (#454) callout are processed correctly", {
   html_test <- xml2::read_html(test_path("examples/callout-ids.html"))
   fix_callouts(html_test)
   anchors <- xml2::xml_find_all(html_test, ".//a")
-  headings <- xml2::xml_find_all(html_test, ".//span[@class='callout-header']")
+  headings <- xml2::xml_find_all(html_test,
+    ".//span[@class='callout-header'] | .//h2[@class='callout-header']"
+  )
   callouts <- xml2::xml_find_all(html_test,
     ".//div[starts-with(@class, 'callout ')]")
 
@@ -81,6 +83,22 @@ test_that("(#556) (#454) callout are processed correctly", {
   htext <- xml2::xml_find_all(headings, ".//text()")
   expect_equal(xml2::xml_text(htext),
     c("Challenge", "Wait what?", "Key Points"))
+})
+
+
+test_that("keypoints callouts with h3 headers are processed correctly", {
+  html_test <- xml2::read_html("<div class='callout keypoints' id='keypoints1'>
+    <div class='callout-square'></div>
+    <h2 class='callout-header'>Key Points</h2>
+    <div class='callout-inner'><div class='callout-content'>Key point body</div></div>
+  </div>")
+
+  expect_no_error(fix_callouts(html_test))
+
+  heading <- xml2::xml_find_first(html_test, ".//h2[@class='callout-header']")
+  expect_equal(xml2::xml_text(heading), "Key Points")
+  expect_false(xml2::xml_has_attr(heading, "id"))
+  expect_equal(xml2::xml_attr(xml2::xml_find_first(html_test, ".//div[@class='callout keypoints']"), "id"), "keypoints1")
 })
 
 
