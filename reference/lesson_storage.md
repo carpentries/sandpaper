@@ -90,47 +90,47 @@ These storage objects are:
 ``` r
 tmp <- tempfile()
 create_lesson(tmp, open = FALSE, rmd = FALSE)
-#> → Creating Lesson in /tmp/RtmpotOmRg/file1aab368f2144...
+#> → Creating Lesson in /tmp/RtmpC1qQvZ/file1a8b4249887...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpotOmRg/file1aab368f2144...
+#> → Creating Lesson in /tmp/RtmpC1qQvZ/file1a8b4249887...
 
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpotOmRg/file1aab368f2144...
+#> → Creating Lesson in /tmp/RtmpC1qQvZ/file1a8b4249887...
 
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpotOmRg/file1aab368f2144...
+#> → Creating Lesson in /tmp/RtmpC1qQvZ/file1a8b4249887...
 
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpotOmRg/file1aab368f2144...
+#> → Creating Lesson in /tmp/RtmpC1qQvZ/file1a8b4249887...
 
-#> ☐ Edit /tmp/RtmpotOmRg/file1aab368f2144/episodes/introduction.md.
-#> → Creating Lesson in /tmp/RtmpotOmRg/file1aab368f2144...
+#> ☐ Edit /tmp/RtmpC1qQvZ/file1a8b4249887/episodes/introduction.md.
+#> → Creating Lesson in /tmp/RtmpC1qQvZ/file1a8b4249887...
 
-#> ✔ First episode created in /tmp/RtmpotOmRg/file1aab368f2144/episodes/introduction.md
-#> → Creating Lesson in /tmp/RtmpotOmRg/file1aab368f2144...
+#> ✔ First episode created in /tmp/RtmpC1qQvZ/file1a8b4249887/episodes/introduction.md
+#> → Creating Lesson in /tmp/RtmpC1qQvZ/file1a8b4249887...
 
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/RtmpotOmRg/file1aab368f2144...
+#> → Creating Lesson in /tmp/RtmpC1qQvZ/file1a8b4249887...
 
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/RtmpotOmRg/file1aab368f2144...
+#> → Creating Lesson in /tmp/RtmpC1qQvZ/file1a8b4249887...
 
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpotOmRg/file1aab368f2144...
+#> → Creating Lesson in /tmp/RtmpC1qQvZ/file1a8b4249887...
 
-#> ✔ Lesson successfully created in /tmp/RtmpotOmRg/file1aab368f2144
-#> → Creating Lesson in /tmp/RtmpotOmRg/file1aab368f2144...
+#> ✔ Lesson successfully created in /tmp/RtmpC1qQvZ/file1a8b4249887
+#> → Creating Lesson in /tmp/RtmpC1qQvZ/file1a8b4249887...
 
-#> /tmp/RtmpotOmRg/file1aab368f2144
+#> /tmp/RtmpC1qQvZ/file1a8b4249887
 # Read the lesson into cache
 system.time(sandpaper:::this_lesson(tmp))
 #>    user  system elapsed 
-#>   0.152   0.009   0.160 
+#>   0.137   0.008   0.145 
 system.time(sandpaper:::this_lesson(tmp)) # less time to read in once cached
 #>    user  system elapsed 
-#>   0.001   0.002   0.003 
+#>   0.002   0.002   0.003 
 l <- sandpaper:::this_lesson(tmp)
 l
 #> <Lesson>
@@ -151,7 +151,7 @@ l
 #>     load_built: function () 
 #>     n_problems: active binding
 #>     overview: FALSE
-#>     path: /tmp/RtmpotOmRg/file1aab368f2144
+#>     path: /tmp/RtmpC1qQvZ/file1a8b4249887
 #>     reset: function () 
 #>     rmd: FALSE
 #>     sandpaper: TRUE
@@ -169,9 +169,9 @@ l
 sandpaper:::clear_this_lesson()
 system.time(sandpaper:::this_lesson(tmp)) # have to re-read the lesson
 #>    user  system elapsed 
-#>   0.146   0.012   0.158 
+#>   0.143   0.008   0.150 
 system.time(sandpaper:::this_lesson(tmp))
 #>    user  system elapsed 
-#>   0.001   0.001   0.003 
+#>   0.003   0.000   0.003 
 unlink(tmp)
 ```
