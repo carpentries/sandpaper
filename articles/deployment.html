@@ -127,7 +127,7 @@ for the lessons, but I think this will need to happen after things are
 released on CRAN to avoid maxing out the github api requests.</p>
 </div>
 <div class="float">
-<img src="img/local-flow.dot.svg" alt="diagram of three folders. The first folder, &quot;episodes/&quot;, labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to &quot;site/built/&quot;, labelled as Markdown. The Markdown folder has an arrow (labelled as &quot;apply template&quot;) pointing to &quot;site/docs/&quot;, labelled as &quot;HTML&quot;. The first folder is labelled in pale yellow, indicating that it is the only one tracked by git."><div class="figcaption">Thr local two-step model of deployment into
+<img src="../reference/figures/local-flow.dot.svg" alt="Diagram of three folders. The first folder, &quot;episodes/&quot;, labelled as RMarkdown, has an arrow (labelled as hash of episodes) pointing to &quot;site/built/&quot;, labelled as Markdown. The Markdown folder has an arrow (labelled as &quot;apply template&quot;) pointing to &quot;site/docs/&quot;, labelled as &quot;HTML&quot;. The first folder is labelled in pale yellow, indicating that it is the only one tracked by git."><div class="figcaption">The local two-step model of deployment into
 local folders</div>
 </div>
 <p>Now, the first reaction you may have is, “Why do we need a two step
@@ -156,7 +156,7 @@ not on your computer.</p>
 <h2 id="i-deployment-github">[i] Deployment (GitHub)<a class="anchor" aria-label="anchor" href="#i-deployment-github"></a>
 </h2>
 <div class="float">
-<img src="img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><div class="figcaption">Two-step deployment model on continuous
+<img src="../reference/figures/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches"><div class="figcaption">Two-step deployment model on continuous
 integration</div>
 </div>
 <p>Because some lesson content will be auto-generated from an ecosystem
@@ -187,7 +187,7 @@ the workflows. Lavender workflows only have the ability to check out
 code and compare it. Wheat/yellow colored workflows have full
 permissions to push to the repository:</p>
 <div class="float">
-<img src="img/pr-flow.dot.svg" alt="Representation of PR deployment cycle"><div class="figcaption">Representation of PR deployment cycle</div>
+<img src="../reference/figures/pr-flow.dot.svg" alt="Representation of PR deployment cycle"><div class="figcaption">Representation of PR deployment cycle</div>
 </div>
 <p>Because we only track the source files of the lesson and not the
 output from the maintainer’s computer, we need to rely on Continuous
@@ -199,7 +199,7 @@ called <code>md-sources</code> and <code>gh-pages</code>. The latter is
 familiar to most lesson maintainers, and the former serves as a staging
 and evaluation area for changes in generated content.</p>
 <div class="float">
-<img src="img/independent-components.dot.svg" alt="Dependency relationship between components of the Lesson Template"><div class="figcaption">Dependency relationship between components of
+<img src="../reference/figures/independent-components.dot.svg" alt="Dependency relationship between components of the Lesson Template"><div class="figcaption">Dependency relationship between components of
 the Lesson Template</div>
 </div>
 <blockquote>
@@ -264,7 +264,7 @@ that come from pull requests (which have previously been vetted).
 <h3 id="pull-requests">Pull requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a>
 </h3>
 <div class="float">
-<img src="img/pr-branch.svg" alt="diagram showing five branches, two of which are highlighted: &quot;md-outputs&quot;, and &quot;md-outputs-PR-1&quot; where the latter is an orphan branch starting from the last commit of the former and applying the changes from the &quot;my-edit&quot; branch on top, showing that the output has changed"><div class="figcaption">The Pull Request flow</div>
+<img src="../reference/figures/pr-branch.svg" alt="diagram showing five branches, two of which are highlighted: &quot;md-outputs&quot;, and &quot;md-outputs-PR-1&quot; where the latter is an orphan branch starting from the last commit of the former and applying the changes from the &quot;my-edit&quot; branch on top, showing that the output has changed"><div class="figcaption">The Pull Request flow</div>
 </div>
 <p>Each time a pull request is added, the maintainer should be informed
 of what changes in the lesson (if anything), so the process goes like
@@ -284,7 +284,7 @@ master, the site is rebuilt from source, and the pr branch is
 removed.</li>
 </ol>
 <div class="float">
-<img src="img/pr-merge.svg" alt="diagram showing four branches, where &quot;my-edit&quot; is merged into &quot;main&quot; and that drives the two-step process of rendering &quot;md-outputs&quot; and then &quot;gh-pages&quot;. The changes from the &quot;my-edit&quot; branch are reflected in the &quot;md-outputs&quot; branch output."><div class="figcaption">A successfully merged Pull Request</div>
+<img src="../reference/figures/pr-merge.svg" alt="diagram showing four branches, where &quot;my-edit&quot; is merged into &quot;main&quot; and that drives the two-step process of rendering &quot;md-outputs&quot; and then &quot;gh-pages&quot;. The changes from the &quot;my-edit&quot; branch are reflected in the &quot;md-outputs&quot; branch output."><div class="figcaption">A successfully merged Pull Request</div>
 </div>
 </div>
 <div class="section level3">

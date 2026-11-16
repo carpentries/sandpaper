@@ -80,13 +80,12 @@ git aware, but does not require contributors to have git installed
 
 ### Rendering locally
 
-![diagram of three folders. The first folder, "episodes/", labelled as
+![Diagram of three folders. The first folder, "episodes/", labelled as
 RMarkdown, has an arrow (labelled as hash episodes) pointing to
 "site/built/", labelled as Markdown. The Markdown folder has an arrow
 (labelled as "apply template") pointing to "site/docs/", labelled as
 "HTML". The first folder is labelled in pale yellow, indicating that it
-is the only one tracked by
-git.](articles/articles/img/local-flow.dot.svg)
+is the only one tracked by git.](reference/figures/local-flow.dot.svg)
 
 The local two-step model of deployment into local folders
 
@@ -117,7 +116,7 @@ four branches, gh-pages, md-outputs, main, and my-edit. The my-edit
 branch is a direct descendent of the main branch, while the gh-pages and
 md-outputs branches are orphans. Each commit of the main branch has a
 process represented by a dashed arrow that builds a commit of the
-subsequent orphan branches](articles/articles/img/branch-flow.svg)
+subsequent orphan branches](reference/figures/branch-flow.svg)
 
 Two-step deployment model on continuous integration
 

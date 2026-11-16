@@ -75,38 +75,38 @@ if (interactive() || Sys.getenv("CI") != "") {
     move_episode("experimental.md", path = tmp)
   }
 }
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 
-#> ☐ Edit /tmp/RtmpWt3EPd/file19d679ae3a8/episodes/introduction.Rmd.
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> ☐ Edit /tmp/Rtmp5pZp2W/file1b6862c0f32b/episodes/introduction.Rmd.
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 
-#> ✔ First episode created in /tmp/RtmpWt3EPd/file19d679ae3a8/episodes/introduction.Rmd
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> ✔ First episode created in /tmp/Rtmp5pZp2W/file1b6862c0f32b/episodes/introduction.Rmd
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 
 #> ℹ Consent to use package cache provided
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Searching for and installing available dependencies
@@ -143,7 +143,7 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> They will be copied into the project library.
 #> 
 #> - Copying packages into the project library ... Done!
-#> - Hydrated 25 packages in 0.14 seconds.
+#> - Hydrated 25 packages in 0.12 seconds.
 #> - The project is out-of-sync -- use `renv::status()` for details.
 #> → Recording changes in lockfile
 #> The following package(s) will be updated in the lockfile:
@@ -179,13 +179,13 @@ if (interactive() || Sys.getenv("CI") != "") {
 #> The version of R recorded in the lockfile will be updated:
 #> - R             [* -> 4.6.2]
 #> 
-#> - Lockfile written to "/tmp/RtmpWt3EPd/file19d679ae3a8/renv/profiles/lesson-requirements/renv.lock".
-#> ✔ Lesson successfully created in /tmp/RtmpWt3EPd/file19d679ae3a8
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d679ae3a8...
+#> - Lockfile written to "/tmp/Rtmp5pZp2W/file1b6862c0f32b/renv/profiles/lesson-requirements/renv.lock".
+#> ✔ Lesson successfully created in /tmp/Rtmp5pZp2W/file1b6862c0f32b
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b6862c0f32b...
 
-#> ☐ Edit /tmp/RtmpWt3EPd/file19d679ae3a8/episodes/getting-started.md.
-#> ☐ Edit /tmp/RtmpWt3EPd/file19d679ae3a8/episodes/plotting.Rmd.
-#> ☐ Edit /tmp/RtmpWt3EPd/file19d679ae3a8/episodes/experimental.md.
+#> ☐ Edit /tmp/Rtmp5pZp2W/file1b6862c0f32b/episodes/getting-started.md.
+#> ☐ Edit /tmp/Rtmp5pZp2W/file1b6862c0f32b/episodes/plotting.Rmd.
+#> ☐ Edit /tmp/Rtmp5pZp2W/file1b6862c0f32b/episodes/experimental.md.
 #> episodes:
 #> - introduction.Rmd
 #> - getting-started.md

@@ -45,14 +45,15 @@ NOTE: we need to make sure that we have a renv environment defined for
 the lessons, but I think this will need to happen after things are
 released on CRAN to avoid maxing out the github api requests.
 
-![diagram of three folders. The first folder, "episodes/", labelled as
-RMarkdown, has an arrow (labelled as hash episodes) pointing to
+![Diagram of three folders. The first folder, "episodes/", labelled as
+RMarkdown, has an arrow (labelled as hash of episodes) pointing to
 "site/built/", labelled as Markdown. The Markdown folder has an arrow
 (labelled as "apply template") pointing to "site/docs/", labelled as
 "HTML". The first folder is labelled in pale yellow, indicating that it
-is the only one tracked by git.](img/local-flow.dot.svg)
+is the only one tracked by
+git.](../reference/figures/local-flow.dot.svg)
 
-Thr local two-step model of deployment into local folders
+The local two-step model of deployment into local folders
 
 Now, the first reaction you may have is, “Why do we need a two step
 process when we can generate HTML directly from R Markdown?” The answer
@@ -86,7 +87,7 @@ four branches, gh-pages, md-outputs, main, and my-edit. The my-edit
 branch is a direct descendent of the main branch, while the gh-pages and
 md-outputs branches are orphans. Each commit of the main branch has a
 process represented by a dashed arrow that builds a commit of the
-subsequent orphan branches](img/branch-flow.svg)
+subsequent orphan branches](../reference/figures/branch-flow.svg)
 
 Two-step deployment model on continuous integration
 
@@ -119,7 +120,8 @@ the workflows. Lavender workflows only have the ability to check out
 code and compare it. Wheat/yellow colored workflows have full
 permissions to push to the repository:
 
-![Representation of PR deployment cycle](img/pr-flow.dot.svg)
+![Representation of PR deployment
+cycle](../reference/figures/pr-flow.dot.svg)
 
 Representation of PR deployment cycle
 
@@ -134,7 +136,7 @@ lesson maintainers, and the former serves as a staging and evaluation
 area for changes in generated content.
 
 ![Dependency relationship between components of the Lesson
-Template](img/independent-components.dot.svg)
+Template](../reference/figures/independent-components.dot.svg)
 
 Dependency relationship between components of the Lesson Template
 
@@ -202,7 +204,7 @@ extra maintainer interaction required.**
 "md-outputs", and "md-outputs-PR-1" where the latter is an orphan branch
 starting from the last commit of the former and applying the changes
 from the "my-edit" branch on top, showing that the output has
-changed](img/pr-branch.svg)
+changed](../reference/figures/pr-branch.svg)
 
 The Pull Request flow
 
@@ -224,7 +226,7 @@ what changes in the lesson (if anything), so the process goes like this:
 ![diagram showing four branches, where "my-edit" is merged into "main"
 and that drives the two-step process of rendering "md-outputs" and then
 "gh-pages". The changes from the "my-edit" branch are reflected in the
-"md-outputs" branch output.](img/pr-merge.svg)
+"md-outputs" branch output.](../reference/figures/pr-merge.svg)
 
 A successfully merged Pull Request
 

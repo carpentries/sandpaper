@@ -23,40 +23,40 @@ a yaml list
 ``` r
 tmp <- tempfile()
 create_lesson(tmp, open = FALSE, rmd = FALSE)
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d642324d05...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b683db1f6bc...
 #> ℹ No schedule set, using Rmd files in episodes/ directory.
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d642324d05...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b683db1f6bc...
 
 #> → To remove this message, define your schedule in config.yaml or use `set_episodes()` to generate it.
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d642324d05...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b683db1f6bc...
 
 #> ────────────────────────────────────────────────────────────────────────
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d642324d05...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b683db1f6bc...
 
 #> ℹ To save this configuration, use
 #> 
 #> set_episodes(path = path, order = ep, write = TRUE)
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d642324d05...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b683db1f6bc...
 
-#> ☐ Edit /tmp/RtmpWt3EPd/file19d642324d05/episodes/introduction.md.
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d642324d05...
+#> ☐ Edit /tmp/Rtmp5pZp2W/file1b683db1f6bc/episodes/introduction.md.
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b683db1f6bc...
 
-#> ✔ First episode created in /tmp/RtmpWt3EPd/file19d642324d05/episodes/introduction.md
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d642324d05...
+#> ✔ First episode created in /tmp/Rtmp5pZp2W/file1b683db1f6bc/episodes/introduction.md
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b683db1f6bc...
 
 #> ℹ Using GitHub token for authenticated API request.
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d642324d05...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b683db1f6bc...
 
 #> ℹ Downloading workflows from https://api.github.com/repos/carpentries/workbench-workflows/releases/latest
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d642324d05...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b683db1f6bc...
 
 #> ℹ Workflows up-to-date!
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d642324d05...
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b683db1f6bc...
 
-#> ✔ Lesson successfully created in /tmp/RtmpWt3EPd/file19d642324d05
-#> → Creating Lesson in /tmp/RtmpWt3EPd/file19d642324d05...
+#> ✔ Lesson successfully created in /tmp/Rtmp5pZp2W/file1b683db1f6bc
+#> → Creating Lesson in /tmp/Rtmp5pZp2W/file1b683db1f6bc...
 
-#> /tmp/RtmpWt3EPd/file19d642324d05
+#> /tmp/Rtmp5pZp2W/file1b683db1f6bc
 get_config(tmp)
 #> $carpentry
 #> [1] "incubator"
@@ -65,7 +65,7 @@ get_config(tmp)
 #> [1] "Lesson Title"
 #> 
 #> $created
-#> [1] "2026-11-12"
+#> [1] "2026-11-16"
 #> 
 #> $keywords
 #> [1] "software, data, lesson, The Carpentries"
@@ -77,7 +77,7 @@ get_config(tmp)
 #> [1] "CC-BY 4.0"
 #> 
 #> $source
-#> [1] "https://github.com/carpentries/file19d642324d05"
+#> [1] "https://github.com/carpentries/file1b683db1f6bc"
 #> 
 #> $branch
 #> [1] "main"

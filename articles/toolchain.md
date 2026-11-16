@@ -42,7 +42,7 @@ tools in our proposed toolchain.
 ![Diagrammatic representation of the proposed toolchain (excluding
 GitHub). Lavender rectangles represent R packages, Plum rectangles
 represent interchangable tools, Powder Blue Ovals represent
-people.](img/broad-flow.dot.svg)
+people.](../reference/figures/broad-flow.dot.svg)
 
 Diagrammatic representation of the proposed toolchain (excluding
 GitHub). Lavender rectangles represent R packages, Plum rectangles
