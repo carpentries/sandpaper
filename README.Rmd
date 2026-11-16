@@ -1,5 +1,9 @@
 ---
 output: github_document
+resource_files:
+  - man/figures/logo.png
+  - man/figures/local-flow.dot.svg
+  - man/figures/branch-flow.svg
 ---
 
 # {sandpaper}: User Interface to The Carpentries Workbench <img src='man/figures/logo.png' align='right' alt='' width=120 />
@@ -85,7 +89,7 @@ following features:
 
 ### Rendering locally
 
-![The local two-step model of deployment into local folders](vignettes/articles/img/local-flow.dot.svg){alt='diagram of three
+![The local two-step model of deployment into local folders](man/figures/local-flow.dot.svg){alt='diagram of three
 folders. The first folder, "episodes/", labelled as RMarkdown, has an arrow
 (labelled as hash episodes) pointing to "site/built/", labelled as Markdown.
 The Markdown folder has an arrow (labelled as "apply template") pointing to
@@ -109,7 +113,7 @@ long-running lessons can be updated and previewed quickly.
 
 ### Rendering on continuous integration
 
-![Two-step deployment model on continuous integration](vignettes/articles/img/branch-flow.svg){alt='Diagrammatic representation of the GitHub
+![Two-step deployment model on continuous integration](man/figures/branch-flow.svg){alt='Diagrammatic representation of the GitHub
 deployment cycle showing four branches, gh-pages, md-outputs, main, and
 my-edit. The my-edit branch is a direct descendent of the main branch, while
 the gh-pages and md-outputs branches are orphans. Each commit of the main
@@ -126,8 +130,8 @@ to be:
  - versionable (e.g. I can instruct learners to go to `<WEBSITE>/1.1`. This
    is inspired from the python documentation style)
 
-To acheive this, there will be two branches created: `md-outputs` and `gh-pages`
-that will inerit like so main -> `md-outputs` -> `gh-pages`. Because the build
+To achieve this, there will be two branches created: `md-outputs` and `gh-pages`
+that will inherit like so main -> `md-outputs` -> `gh-pages`. Because the build
 time from main to `md-outputs` can be time intensive, this will default to
 updating only files that were changed.
 

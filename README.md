@@ -88,7 +88,7 @@ generate a site with the following features:
 ### Rendering locally
 
 <figure>
-<img src="vignettes/articles/img/local-flow.dot.svg" alt="diagram of three folders. The first folder, &quot;episodes/&quot;, labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to &quot;site/built/&quot;, labelled as Markdown. The Markdown folder has an arrow (labelled as &quot;apply template&quot;) pointing to &quot;site/docs/&quot;, labelled as &quot;HTML&quot;. The first folder is labelled in pale yellow, indicating that it is the only one tracked by git." alt="The local two-step model of deployment into local folders" /><figcaption aria-hidden="true">The local two-step model of deployment into local folders</figcaption>
+<img src="man/figures/local-flow.dot.svg" alt="Diagram of three folders. The first folder, &quot;episodes/&quot;, labelled as RMarkdown, has an arrow (labelled as hash episodes) pointing to &quot;site/built/&quot;, labelled as Markdown. The Markdown folder has an arrow (labelled as &quot;apply template&quot;) pointing to &quot;site/docs/&quot;, labelled as &quot;HTML&quot;. The first folder is labelled in pale yellow, indicating that it is the only one tracked by git." alt="The local two-step model of deployment into local folders" /><figcaption aria-hidden="true">The local two-step model of deployment into local folders</figcaption>
 </figure>
 
 In a repository generated via {sandpaper}, only the source is committed
@@ -114,7 +114,7 @@ quickly.
 ### Rendering on continuous integration
 
 <figure>
-<img src="vignettes/articles/img/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches" alt="Two-step deployment model on continuous integration" /><figcaption aria-hidden="true">Two-step deployment model on continuous integration</figcaption>
+<img src="man/figures/branch-flow.svg" alt="Diagrammatic representation of the GitHub deployment cycle showing four branches, gh-pages, md-outputs, main, and my-edit. The my-edit branch is a direct descendent of the main branch, while the gh-pages and md-outputs branches are orphans. Each commit of the main branch has a process represented by a dashed arrow that builds a commit of the subsequent orphan branches" alt="Two-step deployment model on continuous integration" /><figcaption aria-hidden="true">Two-step deployment model on continuous integration</figcaption>
 </figure>
 
 Continuous integration will act as the single source-of-truth for how
