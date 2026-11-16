@@ -1,5 +1,22 @@
 # Changelog
 
+## sandpaper 0.21.2 \[2026-11-16\]
+
+### NEW FEATURES
+
+- Dutch translation support (thank you
+  [@svenvanderburg](https://github.com/svenvanderburg)!)
+
+### FIXES
+
+- Fix broken images in articles and vignettes package documentation
+- Update mathjax pkgdown option to remove a deprecation warning
+
+### ACCESSIBILITY
+
+- Change “Key Points” callout to use an h2 heading instead of a span
+  element for easier nagivation
+
 ## sandpaper 0.21.1 \[2026-09-29\]
 
 ### IMPROVEMENTS
