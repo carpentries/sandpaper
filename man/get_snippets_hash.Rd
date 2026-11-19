@@ -14,7 +14,7 @@ a single string hash that changes whenever:
 \itemize{
 \item The active base or custom snippets config YAML changes
 \item Any file inside the active snippet directories changes
-\item The \code{base_snippets} or \code{custom_snippets} keys in config.yaml change
+\item The \code{workbench_base_customization} or \code{workbench_overlay_customization} keys in config.yaml change
 (because \code{get_lesson_customization()} re-reads config.yaml)
 }
 

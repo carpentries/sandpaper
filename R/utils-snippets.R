@@ -1,3 +1,5 @@
+WORKBENCH_OVERLAY_CUSTOMIZATION_KEY <- "WORKBENCH_OVERLAY_CUSTOMIZATION"
+
 #' Return a function that loads snippet files from the given directories.
 #' This will be used to create a `snippets()` function in the episode build environment.
 #'
@@ -73,7 +75,15 @@ drop_null_fields <- function(x) {
   x[!vapply(x, is.null, logical(1))]
 }
 
-get_lesson_customization <- function(path, env_var = "WORKBENCH_OVERLAY_CUSTOMIZATION", quiet = TRUE) {
+snippet_config_name <- function(env_var, config_value = NULL) {
+  value <- Sys.getenv(env_var, unset = "")
+  if (!nzchar(value)) {
+    value <- config_value %||% ""
+  }
+  normalize_snippets_config_name(value)
+}
+
+get_lesson_customization <- function(path, env_var = WORKBENCH_OVERLAY_CUSTOMIZATION_KEY, quiet = TRUE) {
   root <- tryCatch(root_path(path), error = function(...) NULL)
   if (is.null(root)) {
     return(NULL)
@@ -99,8 +109,7 @@ get_lesson_customization <- function(path, env_var = "WORKBENCH_OVERLAY_CUSTOMIZ
     cli::cli_alert_info("Using base customisation config: {base_cfg}")
   }
 
-  custom_snippets_path <- Sys.getenv(env_var, unset = lesson_config$workbench_overlay_customization %||% "")
-  custom_name <- normalize_snippets_config_name(custom_snippets_path)
+  custom_name <- snippet_config_name(env_var, lesson_config$workbench_overlay_customization)
   has_custom <- !is.null(custom_name)
 
   base <- read_lesson_yaml(base_cfg, root)
@@ -144,7 +153,7 @@ valid_snippet_features <- function(path) {
 #' @return a single string hash that changes whenever:
 #' - The active base or custom snippets config YAML changes
 #' - Any file inside the active snippet directories changes
-#' - The `base_snippets` or `custom_snippets` keys in config.yaml change
+#' - The `workbench_base_customization` or `workbench_overlay_customization` keys in config.yaml change
 #'   (because `get_lesson_customization()` re-reads config.yaml)
 #'
 #' Returns `NULL` when snippets are not configured.
@@ -164,11 +173,8 @@ get_snippets_hash <- function(path) {
   }
 
   # Collect the active config YAML files
-  base_name   <- normalize_snippets_config_name(lesson_config$workbench_base_customization)
-  custom_name <- normalize_snippets_config_name(Sys.getenv("WORKBENCH_OVERLAY_CUSTOMIATION", unset = ""))
-  if (is.null(custom_name)) {
-    custom_name <- normalize_snippets_config_name(lesson_config$workbench_overlay_customization)
-  }
+  base_name <- normalize_snippets_config_name(lesson_config$workbench_base_customization)
+  custom_name <- snippet_config_name(WORKBENCH_OVERLAY_CUSTOMIZATION_KEY, lesson_config$workbench_overlay_customization)
 
   config_files <- character(0)
   for (nm in c(base_name, custom_name)) {
