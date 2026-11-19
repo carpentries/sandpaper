@@ -128,6 +128,12 @@ test_that("get_lesson_customization() process customisation yamls", {
   expect_equal(cfg_env_name$config$remote$prompt, "custom")
   expect_equal(cfg_env_name$config$sched$name, "Slurm")
   expect_match(cfg_env_name$snippets("modules/example.Rmd", render = FALSE), "custom")
+
+  withr::local_envvar(list(WORKBENCH_OVERLAY_CUSTOMIZATION = ""))
+  writeLines(c("workbench_base_customization: base", "workbench_overlay_customization: custom"), fs::path(lsn, "config.yaml"))
+  cfg_env_blank <- get_lesson_customization(lsn)
+  expect_equal(cfg_env_blank$config$remote$prompt, "custom")
+  expect_match(cfg_env_blank$snippets("modules/example.Rmd", render = FALSE), "custom")
 })
 
 

@@ -47,6 +47,7 @@ Other contributors:
   \item Sarah Brown \email{brownsarahm@uri.edu} (\href{https://orcid.org/0000-0001-5728-0822}{ORCID}) [contributor]
   \item Matthew Feickert \email{matthew.feickert@cern.ch} (\href{https://orcid.org/0000-0003-4124-7862}{ORCID}) [contributor]
   \item Dimitrios Theodorakis \email{astrodimitrios@gmail.com} (\href{https://orcid.org/0000-0001-9288-1332}{ORCID}) [contributor]
+  \item Sven van der Burg \email{s.vanderburg@esciencecenter.nl} (\href{https://orcid.org/0000-0003-1250-6968}{ORCID}) [contributor]
 }
 
 }
